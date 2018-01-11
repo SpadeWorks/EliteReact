@@ -1,27 +1,11 @@
 import * as React from 'react';
-import { TestDrive, IState } from '../model';
-import testDriveService from '../api/mockApi';
-import * as $ from 'jquery';
+import ui from 'redux-ui';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import { DateRange, Calendar } from 'react-date-range';
-import ui from 'redux-ui';
-import {
-    FieldGroup,
-    Checkbox,
-    Radio,
-    FormGroup,
-    ControlLabel,
-    FormControl,
-    Button,
-    HelpBlock,
-    ButtonToolbar,
-    Form,
-    Glyphicon,
-    InputGroup,
-    Col,
+import { TestDrive, IState } from '../model';
+import testDriveService from '../api/mockApi';
 
-} from 'react-bootstrap';
 import { updateDate } from '../index';
 
 interface TestDriveFormProps {
@@ -264,12 +248,12 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
 
                     <br></br>
                     <div className="col-md-12">
-                    <ButtonToolbar style={butttonGroup}>
+                    <div style={butttonGroup}>
                         <input type="button" value="Next" className="button type1 nextBtn btn-lg pull-right" />
                         <input type="button" value="Save" className="button type1 nextBtn btn-lg pull-right"
                             onClick={() => { saveTestDrive(testDrive) }} />
 
-                    </ButtonToolbar>
+                    </div>
                     </div>
                 </div>
             </form>

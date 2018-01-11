@@ -1,63 +1,43 @@
-﻿================================================================================
-==                            React.js Starter Kit                            ==
-================================================================================
+﻿## Getting Started
 
-This is a cross-platform project template built on top of the Facebook's React.js
-library and powered by Node.js-based development tools and utilities (it requires
-Node.js only at development time, you don't need to have it installed on your web
-server, unless you want to). It contains only front-end part of a web application
-and is recommended to be paired with a server-side project (REST API, Web Sockets)
+Requirement:
 
-Source code: https://github.com/kriasoft/react-starter-kit
+- NodeJS 6+
 
-PREREQUISITES
---------------------------------------------------------------------------------
+Install dependencies:
 
-- Node.js
-- NPM (comes with Node.js)
-- Gulp (to install run: npm install -g gulp)
+```
+npm install
+```
 
-HOW TO RESTORE NPM PACKAGES
---------------------------------------------------------------------------------
+## Running development server
 
-Open a console window, change the working directory to a folder where project
-files are located, then run:
+Run webpack dev server (for assets):
 
-> npm install
+```
+npm start
+```
 
-Note: If you see error messages during install, something went wrong, check this
-      page https://github.com/TooTallNate/node-gyp/ The packages listed in the
-      package.json file are installed into the 'node_modules' folder. You can
-      delete this folder if needed by running: cmd /c "rmdir /s /q node_modules"
+Visit [http://localhost:3000/](http://localhost:3000/).
 
-HOW TO BUILD
---------------------------------------------------------------------------------
+## Running production server
 
-> gulp build                  # Builds the project in debug mode (default)
-> gulp build --release        # Builds the project in release mode
+```
+npm run start:prod
+```
 
-Note: The build output files are written into the .\build folder.
-      The build logic is described in gulpfile.js.
+Visit [http://localhost:3000/](http://localhost:3000/).
 
-HOW TO BUILD AND RUN
---------------------------------------------------------------------------------
+This will build the assets for you on the first run. For subsequent starts, you should run:
 
-> gulp                        # Build the project and open it in a browser
-> gulp --release              # Same as above, but using release mode
+```
+npm run build
+```
 
-Note: It will build the project, run a development HTTP server (BrowserSync),
-      open the home page of your web application in a browser window and start
-      watching for modifications in files (LiveReload).
+### Testing
 
-HOW TO DEPLOY
---------------------------------------------------------------------------------
+To run tests, use:
 
-> gulp deploy                 # Deploys the app from the .\build folder
-> gulp deploy --production    # Same as above, but using a different destination
-
-
-SUPPORT
---------------------------------------------------------------------------------
-
-Have questions, feedback or need help?
-Contact me on https://www.codementor.io/koistya
+```
+npm test
+```

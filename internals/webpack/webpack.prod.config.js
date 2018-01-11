@@ -1,18 +1,23 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = require('./webpack.shared.config')({
-  entry: [
-    path.join(process.cwd(), 'client/index.js'),
-  ],
+  entry: {
+    testDrive : path.join(process.cwd(), 'client/index.js'),
+    style: path.join(process.cwd(), 'client/styles.js')
+  },
 
   output: {
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].chunk.js',
+    filename: '[name].js',
+    chunkFilename: '[name].js',
   },
 
   plugins: [
+    new webpack.SourceMapDevToolPlugin({
+      test: [/\main.js$/],
+      // filename: "app.js.map",
+    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       children: true,
@@ -35,6 +40,7 @@ module.exports = require('./webpack.shared.config')({
         minifyURLs: true,
       },
       inject: true,
-    })
+    }),
+    new BundleAnalyzerPlugin()
   ]
 });

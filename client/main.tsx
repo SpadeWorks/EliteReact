@@ -9,9 +9,7 @@ import * as asyncInitialState from 'redux-async-initial-state';
 import testDriveApi from './test_drive/api/mockApi';
 import Promise from "ts-promise";
 import ManageTestDrive from './test_drive/components/ManageTestDrive';
-import Home from './home/components/Home';
 import rootReducer from './main/reducer';
-import logger from 'redux-logger';
 import TestDriveContainer from './main/components/TestDriveContainer';
 
 const initialState = {};
@@ -35,7 +33,6 @@ const store: Store<any> = createStore(rootReducer,
   compose(applyMiddleware(asyncInitialState.middleware(loadStore),
     thunkMiddleware,
     promiseMiddleware(),
-    logger
   )));
 
 ReactDOM.render(
@@ -43,9 +40,6 @@ ReactDOM.render(
     <Router>
       <div>
         <ul>
-          <li>
-            <Link to={"/"}>Home</Link>
-          </li>
           <li>
             <Link to={"/testdrive"}>Create Test Drive</Link>
           </li>
@@ -56,7 +50,6 @@ ReactDOM.render(
         </ul>
         <hr />
         <Switch>
-          <Route exact path="/" component={Home} />
           <Route exact path="/testdrive" component={ManageTestDrive} />
           <Route exact path="/testdrives" component={TestDriveContainer} />
           <Route path="/testdrive/:id" component={ManageTestDrive} />

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { TestDrive, IState, Question } from '../model';
-import '../../lib/select2.min.js'
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import ui from 'redux-ui';

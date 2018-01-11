@@ -1,12 +1,9 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
     model
 } from '../../test_drive';
-import {
-    ButtonToolbar,
-    Button
-} from 'react-bootstrap';
+
 import { TestDrive } from '../model';
 
 interface AppProps {
@@ -25,13 +22,19 @@ class TestDriveItem extends React.Component<AppProps> {
             <div className="testDriveItem">
                 {/* <li></li> */}
                 <li><Link to={'/testdrive/' + this.props.testDrive.id}>{this.props.testDrive.title}</Link></li>
-                <ButtonToolbar>
                     <Link to={'/testdrive/' + this.props.testDrive.id}>
-                        <Button bsStyle="primary" onClick={()=> editTestDrive(testDrive)}>Edit</Button>
+                        <input 
+                        className="btn-primary"
+                        type="button" 
+                        value="Edit" 
+                        onClick={()=> editTestDrive(testDrive)}
+                        />
                     </Link>
-                    <Button bsStyle="danger"
-                        onClick={() => deleteTestDrive(testDrive.id)}  >Delete</Button>
-                </ButtonToolbar>
+                    <input 
+                        className="btn-danger" 
+                        type="button" 
+                        value="Delete"
+                        onClick={() => deleteTestDrive(testDrive.id)} />
             </div>)
     }
 }

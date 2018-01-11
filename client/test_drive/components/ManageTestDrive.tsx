@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Tabs, Tab } from 'react-bootstrap';
+import ui from 'redux-ui';
+import Loader from 'react-loader-advanced';
 import TestDriveForm from './TestDriveForm';
 import TestCases from './TestCases';
-import Loader from 'react-loader-advanced';
 import TabCar from './TabCar';
-import ui from 'redux-ui';
 import testDriveService from '../api/mockApi';
 import Surveys from './Surveys';
 import {
