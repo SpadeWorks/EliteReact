@@ -1,0 +1,7 @@
+todomvc-redux-react-ts@2.1.0 F:\Elite\Elite\Equinix.Elite.Client.React
++-- UNMET PEER DEPENDENCY react@16.2.0
++-- react-addons-shallow-compare@15.6.2 
++-- react-dom@16.2.0 
+`-- UNMET PEER DEPENDENCY webpack@3.7.1
+  `-- UNMET PEER DEPENDENCY ajv@5.5.2
+
