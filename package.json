@@ -46,6 +46,7 @@
     "redux-thunk": "^2.2.0",
     "redux-ui": "^0.1.1",
     "serve-static": "1.12.1",
+    "sp-pnp-js": "^3.0.3",
     "todomvc-app-css": "2.0.6",
     "ts-promise": "^1.0.0",
     "yargs": "7.0.1"

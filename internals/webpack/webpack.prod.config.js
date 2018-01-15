@@ -1,11 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = require('./webpack.shared.config')({
   entry: {
-    testDrive : path.join(process.cwd(), 'client/index.js'),
-    style: path.join(process.cwd(), 'client/styles.js')
+    // testDrive : path.join(process.cwd(), 'client/index.js'),
+    // style: path.join(process.cwd(), 'client/styles.js'),
+    services: path.join(process.cwd(), 'client/services.js')
   },
 
   output: {
@@ -15,7 +16,7 @@ module.exports = require('./webpack.shared.config')({
 
   plugins: [
     new webpack.SourceMapDevToolPlugin({
-      test: [/\main.js$/],
+      test: [/\.js$/],
       // filename: "app.js.map",
     }),
     new webpack.optimize.CommonsChunkPlugin({
@@ -41,6 +42,6 @@ module.exports = require('./webpack.shared.config')({
       },
       inject: true,
     }),
-    new BundleAnalyzerPlugin()
+    // new BundleAnalyzerPlugin()
   ]
 });

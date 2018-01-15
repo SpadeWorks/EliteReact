@@ -17,24 +17,24 @@ class TestDriveItem extends React.Component<AppProps> {
         super(props, context);
     }
     render() {
-        const {deleteTestDrive, editTestDrive, testDrive} = this.props;
+        const { deleteTestDrive, editTestDrive, testDrive } = this.props;
         return (
             <div className="testDriveItem">
                 {/* <li></li> */}
                 <li><Link to={'/testdrive/' + this.props.testDrive.id}>{this.props.testDrive.title}</Link></li>
-                    <Link to={'/testdrive/' + this.props.testDrive.id}>
-                        <input 
+                <Link to={'/testdrive/' + this.props.testDrive.id}>
+                    <input
                         className="btn-primary"
-                        type="button" 
-                        value="Edit" 
-                        onClick={()=> editTestDrive(testDrive)}
-                        />
-                    </Link>
-                    <input 
-                        className="btn-danger" 
-                        type="button" 
-                        value="Delete"
-                        onClick={() => deleteTestDrive(testDrive.id)} />
+                        type="button"
+                        value="Edit"
+                        onClick={() => editTestDrive(testDrive)}
+                    />
+                </Link>
+                <input
+                    className="btn-danger"
+                    type="button"
+                    value="Delete"
+                    onClick={() => deleteTestDrive(testDrive.id)} />
             </div>)
     }
 }
