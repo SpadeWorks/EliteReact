@@ -5,6 +5,10 @@ export type TestCase = {
     expectedOutcome: string;
     isInEditMode: boolean;
     testCaseType: string;
+    scenario: string;
+    priority: string;
+    points: number;
+    reTest: boolean;
 }
 
 export type Question = {

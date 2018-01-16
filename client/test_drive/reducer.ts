@@ -56,6 +56,11 @@ const initialState: IState = {
         expectedOutcome: "",
         isInEditMode: false,
         testCaseType: "",
+        scenario: "",
+        priority: "High",
+        reTest: false,
+        points: 100
+
     },
     testDrives: [],
     question: {
@@ -146,6 +151,10 @@ export default handleActions<IState, any>({
             expectedOutcome: "",
             isInEditMode: true,
             testCaseType: "",
+            scenario: "",
+            priority: "High",
+            reTest: false,
+            points: 100
         }
         return {
             ...state,

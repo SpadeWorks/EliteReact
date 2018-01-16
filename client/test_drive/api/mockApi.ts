@@ -3,7 +3,7 @@ import delay from './delay';
 import { TestDrive } from '../model';
 
 
-const data = [
+export const data = [
   {
     id: 1,
     title: "Test Drive 1",
@@ -12,19 +12,24 @@ const data = [
     startDate: "2017-12-27",
     endDate: "2017-12-27",
     expectedBusinessValue: "Expected Business Values 1",
-    function: [{ function: 'function 1', name: 'function 1' },
-    { function: 'function 2', name: 'function 2' }],
+    function: [],
     location: ["India", "USA"],
     requiredDevices: ["Device1", "Device2"],
     requiredOs: ["OS1", "OS2"],
     maxTestDrivers: 5000,
+    status: "Draft",
     testCases: [{
       id: 1,
       title: "Test Case 1",
       description: "Test Case Description",
       expectedOutcome: "Test Case expected values.",
       isInEditMode: false,
-      testCaseType: "Choice"
+      testCaseType: "Choice",
+      scenario: "Test Case Senario 1",
+      priority: "High",
+      points: 100,
+      reTest: false
+
     },
     {
       id: 2,
@@ -32,7 +37,12 @@ const data = [
       description: "Test Case Description",
       expectedOutcome: "Test Case expected values.",
       isInEditMode: false,
-      testCaseType: "Choice"
+      testCaseType: "Choice",
+      scenario: "Test Case Senario 1",
+      priority: "High",
+      points: 100,
+      reTest: false
+
     },
     {
       id: 3,
@@ -40,59 +50,29 @@ const data = [
       description: "Test Case Description",
       expectedOutcome: "Test Case expected values.",
       isInEditMode: false,
-      testCaseType: "Choice"
+      testCaseType: "Choice",
+      scenario: "Test Case Senario 1",
+      priority: "High",
+      points: 100,
+      reTest: false
+
     }
     ],
-    questions: []
-  },
-  {
-    id: 2,
-    title: "Test Drive 2",
-    description: "Test Drive Description",
-    maxPoints: 100,
-    startDate: "2017-12-27",
-    endDate: "2017-12-27",
-    expectedBusinessValue: "Expected Business Values 1",
-    function: ["Management", "Development"],
-    location: ["India", "USA"],
-    requiredDevices: ["Device1", "Device2"],
-    requiredOs: ["OS1", "OS2"],
-    maxTestDrivers: 5000,
-    testCases: [],
-    questions: []
-  },
-  {
-    id: 3,
-    title: "Test Drive 3",
-    description: "Test Drive Description",
-    maxPoints: 100,
-    startDate: "2017-12-27",
-    endDate: "2017-12-27",
-    expectedBusinessValue: "Expected Business Values 1",
-    function: ["Management", "Development"],
-    location: ["India", "USA"],
-    requiredDevices: ["Device1"],
-    requiredOs: ["OS1", "OS2"],
-    maxTestDrivers: 5000,
-    testCases: [],
-    questions: []
-  },
-  {
-    id: 4,
-    title: "Test Drive 4",
-    description: "Test Drive Description",
-    maxPoints: 100,
-    startDate: "2017-12-27",
-    endDate: "2017-12-27",
-    expectedBusinessValue: "Expected Business Values 1",
-    function: ["Management", "Development"],
-    location: ["India", "USA"],
-    requiredDevices: ["Device1", "Device2"],
-    requiredOs: ["OS1", "OS2"],
-    maxTestDrivers: 5000,
-    testCases: [],
-    questions: []
-  },
+    questions: [{
+      id: 1,
+      title: "Question1",
+      questionType: "choice",
+      options: ["yes", "no"],
+      isInEditMode: false
+    },
+    {
+      id: 2,
+      title: "Comments",
+      questionType: "comments",
+      options: [],
+      isInEditMode: false
+    }]
+  }
 ];
 
 class TestDriveApi {
@@ -148,7 +128,7 @@ class TestDriveApi {
   static getTestDriveById(id: number) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve({...data[0], id: id });
+        resolve({ ...data[0], id: id });
       }, delay);
     });
   }
