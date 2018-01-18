@@ -15,6 +15,7 @@
   "author": "Jack Hsu <jack.hsu@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@types/sharepoint": "^2016.1.0",
     "bootstrap": "^3.3.7",
     "bootstrap-datepicker": "^1.7.1",
     "classnames": "2.2.5",
