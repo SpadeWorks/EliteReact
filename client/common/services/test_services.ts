@@ -1,4 +1,4 @@
-import Services from './data_service';
+import { Services, Utils, TermStore } from './data_service';
 import { data } from '../../test_drive/api/mockApi';
 import * as $ from 'jquery';
 
@@ -90,9 +90,9 @@ class TestServices {
         //     console.log("get test Drives: ", data);
         // });
 
-        Services.createTestDrive(testDrive).then(data => {
-            console.log("create test case: ", data);
-        });
+        // Services.createTestDrive(testDrive).then(data => {
+        //     console.log("create test case: ", data);
+        // });
 
         // Services.createQuestions(testDrive.questions).then(data => {
         //     console.log("create test case: ", data);
@@ -120,6 +120,10 @@ class TestServices {
         // Services.createTestCase(data[0].testCases).then(data=>{
         //     console.log("From createTestCase: ", data);
         // })
+
+
+
+
     }
 
 }
@@ -127,6 +131,20 @@ class TestServices {
 $(function () {
     SP.SOD.executeFunc("sp.js", "SP.ClientContext", function () {
         TestServices.main();
+        $("#DeltaPlaceHolderMain").after("<input type='button' value='Add' id='add'>");
+        $('#add').bind('click', function () {
+            if ($("#file").length > 0) {
+                let input = <HTMLInputElement>document.getElementById("file");
+                let file = input.files[0];
+                Services.uploadFiles(file, "testFile");
+            } else {
+                var addControl = '<label>Upload Text File:</label>';
+                addControl += ' <input type="file" name = "file[]" class="imageupload" id="file"> ';
+                addControl += '<input type="button" value="upload" id="upload">';
+                $('#add').before(addControl);
+            }
+
+        });
     });
 });
 
