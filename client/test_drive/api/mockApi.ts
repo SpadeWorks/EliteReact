@@ -81,6 +81,14 @@ class TestDriveApi {
     TEST_CASE_ID: "TEST_CASE_ID"
   }
 
+  static uploadImage() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({ data: { link: 'https://homepages.cae.wisc.edu/~ece533/images/airplane.png' } });
+      }, delay);
+    });
+  }
+
   static saveTestDrive(testDrive: TestDrive) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

@@ -19,7 +19,9 @@ interface TestCasesProps {
     editTestCase: (TestCase: TestCase) => any;
     onChange: (event: any, TestCase: TestCase) => any;
     saveTestDrive: (testDrive: TestDrive) => any;
-    testDrive: TestDrive,
+    testDrive: TestDrive;
+    updateUI: (any) => any;
+    ui: any;
 };
 
 class TestCases extends React.Component<TestCasesProps> {
@@ -38,7 +40,9 @@ class TestCases extends React.Component<TestCasesProps> {
             newTestCase,
             deleteTestCase,
             addTestCase,
-            saveTestDrive
+            saveTestDrive,
+            ui,
+            updateUI
         } = this.props;
         return (
             <div className="test-case-container col-xs-12">
@@ -55,6 +59,8 @@ class TestCases extends React.Component<TestCasesProps> {
                                 deleteTestCase={deleteTestCase}
                                 onChange={onChange}
                                 key={testCase.id}
+                                ui={ui}
+                                updateUI={updateUI}
                             />
                         })
                     }
