@@ -1,21 +1,34 @@
 import * as React from 'react';
-import { TestDrive, IState, TestCase } from '../model';
+import ui from 'redux-ui';
 import Select from 'react-select';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 import 'react-select/dist/react-select.css';
-
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { TestDrive, IState, TestCase } from '../model';
+import { Services } from '../../common/services/data_service';
+import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
+import { unemojify } from "node-emoji";
 interface TestCaseFormProps {
     testCase: TestCase,
     deleteTestCase: (id: number) => any;
     saveTestCase: (testCase: TestCase) => any;
     editTestCase: (TestCase: TestCase) => any;
     onChange: (event: any, TestCase: TestCase) => any;
-};
-interface TestCaseFormState {
-    testCase,
-    editTestCases
+    updateUI: (any) => any;
+    ui: any;
 };
 
-class TestCasesForm extends React.Component<TestCaseFormProps, TestCaseFormState> {
+@ui({
+    state: {
+        scenario: null,
+        expectedOutcome: null
+    }
+})
+
+class TestCasesForm extends React.Component<TestCaseFormProps> {
     formStyle = {
         marginTop: '20px',
         marginBottom: '50px'
@@ -32,16 +45,20 @@ class TestCasesForm extends React.Component<TestCaseFormProps, TestCaseFormState
         super(props, context);
         this.onChange = this.onChange.bind(this);
         this.updateTestCaseType = this.updateTestCaseType.bind(this);
+        this.onScenarioChange = this.onScenarioChange.bind(this);
+        this.onExpectedOutcomeChange = this.onExpectedOutcomeChange.bind(this);
+        this.uploadImageCallBack = this.uploadImageCallBack.bind(this);
     }
 
     onChange = (e) => {
-        this.props.onChange(e, this.props.onChange(e, this.props.testCase));
+        this.props.onChange(e, this.props.testCase);
     }
 
     testCaseTypes = [
         { value: 'Positive', label: 'Positive' },
         { value: 'Negative', label: 'Negative' },
     ]
+
     updateTestCaseType(value) {
         let e = {
             target: {
@@ -53,8 +70,73 @@ class TestCasesForm extends React.Component<TestCaseFormProps, TestCaseFormState
         this.onChange(e);
     }
 
+    onScenarioChange(value) {
+        let e = {
+            target: {
+                type: 'rte-change',
+                name: 'scenario',
+                value: draftToHtml(convertToRaw(value.getCurrentContent()))
+            }
+        }
+        const newValue = unemojify(
+            draftToHtml(convertToRaw(value.getCurrentContent()))
+        );
+
+        if (value !== newValue) {
+            this.onChange(e);
+        }
+
+        this.props.updateUI({
+            scenario: value
+        })
+    }
+    onExpectedOutcomeChange(value) {
+        let e = {
+            target: {
+                type: 'rte-change',
+                name: 'expectedOutcome',
+                value: draftToHtml(convertToRaw(value.getCurrentContent()))
+            }
+        }
+        const newValue = unemojify(
+            draftToHtml(convertToRaw(value.getCurrentContent()))
+        );
+
+        if (value !== newValue) {
+            this.onChange(e);
+        }
+
+        this.props.updateUI({
+            expectedOutcome: value
+        })
+    }
+
+    uploadImageCallBack(file) {
+        return Services.uploadFiles(file, file.name);
+    }
+
+    updateInitialEditorValue(editorName) {
+        const html = htmlToDraft(this.props.testCase[editorName]);
+        if (html) {
+            const contentState = ContentState.createFromBlockArray(html.contentBlocks);
+            const editorState = EditorState.createWithContent(contentState);
+            this.props.updateUI({
+                [editorName]: editorState
+            })
+        } else {
+            this.props.updateUI({
+                [editorName]: EditorState.createEmpty()
+            });
+        }
+    }
+
+    componentDidMount() {
+        this.updateInitialEditorValue("scenario");
+        this.updateInitialEditorValue("expectedOutcome");
+    }
+
     render() {
-        const { testCase, editTestCase, saveTestCase, deleteTestCase } = this.props;
+        const { testCase, editTestCase, saveTestCase, deleteTestCase, ui, updateUI } = this.props;
         testCase.isInEditMode = testCase.isInEditMode === undefined ? false : testCase.isInEditMode;
         const checkBoxStyle = {
             color: "green"
@@ -121,19 +203,60 @@ class TestCasesForm extends React.Component<TestCaseFormProps, TestCaseFormState
                             </div>
                             <h5>Test Case Type</h5>
                             <Select
-                                    id="question-type"
-                                    onBlurResetsInput={false}
-                                    onSelectResetsInput={false}
-                                    autoFocus
-                                    options={this.testCaseTypes}
-                                    simpleValue
-                                    clearable={true}
-                                    name="question-type"
-                                    value={testCase.testCaseType}
-                                    onChange={this.updateTestCaseType}
-                                    rtl={false}
-                                    searchable={false}
-                                />
+                                id="question-type"
+                                onBlurResetsInput={false}
+                                onSelectResetsInput={false}
+                                autoFocus
+                                options={this.testCaseTypes}
+                                simpleValue
+                                clearable={true}
+                                name="question-type"
+                                value={testCase.testCaseType}
+                                onChange={this.updateTestCaseType}
+                                rtl={false}
+                                searchable={false}
+                            />
+
+                            <div id="scenario">
+                                {ui.scenario &&
+                                    <Editor
+                                        editorState={ui.scenario}
+                                        toolbarClassName="rte-toolbar"
+                                        wrapperClassName="rte-wrapper"
+                                        editorClassName="rte-editor"
+                                        onEditorStateChange={this.onScenarioChange}
+                                        toolbar={{
+                                            inline: { inDropdown: true },
+                                            list: { inDropdown: true },
+                                            textAlign: { inDropdown: true },
+                                            link: { inDropdown: true },
+                                            history: { inDropdown: true },
+                                            image: { uploadCallback: this.uploadImageCallBack, alt: { present: true, mandatory: false } },
+                                        }}
+                                    />
+                                }
+                            </div>
+
+                            <div id="expectedOutcome">
+                                {ui.expectedOutcome &&
+                                    <Editor
+                                        editorState={ui.expectedOutcome}
+                                        toolbarClassName="rte-toolbar"
+                                        wrapperClassName="rte-wrapper"
+                                        editorClassName="rte-editor"
+                                        onEditorStateChange={this.onExpectedOutcomeChange}
+                                        toolbar={{
+                                            inline: { inDropdown: true },
+                                            list: { inDropdown: true },
+                                            textAlign: { inDropdown: true },
+                                            link: { inDropdown: true },
+                                            history: { inDropdown: true },
+                                            image: { uploadCallback: this.uploadImageCallBack, alt: { present: true, mandatory: false } },
+                                        }}
+                                    />
+                                }
+                            </div>
+
                         </form>
                     </div>
                 </div>

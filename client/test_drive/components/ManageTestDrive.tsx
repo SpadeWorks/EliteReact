@@ -6,7 +6,7 @@ import Loader from 'react-loader-advanced';
 import TestDriveForm from './TestDriveForm';
 import TestCases from './TestCases';
 import TabCar from './TabCar';
-import testDriveService from '../api/mockApi';
+import testDriveService from '../../common/services/data_service';
 import Surveys from './Surveys';
 import {
     model,
@@ -130,6 +130,8 @@ class ManageTestDrive extends React.Component<AppProps> {
                                         onChange={(e, testCase) => dispatch(updateTestCase(e, testCase))}
                                         addTestCase={() => dispatch(addTestCase())}
                                         testDrive={testDrive}
+                                        updateUI={updateUI}
+                                        ui={ui}
                                     />
                                 </div>
                             </div>

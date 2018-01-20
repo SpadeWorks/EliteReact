@@ -2558,5 +2558,34 @@ ul.select2-results__optionss li {
 }
 
 .form-control[readonly]{
-    background-color: #212030;
+  background-color: #212030;
+}
+
+.card-body {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+}
+
+.RichTextEditor__root___33zoV {
+  color: black;
+}
+
+.rte-editor {
+  color: white;
+  border-bottom: 1px dotted #575757;
+  max-height: 500px;
+}
+
+.rte-wrapper{
+color: blue;
+}
+
+.rich-text-editor{
+color:  black;
+}
+
+label.rdw-image-modal-upload-option-label {
+  color: black;
+  pointer-events: auto;
+  position: relative; 
 }

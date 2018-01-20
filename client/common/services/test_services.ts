@@ -90,9 +90,13 @@ class TestServices {
         //     console.log("get test Drives: ", data);
         // });
 
-        Services.createTestDrive(testDrive).then(data => {
-            console.log("create test case: ", data);
-        });
+        // Services.createTestDrive(testDrive).then(data => {
+        //     console.log("create test case: ", data);
+        // });
+
+        Services.getTestDriveById(1).then(data =>{
+            console.log("test drive with id 1: ", data);
+        })
 
         // Services.createQuestions(testDrive.questions).then(data => {
         //     console.log("create test case: ", data);

@@ -24,7 +24,7 @@ pnp.setup({
     }
 });
 
-class Services {
+export class Services {
     static getTestDrives() {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(constants.TEST_DRIVES).items
@@ -38,40 +38,55 @@ class Services {
                 })
         });
     }
+
+    static getTestDriveById(testDriveID: number) {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(constants.TEST_DRIVES).items.getById(testDriveID)
+                .select("Title",
+                "TestDriveOwner/ID",
+                "TestDriveOwner/UserInfoName"
+                )
+                .expand("TestDriveOwner")
+                .get().then(testDrive => {
+                    resolve(testDrive);
+                });
+        });
+    }
+
     static createTestDrive(testDrive: model.TestDrive) {
         return new Promise((resolve, reject) => {
             var promises = [];
             Promise.all([this.createTestCase(testDrive.testCases),
             this.createQuestions(testDrive.questions)]).then((results) => {
-            this.createOrUpdateListItemsInBatch(constants.TEST_DRIVES,
-                [{
-                    ID: -1,
-                    Title: 'Test item',
-                    TestDriveLocation_tax: [{
-                        id: "256f4668-fefd-410a-b8fd-405a78de3f73",
-                        name: "Location1"
-                    },{
-                        id: "9612ad4e-4001-4024-a42f-3006e9e5348c",
-                        name: "Location2"
-                    }],
+                this.createOrUpdateListItemsInBatch(constants.TEST_DRIVES,
+                    [{
+                        ID: -1,
+                        Title: 'Test item',
+                        TestDriveLocation_tax: [{
+                            id: "256f4668-fefd-410a-b8fd-405a78de3f73",
+                            name: "Location1"
+                        }, {
+                            id: "9612ad4e-4001-4024-a42f-3006e9e5348c",
+                            name: "Location2"
+                        }],
 
-                    TestDriveName: testDrive.title,
-                    TestDriveStatus: testDrive.status,
-                    TestDriveStartDate: testDrive.startDate,
-                    TestDriveEndDate: testDrive.endDate,
-                    TotalPoints: testDrive.maxPoints,
-                    MaxTestDrivers: testDrive.maxTestDrivers,
-                    TestDriveOwner_id: 1,
-                    LevelID_id: 1,
-                    QuestionID_id: {
-                        results: results[1]
-                    },
-                    TestCaseIds_id: {
-                        results: results[0]
-                    }
-                }]).then(data => {
-                    resolve(data);
-                });
+                        TestDriveName: testDrive.title,
+                        TestDriveStatus: testDrive.status,
+                        TestDriveStartDate: testDrive.startDate,
+                        TestDriveEndDate: testDrive.endDate,
+                        TotalPoints: testDrive.maxPoints,
+                        MaxTestDrivers: testDrive.maxTestDrivers,
+                        TestDriveOwner_id: 1,
+                        LevelID_id: 1,
+                        QuestionID_id: {
+                            results: results[1]
+                        },
+                        TestCaseIds_id: {
+                            results: results[0]
+                        }
+                    }]).then(data => {
+                        resolve(data);
+                    });
             });
         });
     }
@@ -150,10 +165,10 @@ class Services {
                         else if (key.toLowerCase().endsWith("_tax")) {
                             const columnName = key && key.split("_tax")[0];
                             var termsArray = new Array();
-                                value.forEach(item => {
-                                    termsArray.push("-1;#" + item.name + "|" + item.id);    
-                                });
-                                var termValueString = termsArray.join(";#");
+                            value.forEach(item => {
+                                termsArray.push("-1;#" + item.name + "|" + item.id);
+                            });
+                            var termValueString = termsArray.join(";#");
 
                             listItems[index].set_item(columnName, termValueString);
                         } else {
@@ -193,10 +208,58 @@ class Services {
             })
         })
     }
+
+    static uploadFiles(file: any, fileName: string) {
+        return new Promise((resolve, reject) => {
+            let ctx = SP.ClientContext.get_current();
+            let folderName = _spPageContextInfo.siteServerRelativeUrl + "/PublishingImages";
+            Utils.uploadFile(ctx, folderName, fileName, file).then((data) => {
+                resolve({
+                    data: {
+                        link: location.protocol + "//" + location.hostname + data.data.ServerRelativeUrl
+                    }
+                });
+            }, err => {
+                reject(err);
+            });
+        });
+    }
 }
 
-class TermStore {
+export class Utils {
+    public static uploadFile(ctx: SP.ClientContext, folderName: string, fileName: any, file: any): any {
+        return new Promise((resolve, reject) => {
+            // you can adjust this number to control what size files are uploaded in chunks
+            if (file.size <= 10485760) {
+                pnp.sp.web.getFolderByServerRelativeUrl(folderName)
+                    .files
+                    .add(file.name, file, true).then(data => {
+                        resolve(data)
+                    }, err => {
+                        reject(err)
+                    });
+            } else {
+                // large upload
+                pnp.sp.web.getFolderByServerRelativeUrl(folderName).files.addChunked(file.name, file, data => {
 
+                }, true).then(data => {
+                    resolve(data)
+                }, err => { reject(err) });
+            }
+        });
+    }
+
+    public static clientLog(data) {
+        if (typeof console === "undefined") {
+            return;
+        }
+        if (arguments.length > 0) {
+            console.log(arguments);
+        }
+    }
+}
+
+export class TermStore {
     public LoadedScripts = [];
 
     constructor() {
