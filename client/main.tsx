@@ -11,7 +11,7 @@ import Promise from "ts-promise";
 import ManageTestDrive from './test_drive/components/ManageTestDrive';
 import rootReducer from './main/reducer';
 import TestDriveContainer from './main/components/TestDriveContainer';
-
+import logger from 'redux-logger';
 const initialState = {};
 
 const loadStore = (currentState) => {
@@ -30,9 +30,11 @@ const loadStore = (currentState) => {
 }
 
 const store: Store<any> = createStore(rootReducer,
-  compose(applyMiddleware(asyncInitialState.middleware(loadStore),
+  compose(applyMiddleware(
+    asyncInitialState.middleware(loadStore),
     thunkMiddleware,
     promiseMiddleware(),
+    logger
   )));
 
 ReactDOM.render(

@@ -94,6 +94,17 @@ class TestServices {
         //     console.log("create test case: ", data);
         // });
 
+        Services.getTestDriveById(17).then(data =>{
+            console.log("test drive with id 17: ", data);
+        })
+
+        Services.getTestCasesByIds([107, 108, 109, 110, 111, 112, 113, 114, 115, 116]).then(data =>{
+            console.log("get test cases for test drive with id 17: ", data);
+        })
+        Services.getQuestonsByIds([48, 49, 50, 51, 52]).then(data =>{
+            console.log("get question for test drive with id 17: ", data);
+        })
+
         // Services.createQuestions(testDrive.questions).then(data => {
         //     console.log("create test case: ", data);
         // })

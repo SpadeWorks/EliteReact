@@ -1,5 +1,10 @@
 // Test Drive Actions.
 export const LOAD_TestDrive = 'LOAD_TestDrive';
+export const LOAD_TestDrive_PENDING = 'LOAD_TestDrive_PENDING';
+export const LOAD_TestDrive_FULFILLED = 'LOAD_TestDrive_FULFILLED';
+export const LOAD_TestDrives = 'LOAD_TestDrives';
+export const LOAD_TestDrives_PENDING = 'LOAD_TestDrives_PENDING';
+export const LOAD_TestDrives_FULFILLED = 'LOAD_TestDrives_FULFILLED';
 export const DELETE_TestDrive = 'DELETETestDrive';
 export const EDIT_TestDrive = 'EDITTestDrive';
 export const UPDATE_TestDrive = 'UPDATE_TestDrive';
@@ -12,6 +17,7 @@ export const SUBMIT_TestDrive_FULFILLED = "SUBMITTestDrive_FULFILLED";
 export const SWITCH_Tab = "SWITCH_Tab";
 export const UPDATE_Date = "UPDATE_Date"; 
 export const DATE_FocusChange = "DATE_FocusChange";
+
 
 
 // Test Case Actions.

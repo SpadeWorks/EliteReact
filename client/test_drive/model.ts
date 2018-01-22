@@ -3,7 +3,7 @@ export type TestCase = {
     title: string;
     description: string;
     expectedOutcome: string;
-    isInEditMode: boolean;
+    isInEditMode?: boolean;
     testCaseType: string;
     scenario: string;
     priority: string;
@@ -16,7 +16,7 @@ export type Question = {
     title: string;
     questionType: string;
     options: Array<string>;
-    isInEditMode: boolean;
+    isInEditMode?: boolean;
 }
 
 
@@ -28,6 +28,7 @@ export type TestDrive = {
     startDate: string;
     endDate: string;
     expectedBusinessValue: string;
+    department?: string;
     function: Array<string>;
     location: Array<string>;
     requiredDevices: Array<string>;
@@ -36,6 +37,8 @@ export type TestDrive = {
     testCases: Array<TestCase>;
     questions: Array<Question>;
     status: string;
+    level: string;
+    owner?: string;
 };
 
 

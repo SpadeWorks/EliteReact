@@ -19,9 +19,10 @@ class TestDrives extends React.Component<AppProps> {
         const { editTestDrive, deleteTestDrive, testDrives} = this.props
         return <div>
         {
-            testDrives.map(testDrive =>{
-            return <TestDriveItem 
-                key={testDrive.id} 
+            testDrives && testDrives.map(testDrive =>{
+            return <TestDriveItem
+                key={testDrive.id}
+                indexKey={testDrive.id}
                 testDrive={testDrive} 
                 editTestDrive={editTestDrive}
                 deleteTestDrive={deleteTestDrive}/>

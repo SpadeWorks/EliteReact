@@ -1,10 +1,11 @@
 import { createAction } from 'redux-actions';
 
 import { TestDrive, TestCase, Question } from './model';
-import TestDriveApi from './api/mockApi';
+import Services from '../common/services/services';
 
 import {
   LOAD_TestDrive,
+  LOAD_TestDrives,
   DELETE_TestDrive,
   EDIT_TestDrive,
   UPDATE_TestDrive,
@@ -28,23 +29,26 @@ import {
 
 } from './constants/ActionTypes';
 
-const loadTestDrive = createAction<any, TestDrive>(
+const loadTestDrive = createAction<any, number>(
   LOAD_TestDrive,
-  (testDrive: TestDrive) => {
-    return testDrive;
-  }
+  (testDriveId: number) => Services.getTestDriveById(testDriveId)
+)
+
+const loadTestDrives = createAction<any>(
+  LOAD_TestDrives,
+  () => Services.getTestDrives()
 );
 
 const saveTestDrive = createAction<any, TestDrive>(
   SAVE_TestDrive,
   (testDrive: TestDrive) => {
-    return testDrive.id === -1 ? TestDriveApi.createTestDrive(testDrive) : TestDriveApi.saveTestDrive(testDrive)
+    return Services.createOrSaveTestDrive(testDrive)
   }
 );
 
 const submitTestDrive = createAction<any, TestDrive>(
   SUBMIT_TestDrive,
-  (testDrive: TestDrive) => TestDriveApi.submitTestDrive(testDrive)
+  (testDrive: TestDrive) => Services.createOrSaveTestDrive(testDrive)
 );
 
 const editTestDrive = createAction<TestDrive, TestDrive>(
@@ -230,5 +234,6 @@ export {
   saveQuestion,
   deleteQuestion,
   addQuestion,
-  updateQuestion
+  updateQuestion,
+  loadTestDrives
 }

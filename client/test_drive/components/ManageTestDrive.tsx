@@ -6,7 +6,7 @@ import Loader from 'react-loader-advanced';
 import TestDriveForm from './TestDriveForm';
 import TestCases from './TestCases';
 import TabCar from './TabCar';
-import testDriveService from '../../common/services/data_service';
+import Services from '../../common/services/services';
 import Surveys from './Surveys';
 import {
     model,
@@ -39,7 +39,7 @@ interface AppProps {
     ui: any;
     dispatch: Dispatch<{}>;
     questions: model.Question[];
-    question: model.Question; 
+    question: model.Question;
 };
 
 @ui({
@@ -54,7 +54,7 @@ class ManageTestDrive extends React.Component<AppProps> {
     }
 
     getTabClass(key) {
-        this.props.ui.activeTab = this.props.ui.activeTab ||  'step-1'; 
+        this.props.ui.activeTab = this.props.ui.activeTab || 'step-1';
         return this.props.ui.activeTab === key ? "show-tab" : "hide-tab";
     }
 
@@ -64,36 +64,12 @@ class ManageTestDrive extends React.Component<AppProps> {
         return null;
     }
 
-    switchTab(key){
-        this.props.updateUI({activeTab: key});
+    switchTab(key) {
+        this.props.updateUI({ activeTab: key });
     }
 
     componentDidMount() {
-        let testDrive;
-        let testDriveId = this.props.id;
-        if (testDriveId) {
-            testDrive = this.getTestDriveById(this.props.testDrives, 1);
-            testDrive = testDrive ? testDrive : testDriveService.getTestDriveById(testDriveId);
-        }
-        else {
-            testDrive = {
-                id: -1,
-                title: "",
-                description: "",
-                maxPoints: 0,
-                startDate: "",
-                endDate: "",
-                expectedBusinessValue: "",
-                function: [],
-                location: [],
-                requiredDevices: [],
-                requiredOs: [],
-                maxTestDrivers: 0,
-                testCases: [],
-                questions: []
-            }
-        }
-        this.props.dispatch(loadTestDrive(testDrive));
+        this.props.dispatch(loadTestDrive(this.props.id || -1));
     }
 
     render() {
@@ -121,34 +97,38 @@ class ManageTestDrive extends React.Component<AppProps> {
                             </div>
                             <div className={"row setup-content " + this.getTabClass('step-2')} id="step-2">
                                 <div className="col-xs-12 form_box tab-container">
-                                    <TestCases testCases={testDrive.testCases}
-                                        newTestCase={testCase}
-                                        saveTestCase={(t) => dispatch(saveTestCase(t))}
-                                        saveTestDrive={(t) => dispatch(saveTestDrive(t))}
-                                        editTestCase={(t) => dispatch(editTestCase(t))}
-                                        deleteTestCase={(id) => dispatch(deleteTestCase(id))}
-                                        onChange={(e, testCase) => dispatch(updateTestCase(e, testCase))}
-                                        addTestCase={() => dispatch(addTestCase())}
-                                        testDrive={testDrive}
-                                        updateUI={updateUI}
-                                        ui={ui}
-                                    />
+                                    {testDrive.testCases &&
+                                        <TestCases testCases={testDrive.testCases}
+                                            newTestCase={testCase}
+                                            saveTestCase={(t) => dispatch(saveTestCase(t))}
+                                            saveTestDrive={(t) => dispatch(saveTestDrive(t))}
+                                            editTestCase={(t) => dispatch(editTestCase(t))}
+                                            deleteTestCase={(id) => dispatch(deleteTestCase(id))}
+                                            onChange={(e, testCase) => dispatch(updateTestCase(e, testCase))}
+                                            addTestCase={() => dispatch(addTestCase())}
+                                            testDrive={testDrive}
+                                            updateUI={updateUI}
+                                            ui={ui}
+                                        />}
                                 </div>
                             </div>
                             <div className={"row setup-content " + this.getTabClass('step-3')} id="step-3">
                                 <div className="col-xs-12 form_box tab-container">
-                                    <Surveys questions={testDrive.questions}
-                                        newQuestion={question}
-                                        saveQuestion={(t) => dispatch(saveQuestion(t))}
-                                        saveTestDrive={(t) => dispatch(saveTestDrive(t))}
-                                        editQuestion={(t) => dispatch(editQuestion(t))}
-                                        deleteQuestion={(id) => dispatch(deleteQuestion(id))}
-                                        onChange={(e, question) => dispatch(updateQuestion(e, question))}
-                                        addQquestion={() => dispatch(addQuestion())}
-                                        testDrive={testDrive}
-                                        updateUI={updateUI}
-                                        ui={ui}
-                                    />
+                                    {
+                                        testDrive.testCases &&
+                                        <Surveys questions={testDrive.questions}
+                                            newQuestion={question}
+                                            saveQuestion={(t) => dispatch(saveQuestion(t))}
+                                            saveTestDrive={(t) => dispatch(saveTestDrive(t))}
+                                            editQuestion={(t) => dispatch(editQuestion(t))}
+                                            deleteQuestion={(id) => dispatch(deleteQuestion(id))}
+                                            onChange={(e, question) => dispatch(updateQuestion(e, question))}
+                                            addQquestion={() => dispatch(addQuestion())}
+                                            testDrive={testDrive}
+                                            updateUI={updateUI}
+                                            ui={ui}
+                                        />
+                                    }
                                 </div>
                             </div>
                         </Loader>

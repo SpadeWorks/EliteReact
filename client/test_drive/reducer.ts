@@ -2,7 +2,10 @@ import { handleActions, Action } from 'redux-actions';
 
 import { TestDrive, TestCase, Question, IState } from './model';
 import {
-    LOAD_TestDrive,
+    LOAD_TestDrive_PENDING,
+    LOAD_TestDrive_FULFILLED,
+    LOAD_TestDrives_PENDING,
+    LOAD_TestDrives_FULFILLED,
     DELETE_TestDrive,
     EDIT_TestDrive,
     UPDATE_TestDrive,
@@ -47,7 +50,8 @@ const initialState: IState = {
         maxTestDrivers: 5000,
         testCases: [],
         questions: [],
-        status: 'Draft'
+        status: 'Draft',
+        level: 'level1'
     },
     testCase: {
         id: -1,
@@ -83,10 +87,32 @@ export default handleActions<IState, any>({
         }
     },
 
-    [LOAD_TestDrive]: (state: IState, action: Action<any>): IState => {
+    [LOAD_TestDrive_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            testDrive: { ...state.testDrive, ...action.payload },
+            loading: true,
+        }
+    },
+    
+    [LOAD_TestDrive_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            testDrive: {...state.testDrive, ...action.payload},
+            loading: false,
+        }
+    },
+
+    [LOAD_TestDrives_PENDING]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            loading: true,
+        }
+    },
+    
+    [LOAD_TestDrives_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            testDrives: action.payload,
             loading: false,
         }
     },
@@ -122,7 +148,7 @@ export default handleActions<IState, any>({
         return {
             ...state,
             testDrives: state.testDrives.map(testDrive =>
-                testDrive.id === action.payload.testDrive.id ? action.payload.testDrive : testDrive),
+                testDrive.id === action.payload.id ? action.payload : testDrive),
             loading: false
         }
     },

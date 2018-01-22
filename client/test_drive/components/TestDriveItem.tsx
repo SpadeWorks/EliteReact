@@ -7,6 +7,7 @@ import {
 import { TestDrive } from '../model';
 
 interface AppProps {
+    indexKey: any;
     testDrive: model.TestDrive;
     deleteTestDrive: (id: number) => any;
     editTestDrive: (testDrive: TestDrive) => any;
@@ -17,21 +18,20 @@ class TestDriveItem extends React.Component<AppProps> {
         super(props, context);
     }
     render() {
-        const { deleteTestDrive, editTestDrive, testDrive } = this.props;
+        const { deleteTestDrive, editTestDrive, testDrive, indexKey} = this.props;
         return (
-            <div className="testDriveItem">
-                {/* <li></li> */}
+            <div className="testDriveItem" key={indexKey} >
                 <li><Link to={'/testdrive/' + this.props.testDrive.id}>{this.props.testDrive.title}</Link></li>
                 <Link to={'/testdrive/' + this.props.testDrive.id}>
                     <input
-                        className="btn-primary"
+                        className="btn btn-primary"
                         type="button"
                         value="Edit"
                         onClick={() => editTestDrive(testDrive)}
                     />
                 </Link>
                 <input
-                    className="btn-danger"
+                    className="btn btn-danger"
                     type="button"
                     value="Delete"
                     onClick={() => deleteTestDrive(testDrive.id)} />

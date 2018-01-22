@@ -3,12 +3,15 @@ import { connect } from 'react-redux';
 import * as React from 'react';
 import Loader from 'react-loader-advanced';
 import ui from 'redux-ui';
+import services from '../../common/services/services';
+import {TestDrive} from '../../test_drive/model';
 
 import {
     TestDrives,
     model,
     editTestDrive,
-    deleteTestDrive
+    deleteTestDrive,
+    loadTestDrives
 } from '../../test_drive';
 
 interface AppProps {
@@ -18,15 +21,13 @@ interface AppProps {
 
 @ui({
   // Save all state within the 'testDrives' key of the UI reducer
-  key: "testDrives",
-  // Define default state. All state vars must be defined in a UI decorator
-  state: {
-    test: 'test',
-    best: 'best'
-  }
+  key: "testDrives"
 })
 
 class TestDriveContainer extends React.Component<AppProps> {
+  componentDidMount(){
+    this.props.dispatch(loadTestDrives());
+  }
   render() {
     const { testDriveState, dispatch } = this.props;
     return (

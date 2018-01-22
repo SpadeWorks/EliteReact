@@ -14,12 +14,12 @@ const plugins = [
 
 module.exports = require('./webpack.shared.config')({
   // Add hot reloading in development
-  entry: [
-    //'webpack-hot-middleware/client',
-    path.join(process.cwd(), 'client/services.js')
-    // path.join(process.cwd(), 'client/styles.js'),
-    // path.join(process.cwd(), 'client/index.js')
-  ],
+  entry: {
+    webpack: 'webpack-hot-middleware/client',
+    // services: path.join(process.cwd(), 'client/services.js'),
+    styles: path.join(process.cwd(), 'client/styles.js'),
+    index: path.join(process.cwd(), 'client/index.js')
+  },
 
   output: {
     filename: '[name].js',
