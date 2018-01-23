@@ -4,6 +4,7 @@ import pnp from 'sp-pnp-js';
 import { TestDrive, Question, TestCase } from '../../test_drive/model';
 import * as $ from 'jquery';
 import * as moment from 'moment';
+import TestCases from "../../test_drive/components/TestCases";
 
 export type listItem = {
     key: string;
@@ -309,7 +310,22 @@ export class Services {
             )
                 .filter(filter)
                 .get().then(testCases => {
-                    resolve(testCases);
+                    let testCaseArray: TestCase[] = [];
+                    testCases.map(t => {
+                        testCaseArray.push({
+                            id: t.ID,
+                            title: t.Title,
+                            description: t.EliteDescription,
+                            expectedOutcome: t.TestCaseOutcome,
+                            isInEditMode: false,
+                            testCaseType: t.Type,
+                            scenario: t.Scenario,
+                            priority: t.priority,
+                            points: t.Points,
+                            reTest: t.ReTest
+                        })
+                    })
+                    resolve(testCaseArray);
                 }, error => {
                     reject(error);
                 });
@@ -328,11 +344,21 @@ export class Services {
                 'ID',
                 'Question',
                 'Responses',
-                'Title',
+                'ResponseType',
             )
-                .filter("ID eq 48 or ID eq 49 or ID eq 50")
+                .filter(filter)
                 .get().then(questions => {
-                    resolve(questions);
+                    let questionArray: Question[] = [];
+                    questions.map(q => {
+                        questionArray.push({
+                            id: q.ID,
+                            title: q.Title,
+                            questionType: q.ResponseType,
+                            options: q.Responses,
+                            isInEditMode: false
+                        })
+                    });
+                    resolve(questionArray);
                 }, error => {
                     reject(error);
                 });

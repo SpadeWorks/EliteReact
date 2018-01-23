@@ -109,9 +109,7 @@ const deleteTestDrive = createAction<number, number>(
 
 const loadTestCases = createAction<any, number[]>(
   LOAD_TestCases,
-  (testCaseIds: number[]) => {
-    Services.getTestCasesByIds(testCaseIds);
-  }  
+  (testCaseIds: number[]) => Services.getTestCasesByIds(testCaseIds)
 );
 
 const addTestCase = createAction(
@@ -161,9 +159,7 @@ const updateTestCase = createAction<TestCase, any, TestCase>(
 
 const loadQuestions = createAction<any, number[]>(
   LOAD_Questions,
-  (questionIds: number[]) => {
-    Services.getQuestonsByIds(questionIds);
-  }  
+  (questionIds: number[]) => Services.getQuestonsByIds(questionIds)
 );
 
 const addQuestion = createAction(
