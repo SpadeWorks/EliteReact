@@ -159,7 +159,7 @@ const updateTestCase = createAction<TestCase, any, TestCase>(
 
 ///////Questions///////////
 
-const loadTestQuestions = createAction<any, number[]>(
+const loadQuestions = createAction<any, number[]>(
   LOAD_Questions,
   (questionIds: number[]) => {
     Services.getQuestonsByIds(questionIds);
@@ -259,5 +259,5 @@ export {
   updateQuestion,
   loadTestDrives,
   loadTestCases,
-  loadTestQuestions
+  loadQuestions
 }

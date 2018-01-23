@@ -80,8 +80,8 @@ export class Services {
                             id: testDrive.ID,
                             level: testDrive.LevelID.LevelName,
                             owner: testDrive.TestDriveOwner.UserInfoName,
-                            testCasesIds: testCases,
-                            questionsIds: questions,
+                            testCaseIDs: testCases,
+                            questionIDs: questions,
                             expectedBusinessValue: '',
                             testCases: null,
                             questions: null
@@ -290,10 +290,10 @@ export class Services {
         });
     }
 
-    static getTestCasesByIds(testCaseIds: number[]) {
+    static getTestCasesByIds(testCaseIDs: number[]) {
         let filter = '';
-        testCaseIds.map((id, index) => {
-            filter += 'ID eq ' + id + (testCaseIds.length - 1 != index ? ' or ' : '');
+        testCaseIDs.map((id, index) => {
+            filter += 'ID eq ' + id + (testCaseIDs.length - 1 != index ? ' or ' : '');
         })
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASES).items
@@ -316,7 +316,12 @@ export class Services {
         });
     }
 
-    static getQuestonsByIds(questionIds: number[]) {
+    static getQuestonsByIds(questionIDs: number[]) {
+        let filter;
+        questionIDs.map((id, index) => {
+            filter += 'ID eq ' + id + (questionIDs.length - 1 != index ? ' or ' : '');
+        })
+
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.SURVEY_QUESTIONS).items
                 .select('Title',

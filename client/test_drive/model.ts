@@ -35,9 +35,9 @@ export type TestDrive = {
     requiredOs: string[];
     maxTestDrivers: number;
     testCases: TestCase[];
-    testCaseIds?: number[];
+    testCaseIDs?: number[];
     questions: Question[];
-    questionIds?: number[];
+    questionIDs?: number[];
     status: string;
     level: string;
     owner?: string;
