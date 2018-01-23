@@ -21,12 +21,18 @@ interface SurveysProps {
     testDrive: TestDrive;
     updateUI: (any) => any;
     ui: any;
+    loadQuestions: (questionIds: number[]) => any
+    questionIds: number[];   
 };
 
 class Surveys extends React.Component<SurveysProps> {
     constructor(props, context) {
         super(props, context);
         //  this.handleEdit = this.handleEdit.bind(this);
+    }
+
+    componentDidMount(){
+        this.props.loadQuestions(this.props.questionIds);
     }
 
     render() {

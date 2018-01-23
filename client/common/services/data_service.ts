@@ -25,7 +25,12 @@ pnp.setup({
 });
 
 export class Services {
-    static getTestDrives() {
+
+    static getCurrentUserID() {
+        return 1; //TODO 
+    }
+
+    static getTestDrivesByOwerneID(ownerID: number) {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items
                 .select('ID',
@@ -49,7 +54,7 @@ export class Services {
                 'Questions/ID',
             )
                 .expand('TestDriveOwner', 'LevelID', 'Questions', 'TestCases')
-                .filter("TestDriveOwner eq 1").get().then(testDrives => {
+                .filter("TestDriveOwner eq " + ownerID).get().then(testDrives => {
                     let testDriveObj: TestDrive;
                     let results = testDrives.map((testDrive) => {
                         let questions = testDrive.Questions.results.map((question) => {
@@ -89,6 +94,120 @@ export class Services {
                 })
         });
     }
+
+    // static getTestDriveById(testDriveID: number) {
+    //     return new Promise((resolve, reject) => {
+    //         if (testDriveID == -1) {
+    //             resolve({
+    //                 id: -1,
+    //                 title: "",
+    //                 description: "",
+    //                 maxPoints: 0,
+    //                 startDate: "",
+    //                 endDate: "",
+    //                 expectedBusinessValue: "",
+    //                 function: [],
+    //                 location: [],
+    //                 requiredDevices: [],
+    //                 requiredOs: [],
+    //                 maxTestDrivers: 0,
+    //                 testCases: [],
+    //                 questions: []
+    //             });
+    //         }
+    //         pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items.getById(testDriveID)
+    //             .select(
+    //             'ID',
+    //             'TestDriveName',
+    //             'EliteDescription',
+    //             'TestDriveStatus',
+    //             'TestDriveStartDate',
+    //             'TestDriveEndDate',
+    //             'TotalPoints',
+    //             'TestDriveDepartment',
+    //             'TestDriveLocation',
+    //             // 'TestDriveFunction',
+    //             'AvailableDevices',
+    //             'AvailableOS',
+    //             'MaxTestDrivers',
+    //             'LevelID/ID',
+    //             'LevelID/LevelName',
+    //             'TestDriveOwner/ID',
+    //             'TestDriveOwner/UserInfoName',
+    //             'TestCases/ID',
+    //             'Questions/ID',
+    //         )
+    //             .expand('TestDriveOwner', 'LevelID', 'Questions', 'TestCases')
+    //             .get().then(testDrive => {
+    //                 let questions = testDrive.Questions.results.map((question) => {
+    //                     return question.ID;
+    //                 })
+    //                 let testCases = testDrive.TestCases.results.map((testCase) => {
+    //                     return testCase.ID;
+    //                 })
+
+    //                 Promise.all([this.getQuestonsByIds(questions),
+    //                 this.getTestCasesByIds(testCases)]).then((results: any[][]) => {
+    //                     let testCase: TestCase;
+    //                     let testCases: TestCase[];
+    //                     let question: Question;
+    //                     let questions: Question[];
+    //                     let testDriveObj: TestDrive;
+
+
+    //                     questions = results[0].map((result) => {
+    //                         return question = {
+    //                             id: result.ID,
+    //                             title: result.Question,
+    //                             questionType: result.QuestionType,
+    //                             options: result.Responses
+    //                         }
+
+    //                     });
+
+    //                     testCases = results[1].map((result) => {
+    //                         return testCase = {
+    //                             id: result.ID,
+    //                             title: result.Title,
+    //                             description: result.EliteDescription,
+    //                             expectedOutcome: result.TestCaseOutcome,
+    //                             points: result.Points,
+    //                             priority: result.TestCasePriority,
+    //                             reTest: result.ReTest,
+    //                             testCaseType: result.Type,
+    //                             scenario: result.EliteDescription
+    //                         }
+    //                     });
+
+    //                     testDriveObj = {
+    //                         title: testDrive.TestDriveName,
+    //                         description: testDrive.EliteDescription,
+    //                         status: testDrive.TestDriveStatus,
+    //                         startDate: testDrive.TestDriveStartDate,
+    //                         endDate: testDrive.TestDriveEndDate,
+    //                         maxPoints: testDrive.TotalPoints,
+    //                         department: testDrive.TestDriveDepartment.results,
+    //                         function: [], //testDrive.TestDriveFunction.results,
+    //                         location: testDrive.TestDriveLocation.results,
+    //                         requiredDevices: testDrive.AvailableDevices.results,
+    //                         requiredOs: testDrive.AvailableOS.results,
+    //                         maxTestDrivers: testDrive.MaxTestDrivers,
+    //                         id: testDrive.ID,
+    //                         level: testDrive.LevelID.LevelName,
+    //                         owner: testDrive.TestDriveOwner.UserInfoName,
+    //                         testCases: testCases,
+    //                         questions: questions,
+    //                         expectedBusinessValue: ''
+    //                     };
+    //                     resolve(testDriveObj);
+    //                 })
+
+
+    //             }, error => {
+    //                 reject(error);
+    //             });
+    //     });
+    // }
 
     static getTestDriveById(testDriveID: number) {
         return new Promise((resolve, reject) => {
@@ -136,67 +255,34 @@ export class Services {
                 .get().then(testDrive => {
                     let questions = testDrive.Questions.results.map((question) => {
                         return question.ID;
-                    })
+                    });
                     let testCases = testDrive.TestCases.results.map((testCase) => {
                         return testCase.ID;
-                    })
+                    });
 
-                    Promise.all([this.getQuestonsByIds(questions),
-                    this.getTestCasesByIds(testCases)]).then((results: any[][]) => {
-                        let testCase: TestCase;
-                        let testCases: TestCase[];
-                        let question: Question;
-                        let questions: Question[];
-                        let testDriveObj: TestDrive;
-
-
-                        questions = results[0].map((result) => {
-                            return question = {
-                                id: result.ID,
-                                title: result.Question,
-                                questionType: result.QuestionType,
-                                options: result.Responses
-                            }
-
-                        });
-
-                        testCases = results[1].map((result) => {
-                            return testCase = {
-                                id: result.ID,
-                                title: result.Title,
-                                description: result.EliteDescription,
-                                expectedOutcome: result.TestCaseOutcome,
-                                points: result.Points,
-                                priority: result.TestCasePriority,
-                                reTest: result.ReTest,
-                                testCaseType: result.Type,
-                                scenario: result.EliteDescription
-                            }
-                        });
-
-                        testDriveObj = {
-                            title: testDrive.TestDriveName,
-                            description: testDrive.EliteDescription,
-                            status: testDrive.TestDriveStatus,
-                            startDate: testDrive.TestDriveStartDate,
-                            endDate: testDrive.TestDriveEndDate,
-                            maxPoints: testDrive.TotalPoints,
-                            department: testDrive.TestDriveDepartment.results,
-                            function: [], //testDrive.TestDriveFunction.results,
-                            location: testDrive.TestDriveLocation.results,
-                            requiredDevices: testDrive.AvailableDevices.results,
-                            requiredOs: testDrive.AvailableOS.results,
-                            maxTestDrivers: testDrive.MaxTestDrivers,
-                            id: testDrive.ID,
-                            level: testDrive.LevelID.LevelName,
-                            owner: testDrive.TestDriveOwner.UserInfoName,
-                            testCases: testCases,
-                            questions: questions,
-                            expectedBusinessValue: ''
-                        };
-                        resolve(testDriveObj);
-                    })
-
+                    let testDriveObj = {
+                        title: testDrive.TestDriveName,
+                        description: testDrive.EliteDescription,
+                        status: testDrive.TestDriveStatus,
+                        startDate: testDrive.TestDriveStartDate,
+                        endDate: testDrive.TestDriveEndDate,
+                        maxPoints: testDrive.TotalPoints,
+                        department: testDrive.TestDriveDepartment.results,
+                        function: [], //testDrive.TestDriveFunction.results,
+                        location: testDrive.TestDriveLocation.results,
+                        requiredDevices: testDrive.AvailableDevices.results,
+                        requiredOs: testDrive.AvailableOS.results,
+                        maxTestDrivers: testDrive.MaxTestDrivers,
+                        id: testDrive.ID,
+                        level: testDrive.LevelID.LevelName,
+                        owner: testDrive.TestDriveOwner.UserInfoName,
+                        testCases: null,
+                        questions: null,
+                        testCaseIDs: testCases,
+                        questionIDs: questions,
+                        expectedBusinessValue: ''
+                    };
+                    resolve(testDriveObj);
 
                 }, error => {
                     reject(error);
@@ -280,8 +366,8 @@ export class Services {
                             results: results[0]
                         }
                     }]).then(data => {
-                        resolve({...testDrive, id: data[0]});
-                    }, err =>{
+                        resolve({ ...testDrive, id: data[0] });
+                    }, err => {
                         reject(err);
                     });
             });

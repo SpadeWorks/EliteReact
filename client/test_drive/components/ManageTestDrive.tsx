@@ -26,7 +26,10 @@ import {
     editQuestion,
     deleteQuestion,
     addQuestion,
-    updateQuestion
+    updateQuestion,
+    loadTestDrives,
+    loadTestCases,
+    loadTestQuestions
 } from '../../test_drive';
 
 interface AppProps {
@@ -109,6 +112,8 @@ class ManageTestDrive extends React.Component<AppProps> {
                                             testDrive={testDrive}
                                             updateUI={updateUI}
                                             ui={ui}
+                                            loadTestCases={(t) => dispatch(loadTestCases(t))}
+                                            testCaseIds={testDrive.testCaseIds}
                                         />}
                                 </div>
                             </div>
@@ -127,6 +132,8 @@ class ManageTestDrive extends React.Component<AppProps> {
                                             testDrive={testDrive}
                                             updateUI={updateUI}
                                             ui={ui}
+                                            loadQuestions={(t) => dispatch(loadTestQuestions(t))}
+                                            questionIds={testDrive.questionIds}
                                         />
                                     }
                                 </div>

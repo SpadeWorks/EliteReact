@@ -15,11 +15,17 @@ import {
     SAVE_TestDrive_FULFILLED,
     SUBMIT_TestDrive_PENDING,
     SUBMIT_TestDrive_FULFILLED,
+
+    LOAD_TestCases_PENDING,
+    LOAD_TestCases_FULFILLED,
     ADD_TestCase,
     DELETE_TestCase,
     EDIT_TestCase,
     SAVE_TestCase,
     UPDATE_TestCase,
+
+    LOAD_Questions_PENDING,
+    LOAD_Questions_FULFILLED,
     ADD_Question,
     DELETE_Question,
     EDIT_Question,
@@ -165,6 +171,36 @@ export default handleActions<IState, any>({
             ...state,
             testDrives: state.testDrives.map(testDrive =>
                 testDrive.id === action.payload.testDrive.id ? action.payload.testDrive : testDrive),
+            loading: false
+        }
+    },
+
+    [LOAD_TestCases_PENDING]: (state: IState, action: Action<TestCase>): IState => {
+        return {
+            ...state,
+            loading: true
+        }
+    },
+
+    [LOAD_TestCases_FULFILLED]: (state: IState, action: Action<TestCase []>): IState => {
+        return {
+            ...state,
+            testDrive: { ...state.testDrive , testCases: action.payload },
+            loading: false
+        }
+    },
+
+    [LOAD_Questions_PENDING]: (state: IState, action: Action<Question>): IState => {
+        return {
+            ...state,
+            loading: true
+        }
+    },
+
+    [LOAD_Questions_FULFILLED]: (state: IState, action: Action<Question []>): IState => {
+        return {
+            ...state,
+            testDrive: { ...state.testDrive , questions: action.payload },
             loading: false
         }
     },

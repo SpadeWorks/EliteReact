@@ -26,7 +26,7 @@ interface AppProps {
 
 class TestDriveContainer extends React.Component<AppProps> {
   componentDidMount(){
-    this.props.dispatch(loadTestDrives());
+    this.props.dispatch(loadTestDrives(services.getCurrentUserID()));
   }
   render() {
     const { testDriveState, dispatch } = this.props;

@@ -21,7 +21,9 @@ export const DATE_FocusChange = "DATE_FocusChange";
 
 
 // Test Case Actions.
-
+export const LOAD_TestCases = 'LOAD_TestCases';
+export const LOAD_TestCases_PENDING = 'LOAD_TestCases_PENDING';
+export const LOAD_TestCases_FULFILLED = 'LOAD_TestCases_FULFILLED'; 
 export const ADD_TestCase = 'ADD_TestCase';
 export const DELETE_TestCase = 'DELETE_TestCase';
 export const EDIT_TestCase = 'EDIT_TestCase';
@@ -30,6 +32,9 @@ export const SUBMIT_TestCase = 'SUBMIT_TestCase';
 export const UPDATE_TestCase = 'UPDATE_TestCase';
 
 // Question Actions.
+export const LOAD_Questions = 'LOAD_Questions';
+export const LOAD_Questions_PENDING = 'LOAD_Questions_PENDING';
+export const LOAD_Questions_FULFILLED = 'LOAD_Questions_FULFILLED'; 
 export const ADD_Question = 'ADDQuestion';
 export const DELETE_Question = 'DELETEQuestion';
 export const EDIT_Question = 'EDITQuestion';

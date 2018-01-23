@@ -11,6 +11,7 @@ import {
 } from '../../test_drive';
 
 interface TestCasesProps {
+    testCaseIds: number[];
     testCases: TestCase[];
     newTestCase: TestCase;
     addTestCase: () => any;
@@ -19,6 +20,7 @@ interface TestCasesProps {
     editTestCase: (TestCase: TestCase) => any;
     onChange: (event: any, TestCase: TestCase) => any;
     saveTestDrive: (testDrive: TestDrive) => any;
+    loadTestCases: (testCasesIds: number[]) => any
     testDrive: TestDrive;
     updateUI: (any) => any;
     ui: any;
@@ -28,6 +30,10 @@ class TestCases extends React.Component<TestCasesProps> {
     constructor(props, context) {
         super(props, context);
         //  this.handleEdit = this.handleEdit.bind(this);
+    }
+
+    componentDidMount(){
+        this.props.loadTestCases(this.props.testCaseIds);
     }
 
     render() {

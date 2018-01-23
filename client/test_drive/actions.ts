@@ -11,11 +11,13 @@ import {
   UPDATE_TestDrive,
   SAVE_TestDrive,
   SUBMIT_TestDrive,
+  LOAD_TestCases,
   ADD_TestCase,
   DELETE_TestCase,
   EDIT_TestCase,
   SAVE_TestCase,
   SUBMIT_TestCase,
+  LOAD_Questions,
   ADD_Question,
   DELETE_Question,
   EDIT_Question,
@@ -29,14 +31,16 @@ import {
 
 } from './constants/ActionTypes';
 
+// Test Drives action creators.
+
 const loadTestDrive = createAction<any, number>(
   LOAD_TestDrive,
   (testDriveId: number) => Services.getTestDriveById(testDriveId)
 )
 
-const loadTestDrives = createAction<any>(
+const loadTestDrives = createAction<any, number>(
   LOAD_TestDrives,
-  () => Services.getTestDrives()
+  (ownerID: number) => Services.getTestDrivesByOwerneID(ownerID)
 );
 
 const saveTestDrive = createAction<any, TestDrive>(
@@ -99,6 +103,17 @@ const deleteTestDrive = createAction<number, number>(
   }
 );
 
+// Test Drives Action creator ends here.
+
+// Test Cases Action creator starts here.
+
+const loadTestCases = createAction<any, number[]>(
+  LOAD_TestCases,
+  (testCaseIds: number[]) => {
+    Services.getTestCasesByIds(testCaseIds);
+  }  
+);
+
 const addTestCase = createAction(
   ADD_TestCase
 );
@@ -143,6 +158,13 @@ const updateTestCase = createAction<TestCase, any, TestCase>(
 )
 
 ///////Questions///////////
+
+const loadTestQuestions = createAction<any, number[]>(
+  LOAD_Questions,
+  (questionIds: number[]) => {
+    Services.getQuestonsByIds(questionIds);
+  }  
+);
 
 const addQuestion = createAction(
   ADD_Question
@@ -235,5 +257,7 @@ export {
   deleteQuestion,
   addQuestion,
   updateQuestion,
-  loadTestDrives
+  loadTestDrives,
+  loadTestCases,
+  loadTestQuestions
 }
