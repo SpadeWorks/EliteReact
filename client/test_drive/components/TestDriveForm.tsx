@@ -4,7 +4,7 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import { DateRange, Calendar } from 'react-date-range';
 import { TestDrive, IState } from '../model';
-import testDriveService from '../api/mockApi';
+import Service from '../../common/services/services';
 
 import { updateDate } from '../index';
 
@@ -13,7 +13,7 @@ interface TestDriveFormProps {
     saveTestDrive: (testDrive: TestDrive) => any;
     submitTestDrive: (testDrive: TestDrive) => any;
     onChange: (event: any, testDrive: TestDrive) => any;
-    updateMultiSelect: (value: any, testDrive: TestDrive) => any;
+    updateMultiSelect: (value: any, control: string, testDrive: TestDrive) => any;
     updateDates: (dates: any) => any;
     updateUI: (any) => any;
     ui: any;
@@ -36,22 +36,38 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     constructor(props, state) {
         super(props, state);
         this.onChange = this.onChange.bind(this);
-        this.multiSelectChange = this.multiSelectChange.bind(this);
+        this.regionChange = this.regionChange.bind(this);
+        this.locationChange = this.locationChange.bind(this);
+        this.deviceChange = this.deviceChange.bind(this);
+        this.osChange = this.osChange.bind(this);
     }
 
     onChange = (e) => {
         this.props.onChange(e, this.props.testDrive);
     }
 
-    multiSelectChange = (value) => {
-        this.props.updateMultiSelect(value, this.props.testDrive);
+    regionChange = (value) => {
+        this.props.updateMultiSelect(value, "region", this.props.testDrive);
     }
 
-    getFunctions(input, callback) {
-        const functions = testDriveService.getFunctions().then((functions: Array<any>) => {
+    locationChange = (value) => {
+        this.props.updateMultiSelect(value, "location", this.props.testDrive);
+    } 
+
+    deviceChange = (value) => {
+        this.props.updateMultiSelect(value, "requiredDevices", this.props.testDrive);
+    }
+
+    osChange = (value) => {
+        this.props.updateMultiSelect(value, "requiredOs", this.props.testDrive);
+    } 
+
+
+    getRegions(input, callback) {
+        const functions = Service.getRegions().then((regions: Array<any>) => {
             input = input.toLowerCase();
-            var options = functions.filter((i: any) => {
-                return i.function.substr(0, input.length) === input;
+            var options = regions.filter((i: any) => {
+                return i.Label.substr(0, input.length) === input;
             });
             var data = {
                 options: options.slice(0, 5),
@@ -62,10 +78,11 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     }
 
     getLocations(input, callback) {
-        const functions = testDriveService.getLocations().then((locations: Array<any>) => {
+
+        const functions = Service.getLocations().then((locations: Array<any>) => {
             input = input.toLowerCase();
             var options = locations.filter((i: any) => {
-                return i.location.substr(0, input.length) === input;
+                return i.Label.substr(0, input.length) === input;
             });
             var data = {
                 options: options.slice(0, 5),
@@ -76,10 +93,10 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     }
 
     getDevices(input, callback) {
-        const functions = testDriveService.getDevices().then((devices: Array<any>) => {
+        const functions = Service.getDevices().then((devices: Array<any>) => {
             input = input.toLowerCase();
             var options = devices.filter((i: any) => {
-                return i.device.substr(0, input.length) === input;
+                return i.Label.substr(0, input.length) === input;
             });
             var data = {
                 options: options.slice(0, 5),
@@ -90,10 +107,10 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     }
 
     getOSes(input, callback) {
-        const functions = testDriveService.getOSes().then((oses: Array<any>) => {
+        const functions = Service.getOSes().then((oses: Array<any>) => {
             input = input.toLowerCase();
             var options = oses.filter((i: any) => {
-                return i.os.substr(0, input.length) === input;
+                return i.Label.substr(0, input.length) === input;
             });
             var data = {
                 options: options.slice(0, 5),
@@ -156,7 +173,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 name="startDate"
                                 placeholder="Start Date"
                                 type="text"
-                                value={testDriveService.formatDate(testDrive.startDate) || ''}
+                                value={Service.formatDate(testDrive.startDate) || ''}
                                 onFocus={() => { updateUI({ showDatePicker: true }) }}
                                 onBlur={() => { updateUI({ showDatePicker: false }) }}
                                 readOnly
@@ -172,7 +189,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 name="endDate"
                                 placeholder="End Date"
                                 type="text"
-                                value={testDriveService.formatDate(testDrive.endDate) || ''}
+                                value={Service.formatDate(testDrive.endDate) || ''}
                                 onFocus={() => { updateUI({ showDatePicker: true }) }}
                                 onBlur={() => { updateUI({ showDatePicker: false }) }}
                                 readOnly
@@ -185,7 +202,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         <div className="register_input date-picker" >
                             <DateRange
                                 onChange={this.handleChange.bind(this, 'rangePicker')}
-                                minDate={testDriveService.formatDate("today")}
+                                minDate={Service.formatDate("today")}
                             />
                         </div>
                     </div>
@@ -205,20 +222,20 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                     <div className="col-md-12">
                         <h5>Allowed Functions:</h5>
                         <Select.Async multi={true}
-                            value={testDrive.function}
-                            onChange={this.multiSelectChange}
-                            valueKey="function"
-                            labelKey="name"
-                            loadOptions={this.getFunctions}
+                            value={testDrive.region}
+                            onChange={this.regionChange}
+                            valueKey="TermGuid"
+                            labelKey="Label"
+                            loadOptions={this.getRegions}
                             type="select-multiple"
                         />
                         <br></br>
                         <h5>Allowed Locations:</h5>
                         <Select.Async multi={true}
                             value={testDrive.location}
-                            onChange={this.multiSelectChange}
-                            valueKey="location"
-                            labelKey="name"
+                            onChange={this.locationChange}
+                            valueKey="TermGuid"
+                            labelKey="Label"
                             loadOptions={this.getLocations}
                             type="select-multiple"
                         />
@@ -227,9 +244,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         <h5>Required Devices:</h5>
                         <Select.Async multi={true}
                             value={testDrive.requiredDevices}
-                            onChange={this.multiSelectChange}
-                            valueKey="device"
-                            labelKey="name"
+                            onChange={this.deviceChange}
+                            valueKey="TermGuid"
+                            labelKey="Label"
                             loadOptions={this.getDevices}
                             type="select-multiple"
                         />
@@ -238,9 +255,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         <h5>Required OS:</h5>
                         <Select.Async multi={true}
                             value={testDrive.requiredOs}
-                            onChange={this.multiSelectChange}
-                            valueKey="os"
-                            labelKey="name"
+                            onChange={this.osChange}
+                            valueKey="TermGuid"
+                            labelKey="Label"
                             loadOptions={this.getOSes}
                             type="select-multiple"
                         />

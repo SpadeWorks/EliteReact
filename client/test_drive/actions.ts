@@ -80,18 +80,10 @@ const updateTestDrive = createAction<TestDrive, any, TestDrive>(
   }
 );
 
-const updateMultiSelect = createAction<any, any, TestDrive>(
+const updateMultiSelect = createAction<any, any, string, TestDrive>(
   UPDATE_TestDrive,
-  (value: any, testDrive: TestDrive) => {
-    if (value[0].hasOwnProperty('function') === true) {
-      testDrive['function'] = value;
-    } else if (value[0].hasOwnProperty('location') === true) {
-      testDrive['location'] = value;
-    } else if (value[0].hasOwnProperty('device') === true) {
-      testDrive['requiredDevices'] = value;
-    } else if (value[0].hasOwnProperty('os') === true) {
-      testDrive['requiredOs'] = value;
-    }
+  (value: any, controlName: string, testDrive: TestDrive) => {
+      testDrive[controlName] = value;
     return testDrive;
   }
 )

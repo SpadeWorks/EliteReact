@@ -9,6 +9,7 @@ export type TestCase = {
     priority: string;
     points: number;
     reTest: boolean;
+    newItem?: boolean;
 }
 
 export type Question = {
@@ -17,6 +18,7 @@ export type Question = {
     questionType: string;
     options: Array<string>;
     isInEditMode?: boolean;
+    newItem?: boolean;
 }
 
 
@@ -29,7 +31,7 @@ export type TestDrive = {
     endDate: string;
     expectedBusinessValue: string;
     department?: string;
-    function: string[];
+    region: string[];
     location: string[];
     requiredDevices: string[];
     requiredOs: string[];
@@ -41,6 +43,7 @@ export type TestDrive = {
     status: string;
     level: string;
     owner?: string;
+    newItem?: boolean;
 };
 
 

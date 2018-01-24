@@ -13,6 +13,7 @@ import {
     SUBMIT_TestDrive,
     SAVE_TestDrive_PENDING,
     SAVE_TestDrive_FULFILLED,
+    SAVE_TestDrive_REJECTED,
     SUBMIT_TestDrive_PENDING,
     SUBMIT_TestDrive_FULFILLED,
 
@@ -49,10 +50,10 @@ const initialState: IState = {
         startDate: "",
         endDate: "",
         expectedBusinessValue: "",
-        function: ["Management", "Development"],
-        location: ["India", "USA"],
-        requiredDevices: ["Device1"],
-        requiredOs: ["OS1", "OS2"],
+        region: [],
+        location: [],
+        requiredDevices: [],
+        requiredOs: [],
         maxTestDrivers: 5000,
         testCases: [],
         questions: [],
@@ -154,7 +155,14 @@ export default handleActions<IState, any>({
         return {
             ...state,
             testDrives: state.testDrives.map(testDrive =>
-                testDrive.id === action.payload.id ? action.payload : testDrive),
+                testDrive.id == action.payload.id ? action.payload : testDrive),
+            loading: false
+        }
+    },
+
+    [SAVE_TestDrive_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
             loading: false
         }
     },
@@ -216,7 +224,8 @@ export default handleActions<IState, any>({
             scenario: "",
             priority: "High",
             reTest: false,
-            points: 100
+            points: 100,
+            newItem: true
         }
         return {
             ...state,
@@ -284,7 +293,8 @@ export default handleActions<IState, any>({
             title: '',
             questionType: '',
             options: [],
-            isInEditMode: true
+            isInEditMode: true,
+            newItem: true
         }
         return {
             ...state,

@@ -73,8 +73,6 @@ class ManageTestDrive extends React.Component<AppProps> {
 
     componentDidMount() {
         this.props.dispatch(loadTestDrive(this.props.id || -1));
-        this.props.dispatch(loadTestCases(this.props.testDrive.testCaseIDs));
-        this.props.dispatch(loadQuestions(this.props.testDrive.questionIDs));
     }
 
     render() {
@@ -93,7 +91,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                         saveTestDrive={(t) => dispatch(saveTestDrive(t))}
                                         submitTestDrive={(t) => dispatch(submitTestDrive(t))}
                                         onChange={(e, testDrive) => dispatch(updateTestDrive(e, testDrive))}
-                                        updateMultiSelect={(value, testDrive) => dispatch(updateMultiSelect(value, testDrive))}
+                                        updateMultiSelect={(value, control, testDrive) => dispatch(updateMultiSelect(value, control, testDrive))}
                                         updateDates={(dates) => dispatch(updateDate(dates))}
                                         updateUI={updateUI}
                                         ui={ui}
@@ -102,7 +100,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                             </div>
                             <div className={"row setup-content " + this.getTabClass('step-2')} id="step-2">
                                 <div className="col-xs-12 form_box tab-container">
-                                    {testDrive.testCases &&
+                                    {(this.getTabClass('step-2') ==  "show-tab") &&
                                         <TestCases testCases={testDrive.testCases}
                                             newTestCase={testCase}
                                             saveTestCase={(t) => dispatch(saveTestCase(t))}
@@ -122,7 +120,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                             <div className={"row setup-content " + this.getTabClass('step-3')} id="step-3">
                                 <div className="col-xs-12 form_box tab-container">
                                     {
-                                        testDrive.testCases &&
+                                        (this.getTabClass('step-3') ==  "show-tab") &&
                                         <Surveys questions={testDrive.questions}
                                             newQuestion={question}
                                             saveQuestion={(t) => dispatch(saveQuestion(t))}

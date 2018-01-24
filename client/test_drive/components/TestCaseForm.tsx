@@ -116,17 +116,19 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
     }
 
     updateInitialEditorValue(editorName) {
-        const html = htmlToDraft(this.props.testCase[editorName]);
-        if (html) {
-            const contentState = ContentState.createFromBlockArray(html.contentBlocks);
-            const editorState = EditorState.createWithContent(contentState);
-            this.props.updateUI({
-                [editorName]: editorState
-            })
-        } else {
-            this.props.updateUI({
-                [editorName]: EditorState.createEmpty()
-            });
+        if (this.props.testCase[editorName]) {
+            const html = htmlToDraft(this.props.testCase[editorName]);
+            if (html) {
+                const contentState = ContentState.createFromBlockArray(html.contentBlocks);
+                const editorState = EditorState.createWithContent(contentState);
+                this.props.updateUI({
+                    [editorName]: editorState
+                })
+            } else {
+                this.props.updateUI({
+                    [editorName]: EditorState.createEmpty()
+                });
+            }
         }
     }
 
