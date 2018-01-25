@@ -1,3 +1,3 @@
-import Services from './data_service';
+import Services from './mock_service';
 
 export default Services;

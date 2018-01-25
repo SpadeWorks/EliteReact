@@ -260,10 +260,8 @@ export class Services {
     static createOrSaveTestDrive(testDrive: TestDrive) {
         return new Promise((resolve, reject) => {
             var promises = [];
-            testDrive.testCases && testDrive.testCases.length > 0 &&
-                promises.push(this.createTestCase(testDrive.testCases));
-            testDrive.questions && testDrive.questions.length > 0 &&
-                promises.push(this.createQuestions(testDrive.questions));
+            promises.push(this.createTestCase(testDrive.testCases));
+            promises.push(this.createQuestions(testDrive.questions));
 
             Promise.all(promises).then((results) => {
                 let testCases = results[0];
@@ -285,7 +283,7 @@ export class Services {
                     LevelID_id: 1,
 
                 }
-                if (questions) {
+                if (questions.length > 0) {
                     let ids = [];
                     results[1].map(questions => {
                         ids.push(questions.id);
@@ -294,7 +292,7 @@ export class Services {
                         results: ids || []
                     }
                 }
-                if (testCases) {
+                if (testCases.length > 0) {
                     let ids = [];
                     results[0].map(testCase => {
                         ids.push(testCase.id);
@@ -321,7 +319,7 @@ export class Services {
     static createTestCase(testCases: TestCase[]) {
         return new Promise((resolve, reject) => {
             var testCasesArray = [];
-            if (testCases.length > 0) {
+            if (testCases && testCases.length > 0) {
                 testCases.forEach((testCase, index) => {
                     testCasesArray.push({
                         ID: testCase.newItem ? -1 : testCase.id,
@@ -350,7 +348,7 @@ export class Services {
     static createQuestions(questions: Question[]) {
         return new Promise((resolve, reject) => {
             var questionsArray = [];
-            if (questions.length > 0) {
+            if(questions && questions.length > 0) {
                 questions.forEach((question, index) => {
                     questionsArray.push({
                         ID: question.newItem ? -1 : question.id,

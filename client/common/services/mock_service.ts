@@ -1,7 +1,7 @@
+
 import Promise from "ts-promise";
 import delay from './delay';
-import { TestDrive } from '../model';
-
+import { TestDrive, Question, TestCase } from '../../test_drive/model';
 
 export const data = [
   {
@@ -75,10 +75,60 @@ export const data = [
   }
 ];
 
-class TestDriveApi {
+class Services {
   private static KEYS = {
     TEST_DRIVE_ID: "TEST_DRIVE",
     TEST_CASE_ID: "TEST_CASE_ID"
+  }
+
+  static getCurrentUserID() {
+    return 1; //TODO 
+  }
+
+  static getTestDrivesByOwerneID(ownerID: number) {
+    return new Promise((resolve, reject) => {
+      resolve(data);
+    });
+  }
+
+  static getTestCasesByIds(testCaseIDs: number[]) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(data[0].testCases);
+      }, delay);
+    });
+  }
+
+  static getQuestonsByIds(questionIDs: number[]) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(data[0].questions);
+      }, delay);
+    });
+  }
+
+  static createOrSaveTestDrive(testDrive: TestDrive) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({ status: 'OK', testDrive });
+      }, delay);
+    });
+  }
+
+  static createTestCase(testCases: TestCase[]) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({ status: 'OK', testCases });
+      }, delay);
+    });
+  }
+
+  static createQuestions(questions: Question[]) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({ status: 'OK', questions });
+      }, delay);
+    });
   }
 
   static uploadImage() {
@@ -89,13 +139,6 @@ class TestDriveApi {
     });
   }
 
-  static saveTestDrive(testDrive: TestDrive) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve({ status: 'OK', testDrive });
-      }, delay);
-    });
-  }
 
   static generateID(key: string) {
     const id = localStorage.getItem(key);
@@ -141,34 +184,18 @@ class TestDriveApi {
     });
   }
 
-  static getTestCasesByIds(testCaseIDs: number[]) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(data[0].testCases);
-      }, delay);
-    });
-  }
-
-  static getQuestonsByIds(questionIDs: number[]) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(data[0].questions);
-      }, delay);
-    });
-  }
-
-  static getFunctions() {
+  static getRegions() {
     return new Promise((resolve, reject) => {
       const data = [
-        { function: 'Function 1', name: 'Function 1' },
-        { function: 'Function 2', name: 'Function 2' },
-        { function: 'Function 3', name: 'Function 3' },
-        { function: 'Function 4', name: 'Function 4' },
-        { function: 'Function 5', name: 'Function 5' },
-        { function: 'Function 6', name: 'Function 6' },
-        { function: 'Function 7', name: 'Function 7' },
-        { function: 'Function 8', name: 'Function 8' },
-        { function: 'Function 9', name: 'Function 9' },
+        { Label: 'Region 1', TermGuid: 'Region 1' },
+        { Label: 'Region 2', TermGuid: 'Region 2' },
+        { Label: 'Region 3', TermGuid: 'Region 3' },
+        { Label: 'Region 4', TermGuid: 'Region 4' },
+        { Label: 'Region 5', TermGuid: 'Region 5' },
+        { Label: 'Region 6', TermGuid: 'Region 6' },
+        { Label: 'Region 7', TermGuid: 'Region 7' },
+        { Label: 'Region 8', TermGuid: 'Region 8' },
+        { Label: 'Region 9', TermGuid: 'Region 9' },
       ];
       setTimeout(() => {
         resolve(data);
@@ -179,15 +206,15 @@ class TestDriveApi {
   static getLocations() {
     return new Promise((resolve, reject) => {
       const data = [
-        { location: 'Location 1', name: 'Location 1' },
-        { location: 'Location 2', name: 'Location 2' },
-        { location: 'Location 3', name: 'Location 3' },
-        { location: 'Location 4', name: 'Location 4' },
-        { location: 'Location 5', name: 'Location 5' },
-        { location: 'Location 6', name: 'Location 6' },
-        { location: 'Location 7', name: 'Location 7' },
-        { location: 'Location 8', name: 'Location 8' },
-        { location: 'Location 9', name: 'Location 9' },
+        { Label: 'Location 1', TermGuid: 'Location 1' },
+        { Label: 'Location 2', TermGuid: 'Location 2' },
+        { Label: 'Location 3', TermGuid: 'Location 3' },
+        { Label: 'Location 4', TermGuid: 'Location 4' },
+        { Label: 'Location 5', TermGuid: 'Location 5' },
+        { Label: 'Location 6', TermGuid: 'Location 6' },
+        { Label: 'Location 7', TermGuid: 'Location 7' },
+        { Label: 'Location 8', TermGuid: 'Location 8' },
+        { Label: 'Location 9', TermGuid: 'Location 9' },
       ]
 
       setTimeout(() => {
@@ -199,15 +226,15 @@ class TestDriveApi {
   static getDevices() {
     return new Promise((resolve, reject) => {
       const data = [
-        { device: 'Device 1', name: 'Device 1' },
-        { device: 'Device 2', name: 'Device 2' },
-        { device: 'Device 3', name: 'Device 3' },
-        { device: 'Device 4', name: 'Device 4' },
-        { device: 'Device 5', name: 'Device 5' },
-        { device: 'Device 6', name: 'Device 6' },
-        { device: 'Device 7', name: 'Device 7' },
-        { device: 'Device 8', name: 'Device 8' },
-        { device: 'Device 9', name: 'Device 9' },
+        { Label: 'Device 1', TermGuid: 'Device 1' },
+        { Label: 'Device 2', TermGuid: 'Device 2' },
+        { Label: 'Device 3', TermGuid: 'Device 3' },
+        { Label: 'Device 4', TermGuid: 'Device 4' },
+        { Label: 'Device 5', TermGuid: 'Device 5' },
+        { Label: 'Device 6', TermGuid: 'Device 6' },
+        { Label: 'Device 7', TermGuid: 'Device 7' },
+        { Label: 'Device 8', TermGuid: 'Device 8' },
+        { Label: 'Device 9', TermGuid: 'Device 9' },
       ]
 
       setTimeout(() => {
@@ -219,15 +246,15 @@ class TestDriveApi {
   static getOSes() {
     return new Promise((resolve, reject) => {
       const data = [
-        { os: 'OS 1', name: 'OS 1' },
-        { os: 'OS 2', name: 'OS 2' },
-        { os: 'OS 3', name: 'OS 3' },
-        { os: 'OS 4', name: 'OS 4' },
-        { os: 'OS 5', name: 'OS 5' },
-        { os: 'OS 6', name: 'OS 6' },
-        { os: 'OS 7', name: 'OS 7' },
-        { os: 'OS 8', name: 'OS 8' },
-        { os: 'OS 9', name: 'OS 9' },
+        { Label: 'OS 1', TermGuid: 'OS 1' },
+        { Label: 'OS 2', TermGuid: 'OS 2' },
+        { Label: 'OS 3', TermGuid: 'OS 3' },
+        { Label: 'OS 4', TermGuid: 'OS 4' },
+        { Label: 'OS 5', TermGuid: 'OS 5' },
+        { Label: 'OS 6', TermGuid: 'OS 6' },
+        { Label: 'OS 7', TermGuid: 'OS 7' },
+        { Label: 'OS 8', TermGuid: 'OS 8' },
+        { Label: 'OS 9', TermGuid: 'OS 9' },
       ]
 
       setTimeout(() => {
@@ -245,4 +272,4 @@ class TestDriveApi {
   }
 }
 
-export default TestDriveApi;
+export default Services;

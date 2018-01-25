@@ -83,7 +83,7 @@ const updateTestDrive = createAction<TestDrive, any, TestDrive>(
 const updateMultiSelect = createAction<any, any, string, TestDrive>(
   UPDATE_TestDrive,
   (value: any, controlName: string, testDrive: TestDrive) => {
-      testDrive[controlName] = value;
+    testDrive[controlName] = value;
     return testDrive;
   }
 )
@@ -182,17 +182,7 @@ const deleteQuestion = createAction<number, number>(
 const updateQuestion = createAction<Question, any, Question>(
   UPDATE_Question,
   (e: any, question: Question) => {
-    if (e.target.type && e.target.type.toLowerCase() === "select-multiple") {
-      let list = e.target.selectedOptions;
-      let selectedItems = [];
-      for (let i = 0; i < list.length; i++) {
-        selectedItems.push(list[i].value);
-      }
-
-      question[e.target.name] = selectedItems;
-    } else {
-      question[e.target.name] = e.target.value;
-    }
+    question[e.target.name] = e.target.value;
     return question;
   }
 )
