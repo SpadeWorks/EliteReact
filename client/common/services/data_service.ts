@@ -243,7 +243,7 @@ export class Services {
                         questions.map(q => {
                             questionArray.push({
                                 id: q.ID,
-                                title: q.Title,
+                                title: q.Question,
                                 questionType: q.ResponseType,
                                 options: q.Responses,
                                 isInEditMode: false
@@ -348,7 +348,7 @@ export class Services {
     static createQuestions(questions: Question[]) {
         return new Promise((resolve, reject) => {
             var questionsArray = [];
-            if(questions && questions.length > 0) {
+            if (questions && questions.length > 0) {
                 questions.forEach((question, index) => {
                     questionsArray.push({
                         ID: question.newItem ? -1 : question.id,
@@ -450,17 +450,19 @@ export class Services {
 
     static uploadFiles(file: any, fileName: string) {
         return new Promise((resolve, reject) => {
-            let ctx = SP.ClientContext.get_current();
-            let folderName = _spPageContextInfo.siteServerRelativeUrl + "/PublishingImages";
-            Utils.uploadFile(ctx, folderName, fileName, file).then((data) => {
-                resolve({
-                    data: {
-                        link: location.protocol + "//" + location.hostname + data.data.ServerRelativeUrl
-                    }
+            SP.SOD.executeFunc("sp.js", "SP.ClientContext", () => {
+                let ctx = SP.ClientContext.get_current();
+                let folderName = _spPageContextInfo.siteServerRelativeUrl + "/PublishingImages";
+                Utils.uploadFile(ctx, folderName, fileName, file).then((data) => {
+                    resolve({
+                        data: {
+                            link: location.protocol + "//" + location.hostname + data.data.ServerRelativeUrl
+                        }
+                    });
+                }, err => {
+                    reject(err);
                 });
-            }, err => {
-                reject(err);
-            });
+            })
         });
     }
 

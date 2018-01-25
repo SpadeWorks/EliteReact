@@ -5,6 +5,7 @@ import 'react-select/dist/react-select.css';
 import { DateRange, Calendar } from 'react-date-range';
 import { TestDrive, IState } from '../model';
 import Service from '../../common/services/services';
+import * as $ from 'jquery';
 
 import { updateDate } from '../index';
 
@@ -52,7 +53,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
 
     locationChange = (value) => {
         this.props.updateMultiSelect(value, "location", this.props.testDrive);
-    } 
+    }
 
     deviceChange = (value) => {
         this.props.updateMultiSelect(value, "requiredDevices", this.props.testDrive);
@@ -60,7 +61,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
 
     osChange = (value) => {
         this.props.updateMultiSelect(value, "requiredOs", this.props.testDrive);
-    } 
+    }
 
 
     getRegions(input, callback) {
@@ -130,6 +131,16 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         });
     }
 
+    // componentDidMount() {
+    //     $(document).mouseup((e)=> {
+    //         var container = $(".date_box");
+    //         // if the target of the click isn't the container nor a descendant of the container
+    //         if (!container.is(e.target) && container.has(e.target).length === 0) {
+    //             this.props.updateUI({ showDatePicker: false });
+    //         }
+    //     });
+    // }
+
 
 
     render() {
@@ -175,7 +186,6 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 type="text"
                                 value={Service.formatDate(testDrive.startDate) || ''}
                                 onFocus={() => { updateUI({ showDatePicker: true }) }}
-                                onBlur={() => { updateUI({ showDatePicker: false }) }}
                                 readOnly
                             />
                         </div>
@@ -191,21 +201,21 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 type="text"
                                 value={Service.formatDate(testDrive.endDate) || ''}
                                 onFocus={() => { updateUI({ showDatePicker: true }) }}
-                                onBlur={() => { updateUI({ showDatePicker: false }) }}
                                 readOnly
 
                             />
                         </div>
                     </div>
-                   {/*className={ui.showDatePicker ? "show-tab" : "hide-tab"}*/}
-                    <div >
-                        <div className="register_input date-picker" >
+                    {/*className={ui.showDatePicker ? "show-tab" : "hide-tab"}*/}
+                    {/*<div id="calandeDiv">
+                        <div className={"register_input date-picker date_box " + (ui.showDatePicker ? "show-tab" : "hide-tab")}>
                             <DateRange
                                 onChange={this.handleChange.bind(this, 'rangePicker')}
                                 minDate={Service.formatDate("today")}
+                                onFocus={() => { updateUI({ showDatePicker: true }) }}
                             />
                         </div>
-                    </div>
+                    </div>*/}
 
 
                     <div className="col-md-12 register_input">
@@ -265,12 +275,12 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
 
                     <br></br>
                     <div className="col-md-12">
-                    <div style={butttonGroup}>
-                        <input type="button" value="Next" className="button type1 nextBtn btn-lg pull-right" />
-                        <input type="button" value="Save" className="button type1 nextBtn btn-lg pull-right"
-                            onClick={() => { saveTestDrive(testDrive) }} />
+                        <div style={butttonGroup}>
+                            <input type="button" value="Next" className="button type1 nextBtn btn-lg pull-right" />
+                            <input type="button" value="Save" className="button type1 nextBtn btn-lg pull-right"
+                                onClick={() => { saveTestDrive(testDrive) }} />
 
-                    </div>
+                        </div>
                     </div>
                 </div>
             </form>

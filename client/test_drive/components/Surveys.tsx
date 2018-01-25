@@ -32,7 +32,10 @@ class Surveys extends React.Component<SurveysProps> {
     }
 
     componentDidMount(){
-        this.props.loadQuestions(this.props.questionIds);
+        const questions = this.props.questions;
+        if(!questions || questions.length == 0){
+            this.props.loadQuestions(this.props.questionIds);
+        }   
     }
 
     render() {

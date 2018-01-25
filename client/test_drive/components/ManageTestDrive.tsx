@@ -71,7 +71,7 @@ class ManageTestDrive extends React.Component<AppProps> {
         this.props.updateUI({ activeTab: key });
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.props.dispatch(loadTestDrive(this.props.id || -1));
     }
 

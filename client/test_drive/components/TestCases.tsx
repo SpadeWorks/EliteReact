@@ -33,9 +33,11 @@ class TestCases extends React.Component<TestCasesProps> {
     }
 
     componentDidMount(){
-        this.props.loadTestCases(this.props.testCaseIds);
+        const testCase = this.props.testCases;
+        if(!testCase || testCase.length == 0){
+            this.props.loadTestCases(this.props.testCaseIds);
+        }
     }
-
     render() {
         const { 
             testDrive,

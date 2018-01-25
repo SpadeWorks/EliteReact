@@ -279,8 +279,12 @@ export default handleActions<IState, any>({
         return {
             ...state,
             testDrive: {
-                ...testDrive, testCases: testDrive.testCases.filter(testCase => {
+                ...testDrive, 
+                testCases: testDrive.testCases.filter(testCase => {
                     return testCase.id !== action.payload
+                }),
+                testCaseIDs: testDrive.testCaseIDs.filter(testCaseID => {
+                    return testCaseID !== action.payload
                 })
             }
         }
@@ -347,8 +351,12 @@ export default handleActions<IState, any>({
         return {
             ...state,
             testDrive: {
-                ...testDrive, questions: testDrive.questions.filter(question => {
+                ...testDrive, 
+                questions: testDrive.questions.filter(question => {
                     return question.id !== action.payload
+                }),
+                questionIDs: testDrive.questionIDs.filter(id => {
+                    return id !== action.payload
                 })
             }
         }

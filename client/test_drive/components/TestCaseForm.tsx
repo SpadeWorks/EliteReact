@@ -23,8 +23,8 @@ interface TestCaseFormProps {
 
 @ui({
     state: {
-        scenario: null,
-        expectedOutcome: null
+        scenario: 'Please Enter the Scenario',
+        expectedOutcome: 'Please Enter the Expected Output.'
     }
 })
 
@@ -222,7 +222,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                             <div id="scenario">
                                 {ui.scenario &&
                                     <Editor
-                                        editorState={ui.scenario}
+                                        /*editorState={ui.scenario}*/
                                         toolbarClassName="rte-toolbar"
                                         wrapperClassName="rte-wrapper"
                                         editorClassName="rte-editor"
@@ -242,7 +242,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                             <div id="expectedOutcome">
                                 {ui.expectedOutcome &&
                                     <Editor
-                                        editorState={ui.expectedOutcome}
+                                        /*editorState={ui.expectedOutcome}*/
                                         toolbarClassName="rte-toolbar"
                                         wrapperClassName="rte-wrapper"
                                         editorClassName="rte-editor"
