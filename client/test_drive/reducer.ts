@@ -16,6 +16,9 @@ import {
     SAVE_TestDrive_REJECTED,
     SUBMIT_TestDrive_PENDING,
     SUBMIT_TestDrive_FULFILLED,
+    LOAD_PointsConfigurations_FULFILLED,
+    LOAD_PointsConfigurations_PENDING,
+    UPDATE_MaxPoints,
 
     LOAD_TestCases_PENDING,
     LOAD_TestCases_FULFILLED,
@@ -35,11 +38,13 @@ import {
     UPDATE_Question,
     SWITCH_Tab,
     UPDATE_Date,
-    DATE_FocusChange
+    DATE_FocusChange,
+    LOAD_PointsConfigurations
 
 } from './constants/ActionTypes';
 import { access, stat } from 'fs';
 import TestDrives from './components/TestDrives';
+import { loadTestDrives } from './index';
 
 const initialState: IState = {
     testDrive: {
@@ -58,7 +63,7 @@ const initialState: IState = {
         testCases: [],
         questions: [],
         status: 'Draft',
-        level: 'level1'
+        level: 'Level1',
     },
     testCase: {
         id: -1,
@@ -82,7 +87,13 @@ const initialState: IState = {
         isInEditMode: false
     },
     loading: true,
-    activeTab: '1'
+    activeTab: '1',
+    configurationLoaded: false,
+    configurations: {
+        testCasePoints: 10,
+        fieldDescription: {},
+        testDriveLevelsConfig: {}
+    }
 };
 
 export default handleActions<IState, any>({
@@ -94,17 +105,32 @@ export default handleActions<IState, any>({
         }
     },
 
+    [LOAD_PointsConfigurations_PENDING]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            configurationLoaded: false,
+        }
+    },
+
+    [LOAD_PointsConfigurations_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            configurations: { ...state.configurations, ...action.payload },
+            configurationLoaded: true,
+        }
+    },
+
     [LOAD_TestDrive_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
             loading: true,
         }
     },
-    
+
     [LOAD_TestDrive_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            testDrive: {...state.testDrive, ...action.payload},
+            testDrive: { ...state.testDrive, ...action.payload },
             loading: false,
         }
     },
@@ -115,7 +141,7 @@ export default handleActions<IState, any>({
             loading: true,
         }
     },
-    
+
     [LOAD_TestDrives_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
@@ -190,10 +216,10 @@ export default handleActions<IState, any>({
         }
     },
 
-    [LOAD_TestCases_FULFILLED]: (state: IState, action: Action<TestCase []>): IState => {
+    [LOAD_TestCases_FULFILLED]: (state: IState, action: Action<TestCase[]>): IState => {
         return {
             ...state,
-            testDrive: { ...state.testDrive , testCases: action.payload },
+            testDrive: { ...state.testDrive, testCases: action.payload },
             loading: false
         }
     },
@@ -205,10 +231,27 @@ export default handleActions<IState, any>({
         }
     },
 
-    [LOAD_Questions_FULFILLED]: (state: IState, action: Action<Question []>): IState => {
+    [LOAD_Questions_FULFILLED]: (state: IState, action: Action<Question[]>): IState => {
         return {
             ...state,
-            testDrive: { ...state.testDrive , questions: action.payload },
+            testDrive: { ...state.testDrive, questions: action.payload },
+            loading: false
+        }
+    },
+
+    [UPDATE_MaxPoints]: (state: IState, action: Action<any>): IState => {
+        let poinstForLevle = state.configurations.testDriveLevelsConfig[state.testDrive.level] ?
+            state.configurations.testDriveLevelsConfig[state.testDrive.level].points : 0;
+        let numberOfTestCases = state.testDrive.testCases && state.testDrive.testCases.length;
+        numberOfTestCases = numberOfTestCases == undefined ?
+            state.testDrive.testCaseIDs && state.testDrive.testCaseIDs.length : numberOfTestCases;
+        let pointsForTestCase = state.configurations.testCasePoints || 10 ;
+        return {
+            ...state,
+            testDrive: {
+                ...state.testDrive,
+                maxPoints: poinstForLevle + numberOfTestCases * pointsForTestCase
+            },
             loading: false
         }
     },
@@ -231,9 +274,10 @@ export default handleActions<IState, any>({
             ...state,
 
             testDrive: {
-                ...state.testDrive, testCases: state.testDrive.testCases.map(testCase => {
+                ...state.testDrive,
+                testCases: state.testDrive.testCases.map(testCase => {
                     return { ...testCase, isInEditMode: false }
-                }).concat(testCase)
+                }).concat(testCase),
             },
             testCase: testCase,
             loading: false
@@ -279,11 +323,11 @@ export default handleActions<IState, any>({
         return {
             ...state,
             testDrive: {
-                ...testDrive, 
-                testCases: testDrive.testCases.filter(testCase => {
+                ...testDrive,
+                testCases: testDrive.testCases && testDrive.testCases.filter(testCase => {
                     return testCase.id !== action.payload
                 }),
-                testCaseIDs: testDrive.testCaseIDs.filter(testCaseID => {
+                testCaseIDs: testDrive.testCaseIDs && testDrive.testCaseIDs.filter(testCaseID => {
                     return testCaseID !== action.payload
                 })
             }
@@ -351,7 +395,7 @@ export default handleActions<IState, any>({
         return {
             ...state,
             testDrive: {
-                ...testDrive, 
+                ...testDrive,
                 questions: testDrive.questions.filter(question => {
                     return question.id !== action.payload
                 }),

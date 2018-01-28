@@ -18,8 +18,10 @@ export const SUBMIT_TestDrive_FULFILLED = "SUBMIT_TestDrive_FULFILLED";
 export const SWITCH_Tab = "SWITCH_Tab";
 export const UPDATE_Date = "UPDATE_Date"; 
 export const DATE_FocusChange = "DATE_FocusChange";
-
-
+export const LOAD_PointsConfigurations = "LOAD_PointsConfigurations";
+export const LOAD_PointsConfigurations_PENDING = "LOAD_PointsConfigurations_PENDING";
+export const LOAD_PointsConfigurations_FULFILLED  = "LOAD_PointsConfigurations_FULFILLED";
+export const UPDATE_MaxPoints = "UPDATE_MaxPoints";
 
 // Test Case Actions.
 export const LOAD_TestCases = 'LOAD_TestCases';

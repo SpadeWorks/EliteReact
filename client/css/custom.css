@@ -16,7 +16,7 @@
 			    height: 100vh;
 			    -webkit-transform: opacity 0.3s linear;
 			    transform: opacity 0.3s linear;
-			    background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/bg-stars.gif) !important;
+			    /* background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/bg-stars.gif) !important; */
 			    width: 100%;
 			    height: auto;
 			    /* width: 100%; */
@@ -36,7 +36,7 @@
 			    height: 100vh;
 			    -webkit-transform: opacity 0.3s linear;
 			    transform: opacity 0.3s linear;
-			    background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/back.jpg) no-repeat !important;
+			    background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/dash_back.jpg) no-repeat !important; */
 			    width: 100%;
 			    height: auto;
 			    width: 100%;
@@ -2843,16 +2843,12 @@ label {
     border-radius: 10px;
 }
 
-
-
-
-
 /*scrollbar style ends here*/
 
 .wrapper {
     width: 88%;
     margin: 0 auto;
-    margin-top: 80px;
+    margin-top: 15px;
 }
 
 .form-control {
@@ -4224,8 +4220,8 @@ label.rdw-image-modal-upload-option-label {
     border-radius: 30px !important;
     padding-left: 10px !important;
     padding-right: 10px !important;
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
     margin-bottom: 10px !important;
     outline: none !important;
 }
@@ -4250,5 +4246,117 @@ label.rdw-image-modal-upload-option-label {
 
 .Select-menu-outer {
     border: 1px solid #575757 !important;
+}
+
+.rdr-MonthAndYear-button{
+    min-width: 0px !important;
+}
+
+input#form-control.date_box {
+    background: transparent !important;
+    border: 1px transparent;
+    border-bottom: 1px solid #575757;
+    color: white;
+    font-size: 18px;
+    font-family: inherit !important;
+}
+
+input.inputMaterial {
+    background: transparent !important;
+    border: none;
+    color: white;
+    border-bottom: 1px solid #575757;
+}
+
+.Select.is-focused:not(.is-open) > .Select-control{
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.Select-value-label{
+    color: white !important;
+    font-family: inherit !important;
+    font-size: 18px !important;
+}
+.Select-placeholder{
+    font-family: inherit !important;
+    font-size: 18px !important;
+}
+
+.Select-control .Select-input:focus{
+    background: none !important;
+}
+
+.input-number {
+    margin-top: 40px;
+}
+
+div#suiteBar {
+    display: none !important;
+}
+
+div#s4-ribbonrow {
+    display: none !important;
+}
+
+.cancel-btn {
+    float: right;
+    margin-top: 35px;
+    /* color: white; */
+}
+.element.style {
+    float: right;
+    margin-top: 35px;
+    /* color: white; */
+}
+
+.cancel-btn a {
+    color: white !important;
+}
+
+.cancel-btn a:hover {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.page-heading{
+    float: left;
+}
+
+.clearBoth{
+    clear: both;
+}
+
+.component-container{
+    height: 360px;
+}
+
+.home-tab-container{
+    background: #ffffff0a;
+    margin-top: -100px;
+}
+
+.lc-box{
+    height:50px;
+    border-bottom: solid 2px #fff;
+}
+
+.lc-box-height{
+    height:50px;
+}
+
+.users-count-meter{
+    margin-top: 50px;
+}
+
+.center-container{
+    position: absolute;
+    top: 130px; 
+    font-size: 35px;
+}
+
+.black_box_right.pull-right.black_box, .black_box.home-tab-container{
+    min-height: 289px;
 }
 /*modifications ends on registration//////////////////////////////*/

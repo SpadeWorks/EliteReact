@@ -8,6 +8,7 @@ import TestCases from './TestCases';
 import TabCar from './TabCar';
 import Services from '../../common/services/services';
 import Surveys from './Surveys';
+import { Link } from "react-router-dom";
 import {
     model,
     saveTestDrive,
@@ -29,7 +30,9 @@ import {
     updateQuestion,
     loadTestDrives,
     loadTestCases,
-    loadQuestions
+    loadQuestions,
+    loadConfigurations,
+    updateMaxPoints
 } from '../../test_drive';
 
 interface AppProps {
@@ -43,6 +46,8 @@ interface AppProps {
     dispatch: Dispatch<{}>;
     questions: model.Question[];
     question: model.Question;
+    configurationLoaded: boolean;
+    configurations: any;
 };
 
 @ui({
@@ -71,7 +76,10 @@ class ManageTestDrive extends React.Component<AppProps> {
         this.props.updateUI({ activeTab: key });
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        if(!this.props.configurationLoaded){
+            this.props.dispatch(loadConfigurations());
+        }
         this.props.dispatch(loadTestDrive(this.props.id || -1));
     }
 
@@ -79,7 +87,8 @@ class ManageTestDrive extends React.Component<AppProps> {
         const { testDrive, question, dispatch, loading, testCase, ui, updateUI } = this.props;
         return (
             <div className="container">
-                <h2>REGISTER A TEST DRIVE</h2>
+                <h2 className="page-heading">Create Test Drive</h2>
+                <h4 className="cancel-btn"><Link to={"/testdrives"}>Cancel</Link></h4>
                 <div className="col-md-12">
                     <div className="wrapper">
                         <Loader show={loading} message={'Loading...'}>
@@ -93,6 +102,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                         onChange={(e, testDrive) => dispatch(updateTestDrive(e, testDrive))}
                                         updateMultiSelect={(value, control, testDrive) => dispatch(updateMultiSelect(value, control, testDrive))}
                                         updateDates={(dates) => dispatch(updateDate(dates))}
+                                        updateMaxPoints = {() => dispatch(updateMaxPoints())}
                                         updateUI={updateUI}
                                         ui={ui}
                                     />
@@ -109,6 +119,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                             deleteTestCase={(id) => dispatch(deleteTestCase(id))}
                                             onChange={(e, testCase) => dispatch(updateTestCase(e, testCase))}
                                             addTestCase={() => dispatch(addTestCase())}
+                                            updateMaxPoints = {() => dispatch(updateMaxPoints())}
                                             testDrive={testDrive}
                                             updateUI={updateUI}
                                             ui={ui}
@@ -155,7 +166,9 @@ const mapStateToProps = (state, ownProps) => {
         testDrives: state.testDriveState.testDrives,
         loading: state.testDriveState.loading || state.asyncInitialState.loading,
         testCase: state.testDriveState.testCase,
-        question: state.testDriveState.question
+        question: state.testDriveState.question,
+        configurations: state.testDriveState.configurations,
+        configurationLoaded: state.testDriveState.configurationLoaded,
     }
 };
 

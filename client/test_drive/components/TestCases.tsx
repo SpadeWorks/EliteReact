@@ -15,6 +15,7 @@ interface TestCasesProps {
     testCases: TestCase[];
     newTestCase: TestCase;
     addTestCase: () => any;
+    updateMaxPoints: () => any;
     deleteTestCase: (id: number) => any;
     saveTestCase: (testCase: TestCase) => any;
     editTestCase: (TestCase: TestCase) => any;
@@ -30,6 +31,7 @@ class TestCases extends React.Component<TestCasesProps> {
     constructor(props, context) {
         super(props, context);
         //  this.handleEdit = this.handleEdit.bind(this);
+        this.addTestCase = this.addTestCase.bind(this);
     }
 
     componentDidMount(){
@@ -37,6 +39,11 @@ class TestCases extends React.Component<TestCasesProps> {
         if(!testCase || testCase.length == 0){
             this.props.loadTestCases(this.props.testCaseIds);
         }
+    }
+
+    addTestCase(){
+        this.props.addTestCase();
+        this.props.updateMaxPoints();
     }
     render() {
         const { 
@@ -47,6 +54,7 @@ class TestCases extends React.Component<TestCasesProps> {
             onChange,
             newTestCase,
             deleteTestCase,
+            updateMaxPoints,
             addTestCase,
             saveTestDrive,
             ui,
@@ -55,7 +63,7 @@ class TestCases extends React.Component<TestCasesProps> {
         return (
             <div className="test-case-container col-xs-12">
                 <div className="add-button col-md-2 add_test pull-right text-right">
-                    <a href="#" onClick={addTestCase}> + add test case </a>
+                    <a href="#" onClick={this.addTestCase}> + add test case </a>
                 </div>
                 <div className="col-md-12">
                     {
@@ -65,6 +73,7 @@ class TestCases extends React.Component<TestCasesProps> {
                                 saveTestCase={saveTestCase}
                                 editTestCase={editTestCase}
                                 deleteTestCase={deleteTestCase}
+                                updateMaxPoints = {updateMaxPoints}
                                 onChange={onChange}
                                 key={testCase.id}
                                 ui={ui}

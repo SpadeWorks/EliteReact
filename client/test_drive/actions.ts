@@ -27,7 +27,9 @@ import {
   SWITCH_Tab,
   UPDATE_Date,
   DATE_FocusChange,
-  UPDATE_Question
+  UPDATE_Question,
+  LOAD_PointsConfigurations,
+  UPDATE_MaxPoints
 
 } from './constants/ActionTypes';
 
@@ -95,6 +97,10 @@ const deleteTestDrive = createAction<number, number>(
   }
 );
 
+const updateMaxPoints = createAction(
+  UPDATE_MaxPoints
+);
+
 // Test Drives Action creator ends here.
 
 // Test Cases Action creator starts here.
@@ -104,8 +110,13 @@ const loadTestCases = createAction<any, number[]>(
   (testCaseIds: number[]) => Services.getTestCasesByIds(testCaseIds)
 );
 
+const loadConfigurations = createAction<any>(
+  LOAD_PointsConfigurations,
+  () => Services.getConfigurations()
+)
+
 const addTestCase = createAction(
-  ADD_TestCase
+  ADD_TestCase,
 );
 
 const editTestCase = createAction<TestCase, TestCase>(
@@ -237,5 +248,7 @@ export {
   updateQuestion,
   loadTestDrives,
   loadTestCases,
-  loadQuestions
+  loadQuestions,
+  loadConfigurations,
+  updateMaxPoints
 }

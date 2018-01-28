@@ -17,14 +17,15 @@ interface TestCaseFormProps {
     saveTestCase: (testCase: TestCase) => any;
     editTestCase: (TestCase: TestCase) => any;
     onChange: (event: any, TestCase: TestCase) => any;
+    updateMaxPoints: () => any;
     updateUI: (any) => any;
     ui: any;
 };
 
 @ui({
     state: {
-        scenario: 'Please Enter the Scenario',
-        expectedOutcome: 'Please Enter the Expected Output.'
+        scenario: null,
+        expectedOutcome: null
     }
 })
 
@@ -48,6 +49,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
         this.onScenarioChange = this.onScenarioChange.bind(this);
         this.onExpectedOutcomeChange = this.onExpectedOutcomeChange.bind(this);
         this.uploadImageCallBack = this.uploadImageCallBack.bind(this);
+        this.deleteTestCase = this.deleteTestCase.bind(this);
     }
 
     onChange = (e) => {
@@ -132,6 +134,11 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
         }
     }
 
+    deleteTestCase(testCaseID: number){
+        this.props.deleteTestCase(testCaseID);
+        this.props.updateMaxPoints();
+    }
+
     componentDidMount() {
         this.updateInitialEditorValue("scenario");
         this.updateInitialEditorValue("expectedOutcome");
@@ -160,7 +167,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
 
                         <div className="pull-right">
                             <a href="#"><i className="material-icons"
-                                onClick={() => deleteTestCase(testCase.id)}>delete</i></a>
+                                onClick={() => this.deleteTestCase(testCase.id)}>delete</i></a>
                             {!testCase.isInEditMode &&
                                 <a href="#"><i className="material-icons"
                                     onClick={() => editTestCase(testCase)}>mode_edit</i></a>
@@ -218,11 +225,12 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                 rtl={false}
                                 searchable={false}
                             />
-
+                            <h5>Scenario</h5>
                             <div id="scenario">
                                 {ui.scenario &&
                                     <Editor
-                                        /*editorState={ui.scenario}*/
+                                        editorState={ui.scenario}
+                                        toolbarOnFocus
                                         toolbarClassName="rte-toolbar"
                                         wrapperClassName="rte-wrapper"
                                         editorClassName="rte-editor"
@@ -238,11 +246,12 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                     />
                                 }
                             </div>
-
+                            <h5>Expected Outcome</h5>
                             <div id="expectedOutcome">
                                 {ui.expectedOutcome &&
                                     <Editor
                                         /*editorState={ui.expectedOutcome}*/
+                                        toolbarOnFocus
                                         toolbarClassName="rte-toolbar"
                                         wrapperClassName="rte-wrapper"
                                         editorClassName="rte-editor"

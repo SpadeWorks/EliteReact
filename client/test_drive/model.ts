@@ -46,6 +46,11 @@ export type TestDrive = {
     newItem?: boolean;
 };
 
+export type Configurations = {
+    testCasePoints: number;
+    testDriveLevelsConfig: object;
+    fieldDescription: object
+}
 
 export type IState = {
     testDrives: TestDrive[],
@@ -53,6 +58,8 @@ export type IState = {
     testCase: TestCase,
     question: Question,
     loading: boolean,
-    activeTab: string
+    activeTab: string,
+    configurations: Configurations;
+    configurationLoaded: boolean;
 }
 

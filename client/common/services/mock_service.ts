@@ -107,10 +107,37 @@ class Services {
     });
   }
 
+  static getConfigurations() {
+    return new Promise((resolve, reject) => {
+      resolve({
+        testCasePoints: 10,
+        testDriveLevelsConfig: {
+          Level1: 100,
+          Level2: 200,
+          Level3: 300,
+        },
+        fieldDescription:{
+          title: 'Please enter the title',
+          description: 'Please enter the descriptions.',
+          expectedBusinessValue: 'Please enter expected business value.'
+        } 
+      })
+    });
+  }
+
   static createOrSaveTestDrive(testDrive: TestDrive) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve({ status: 'OK', testDrive });
+        let testDrivesString = localStorage.getItem('testDrives');
+        let testDrives = testDrivesString ? JSON.parse(testDrivesString) : []; 
+        if(testDrive.id == -1){
+          testDrive.id = testDrives.length + 1;
+          testDrives.push(testDrive);
+        } else{
+          testDrives[testDrive.id] = testDrive;
+        }
+        localStorage.setItem('testDrive', testDrives);
+        resolve(testDrive);
       }, delay);
     });
   }
@@ -179,7 +206,10 @@ class Services {
   static getTestDriveById(id: number) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve({ ...data[0], id: id });
+        let testdrivesString = localStorage.getItem('testDrives');
+        let testDrives = testdrivesString ? JSON.parse(testdrivesString) : [];
+        let testDrive = testDrives[id] || [] ; 
+        resolve(testDrive);
       }, delay);
     });
   }
