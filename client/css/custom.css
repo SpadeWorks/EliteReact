@@ -1,6 +1,9 @@
 		    @font-face {
 		      font-family: "HemiHeadRg-BoldItalic";
-		      src: url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.eot?") format("eot"), url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.woff") format("woff"), url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.ttf") format("truetype"), url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.svg#HemiHeadRg-BoldItalic") format("svg");
+              src: url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.eot?") format("eot"), 
+              url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.woff") format("woff"), 
+              url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.ttf") format("truetype"), 
+              url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.svg#HemiHeadRg-BoldItalic") format("svg");
 		      font-weight: normal;
 		      font-style: normal;
 		    }
@@ -36,7 +39,7 @@
 			    height: 100vh;
 			    -webkit-transform: opacity 0.3s linear;
 			    transform: opacity 0.3s linear;
-			    background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/dash_back.jpg) no-repeat !important; */
+			    background: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/dash_back.jpg') no-repeat !important;
 			    width: 100%;
 			    height: auto;
 			    width: 100%;
@@ -2548,11 +2551,9 @@ span.counter {
 .mdl-textfield.is-invalid .mdl-textfield__input {
     border-color: #ffffff;
     padding: 15px 0;
-
+}
 .mdl-menu__outline.mdl-menu--bottom-left {
     width: 100% !important;
-}
-
 }
 
 .mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
@@ -3599,7 +3600,6 @@ span.l_count {
     background: #fff;
     float: left;
     display: block;
-    width:
 }
 
 .lc_containerclick {
@@ -4265,13 +4265,14 @@ input.inputMaterial {
     background: transparent !important;
     border: none;
     color: white;
-    border-bottom: 1px solid #575757;
+    border-bottom: 1px solid #575757 !important;
 }
 
 .Select.is-focused:not(.is-open) > .Select-control{
     border: none !important;
     box-shadow: none !important;
     background: transparent !important;
+    border-bottom: 1px solid #575757 !important;
 }
 
 .Select-value-label{
@@ -4357,6 +4358,6 @@ div#s4-ribbonrow {
 }
 
 .black_box_right.pull-right.black_box, .black_box.home-tab-container{
-    min-height: 289px;
+    min-height: 300px;
 }
 /*modifications ends on registration//////////////////////////////*/

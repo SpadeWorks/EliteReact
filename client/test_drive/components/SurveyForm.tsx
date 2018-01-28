@@ -91,14 +91,14 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                         </a>
 
                         <div className="pull-right">
-                            <a href="#"><i className="material-icons"
+                            <a href="javascript:void(0);"><i className="material-icons"
                                 onClick={() => deleteQuestion(question.id)}>delete</i></a>
                             {!question.isInEditMode &&
-                                <a href="#"><i className="material-icons"
+                                <a href="javascript:void(0);"><i className="material-icons"
                                     onClick={() => editQuestion(question)}>mode_edit</i></a>
                             }
                             {question.isInEditMode &&
-                                <a href="#" className="check_ico"
+                                <a href="javascript:void(0);" className="check_ico"
                                     onClick={() => saveQuestion(question)}>
                                     <i className="material-icons" style={checkBoxStyle}>check</i>
                                 </a>}

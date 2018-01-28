@@ -131,10 +131,14 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                     [editorName]: EditorState.createEmpty()
                 });
             }
+        } else {
+            this.props.updateUI({
+                [editorName]: EditorState.createEmpty()
+            });
         }
     }
 
-    deleteTestCase(testCaseID: number){
+    deleteTestCase(testCaseID: number) {
         this.props.deleteTestCase(testCaseID);
         this.props.updateMaxPoints();
     }
@@ -169,11 +173,11 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                             <a href="#"><i className="material-icons"
                                 onClick={() => this.deleteTestCase(testCase.id)}>delete</i></a>
                             {!testCase.isInEditMode &&
-                                <a href="#"><i className="material-icons"
+                                <a href="javascript:void(0);"><i className="material-icons"
                                     onClick={() => editTestCase(testCase)}>mode_edit</i></a>
                             }
                             {testCase.isInEditMode &&
-                                <a href="#" className="check_ico"
+                                <a href="javascript:void(0);" className="check_ico"
                                     onClick={() => saveTestCase(testCase)}>
                                     <i className="material-icons" style={checkBoxStyle}>check</i>
                                 </a>}

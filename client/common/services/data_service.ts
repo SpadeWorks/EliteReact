@@ -160,6 +160,7 @@ export class Services {
                 'TestDriveOwner/UserInfoName',
                 'TestCases/ID',
                 'Questions/ID',
+                'ExpectedBusinessValue'
             )
                 .expand('TestDriveOwner', 'LevelID', 'Questions', 'TestCases')
                 .get().then(testDrive => {
@@ -184,13 +185,13 @@ export class Services {
                         requiredOs: testDrive.AvailableOS.results,
                         maxTestDrivers: testDrive.MaxTestDrivers,
                         id: testDrive.ID,
-                        level: testDrive.LevelID.LevelName,
+                        level: testDrive.LevelID.ID,
                         owner: testDrive.TestDriveOwner.UserInfoName,
                         testCases: null,
                         questions: null,
                         testCaseIDs: testCases,
                         questionIDs: questions,
-                        expectedBusinessValue: ''
+                        expectedBusinessValue: testDrive.ExpectedBusinessValue
                     };
                     resolve(testDriveObj);
 
@@ -269,7 +270,7 @@ export class Services {
                                 id: q.ID,
                                 title: q.Question,
                                 questionType: q.ResponseType,
-                                options: q.Responses,
+                                options: JSON.parse(q.Responses),
                                 isInEditMode: false
                             })
                         });

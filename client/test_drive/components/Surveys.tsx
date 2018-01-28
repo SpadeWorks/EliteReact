@@ -55,7 +55,7 @@ class Surveys extends React.Component<SurveysProps> {
         return (
             <div className="test-case-container col-xs-12">
                 <div className="add-button col-md-2 add_test pull-right text-right">
-                    <a href="#" onClick={addQquestion}> + add Question </a>
+                    <a href="javascript:void(0);" onClick={addQquestion}> + add Question </a>
                 </div>
                 <div className="col-md-12">
                     {

@@ -18,24 +18,35 @@ class TestDriveItem extends React.Component<AppProps> {
         super(props, context);
     }
     render() {
-        const { deleteTestDrive, editTestDrive, testDrive, indexKey} = this.props;
-        return (
-            <div className="testDriveItem" key={indexKey} >
-                <li><Link to={'/testdrive/' + this.props.testDrive.id}>{this.props.testDrive.title}</Link></li>
-                <Link to={'/testdrive/' + this.props.testDrive.id}>
-                    <input
-                        className="btn btn-primary"
-                        type="button"
-                        value="Edit"
-                        onClick={() => editTestDrive(testDrive)}
-                    />
-                </Link>
-                <input
-                    className="btn btn-danger"
-                    type="button"
-                    value="Delete"
-                    onClick={() => deleteTestDrive(testDrive.id)} />
-            </div>)
+        const { deleteTestDrive, editTestDrive, testDrive, indexKey } = this.props;
+        return (<div className="col-md-12 currtestdrive_list">
+            <div className="row">
+                <div className="col-md-8">
+                    <h4>{testDrive.title}</h4>
+                </div>
+                <div className="col-md-2">
+                    <h4>
+                        <Link to={'/testdrive/' + testDrive.id}>
+                            <input
+                                className="btn btn-primary"
+                                type="button"
+                                value="Edit"
+                                onClick={() => editTestDrive(testDrive)}
+                            />
+                        </Link>
+                    </h4>
+                </div>
+                <div className="col-md-2">
+                    <h4>
+                        <input
+                            className="btn btn-danger"
+                            type="button"
+                            value="Delete"
+                            onClick={() => deleteTestDrive(testDrive.id)} />
+                    </h4>
+                </div>
+            </div>
+        </div>)
     }
 }
 
