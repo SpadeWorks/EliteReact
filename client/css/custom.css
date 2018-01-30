@@ -2573,7 +2573,13 @@ span.counter {
     font-size: 14px;
 }
 
-
+.tab_active:first-child {
+    border-right: solid 3px #000;
+  }
+  
+  .stepwizard-step h4 {
+    color: #fff !important;
+  }
 
 .select_box label {
     display: inline-block;
@@ -2717,10 +2723,6 @@ fieldset[disabled] .btn {
 .inputMaterial:focus {
     outline: none;
 }
-
-
-
-
 
 /* LABEL ======================================= */
 
@@ -3083,7 +3085,7 @@ span.select2-selection__choice__remove {
     color: #545454;
 }
 
-
+/*
 .letest_drivebox {
     height: 500px;
     background: #060612;
@@ -3108,7 +3110,7 @@ span.select2-selection__choice__remove {
     z-index: 101;
     border: solid 1px#fff;
 }
-
+*/
 
 
 
@@ -3463,7 +3465,7 @@ span.l_count {
 .tdrivecount {
     position: absolute;
     top: 48px;
-    left: 41px;
+    left: 54px;
     float: left;
 }
 
@@ -3521,9 +3523,15 @@ span.l_count {
 .letest_drivebox2 {
     right: 300px;
     position: absolute;
-    width: 300px;
+    width: 400px;
     opacity: 00;
+    bottom: -320px;
+    background: #060612;    
+    /*top: -140px;*/
+    float: left;
+    transition: all 0.5s;
     z-index: 102;
+    border: solid 1px#fff;
 }
 
 .player_box {
@@ -3541,14 +3549,12 @@ span.l_count {
 .letest_drivebox {
     left: 350px;
     position: absolute;
-    width: 200px;
-    opacity: 00;
-    z-index: 102;
+    opacity: 00;    
     transition: all 0.9s;
-    height: 500px;
+    /*height: 500px;*/
     background: #060612;
     position: absolute;
-    bottom: 0%;
+    bottom: -250px;
     width: 400px;
     z-index: 102;
     border: solid 1px#fff;
@@ -3578,7 +3584,7 @@ span.l_count {
 }
 
 .t_testdrive h4 {
-    width: 47%;
+    /*width: 47%;*/
     font-size: 12px;
 }
 
@@ -3586,7 +3592,7 @@ span.l_count {
     font-size: 12px;
     position: absolute;
     top: 5px;
-    left: 15px;
+    left: 23px;
 }
 
 
@@ -3621,6 +3627,7 @@ span.l_count {
     width: 450px;
     opacity: 1;
     z-index: 111;
+    bottom: -250px;
 }
 
 
@@ -3632,6 +3639,7 @@ span.l_count {
     width: 450px;
     opacity: 1;
     z-index: 111;
+    bottom: -250px;
 }
 
 
@@ -3654,7 +3662,6 @@ span.l_count {
 
 
 
-/*
 .white_circleclick2 {
     display: block;
 }
@@ -3668,7 +3675,7 @@ span.l_count {
     position: absolute;
     right: 0px;
     height: 100px;
-    border-left: : solid 2px #fff;
+    border-left: solid 2px #fff;
     margin-top: -32px;
     transition: all 0.5s;
 }
@@ -3681,7 +3688,7 @@ span.l_count {
     width: 450px;
     opacity: 1;
     z-index: 111;
-}*/
+}
 
 .map_container {
     width: auto;
@@ -3711,6 +3718,7 @@ a#link1 {
     text-decoration: none;
     display: none;
     transition: all 0.5s;
+    z-index: 50;
 }
 
 a#link2 {
@@ -3722,6 +3730,7 @@ a#link2 {
     text-decoration: none;
     display: none;
     transition: all 0.5s;
+    z-index: 50;
 }
 
 
@@ -3732,7 +3741,7 @@ a#link3 {
     color: red;
     font-family: titanium;
     text-decoration: none;
-    z-index: 100;
+    z-index: 50;
     display: none;
     transition: all 0.5s;
 }
@@ -3746,7 +3755,7 @@ a#link4 {
     color: red;
     font-family: titanium;
     text-decoration: none;
-    z-index: 100;
+    z-index: 50;
     display: none;
     transition: all 0.5s;
 }
@@ -3758,7 +3767,7 @@ a#link5 {
     color: red;
     font-family: titanium;
     text-decoration: none;
-    z-index: 110;
+    z-index: 50;
     display: none;
     transition: all 0.5s;
 }
@@ -3772,7 +3781,7 @@ a#link6 {
     color: red;
     font-family: titanium;
     text-decoration: none;
-    z-index: 110;
+    z-index: 50;
     display: none;
     transition: all 0.5s;
 }
@@ -4359,5 +4368,116 @@ div#s4-ribbonrow {
 
 .black_box_right.pull-right.black_box, .black_box.home-tab-container{
     min-height: 300px;
+    z-index: 1;
 }
 /*modifications ends on registration//////////////////////////////*/
+
+.location_box{min-height:360px;z-index: 1;}
+.black_box{background: #ffffff0a;margin-top: -100px;}
+.skills_heading{position: absolute;top: 130px; font-size: 35px;}
+.overall_box{margin-top:50px;}
+.top_boxline{height:50px;border-bottom: solid 2px #fff;}
+.bottom_boxline{height:50px;}
+.black_box.black_box_left.pull-left{height:300px;z-index:1;}
+
+.letest_driveboxclick_right {
+    position: absolute;
+    right: 440px;
+    display: block;
+    transition: 0.5s;
+    width: 450px;
+    opacity: 1;
+    z-index: 198;
+    bottom:-320px;
+}
+
+/*test case popup starts here*/
+.social_box a:first-child{margin-left: 0px;}
+.social_box a{float: left;margin-left: 40px;}
+span.teams{
+    background: url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/teams1.png") no-repeat; 
+    height: 23px; width: 23px; float:left;}
+span.teams:hover{
+    background: url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/teams2.png") no-repeat;
+    height: 23px; width: 23px;float:left;}
+.social_box a i {
+    color: #828282;
+}
+
+.social_box{margin-top: 20px;}
+.social_box a i:hover{color:#5659b0;}
+
+
+.popup_infocontainer {
+    float: left;
+    margin-top: 30px;
+    padding-top: 11px;
+}
+
+.earned_pointbox {
+    /* background: #333; */
+    border-right: solid 1px #333333;
+    min-height: 250px;
+}
+
+
+.earn_box{min-height: 250px; border-bottom: solid 1px #333;padding-top: 20px;}
+
+.drive_completionbox{min-height: 250px; padding-top: 20px;}
+
+
+.col-md-12.earn_box #canvas2, .drive_completionbox #canvas3 {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+}
+.earn_box h3, .drive_completionbox h3 {
+    margin-top: 10px;
+    position: absolute;
+    top: 110px;
+    left: 58px;
+    text-transform: uppercase !important;
+}
+.earn_box span.small,.drive_completionbox span.small {
+    position: absolute;
+    bottom: 12px;
+    left: 48px;
+    font-family: titanium;
+    font-size: 11px;
+
+}
+
+.popup_ownerbox, .popup_dificultybox{min-height: 250px; padding-top: 20px;}
+
+
+.popup_ownerbox h4{font-family: titanium !important; text-transform: uppercase !important;}
+
+.col-md-12.end_date {
+    position: absolute;
+    bottom: 50px;
+    height: 50px; 
+}
+
+.popup_infocontainer button{margin-left: 100px;}
+
+.popup_buttonbox {margin-top: 20px;}
+
+
+/*test case popup ends here*/
+
+
+
+
+/*video box styles starts here*/
+.modal-dialog.video_box {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+}
+
+.modal-dialog{width: 800px;}
+
+
+
+
+/*video box styling ends here*/
