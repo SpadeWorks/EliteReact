@@ -13,10 +13,3 @@ export class Columns{
 export class CacheKeys{
     static CONFIGURATIONS = 'configurations';
 }
-
-
-export class Fields{
-    static ID = 'ID';
-    static TestDriveName = 'TestDriveName';
-    static EliteDescription = 'EliteDescription';
-}
