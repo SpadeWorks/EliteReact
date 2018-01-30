@@ -18,6 +18,7 @@ interface TestDriveFormProps {
     updateMaxPoints: () => any;
     updateDates: (dates: any) => any;
     updateUI: (any) => any;
+    fieldDescriptions: any;
     ui: any;
 }
 
@@ -86,7 +87,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         const functions = Service.getRegions().then((regions: Array<any>) => {
             input = input.toLowerCase();
             var options = regions.filter((i: any) => {
-                return i.Label.substr(0, input.length) === input;
+                return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
                 options: options.slice(0, 5),
@@ -97,11 +98,10 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     }
 
     getLocations(input, callback) {
-
         const functions = Service.getLocations().then((locations: Array<any>) => {
             input = input.toLowerCase();
             var options = locations.filter((i: any) => {
-                return i.Label.substr(0, input.length) === input;
+                return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
                 options: options.slice(0, 5),
@@ -115,7 +115,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         const functions = Service.getDevices().then((devices: Array<any>) => {
             input = input.toLowerCase();
             var options = devices.filter((i: any) => {
-                return i.Label.substr(0, input.length) === input;
+                return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
                 options: options.slice(0, 5),
@@ -129,7 +129,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         const functions = Service.getOSes().then((oses: Array<any>) => {
             input = input.toLowerCase();
             var options = oses.filter((i: any) => {
-                return i.Label.substr(0, input.length) === input;
+                return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
                 options: options.slice(0, 5),
@@ -160,7 +160,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     }
 
     render() {
-        const { testDrive, saveTestDrive, submitTestDrive, updateMultiSelect, ui, updateUI } = this.props;
+        const { testDrive, saveTestDrive, submitTestDrive, updateMultiSelect, ui, updateUI, fieldDescriptions} = this.props;
         const butttonGroup = {
             float: 'right'
         }
@@ -180,6 +180,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         <span className="highlight"></span>
                         <span className="bar"></span>
                         <label>Test drive title</label>
+                        <span className="help-text">
+                            {fieldDescriptions && fieldDescriptions.TestDriveName}
+                        </span>
                     </div>
                     <div className="col-md-12 register_input">
                         <textarea className="inputMaterial"
@@ -191,6 +194,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         <span className="highlight"></span>
                         <span className="bar"></span>
                         <label className="disc_lable">Description</label>
+                        <span className="help-text">
+                            {fieldDescriptions  && fieldDescriptions.EliteDescription}
+                        </span>
                     </div>
 
                     <div className="col-md-6 register_input">
@@ -204,6 +210,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 onFocus={() => { updateUI({ showDatePicker: true }) }}
                                 readOnly
                             />
+                            <span className="help-text">
+                                 {fieldDescriptions  && fieldDescriptions.TestDriveStartDate}
+                            </span>
                         </div>
                     </div>
 
@@ -220,6 +229,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 readOnly
 
                             />
+                            <span className="help-text">
+                                {fieldDescriptions  && fieldDescriptions.TestDriveEndDate}
+                            </span>
                         </div>
                     </div>
                     {/*className={ui.showDatePicker ? "show-tab" : "hide-tab"}*/}
@@ -243,13 +255,16 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 value={testDrive.maxPoints.toString() || '0'}
                                 readOnly
                             />
+                            <span className="help-text">
+                                {fieldDescriptions  && fieldDescriptions.TotalPoints}
+                            </span>
                         </div>
                     </div>
 
                     <div className="col-md-6 register_input">
                         <div className="form-group">
                             <Select
-                                id="testDriveTypte"
+                                id="testDriveType"
                                 onBlurResetsInput={false}
                                 onSelectResetsInput={false}
                                 options={this.testDriveTypes}
@@ -261,6 +276,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 rtl={false}
                                 searchable={false}
                             />
+                            <span className="help-text">
+                                {fieldDescriptions  && fieldDescriptions.TotalPoints}
+                            </span>
                         </div>
                     </div>
 
@@ -275,9 +293,12 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         <span className="highlight"></span>
                         <span className="bar"></span>
                         <label className="disc_lable">Expected Business Value</label>
+                        <span className="help-text">
+                                {fieldDescriptions  && fieldDescriptions.ExpectedBusinessValue}
+                            </span>
                     </div>
                     <div className="col-md-12">
-                        <h5>Allowed Functions:</h5>
+                        <h5>Allowed Regions:</h5>
                         <Select.Async multi={true}
                             value={testDrive.region}
                             onChange={this.regionChange}
@@ -286,6 +307,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             loadOptions={this.getRegions}
                             type="select-multiple"
                         />
+                        <span className="help-text">
+                                {fieldDescriptions  && fieldDescriptions.TestDriveRegion}
+                            </span>
                         <br></br>
                         <h5>Allowed Locations:</h5>
                         <Select.Async multi={true}
@@ -296,6 +320,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             loadOptions={this.getLocations}
                             type="select-multiple"
                         />
+                        <span className="help-text">
+                                {fieldDescriptions  && fieldDescriptions.TestDriveLocation}
+                            </span>
 
                         <br></br>
                         <h5>Required Devices:</h5>
@@ -307,6 +334,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             loadOptions={this.getDevices}
                             type="select-multiple"
                         />
+                        <span className="help-text">
+                                {fieldDescriptions  && fieldDescriptions.AvailableDevices}
+                            </span>
 
                         <br></br>
                         <h5>Required OS:</h5>
@@ -318,6 +348,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             loadOptions={this.getOSes}
                             type="select-multiple"
                         />
+                        <span className="help-text">
+                                {fieldDescriptions  && fieldDescriptions.AvailableOS}
+                            </span>
                     </div>
                     <br></br>
                     <div className="col-md-12 register_input input-number" >
@@ -330,6 +363,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         <span className="highlight"></span>
                         <span className="bar"></span>
                         <label>Maximum allowed test drivers.</label>
+                        <span className="help-text">
+                                {fieldDescriptions  && fieldDescriptions.MaxTestDrivers}
+                            </span>
                     </div>
                     <div className="col-md-12">
                         <div style={butttonGroup}>

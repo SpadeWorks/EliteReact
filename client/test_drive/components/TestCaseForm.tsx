@@ -170,7 +170,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                         </a>
 
                         <div className="pull-right">
-                            <a href="#"><i className="material-icons"
+                            <a href="javascript:void(0);"><i className="material-icons"
                                 onClick={() => this.deleteTestCase(testCase.id)}>delete</i></a>
                             {!testCase.isInEditMode &&
                                 <a href="javascript:void(0);"><i className="material-icons"

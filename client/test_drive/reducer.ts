@@ -7,6 +7,8 @@ import {
     LOAD_TestDrives_PENDING,
     LOAD_TestDrives_FULFILLED,
     DELETE_TestDrive,
+    DELETE_TestDrive_FULFILLED,
+    DELETE_TestDrive_PENDING,
     EDIT_TestDrive,
     UPDATE_TestDrive,
     SAVE_TestDrive,
@@ -16,8 +18,8 @@ import {
     SAVE_TestDrive_REJECTED,
     SUBMIT_TestDrive_PENDING,
     SUBMIT_TestDrive_FULFILLED,
-    LOAD_PointsConfigurations_FULFILLED,
-    LOAD_PointsConfigurations_PENDING,
+    LOAD_Configurations_FULFILLED,
+    LOAD_Configurations_PENDING,
     UPDATE_MaxPoints,
 
     LOAD_TestCases_PENDING,
@@ -39,7 +41,7 @@ import {
     SWITCH_Tab,
     UPDATE_Date,
     DATE_FocusChange,
-    LOAD_PointsConfigurations
+    LOAD_Configurations
 
 } from './constants/ActionTypes';
 import { access, stat } from 'fs';
@@ -105,14 +107,14 @@ export default handleActions<IState, any>({
         }
     },
 
-    [LOAD_PointsConfigurations_PENDING]: (state: IState, action: Action<any>): IState => {
+    [LOAD_Configurations_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
             configurationLoaded: false,
         }
     },
 
-    [LOAD_PointsConfigurations_FULFILLED]: (state: IState, action: Action<any>): IState => {
+    [LOAD_Configurations_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
             configurations: { ...state.configurations, ...action.payload },
@@ -158,13 +160,21 @@ export default handleActions<IState, any>({
         }
     },
 
-    [DELETE_TestDrive]: (state: IState, action: Action<number>): IState => {
+    [DELETE_TestDrive_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
+        return {
+            ...state,
+            loading: true
+        }
+    },
+
+    [DELETE_TestDrive_FULFILLED]: (state: IState, action: Action<number>): IState => {
         const testDrives = state.testDrives;
         return {
             ...state,
             testDrives: testDrives.filter((testDrive) => {
                 return testDrive.id !== action.payload;
-            })
+            }),
+            loading: false
 
         }
     },

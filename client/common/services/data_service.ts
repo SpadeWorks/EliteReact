@@ -15,8 +15,6 @@ export type listItem = {
 
 declare var process: { exit(code?: number): void };
 // declare var SP: any;
-
-
 pnp.setup({
 
     sp: {
@@ -33,19 +31,74 @@ export class Services {
 
     static getConfigurations() {
         return new Promise((resolve, reject) => {
-            resolve({
-                testCasePoints: 10,
-                testDriveLevelsConfig: {
-                    1: { label: 'Level 1', points: 100 },
-                    2: { label: 'Level 2', points: 200 },
-                    3: { label: 'Level 3', points: 300 },
-                },
-                fieldDescription: {
-                    title: 'Please enter the title',
-                    description: 'Please enter the descriptions.',
-                    expectedBusinessValue: 'Please enter expected business value.'
-                }
-            })
+            let cachedConfig = Cache.getCache(Constants.CacheKeys.CONFIGURATIONS);
+            if (cachedConfig) {
+                resolve(cachedConfig);
+            } else {
+                let testDriveFields = Services.getFieldMetadata(Constants.Lists.TEST_DRIVES, [
+                    'ID',
+                    'TestDriveName',
+                    'EliteDescription',
+                    'TestDriveStatus',
+                    'TestDriveStartDate',
+                    'TestDriveEndDate',
+                    'TotalPoints',
+                    'TestDriveDepartment',
+                    'TestDriveLocation',
+                    'AvailableDevices',
+                    'AvailableOS',
+                    'MaxTestDrivers',
+                    'LevelID/ID',
+                    'LevelID/LevelName',
+                    'TestDriveOwner/ID',
+                    'TestDriveOwner/UserInfoName',
+                    'TestCases/ID',
+                    'Questions/ID',
+                    'ExpectedBusinessValue'
+                ]);
+
+                let testCaseFields = Services.getFieldMetadata(Constants.Lists.TEST_CASES, [
+                    'Title',
+                    'ID',
+                    'EliteDescription',
+                    'Type',
+                    'Scenario',
+                    'TestCaseOutcome',
+                    'TestCasePriority',
+                    'Points',
+                    'ReTest'
+                ]);
+
+                let questionFields = Services.getFieldMetadata(Constants.Lists.SURVEY_QUESTIONS, [
+                    'Title',
+                    'ID',
+                    'Question',
+                    'Responses',
+                    'ResponseType',
+                ]);
+
+                let testDriveLevels = Services.getTestDriveLevels(Constants.Lists.RACE_LEVELS);
+
+                let testCasePoints = Services.getTestPointConfiguration(Constants.Lists.POINTS_CONFIGURATIONS);
+                Promise.all([testDriveFields,
+                    testCaseFields,
+                    questionFields,
+                    testDriveLevels,
+                    testCasePoints
+                ]).then(results => {
+                    let configObj = {
+                        fieldDescription: {
+                            testDrives: results[0],
+                            testCases: results[1],
+                            survey: results[2]
+                        },
+                        testDriveLevelsConfig: results[3],
+                        testCasePoints: results[4]
+                    }
+                    Cache.setCache(Constants.CacheKeys.CONFIGURATIONS, configObj);
+                    resolve(configObj);
+                });
+            }
         });
     }
 
@@ -161,7 +214,7 @@ export class Services {
                 'TestCases/ID',
                 'Questions/ID',
                 'ExpectedBusinessValue'
-            )
+                )
                 .expand('TestDriveOwner', 'LevelID', 'Questions', 'TestCases')
                 .get().then(testDrive => {
                     let questions = testDrive.Questions.results.map((question) => {
@@ -279,6 +332,60 @@ export class Services {
                         reject(error);
                     });
             }
+        });
+    }
+
+    static getFieldMetadata(listName, columns) {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(listName).fields
+                .select('Title', 'StaticName', 'Description')
+                .get().then(fields => {
+                    let metadata = {}
+                    fields.map(field => {
+                        metadata[field.StaticName] = field.Description
+                    });
+                    resolve(metadata);
+                }, err => {
+                    Utils.clientLog(err);
+                });
+        });
+    }
+
+    static getTestDriveLevels(listName) {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(listName).items.select(
+                'LevelName',
+                'ID',
+                'LevelPoints'
+            ).get().then(levels => {
+                let raceLevel = {};
+                levels.map(level => {
+                    raceLevel[level.ID] = {
+                        label: level.LevelName,
+                        points: level.LevelPoints
+                    }
+                });
+                resolve(raceLevel);
+            }, err => {
+                Utils.clientLog(err);
+            });
+        });
+    }
+
+    static getTestPointConfiguration(listName) {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(listName).items
+                .select(
+                'ActivityName',
+                'ID',
+                'TotalPoints'
+                )
+                .filter("ActivityName eq 'TEST_CASE_COMPLETION'")
+                .get().then(item => {
+                    resolve(item[0].TotalPoints);
+                }, err => {
+                    Utils.clientLog(err);
+                });
         });
     }
 
@@ -492,122 +599,134 @@ export class Services {
         });
     }
 
-    static getRegions() {
+    static deleteTestDrive(testDriveId: number) {
         return new Promise((resolve, reject) => {
-            const data = [
-                { Label: 'Region 1', TermGuid: 'Region 1' },
-                { Label: 'Region 2', TermGuid: 'Region 2' },
-                { Label: 'Region 3', TermGuid: 'Region 3' },
-                { Label: 'Region 4', TermGuid: 'Region 4' },
-                { Label: 'Region 5', TermGuid: 'Region 5' },
-                { Label: 'Region 6', TermGuid: 'Region 6' },
-                { Label: 'Region 7', TermGuid: 'Region 7' },
-                { Label: 'Region 8', TermGuid: 'Region 8' },
-                { Label: 'Region 9', TermGuid: 'Region 9' },
-            ];
-            setTimeout(() => {
-                resolve(data);
-            }, delay);
+            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items
+                .getById(testDriveId).delete().then(data => {
+                    resolve(testDriveId);
+                }, err => {
+                    Utils.clientLog(err);
+                });
         });
-    }
 
-    static getLocations() {
-        return new Promise((resolve, reject) => {
-            const data = [
-                { Label: 'Location 1', TermGuid: 'Location 1' },
-                { Label: 'Location 2', TermGuid: 'Location 2' },
-                { Label: 'Location 3', TermGuid: 'Location 3' },
-                { Label: 'Location 4', TermGuid: 'Location 4' },
-                { Label: 'Location 5', TermGuid: 'Location 5' },
-                { Label: 'Location 6', TermGuid: 'Location 6' },
-                { Label: 'Location 7', TermGuid: 'Location 7' },
-                { Label: 'Location 8', TermGuid: 'Location 8' },
-                { Label: 'Location 9', TermGuid: 'Location 9' },
-            ]
-
-            setTimeout(() => {
-                resolve(data);
-            }, delay);
-        });
-    }
-
-    static getDevices() {
-        return new Promise((resolve, reject) => {
-            const data = [
-                { Label: 'Device 1', TermGuid: 'Device 1' },
-                { Label: 'Device 2', TermGuid: 'Device 2' },
-                { Label: 'Device 3', TermGuid: 'Device 3' },
-                { Label: 'Device 4', TermGuid: 'Device 4' },
-                { Label: 'Device 5', TermGuid: 'Device 5' },
-                { Label: 'Device 6', TermGuid: 'Device 6' },
-                { Label: 'Device 7', TermGuid: 'Device 7' },
-                { Label: 'Device 8', TermGuid: 'Device 8' },
-                { Label: 'Device 9', TermGuid: 'Device 9' },
-            ]
-
-            setTimeout(() => {
-                resolve(data);
-            }, delay);
-        });
-    }
-
-    static getOSes() {
-        return new Promise((resolve, reject) => {
-            const data = [
-                { Label: 'OS 1', TermGuid: 'OS 1' },
-                { Label: 'OS 2', TermGuid: 'OS 2' },
-                { Label: 'OS 3', TermGuid: 'OS 3' },
-                { Label: 'OS 4', TermGuid: 'OS 4' },
-                { Label: 'OS 5', TermGuid: 'OS 5' },
-                { Label: 'OS 6', TermGuid: 'OS 6' },
-                { Label: 'OS 7', TermGuid: 'OS 7' },
-                { Label: 'OS 8', TermGuid: 'OS 8' },
-                { Label: 'OS 9', TermGuid: 'OS 9' },
-            ]
-
-            setTimeout(() => {
-                resolve(data);
-            }, delay);
-        });
     }
 
     // static getRegions() {
     //     return new Promise((resolve, reject) => {
-    //         let termSetName = "region";
-    //         let termSetID = "e706aaa7-bc18-4bbf-8199-a08de13aa09d";
-    //         this.getTermSetAsOptions(termSetName, termSetID).then(options => {
-    //             Cache.setCache("region", options)
-    //             resolve(options);
-    //         });
+    //         const data = [
+    //             { Label: 'Region 1', TermGuid: 'Region 1' },
+    //             { Label: 'Region 2', TermGuid: 'Region 2' },
+    //             { Label: 'Region 3', TermGuid: 'Region 3' },
+    //             { Label: 'Region 4', TermGuid: 'Region 4' },
+    //             { Label: 'Region 5', TermGuid: 'Region 5' },
+    //             { Label: 'Region 6', TermGuid: 'Region 6' },
+    //             { Label: 'Region 7', TermGuid: 'Region 7' },
+    //             { Label: 'Region 8', TermGuid: 'Region 8' },
+    //             { Label: 'Region 9', TermGuid: 'Region 9' },
+    //         ];
+    //         setTimeout(() => {
+    //             resolve(data);
+    //         }, delay);
     //     });
     // }
+
     // static getLocations() {
     //     return new Promise((resolve, reject) => {
-    //         let termSetName = "location";
-    //         let termSetID = "1307d046-6b76-4fbc-ac87-ea5f6392cf9e";
-    //         this.getTermSetAsOptions(termSetName, termSetID).then(options => {
-    //             resolve(options);
-    //         });
+    //         const data = [
+    //             { Label: 'Location 1', TermGuid: 'Location 1' },
+    //             { Label: 'Location 2', TermGuid: 'Location 2' },
+    //             { Label: 'Location 3', TermGuid: 'Location 3' },
+    //             { Label: 'Location 4', TermGuid: 'Location 4' },
+    //             { Label: 'Location 5', TermGuid: 'Location 5' },
+    //             { Label: 'Location 6', TermGuid: 'Location 6' },
+    //             { Label: 'Location 7', TermGuid: 'Location 7' },
+    //             { Label: 'Location 8', TermGuid: 'Location 8' },
+    //             { Label: 'Location 9', TermGuid: 'Location 9' },
+    //         ]
+
+    //         setTimeout(() => {
+    //             resolve(data);
+    //         }, delay);
     //     });
     // }
+
     // static getDevices() {
     //     return new Promise((resolve, reject) => {
-    //         let termSetName = "device";
-    //         let termSetID = "f28f2afc-b917-4063-b44d-0273e121a41d";
-    //         this.getTermSetAsOptions(termSetName, termSetID).then(options => {
-    //             resolve(options);
-    //         });
+    //         const data = [
+    //             { Label: 'Device 1', TermGuid: 'Device 1' },
+    //             { Label: 'Device 2', TermGuid: 'Device 2' },
+    //             { Label: 'Device 3', TermGuid: 'Device 3' },
+    //             { Label: 'Device 4', TermGuid: 'Device 4' },
+    //             { Label: 'Device 5', TermGuid: 'Device 5' },
+    //             { Label: 'Device 6', TermGuid: 'Device 6' },
+    //             { Label: 'Device 7', TermGuid: 'Device 7' },
+    //             { Label: 'Device 8', TermGuid: 'Device 8' },
+    //             { Label: 'Device 9', TermGuid: 'Device 9' },
+    //         ]
+
+    //         setTimeout(() => {
+    //             resolve(data);
+    //         }, delay);
     //     });
     // }
+
     // static getOSes() {
     //     return new Promise((resolve, reject) => {
-    //         let termSetName = "os";
-    //         let termSetID = "93cae476-6660-4625-b80b-51697ff26c3b";
-    //         this.getTermSetAsOptions(termSetName, termSetID).then(options => {
-    //             resolve(options);
-    //         });
+    //         const data = [
+    //             { Label: 'OS 1', TermGuid: 'OS 1' },
+    //             { Label: 'OS 2', TermGuid: 'OS 2' },
+    //             { Label: 'OS 3', TermGuid: 'OS 3' },
+    //             { Label: 'OS 4', TermGuid: 'OS 4' },
+    //             { Label: 'OS 5', TermGuid: 'OS 5' },
+    //             { Label: 'OS 6', TermGuid: 'OS 6' },
+    //             { Label: 'OS 7', TermGuid: 'OS 7' },
+    //             { Label: 'OS 8', TermGuid: 'OS 8' },
+    //             { Label: 'OS 9', TermGuid: 'OS 9' },
+    //         ]
+
+    //         setTimeout(() => {
+    //             resolve(data);
+    //         }, delay);
     //     });
     // }
+
+    static getRegions() {
+        return new Promise((resolve, reject) => {
+            let termSetName = "region";
+            let termSetID = "b8faa129-d458-4a1d-94a4-8820d7cc3840";
+            this.getTermSetAsOptions(termSetName, termSetID).then(options => {
+                Cache.setCache("region", options)
+                resolve(options);
+            });
+        });
+    }
+    static getLocations() {
+        return new Promise((resolve, reject) => {
+            let termSetName = "location";
+            let termSetID = "b49f64b3-4722-4336-9a5c-56c326b344d4";
+            this.getTermSetAsOptions(termSetName, termSetID).then(options => {
+                resolve(options);
+            });
+        });
+    }
+    static getDevices() {
+        return new Promise((resolve, reject) => {
+            let termSetName = "device";
+            let termSetID = "f28f2afc-b917-4063-b44d-0273e121a41d";
+            this.getTermSetAsOptions(termSetName, termSetID).then(options => {
+                resolve(options);
+            });
+        });
+    }
+    static getOSes() {
+        return new Promise((resolve, reject) => {
+            let termSetName = "os";
+            let termSetID = "93cae476-6660-4625-b80b-51697ff26c3b";
+            this.getTermSetAsOptions(termSetName, termSetID).then(options => {
+                resolve(options);
+            });
+        });
+    }
 
     static formatDate(date: string) {
         let today = date && date.toLowerCase() !== "today" ? new Date(date) : new Date();
@@ -690,6 +809,15 @@ export class Utils {
                 return resolve(scriptName);
             }
         });
+    }
+
+
+    static tryParseJSON(str) {
+        try {
+            return JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
     }
 
 }

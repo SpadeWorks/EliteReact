@@ -36,7 +36,7 @@ class TabCar extends React.Component<TabCarProps>{
                         </div>
                         <div className="stepwizard-step servay">
                             <a onClick={(e) => this.switchTab(e)} data-type="button" 
-                                className="btn btn-default" data-disabled="disabled" id="step-3">Servay Questions</a>
+                                className="btn btn-default" data-disabled="disabled" id="step-3">Survey Questions</a>
                         </div>
                     </div>
                 </div>

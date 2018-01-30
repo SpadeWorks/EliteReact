@@ -5,7 +5,9 @@ export const LOAD_TestDrive_FULFILLED = 'LOAD_TestDrive_FULFILLED';
 export const LOAD_TestDrives = 'LOAD_TestDrives';
 export const LOAD_TestDrives_PENDING = 'LOAD_TestDrives_PENDING';
 export const LOAD_TestDrives_FULFILLED = 'LOAD_TestDrives_FULFILLED';
-export const DELETE_TestDrive = 'DELETETestDrive';
+export const DELETE_TestDrive = 'DELETE_TestDrive';
+export const DELETE_TestDrive_PENDING = 'DELETE_TestDrive_PENDING';
+export const DELETE_TestDrive_FULFILLED = 'DELETE_TestDrive_FULFILLED';
 export const EDIT_TestDrive = 'EDITTestDrive';
 export const UPDATE_TestDrive = 'UPDATE_TestDrive';
 export const SAVE_TestDrive = 'SAVE_TestDrive';
@@ -18,9 +20,9 @@ export const SUBMIT_TestDrive_FULFILLED = "SUBMIT_TestDrive_FULFILLED";
 export const SWITCH_Tab = "SWITCH_Tab";
 export const UPDATE_Date = "UPDATE_Date"; 
 export const DATE_FocusChange = "DATE_FocusChange";
-export const LOAD_PointsConfigurations = "LOAD_PointsConfigurations";
-export const LOAD_PointsConfigurations_PENDING = "LOAD_PointsConfigurations_PENDING";
-export const LOAD_PointsConfigurations_FULFILLED  = "LOAD_PointsConfigurations_FULFILLED";
+export const LOAD_Configurations = "LOAD_Configurations";
+export const LOAD_Configurations_PENDING = "LOAD_Configurations_PENDING";
+export const LOAD_Configurations_FULFILLED  = "LOAD_Configurations_FULFILLED";
 export const UPDATE_MaxPoints = "UPDATE_MaxPoints";
 
 // Test Case Actions.

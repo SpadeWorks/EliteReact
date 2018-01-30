@@ -1,12 +1,14 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = require('./webpack.shared.config')({
   entry: {
-    // testDrive : path.join(process.cwd(), 'client/index.js'),
-    // style: path.join(process.cwd(), 'client/styles.js'),
-    services: path.join(process.cwd(), 'client/services.js')
+    styles: path.join(process.cwd(), 'client/styles.js'),
+    // 'styles.min': path.join(process.cwd(), 'client/styles.js'),
+    index: path.join(process.cwd(), 'client/index.js'),
+    // 'index.min': path.join(process.cwd(), 'client/index.js'),
   },
 
   output: {
@@ -42,6 +44,8 @@ module.exports = require('./webpack.shared.config')({
       },
       inject: true,
     }),
+
+    new UglifyJsPlugin()
     // new BundleAnalyzerPlugin()
   ]
 });

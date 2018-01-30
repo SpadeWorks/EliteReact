@@ -28,7 +28,7 @@ import {
   UPDATE_Date,
   DATE_FocusChange,
   UPDATE_Question,
-  LOAD_PointsConfigurations,
+  LOAD_Configurations,
   UPDATE_MaxPoints
 
 } from './constants/ActionTypes';
@@ -90,11 +90,9 @@ const updateMultiSelect = createAction<any, any, string, TestDrive>(
   }
 )
 
-const deleteTestDrive = createAction<number, number>(
+const deleteTestDrive = createAction<any, number>(
   DELETE_TestDrive,
-  (id: number) => {
-    return id;
-  }
+  (id: number) => Services.deleteTestDrive(id)
 );
 
 const updateMaxPoints = createAction(
@@ -111,7 +109,7 @@ const loadTestCases = createAction<any, number[]>(
 );
 
 const loadConfigurations = createAction<any>(
-  LOAD_PointsConfigurations,
+  LOAD_Configurations,
   () => Services.getConfigurations()
 )
 

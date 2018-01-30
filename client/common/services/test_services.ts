@@ -1,6 +1,7 @@
 import { Services, Utils, TermStore } from './data_service';
 import { data } from '../../test_drive/api/mockApi';
 import * as $ from 'jquery';
+import * as Constants from './constants';
 
 const testDrive = {
     id: -1,
@@ -94,16 +95,66 @@ class TestServices {
         //     console.log("create test case: ", data);
         // });
 
-        Services.getTestDriveById(17).then(data =>{
-            console.log("test drive with id 17: ", data);
-        })
+        // Services.getTestDriveById(17).then(data =>{
+        //     console.log("test drive with id 17: ", data);
+        // })
 
-        Services.getTestCasesByIds([107, 108, 109, 110, 111, 112, 113, 114, 115, 116]).then(data =>{
-            console.log("get test cases for test drive with id 17: ", data);
-        })
-        Services.getQuestonsByIds([48, 49, 50, 51, 52]).then(data =>{
-            console.log("get question for test drive with id 17: ", data);
-        })
+        // Services.getTestCasesByIds([107, 108, 109, 110, 111, 112, 113, 114, 115, 116]).then(data =>{
+        //     console.log("get test cases for test drive with id 17: ", data);
+        // })
+        // Services.getQuestonsByIds([48, 49, 50, 51, 52]).then(data =>{
+        //     console.log("get question for test drive with id 17: ", data);
+        // })
+
+        // Services.getFieldMetadata(Constants.Lists.TEST_DRIVES, [
+        //     'ID',
+        //     'TestDriveName',
+        //     'EliteDescription',
+        //     'TestDriveStatus',
+        //     'TestDriveStartDate',
+        //     'TestDriveEndDate',
+        //     'TotalPoints',
+        //     'TestDriveDepartment',
+        //     'TestDriveLocation',
+        //     'AvailableDevices',
+        //     'AvailableOS',
+        //     'MaxTestDrivers',
+        //     'LevelID/ID',
+        //     'LevelID/LevelName',
+        //     'TestDriveOwner/ID',
+        //     'TestDriveOwner/UserInfoName',
+        //     'TestCases/ID',
+        //     'Questions/ID',
+        //     'ExpectedBusinessValue'
+        // ]).then(fields => {
+        //     console.log(fields);
+        // })
+        // Services.getFieldMetadata(Constants.Lists.TEST_CASES, [
+        //     'Title',
+        //     'ID',
+        //     'EliteDescription',
+        //     'Type',
+        //     'Scenario',
+        //     'TestCaseOutcome',
+        //     'TestCasePriority',
+        //     'Points',
+        //     'ReTest'
+        // ]).then(fields => {
+        //     console.log(fields);
+        // })
+        // Services.getFieldMetadata(Constants.Lists.TEST_CASES, [
+        //     'Title',
+        //             'ID',
+        //             'Question',
+        //             'Responses',
+        //             'ResponseType',
+        // ]).then(fields => {
+        //     console.log(fields);
+        // })
+
+        Services.getConfigurations().then(data => {
+            console.log(data);
+        });
 
         // Services.createQuestions(testDrive.questions).then(data => {
         //     console.log("create test case: ", data);
@@ -131,10 +182,6 @@ class TestServices {
         // Services.createTestCase(data[0].testCases).then(data=>{
         //     console.log("From createTestCase: ", data);
         // })
-
-
-
-
     }
 
 }

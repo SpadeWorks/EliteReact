@@ -47,7 +47,9 @@ interface AppProps {
     questions: model.Question[];
     question: model.Question;
     configurationLoaded: boolean;
-    configurations: any;
+    testCaseFields: object;
+    surveyFields: object;
+    testDriveFields: object;
 };
 
 @ui({
@@ -84,7 +86,8 @@ class ManageTestDrive extends React.Component<AppProps> {
     }
 
     render() {
-        const { testDrive, question, dispatch, loading, testCase, ui, updateUI } = this.props;
+        const { testDrive, question, dispatch, loading, testCase, ui, updateUI, 
+                testCaseFields, surveyFields, testDriveFields} = this.props;
         return (
             <div className="container">
                 <h2 className="page-heading">Create Test Drive</h2>
@@ -104,6 +107,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                         updateDates={(dates) => dispatch(updateDate(dates))}
                                         updateMaxPoints = {() => dispatch(updateMaxPoints())}
                                         updateUI={updateUI}
+                                        fieldDescriptions = {testDriveFields}
                                         ui={ui}
                                     />
                                 </div>
@@ -160,14 +164,18 @@ class ManageTestDrive extends React.Component<AppProps> {
 
 const mapStateToProps = (state, ownProps) => {
     let testDriveId = ownProps.match.params.id;
+    const testDriveState = state.testDriveState;
+    let fieldDescriptions = testDriveState.configurations.fieldDescription || {}
     return {
         id: testDriveId,
-        testDrive: state.testDriveState.testDrive,
-        testDrives: state.testDriveState.testDrives,
-        loading: state.testDriveState.loading || state.asyncInitialState.loading,
-        testCase: state.testDriveState.testCase,
-        question: state.testDriveState.question,
-        configurations: state.testDriveState.configurations,
+        testDrive: testDriveState.testDrive,
+        testDrives: testDriveState.testDrives,
+        loading: testDriveState.loading || state.asyncInitialState.loading,
+        testCase: testDriveState.testCase,
+        question: testDriveState.question,
+        testDriveFields: fieldDescriptions.testDrives,
+        testCaseFields: fieldDescriptions.testCases,
+        surveyFields: fieldDescriptions.survey,
         configurationLoaded: state.testDriveState.configurationLoaded,
     }
 };
