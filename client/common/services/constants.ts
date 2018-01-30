@@ -12,6 +12,4 @@ export class Columns{
 
 export class CacheKeys{
     static CONFIGURATIONS = 'configurations';
-    static 
-
 }
