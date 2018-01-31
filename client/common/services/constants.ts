@@ -6,10 +6,20 @@ export class Lists {
     static POINTS_CONFIGURATIONS = 'Points Configurations'
 }
 
-export class Columns{
-    static TITLE = 'Title';
-}
-
 export class CacheKeys{
     static CONFIGURATIONS = 'configurations';
+    static USER_INFORMATION = 'User Information';
+    static TEST_DRIVE_INSTANCES = 'Test Drive Instances';
+    static POINTS = 'Points'; 
+    static AVATAR = 'Avatars';  
+    static CARMASTER = 'Car Master';   
+    static BADGES = 'Badges'; 
+}
+
+export class Columns{
+    static TITLE = 'Title';    
+}
+
+export class ColumnsValue{
+    static COMPLETE_STATUS = 'Complete';    
 }

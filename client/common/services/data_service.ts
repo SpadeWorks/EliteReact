@@ -5,7 +5,10 @@ import { TestDrive, Question, TestCase } from '../../test_drive/model';
 import * as $ from 'jquery';
 import * as moment from 'moment';
 import TestCases from "../../test_drive/components/TestCases";
+import { HomeTestDrive, Leaders } from '../../home/model';
+import MyTestDrives from "../../home/components/MyTestDrives";
 const delay = 100;
+declare var SP: any;
 
 export type listItem = {
     key: string;
@@ -758,10 +761,392 @@ export class Services {
             }
         });
     }
+
+    static getLeaderBoard() {
+        var d = new Date();
+        var lastYear = d.getFullYear() - 1 + "-12-31";
+        return new Promise((resolve, reject) => {
+            let leaderBoardArr: Leaders[] = [];
+            pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
+                .select("Points",
+                "UserInfoID/ID",
+                "UserInfoID/UserInfoName"
+                )
+                .expand("UserInfoID").top(3).orderBy('Points', false).filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z'")
+                .get().then(testDrives => {
+                    testDrives.map((testDrive, index) => {
+                        leaderBoardArr.push({
+                            id: index + 1,
+                            name: testDrive.UserInfoID.UserInfoName,
+                            points: testDrive.Points,
+                            avatar:"http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
+                        });
+                    });
+                    resolve(leaderBoardArr);
+                })
+        });
+    }
+
+    static getCurrentUserPoints() {
+        var d = new Date();
+        var lastYear = d.getFullYear() - 1 + "-12-31";
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
+                .select("Points",
+                "UserInfoID/ID",
+                "UserInfoID/UserInfoName"
+                )
+                .expand("UserInfoID").orderBy('Points', false).filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z' and UserInfoID eq '1'")
+                .get().then(testDrives => {
+                    resolve(testDrives[0].Points);
+                })
+        });
+    }
+
+    static getCurrentUserCarImage() {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION).items
+                .select("BadgeID/ID")
+                .expand("BadgeID").filter("UserID eq '18'")
+                .get().then(badge => {
+                    pnp.sp.web.lists.getByTitle(Constants.Lists.BADGES).items
+                    .select("CarID/ID")
+                    .expand("CarID").filter("ID eq " + badge[0].BadgeID.ID + "")
+                    .get().then(car => {                        
+                        pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
+                        .select("File/Name")
+                        .expand("File").filter("ID eq " + car[0].CarID.ID + "")
+                        .get().then(carImage => {
+                            resolve(carImage[0].File.Name);
+                        });
+                    });                   
+                })
+        });
+    }
+
+    static getLeaderBoardRegion() {
+        var d = new Date();
+        var lastYear = d.getFullYear() - 1 + "-12-31";
+        return new Promise((resolve, reject) => {
+            let regionLeaderBoardArr: Leaders[] = [];
+            pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION).items
+                .select("UserLocation"
+                )
+                .filter("UserID eq " + _spPageContextInfo.userId + "")
+                .get().then(userInfo => {
+                    pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
+                        .select("Points",
+                        "UserInfoID/ID",
+                        "UserInfoID/UserInfoName"
+                        )
+                        .expand("UserInfoID").top(3).orderBy('Points', false).filter("User_x0020_ID_x003a_Location eq '" + userInfo[0].UserLocation + "'")
+                        .get().then(testDrives => {
+                            testDrives.map((testDrive, index) => {
+                                regionLeaderBoardArr.push({
+                                    id: index + 1,
+                                    name: testDrive.UserInfoID.UserInfoName,
+                                    points: testDrive.Points,
+                                    avatar:"http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
+                                });
+                            });
+                            resolve(regionLeaderBoardArr);
+                        })
+                })
+
+        });
+    }
+
+    static getListItemCount(listName) {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(listName).get().then(function (result) {
+                resolve(result.ItemCount);
+            });
+        });
+    }
+
+    static getListItemCountUsingCAML(listName, query) {
+        var camlQuery =
+            {
+                ViewXml: query
+            }
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(listName).getItemsByCAMLQuery(camlQuery).then(function (listitems) {
+                resolve(listitems.length);
+            });
+        });
+    }
+
+    static getTestDrivesCompleted() {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
+                .select("ID,UserInfoID/ID").expand("UserInfoID")
+                .filter("UserInfoID eq '1' and Status eq '"+Constants.ColumnsValue.COMPLETE_STATUS+"'")
+                .get().then(testDrives => {
+                    resolve(testDrives.length);
+                })
+        });
+    }
+
+    static getActiveTestDrives() {
+        var d = new Date();
+        var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items
+                .select("TestDriveName", "ID", "TestDriveEndDate")
+                .filter("TestDriveStatus eq 'Active' and TestDriveStartDate le datetime'" + todayDate + "T00:00:00.000Z' and TestDriveEndDate ge datetime'" + todayDate + "T00:00:00.000Z'")
+                .get().then(testDrives => {
+                    let activeTestDriveArr: HomeTestDrive[] = [];
+                    let testDrivesID = [];
+                    testDrives.map((value, index) => {
+                        testDrivesID.push(testDrives[index].ID);
+                    });
+                    Services.getTestDrivesParticipantCount(testDrivesID).then(count => {
+                        testDrives.map((testDrive, index) => {
+                            activeTestDriveArr.push({
+                                id: testDrive.ID,
+                                title: testDrive.TestDriveName,
+                                enddate: testDrive.TestDriveEndDate,
+                                participants: parseInt(count[index])
+                            });
+                        });
+                        resolve(activeTestDriveArr);
+                    });
+                })
+        });
+    }
+
+    static getUpcomingTestDrives() {
+        var d = new Date();
+        var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items
+                .select("TestDriveName", "ID", "TestDriveEndDate").top(3).orderBy("Created", true)
+                .filter("TestDriveStatus eq 'Active' and TestDriveStartDate ge datetime'" + todayDate + "T00:00:00.000Z'")
+                .get().then(testDrives => {
+                    let upcomingTestDriveArr: HomeTestDrive[] = [];
+                    let testDrivesID = [];
+                    testDrives.map((value, index) => {
+                        testDrivesID.push(testDrives[index].ID);
+                    });
+                    Services.getTestDrivesParticipantCount(testDrivesID).then(count => {
+                        testDrives.map((testDrive, index) => {
+                            upcomingTestDriveArr.push({
+                                id: testDrive.ID,
+                                title: testDrive.TestDriveName,
+                                enddate: testDrive.TestDriveEndDate,
+                                participants: parseInt(count[index])
+                            });
+                        });
+                        resolve(upcomingTestDriveArr);
+                    });
+                })
+        });
+    }
+
+    static getTestDrivesIRun() {
+        var d = new Date();
+        var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items
+                .select("TestDriveName", "ID", "TestDriveEndDate", "Author/Id").top(3).expand("Author/Id")
+                .orderBy("Created", true)
+                .filter("Author/Id eq '" + _spPageContextInfo.userId + "'")
+                .get().then(testDrives => {
+                    let testDriveArr: HomeTestDrive[] = [];
+                    let testDrivesID = [];
+                    testDrives.map((value, index) => {
+                        testDrivesID.push(testDrives[index].ID);
+                    });
+                    Services.getTestDrivesParticipantCount(testDrivesID).then(count => {
+                        testDrives.map((testDrive, index) => {
+                            testDriveArr.push({
+                                id: testDrive.ID,
+                                title: testDrive.TestDriveName,
+                                enddate: testDrive.TestDriveEndDate,
+                                participants: parseInt(count[index])
+                            });
+                        });
+                        resolve(testDriveArr);
+                    });
+                })
+        });
+    }
+
+    static getMyTestDrives() {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
+                .select("Title",
+                "ID",
+                "TestDriveID/ID",
+                "TestDriveID/TestDriveName",
+                "TestDriveID/TestDriveEndDate"
+                ).filter("UserInfoID eq " + _spPageContextInfo.userId + "")
+                .expand("TestDriveID").top(3).orderBy("Created", true)
+                .get().then(testDrives => {
+                    let myTestDriveArr: HomeTestDrive[] = [];
+                    let testDrivesID = [];
+                    testDrives.map((value, index) => {
+                        testDrivesID.push(testDrives[index].TestDriveID.ID);
+                    });
+                    Services.getTestDrivesParticipantCount(testDrivesID).then(count => {
+                        testDrives.map((testDrive, index) => {
+                            myTestDriveArr.push({
+                                id: testDrive.ID,
+                                title: testDrive.TestDriveID.TestDriveName,
+                                enddate: testDrive.TestDriveID.TestDriveEndDate,
+                                participants: parseInt(count[index])
+                            });
+                        });
+                        resolve(myTestDriveArr);
+                    });
+                })
+        });
+    }
+
+    static getTestDrivesParticipantCount(testDrivesID) {
+        return new Promise((resolve, reject) => {
+            SP.SOD.executeFunc("sp.js", "SP.ClientContext", () => {
+                let resultArr = [];
+                let testDrivesCount = testDrivesID.length;
+                var testDrives = [];
+                var clientContext = new SP.ClientContext.get_current();
+                var web = clientContext.get_web();
+                var list = web.get_lists().getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES);
+                $.each(testDrivesID, function (index, testDriveID) {
+                    var camlQuery = new SP.CamlQuery();
+                    var q = "<View><Query><Where><Eq><FieldRef Name='TestDriveID' /><Value Type='Integer'>" + testDriveID + "</Value></Eq></Where></Query></View>";
+                    camlQuery.set_viewXml(q);
+                    var listItems = list.getItems(camlQuery);
+                    testDrives[index] = listItems;
+                    clientContext.load(testDrives[index], 'Include(Id)');
+                });
+                clientContext.executeQueryAsync(
+                    Function.createDelegate(null, function () {
+                        var allCounts;
+                        $.each(testDrives, function (index, testDrive) {
+                            resultArr.push(testDrive.get_count());
+                            if (testDrivesCount - 1 == index) {
+                                resolve(resultArr);
+                            }
+                            console.log("JSOM : " + testDrive.get_count());
+                        });
+                    }),
+                    Function.createDelegate(null, function () {
+                    }));
+            });
+        });
+    }
+
+    static getUserProfileData() {
+        return new Promise((resolve, reject) => {
+            pnp.sp.profiles.myProperties.get().then(function (result) {
+                resolve(result.UserProfileProperties.results);
+                //Below code will use in different screen
+                var props = result.UserProfileProperties.results;
+                var propValue = "";
+                props.forEach((prop, index) => {
+                    propValue += prop.Key + " - " + prop.Value + "<br/>";
+                });
+                console.log(propValue);
+            }).catch(function (err) {
+                console.log("Error: " + err);
+            });
+        });
+    }
+
+    static loadProgressBar(val, optionsVal, optionsSize, canvasID)
+    {
+        Utils.loadProgressBar(val, optionsVal, optionsSize, canvasID);
+    }
 }
 
 export class Utils {
     public LoadedScripts = [];
+
+    public static loadProgressBar(val, optionsVal, optionsSize, canvasID) {
+        if ($('#' + canvasID)[0] != undefined) {
+            window["options" + val] = {
+                value: optionsVal,
+                size: optionsSize,
+                startAngle: -Math.PI,
+                startColor: 'red',
+                endColor: 'red',
+                animation: {
+                    duration: 1200,
+                    easing: 'circleProgressEase'
+                }
+            };
+
+            $.easing.circleProgressEase = function (x, t, b, c, d) {
+                if ((t /= d / 2) < 1)
+                    return c / 2 * t * t * t + b;
+                return c / 2 * ((t -= 2) * t * t + 2) + b;
+            };
+
+            window["s" + val] = window["options" + val].size, // square size
+                window["v" + val] = window["options" + val].value, // current value: from 0.0 to 1.0
+                window["r" + val] = window["s" + val] / 2, // radius
+                window["t" + val] = window["s" + val] / 14; // thickness
+
+            window["canvas" + val] = $('#' + canvasID)[0];
+            window["canvas" + val].width = window["s" + val];
+            window["canvas" + val].height = window["s" + val];
+            window["ctx" + val] = window["canvas" + val].getContext('2d');
+            window["lg" + val] = window["ctx" + val].createLinearGradient(0, 0, window["s" + val], 0);
+            window["lg" + val].addColorStop(0, window["options" + val].startColor);
+            window["lg" + val].addColorStop(1, window["options" + val].endColor);
+            window["ctx" + val].fillStyle = "rgba(0, 0, 0, .1)";
+
+            // Draw circle
+            if (window["options" + val].animation)
+                _drawAnimated(window["v" + val]);
+            else
+                _draw(window["v" + val]);            
+
+            // now let's animate numbers
+            window["valE" + val] = $('.value');
+            window["valE" + val].data('origVal', window["valE" + val].text());
+            $(window["canvas" + val]).on('circle-animation-progress', function (e, progress) {
+                window["valE" + val].text(parseInt(window["valE" + val].data('origVal')) * progress)
+            });
+        }
+
+        function _draw(p) {
+            // Clear frame
+            window["ctx" + val].clearRect(0, 0, window["s" + val], window["s" + val]);
+
+            // Draw background circle
+            window["ctx" + val].beginPath();
+            window["ctx" + val].arc(window["r" + val], window["r" + val], window["r" + val], -Math.PI, Math.PI);
+            window["ctx" + val].arc(window["r" + val], window["r" + val], window["r" + val] - window["t" + val], Math.PI, -Math.PI, true);
+            window["ctx" + val].closePath();
+            window["ctx" + val].fill(); // gray fill
+
+            // Draw progress arc
+            window["ctx" + val].beginPath();
+            window["ctx" + val].arc(window["r" + val], window["r" + val], window["r" + val], -Math.PI, -Math.PI + Math.PI * 2 * p);
+            window["ctx" + val].arc(window["r" + val], window["r" + val], window["r" + val] - window["t" + val], -Math.PI + Math.PI * 2 * p, -Math.PI, true);
+            window["ctx" + val].closePath();
+            window["ctx" + val].save();
+            window["ctx" + val].clip();
+            window["ctx" + val].fillStyle = window["lg" + val];
+            window["ctx" + val].fillRect(0, 0, window["s" + val], window["s" + val]); // gradient fill
+            window["ctx" + val].restore();
+        }
+
+        function _drawAnimated(v) {
+            $(window["canvas" + val]).stop(true, true).css({ value: 0 }).animate({ value: window["v" + val] }, $.extend({}, window["options" + val].animation, {
+                step: function (p) {
+                    _draw(p);
+                    $(window["canvas" + val]).trigger('circle-animation-progress', [p / window["v" + val], p]);
+                },
+
+                complete: function () {
+                    $(window["canvas" + val]).trigger('circle-animation-end');
+                }
+            }));
+        }
+    }
 
     public static uploadFile(ctx: SP.ClientContext, folderName: string, fileName: any, file: any): any {
         return new Promise((resolve, reject) => {
