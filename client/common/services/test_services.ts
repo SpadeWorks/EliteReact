@@ -152,9 +152,11 @@ class TestServices {
         //     console.log(fields);
         // })
 
-        Services.getConfigurations().then(data => {
-            console.log(data);
-        });
+        // Services.getConfigurations().then(data => {
+        //     console.log(data);
+        // });
+
+
 
         // Services.createQuestions(testDrive.questions).then(data => {
         //     console.log("create test case: ", data);
@@ -182,6 +184,10 @@ class TestServices {
         // Services.createTestCase(data[0].testCases).then(data=>{
         //     console.log("From createTestCase: ", data);
         // })
+
+
+        let data = Services.getUserProfileProperties();
+        console.log(data);
     }
 
 }
