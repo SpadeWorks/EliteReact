@@ -186,8 +186,9 @@ class TestServices {
         // })
 
 
-        let data = Services.getUserProfileProperties();
-        console.log(data);
+        // let data = Services.getUserProfileProperties();
+        // console.log(data);
+        Services.getLeaders();
     }
 
 }

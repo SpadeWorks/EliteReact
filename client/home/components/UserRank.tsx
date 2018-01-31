@@ -17,9 +17,7 @@ class Navigation extends React.Component<NavigationProps> {
                         </div>
                         <div className="player_box">
                             <div className="col-md-4 testd_box">
-                                <p>
-                                    <span className="testd_count">76 </span>
-                                    <span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span> +1</p>
+                                <p><span className="testd_count">76 </span> <span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span> +1</p>
                             </div>
                             <div className="col-md-8 player_name">
                                 <h2>Jenifer Vetel</h2>

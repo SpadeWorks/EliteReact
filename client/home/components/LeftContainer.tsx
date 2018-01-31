@@ -4,7 +4,7 @@ import * as $ from 'jquery';
 import Service from '../../common/services/services';
 
 
-interface MyTestDrivesProps {
+interface LeftContainer {
     testDriveName: string;
     endDate: string;
     participants: number;
@@ -12,10 +12,8 @@ interface MyTestDrivesProps {
     checkPortion: string;
 };
 
-interface LeaderBoardUserState {
-}
 
-class MyTestDrives extends React.Component<MyTestDrivesProps> {
+class MyTestDrives extends React.Component<LeftContainer> {
     openMyTestDriveDialog(letest_driveboxID) {
         Service.loadProgressBar("1", 0.75, 140, "myDriveCanvasPoints1");
         Service.loadProgressBar("2", 0.75, 140, "myDriveCanvasPoints2");
@@ -62,7 +60,7 @@ class MyTestDrives extends React.Component<MyTestDrivesProps> {
                 $("." + currentID + "3 .letest_drivebox").removeClass("letest_driveboxclick");
             }
         }
-    }      
+    }
 
     render() {
         var drivenoID = "";
@@ -82,7 +80,13 @@ class MyTestDrives extends React.Component<MyTestDrivesProps> {
             <div className={"row test_drive " + drivenoID}>
                 <div className="modal-backdrop in hidden"></div>
                 <div className="col-md-10">
-                    <a className="drive_name"><h4 onClick={() => this.openMyTestDriveDialog(drivenoID)}>{this.props.testDriveName}<span className={"glyphicon glyphicon-triangle-right hidden"} aria-hidden="true"></span></h4></a>
+                    <a className="drive_name">
+                        <h4 onClick={() => this.openMyTestDriveDialog(drivenoID)}>
+                            {this.props.testDriveName}
+                            <span className={"glyphicon glyphicon-triangle-right hidden"} aria-hidden="true">
+                            </span>
+                        </h4>
+                    </a>
                     <p><span className="end_date">END DATE :</span>{Service.formatDate(this.props.endDate)}</p>
                     <p><span className="participants">PARTICIPANTS :</span> {this.props.participants}</p>
                 </div>

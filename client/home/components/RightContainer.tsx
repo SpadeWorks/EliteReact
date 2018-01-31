@@ -56,6 +56,7 @@ class UpcomingTestDrives extends React.Component<UpcomingTestDrivesProps> {
                 $("."+currentID+"3 .letest_drivebox2").removeClass("letest_driveboxclick_right");
             }
             else if (drivenoID == currentID+"1") {
+
                 $("."+currentID+"2 .lc_container2").removeClass("lc_containerclick2");
                 $("."+currentID+"2 .letest_drivebox2").removeClass("letest_driveboxclick_right");
                 $("."+currentID+"3 .lc_container2").removeClass("lc_containerclick2");
@@ -70,6 +71,7 @@ class UpcomingTestDrives extends React.Component<UpcomingTestDrivesProps> {
     }
 
     loadProgressBar(val, optionsVal, optionsSize, canvasID) {
+
         if ($('#' + canvasID)[0] != undefined) {
             window["options" + val] = {
                 value: optionsVal,

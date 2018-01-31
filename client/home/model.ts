@@ -33,3 +33,13 @@ export type Leaders = {
     avatar: string;
 };
 
+export type Leader = {
+    id: number;
+    name: string;
+    points: number;
+    avatar: string;
+    totalPoints: number;
+    completedTestDrives: number;
+    car: string;
+};
+

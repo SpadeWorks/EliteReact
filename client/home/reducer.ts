@@ -51,14 +51,14 @@ export default handleActions<IState, any>({
     [LOAD_MyTestDrive_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            myTestDrive: { ...state.myTestDrive, loading: true }
+            myTestDrive: { ...state.myTestDrive, loading: true },
+            loading: true
         }
     },
     [LOAD_MyTestDrive_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
             myTestDrive: { homeTestDrives: action.payload, loading: false },
-            loading: false,
         }
     },
 
@@ -79,7 +79,7 @@ export default handleActions<IState, any>({
     [LOAD_UpcomingTestDrive_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            upcomingTestDrive: { ...state.upcomingTestDrive, loading: false },
+            upcomingTestDrive: { ...state.upcomingTestDrive, loading: true },
         }
     },
     [LOAD_UpcomingTestDrive_FULFILLED]: (state: IState, action: Action<any>): IState => {
@@ -93,14 +93,13 @@ export default handleActions<IState, any>({
     [LOAD_ActiveTestDrive_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            activeTestDrive: { ...state.upcomingTestDrive, loading: false },
+            activeTestDrive: { ...state.upcomingTestDrive, loading: true },
         }
     },
     [LOAD_ActiveTestDrive_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
             activeTestDrive: { homeTestDrives: action.payload, loading: false },
-            loading: false,
         }
     },
 

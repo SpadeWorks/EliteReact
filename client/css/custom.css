@@ -3073,7 +3073,7 @@ span.select2-selection__choice__remove {
 
 /*.line_box {
     height: 200px;
-    background: url(../images/line.png) no-repeat;
+    background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/line.png) no-repeat;
     width: 100%;
     background-size: contain;
     margin-top: -90px;
@@ -3418,12 +3418,12 @@ span.l_count {
 }
 
 /*.therm.outer-therm.vertical {
-    background: url(../images/graph.png) no-repeat bottom left;
+    background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
     border-radius: 0;
 }
 
 .therm.inner-therm.vertical {
-    background: url(../images/red-graph.png) no-repeat bottom left;
+    background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
     border-radius: 0;
     width: 28px !important;
 }*/
@@ -3532,6 +3532,31 @@ span.l_count {
     transition: all 0.5s;
     z-index: 102;
     border: solid 1px#fff;
+    display: none;
+}
+
+.letest_driveboxclick2 {
+    position: absolute;
+    left: 455px;
+    transition: 0.5s;
+    width: 450px;
+    opacity: 1;
+    z-index: 111;
+    bottom: -250px;
+    display: block;
+}
+
+
+.letest_driveboxclick_right {
+    position: absolute;
+    right: 440px;
+    display: block;
+    transition: 0.5s;
+    width: 450px;
+    opacity: 1;
+    z-index: 198;
+    bottom:-320px;
+    display: block;
 }
 
 .player_box {
@@ -3544,20 +3569,6 @@ span.l_count {
 .footer {
     height: 50px;
     background: #000;
-}
-
-.letest_drivebox {
-    left: 350px;
-    position: absolute;
-    opacity: 00;    
-    transition: all 0.9s;
-    /*height: 500px;*/
-    background: #060612;
-    position: absolute;
-    bottom: -250px;
-    width: 400px;
-    z-index: 102;
-    border: solid 1px#fff;
 }
 
 @-webkit-keyframes rotation {
@@ -3619,6 +3630,21 @@ span.l_count {
     transition: all 0.5s;
 }
 
+.letest_drivebox {
+    left: 350px;
+    position: absolute;
+    opacity: 00;    
+    transition: all 0.9s;
+    /*height: 500px;*/
+    background: #060612;
+    position: absolute;
+    bottom: -250px;
+    width: 400px;
+    z-index: 102;
+    border: solid 1px#fff;
+    display: none;
+}
+
 .letest_driveboxclick {
     position: absolute;
     left: 455px;
@@ -3628,20 +3654,8 @@ span.l_count {
     opacity: 1;
     z-index: 111;
     bottom: -250px;
-}
-
-
-.letest_driveboxclick2 {
-    position: absolute;
-    left: 455px;
     display: block;
-    transition: 0.5s;
-    width: 450px;
-    opacity: 1;
-    z-index: 111;
-    bottom: -250px;
 }
-
 
 .letest_driveboxclick3 {
     position: absolute;
@@ -4380,17 +4394,6 @@ div#s4-ribbonrow {
 .bottom_boxline{height:50px;}
 .black_box.black_box_left.pull-left{height:300px;z-index:1;}
 
-.letest_driveboxclick_right {
-    position: absolute;
-    right: 440px;
-    display: block;
-    transition: 0.5s;
-    width: 450px;
-    opacity: 1;
-    z-index: 198;
-    bottom:-320px;
-}
-
 /*test case popup starts here*/
 .social_box a:first-child{margin-left: 0px;}
 .social_box a{float: left;margin-left: 40px;}
@@ -4466,7 +4469,374 @@ span.teams:hover{
 /*test case popup ends here*/
 
 
+/*profile css starts here*/
 
+.user_name h2 {
+    margin-top: 0px;
+}
+
+span.testd_count {
+    background: red;
+    padding: 5px;
+    margin-right: 7px;
+    /* border-radius: 5px; */
+    padding-right: 8px;
+    font-size: 19px;
+    color: #fff;
+}
+
+.testd_box span.glyphicon-triangle-top {
+    font-size: 12px;
+    color: green;
+}
+
+.testd_box p {
+    color: green;
+}
+
+.orange {
+    font-size: 14px;
+    color: #ff8d00;
+}
+
+
+.ride_box {
+    width: 20%;
+}
+
+.count_box {
+    margin-top: 30px;
+}
+
+.profile_box.count_box:nth-child(4) {
+    border-bottom: solid 2px #fff;
+}
+
+.count_box h2 {
+    margin-top: 0px;
+}
+
+.count_box span.white_count {
+    font-size: 15px;
+    color: #fff;
+    margin-left: 5px;
+    font-family: titanium !important;
+}
+
+
+.count_box span.gray_count{  font-size: 15px;
+    color: #828282;
+    margin-left: 5px;
+    font-family: titanium !important;
+text-transform: uppercase;}
+
+.count_box ul.select2-selection__rendered {
+    float: left;
+    padding-bottom: 30px;
+}
+
+
+.count_box li.select2-selection__choice {
+    width: auto !important;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: #252525;
+}
+
+.profile_box ul.nav.nav-tabs {
+    border-top: none !important;
+    float: left;
+}
+
+.profile_box .nav>li>a {
+    font-size: 14px;
+        text-transform: uppercase;
+}
+
+.col-md-10.profile_box .count_box:nth-child(4) {
+    border-bottom: solid 2px #333;
+}
+
+.col-md-12.currtestdrive_list {
+    background: #ffffff12;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+/*profile css ends here*/
+
+
+/*laderboard list styles starts here*/
+
+
+.leader_listbox .leader_name {
+    height: 50px;
+    background: none;
+    float: left;
+    width: 94%;
+    border: solid 1px #fff;
+    transform: skewX(-21deg);
+    height: 74px;
+    background: none;
+    border: solid 1px #fff;
+    background: #0000008a;
+}
+.leader_listbox .leader_rank {
+    width: 4%;
+    float: left;
+    height: 43px;
+    background: #ed1b24;
+    transform: skewX(-20deg);
+    position: relative;
+    left: 10px;
+    z-index: 99;
+}
+
+.leader_namenphoto,.leader_car {
+    float: left;
+    -webkit-transform: skewX(27deg) !important;
+    color: white;
+    box-sizing: border-box;
+    -moz-transform: skewX(45deg);
+    -ms-transform: skewX(45deg);
+    -webkit-transform: skewX(45deg);
+    /* transform: skewX(45deg); */
+    left: 0px;
+    /* padding-left: 13px; */
+    padding-top: 5px;
+
+
+}
+
+.leader_namenphoto img{float: left;
+}
+ 
+ .point_box,.drive_status{height: 40px; float: left;}
+.point_box span.orange {
+    font-size: 34px;
+    padding-top: 2px;
+    padding-left: 9px;
+}
+
+.leader_name span{ -webkit-transform: skewX(25deg) !important;
+    position: absolute;
+    box-sizing: border-box;
+    -moz-transform: skewX(45deg);
+    -ms-transform: skewX(45deg);
+    -webkit-transform: skewX(45deg);
+    /* transform: skewX(45deg); */
+    left: 0;
+    font-size: 23px;
+    padding-left: 19px;
+}
+
+.leadership_box{margin-top: 100px;}
+
+/*leaderboard list styles ends here*/
+
+
+/*test case for user starts here*/
+
+.row.testcase_box {
+    margin-top: 30px;
+}
+
+
+.testcase_box h1{font: 1em "HemiHeadRg-BoldItalic", Monospace;
+
+font-size: 35px;}
+
+.testcase_box p{font-family: titanium !important; font-size: 15px;}
+
+h4.testcase_title{font-family: titanium !important; font-size: 20px; color: #868686;margin-top: 30px;}
+
+
+.test_progress {
+    float: left;
+    margin-top: 25px;
+    width: 100%;
+}
+
+
+a.status_inprogress {
+    background: #151515;
+    padding: 12px;
+    font-size: 22px;
+    color: #fff;
+    /* padding-left: 20px; */
+    /* padding-right: 20px; */
+    /* margin-right: 30px; */
+    min-width: 150px;
+    float: left;
+    text-decoration: none;
+}
+
+a.status_pass {
+    background: #151515;
+    padding: 10px;
+    font-size: 22px;
+    color: #fff;
+    /* padding-left: 20px; */
+    /* padding-right: 43px; */
+    text-decoration: none;
+    border: solid 1px #abe225;
+    float: left;
+    margin-top: 0px;
+    min-width: 150px;
+    text-decoration: none;
+}
+
+a.status_pass i {
+    position: relative;
+    left: inherit;
+    left: 27px;
+    top: 4px;
+    color: #abe816;
+}
+
+
+a.status_fail {
+    background: #151515;
+    padding: 12px;
+    font-size: 22px;
+    color: #fff;
+    /* padding-left: 20px; */
+    /* padding-right: 20px; */
+    /* margin-right: 30px; */
+    min-width: 150px;
+    float: left;
+    text-decoration: none;
+}
+
+.comment_box {
+    margin-top: 55px;
+}
+
+.common_box .inputMaterial {
+    font-size: 18px;
+    padding: 0px 10px 10px 5px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #575757;
+    background: none;
+    height: 80px !important;
+}
+
+.comment_box i{float: right;}
+
+.col-md-12.comment_box textarea {
+    height: 50px;
+}
+.overview {
+    margin-top: 0px;
+    padding-bottom: 40px;
+    padding-top: 40px;
+    background: #333;
+}
+.overview p{font-size: 25px;}
+.overview span.orange{font-size: 42px;}
+
+.overview h4.testcase_title{margin-top: 0px;}
+
+.overview p.inactive{color: #757575;}
+
+a.next_task i,a.prev_task i{font-size: 46px; color: #fff;}
+a.next_task i:hover,a.prev_task i:hover{color: #ff8d00;}
+
+.testcase_no{height: 300px; width: 100px; position: absolute;left: 0px; top: 30%;}
+ul.task_circle {list-style-type: none;
+padding-left: 5px; float: left;}
+
+ul.task_circle li{ padding-left: 17px;
+    padding-top: 13px; margin-bottom: 40px;}
+
+ul.task_circle li p{float: left;
+    font-size: 27px;
+    width: 55px;}
+
+ul.task_circle li img{float: right;
+    padding-left: 10px;
+    padding-top: 3px;}
+
+ul.task_circle li p.inactive_task{color: #333;}
+
+
+/*test case for user ends here*/
+
+
+
+
+
+
+/*test case popup starts here*/
+.social_box a:first-child{margin-left: 0px;}
+.social_box a{float: left;margin-left: 40px;}
+span.teams{background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/teams1.png) no-repeat; height: 23px; width: 23px; float:left;}
+span.teams:hover{background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/teams2.png) no-repeat;height: 23px; width: 23px;float:left;}
+.social_box a i {
+    color: #828282;
+}
+
+.social_box{margin-top: 20px;}
+.social_box a i:hover{color:#5659b0;}
+
+
+.popup_infocontainer {
+    float: left;
+    margin-top: 30px;
+    padding-top: 11px;
+}
+
+.earned_pointbox {
+    /* background: #333; */
+    border-right: solid 1px #333333;
+    min-height: 250px;
+}
+
+
+.earn_box{min-height: 250px; border-bottom: solid 1px #333;padding-top: 20px;}
+
+.drive_completionbox{min-height: 250px; padding-top: 20px;}
+
+
+.col-md-12.earn_box #canvas2, .drive_completionbox #canvas3 {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+}
+.earn_box h3, .drive_completionbox h3 {
+    margin-top: 10px;
+    position: absolute;
+    top: 110px;
+    left: 58px;
+    text-transform: uppercase !important;
+}
+.earn_box span.small,.drive_completionbox span.small {
+    position: absolute;
+    bottom: 12px;
+    left: 48px;
+    font-family: titanium;
+    font-size: 11px;
+
+}
+
+.popup_ownerbox, .popup_dificultybox{min-height: 250px; padding-top: 20px;}
+
+
+.popup_ownerbox h4{font-family: titanium !important; text-transform: uppercase !important;}
+
+.col-md-12.end_date {
+    position: absolute;
+    bottom: 50px;
+    height: 50px; 
+}
+
+.popup_infocontainer button{margin-left: 100px;}
+
+.popup_buttonbox {margin-top: 20px;}
+
+
+/*test case popup ends here*/
 
 /*video box styles starts here*/
 .modal-dialog.video_box {
@@ -4476,8 +4846,230 @@ span.teams:hover{
 }
 
 .modal-dialog{width: 800px;}
-
-
-
-
 /*video box styling ends here*/
+/*new profile ui starts here*/
+.profile_box img{float: left; margin-right: 40px;}
+
+.profile_box h2{font-size: 30px;}
+
+.profileinfo_box{margin-top:30px; }
+
+.profileinfo_box span.orange{text-transform: uppercase;}
+.profileinfo_box h5{margin-top: 0px; font-family: titanium !important;  font-size: 14px;}
+.inforow{margin-bottom: 20px;}
+.device_box{margin-top: 30px;}
+
+.device_box span{text-transform: uppercase;}
+
+.devicelist{margin-bottom: 50px;}
+
+a.edit_profile{color: #333; margin-top: 10px;}
+
+.edit_profile {
+    margin-top: 20px;
+}
+
+.edit_profile a{color: #fff;}
+
+.profile_overviewbox .overview{background: none; border-bottom: solid 1px #333;}
+.profile_overviewbox img{height: 40px;}
+.profile_overviewbox h4.testcase_title{font-size: 16px;}
+
+
+
+
+/*for car slider start*/
+#carousel-example-generic {
+  display: inline-block;
+}
+/*****************************/
+
+/* Plugin styles */
+ul.thumbnails-carousel {
+    padding: 5px 0 0 0;
+    margin: 0;
+    list-style-type: none;
+    text-align: center;
+}
+ul.thumbnails-carousel .center {
+    display: inline-block;
+}
+ul.thumbnails-carousel li {
+    margin-right: 5px;
+    float: left;
+    cursor: pointer;
+    opacity: 0.3;
+}
+.controls-background-reset {
+    background: none !important;
+}
+.active-thumbnail {
+    opacity: 0.4;
+}
+.indicators-fix {
+    bottom: 70px;
+}
+
+.profile_overviewbox span.testd_count {
+    background: none;
+    color: #ff8d00;
+    font-size: 38px;
+    padding-right: 0px;
+}
+.profile_overviewbox
+
+
+.imp_points h4 {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.row.car_sliderbox .profile_overviewbox span.orange {
+    font-size: 26px;
+    padding-top: 0px;
+    margin-top: 0px;
+}
+.thumbnails-carousel img {
+    height: 80px;
+    width: 150px;
+}
+
+.row.car_sliderbox #carousel-example-generic {
+    display: inline-block;
+    width: 100%;
+}
+
+
+
+.row.car_sliderbox .carousel-inner {
+    position: relative;
+    width: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.row.car_sliderbox .indicators-fix{display: none !important;}
+
+.current_ridecheck img{height: 20px; width:20px;}
+
+li.active-thumbnail {
+    opacity: 1 !important;
+}
+
+
+.carousel-caption{bottom: 50px;}
+
+
+.modal-content.editpro_box {
+    background: #1d1923;
+    border: solid 1px #fff;
+    border-radius: 0px;
+    padding: 5px;
+    float: left;
+}
+
+.editpro_box .modal-header {
+    border: none;
+}
+
+.modal-dialog{
+    position: absolute;
+    top: 20%;
+    left: 25%;
+}
+
+.modal-dialog.edit_profile{width: 550px;}
+
+.carousel-inner.avatar_box a img {
+    height: 60px;
+    width: 60px;
+    margin-left: 0px;
+    border-radius: 50%;
+    border: solid 1px #fff;
+    margin-bottom: 5%;
+    transition: all 0.5s;
+}
+
+.carousel-inner.avatar_box .col-md-12{height: 80px;}
+.carousel-inner.avatar_box a:hover img{ height:65px; width:65px;border:solid 1px orange;}
+
+
+.avatar_box .item{padding-left: 60px;}
+
+.avatar_box span.orange{margin-bottom: 50px;}
+
+.avtar_selection {margin-bottom: 50px;}
+
+.editpro_box ol.carousel-indicators {
+    display: none;
+}
+
+
+.modal-content.editpro_box .carousel-control.left ,.modal-content.editpro_box .carousel-control.right {
+    background: none;
+}
+
+
+.modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top:none;
+    float: left;
+    width: 100%;
+}
+
+
+.editpro_box .inputMaterial:focus~label, .inputMaterial:valid~label {
+    top: -3px;
+    font-size: 14px;
+    color: red;
+}
+
+
+.editpro_box .inputMaterial {
+    font-size: 18px;
+    padding: 0px 10px 10px 5px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #575757;
+    background: none;
+    font-family: titanium;
+    font-size: 14px;
+    padding-left: 0px;
+}
+
+
+select{background: #000;}
+
+.editpro_box i{color: #fff; text-shadow: none;}
+.editpro_box .close{opacity: 1;}
+
+
+body.plane_back{background: #100f1b;}
+/*for car slider ends*/
+/*new profile ui ends here */
+
+/* style for referal pop up start here*/
+h1#dialogTitleSpan {
+    text-align: center !important;
+}
+.ms-dlgTitle {
+    padding: 13px 19px 15px;
+    white-space: nowrap;
+    cursor: move;
+    overflow: hidden;
+    background: #000 !important;
+    color:#fff !important;
+}
+
+.ms-dlgContent{background: #000 !important;}
+.ms-dlgFrameContainer {
+    padding: 0px 19px 10px;
+    overflow: auto;
+    background: #000 !important;
+}
+
+.ms-dlgTitleText {color:#fff !important;font-family: "HemiHeadRg-BoldItalic" !important;}
+
+/* style for referal pop up ends here */

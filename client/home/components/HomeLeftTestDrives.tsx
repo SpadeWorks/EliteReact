@@ -1,95 +1,80 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
+import TabbedArea from './TabbedArea';
+import TabPane from './TabPane';
+import MyTestDrives from './LeftContainer';
+import Loader from 'react-loader-advanced';
+import { HomeTestDrive } from '../../home/model';
+import LeftContainer from './LeftContainer';
 
 interface HomeLeftTestDrivesProps {
-
+    updateUI: (any) => any;
+    ui: any;
+    mytestDrive: HomeTestDrive[];
+    myTestDriveLoading: boolean;
+    testDriveThatIRun: HomeTestDrive[];
+    testDriveThatIRunLoading: boolean;
 };
 class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
     constructor(props, context) {
         super(props, context);
     }
+
     render() {
-        return (<div className="col-md-4 black_box home-tab-container">
+        const {
+            ui,
+            updateUI,
+            mytestDrive,
+            myTestDriveLoading,
+            testDriveThatIRun,
+            testDriveThatIRunLoading
+        } = this.props;
+
+        return (<div className="col-md-4 black_box black_box_left pull-left">
             <div className="row">
                 <div className="well">
-                    <ul className="nav nav-tabs">
-                        <li className="active">
-                            <a href="#home" data-toggle="tab">MY TEST DRIVES</a>
-                        </li>
-                        <li className="pull-right">
-                            <a href="#profile" data-toggle="tab">TEST DRIEVES I RUN</a>
-                        </li>
-                    </ul>
+                    <TabbedArea ui={ui} updateUI={updateUI}>
+                        <TabPane display="MY TEST DRIVES" href="#home">
+                        </TabPane>
+                        <TabPane display="TEST DRIEVES I RUN" href="#profile">
+                        </TabPane>
+                    </TabbedArea>
                     <div id="myTabContent" className="tab-content">
-                        <div className="tab-pane active in" id="home">
-                            <div className="col-md-12">
-                                <div className="row test_drive driveno1">
-                                    <div className="col-md-10">
-                                        <a className="drive_name">
-                                            <h4 className="test_one">Skype for Bussiness
-                          <span className="glyphicon glyphicon-triangle-right hidden" aria-hidden="true"></span>
-                                            </h4>
-                                        </a>
-                                        <p>
-                                            <span className="end_date">END DATE :</span> MAR 13, 2018</p>
-                                        <p>
-                                            <span className="participants">PARTICIPANTS :</span> 800</p>
-                                    </div>
-                                    <div className="col-md-2 pull-right">
-                                        <div className="lc_container">
-                                            <div className="white_circle"></div>
-                                            <div className="col-md-12 lc-box"></div>
-                                            <div className="col-md-12 lc-box-height"></div>
-                                        </div>
-                                    </div>
-                                    <div className="letest_drivebox"></div>
+                        <Loader show={false && myTestDriveLoading} message={'Loading test drives...'}>
+                            <div className="tab-pane active in" id="home">
+                                <div className="col-md-12">
+                                    {
+                                        mytestDrive && mytestDrive.map((testDrive, index) => {
+                                            return (<LeftContainer
+                                                testDriveId={index + 1}
+                                                testDriveName={testDrive.title}
+                                                endDate={testDrive.enddate}
+                                                participants={testDrive.participants}
+                                                checkPortion={"myTestDrive"} />)
+                                        })
+                                    }
                                 </div>
-                                <div className="row test_drive driveno2">
-                                    <div className="col-md-10">
-                                        <h4 className="test_two">Skype for Bussiness
-                        <span className="glyphicon glyphicon-triangle-right hidden" aria-hidden="true"></span>
-                                        </h4>
-                                        <p>
-                                            <span className="end_date">END DATE :</span> MAR 13, 2018</p>
-                                        <p>
-                                            <span className="participants">PARTICIPANTS :</span> 800</p>
-                                    </div>
-                                    <div className="col-md-2 pull-right">
-                                        <div className="lc_container">
-                                            <div className="white_circle"></div>
-                                            <div className="col-md-12 lc-box"></div>
-                                            <div className="col-md-12 lc-box-height"></div>
-                                        </div>
-                                    </div>
-
-                                    <div className="letest_drivebox"></div>
-                                </div>
-                                <div className="row test_drive driveno3">
-                                    <div className="col-md-10">
-                                        <h4 className="test_three">Skype for Bussiness
-                        <span className="glyphicon glyphicon-triangle-right hidden" aria-hidden="true"></span>
-                                        </h4>
-                                        <p>
-                                            <span className="end_date">END DATE :</span> MAR 13, 2018</p>
-                                        <p>
-                                            <span className="participants">PARTICIPANTS :</span> 800</p>
-                                    </div>
-                                    <div className="col-md-2 pull-right">
-                                        <div className="lc_container">
-                                            <div className="white_circle"></div>
-                                            <div className="col-md-12 lc-box"></div>
-                                            <div className="col-md-12 lc-box-height"></div>
-                                        </div>
-                                    </div>
-                                    <div className="letest_drivebox"></div>
-                                </div>
-                                <a href="#" className="pull-right"> MORE &gt;&gt;</a>
                             </div>
-                        </div>
-                        <div className="tab-pane fade" id="profile">
-                            <h1>tab2</h1>
-                        </div>
+                        </Loader>
+                        <Loader show={testDriveThatIRunLoading} message={'Loading test drives...'}>
+                            <div className="tab-pane fade" id="profile">
+
+                                <div className="col-md-12">
+                                    {
+                                        testDriveThatIRun && testDriveThatIRun.map((testDrive, index) => {
+                                            return (<LeftContainer
+                                                testDriveId={index + 1}
+                                                testDriveName={testDrive.title}
+                                                endDate={testDrive.enddate}
+                                                participants={testDrive.participants}
+                                                checkPortion={"testDriveThatIRun"} />)
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        </Loader>
                     </div>
+
                 </div>
             </div>
         </div>)

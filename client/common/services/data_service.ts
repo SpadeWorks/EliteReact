@@ -6,7 +6,6 @@ import * as $ from 'jquery';
 import * as moment from 'moment';
 import TestCases from "../../test_drive/components/TestCases";
 import { HomeTestDrive, Leaders } from '../../home/model';
-import MyTestDrives from "../../home/components/MyTestDrives";
 const delay = 100;
 declare var SP: any;
 
@@ -796,6 +795,29 @@ export class Services {
                             avatar: "http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
                         });
                     });
+                    resolve(leaderBoardArr);
+                })
+        });
+    }
+    static getLeaders() {
+        var d = new Date();
+        var lastYear = d.getFullYear() - 1 + "-12-31";
+        return new Promise((resolve, reject) => {
+            let leaderBoardArr: Leaders[] = [];
+            pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
+                .select("Points",
+                "UserInfoID/ID",
+                "UserInfoID/UserInfoName",
+                "UserInfoID/CarImage",
+                "UserInfoID/CarName",
+                "UserInfoID/AvatarName",
+                "UserInfoID/AvatarImage",
+                )
+                .expand("UserInfoID").top(100)
+                .orderBy('Points', false)
+                .filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z'")
+                .get().then(testDrives => {
+                    console.log(testDrives);
                     resolve(leaderBoardArr);
                 })
         });
