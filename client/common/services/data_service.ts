@@ -32,6 +32,20 @@ export class Services {
         return 1; //TODO 
     }
 
+    static getUserProfileProperties() {
+        var data = $("#divUserProfileProperties").text();
+
+        try {
+            if (data) {
+                data = data.replace(/\r?\n|\r/igm, "");
+                data = data.replace(/\\/igm, "\\\\");
+            }
+            return Utils.tryParseJSON(data);
+        } catch (e) {
+            return null;
+        }
+    }
+
     static getConfigurations() {
         return new Promise((resolve, reject) => {
             let cachedConfig = Cache.getCache(Constants.CacheKeys.CONFIGURATIONS);
@@ -779,7 +793,7 @@ export class Services {
                             id: index + 1,
                             name: testDrive.UserInfoID.UserInfoName,
                             points: testDrive.Points,
-                            avatar:"http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
+                            avatar: "http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
                         });
                     });
                     resolve(leaderBoardArr);
@@ -810,16 +824,16 @@ export class Services {
                 .expand("BadgeID").filter("UserID eq '18'")
                 .get().then(badge => {
                     pnp.sp.web.lists.getByTitle(Constants.Lists.BADGES).items
-                    .select("CarID/ID")
-                    .expand("CarID").filter("ID eq " + badge[0].BadgeID.ID + "")
-                    .get().then(car => {                        
-                        pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
-                        .select("File/Name")
-                        .expand("File").filter("ID eq " + car[0].CarID.ID + "")
-                        .get().then(carImage => {
-                            resolve(carImage[0].File.Name);
+                        .select("CarID/ID")
+                        .expand("CarID").filter("ID eq " + badge[0].BadgeID.ID + "")
+                        .get().then(car => {
+                            pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
+                                .select("File/Name")
+                                .expand("File").filter("ID eq " + car[0].CarID.ID + "")
+                                .get().then(carImage => {
+                                    resolve(carImage[0].File.Name);
+                                });
                         });
-                    });                   
                 })
         });
     }
@@ -846,7 +860,7 @@ export class Services {
                                     id: index + 1,
                                     name: testDrive.UserInfoID.UserInfoName,
                                     points: testDrive.Points,
-                                    avatar:"http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
+                                    avatar: "http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
                                 });
                             });
                             resolve(regionLeaderBoardArr);
@@ -880,7 +894,7 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
                 .select("ID,UserInfoID/ID").expand("UserInfoID")
-                .filter("UserInfoID eq '1' and Status eq '"+Constants.ColumnsValue.COMPLETE_STATUS+"'")
+                .filter("UserInfoID eq '1' and Status eq '" + Constants.ColumnsValue.COMPLETE_STATUS + "'")
                 .get().then(testDrives => {
                     resolve(testDrives.length);
                 })
@@ -1054,8 +1068,7 @@ export class Services {
         });
     }
 
-    static loadProgressBar(val, optionsVal, optionsSize, canvasID)
-    {
+    static loadProgressBar(val, optionsVal, optionsSize, canvasID) {
         Utils.loadProgressBar(val, optionsVal, optionsSize, canvasID);
     }
 }
@@ -1101,7 +1114,7 @@ export class Utils {
             if (window["options" + val].animation)
                 _drawAnimated(window["v" + val]);
             else
-                _draw(window["v" + val]);            
+                _draw(window["v" + val]);
 
             // now let's animate numbers
             window["valE" + val] = $('.value');
