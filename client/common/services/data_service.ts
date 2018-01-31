@@ -799,7 +799,7 @@ export class Services {
                 })
         });
     }
-    static getLeaders() {
+    static getLeaders(skip=5, count=5) {
         var d = new Date();
         var lastYear = d.getFullYear() - 1 + "-12-31";
         return new Promise((resolve, reject) => {
@@ -816,12 +816,39 @@ export class Services {
                 .expand("UserInfoID").top(100)
                 .orderBy('Points', false)
                 .filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z'")
+                .skip(skip).top(count)
                 .get().then(testDrives => {
                     console.log(testDrives);
                     resolve(leaderBoardArr);
                 })
         });
     }
+
+    static getRegionalLeaders(region: string, skip = 5, top= 5) {
+        var d = new Date();
+        var lastYear = d.getFullYear() - 1 + "-12-31";
+        return new Promise((resolve, reject) => {
+            let leaderBoardArr: Leaders[] = [];
+            pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
+                .select("Points",
+                "UserInfoID/ID",
+                "UserInfoID/UserInfoName",
+                "UserInfoID/CarImage",
+                "UserInfoID/CarName",
+                "UserInfoID/AvatarName",
+                "UserInfoID/AvatarImage",
+                )
+                .expand("UserInfoID").top(100)
+                .orderBy('Points', false)
+                .filter("PointsEarnedOnDate gt datetime'" + 
+                    lastYear + "T23:59:59.000Z' and " +  Constants.Columns.USER_REGION + " eq '" + region + "'")
+                .get().then(testDrives => {
+                    console.log(testDrives);
+                    resolve(leaderBoardArr);
+                })
+        });
+    }
+
 
     static getCurrentUserPoints() {
         var d = new Date();

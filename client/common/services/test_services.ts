@@ -188,7 +188,12 @@ class TestServices {
 
         // let data = Services.getUserProfileProperties();
         // console.log(data);
-        Services.getLeaders();
+        Services.getLeaders(0,5);
+        Services.getLeaders(5,5);
+        Services.getLeaders(10,5);
+        Services.getLeaders(15,5);
+
+        Services.getRegionalLeaders("Asia Pacific");
     }
 
 }

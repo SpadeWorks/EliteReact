@@ -5,9 +5,7 @@ import HomeTabs from './HomeTabs';
 import ui from 'redux-ui';
 import TabbedArea from './TabbedArea';
 import TabPane from './TabPane';
-import MyTestDrives from './LeftContainer';
 import { HomeTestDrive, Leaders } from '../../home/model';
-import UpcomingTestDrives from './RightContainer';
 import OverallPointsDashboard from "./OverallPointsDashboard"
 import * as $ from 'jquery';
 import Services from '../../common/services/services';

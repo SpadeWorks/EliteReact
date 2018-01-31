@@ -19,6 +19,7 @@ export class CacheKeys{
 
 export class Columns{
     static TITLE = 'Title';    
+    static USER_REGION = 'User_x0020_ID_x003a_Region';
 }
 
 export class ColumnsValue{
