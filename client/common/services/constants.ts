@@ -4,16 +4,17 @@ export class Lists {
     static SURVEY_QUESTIONS = 'Survey Questions';
     static RACE_LEVELS = 'Race Levels';
     static POINTS_CONFIGURATIONS = 'Points Configurations'
-}
-
-export class CacheKeys{
-    static CONFIGURATIONS = 'configurations';
     static USER_INFORMATION = 'User Information';
     static TEST_DRIVE_INSTANCES = 'Test Drive Instances';
     static POINTS = 'Points'; 
     static AVATAR = 'Avatars';  
     static CARMASTER = 'Car Master';   
     static BADGES = 'Badges'; 
+}
+
+export class CacheKeys{
+    static CONFIGURATIONS = 'configurations';
+    
 }
 
 export class Columns{
