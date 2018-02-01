@@ -1,6 +1,6 @@
 import { handleActions, Action } from 'redux-actions';
 
-import { IState, HomeTestDrive, Leaders } from './model';
+import { IState } from './model';
 import {
     LOAD_OnBoardingDetails,
     LOAD_OnBoardingDetails_FULFILLED,

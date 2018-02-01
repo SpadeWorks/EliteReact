@@ -1,14 +1,18 @@
 export type IState = {
-    globalLeaderBoard: {
-        globalLeaders: Leader[];
-        loading: boolean;
-    }
-    regionalLeaderBoard: {
-        regionalLeaders: Leader[];
-        loading: boolean;
-        selectedRegion: string;
-        regions: string[]; 
-    }
+    globalLeaderBoard: globalLeaderBoard;
+    regionalLeaderBoard: regionalLeaderBoard;
+}
+
+export type globalLeaderBoard = {
+    globalLeaders: Leader[];
+    loading: boolean;
+}
+
+export type regionalLeaderBoard = {
+    regionalLeaders: Leader[];
+    loading: boolean;
+    selectedRegion: string;
+    regions: string[]; 
 }
 
 export type Leader = {

@@ -10,23 +10,24 @@ class LeaderItem extends React.Component<LeaderItemProps> {
         super(props, context);
     }
     render() {
+        const {leader} = this.props;
         return (<div className="row test_drive leader_listbox">
             <div className="col-md-12 leader_box">
                 <div className="leader_rank">
-                    <span>1</span>
+                    <span>{leader.id}</span>
                 </div>
                 <div className="col-md-11 leader_name">
                     <div className="col-md-3 leader_namenphoto">
-                        <img src="images/masc1.png" />
-                        <h4>Monica Breadford </h4>
+                        <img src={leader.avatar} className="leader-image" />
+                        <h4>{leader.name}</h4>
                     </div>
                     <div className="col-md-3 leader_car">
-                        <img src="images/car.png" />
+                        <img src={leader.car} className="leader-car-mage"/>
                     </div>
                     <div className="col-md-3">
                         <div className="col-md-12 point_box">
                             <span className="orange">
-                                <i>292</i>
+                                <i>{leader.completedTestDrives}</i>
                             </span>
                         </div>
                         <div className="col-md-12 drive_status">
@@ -36,7 +37,7 @@ class LeaderItem extends React.Component<LeaderItemProps> {
                     <div className="col-md-3">
                         <div className="col-md-12 point_box">
                             <span className="orange">
-                                <i>99,580</i>
+                                <i>{leader.totalPoints}</i>
                             </span>
                         </div>
                         <div className="col-md-12 drive_status">

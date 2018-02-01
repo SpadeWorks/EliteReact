@@ -13,9 +13,10 @@ import {
 
 interface LeaderBoardContainerProps {
   dispatch: Dispatch<{}>;
-  globalLeaders: model.Leader[];
-  regionLeaders: model.Leader[];
-  region: string;
+  updateUI: (any) => any;
+  ui: any;
+  globalLeaderBoard: model.globalLeaderBoard
+  regionalLeaderBoard: model.regionalLeaderBoard
 };
 
 class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
@@ -23,7 +24,7 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
     super(props, context);
   }
   render() {
-    const {dispatch, globalLeaders, regionLeaders, region} = this.props;
+    const { dispatch, globalLeaderBoard, regionalLeaderBoard, ui, updateUI } = this.props;
     return (<div className="col-md-12">
       <div className="row">
         <div className="container">
@@ -46,15 +47,20 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
                 </ul>
                 <div id="myTabContent" className="tab-content">
                   <div className="tab-pane active in leadership_box" id="global">
-                    <GlobalLeaderBoard 
-                      leaders={globalLeaders}
-                      loadGlobalLeaderBoard = {() => dispatch(loadGlobalLeaderBoard)}/>
+                    <GlobalLeaderBoard
+                      leaders={globalLeaderBoard.globalLeaders}
+                      loadGlobalLeaderBoard={() => dispatch(loadGlobalLeaderBoard())} 
+                      ui={ui}
+                      updateUI={updateUI}/>
                   </div>
                   <div className="tab-pane fade" id="regional">
-                    <RegionalLeaderBoard 
-                      leaders={regionLeaders}
-                      loadRegionalLeaderBoard = {(region: string) => dispatch(loadRegionalLeaderBoard(region))}
-                      region={region}/>
+                    <RegionalLeaderBoard
+                      leaders={regionalLeaderBoard.regionalLeaders}
+                      loadRegionalLeaderBoard={(region: string) => dispatch(loadRegionalLeaderBoard(region))}
+                      region={regionalLeaderBoard.selectedRegion}
+                      regions={regionalLeaderBoard.regions} 
+                      ui={ui}
+                      updateUI={updateUI}/>
                   </div>
                 </div>
               </div>
@@ -72,9 +78,9 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    globalLeaders: state.leaderBoardState.leaderBoard,
-    regionLeaders: state.leaderBoardState.regionLeaderBoard,
-    
+    globalLeaderBoard: state.leaderBoardState.globalLeaderBoard,
+    regionalLeaderBoard: state.leaderBoardState.regionalLeaderBoard,
+
   }
 };
 

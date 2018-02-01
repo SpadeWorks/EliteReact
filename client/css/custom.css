@@ -5072,6 +5072,19 @@ h1#dialogTitleSpan {
 
 .ms-dlgTitleText {color:#fff !important;font-family: "HemiHeadRg-BoldItalic" !important;}
 
+/* Fix for Leader Boards */
+.leader-image{
+    max-height: 62px;
+    max-width: 71px;
+    border-radius: 50%;
+}
+
+.leader-car-mage{
+    width: 200px;
+    height: 75px;
+}
+/* Fix for Leader Boards End*/
+
 /* style for referal pop up ends here */
 
 /* Added for on boarding fix */

@@ -7,6 +7,9 @@ interface RegionalLeaderBoardProps {
     loadRegionalLeaderBoard: (region: string) => any;
     leaders: Leader[];
     region: string;
+    regions: string[];
+    updateUI: (any) => any;
+    ui: any;
 };
 class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
     constructor(props, context) {
