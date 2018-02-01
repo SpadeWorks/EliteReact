@@ -5073,3 +5073,42 @@ h1#dialogTitleSpan {
 .ms-dlgTitleText {color:#fff !important;font-family: "HemiHeadRg-BoldItalic" !important;}
 
 /* style for referal pop up ends here */
+
+/* Added for on boarding fix */
+/* .red-box-container{
+    height: 50px;
+    margin-top: -83px;
+    width: 25%;
+    position: absolute;
+    left: -72px;
+}
+
+.count-box-container{
+    height: 30px;
+    margin-top: -42px;
+    margin-left: 84px;
+}
+
+#typewriteText {
+    color: #fff;
+    font-size: 22px;
+    font-family: 'titanium', Arial, Helvetica, sans-serif;
+    width: 92%;
+    margin: 0 auto;
+    position: absolute;
+    left: 28px;
+    top: 150px;
+    animation-delay: 10s;
+  }
+
+  .header-title.person_name .title:after {
+    content: '';
+    position: absolute;
+    top: 325px;
+    right: 357px;
+    width: 34px;
+    border-bottom: 5px solid #ee1d23;
+    animation-delay: 10s;
+  } */
+
+            /* Added for on boarding fix end*/

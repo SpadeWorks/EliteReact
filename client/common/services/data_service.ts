@@ -6,6 +6,7 @@ import * as $ from 'jquery';
 import * as moment from 'moment';
 import TestCases from "../../test_drive/components/TestCases";
 import { HomeTestDrive, Leaders } from '../../home/model';
+import { Leader } from '../../leader_board/model';
 const delay = 100;
 declare var SP: any;
 
@@ -29,6 +30,24 @@ pnp.setup({
 export class Services {
     static getCurrentUserID() {
         return 1; //TODO 
+    }
+
+    static getTotalUserCount(){
+        return new Promise((resolve, reject) => {
+            resolve(3434);
+        });
+    }
+
+    static getOnboardingDetails(){
+        return new Promise((resolve, reject) => {
+            let user = this.getUserProfileProperties();
+            this.getTotalUserCount().then(usersCount =>{
+                resolve({
+                    totalUsers: usersCount,
+                    currentUser: user.firstName
+                });
+            })
+        });
     }
 
     static getUserProfileProperties() {
@@ -799,56 +818,112 @@ export class Services {
                 })
         });
     }
-    static getLeaders(skip=5, count=5) {
+
+    static getLeaderBoardRegion() {
         var d = new Date();
         var lastYear = d.getFullYear() - 1 + "-12-31";
         return new Promise((resolve, reject) => {
-            let leaderBoardArr: Leaders[] = [];
+            let regionLeaderBoardArr: Leaders[] = [];
+            pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION).items
+                .select("UserLocation"
+                )
+                .filter("UserID eq " + _spPageContextInfo.userId + "")
+                .get().then(userInfo => {
+                    pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
+                        .select("Points",
+                        "UserInfoID/ID",
+                        "UserInfoID/UserInfoName"
+                        )
+                        .expand("UserInfoID").top(3).orderBy('Points', false).filter("User_x0020_ID_x003a_Location eq '" + userInfo[0].UserLocation + "'")
+                        .get().then(testDrives => {
+                            testDrives.map((testDrive, index) => {
+                                regionLeaderBoardArr.push({
+                                    id: index + 1,
+                                    name: testDrive.UserInfoID.UserInfoName,
+                                    points: testDrive.Points,
+                                    avatar: "http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
+                                });
+                            });
+                            resolve(regionLeaderBoardArr);
+                        })
+                })
+
+        });
+    }
+
+    static getGlobalLeaders(skip = 5, count = 5) {
+        var d = new Date();
+        var lastYear = d.getFullYear() - 1 + "-12-31";
+        return new Promise((resolve, reject) => {
+            let globalLeaders: Leader[] = [];
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
-                .select("Points",
+                .select(
+                "ID",
+                "Points",
                 "UserInfoID/ID",
                 "UserInfoID/UserInfoName",
                 "UserInfoID/CarImage",
                 "UserInfoID/CarName",
                 "UserInfoID/AvatarName",
                 "UserInfoID/AvatarImage",
-                )
+            )
                 .expand("UserInfoID").top(100)
                 .orderBy('Points', false)
                 .filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z'")
                 .skip(skip).top(count)
-                .get().then(testDrives => {
-                    console.log(testDrives);
-                    resolve(leaderBoardArr);
+                .get().then(leaders => {
+                    console.log(leaders);
+                    leaders.map(leader => {
+                        globalLeaders.push({
+                            id: leader.ID,
+                            name: leader.UserInfoID.UserInfoName,
+                            totalPoints: leader.Points,
+                            avatar: leader.UserInfoID.AvatarImage,
+                            car: leader.UserInfoID.CarImage,
+                            completedTestDrives: 400
+                        })
+                    })
+                    resolve(globalLeaders);
                 })
         });
     }
 
-    static getRegionalLeaders(region: string, skip = 5, top= 5) {
+    static getRegionalLeaders(region: string, skip = 5, top = 5) {
         var d = new Date();
         var lastYear = d.getFullYear() - 1 + "-12-31";
         return new Promise((resolve, reject) => {
-            let leaderBoardArr: Leaders[] = [];
+            let regionalLeaders: Leader[] = [];
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
-                .select("Points",
+                .select(
+                "ID",
+                "Points",
                 "UserInfoID/ID",
                 "UserInfoID/UserInfoName",
                 "UserInfoID/CarImage",
                 "UserInfoID/CarName",
                 "UserInfoID/AvatarName",
                 "UserInfoID/AvatarImage",
-                )
+            )
                 .expand("UserInfoID").top(100)
                 .orderBy('Points', false)
-                .filter("PointsEarnedOnDate gt datetime'" + 
-                    lastYear + "T23:59:59.000Z' and " +  Constants.Columns.USER_REGION + " eq '" + region + "'")
-                .get().then(testDrives => {
-                    console.log(testDrives);
-                    resolve(leaderBoardArr);
+                .filter("PointsEarnedOnDate gt datetime'" +
+                lastYear + "T23:59:59.000Z' and " + Constants.Columns.USER_REGION + " eq '" + region + "'")
+                .get().then(leaders => {
+                    console.log(leaders);
+                    leaders.map(leader => {
+                        regionalLeaders.push({
+                            id: leader.ID,
+                            name: leader.UserInfoID.UserInfoName,
+                            totalPoints: leader.Points,
+                            avatar: leader.UserInfoID.AvatarImage,
+                            car: leader.UserInfoID.CarImage,
+                            completedTestDrives: 400
+                        })
+                    })
+                    resolve(regionalLeaders);
                 })
         });
     }
-
 
     static getCurrentUserPoints() {
         var d = new Date();
@@ -887,37 +962,7 @@ export class Services {
         });
     }
 
-    static getLeaderBoardRegion() {
-        var d = new Date();
-        var lastYear = d.getFullYear() - 1 + "-12-31";
-        return new Promise((resolve, reject) => {
-            let regionLeaderBoardArr: Leaders[] = [];
-            pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION).items
-                .select("UserLocation"
-                )
-                .filter("UserID eq " + _spPageContextInfo.userId + "")
-                .get().then(userInfo => {
-                    pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
-                        .select("Points",
-                        "UserInfoID/ID",
-                        "UserInfoID/UserInfoName"
-                        )
-                        .expand("UserInfoID").top(3).orderBy('Points', false).filter("User_x0020_ID_x003a_Location eq '" + userInfo[0].UserLocation + "'")
-                        .get().then(testDrives => {
-                            testDrives.map((testDrive, index) => {
-                                regionLeaderBoardArr.push({
-                                    id: index + 1,
-                                    name: testDrive.UserInfoID.UserInfoName,
-                                    points: testDrive.Points,
-                                    avatar: "http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
-                                });
-                            });
-                            resolve(regionLeaderBoardArr);
-                        })
-                })
 
-        });
-    }
 
     static getListItemCount(listName) {
         return new Promise((resolve, reject) => {
@@ -1544,117 +1589,3 @@ export class Cache {
 };
 
 export default Services;
-
-    // static getTestDriveById(testDriveID: number) {
-    //     return new Promise((resolve, reject) => {
-    //         if (testDriveID == -1) {
-    //             resolve({
-    //                 id: -1,
-    //                 title: "",
-    //                 description: "",
-    //                 maxPoints: 0,
-    //                 startDate: "",
-    //                 endDate: "",
-    //                 expectedBusinessValue: "",
-    //                 function: [],
-    //                 location: [],
-    //                 requiredDevices: [],
-    //                 requiredOs: [],
-    //                 maxTestDrivers: 0,
-    //                 testCases: [],
-    //                 questions: []
-    //             });
-    //         }
-    //         pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items.getById(testDriveID)
-    //             .select(
-    //             'ID',
-    //             'TestDriveName',
-    //             'EliteDescription',
-    //             'TestDriveStatus',
-    //             'TestDriveStartDate',
-    //             'TestDriveEndDate',
-    //             'TotalPoints',
-    //             'TestDriveDepartment',
-    //             'TestDriveLocation',
-    //             // 'TestDriveFunction',
-    //             'AvailableDevices',
-    //             'AvailableOS',
-    //             'MaxTestDrivers',
-    //             'LevelID/ID',
-    //             'LevelID/LevelName',
-    //             'TestDriveOwner/ID',
-    //             'TestDriveOwner/UserInfoName',
-    //             'TestCases/ID',
-    //             'Questions/ID',
-    //         )
-    //             .expand('TestDriveOwner', 'LevelID', 'Questions', 'TestCases')
-    //             .get().then(testDrive => {
-    //                 let questions = testDrive.Questions.results.map((question) => {
-    //                     return question.ID;
-    //                 })
-    //                 let testCases = testDrive.TestCases.results.map((testCase) => {
-    //                     return testCase.ID;
-    //                 })
-
-    //                 Promise.all([this.getQuestonsByIds(questions),
-    //                 this.getTestCasesByIds(testCases)]).then((results: any[][]) => {
-    //                     let testCase: TestCase;
-    //                     let testCases: TestCase[];
-    //                     let question: Question;
-    //                     let questions: Question[];
-    //                     let testDriveObj: TestDrive;
-
-
-    //                     questions = results[0].map((result) => {
-    //                         return question = {
-    //                             id: result.ID,
-    //                             title: result.Question,
-    //                             questionType: result.QuestionType,
-    //                             options: result.Responses
-    //                         }
-
-    //                     });
-
-    //                     testCases = results[1].map((result) => {
-    //                         return testCase = {
-    //                             id: result.ID,
-    //                             title: result.Title,
-    //                             description: result.EliteDescription,
-    //                             expectedOutcome: result.TestCaseOutcome,
-    //                             points: result.Points,
-    //                             priority: result.TestCasePriority,
-    //                             reTest: result.ReTest,
-    //                             testCaseType: result.Type,
-    //                             scenario: result.EliteDescription
-    //                         }
-    //                     });
-
-    //                     testDriveObj = {
-    //                         title: testDrive.TestDriveName,
-    //                         description: testDrive.EliteDescription,
-    //                         status: testDrive.TestDriveStatus,
-    //                         startDate: testDrive.TestDriveStartDate,
-    //                         endDate: testDrive.TestDriveEndDate,
-    //                         maxPoints: testDrive.TotalPoints,
-    //                         department: testDrive.TestDriveDepartment.results,
-    //                         function: [], //testDrive.TestDriveFunction.results,
-    //                         location: testDrive.TestDriveLocation.results,
-    //                         requiredDevices: testDrive.AvailableDevices.results,
-    //                         requiredOs: testDrive.AvailableOS.results,
-    //                         maxTestDrivers: testDrive.MaxTestDrivers,
-    //                         id: testDrive.ID,
-    //                         level: testDrive.LevelID.LevelName,
-    //                         owner: testDrive.TestDriveOwner.UserInfoName,
-    //                         testCases: testCases,
-    //                         questions: questions,
-    //                         expectedBusinessValue: ''
-    //                     };
-    //                     resolve(testDriveObj);
-    //                 })
-
-
-    //             }, error => {
-    //                 reject(error);
-    //             });
-    //     });
-    // }

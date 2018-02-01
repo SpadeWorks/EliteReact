@@ -16,10 +16,11 @@ import TestDriveContainer from './main/components/TestDriveContainer';
 import logger from 'redux-logger';
 import Prizes from './home/components/Prizes';
 import Video from './home/components/Video';
-import CompleteLeaderBoard from './home/components/CompleteLeaderBoard';
+import LeaderBoardContainer from './leader_board/components/LeaderBoardContainer';
 import Profile from './profile/components/Profile';
 import MyProfile from './profile/components/MyProfile';
-
+import Services from './common/services/services';
+import OnBoarding from './onboarding/components/OnBoarding';
 const initialState = {};
 
 // const loadStore = (currentState) => {
@@ -45,15 +46,17 @@ const store: Store<any> = createStore(rootReducer,
     logger
   )));
 
-ReactDOM.render(
-  <Provider store={store}>
+let user = Services.getUserProfileProperties();
+let application;
+if (user.eliteProfileID) {
+  application = (<Provider store={store}>
     <HashRouter basename="/" >
       <div>
         <Switch>
           <Route exact path="/testdrive" component={ManageTestDrive} />
           <Route exact path="/testdrives" component={TestDriveContainer} />
-          <Route path="/testdrive/:id" component={ManageTestDrive} />
-          <Route exact path="/leaderboard" component={CompleteLeaderBoard} />
+          <Route exact path="/testdrive/:id" component={ManageTestDrive} />
+          <Route exact path="/leaderboard" component={LeaderBoardContainer} />
           <Route exact path="/video" component={Video} />
           <Route exact path="/prizes" component={Prizes} />
           <Route exact path="/profile/:id" component={Profile} />
@@ -62,6 +65,20 @@ ReactDOM.render(
         </Switch>
       </div>
     </HashRouter>
-  </Provider>,
+  </Provider>)
+} else {
+  application = (<Provider store={store}>
+    <HashRouter basename="/" >
+      <div>
+        <Switch>
+          <Route exact path="/" component={OnBoarding} />
+        </Switch>
+      </div>
+    </HashRouter>
+  </Provider>)
+}
+
+ReactDOM.render(
+  application,
   document.getElementById('app')
 );
