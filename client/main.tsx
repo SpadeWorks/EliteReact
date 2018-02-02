@@ -20,6 +20,7 @@ import LeaderBoardContainer from './leader_board/components/LeaderBoardContainer
 import Profile from './profile/components/Profile';
 import MyProfile from './profile/components/MyProfile';
 import Services from './common/services/services';
+import Intro from './onboarding/components/Intro';
 import OnBoarding from './onboarding/components/OnBoarding';
 const initialState = {};
 

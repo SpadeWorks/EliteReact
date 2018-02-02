@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import TestCases from "../../test_drive/components/TestCases";
 import { HomeTestDrive, Leaders } from '../../home/model';
 import { Leader } from '../../leader_board/model';
+import { User } from '../../onboarding/model';
 const delay = 100;
 declare var SP: any;
 
@@ -32,27 +33,70 @@ export class Services {
         return 1; //TODO 
     }
 
-    static getTotalUserCount(){
+    static getTotalUserCount() {
         return new Promise((resolve, reject) => {
-            resolve(3434);
+            setTimeout(() => {
+                resolve(2000);
+            }, delay);
         });
     }
 
-    static getOnboardingDetails(){
+    static getOnboardingDetails() {
         return new Promise((resolve, reject) => {
-            let user = this.getUserProfileProperties();
-            this.getTotalUserCount().then(usersCount =>{
+            setTimeout(() => {
                 resolve({
-                    totalUsers: usersCount,
-                    currentUser: user.firstName
+                    totalUsers: 34343,
+                    currentUser: <User>{
+                        accountName: "global\abadhe",
+                        department: '',
+                        displayName: "Akash Badhe",
+                        eliteProfileID: 3,
+                        firstName: "Akash",
+                        languages: "en-us",
+                        lastName: "Badhe",
+                        location: "India",
+                        sipAddress: "abadhe@ap.equinix.com",
+                        workEmail: 'abadhe@ap.equinix.com'
+                    }
                 });
-            })
+            }, delay);
         });
     }
+
+
+    // static getTotalUserCount() {
+    //     return new Promise((resolve, reject) => {
+    //         pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION)
+    //             .get()
+    //             .then(function (result) {
+    //                 resolve(result.ItemCount)
+    //             })
+    //     });
+    // }
+
+    // static getOnboardingDetails() {
+    //     return new Promise((resolve, reject) => {
+    //         let user = this.getUserProfileProperties();
+    //         this.getTotalUserCount().then(usersCount => {
+    //             resolve({
+    //                 totalUsers: usersCount,
+    //                 currentUser: <User>{
+    //                     accountName: user.accountName,
+    //                     department: user.department,
+    //                     displayName: user.displayName,
+    //                     eliteProfileID: user.eliteProfileID,
+    //                     firstName: user.fileName,
+    //                     languages: user.languages,
+    //                     lastName: user.lastName,
+    //                     location: user.location
+    //                 }//user.firstName
+    //             });
+    //         })
+    //     });
+    // }
 
     static getUserProfileProperties() {
         var data = $("#divUserProfileProperties").text();
-
         try {
             if (data) {
                 data = data.replace(/\r?\n|\r/igm, "");
@@ -424,6 +468,9 @@ export class Services {
         });
     }
 
+    static getReferrerID() {
+        return 1;
+    }
     static createOrSaveTestDrive(testDrive: TestDrive) {
         return new Promise((resolve, reject) => {
             var promises = [];
@@ -533,6 +580,56 @@ export class Services {
             } else {
                 resolve([]);
             }
+        });
+    }
+
+    static getDefaultCarDetails() {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
+                .select("FileRef/FileRef", "ID")
+                // .filter("IsDefault eq YES and Level eq 1.0")
+                .get().then(car => {
+                    console.log(car);
+                })
+        });
+    }
+
+    static getDefaultAvatarDetails() {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.AVATAR).items.
+                select("FileRef/FileRef",
+                "IsDefault",
+                "Level",
+                "LevelName")
+                .get().then(avatar => {
+                    console.log(avatar);
+                })
+        })
+
+    }
+    static createEliteUserProfile(user: User) {
+        return new Promise((resolve, reject) => {
+            let promises = [this.getDefaultCarDetails(), this.getDefaultAvatarDetails()];
+
+            Promise.all(promises).then(results => {
+                let carDetails = results[0];
+                let avatarDetails = results[1];
+                this.createOrUpdateListItemsInBatch(Constants.Lists.USER_INFORMATION, [{
+                    ID: -1,
+                    AccountName: user.accountName,
+                    DateJoined: new Date().toISOString(),
+                    UserLocation: user.location,
+                    ReferrerID_id: Services.getReferrerID(),
+                    UserRegionText: user.region
+                }])
+                    .then((user: any) => {
+                        let newUser = { ...user, eliteProfileID: user.id }
+                    }, err => {
+                        Utils.clientLog(err);
+                    })
+
+            });
+
         });
     }
 
@@ -961,8 +1058,6 @@ export class Services {
                 })
         });
     }
-
-
 
     static getListItemCount(listName) {
         return new Promise((resolve, reject) => {

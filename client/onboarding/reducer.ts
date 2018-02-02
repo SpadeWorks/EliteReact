@@ -5,14 +5,28 @@ import {
     LOAD_OnBoardingDetails,
     LOAD_OnBoardingDetails_FULFILLED,
     LOAD_OnBoardingDetails_PENDING,
-    LOAD_OnBoardingDetails_REJECTED
+    LOAD_OnBoardingDetails_REJECTED,
+    CompleteIntro
 } from './constants/ActionTypes';
 
 const initialState: IState = {
     OnBoardingDetails: {
-        currentUser: '',
-        totalUsers: 1
+        currentUser: {
+            accountName: "",
+            department: "",
+            displayName: "",
+            eliteProfileID: 3,
+            firstName: "",
+            languages: "",
+            lastName: "",
+            location: "",
+            sipAddress: "",
+            workEmail: '',
+            region: ''
+        },
+        totalUsers: 0,
     },
+    introComplete: false,
     loading: false
 };
 
@@ -36,6 +50,13 @@ export default handleActions<IState, any>({
         return {
             ...state,
             loading: false
+        }
+    },
+
+    [CompleteIntro]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            introComplete: true
         }
     }
 

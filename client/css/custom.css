@@ -5083,6 +5083,17 @@ h1#dialogTitleSpan {
     width: 200px;
     height: 75px;
 }
+
+#typewriteText {
+    color: #fff;
+    font-size: 20px;
+    font-family: 'titanium', Arial, Helvetica, sans-serif;
+    width: 92%;
+    margin: 0 auto;
+    position: absolute;
+    left: 28px;
+    top: 150px;
+  }
 /* Fix for Leader Boards End*/
 
 /* style for referal pop up ends here */

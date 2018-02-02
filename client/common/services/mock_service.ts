@@ -2,7 +2,7 @@
 import Promise from "ts-promise";
 import delay from './delay';
 import { TestDrive, Question, TestCase } from '../../test_drive/model';
-
+import { User } from '../../onboarding/model';
 export const data = [
   {
     id: 1,
@@ -81,6 +81,38 @@ class Services {
     TEST_CASE_ID: "TEST_CASE_ID"
   }
 
+  static getTotalUserCount() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(2000);
+      }, delay);
+    });
+  }
+
+  static getOnboardingDetails() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({
+            totalUsers: 34343,
+            currentUser: <User>{
+            accountName: "global\abadhe",
+            department: '',
+            displayName: "Akash Badhe",
+            eliteProfileID: 3,
+            firstName: "Akash",
+            languages: "en-us",
+            lastName: "Badhe",
+            location: "India",
+            sipAddress: "abadhe@ap.equinix.com",
+            workEmail: 'abadhe@ap.equinix.com'
+          }
+        });
+      }, delay);
+    });
+  }
+
+
+
   static getCurrentUserID() {
     return 1; //TODO 
   }
@@ -116,11 +148,11 @@ class Services {
           Level2: 200,
           Level3: 300,
         },
-        fieldDescription:{
+        fieldDescription: {
           title: 'Please enter the title',
           description: 'Please enter the descriptions.',
           expectedBusinessValue: 'Please enter expected business value.'
-        } 
+        }
       })
     });
   }
@@ -129,11 +161,11 @@ class Services {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         let testDrivesString = localStorage.getItem('testDrives');
-        let testDrives = testDrivesString ? JSON.parse(testDrivesString) : []; 
-        if(testDrive.id == -1){
+        let testDrives = testDrivesString ? JSON.parse(testDrivesString) : [];
+        if (testDrive.id == -1) {
           testDrive.id = testDrives.length + 1;
           testDrives.push(testDrive);
-        } else{
+        } else {
           testDrives[testDrive.id] = testDrive;
         }
         localStorage.setItem('testDrive', testDrives);
@@ -208,7 +240,7 @@ class Services {
       setTimeout(() => {
         let testdrivesString = localStorage.getItem('testDrives');
         let testDrives = testdrivesString ? JSON.parse(testdrivesString) : [];
-        let testDrive = testDrives[id] || [] ; 
+        let testDrive = testDrives[id] || [];
         resolve(testDrive);
       }, delay);
     });
