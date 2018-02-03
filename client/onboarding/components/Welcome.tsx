@@ -18,14 +18,22 @@ interface WelcomeProps {
     totalUsers: number;
     currentUser: User;
     createEliteUserProfile: (currentUser: User) => any;
+    isUserCreated: boolean;
 };
 class Welcome extends React.Component<WelcomeProps> {
     constructor(props, context) {
         super(props, context);
+        
+    }
+
+    componentWillMount(){
+        if(this.props.isUserCreated){
+            window.location.href = _spPageContextInfo.siteAbsoluteUrl;
+        }
     }
     render() {
         const { totalUsers, currentUser, createEliteUserProfile } = this.props;
-        return (<div className="header-title person_name">
+        return (<div className="header-title person_name"> 
             <h1 className="title"></h1>
             <p className="first-text">WELCOME</p>
             <p className="next-text">{currentUser.firstName}</p>

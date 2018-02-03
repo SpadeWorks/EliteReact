@@ -10,6 +10,7 @@ interface OnBoardingProps {
     totalUsers: number;
     currentUser: User;
     introComplete: boolean;
+    isUserCreated: boolean;
 };
 
 import {
@@ -29,7 +30,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
 
     render() {
 
-        const { totalUsers, currentUser, dispatch, introComplete} = this.props;
+        const { totalUsers, currentUser, dispatch, introComplete, isUserCreated} = this.props;
         // return <h1>Onboarding</h1>
         return (<div id="onboarding">
             <section>
@@ -289,6 +290,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                             {introComplete && <Welcome
                                 totalUsers={totalUsers}
                                 currentUser={currentUser}
+                                isUserCreated={isUserCreated}
                                 createEliteUserProfile={() => dispatch(createEliteUserProfile(currentUser))} />
                             }
                             {!introComplete && 

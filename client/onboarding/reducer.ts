@@ -27,14 +27,16 @@ const initialState: IState = {
         totalUsers: 0,
     },
     introComplete: false,
-    loading: false
+    loading: false,
+    isUserCreated: false
 };
 
 export default handleActions<IState, any>({
     [LOAD_OnBoardingDetails_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            loading: true
+            loading: true,
+            isUserCreated: false,
         }
     },
 
@@ -42,6 +44,7 @@ export default handleActions<IState, any>({
         return {
             ...state,
             OnBoardingDetails: action.payload,
+            isUserCreated: true,
             loading: false
         }
     },

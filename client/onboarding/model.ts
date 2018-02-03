@@ -4,7 +4,8 @@ export type IState = {
         currentUser: User;
     },
     introComplete: boolean;
-    loading: boolean
+    isUserCreated: boolean;
+    loading: boolean;
 }
 
 
@@ -20,4 +21,4 @@ export type User = {
     workEmail: string;
     languages: string;
     region: string;
-}
+} 

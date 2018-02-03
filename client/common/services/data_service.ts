@@ -30,70 +30,71 @@ pnp.setup({
 
 export class Services {
     static getCurrentUserID() {
-        return 1; //TODO 
+        let user = <User>this.getUserProfileProperties();
+        return user.eliteProfileID; //TODO 
     }
-
-    static getTotalUserCount() {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(2000);
-            }, delay);
-        });
-    }
-
-    static getOnboardingDetails() {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve({
-                    totalUsers: 34343,
-                    currentUser: <User>{
-                        accountName: "global\abadhe",
-                        department: '',
-                        displayName: "Akash Badhe",
-                        eliteProfileID: 3,
-                        firstName: "Akash",
-                        languages: "en-us",
-                        lastName: "Badhe",
-                        location: "India",
-                        sipAddress: "abadhe@ap.equinix.com",
-                        workEmail: 'abadhe@ap.equinix.com'
-                    }
-                });
-            }, delay);
-        });
-    }
-
 
     // static getTotalUserCount() {
     //     return new Promise((resolve, reject) => {
-    //         pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION)
-    //             .get()
-    //             .then(function (result) {
-    //                 resolve(result.ItemCount)
-    //             })
+    //         setTimeout(() => {
+    //             resolve(2000);
+    //         }, delay);
     //     });
     // }
 
     // static getOnboardingDetails() {
     //     return new Promise((resolve, reject) => {
-    //         let user = this.getUserProfileProperties();
-    //         this.getTotalUserCount().then(usersCount => {
+    //         setTimeout(() => {
     //             resolve({
-    //                 totalUsers: usersCount,
+    //                 totalUsers: 34343,
     //                 currentUser: <User>{
-    //                     accountName: user.accountName,
-    //                     department: user.department,
-    //                     displayName: user.displayName,
-    //                     eliteProfileID: user.eliteProfileID,
-    //                     firstName: user.fileName,
-    //                     languages: user.languages,
-    //                     lastName: user.lastName,
-    //                     location: user.location
-    //                 }//user.firstName
+    //                     accountName: "global\abadhe",
+    //                     department: '',
+    //                     displayName: "Akash Badhe",
+    //                     eliteProfileID: 3,
+    //                     firstName: "Akash",
+    //                     languages: "en-us",
+    //                     lastName: "Badhe",
+    //                     location: "India",
+    //                     sipAddress: "abadhe@ap.equinix.com",
+    //                     workEmail: 'abadhe@ap.equinix.com'
+    //                 }
     //             });
-    //         })
+    //         }, delay);
     //     });
     // }
+
+
+    static getTotalUserCount() {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION)
+                .get()
+                .then(function (result) {
+                    resolve(result.ItemCount)
+                })
+        });
+    }
+
+    static getOnboardingDetails() {
+        return new Promise((resolve, reject) => {
+            let user = this.getUserProfileProperties();
+            this.getTotalUserCount().then(usersCount => {
+                resolve({
+                    totalUsers: usersCount,
+                    currentUser: <User>{
+                        accountName: user.accountName,
+                        department: user.department,
+                        displayName: user.displayName,
+                        eliteProfileID: user.eliteProfileID,
+                        firstName: user.fileName,
+                        languages: user.languages,
+                        lastName: user.lastName,
+                        location: user.location
+                    }
+                });
+            })
+        });
+    }
 
     static getUserProfileProperties() {
         var data = $("#divUserProfileProperties").text();
@@ -469,7 +470,8 @@ export class Services {
     }
 
     static getReferrerID() {
-        return 1;
+        let referrer = Utils.getUrlParameters(window.location.href, "referrerID");
+        return parseInt(referrer);
     }
     static createOrSaveTestDrive(testDrive: TestDrive) {
         return new Promise((resolve, reject) => {
@@ -586,9 +588,15 @@ export class Services {
     static getDefaultCarDetails() {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
-                .select("FileRef/FileRef", "ID")
-                // .filter("IsDefault eq YES and Level eq 1.0")
+                .select("FileRef/FileRef",
+                "IsDefault",
+                "LevelName",
+                "CarName",
+                "CarLevel",
+                "ID")
+                .filter("IsDefault eq 1 and CarLevel eq 1")
                 .get().then(car => {
+                    resolve(car[0]);
                     console.log(car);
                 })
         });
@@ -597,32 +605,63 @@ export class Services {
     static getDefaultAvatarDetails() {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.AVATAR).items.
-                select("FileRef/FileRef",
-                "IsDefault",
-                "Level",
-                "LevelName")
+                select("FileRef/FileRef", "ID", "AvatarName")
+                .filter("IsDefault eq 1")
                 .get().then(avatar => {
-                    console.log(avatar);
+                    resolve(avatar[0]);
+                    console.log(avatar[0]);
                 })
         })
 
     }
+
+    // DisplayName="Name" Name="UserInfoName" />
+    // DisplayName="Role" Name="UserInfoRole" />
+    // DisplayName="Available Devices" Required="FALSE" Name="AvailableDevices" />
+    // DisplayName="Available OS" Required="FALSE" Name="AvailableOS" />
+    // DisplayName="Date Joined" Name="DateJoined" Format="DateOnly" />
+    // DisplayName="Location" Name="UserLocation" />
+    // DisplayName="Department" Name="UserDepartment" />
+    // DisplayName="Avatar ID" Name="AvatarID" />
+    // DisplayName="AvailableDevices Name_0" Hidden="TRUE" Name="AvailableDevicesTaxHTField0" />
+    // DisplayName="AvailableOS Name_0" Hidden="TRUE" Name="AvailableOSTaxHTField0" />
+    // DisplayName="Account Name" Name="AccountName" />
+    // DisplayName="Region" Required="FALSE" Name="UserRegion" />
+    // DisplayName="UserRegion Name_0" Hidden="TRUE" Name="UserRegionTaxHTField0" />
+    // DisplayName="UserRegion Text" Name="UserRegionText" />
+    // DisplayName="Referrer ID" Name="ReferrerID" />
+    // DisplayName="Completed Test Drives" Name="CompletedTestDrives" />
+    // DisplayName="Completed Test Cases" Name="CompletedTestCases" />
+    // DisplayName="Car Image" Name="CarImage" />
+    // DisplayName="Car Name" Name="CarName" />
+    // DisplayName="Avatar Image" Name="AvatarImage" />
+    // DisplayName="Avatar Name" Name="AvatarName" />
+    // DisplayName="Car ID" Name="CarID" />
     static createEliteUserProfile(user: User) {
         return new Promise((resolve, reject) => {
             let promises = [this.getDefaultCarDetails(), this.getDefaultAvatarDetails()];
-
+            let baseUrl = location.protocol + "//" + location.hostname;
             Promise.all(promises).then(results => {
-                let carDetails = results[0];
-                let avatarDetails = results[1];
+                let carDetails = <any>results[0];
+                let avatarDetails = <any>results[1];
                 this.createOrUpdateListItemsInBatch(Constants.Lists.USER_INFORMATION, [{
                     ID: -1,
                     AccountName: user.accountName,
                     DateJoined: new Date().toISOString(),
                     UserLocation: user.location,
                     ReferrerID_id: Services.getReferrerID(),
-                    UserRegionText: user.region
+                    UserRegionText: user.region,
+                    CarImage: baseUrl + carDetails.FileRef,
+                    CarName: carDetails.CarName,
+                    CarID_id: carDetails.ID,
+                    AvatarName: avatarDetails.AvatarName,
+                    AvatarImage: baseUrl + avatarDetails.FileRef,
+                    AvatarID_id: avatarDetails.ID,
+                    UserDepartment: user.department,
+                    UserInfoName: user.displayName
                 }])
-                    .then((user: any) => {
+                    .then((users: any) => {
+                        let user = users[0];
                         let newUser = { ...user, eliteProfileID: user.id }
                     }, err => {
                         Utils.clientLog(err);
@@ -1264,6 +1303,16 @@ export class Services {
 
 export class Utils {
     public LoadedScripts = [];
+
+    public static getUrlParameters(url, name) {
+        var regexS, regex, results;
+        if (!url) url = location.href;
+        name = name.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
+        regexS = '[\\?&]' + name + '=([^&#]*)';
+        regex = new RegExp(regexS);
+        results = regex.exec(url);
+        return results === null ? null : decodeURIComponent(results[1]);
+    }
 
     public static loadProgressBar(val, optionsVal, optionsSize, canvasID) {
         if ($('#' + canvasID)[0] != undefined) {
