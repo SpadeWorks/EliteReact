@@ -188,18 +188,24 @@ class TestServices {
 
         // let data = Services.getUserProfileProperties();
         // console.log(data);
-        Services.getGlobalLeaders(0,5);
-        Services.getGlobalLeaders(5,5);
-        Services.getGlobalLeaders(10,5);
-        Services.getGlobalLeaders(15,5);
+        // Services.getGlobalLeaders(0,5);
+        // Services.getGlobalLeaders(5,5);
+        // Services.getGlobalLeaders(10,5);
+        // Services.getGlobalLeaders(15,5);
 
-        Services.getRegionalLeaders("Asia Pacific");
+        // Services.getRegionalLeaders("Asia Pacific");
+
+        // Services.getRegions();
+        // Services.getLocations();
+        // Services.getDevices();
+        // Services.getOSes();
+
     }
 
 }
 
 $(function () {
-    SP.SOD.executeFunc("sp.js", "SP.ClientContext", function () {
+    // SP.SOD.executeFunc("sp.js", "SP.ClientContext", function () {
         TestServices.main();
         $("#DeltaPlaceHolderMain").after("<input type='button' value='Add' id='add'>");
         $('#add').bind('click', function () {
@@ -215,7 +221,7 @@ $(function () {
             }
 
         });
-    });
+    // });
 });
 
 export default TestServices;

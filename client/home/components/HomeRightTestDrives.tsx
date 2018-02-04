@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
-import TabbedArea from './TabbedArea';
-import TabPane from './TabPane';
 import RightContainer from './RightContainer';
 import Loader from 'react-loader-advanced';
 import { HomeTestDrive } from '../../home/model';
@@ -31,21 +29,21 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
         return (<div className="col-md-4 black_box_right pull-right black_box">
             <div className="row">
                 <div className="well">
-                    <TabbedArea ui={ui} updateUI={updateUI}>
-                        <TabPane display="UPCOMING TEST DRIVES" href="#up_drives">
-                        </TabPane>
-                        <TabPane display="ACTIVE TEST DRIVES" href="#active_drives">
-                        </TabPane>
-                    </TabbedArea>
-                    <div id="myTabContent" className="tab-content">
-                        <Loader show={upcomingTestDriveLoading} message={'Loading test drives...'}>
-                            <div className="tab-pane active in" id="up_drives">
-                                <div className="col-md-12">
+                    <ul className="nav nav-tabs">
+                        <li className="active"><a href="#up_drives" data-toggle="tab">UPCOMING TEST DRIVES</a></li>
+                        <li className="pull-right"><a href="#active_drives" data-toggle="tab">ACTIVE TEST DRIVES</a></li>
+                    </ul>
 
+                    <div id="myTabContent" className="tab-content">
+
+                        <div className="tab-pane active in" id="up_drives">
+                            <Loader show={upcomingTestDriveLoading} message={'Loading test drives...'}>
+                                <div className="col-md-12">
                                     {
                                         upcomingTestDrive && upcomingTestDrive.map((testDrive, index) => {
                                             return (
                                                 <RightContainer
+                                                    key={index}
                                                     testDriveId={index + 1}
                                                     testDriveName={testDrive.title}
                                                     endDate={testDrive.enddate}
@@ -54,16 +52,20 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                                 ></RightContainer>)
                                         })
                                     }
+                                    {upcomingTestDrive.length == 0 && <p>There are no upcomming test drives.</p>}
                                 </div>
-                            </div>
-                        </Loader>
-                        <Loader show={activeTestDriveLoading} message={'Loading test drives...'}>
-                            <div className="tab-pane fade" id="active_drives">
+                            </Loader>
+                        </div>
+
+
+                        <div className="tab-pane fade" id="active_drives">
+                            <Loader show={activeTestDriveLoading} message={'Loading test drives...'}>
                                 <div className="col-md-12">
                                     {
                                         activeTestDrive && activeTestDrive.map((testDrive, index) => {
                                             return (
                                                 <RightContainer
+                                                    key={index}
                                                     testDriveId={index + 1}
                                                     testDriveName={testDrive.title}
                                                     endDate={testDrive.enddate}
@@ -71,11 +73,11 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                                     checkPortion={"activeTestDrive"}></RightContainer>)
                                         })
                                     }
+                                    {activeTestDrive.length == 0 && <p>There are no active test drives.</p>}
                                 </div>
-                            </div>
-                        </Loader>
+                            </Loader>
+                        </div>
                     </div>
-
                 </div>
             </div>
 

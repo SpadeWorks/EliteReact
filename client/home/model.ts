@@ -9,9 +9,11 @@ export type IState = {
     totalCount: number;
     userPoints: number;
     totalTasks: number;
-    testDrivesCompleted: number;
     totalTestDrives: number;
-    userCarImage: string;
+    testDrivesCompleted: number;    
+    eliteProfile: EliteProfile;
+    rank: number;
+    currentUser: any;
 }
 
 export type HomeTestDriveObj = {
@@ -24,12 +26,13 @@ export type HomeTestDrive = {
     title: string;
     enddate: string;    
     participants: number;
+    testDrive: TestDrive;
 };
 
 export type Leaders = {
     id: number;
     name: string;
-    points: number;
+    totalPoints: number;
     avatar: string;
 };
 
@@ -43,3 +46,46 @@ export type Leader = {
     car: string;
 };
 
+export type EliteProfile = {
+    eliteProfileID: number;
+    accountName: string;
+    firstName: string;
+    lastName: string;
+    displayName: string;
+    location: string;
+    department: string;
+    sipAddress: string;
+    workEmail: string;
+    languages: string;
+    region: string;
+    carImage: string;
+    carName: string;
+    carID: number;
+    avatarName: string;
+    avatarImage: string;
+    avatarID: number;
+} 
+
+export type TestDrive = {
+    id: number;
+    title: string;
+    description?: string;
+    maxPoints?: number;
+    startDate: string;
+    endDate: string;
+    expectedBusinessValue: string;
+    department?: string;
+    region: string[];
+    location: string[];
+    requiredDevices: string[];
+    requiredOs: string[];
+    maxTestDrivers: number;
+    testCases: any[];
+    testCaseIDs?: number[];
+    questions: any[];
+    questionIDs?: number[];
+    status: string;
+    level: string;
+    owner?: string;
+    newItem?: boolean;
+};

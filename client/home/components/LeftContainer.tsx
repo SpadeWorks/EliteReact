@@ -2,7 +2,7 @@ import * as React from 'react';
 import ui from 'redux-ui';
 import * as $ from 'jquery';
 import Service from '../../common/services/services';
-
+import { HomeTestDrive, TestDrive } from '../../home/model';
 
 interface LeftContainer {
     testDriveName: string;
@@ -10,6 +10,7 @@ interface LeftContainer {
     participants: number;
     testDriveId: number;
     checkPortion: string;
+    testDrive: TestDrive
 };
 
 
@@ -63,18 +64,19 @@ class MyTestDrives extends React.Component<LeftContainer> {
     }
 
     render() {
+        const {testDriveName, checkPortion, children, endDate, participants, testDrive, testDriveId} = this.props
         var drivenoID = "";
         var canvasID1 = "";
         var canvasID2 = "";
-        if (this.props.checkPortion == "myTestDrive") {
-            drivenoID = "myDriveno" + this.props.testDriveId;
-            canvasID1 = "myDriveCanvasPoints" + this.props.testDriveId;
-            canvasID2 = "myDriveCanvasDrive" + this.props.testDriveId;
+        if (checkPortion == "myTestDrive") {
+            drivenoID = "myDriveno" + testDriveId;
+            canvasID1 = "myDriveCanvasPoints" + testDriveId;
+            canvasID2 = "myDriveCanvasDrive" + testDriveId;
         }
         else {
-            drivenoID = "testIRunDriveno" + this.props.testDriveId
-            canvasID1 = "testIRunDrivePointsCanvas" + this.props.testDriveId;
-            canvasID2 = "testIRunDriveDriveCanvas" + this.props.testDriveId;
+            drivenoID = "testIRunDriveno" + testDriveId
+            canvasID1 = "testIRunDrivePointsCanvas" + testDriveId;
+            canvasID2 = "testIRunDriveDriveCanvas" + testDriveId;
         }
         return (<div>{
             <div className={"row test_drive " + drivenoID}>
@@ -82,13 +84,13 @@ class MyTestDrives extends React.Component<LeftContainer> {
                 <div className="col-md-10">
                     <a className="drive_name">
                         <h4 onClick={() => this.openMyTestDriveDialog(drivenoID)}>
-                            {this.props.testDriveName}
+                            {testDriveName}
                             <span className={"glyphicon glyphicon-triangle-right hidden"} aria-hidden="true">
                             </span>
                         </h4>
                     </a>
-                    <p><span className="end_date">END DATE :</span>{Service.formatDate(this.props.endDate)}</p>
-                    <p><span className="participants">PARTICIPANTS :</span> {this.props.participants}</p>
+                    <p><span className="end_date">END DATE :</span>{Service.formatDate(endDate)}</p>
+                    <p><span className="participants">PARTICIPANTS :</span> {participants}</p>
                 </div>
                 <div className="col-md-2 pull-right">
                     <div className="lc_container">
@@ -99,7 +101,7 @@ class MyTestDrives extends React.Component<LeftContainer> {
                 </div>
                 <div className="letest_drivebox">
                     <div className="col-md-12">
-                        <h3>{this.props.testDriveName}</h3>
+                        <h3>{testDriveName}</h3>
                         <div className="col-md-12 social_box">
                             <div className="row">
                                 <a href="#"><i className="material-icons">info</i></a>
@@ -140,7 +142,7 @@ class MyTestDrives extends React.Component<LeftContainer> {
                                                     <span className="orange">
                                                         <i>End Date</i>
                                                     </span>
-                                                    <h4>{Service.formatDate(this.props.endDate)}</h4>
+                                                    <h4>{Service.formatDate(endDate)}</h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -150,7 +152,7 @@ class MyTestDrives extends React.Component<LeftContainer> {
                                                     <span className="orange">
                                                         <i>PARTICIPANTS</i>
                                                     </span>
-                                                    <h4>{this.props.participants}</h4>
+                                                    <h4>{participants}</h4>
                                                 </div>
                                                 <div className="col-md-12 end_date">
                                                     <span className="orange">

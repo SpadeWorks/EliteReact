@@ -14,6 +14,9 @@ import {
   LOAD_RegionLeaderBoard,
   LOAD_UserCarImage,
   LOAD_TestDriveIRun,
+  LOAD_EliteProfile,
+  LOAD_Rank,
+  LOAD_CurrentUser
 } from './constants/ActionTypes';
 
 // Test Drives action creators.
@@ -23,9 +26,9 @@ const loadMyTestDrive = createAction<any>(
   () => Services.getMyTestDrives()
 )
 
-const loadTestDriveThatIRun = createAction<any>(
+const loadTestDriveThatIRun = createAction<any, number, number, number>(
   LOAD_TestDriveIRun, 
-  () => Services.getTestDrivesIRun()
+  (owernID: number, skip: number, top: number) => Services.getTestDrivesByOwerneID(owernID, skip, top)
 )
 
 const loadUpcomingTestDrive = createAction<any>(
@@ -38,14 +41,14 @@ const loadActiveTestDrive = createAction<any>(
   () => Services.getActiveTestDrives()
 )
 
-const loadLeaderBoard = createAction<any>(
+const loadLeaderBoard = createAction<any, number, number>(
   LOAD_LeaderBoard, 
-  () => Services.getLeaderBoard()  
+  (skip: number, top: number) => Services.getGlobalLeaders(skip, top)  
 )
 
-const loadRegionLeaderBoard = createAction<any>(
+const loadRegionLeaderBoard = createAction<any, string, number, number>(
   LOAD_RegionLeaderBoard, 
-  () => Services.getLeaderBoardRegion()  
+  (region: string, skip: number, top: number) => Services.getRegionalLeaders(region, skip, top)  
 )
 
 const loadCurrentUserCarImage = createAction<any>(
@@ -58,9 +61,9 @@ const loadTotalUserCount = createAction<any>(
   () => Services.getListItemCount(GlobalConstants.Lists.USER_INFORMATION)  
 )
 
-const loadUserPoints = createAction<any>(
+const loadUserPoints = createAction<any, number>(
   LOAD_UserPoints, 
-  () => Services.getCurrentUserPoints()  
+  (id: number) => Services.getUserPoints(id)  
 )
 
 const loadTotalTestDrives = createAction<any>(
@@ -78,6 +81,20 @@ const loadTotalTasks = createAction<any>(
   () => Services.getListItemCount(GlobalConstants.Lists.TEST_CASES)  
 )
 
+const loadEliteProfile = createAction<any, number>(
+  LOAD_EliteProfile, 
+  (id: number) => Services.getEliteProfile(id)  
+)
+
+const getUserRank = createAction<any, number>(
+  LOAD_Rank, 
+  (userID: number) => Services.getUserRank(userID)  
+)
+
+const loadCurrentUser = createAction<any>(
+  LOAD_CurrentUser, 
+  () => Services.getUserProfileProperties()  
+)
 export {
   loadMyTestDrive,
   loadUpcomingTestDrive,
@@ -90,5 +107,8 @@ export {
   loadTestDrivesCompleted,
   loadTotalTasks,
   loadCurrentUserCarImage,
-  loadTestDriveThatIRun
+  loadTestDriveThatIRun,
+  loadEliteProfile,
+  getUserRank,
+  loadCurrentUser
 }

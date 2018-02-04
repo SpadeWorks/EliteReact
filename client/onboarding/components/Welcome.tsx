@@ -25,12 +25,6 @@ class Welcome extends React.Component<WelcomeProps> {
         super(props, context);
         
     }
-
-    componentWillMount(){
-        if(this.props.isUserCreated){
-            window.location.href = _spPageContextInfo.siteAbsoluteUrl;
-        }
-    }
     render() {
         const { totalUsers, currentUser, createEliteUserProfile } = this.props;
         return (<div className="header-title person_name"> 

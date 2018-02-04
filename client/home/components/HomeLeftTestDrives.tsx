@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
-import TabbedArea from './TabbedArea';
-import TabPane from './TabPane';
 import MyTestDrives from './LeftContainer';
 import Loader from 'react-loader-advanced';
-import { HomeTestDrive } from '../../home/model';
+import { HomeTestDrive, TestDrive } from '../../home/model';
 import LeftContainer from './LeftContainer';
 
 interface HomeLeftTestDrivesProps {
@@ -33,48 +31,52 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
         return (<div className="col-md-4 black_box black_box_left pull-left">
             <div className="row">
                 <div className="well">
-                    <TabbedArea ui={ui} updateUI={updateUI}>
-                        <TabPane display="MY TEST DRIVES" href="#home">
-                        </TabPane>
-                        <TabPane display="TEST DRIEVES I RUN" href="#profile">
-                        </TabPane>
-                    </TabbedArea>
+                    <ul className="nav nav-tabs">
+                        <li className="active"><a href="#home" data-toggle="tab">MY TEST DRIVES</a></li>
+                        <li className="pull-right"><a href="#profile" data-toggle="tab">TEST DRIEVES I RUN</a></li>
+                    </ul>
                     <div id="myTabContent" className="tab-content">
-                        <Loader show={false && myTestDriveLoading} message={'Loading test drives...'}>
-                            <div className="tab-pane active in" id="home">
+                        <div className="tab-pane active in" id="home">
+                            <Loader show={myTestDriveLoading} message={'Loading test drives...'}>
                                 <div className="col-md-12">
                                     {
                                         mytestDrive && mytestDrive.map((testDrive, index) => {
                                             return (<LeftContainer
+                                                key={index}
                                                 testDriveId={index + 1}
                                                 testDriveName={testDrive.title}
                                                 endDate={testDrive.enddate}
                                                 participants={testDrive.participants}
-                                                checkPortion={"myTestDrive"} />)
+                                                checkPortion={"myTestDrive"}
+                                                testDrive = {testDrive.testDrive} />)
                                         })
-                                    }
-                                </div>
-                            </div>
-                        </Loader>
-                        <Loader show={testDriveThatIRunLoading} message={'Loading test drives...'}>
-                            <div className="tab-pane fade" id="profile">
 
+                                         
+                                    }
+                                    {mytestDrive.length == 0 && <p>You have not participated in any test dirve yet.</p>}
+                                </div>
+                            </Loader>
+                        </div>
+                        <div className="tab-pane fade" id="profile">
+                            <Loader show={testDriveThatIRunLoading} message={'Loading test drives...'}>
                                 <div className="col-md-12">
                                     {
                                         testDriveThatIRun && testDriveThatIRun.map((testDrive, index) => {
                                             return (<LeftContainer
+                                                key={index}
                                                 testDriveId={index + 1}
                                                 testDriveName={testDrive.title}
                                                 endDate={testDrive.enddate}
                                                 participants={testDrive.participants}
-                                                checkPortion={"testDriveThatIRun"} />)
+                                                checkPortion={"testDriveThatIRun"}
+                                                testDrive = {testDrive.testDrive} />)
                                         })
                                     }
+                                    {testDriveThatIRun.length == 0  && <p>You have not created any test dive yet.</p>}
                                 </div>
-                            </div>
-                        </Loader>
+                            </Loader>
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>)

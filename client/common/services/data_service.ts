@@ -1,13 +1,18 @@
 import Promise from "ts-promise";
 import * as Constants from './constants';
-import pnp from 'sp-pnp-js';
+import pnp, { config } from 'sp-pnp-js';
 import { TestDrive, Question, TestCase } from '../../test_drive/model';
 import * as $ from 'jquery';
 import * as moment from 'moment';
 import TestCases from "../../test_drive/components/TestCases";
-import { HomeTestDrive, Leaders } from '../../home/model';
+import { HomeTestDrive, Leaders, EliteProfile } from '../../home/model';
 import { Leader } from '../../leader_board/model';
 import { User } from '../../onboarding/model';
+import { constants } from "http2";
+import { resolve } from "path";
+import { Columns } from "./constants";
+import { Util } from "sp-pnp-js/lib/utils/util";
+
 const delay = 100;
 declare var SP: any;
 
@@ -34,36 +39,61 @@ export class Services {
         return user.eliteProfileID; //TODO 
     }
 
-    // static getTotalUserCount() {
-    //     return new Promise((resolve, reject) => {
-    //         setTimeout(() => {
-    //             resolve(2000);
-    //         }, delay);
-    //     });
-    // }
+    static getEliteProfile(id) {
+        return new Promise((resolve, reject) => {
+            let user = this.getUserProfileProperties();
+            pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION).items
+                .getById(id)
+                .select(
+                Constants.Columns.CAR_IMAGE,
+                Constants.Columns.CAR_NAME,
+                Constants.Columns.Car_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.AVATAR_IMAGE,
+                Constants.Columns.AVATAR_NAME)
+                .expand(Constants.Columns.Car_ID)
+                .get().then(profile => {
+                    resolve(<EliteProfile>{
+                        eliteProfileID: user.id,
+                        accountName: user.accountName,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        displayName: user.displayName,
+                        location: user.location,
+                        department: user.department,
+                        sipAddress: user.sipAddress,
+                        workEmail: user.workEmail,
+                        languages: user.languages,
+                        region: user.region,
+                        carImage: profile.CarImage,
+                        carName: profile.CarName,
+                        avatarName: profile.AvatarName,
+                        avatarImage: profile.AvatarImage
+                    });
+                }, err => {
+                    Utils.clientLog(err);
+                });
+        });
+    }
 
-    // static getOnboardingDetails() {
-    //     return new Promise((resolve, reject) => {
-    //         setTimeout(() => {
-    //             resolve({
-    //                 totalUsers: 34343,
-    //                 currentUser: <User>{
-    //                     accountName: "global\abadhe",
-    //                     department: '',
-    //                     displayName: "Akash Badhe",
-    //                     eliteProfileID: 3,
-    //                     firstName: "Akash",
-    //                     languages: "en-us",
-    //                     lastName: "Badhe",
-    //                     location: "India",
-    //                     sipAddress: "abadhe@ap.equinix.com",
-    //                     workEmail: 'abadhe@ap.equinix.com'
-    //                 }
-    //             });
-    //         }, delay);
-    //     });
-    // }
-
+    static getUserRank(userID: number) { //TODO Update logic for more that 5000 users.
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
+                .select(Constants.Columns.ID,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID)
+                .expand(Constants.Columns.USER_ID)
+                .orderBy(Constants.Columns.POINTS, false)
+                .get().then(results => {
+                    let rank;
+                    results.forEach((item, index) => {
+                        if (item[Constants.Columns.USER_ID][Constants.Columns.ID] == userID) {
+                            rank = index;
+                            return false;
+                        }
+                    })
+                    resolve(rank);
+                })
+        })
+    }
 
     static getTotalUserCount() {
         return new Promise((resolve, reject) => {
@@ -89,7 +119,8 @@ export class Services {
                         firstName: user.fileName,
                         languages: user.languages,
                         lastName: user.lastName,
-                        location: user.location
+                        location: user.location,
+                        region: user.region
                     }
                 });
             })
@@ -116,55 +147,58 @@ export class Services {
                 resolve(cachedConfig);
             } else {
                 let testDriveFields = Services.getFieldMetadata(Constants.Lists.TEST_DRIVES, [
-                    'ID',
-                    'TestDriveName',
-                    'EliteDescription',
-                    'TestDriveStatus',
-                    'TestDriveStartDate',
-                    'TestDriveEndDate',
-                    'TotalPoints',
-                    'TestDriveDepartment',
-                    'TestDriveLocation',
-                    'AvailableDevices',
-                    'AvailableOS',
-                    'MaxTestDrivers',
-                    'LevelID/ID',
-                    'LevelID/LevelName',
-                    'TestDriveOwner/ID',
-                    'TestDriveOwner/UserInfoName',
-                    'TestCases/ID',
-                    'Questions/ID',
-                    'ExpectedBusinessValue'
+                    Constants.Columns.ID,
+                    Constants.Columns.TEST_DRIVE_NAME,
+                    Constants.Columns.ELITE_DESCRIPTION,
+                    Constants.Columns.TESTDRIVE_STATUS,
+                    Constants.Columns.TEST_DRIVE_START_DATE,
+                    Constants.Columns.TESTDRIVE_END_DATE,
+                    Constants.Columns.TOTAL_POINTS,
+                    Constants.Columns.TEST_DRIVE_DEPARTMENT,
+                    Constants.Columns.TEST_DRIVE_LOCATION,
+                    Constants.Columns.AVAILABLE_DEVICES,
+                    Constants.Columns.AVAILABLE_OS,
+                    Constants.Columns.MAX_TESTDRIVERS,
+                    Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LEVEL_NAME,
+                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.ID,
+                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
+                    Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.EXPECTED_BUSINESS_VALUE
                 ]);
 
                 let testCaseFields = Services.getFieldMetadata(Constants.Lists.TEST_CASES, [
-                    'Title',
-                    'ID',
-                    'EliteDescription',
-                    'Type',
-                    'Scenario',
-                    'TestCaseOutcome',
-                    'TestCasePriority',
-                    'Points',
-                    'ReTest'
+                    Constants.Columns.TITLE,
+                    Constants.Columns.ID,
+                    Constants.Columns.ELITE_DESCRIPTION,
+                    Constants.Columns.TYPE,
+                    Constants.Columns.SCENARIO,
+                    Constants.Columns.TEST_CASE_OUTCOME,
+                    Constants.Columns.TEST_CASE_PRIORITY,
+                    Constants.Columns.POINTS,
+                    Constants.Columns.RETEST
                 ]);
 
                 let questionFields = Services.getFieldMetadata(Constants.Lists.SURVEY_QUESTIONS, [
-                    'Title',
-                    'ID',
-                    'Question',
-                    'Responses',
-                    'ResponseType',
+                    Constants.Columns.TITLE,
+                    Constants.Columns.ID,
+                    Constants.Columns.QUESTION,
+                    Constants.Columns.RESPONSES,
+                    Constants.Columns.RESPONSETYPE
                 ]);
 
                 let testDriveLevels = Services.getTestDriveLevels(Constants.Lists.RACE_LEVELS);
 
                 let testCasePoints = Services.getTestPointConfiguration(Constants.Lists.POINTS_CONFIGURATIONS);
+
+                let applicationConfigurations = Services.getApplicationConfigurations();
+
                 Promise.all([testDriveFields,
                     testCaseFields,
                     questionFields,
                     testDriveLevels,
-                    testCasePoints
+                    testCasePoints,
+                    applicationConfigurations
                 ]).then(results => {
                     let configObj = {
                         fieldDescription: {
@@ -173,7 +207,8 @@ export class Services {
                             survey: results[2]
                         },
                         testDriveLevelsConfig: results[3],
-                        testCasePoints: results[4]
+                        testCasePoints: results[4],
+                        appConfig: results[5]
                     }
                     Cache.setCache(Constants.CacheKeys.CONFIGURATIONS, configObj);
                     resolve(configObj);
@@ -182,40 +217,48 @@ export class Services {
         });
     }
 
-    static getTestDrivesByOwerneID(ownerID: number) {
+    static getApplicationConfigurations() {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.APPLICATION_CONFIGURATIONS).items
+                .top(100).get().then(configurations => {
+                    let appConfig;
+                    configurations.map(configuration => {
+                        appConfig[configuration.key] = configuration.value;
+                    })
+                    resolve(appConfig);
+                }, err => {
+                    reject(err);
+                })
+        });
+    }
+
+    static getTestDrivesByFilter(filter: string, skip = 0, top = 3) {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items
-                .select('ID',
-                'TestDriveName',
-                'EliteDescription',
-                'TestDriveStatus',
-                'TestDriveStartDate',
-                'TestDriveEndDate',
-                'TotalPoints',
-                'TestDriveDepartment',
-                'TestDriveLocation',
-                // 'TestDriveFunction',
-                'AvailableDevices',
-                'AvailableOS',
-                'MaxTestDrivers',
-                'LevelID/ID',
-                'LevelID/LevelName',
-                'TestDriveOwner/ID',
-                'TestDriveOwner/UserInfoName',
-                'TestCases/ID',
-                'Questions/ID',
-            )
-                .expand('TestDriveOwner', 'LevelID', 'Questions', 'TestCases')
-                .filter("TestDriveOwner eq " + ownerID).get().then(testDrives => {
+                .select(
+                Constants.Columns.ID,
+                Constants.Columns.TEST_DRIVE_NAME,
+                Constants.Columns.ELITE_DESCRIPTION,
+                Constants.Columns.TESTDRIVE_STATUS,
+                Constants.Columns.TEST_DRIVE_START_DATE,
+                Constants.Columns.TESTDRIVE_END_DATE,
+                Constants.Columns.TOTAL_POINTS,
+                Constants.Columns.TEST_DRIVE_DEPARTMENT,
+                Constants.Columns.TEST_DRIVE_LOCATION,
+                Constants.Columns.AVAILABLE_DEVICES,
+                Constants.Columns.AVAILABLE_OS,
+                Constants.Columns.MAX_TESTDRIVERS,
+                Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LEVEL_NAME,
+                Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.ID,
+                Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
+                Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.EXPECTED_BUSINESS_VALUE
+                ).skip(skip).top(top)
+                .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID, Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
+                .filter(filter).get().then(testDrives => {
                     let testDriveObj: TestDrive;
                     let results = testDrives.map((testDrive) => {
-                        let questions = testDrive.Questions.results.map((question) => {
-                            return question.ID;
-                        })
-                        let testCases = testDrive.TestCases.results.map((testCase) => {
-                            return testCase.ID;
-                        })
-
                         return {
                             title: testDrive.TestDriveName,
                             description: testDrive.EliteDescription,
@@ -232,18 +275,28 @@ export class Services {
                             id: testDrive.ID,
                             level: testDrive.LevelID.LevelName,
                             owner: testDrive.TestDriveOwner.UserInfoName,
-                            testCaseIDs: testCases,
-                            questionIDs: questions,
+                            testCaseIDs: testDrive[Constants.Columns.TESTCASE_ID][Constants.Columns.ID],
+                            questionIDs: testDrive[Constants.Columns.QUESTION_ID][Constants.Columns.ID],
                             expectedBusinessValue: '',
                             testCases: null,
                             questions: null
                         };
                     });
-
                     resolve(results);
                 }, error => {
                     Utils.clientLog(error);
                 })
+        });
+    }
+
+
+    static getTestDrivesByOwerneID(ownerID: number, skip = 0, top = 3) {
+        return new Promise((resolve, reject) => {
+            Services.getTestDrivesByFilter("TestDriveOwner eq " + ownerID, skip, top).then(testDrives => {
+                resolve(testDrives);
+            }, error => {
+                Utils.clientLog(error);
+            });
         });
     }
 
@@ -268,69 +321,88 @@ export class Services {
                     questionIDs: [],
                     questions: [],
                     region: [],
-                    status: 'Draft',
+                    status: Constants.ColumnsValues.DRAFT,
                     level: ''
                 });
+            } else {
+                pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items.getById(testDriveID)
+                    .select(
+                    Constants.Columns.ID,
+                    Constants.Columns.TEST_DRIVE_NAME,
+                    Constants.Columns.ELITE_DESCRIPTION,
+                    Constants.Columns.TESTDRIVE_STATUS,
+                    Constants.Columns.TEST_DRIVE_START_DATE,
+                    Constants.Columns.TESTDRIVE_END_DATE,
+                    Constants.Columns.TOTAL_POINTS,
+                    Constants.Columns.TEST_DRIVE_DEPARTMENT,
+                    Constants.Columns.TEST_DRIVE_LOCATION,
+                    Constants.Columns.AVAILABLE_DEVICES,
+                    Constants.Columns.AVAILABLE_OS,
+                    Constants.Columns.MAX_TESTDRIVERS,
+                    Constants.Columns.LEVEL_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LEVEL_NAME,
+                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.ID,
+                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
+                    Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.EXPECTED_BUSINESS_VALUE
+                    )
+                    .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID,
+                    Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
+                    .get().then(testDrive => {
+                        let questions = testDrive.QuestionID.results.map((question) => {
+                            return question.ID;
+                        });
+                        let testCases = testDrive.TestCaseID.results.map((testCase) => {
+                            return testCase.ID;
+                        });
+
+                        let testDriveObj = {
+                            title: testDrive.TestDriveName,
+                            description: testDrive.EliteDescription,
+                            status: testDrive.TestDriveStatus,
+                            startDate: testDrive.TestDriveStartDate,
+                            endDate: testDrive.TestDriveEndDate,
+                            maxPoints: testDrive.TotalPoints,
+                            department: testDrive.TestDriveDepartment.results,
+                            function: [], //testDrive.TestDriveFunction.results,
+                            location: testDrive.TestDriveLocation.results,
+                            requiredDevices: testDrive.AvailableDevices.results,
+                            requiredOs: testDrive.AvailableOS.results,
+                            maxTestDrivers: testDrive.MaxTestDrivers,
+                            id: testDrive.ID,
+                            level: testDrive.LevelID.ID,
+                            owner: testDrive.TestDriveOwner.UserInfoName,
+                            testCases: null,
+                            questions: null,
+                            testCaseIDs: testCases,
+                            questionIDs: questions,
+                            expectedBusinessValue: testDrive.ExpectedBusinessValue
+                        };
+                        resolve(testDriveObj);
+
+                    }, error => {
+                        reject(error);
+                    });
             }
-            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items.getById(testDriveID)
-                .select(
-                'ID',
-                'TestDriveName',
-                'EliteDescription',
-                'TestDriveStatus',
-                'TestDriveStartDate',
-                'TestDriveEndDate',
-                'TotalPoints',
-                'TestDriveDepartment',
-                'TestDriveLocation',
-                // 'TestDriveFunction',
-                'AvailableDevices',
-                'AvailableOS',
-                'MaxTestDrivers',
-                'LevelID/ID',
-                'LevelID/LevelName',
-                'TestDriveOwner/ID',
-                'TestDriveOwner/UserInfoName',
-                'TestCases/ID',
-                'Questions/ID',
-                'ExpectedBusinessValue'
-                )
-                .expand('TestDriveOwner', 'LevelID', 'Questions', 'TestCases')
-                .get().then(testDrive => {
-                    let questions = testDrive.Questions.results.map((question) => {
-                        return question.ID;
-                    });
-                    let testCases = testDrive.TestCases.results.map((testCase) => {
-                        return testCase.ID;
-                    });
+        });
+    }
 
-                    let testDriveObj = {
-                        title: testDrive.TestDriveName,
-                        description: testDrive.EliteDescription,
-                        status: testDrive.TestDriveStatus,
-                        startDate: testDrive.TestDriveStartDate,
-                        endDate: testDrive.TestDriveEndDate,
-                        maxPoints: testDrive.TotalPoints,
-                        department: testDrive.TestDriveDepartment.results,
-                        function: [], //testDrive.TestDriveFunction.results,
-                        location: testDrive.TestDriveLocation.results,
-                        requiredDevices: testDrive.AvailableDevices.results,
-                        requiredOs: testDrive.AvailableOS.results,
-                        maxTestDrivers: testDrive.MaxTestDrivers,
-                        id: testDrive.ID,
-                        level: testDrive.LevelID.ID,
-                        owner: testDrive.TestDriveOwner.UserInfoName,
-                        testCases: null,
-                        questions: null,
-                        testCaseIDs: testCases,
-                        questionIDs: questions,
-                        expectedBusinessValue: testDrive.ExpectedBusinessValue
-                    };
-                    resolve(testDriveObj);
-
-                }, error => {
-                    reject(error);
+    static getTestDrivesByIDs(ids: number[]) {
+        return new Promise((resolve, reject) => {
+            let filter = '';
+            if (!ids || ids.length == 0) {
+                resolve([]);
+            } else {
+                ids.map((id, index) => {
+                    filter += 'ID eq ' + id + (ids.length - 1 != index ? ' or ' : '');
                 });
+                Services.getTestDrivesByFilter(filter).then(testDrives => {
+                    resolve(testDrives);
+                }, error => {
+                    Utils.clientLog(error);
+                })
+            }
         });
     }
 
@@ -344,16 +416,17 @@ export class Services {
                     filter += 'ID eq ' + id + (testCaseIDs.length - 1 != index ? ' or ' : '');
                 })
                 pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASES).items
-                    .select('Title',
-                    'ID',
-                    'EliteDescription',
-                    'Type',
-                    'Scenario',
-                    'TestCaseOutcome',
-                    'TestCasePriority',
-                    'Points',
-                    'ReTest',
-                )
+                    .select(
+                    Constants.Columns.TITLE,
+                    Constants.Columns.ID,
+                    Constants.Columns.ELITE_DESCRIPTION,
+                    Constants.Columns.TYPE,
+                    Constants.Columns.SCENARIO,
+                    Constants.Columns.TEST_CASE_OUTCOME,
+                    Constants.Columns.TEST_CASE_PRIORITY,
+                    Constants.Columns.POINTS,
+                    Constants.Columns.RETEST
+                    )
                     .filter(filter)
                     .get().then(testCases => {
                         let testCaseArray: TestCase[] = [];
@@ -389,12 +462,13 @@ export class Services {
                     filter += 'ID eq ' + id + (questionIDs.length - 1 != index ? ' or ' : '');
                 });
                 pnp.sp.web.lists.getByTitle(Constants.Lists.SURVEY_QUESTIONS).items
-                    .select('Title',
-                    'ID',
-                    'Question',
-                    'Responses',
-                    'ResponseType',
-                )
+                    .select(
+                    Constants.Columns.TITLE,
+                    Constants.Columns.ID,
+                    Constants.Columns.QUESTION,
+                    Constants.Columns.RESPONSES,
+                    Constants.Columns.RESPONSETYPE
+                    )
                     .filter(filter)
                     .get().then(questions => {
                         let questionArray: Question[] = [];
@@ -460,7 +534,7 @@ export class Services {
                 'ID',
                 'TotalPoints'
                 )
-                .filter("ActivityName eq 'TEST_CASE_COMPLETION'")
+                .filter("ActivityName eq '" + Constants.ColumnsValues.TEST_CASE_COMPLETION + "'")
                 .get().then(item => {
                     resolve(item[0].TotalPoints);
                 }, err => {
@@ -471,7 +545,13 @@ export class Services {
 
     static getReferrerID() {
         let referrer = Utils.getUrlParameters(window.location.href, "referrerID");
-        return parseInt(referrer);
+        if (referrer) {
+            return parseInt(referrer);
+        }
+        else {
+            return '';
+        }
+
     }
     static createOrSaveTestDrive(testDrive: TestDrive) {
         return new Promise((resolve, reject) => {
@@ -505,7 +585,7 @@ export class Services {
                     results[1].map(questions => {
                         ids.push(questions.id);
                     })
-                    newTestDrive["Questions_id"] = {
+                    newTestDrive["QuestionID_id"] = {
                         results: ids || []
                     }
                 }
@@ -514,7 +594,7 @@ export class Services {
                     results[0].map(testCase => {
                         ids.push(testCase.id);
                     })
-                    newTestDrive["TestCases_id"] = {
+                    newTestDrive["TestCaseID_id"] = {
                         results: ids || []
                     }
                 }
@@ -615,28 +695,6 @@ export class Services {
 
     }
 
-    // DisplayName="Name" Name="UserInfoName" />
-    // DisplayName="Role" Name="UserInfoRole" />
-    // DisplayName="Available Devices" Required="FALSE" Name="AvailableDevices" />
-    // DisplayName="Available OS" Required="FALSE" Name="AvailableOS" />
-    // DisplayName="Date Joined" Name="DateJoined" Format="DateOnly" />
-    // DisplayName="Location" Name="UserLocation" />
-    // DisplayName="Department" Name="UserDepartment" />
-    // DisplayName="Avatar ID" Name="AvatarID" />
-    // DisplayName="AvailableDevices Name_0" Hidden="TRUE" Name="AvailableDevicesTaxHTField0" />
-    // DisplayName="AvailableOS Name_0" Hidden="TRUE" Name="AvailableOSTaxHTField0" />
-    // DisplayName="Account Name" Name="AccountName" />
-    // DisplayName="Region" Required="FALSE" Name="UserRegion" />
-    // DisplayName="UserRegion Name_0" Hidden="TRUE" Name="UserRegionTaxHTField0" />
-    // DisplayName="UserRegion Text" Name="UserRegionText" />
-    // DisplayName="Referrer ID" Name="ReferrerID" />
-    // DisplayName="Completed Test Drives" Name="CompletedTestDrives" />
-    // DisplayName="Completed Test Cases" Name="CompletedTestCases" />
-    // DisplayName="Car Image" Name="CarImage" />
-    // DisplayName="Car Name" Name="CarName" />
-    // DisplayName="Avatar Image" Name="AvatarImage" />
-    // DisplayName="Avatar Name" Name="AvatarName" />
-    // DisplayName="Car ID" Name="CarID" />
     static createEliteUserProfile(user: User) {
         return new Promise((resolve, reject) => {
             let promises = [this.getDefaultCarDetails(), this.getDefaultAvatarDetails()];
@@ -650,7 +708,7 @@ export class Services {
                     DateJoined: new Date().toISOString(),
                     UserLocation: user.location,
                     ReferrerID_id: Services.getReferrerID(),
-                    UserRegionText: user.region,
+                    UserRegion: user.region,
                     CarImage: baseUrl + carDetails.FileRef,
                     CarName: carDetails.CarName,
                     CarID_id: carDetails.ID,
@@ -658,11 +716,12 @@ export class Services {
                     AvatarImage: baseUrl + avatarDetails.FileRef,
                     AvatarID_id: avatarDetails.ID,
                     UserDepartment: user.department,
-                    UserInfoName: user.displayName
+                    UserInfoName: user.displayName,
                 }])
                     .then((users: any) => {
                         let user = users[0];
                         let newUser = { ...user, eliteProfileID: user.id }
+                        window.location.href = _spPageContextInfo.siteAbsoluteUrl;
                     }, err => {
                         Utils.clientLog(err);
                     })
@@ -690,19 +749,22 @@ export class Services {
                         if (key.toLowerCase() !== "id") {
                             if (key.toLowerCase().endsWith("_id")) {
                                 const columnName = key && key.split("_id")[0];
-                                if (typeof value === "object") {
-                                    var lookupIds = [];
-                                    value.results.forEach(id => {
+                                if (value) {
+                                    if (typeof value === "object") {
+                                        var lookupIds = [];
+                                        value.results.forEach(id => {
+                                            var lookupID = new SP.FieldLookupValue();
+                                            lookupID.set_lookupId(id);
+                                            lookupIds.push(lookupID);
+                                        });
+                                        listItems[index].set_item(columnName, lookupIds);
+                                    } else {
                                         var lookupID = new SP.FieldLookupValue();
-                                        lookupID.set_lookupId(id);
-                                        lookupIds.push(lookupID);
-                                    });
-                                    listItems[index].set_item(columnName, lookupIds);
-                                } else {
-                                    var lookupID = new SP.FieldLookupValue();
-                                    lookupID.set_lookupId(value);
-                                    listItems[index].set_item(columnName, lookupID);
+                                        lookupID.set_lookupId(value);
+                                        listItems[index].set_item(columnName, lookupID);
+                                    }
                                 }
+
                             }
                             else if (key.toLowerCase().endsWith("_tax")) {
                                 const columnName = key && key.split("_tax")[0];
@@ -782,85 +844,6 @@ export class Services {
 
     }
 
-    // static getRegions() {
-    //     return new Promise((resolve, reject) => {
-    //         const data = [
-    //             { Label: 'Region 1', TermGuid: 'Region 1' },
-    //             { Label: 'Region 2', TermGuid: 'Region 2' },
-    //             { Label: 'Region 3', TermGuid: 'Region 3' },
-    //             { Label: 'Region 4', TermGuid: 'Region 4' },
-    //             { Label: 'Region 5', TermGuid: 'Region 5' },
-    //             { Label: 'Region 6', TermGuid: 'Region 6' },
-    //             { Label: 'Region 7', TermGuid: 'Region 7' },
-    //             { Label: 'Region 8', TermGuid: 'Region 8' },
-    //             { Label: 'Region 9', TermGuid: 'Region 9' },
-    //         ];
-    //         setTimeout(() => {
-    //             resolve(data);
-    //         }, delay);
-    //     });
-    // }
-
-    // static getLocations() {
-    //     return new Promise((resolve, reject) => {
-    //         const data = [
-    //             { Label: 'Location 1', TermGuid: 'Location 1' },
-    //             { Label: 'Location 2', TermGuid: 'Location 2' },
-    //             { Label: 'Location 3', TermGuid: 'Location 3' },
-    //             { Label: 'Location 4', TermGuid: 'Location 4' },
-    //             { Label: 'Location 5', TermGuid: 'Location 5' },
-    //             { Label: 'Location 6', TermGuid: 'Location 6' },
-    //             { Label: 'Location 7', TermGuid: 'Location 7' },
-    //             { Label: 'Location 8', TermGuid: 'Location 8' },
-    //             { Label: 'Location 9', TermGuid: 'Location 9' },
-    //         ]
-
-    //         setTimeout(() => {
-    //             resolve(data);
-    //         }, delay);
-    //     });
-    // }
-
-    // static getDevices() {
-    //     return new Promise((resolve, reject) => {
-    //         const data = [
-    //             { Label: 'Device 1', TermGuid: 'Device 1' },
-    //             { Label: 'Device 2', TermGuid: 'Device 2' },
-    //             { Label: 'Device 3', TermGuid: 'Device 3' },
-    //             { Label: 'Device 4', TermGuid: 'Device 4' },
-    //             { Label: 'Device 5', TermGuid: 'Device 5' },
-    //             { Label: 'Device 6', TermGuid: 'Device 6' },
-    //             { Label: 'Device 7', TermGuid: 'Device 7' },
-    //             { Label: 'Device 8', TermGuid: 'Device 8' },
-    //             { Label: 'Device 9', TermGuid: 'Device 9' },
-    //         ]
-
-    //         setTimeout(() => {
-    //             resolve(data);
-    //         }, delay);
-    //     });
-    // }
-
-    // static getOSes() {
-    //     return new Promise((resolve, reject) => {
-    //         const data = [
-    //             { Label: 'OS 1', TermGuid: 'OS 1' },
-    //             { Label: 'OS 2', TermGuid: 'OS 2' },
-    //             { Label: 'OS 3', TermGuid: 'OS 3' },
-    //             { Label: 'OS 4', TermGuid: 'OS 4' },
-    //             { Label: 'OS 5', TermGuid: 'OS 5' },
-    //             { Label: 'OS 6', TermGuid: 'OS 6' },
-    //             { Label: 'OS 7', TermGuid: 'OS 7' },
-    //             { Label: 'OS 8', TermGuid: 'OS 8' },
-    //             { Label: 'OS 9', TermGuid: 'OS 9' },
-    //         ]
-
-    //         setTimeout(() => {
-    //             resolve(data);
-    //         }, delay);
-    //     });
-    // }
-
     static getRegions() {
         return new Promise((resolve, reject) => {
             let termSetName = "region";
@@ -871,6 +854,7 @@ export class Services {
             });
         });
     }
+
     static getLocations() {
         return new Promise((resolve, reject) => {
             let termSetName = "location";
@@ -880,6 +864,7 @@ export class Services {
             });
         });
     }
+
     static getDevices() {
         return new Promise((resolve, reject) => {
             let termSetName = "device";
@@ -889,6 +874,7 @@ export class Services {
             });
         });
     }
+
     static getOSes() {
         return new Promise((resolve, reject) => {
             let termSetName = "os";
@@ -930,80 +916,80 @@ export class Services {
         });
     }
 
-    static getLeaderBoard() {
-        var d = new Date();
-        var lastYear = d.getFullYear() - 1 + "-12-31";
-        return new Promise((resolve, reject) => {
-            let leaderBoardArr: Leaders[] = [];
-            pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
-                .select("Points",
-                "UserInfoID/ID",
-                "UserInfoID/UserInfoName"
-                )
-                .expand("UserInfoID").top(3).orderBy('Points', false).filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z'")
-                .get().then(testDrives => {
-                    testDrives.map((testDrive, index) => {
-                        leaderBoardArr.push({
-                            id: index + 1,
-                            name: testDrive.UserInfoID.UserInfoName,
-                            points: testDrive.Points,
-                            avatar: "http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
-                        });
-                    });
-                    resolve(leaderBoardArr);
-                })
-        });
-    }
+    // static getLeaderBoard() {
+    //     var d = new Date();
+    //     var lastYear = d.getFullYear() - 1 + "-12-31";
+    //     return new Promise((resolve, reject) => {
+    //         let leaderBoardArr: Leaders[] = [];
+    //         pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
+    //             .select("Points",
+    //             "UserID/ID",
+    //             "UserID/UserInfoName"
+    //             )
+    //             .expand("UserID").top(3).orderBy('Points', false).filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z'")
+    //             .get().then(testDrives => {
+    //                 testDrives.map((testDrive, index) => {
+    //                     leaderBoardArr.push({
+    //                         id: index + 1,
+    //                         name: testDrive.UserID.UserInfoName,
+    //                         points: testDrive.Points,
+    //                         avatar: "http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
+    //                     });
+    //                 });
+    //                 resolve(leaderBoardArr);
+    //             })
+    //     });
+    // }
 
-    static getLeaderBoardRegion() {
-        var d = new Date();
-        var lastYear = d.getFullYear() - 1 + "-12-31";
-        return new Promise((resolve, reject) => {
-            let regionLeaderBoardArr: Leaders[] = [];
-            pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION).items
-                .select("UserLocation"
-                )
-                .filter("UserID eq " + _spPageContextInfo.userId + "")
-                .get().then(userInfo => {
-                    pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
-                        .select("Points",
-                        "UserInfoID/ID",
-                        "UserInfoID/UserInfoName"
-                        )
-                        .expand("UserInfoID").top(3).orderBy('Points', false).filter("User_x0020_ID_x003a_Location eq '" + userInfo[0].UserLocation + "'")
-                        .get().then(testDrives => {
-                            testDrives.map((testDrive, index) => {
-                                regionLeaderBoardArr.push({
-                                    id: index + 1,
-                                    name: testDrive.UserInfoID.UserInfoName,
-                                    points: testDrive.Points,
-                                    avatar: "http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
-                                });
-                            });
-                            resolve(regionLeaderBoardArr);
-                        })
-                })
+    // static getLeaderBoardRegion() {
+    //     var d = new Date();
+    //     var lastYear = d.getFullYear() - 1 + "-12-31";
+    //     return new Promise((resolve, reject) => {
+    //         let regionLeaderBoardArr: Leaders[] = [];
+    //         pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION).items
+    //             .select("UserLocation"
+    //             )
+    //             .filter("UserID eq " + _spPageContextInfo.userId + "")
+    //             .get().then(userInfo => {
+    //                 pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
+    //                     .select("Points",
+    //                     "UserID/ID",
+    //                     "UserID/UserInfoName"
+    //                     )
+    //                     .expand("UserID").top(3).orderBy('Points', false).filter("User_x0020_ID_x003a_Location eq '" + userInfo[0].UserLocation + "'")
+    //                     .get().then(testDrives => {
+    //                         testDrives.map((testDrive, index) => {
+    //                             regionLeaderBoardArr.push({
+    //                                 id: index + 1,
+    //                                 name: testDrive.UserID.UserInfoName,
+    //                                 points: testDrive.Points,
+    //                                 avatar: "http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
+    //                             });
+    //                         });
+    //                         resolve(regionLeaderBoardArr);
+    //                     })
+    //             })
 
-        });
-    }
+    //     });
+    // }
 
-    static getGlobalLeaders(skip = 5, count = 5) {
+    static getGlobalLeaders(skip = 0, count = 3) {
         var d = new Date();
         var lastYear = d.getFullYear() - 1 + "-12-31";
         return new Promise((resolve, reject) => {
             let globalLeaders: Leader[] = [];
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
                 .select(
-                "ID",
-                "Points",
-                "UserInfoID/ID",
-                "UserInfoID/UserInfoName",
-                "UserInfoID/CarImage",
-                "UserInfoID/CarName",
-                "UserInfoID/AvatarName",
-                "UserInfoID/AvatarImage",
+                Constants.Columns.ID,
+                Constants.Columns.POINTS,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.USER_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_IMAGE,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_IMAGE,
             )
-                .expand("UserInfoID").top(100)
+                .expand("UserID").top(100)
                 .orderBy('Points', false)
                 .filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z'")
                 .skip(skip).top(count)
@@ -1012,10 +998,10 @@ export class Services {
                     leaders.map(leader => {
                         globalLeaders.push({
                             id: leader.ID,
-                            name: leader.UserInfoID.UserInfoName,
+                            name: leader.UserID.UserInfoName,
                             totalPoints: leader.Points,
-                            avatar: leader.UserInfoID.AvatarImage,
-                            car: leader.UserInfoID.CarImage,
+                            avatar: leader.UserID.AvatarImage,
+                            car: leader.UserID.CarImage,
                             completedTestDrives: 400
                         })
                     })
@@ -1024,35 +1010,36 @@ export class Services {
         });
     }
 
-    static getRegionalLeaders(region: string, skip = 5, top = 5) {
+    static getRegionalLeaders(region: string, skip = 0, top = 3) {
         var d = new Date();
         var lastYear = d.getFullYear() - 1 + "-12-31";
         return new Promise((resolve, reject) => {
             let regionalLeaders: Leader[] = [];
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
                 .select(
-                "ID",
-                "Points",
-                "UserInfoID/ID",
-                "UserInfoID/UserInfoName",
-                "UserInfoID/CarImage",
-                "UserInfoID/CarName",
-                "UserInfoID/AvatarName",
-                "UserInfoID/AvatarImage",
+                Constants.Columns.ID,
+                Constants.Columns.POINTS,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.USER_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_IMAGE,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_IMAGE,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION,
             )
-                .expand("UserInfoID").top(100)
+                .expand("UserID").top(top).skip(skip)
                 .orderBy('Points', false)
                 .filter("PointsEarnedOnDate gt datetime'" +
-                lastYear + "T23:59:59.000Z' and " + Constants.Columns.USER_REGION + " eq '" + region + "'")
+                lastYear + "T23:59:59.000Z' and " + Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION + " eq '" + region + "'")
                 .get().then(leaders => {
                     console.log(leaders);
                     leaders.map(leader => {
                         regionalLeaders.push({
                             id: leader.ID,
-                            name: leader.UserInfoID.UserInfoName,
+                            name: leader.UserID.UserInfoName,
                             totalPoints: leader.Points,
-                            avatar: leader.UserInfoID.AvatarImage,
-                            car: leader.UserInfoID.CarImage,
+                            avatar: leader.UserID.AvatarImage,
+                            car: leader.UserID.CarImage,
                             completedTestDrives: 400
                         })
                     })
@@ -1061,16 +1048,18 @@ export class Services {
         });
     }
 
-    static getCurrentUserPoints() {
+    static getUserPoints(userID: number) {
         var d = new Date();
         var lastYear = d.getFullYear() - 1 + "-12-31";
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
-                .select("Points",
-                "UserInfoID/ID",
-                "UserInfoID/UserInfoName"
+                .select(
+                Constants.Columns.POINTS,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.USER_NAME
                 )
-                .expand("UserInfoID").orderBy('Points', false).filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z' and UserInfoID eq '1'")
+                .expand(Constants.Columns.USER_ID).orderBy(Constants.Columns.POINTS, false)
+                .filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z' and UserID eq " + userID)
                 .get().then(testDrives => {
                     resolve(testDrives[0].Points);
                 })
@@ -1121,100 +1110,116 @@ export class Services {
     static getTestDrivesCompleted() {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
-                .select("ID,UserInfoID/ID").expand("UserInfoID")
-                .filter("UserInfoID eq '1' and Status eq '" + Constants.ColumnsValue.COMPLETE_STATUS + "'")
+                .select("ID,UserID/ID").expand("UserID")
+                .filter("UserID eq '1' and Status eq '" + Constants.ColumnsValues.COMPLETE_STATUS + "'")
                 .get().then(testDrives => {
                     resolve(testDrives.length);
                 })
         });
     }
 
-    static getActiveTestDrives() {
+    static getActiveTestDrives(skip = 0, top = 3) {
         var d = new Date();
         var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
         return new Promise((resolve, reject) => {
-            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items
-                .select("TestDriveName", "ID", "TestDriveEndDate")
-                .filter("TestDriveStatus eq 'Active' and TestDriveStartDate le datetime'" + todayDate + "T00:00:00.000Z' and TestDriveEndDate ge datetime'" + todayDate + "T00:00:00.000Z'")
-                .get().then(testDrives => {
-                    let activeTestDriveArr: HomeTestDrive[] = [];
-                    let testDrivesID = [];
-                    testDrives.map((value, index) => {
-                        testDrivesID.push(testDrives[index].ID);
-                    });
-                    Services.getTestDrivesParticipantCount(testDrivesID).then(count => {
-                        testDrives.map((testDrive, index) => {
-                            activeTestDriveArr.push({
-                                id: testDrive.ID,
-                                title: testDrive.TestDriveName,
-                                enddate: testDrive.TestDriveEndDate,
-                                participants: parseInt(count[index])
-                            });
+            Services.getTestDrivesByFilter("TestDriveStatus eq 'Active' and TestDriveStartDate le datetime'" + todayDate +
+            "T00:00:00.000Z' and TestDriveEndDate ge datetime'" + todayDate + "T00:00:00.000Z'").then((testDriveInstances: TestDrive[]) => {
+                    if (testDriveInstances && testDriveInstances.length > 0) {
+                        let activeTestDriveArr: HomeTestDrive[] = [];
+                        let testDrivesIDs = [];
+                        testDriveInstances.map((value, index) => {
+                            testDrivesIDs.push(testDriveInstances[index].id);
                         });
-                        resolve(activeTestDriveArr);
-                    });
+                        Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
+                            testDriveInstances.map((testDrive, index) => {
+                                activeTestDriveArr.push({
+                                    id: testDrive.id,
+                                    title: testDrive.title,
+                                    enddate: testDrive.endDate,
+                                    participants: parseInt(participants[index]),
+                                    testDrive: testDrive
+                                });
+                            });
+                            resolve(activeTestDriveArr);
+                        }, err => reject(err))
+                    } else {
+                        resolve(testDriveInstances);
+                    }
                 })
         });
     }
 
-    static getUpcomingTestDrives() {
+    static getUpcomingTestDrives(skip = 0, top = 3) {
         var d = new Date();
         var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
         return new Promise((resolve, reject) => {
-            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items
-                .select("TestDriveName", "ID", "TestDriveEndDate").top(3).orderBy("Created", true)
-                .filter("TestDriveStatus eq 'Active' and TestDriveStartDate ge datetime'" + todayDate + "T00:00:00.000Z'")
-                .get().then(testDrives => {
-                    let upcomingTestDriveArr: HomeTestDrive[] = [];
-                    let testDrivesID = [];
-                    testDrives.map((value, index) => {
-                        testDrivesID.push(testDrives[index].ID);
-                    });
-                    Services.getTestDrivesParticipantCount(testDrivesID).then(count => {
-                        testDrives.map((testDrive, index) => {
-                            upcomingTestDriveArr.push({
-                                id: testDrive.ID,
-                                title: testDrive.TestDriveName,
-                                enddate: testDrive.TestDriveEndDate,
-                                participants: parseInt(count[index])
-                            });
+            Services.getTestDrivesByFilter("TestDriveStatus eq 'Active' and TestDriveStartDate ge datetime'" + todayDate + "T00:00:00.000Z'")
+                .then((testDriveInstances: TestDrive[])=> {
+                    if (testDriveInstances && testDriveInstances.length > 0) {
+                        let upcomingTestDriveArr: HomeTestDrive[] = [];
+                        let testDrivesIDs = [];
+                        testDriveInstances.map((value, index) => {
+                            testDrivesIDs.push(testDriveInstances[index].id);
                         });
-                        resolve(upcomingTestDriveArr);
-                    });
+
+                        Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
+
+                            testDriveInstances.map((testDrive, index) => {
+                                upcomingTestDriveArr.push({
+                                    id: testDrive.id,
+                                    title: testDrive.title,
+                                    enddate: testDrive.endDate,
+                                    participants: parseInt(participants[index]),
+                                    testDrive: testDrive
+                                });
+                            });
+                            resolve(upcomingTestDriveArr);
+                        }, err => reject(err))
+                    } else {
+                        resolve(testDriveInstances);
+                    }
+
                 })
         });
     }
 
-    static getTestDrivesIRun() {
-        var d = new Date();
-        var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-        return new Promise((resolve, reject) => {
-            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items
-                .select("TestDriveName", "ID", "TestDriveEndDate", "Author/Id").top(3).expand("Author/Id")
-                .orderBy("Created", true)
-                .filter("Author/Id eq '" + _spPageContextInfo.userId + "'")
-                .get().then(testDrives => {
-                    let testDriveArr: HomeTestDrive[] = [];
-                    let testDrivesID = [];
-                    testDrives.map((value, index) => {
-                        testDrivesID.push(testDrives[index].ID);
-                    });
-                    Services.getTestDrivesParticipantCount(testDrivesID).then(count => {
-                        testDrives.map((testDrive, index) => {
-                            testDriveArr.push({
-                                id: testDrive.ID,
-                                title: testDrive.TestDriveName,
-                                enddate: testDrive.TestDriveEndDate,
-                                participants: parseInt(count[index])
-                            });
-                        });
-                        resolve(testDriveArr);
-                    });
-                })
-        });
-    }
+    // static getTestDrivesIRun() {
+    //     var d = new Date();
+    //     var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+    //     return new Promise((resolve, reject) => {
+    //         pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items
+    //             .select("TestDriveName", "ID", "TestDriveEndDate", "Author/Id").top(3).expand("Author/Id")
+    //             .orderBy("Created", true)
+    //             .filter("Author/Id eq '" + _spPageContextInfo.userId + "'")
+    //             .get().then(testDriveInstances => {
+    //                 let testDriveArr: HomeTestDrive[] = [];
+    //                 let testDrivesIDs = [];
+    //                 testDriveInstances.map((value, index) => {
+    //                     testDrivesIDs.push(testDriveInstances[index].ID);
+    //                 });
 
-    static getMyTestDrives() {
+    //                 Promise.all([Services.getTestDrivesByIDs(testDrivesIDs),
+    //                 Services.getTestDrivesParticipantCount(testDrivesIDs)]).then(results => {
+    //                     let testDrives = results[0];
+    //                     let participants = results[1];
+
+    //                     testDriveInstances.map((testDrive, index) => {
+    //                         testDriveArr.push({
+    //                             id: testDrive.ID,
+    //                             title: testDrive.TestDriveID.TestDriveName,
+    //                             enddate: testDrive.TestDriveID.TestDriveEndDate,
+    //                             participants: parseInt(participants[index]),
+    //                             testDrive: testDrives[index]
+    //                         });
+    //                     });
+    //                     resolve(testDriveArr);
+    //                 })
+
+    //             })
+    //     });
+    // }
+
+    static getMyTestDrives(skip = 0, top = 3) {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
                 .select("Title",
@@ -1222,25 +1227,37 @@ export class Services {
                 "TestDriveID/ID",
                 "TestDriveID/TestDriveName",
                 "TestDriveID/TestDriveEndDate"
-                ).filter("UserInfoID eq " + _spPageContextInfo.userId + "")
-                .expand("TestDriveID").top(3).orderBy("Created", true)
-                .get().then(testDrives => {
-                    let myTestDriveArr: HomeTestDrive[] = [];
-                    let testDrivesID = [];
-                    testDrives.map((value, index) => {
-                        testDrivesID.push(testDrives[index].TestDriveID.ID);
-                    });
-                    Services.getTestDrivesParticipantCount(testDrivesID).then(count => {
-                        testDrives.map((testDrive, index) => {
-                            myTestDriveArr.push({
-                                id: testDrive.ID,
-                                title: testDrive.TestDriveID.TestDriveName,
-                                enddate: testDrive.TestDriveID.TestDriveEndDate,
-                                participants: parseInt(count[index])
-                            });
+                ).filter("UserID eq " + this.getCurrentUserID() + "")
+                .expand("TestDriveID").top(top).skip(skip)
+                .orderBy("Created", true)
+                .get().then(testDriveInstances => {
+                    if (testDriveInstances && testDriveInstances.length > 0) {
+
+                        let myTestDriveArr: HomeTestDrive[] = [];
+                        let testDrivesIDs = [];
+                        testDriveInstances.map((value, index) => {
+                            testDrivesIDs.push(value.TestDriveID.ID);
                         });
-                        resolve(myTestDriveArr);
-                    });
+                        Promise.all([Services.getTestDrivesByIDs(testDrivesIDs),
+                        Services.getTestDrivesParticipantCount(testDrivesIDs)]).then(results => {
+                            let testDrives = results[0];
+                            let participants = results[1];
+
+                            testDriveInstances.map((testDrive, index) => {
+                                myTestDriveArr.push({
+                                    id: testDrive.ID,
+                                    title: testDrive.TestDriveID.TestDriveName,
+                                    enddate: testDrive.TestDriveID.TestDriveEndDate,
+                                    participants: parseInt(participants[index]),
+                                    testDrive: testDrives[index]
+                                });
+                            });
+                            resolve(myTestDriveArr);
+                        }, err => reject(err))
+                    } else {
+                        resolve(testDriveInstances);
+                    }
+
                 })
         });
     }
@@ -1462,17 +1479,19 @@ export class TermStore {
     public LoadedScripts = [];
 
     constructor() {
-        this.loadScript = this.loadScript.bind(this);
         this.getTermSet = this.getTermSet.bind(this);
     }
-    loadScript(scriptName) {
+    loadScript(scriptName, functionName = "") {
         let classContext = this;
+        let loadedScripts = $("#app").attr("loadded-scripts") || '';
         return new Promise((resolve, reject) => {
-            let scriptbase = _spPageContextInfo.siteAbsoluteUrl + "/_layouts/15/";
+            let scriptbase = _spPageContextInfo.webServerRelativeUrl + "/_layouts/15/";
             scriptName = scriptName.toLowerCase();
-            if ($("script[src*='" + scriptName + "']").length === 0 && $.inArray(scriptName, this.LoadedScripts) === -1) {
+
+            if ($("script[src*='" + scriptName + "']").length == 0 && loadedScripts.indexOf(scriptName) == -1) {
+                $("#app").attr("loadded-scripts", loadedScripts + "; " + scriptName);
                 $.getScript(scriptbase + scriptName, () => {
-                    classContext.LoadedScripts.push(scriptName);
+                    loadedScripts = $("#app").attr("loadded-scripts") || '';
                     return resolve(scriptName);
                 });
             }
@@ -1480,17 +1499,20 @@ export class TermStore {
                 return resolve(scriptName);
             }
         });
+
     }
 
     loadTaxonomyScripts() {
         return new Promise((resolve, reject) => {
-            Promise.all([
-                this.loadScript("sp.runtime.js"),
-                this.loadScript("sp.js"),
-                this.loadScript("sp.taxonomy.js")
-            ]).then(() => {
-                resolve(true);
-            }, (args) => reject(args));
+            SP.SOD.executeFunc("sp.js", "SP.ClientContext", () => {
+
+                Promise.all([
+                    // this.loadScript("sp.runtime.js"),
+                    this.loadScript("sp.taxonomy.js")
+                ]).then(() => {
+                    resolve(true);
+                }, (args) => reject(args));
+            });
         });
     }
 

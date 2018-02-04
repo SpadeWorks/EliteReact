@@ -6,6 +6,7 @@ interface LeaderBoardUserProps {
   points: number;
   userId: number;
   avatar: string;
+  rank: number;
 };
 
 interface LeaderBoardUserState {
@@ -14,22 +15,23 @@ interface LeaderBoardUserState {
 
 class LeaderBoardUser extends React.Component<LeaderBoardUserProps> {
   render() {
+      const {points, avatar, userId, userName, rank} = this.props;
     return (<div>{
           <a href="#">
           <div className="col-md-12 leader_box">
-              <div className="leader_rank"><span>{this.props.userId}</span></div>
+              <div className="leader_rank"><span>{rank}</span></div>
               <div className="col-md-12 leader_name">
                   <div className="avatar">
-                      <img src={this.props.avatar} className="img-responsive" />
+                      <img src={avatar} className="img-responsive" />
                   </div>
                   <div className="col-md-9 l_count_box">
                       <div className="col-md-12 name">
-                      {this.props.userName}                          
+                      {userName}                          
                       </div>
                       <div className="col-md-8 count pull-right">
                           <div className="row">
                               <p className="orange">POINTS:</p>
-                              <p className="digits"> {this.props.points}</p>
+                              <p className="digits"> {points}</p>
                           </div>
                       </div>
                   </div>

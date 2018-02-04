@@ -39,7 +39,7 @@ class HomeCenterDetails extends React.Component<HomeCenterDetailsProps> {
                                 <h4>YOUR CURRENT RIDE</h4>
                             </div>
                             <div className="col-md-12 text-center">
-                                <img src="http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/current_ride.png" />
+                                <img src={""} />
                             </div>
                         </div>
                     </div>

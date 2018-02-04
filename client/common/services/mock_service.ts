@@ -93,8 +93,8 @@ class Services {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve({
-            totalUsers: 34343,
-            currentUser: <User>{
+          totalUsers: 34343,
+          currentUser: <User>{
             accountName: "global\abadhe",
             department: '',
             displayName: "Akash Badhe",
@@ -110,8 +110,6 @@ class Services {
       }, delay);
     });
   }
-
-
 
   static getCurrentUserID() {
     return 1; //TODO 

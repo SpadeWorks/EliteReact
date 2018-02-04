@@ -2,26 +2,32 @@
 export const LOAD_MyTestDrive = 'LOAD_MyTestDrive';
 export const LOAD_MyTestDrive_PENDING = 'LOAD_MyTestDrive_PENDING';
 export const LOAD_MyTestDrive_FULFILLED = 'LOAD_MyTestDrive_FULFILLED';
+export const LOAD_MyTestDrive_REJECTED = 'LOAD_MyTestDrive_REJECTED';
 
 export const LOAD_TestDriveIRun = 'LOAD_TestDriveIRun';
 export const LOAD_TestDriveIRun_PENDING = 'LOAD_TestDriveIRun_PENDING';
 export const LOAD_TestDriveIRun_FULFILLED = 'LOAD_TestDriveIRun_FULFILLED';
+export const LOAD_TestDriveIRun_REJECTED = 'LOAD_TestDriveIRun_REJECTED';
 
 export const LOAD_UpcomingTestDrive = 'LOAD_UpcomingTestDrive';
 export const LOAD_UpcomingTestDrive_PENDING = 'LOAD_UpcomingTestDrive_PENDING';
 export const LOAD_UpcomingTestDrive_FULFILLED = 'LOAD_UpcomingTestDrive_FULFILLED';
+export const LOAD_UpcomingTestDrive_REJECTED = 'LOAD_UpcomingTestDrive_REJECTED';
 
 export const LOAD_ActiveTestDrive = 'LOAD_ActiveTestDrive';
 export const LOAD_ActiveTestDrive_PENDING = 'LOAD_ActiveTestDrive_PENDING';
 export const LOAD_ActiveTestDrive_FULFILLED = 'LOAD_ActiveTestDrive_FULFILLED';
+export const LOAD_ActiveTestDrive_REJECTED = 'LOAD_ActiveTestDrive_REJECTED';
 
 export const LOAD_LeaderBoard = 'LOAD_LeaderBoard';
 export const LOAD_LeaderBoard_PENDING = 'LOAD_LeaderBoard_PENDING';
 export const LOAD_LeaderBoard_FULFILLED = 'LOAD_LeaderBoard_FULFILLED';
+export const LOAD_LeaderBoard_REJECTED = 'LOAD_LeaderBoard_REJECTED';
 
 export const LOAD_RegionLeaderBoard = 'LOAD_RegionLeaderBoard';
 export const LOAD_RegionLeaderBoard_PENDING = 'LOAD_RegionLeaderBoard_PENDING';
 export const LOAD_RegionLeaderBoard_FULFILLED = 'LOAD_RegionLeaderBoard_FULFILLED';
+export const LOAD_RegionLeaderBoard_REJECTED = 'LOAD_RegionLeaderBoard_REJECTED';
 
 export const LOAD_TotalUserCount = 'LOAD_TotalUserCount';
 export const LOAD_TotalUserCount_PENDING = 'LOAD_TotalUserCount_PENDING';
@@ -46,3 +52,15 @@ export const LOAD_TotalTasks_FULFILLED = 'LOAD_TotalTasks_FULFILLED';
 export const LOAD_UserCarImage = 'LOAD_UserCarImage';
 export const LOAD_UserCarImage_PENDING = 'LOAD_UserCarImage_PENDING';
 export const LOAD_UserCarImage_FULFILLED = 'LOAD_UserCarImage_FULFILLED';
+
+export const LOAD_EliteProfile = 'LOAD_EliteProfile';
+export const LOAD_EliteProfile_PENDING = 'LOAD_EliteProfile_PENDING';
+export const LOAD_EliteProfile_FULFILLED = 'LOAD_EliteProfile_FULFILLED';
+export const LOAD_EliteProfile_REJECTED = 'LOAD_EliteProfile_REJECTED';
+
+export const LOAD_Rank = 'LOAD_Rank';
+export const LOAD_Rank_PENDING = 'LOAD_Rank_PENDING';
+export const LOAD_Rank_FULFILLED = 'LOAD_Rank_FULFILLED';
+export const LOAD_Rank_REJECTED = 'LOAD_Rank_REJECTED';
+
+export const LOAD_CurrentUser = 'LOAD_CurrentUser';

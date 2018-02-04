@@ -39,7 +39,7 @@
 			    height: 100vh;
 			    -webkit-transform: opacity 0.3s linear;
 			    transform: opacity 0.3s linear;
-			    background: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/dash_back.jpg') no-repeat !important;
+			    /* background: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/dash_back.jpg') no-repeat !important; */
 			    width: 100%;
 			    height: auto;
 			    width: 100%;
@@ -5136,3 +5136,18 @@ h1#dialogTitleSpan {
   } */
 
             /* Added for on boarding fix end*/
+
+
+            /* Fix for home page */
+            .current_ridebox img{
+                max-height: 100px;
+                max-width: 200px;
+            }
+
+            .leader_box img{
+                max-width: 36px;
+                max-height: 50px;
+                border-radius: 50%;
+            }
+
+            /* Fix for home page ends here */

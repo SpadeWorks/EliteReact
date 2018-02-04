@@ -1,11 +1,10 @@
 import * as React from 'react';
 import Loader from 'react-loader-advanced';
 import { connect } from 'react-redux';
-import HomeTabs from './HomeTabs';
 import ui from 'redux-ui';
 import TabbedArea from './TabbedArea';
 import TabPane from './TabPane';
-import { HomeTestDrive, Leaders } from '../../home/model';
+import { HomeTestDrive, Leaders, EliteProfile } from '../../home/model';
 import OverallPointsDashboard from "./OverallPointsDashboard"
 import * as $ from 'jquery';
 import Services from '../../common/services/services';
@@ -29,6 +28,9 @@ import {
     loadTotalTasks,
     loadTotalTestDrives,
     loadCurrentUserCarImage,
+    loadEliteProfile,
+    getUserRank,
+    loadCurrentUser
 } from '../../home';
 import { constants } from 'zlib';
 import Footer from './Footer';
@@ -54,6 +56,9 @@ interface HomeProps {
     testDrivesCompleted: number;
     totalTestDrives: number;
     userCarImage: string;
+    eliteProfile: EliteProfile;
+    userRank: number;
+    currentUser: any;
 
 };
 interface HomeState {
@@ -71,19 +76,24 @@ class Home extends React.Component<HomeProps, HomeState> {
     }
 
     componentDidMount() {
-        this.props.dispatch(loadMyTestDrive());
-        this.props.dispatch(loadTestDriveThatIRun());
-        this.props.dispatch(loadLeaderBoard());
-        this.props.dispatch(loadRegionLeaderBoard());
-        this.props.dispatch(loadUpcomingTestDrive());
-        this.props.dispatch(loadActiveTestDrive());
-        this.props.dispatch(loadTotalUserCount());
-        this.props.dispatch(loadUserPoints());
-        this.props.dispatch(loadTotalTestDrives());
-        this.props.dispatch(loadTestDrivesCompleted());
-        this.props.dispatch(loadTotalTasks());
-        this.props.dispatch(loadCurrentUserCarImage());
-        
+        let user = Services.getUserProfileProperties();
+        if(user.eliteProfileID){
+            this.props.dispatch(loadEliteProfile(user.eliteProfileID));
+            this.props.dispatch(loadLeaderBoard(0,3));       
+            this.props.dispatch(loadRegionLeaderBoard(user.region, 0, 3)); 
+            this.props.dispatch(getUserRank(user.eliteProfileID));
+            this.props.dispatch(loadMyTestDrive());
+            this.props.dispatch(loadTestDriveThatIRun(user.eliteProfileID, 0, 3));      
+            this.props.dispatch(loadUpcomingTestDrive());
+            this.props.dispatch(loadActiveTestDrive());
+            this.props.dispatch(loadTotalUserCount());
+            this.props.dispatch(loadTotalTestDrives());
+            this.props.dispatch(loadTestDrivesCompleted());
+            this.props.dispatch(loadTotalTasks());
+            this.props.dispatch(loadUserPoints(user.eliteProfileID));    
+            
+
+        }
         $("a#link1").show(4200);
         $("a#link2").show(4200);
         $("a#link3").show(4200);
@@ -96,7 +106,7 @@ class Home extends React.Component<HomeProps, HomeState> {
         const { ui, updateUI, mytestDrive, testDriveThatIRun, upcomingTestDrive, activeTestDrive,
             leaders, regionLeaders, myTestDriveLoading, totalCount, totalPoints, totalTasks,
             testDrivesCompleted, totalTestDrives, userCarImage, testDriveThatIRunLoading,
-            activeTestDriveLoading, upcomingTestDriveLoading } = this.props;
+            activeTestDriveLoading, upcomingTestDriveLoading, eliteProfile, userRank} = this.props;
         return (
             <div className="col-md-12">
                 <div className="row">
@@ -117,7 +127,8 @@ class Home extends React.Component<HomeProps, HomeState> {
                                 mytestDrive={mytestDrive}
                                 myTestDriveLoading={myTestDriveLoading}
                                 testDriveThatIRun={testDriveThatIRun}
-                                testDriveThatIRunLoading={testDriveThatIRunLoading} />
+                                testDriveThatIRunLoading={testDriveThatIRunLoading} 
+                                />
 
                             <div className="col-md-4">
                                 <h2 className="text-center skills_heading">Skills.Speed.Smarts. Brind it all.</h2>
@@ -130,9 +141,13 @@ class Home extends React.Component<HomeProps, HomeState> {
                                 activeTestDrive={activeTestDrive}
                                 activeTestDriveLoading={activeTestDriveLoading} />
 
-                            <OverallPointsDashboard totalUsers={totalCount} testDrivesCompleted={testDrivesCompleted} currnetRideAvatar={"http://intranet.spdev.equinix.com/sites/elite-dev-akash/Lists/CarMaster/" + userCarImage} pointsEarned={totalPoints} totalTestDrives={totalTestDrives} totalTasks={totalTasks}></OverallPointsDashboard>
+                            <OverallPointsDashboard totalUsers={totalCount} 
+                                testDrivesCompleted={testDrivesCompleted} 
+                                currentRideImage={eliteProfile.carImage} 
+                                pointsEarned={totalPoints} totalTestDrives={totalTestDrives} totalTasks={totalTasks}>
+                            </OverallPointsDashboard>
                         </div>
-                        <UserRank />
+                        <UserRank userName={eliteProfile.displayName} userRank={userRank}/>
                         <Footer />
                     </div>
                 </div>
@@ -143,10 +158,11 @@ class Home extends React.Component<HomeProps, HomeState> {
 
 const mapStateToProps = (state, ownProps) => {
     return {
+        currentUser: state.homeState.currentUser,
         mytestDrive: state.homeState.myTestDrive.homeTestDrives,
         testDriveThatIRun: state.homeState.testDriveThatIRun.homeTestDrives,
-        testDriveThatIRunLoading: false || state.homeState.testDriveThatIRun.loading,
-        myTestDriveLoading: false || state.homeState.myTestDrive.loading,
+        testDriveThatIRunLoading: state.homeState.testDriveThatIRun.loading,
+        myTestDriveLoading: state.homeState.myTestDrive.loading,
         upcomingTestDrive: state.homeState.upcomingTestDrive.homeTestDrives,
         activeTestDrive: state.homeState.activeTestDrive.homeTestDrives,
         activeTestDriveLoading: state.homeState.activeTestDrive.loading,
@@ -159,6 +175,8 @@ const mapStateToProps = (state, ownProps) => {
         totalTasks: state.homeState.totalTasks,
         testDrivesCompleted: state.homeState.testDrivesCompleted,
         userCarImage: state.homeState.userCarImage,
+        eliteProfile: state.homeState.eliteProfile,
+        userRank: state.homeState.rank
     }
 };
 

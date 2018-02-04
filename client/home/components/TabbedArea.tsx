@@ -32,7 +32,7 @@ class TabbedArea extends React.Component<TabbedAreaProps> {
         if(index!=0)
           className =  className+" pull-right";
         tabNodes.push(
-          <li className={className} onClick={this.handleClick.bind(null, index)}>
+          <li className={className} onClick={this.handleClick.bind(null, index)} key={index}>
             <a href={child.props.href} data-toggle="tab">{child.props.display}</a>
           </li>
         );

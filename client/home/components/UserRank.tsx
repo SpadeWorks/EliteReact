@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
 
-interface NavigationProps {
-
+interface UserRankProps {
+    userRank: number;
+    userName: string; 
 };
-class Navigation extends React.Component<NavigationProps> {
+class UserRank extends React.Component<UserRankProps> {
     constructor(props, context) {
         super(props, context);
     }
     render() {
+        const {userName, userRank} = this.props;
         return (<div className="col-md-12">
             <div className="row">
                 <div className="col-md-12">
@@ -17,10 +19,10 @@ class Navigation extends React.Component<NavigationProps> {
                         </div>
                         <div className="player_box">
                             <div className="col-md-4 testd_box">
-                                <p><span className="testd_count">76 </span> <span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span> +1</p>
+                                <p><span className="testd_count">{userRank} </span> <span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span> +1</p>
                             </div>
                             <div className="col-md-8 player_name">
-                                <h2>Jenifer Vetel</h2>
+                                <h2>{userName}</h2>
                             </div>
                         </div>
                     </div>
@@ -30,4 +32,4 @@ class Navigation extends React.Component<NavigationProps> {
     }
 }
 
-export default Navigation;
+export default UserRank;
