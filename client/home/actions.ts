@@ -83,7 +83,7 @@ const loadTotalTasks = createAction<any>(
 
 const loadEliteProfile = createAction<any, number>(
   LOAD_EliteProfile, 
-  (id: number) => Services.getEliteProfile(id)  
+  (id: number) => Services.getEliteProfile()  
 )
 
 const getUserRank = createAction<any, number>(

@@ -14,7 +14,7 @@ class LeaderItem extends React.Component<LeaderItemProps> {
         return (<div className="row test_drive leader_listbox">
             <div className="col-md-12 leader_box">
                 <div className="leader_rank">
-                    <span>{leader.id}</span>
+                    <span>{leader.rank}</span>
                 </div>
                 <div className="col-md-11 leader_name">
                     <div className="col-md-3 leader_namenphoto">

@@ -55,7 +55,12 @@ export class Columns{
     static RESPONSES = 'Responses';
     static RESPONSETYPE = 'ResponseType';
     static USER_ID = 'UserID';
-
+    static PERCENTAGE_COMPLETION = "PercentageCompletion";
+    static CURRENT_POINTS = "CurrentPoints";
+    static STATUS = "Status";
+    static DATE_JOINED = "DateJoined";
+    static TEST_CASE_COMPLETED = "TestCaseCompleted";
+    static TEST_DRIVE_ID = "TestDriveID";
 }
 
 export class ColumnsValues{

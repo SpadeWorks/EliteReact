@@ -5144,10 +5144,16 @@ h1#dialogTitleSpan {
                 max-width: 200px;
             }
 
-            .leader_box img{
+            .leader_name img, .lleader_namenphoto img{
                 max-width: 36px;
                 max-height: 50px;
                 border-radius: 50%;
             }
+
+            .leader_car img{
+                max-width: 200px;
+                max-height: 65px;
+            }
+
 
             /* Fix for home page ends here */

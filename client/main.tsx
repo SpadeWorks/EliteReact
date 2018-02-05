@@ -7,7 +7,6 @@ import { HashRouter } from 'react-router-dom'
 import promiseMiddleware from 'redux-promise-middleware';
 import thunkMiddleware from 'redux-thunk';
 import * as asyncInitialState from 'redux-async-initial-state';
-import testDriveApi from './test_drive/api/mockApi';
 import Promise from "ts-promise";
 import ManageTestDrive from './test_drive/components/ManageTestDrive';
 import Home from './home/components/Home';
@@ -22,6 +21,8 @@ import MyProfile from './profile/components/MyProfile';
 import Services from './common/services/services';
 import Intro from './onboarding/components/Intro';
 import OnBoarding from './onboarding/components/OnBoarding';
+import TestDriveParticipation from './test_drive_participation/components/TestDriveParticipation';
+import TestDriveParticipationContainer from './main/components/TestDriveParticipationContainer';
 const initialState = {};
 
 // const loadStore = (currentState) => {
@@ -62,6 +63,8 @@ if (user.eliteProfileID) {
           <Route exact path="/prizes" component={Prizes} />
           <Route exact path="/profile/:id" component={Profile} />
           <Route exact path="/myprofile" component={MyProfile} />
+          <Route exact path="/testdriveparticipation/:id" component={TestDriveParticipation} />
+          <Route exact path="/testDriveDetails/:id/:instanceID" component={TestDriveParticipationContainer} />
           <Route path="/" component={Home} />
         </Switch>
       </div>

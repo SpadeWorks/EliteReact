@@ -1,5 +1,4 @@
 import { Services, Utils, TermStore } from './data_service';
-import { data } from '../../test_drive/api/mockApi';
 import * as $ from 'jquery';
 import * as Constants from './constants';
 

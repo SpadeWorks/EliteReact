@@ -5,6 +5,7 @@ export type IState = {
 
 export type globalLeaderBoard = {
     globalLeaders: Leader[];
+    currentUserPosition: Leader;
     loading: boolean;
 }
 
@@ -13,6 +14,7 @@ export type regionalLeaderBoard = {
     loading: boolean;
     selectedRegion: string;
     regions: string[]; 
+    currentUserPosition: Leader;
 }
 
 export type Leader = {
@@ -22,5 +24,6 @@ export type Leader = {
     totalPoints: number;
     completedTestDrives: number;
     car: string;
+    rank: number;
 };
 

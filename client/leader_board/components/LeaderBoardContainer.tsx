@@ -9,6 +9,8 @@ import {
   model,
   loadGlobalLeaderBoard,
   loadRegionalLeaderBoard,
+  loadCurrentLeaderBoardPosition,
+  loadCurrentRegionalPosition
 } from '../../leader_board';
 
 interface LeaderBoardContainerProps {
@@ -16,7 +18,8 @@ interface LeaderBoardContainerProps {
   updateUI: (any) => any;
   ui: any;
   globalLeaderBoard: model.globalLeaderBoard
-  regionalLeaderBoard: model.regionalLeaderBoard
+  regionalLeaderBoard: model.regionalLeaderBoard,
+  
 };
 
 class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
@@ -49,18 +52,20 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
                   <div className="tab-pane active in leadership_box" id="global">
                     <GlobalLeaderBoard
                       leaders={globalLeaderBoard.globalLeaders}
-                      loadGlobalLeaderBoard={() => dispatch(loadGlobalLeaderBoard())} 
+                      loadGlobalLeaderBoard={(skip, top) => dispatch(loadGlobalLeaderBoard(skip, top))} 
+                      loadCurrentLeaderBoardPosition = {() => dispatch(loadCurrentLeaderBoardPosition())}
                       ui={ui}
-                      updateUI={updateUI}/>
+                      updateUI={updateUI}
+                      currentUser ={globalLeaderBoard.currentUserPosition}/>
                   </div>
                   <div className="tab-pane fade" id="regional">
                     <RegionalLeaderBoard
                       leaders={regionalLeaderBoard.regionalLeaders}
-                      loadRegionalLeaderBoard={(region: string) => dispatch(loadRegionalLeaderBoard(region))}
-                      region={regionalLeaderBoard.selectedRegion}
-                      regions={regionalLeaderBoard.regions} 
+                      loadRegionalLeaderBoard={(region: string, skip:number, top:number) => dispatch(loadRegionalLeaderBoard(region, skip, top))}
                       ui={ui}
-                      updateUI={updateUI}/>
+                      updateUI={updateUI}
+                      currentUser = {regionalLeaderBoard.currentUserPosition}
+                      loadCurrentRegionalPosition = {(region: string) => dispatch(loadCurrentRegionalPosition(region))}/>
                   </div>
                 </div>
               </div>

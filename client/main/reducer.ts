@@ -5,6 +5,7 @@ import home from '../home';
 import leaderBoard from '../leader_board';
 import { reducer as uiReducer } from 'redux-ui';
 import onBoarding from '../onboarding';
+import participation from '../test_drive_participation';
 
 const rootReducer = asyncInitialState.outerReducer(combineReducers({
   testDriveState: testDrive,
@@ -12,6 +13,7 @@ const rootReducer = asyncInitialState.outerReducer(combineReducers({
   asyncInitialState: asyncInitialState.innerReducer,
   leaderBoardState: leaderBoard,
   onBoardingState: onBoarding,
+  participationState: participation,
   ui: uiReducer
 }));
 

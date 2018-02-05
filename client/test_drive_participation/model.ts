@@ -1,5 +1,3 @@
-import { TestDriveInstance } from "../test_drive_participation/model";
-
 export type TestCase = {
     id: number;
     title: string;
@@ -24,7 +22,7 @@ export type Question = {
 }
 
 
-export type TestDrive = {
+export type TestDriveInstance = {
     id: number;
     title: string;
     description?: string;
@@ -46,6 +44,9 @@ export type TestDrive = {
     level: string;
     owner?: string;
     newItem?: boolean;
+    currentPoint: number;
+    dateJoined: string;
+    numberOfTestCasesCompleted: number;
 };
 
 export type Configurations = {
@@ -55,8 +56,7 @@ export type Configurations = {
 }
 
 export type IState = {
-    testDrives: TestDrive[],
-    testDrive: TestDrive,
+    testDriveInstance: TestDriveInstance,
     testCase: TestCase,
     question: Question,
     loading: boolean,

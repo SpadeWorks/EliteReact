@@ -176,7 +176,7 @@ const mapStateToProps = (state, ownProps) => {
         testDrivesCompleted: state.homeState.testDrivesCompleted,
         userCarImage: state.homeState.userCarImage,
         eliteProfile: state.homeState.eliteProfile,
-        userRank: state.homeState.rank
+        userRank: state.homeState.rank.rank
     }
 };
 
