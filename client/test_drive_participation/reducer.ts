@@ -1,5 +1,5 @@
 import { handleActions, Action } from 'redux-actions';
-import { TestDriveInstance, TestCase, Question, IState } from './model';
+import { TestDriveInstance, TestCaseInstance, Question, IState } from './model';
 import {
     LOAD_TestDriveInstanceByID_PENDING,
     LOAD_TestDriveInstanceByID_FULFILLED,
@@ -38,7 +38,8 @@ const initialState: IState = {
         
     },
     testCase: {
-        id: -1,
+        testCaseId: -1,
+        testDriveID: -1,
         title: "",
         description: "",
         expectedOutcome: "",
@@ -47,11 +48,17 @@ const initialState: IState = {
         scenario: "",
         priority: "High",
         reTest: false,
-        points: 100
+        points: 0,
+        responseStatus: 'Draft',
+        testCaseResponse: '',
+        userID: -1
 
     },
     question: {
-        id: -1,
+        questionID: -1,
+        testDriveID: -1,
+        responseStatus: '',
+        userID: -1,
         title: '',
         questionType: '',
         options: [],

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
-import { TestCase } from '../../test_drive_participation/model';
+import { TestCaseInstance } from '../../test_drive_participation/model';
 interface TestCaseFormProps {
-    testCase: TestCase;
+    testCase: TestCaseInstance;
 };
 class TestCaseForm extends React.Component<TestCaseFormProps> {
     constructor(props, context) {

@@ -37,8 +37,8 @@ pnp.setup({
 
 export class Services {
 
-    static createOrSaveTestDriveInstance(testDriveInstance: TestDriveInstance){
-        return new Promise((resolve, reject) => {   
+    static createOrSaveTestDriveInstance(testDriveInstance: TestDriveInstance) {
+        return new Promise((resolve, reject) => {
             Services.createOrUpdateListItemsInBatch(Constants.Lists.TEST_DRIVE_INSTANCES, [{
                 [Constants.Columns.ID]: testDriveInstance.instanceID,
                 [Constants.Columns.STATUS]: testDriveInstance.status,
@@ -46,16 +46,104 @@ export class Services {
                 [Constants.Columns.TEST_DRIVE_ID]: testDriveInstance.testDriveID,
                 [Constants.Columns.USER_ID]: Services.getCurrentUserID(),
                 [Constants.Columns.TEST_CASE_COMPLETED]: testDriveInstance.numberOfTestCasesCompleted,
-                [Constants.Columns.CURRENT_POINTS]: testDriveInstance.currentPoint    
-            }]).then(newTestDrive =>{
+                [Constants.Columns.CURRENT_POINTS]: testDriveInstance.currentPoint
+            }]).then(newTestDrive => {
                 resolve(newTestDrive);
             }, err => reject(err))
         })
     }
 
-    static getTestDriveInstanceById(testDriveID: number) {
+    // static getTestDriveInstanceById(testDriveID: number) {
+    //     return new Promise((resolve, reject) => {
+    //         let user = Services.getUserProfileProperties();
+    //         pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
+    //             .select(
+    //             Constants.Columns.ID,
+    //             Constants.Columns.PERCENTAGE_COMPLETION,
+    //             Constants.Columns.CURRENT_POINTS,
+    //             Constants.Columns.STATUS,
+    //             Constants.Columns.DATE_JOINED,
+    //             Constants.Columns.TEST_CASE_COMPLETED,
+    //             Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID
+    //             )
+    //             .filter(Constants.Columns.USER_ID + ' eq ' + user.eliteProfileID +
+    //             ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
+    //             .expand(Constants.Columns.TEST_DRIVE_ID)
+    //             .get().then(testDriveInstances => {
+    //                 if (testDriveInstances && testDriveInstances.length > 0) {
+    //                     var testDriveInstance = testDriveInstances[0];
+    //                     Services.getTestDriveById(testDriveInstance[Constants.Columns.TEST_DRIVE_ID][Constants.Columns.ID])
+    //                         .then((testDrive: TestDrive) => {
+    //                             Services.getTestCasesByIds(testDrive.testCaseIDs).then(testCases => {
+    //                                 Services.getTestCaseResponses(testDrive.testCaseIDs, user.eliteProfileID).then(testCaseResponses => {
+    //                                     resolve(<TestDriveInstance>{
+    //                                         instanceID: testDriveInstance[Constants.Columns.ID],
+    //                                         currentPoint: testDriveInstance[Constants.Columns.CURRENT_POINTS],
+    //                                         dateJoined: testDriveInstance[Constants.Columns.DATE_JOINED],
+    //                                         numberOfTestCasesCompleted: testDriveInstance[Constants.Columns.TEST_CASE_COMPLETED],
+    //                                         status: testDriveInstance[Constants.Columns.STATUS],
+    //                                         testDriveID: testDrive.id,
+    //                                         title: testDrive.title,
+    //                                         description: testDrive.description,
+    //                                         startDate: testDrive.startDate,
+    //                                         endDate: testDrive.endDate,
+    //                                         maxPoints: testDrive.maxTestDrivers,
+    //                                         department: testDrive.department,
+    //                                         location: testDrive.location,
+    //                                         requiredDevices: testDrive.requiredDevices,
+    //                                         requiredOs: testDrive.requiredOs,
+    //                                         maxTestDrivers: testDrive.maxTestDrivers,
+    //                                         level: testDrive.level,
+    //                                         owner: testDrive.owner,
+    //                                         testCases: testCases,
+    //                                         questions: null,
+    //                                         testCaseIDs: testDrive.testCaseIDs,
+    //                                         questionIDs: testDrive.questionIDs,
+    //                                         expectedBusinessValue: testDrive.expectedBusinessValue,
+    //                                         region: testDrive.region
+    //                                     })
+    //                                 })
+
+    //                             })
+
+    //                         })
+    //                 } else {
+    //                     Services.getTestDriveById(testDriveID).then((testDrive: TestDrive) => {
+    //                         resolve(<TestDriveInstance>{
+    //                             instanceID: -1,
+    //                             currentPoint: 0,
+    //                             dateJoined: "",
+    //                             numberOfTestCasesCompleted: 0,
+    //                             status: "",
+    //                             testDriveID: testDrive.id,
+    //                             title: testDrive.title,
+    //                             description: testDrive.description,
+    //                             startDate: testDrive.startDate,
+    //                             endDate: testDrive.endDate,
+    //                             maxPoints: testDrive.maxTestDrivers,
+    //                             department: testDrive.department,
+    //                             location: testDrive.location,
+    //                             requiredDevices: testDrive.requiredDevices,
+    //                             requiredOs: testDrive.requiredOs,
+    //                             maxTestDrivers: testDrive.maxTestDrivers,
+    //                             level: testDrive.level,
+    //                             owner: testDrive.owner,
+    //                             testCases: null,
+    //                             questions: null,
+    //                             testCaseIDs: testDrive.testCaseIDs,
+    //                             questionIDs: testDrive.questionIDs,
+    //                             expectedBusinessValue: testDrive.expectedBusinessValue,
+    //                             region: testDrive.region
+    //                         })
+    //                     })
+    //                 }
+    //             });
+
+    //     });
+    // }
+
+    static getTestDriveResponse(testDriveID: number, userId: number) {
         return new Promise((resolve, reject) => {
-            let user = Services.getUserProfileProperties();
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
                 .select(
                 Constants.Columns.ID,
@@ -66,77 +154,100 @@ export class Services {
                 Constants.Columns.TEST_CASE_COMPLETED,
                 Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID
                 )
-                .filter(Constants.Columns.USER_ID + ' eq ' + user.eliteProfileID +
+                .filter(Constants.Columns.USER_ID + ' eq ' + userId +
                 ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                 .expand(Constants.Columns.TEST_DRIVE_ID)
                 .get().then(testDriveInstances => {
-                    if (testDriveInstances && testDriveInstances.length > 0) {
-                        var testDriveInstance = testDriveInstances[0];
-                        Services.getTestDriveById(testDriveInstance[Constants.Columns.TEST_DRIVE_ID][Constants.Columns.ID])
-                        .then((testDrive: TestDrive) => {
-                            Services.getTestCasesByIds(testDrive.testCaseIDs).then(testCases => {
-                                resolve(<TestDriveInstance>{
-                                    instanceID: testDriveInstance[Constants.Columns.ID],
-                                    currentPoint: testDriveInstance[Constants.Columns.CURRENT_POINTS],
-                                    dateJoined: testDriveInstance[Constants.Columns.DATE_JOINED],
-                                    numberOfTestCasesCompleted: testDriveInstance[Constants.Columns.TEST_CASE_COMPLETED],
-                                    status: testDriveInstance[Constants.Columns.STATUS],
-                                    testDriveID: testDrive.id,
-                                    title: testDrive.title,
-                                    description: testDrive.description,
-                                    startDate: testDrive.startDate,
-                                    endDate: testDrive.endDate,
-                                    maxPoints: testDrive.maxTestDrivers,
-                                    department: testDrive.department,
-                                    location: testDrive.location,
-                                    requiredDevices: testDrive.requiredDevices,
-                                    requiredOs: testDrive.requiredOs,
-                                    maxTestDrivers: testDrive.maxTestDrivers,
-                                    level: testDrive.level,
-                                    owner: testDrive.owner,
-                                    testCases: testCases,
-                                    questions: null,
-                                    testCaseIDs: testDrive.testCaseIDs,
-                                    questionIDs: testDrive.questionIDs,
-                                    expectedBusinessValue: testDrive.expectedBusinessValue,
-                                    region: testDrive.region
-                                })
-                            })
-                           
-                        })
-                    } else {
-                        Services.getTestDriveById(testDriveID).then((testDrive: TestDrive) => {
-                            resolve(<TestDriveInstance>{
-                                instanceID: -1,
-                                currentPoint: 0,
-                                dateJoined: "",
-                                numberOfTestCasesCompleted: 0,
-                                status: "",
-                                testDriveID: testDrive.id,
-                                title: testDrive.title,
-                                description: testDrive.description,
-                                startDate: testDrive.startDate,
-                                endDate: testDrive.endDate,
-                                maxPoints: testDrive.maxTestDrivers,
-                                department: testDrive.department,
-                                location: testDrive.location,
-                                requiredDevices: testDrive.requiredDevices,
-                                requiredOs: testDrive.requiredOs,
-                                maxTestDrivers: testDrive.maxTestDrivers,
-                                level: testDrive.level,
-                                owner: testDrive.owner,
-                                testCases: null,
-                                questions: null,
-                                testCaseIDs: testDrive.testCaseIDs,
-                                questionIDs: testDrive.questionIDs,
-                                expectedBusinessValue: testDrive.expectedBusinessValue,
-                                region: testDrive.region
-                            })
-                        })
-                    }
-                });
-
+                    const testDriveInstance = testDriveInstances.length ? testDriveInstances[0] : []
+                    resolve(testDriveInstance);
+                }, err => reject(err))
         });
+    }
+
+    static getTestCaseResponses(testDriveID: number, userID: number) {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).items
+                .select(
+                Constants.Columns.ID,
+                Constants.Columns.TEST_CASE_RESPONSE,
+                Constants.Columns.TEST_CASE_RESPONSE_STATUS,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
+            )
+                .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
+                .expand(Constants.Columns.USER_ID, Constants.Columns.TEST_DRIVE_ID)
+                .get().then(testCases => {
+                    let testCaseArray = [];
+                    testCases.map(t => {
+                        testCaseArray.push({
+                            responseID: t[Constants.Columns.ID],
+                            testCaseResponse: t[Constants.Columns.TEST_CASE_RESPONSE],
+                            responseStatus: t[Constants.Columns.TEST_CASE_RESPONSE_STATUS],
+                        })
+                    })
+                    resolve(testCaseArray);
+                }, error => {
+                    reject(error);
+                });
+        });
+    }
+
+    static getTestDriveWithTestCases(testDriveID: number) {
+        return new Promise((resolve, reject) => {
+            Services.getTestDriveById(testDriveID).then((testDrive: any) => {
+                Services.getTestCasesByIds(testDrive.testCaseIDs).then(testCases => {
+                    resolve({ ...testDrive, testCases: testCases });
+                }, err => reject(err))
+            }, err => reject(err));
+        });
+    }
+
+
+    static getTestDriveInstance(testDriveID: number, userID: number) {
+        return new Promise((resolve, reject) => {
+            let testDrive = Services.getTestDriveWithTestCases(testDriveID);
+            let testCaseResponses = Services.getTestCaseResponses(testDriveID, userID);
+            let testDriveResponse = Services.getTestDriveResponse(testDriveID, userID);
+            Promise.all([testDrive, testCaseResponses, testDriveResponse]).then(results => {
+                let testDrive = <any>results[0];
+                let testCaseResponses = <any>results[1];
+                let testDriveInstance = results[2][0];
+                let testCasesInstances = testDrive.testCases.map((testCase, index) => {
+                    return {
+                        ...testCase, ...testCaseResponses[index]
+                    }
+                })
+
+                var instance = <TestDriveInstance>{
+                    instanceID: testDriveInstance ? testDriveInstance[Constants.Columns.ID] : -1,
+                    currentPoint: testDriveInstance ? testDriveInstance[Constants.Columns.CURRENT_POINTS] : 0,
+                    dateJoined: testDriveInstance ? testDriveInstance[Constants.Columns.DATE_JOINED] : "",
+                    numberOfTestCasesCompleted: testDriveInstance ? testDriveInstance[Constants.Columns.TEST_CASE_COMPLETED] : 0,
+                    status: testDriveInstance ? testDriveInstance[Constants.Columns.STATUS] : Constants.ColumnsValues.DRAFT,
+                    testDriveID: testDrive.id,
+                    title: testDrive.title,
+                    description: testDrive.description,
+                    startDate: testDrive.startDate,
+                    endDate: testDrive.endDate,
+                    maxPoints: testDrive.maxTestDrivers,
+                    department: testDrive.department,
+                    location: testDrive.location,
+                    requiredDevices: testDrive.requiredDevices,
+                    requiredOs: testDrive.requiredOs,
+                    maxTestDrivers: testDrive.maxTestDrivers,
+                    level: testDrive.level,
+                    owner: testDrive.owner,
+                    testCases: testCasesInstances,
+                    questions: null,
+                    testCaseIDs: testDrive.testCaseIDs,
+                    questionIDs: testDrive.questionIDs,
+                    expectedBusinessValue: testDrive.expectedBusinessValue,
+                    region: testDrive.region
+                };
+
+                resolve(instance)
+            }, err=> reject(err))
+        })
     }
 
     static getCurrentUserID() {

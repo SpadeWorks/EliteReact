@@ -36,14 +36,18 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                     </li>
                                 </ul>
                                 <div id="myTabContent" className="tab-content">
-                                    <TestCases testCases={testDriveInstance.testCases} />
+                                    <div className="tab-pane active in" id="test_Cases">
+                                        <TestCases testCases={testDriveInstance.testCases} />
+                                    </div>
+
+                                    <div className="tab-pane fade " id="Servay_q">
+                                        <h1>tab2</h1>
+                                    </div>
+                                    <div className="tab-pane fade " id="Description">
+                                        <h1>tab3</h1>
+                                    </div>
                                 </div>
-                                <div className="tab-pane fade " id="Servay_q ">
-                                    <h1>tab2</h1>
-                                </div>
-                                <div className="tab-pane fade " id="Description ">
-                                    <h1>tab2</h1>
-                                </div>
+
                             </div >
                         </div >
                     </div >

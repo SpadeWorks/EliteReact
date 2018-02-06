@@ -11,6 +11,8 @@ export class Lists {
     static CARMASTER = 'Car Master';   
     static BADGES = 'Badges'; 
     static APPLICATION_CONFIGURATIONS = "Application Configuration";
+    static TEST_CASE_RESPONSES = "Test Case Responses";
+    static SURVEY_RESPONSES = "Survey Responses";
 }
 
 export class CacheKeys{
@@ -62,6 +64,11 @@ export class Columns{
     static DATE_JOINED = "DateJoined";
     static TEST_CASE_COMPLETED = "TestCaseCompleted";
     static TEST_DRIVE_ID = "TestDriveID";
+    static TEST_CASE_RESPONSE = "TestCaseResponse";
+    static TEST_CASE_RESPONSE_STATUS = "TestCaseResponseStatus";
+    static SURVEY_RESPONSE = "SurveyResponse";
+
+
 }
 
 export class ColumnsValues{

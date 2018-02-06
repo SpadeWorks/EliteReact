@@ -1,5 +1,7 @@
-export type TestCase = {
-    id: number;
+export type TestCaseInstance = {
+    testCaseId: number;
+    testDriveID?: number;
+    userID: number;
     title: string;
     description: string;
     expectedOutcome: string;
@@ -10,15 +12,22 @@ export type TestCase = {
     points: number;
     reTest: boolean;
     newItem?: boolean;
+    testCaseResponse: string;
+    responseStatus: string;
+    
 }
 
 export type Question = {
-    id: number;
+    questionID: number;
+    testDriveID?: number;
     title: string;
     questionType: string;
     options: Array<string>;
     isInEditMode?: boolean;
-    newItem?: boolean;
+    newItem?: boolean
+    responseStatus: string;
+    userID: number;
+    
 }
 
 
@@ -37,7 +46,7 @@ export type TestDriveInstance = {
     requiredDevices: string[];
     requiredOs: string[];
     maxTestDrivers: number;
-    testCases: TestCase[];
+    testCases: TestCaseInstance[];
     testCaseIDs?: number[];
     questions: Question[];
     questionIDs?: number[];
@@ -58,7 +67,7 @@ export type Configurations = {
 
 export type IState = {
     testDriveInstance: TestDriveInstance,
-    testCase: TestCase,
+    testCase: TestCaseInstance,
     question: Question,
     loading: boolean,
     activeTab: string,

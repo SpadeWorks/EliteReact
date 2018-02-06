@@ -69,7 +69,7 @@ class Surveys extends React.Component<SurveysProps> {
                                 onChange={onChange}
                                 updateUI={updateUI}
                                 ui={ui}
-                                key={question.id}
+                                key={question.questionID}
                             />
                         })
                     }

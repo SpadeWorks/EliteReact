@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import { TestDriveInstance, TestCase, Question } from './model';
+import { TestDriveInstance, TestCaseInstance, Question } from './model';
 import Services from '../common/services/services';
 
 import {
@@ -11,9 +11,9 @@ import {
 
 // Test Drives action creators.
 
-const loadTestDriveInstanceByID = createAction<any, number>(
+const loadTestDriveInstanceByID = createAction<any, number, number>(
   LOAD_TestDriveInstanceByID,
-  (testDriveId: number) => Services.getTestDriveInstanceById(testDriveId)
+  (testDriveId: number, userID: number) => Services.getTestDriveInstance(testDriveId, userID)
 )
 
 const createOrSaveTestDriveInstance = createAction<any, TestDriveInstance>(

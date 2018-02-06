@@ -80,7 +80,7 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                 <div className="card-header" data-role="tab" id="headingOne">
                     <h5 className="mb-0">
                         <a data-toggle="collapse"
-                            href={"#collapse" + question.id}
+                            href={"#collapse" + question.questionID}
                             role="button"
                             aria-expanded="true"
                             aria-controls="collapseOne"
@@ -92,7 +92,7 @@ class SurveyForm extends React.Component<SurveyFormProps> {
 
                         <div className="pull-right">
                             <a href="javascript:void(0);"><i className="material-icons"
-                                onClick={() => deleteQuestion(question.id)}>delete</i></a>
+                                onClick={() => deleteQuestion(question.questionID)}>delete</i></a>
                             {!question.isInEditMode &&
                                 <a href="javascript:void(0);"><i className="material-icons"
                                     onClick={() => editQuestion(question)}>mode_edit</i></a>
@@ -105,7 +105,7 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                         </div>
                     </h5>
                 </div>
-                <div id={"collapse" + question.id}
+                <div id={"collapse" + question.questionID}
                     data-role="tabpanel"
                     className={question.isInEditMode ? "collapse in" : "collapse"}
                     aria-labelledby="headingOne" data-parent="#accordion">

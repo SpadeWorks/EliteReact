@@ -60,7 +60,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                 <div className="col-md-4">
                                     <div className="row">
                                         <canvas id="canvas5" width="140" height="140"></canvas>
-                                        <h3>{((testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 0)) * 100}</h3>
+                                        {/* <h3>{((testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 0)) * 100}</h3> */}
                                         <span className="small">{testDriveInstance.numberOfTestCasesCompleted} of {testDriveInstance.testCaseIDs.length} tasks done</span>
                                     </div>
                                 </div>

@@ -6,6 +6,7 @@ import ui from 'redux-ui';
 import services from '../../common/services/services';
 import TestDriveDetails from '../../test_drive_participation/components/TestDriveDetails';
 import TestDriveParticipation from '../../test_drive_participation/components/TestDriveParticipation';
+import Services from '../../common/services/services';
 import {
   model,
   loadTestDriveInstanceByID,
@@ -27,7 +28,8 @@ interface AppProps {
 
 class TestDriveParticipationContainer extends React.Component<AppProps> {
   componentDidMount() {
-    this.props.dispatch(loadTestDriveInstanceByID(this.props.testDriveID));
+    let userID = Services.getCurrentUserID();
+    this.props.dispatch(loadTestDriveInstanceByID(this.props.testDriveID, userID));
   }
   render() {
     const { dispatch, testDriveInstance, loading } = this.props;
