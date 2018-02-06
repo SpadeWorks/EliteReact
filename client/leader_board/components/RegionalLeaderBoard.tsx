@@ -20,6 +20,7 @@ interface RegionalLeaderBoardProps {
 
 @ui({
     state: {
+        userRegion: '',
         region: '',
         itemsPerPage: 5,
         total: 20,
@@ -33,8 +34,10 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
     constructor(props, context) {
         super(props, context);
         this.getRegions = this.getRegions.bind(this);
+        this.regionChange = this.regionChange.bind(this);
         this.handlePageChanged = this.handlePageChanged.bind(this);
         this.getVisibleItems = this.getVisibleItems.bind(this);
+        
     }
 
     regionChange = (value) => {
@@ -47,8 +50,8 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
     componentDidMount() {
         let user = Service.getUserProfileProperties();
         this.props.loadRegionalLeaderBoard(user.region, 0, 100);
-        this.props.updateUI({ region: user.region });
         this.props.loadCurrentRegionalPosition(user.region);
+        this.props.updateUI({ userRegion: user.region });
     }
 
     getVisibleItems(newPage) {
@@ -60,6 +63,7 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
     }
 
     getRegions(input, callback) {
+        const ctx = this;
         const functions = Service.getRegions().then((regions: Array<any>) => {
             input = input.toLowerCase();
             var options = regions.filter((i: any) => {
@@ -69,6 +73,13 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
                 options: options.slice(0, 5),
                 complete: options.length <= 6,
             };
+            if(ctx.props.ui.region == ''){
+                let defaultRegion = regions.filter(region =>{
+                    return region.Label == ctx.props.ui.userRegion;
+                })
+                ctx.props.updateUI({ region: defaultRegion[0] });
+                this.props.loadRegionalLeaderBoard(this.props.ui.region.Label, 0, 100);
+            }
             callback(null, data);
         })
     }

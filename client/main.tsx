@@ -63,7 +63,7 @@ if (user.eliteProfileID) {
           <Route exact path="/prizes" component={Prizes} />
           <Route exact path="/profile/:id" component={Profile} />
           <Route exact path="/myprofile" component={MyProfile} />
-          <Route exact path="/testdriveparticipation/:id" component={TestDriveParticipation} />
+          <Route exact path="/participation/:id" component={TestDriveParticipationContainer} />
           <Route exact path="/testDriveDetails/:id/:instanceID" component={TestDriveParticipationContainer} />
           <Route path="/" component={Home} />
         </Switch>

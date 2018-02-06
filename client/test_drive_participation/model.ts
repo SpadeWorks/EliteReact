@@ -23,7 +23,8 @@ export type Question = {
 
 
 export type TestDriveInstance = {
-    id: number;
+    instanceID: number;
+    testDriveID: number;
     title: string;
     description?: string;
     maxPoints?: number;

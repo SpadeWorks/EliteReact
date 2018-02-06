@@ -15,6 +15,7 @@ export class Lists {
 
 export class CacheKeys{
     static CONFIGURATIONS = 'configurations';
+    static ELITE_PROFILE = 'ELITE_PROFILE';
     
 }
 

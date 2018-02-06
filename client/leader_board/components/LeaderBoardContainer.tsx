@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import GlobalLeaderBoard from './GlobalLeaderBoard';
 import RegionalLeaderBoard from './RegionalLeaderBoard'
-
+import Loader from 'react-loader-advanced';
 import {
   model,
   loadGlobalLeaderBoard,
@@ -19,7 +19,7 @@ interface LeaderBoardContainerProps {
   ui: any;
   globalLeaderBoard: model.globalLeaderBoard
   regionalLeaderBoard: model.regionalLeaderBoard,
-  
+
 };
 
 class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
@@ -50,22 +50,26 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
                 </ul>
                 <div id="myTabContent" className="tab-content">
                   <div className="tab-pane active in leadership_box" id="global">
-                    <GlobalLeaderBoard
-                      leaders={globalLeaderBoard.globalLeaders}
-                      loadGlobalLeaderBoard={(skip, top) => dispatch(loadGlobalLeaderBoard(skip, top))} 
-                      loadCurrentLeaderBoardPosition = {() => dispatch(loadCurrentLeaderBoardPosition())}
-                      ui={ui}
-                      updateUI={updateUI}
-                      currentUser ={globalLeaderBoard.currentUserPosition}/>
+                    <Loader show={globalLeaderBoard.loading} message={'Loading...'}>
+                      <GlobalLeaderBoard
+                        leaders={globalLeaderBoard.globalLeaders}
+                        loadGlobalLeaderBoard={(skip, top) => dispatch(loadGlobalLeaderBoard(skip, top))}
+                        loadCurrentLeaderBoardPosition={() => dispatch(loadCurrentLeaderBoardPosition())}
+                        ui={ui}
+                        updateUI={updateUI}
+                        currentUser={globalLeaderBoard.currentUserPosition} />
+                    </Loader>
                   </div>
                   <div className="tab-pane fade" id="regional">
-                    <RegionalLeaderBoard
-                      leaders={regionalLeaderBoard.regionalLeaders}
-                      loadRegionalLeaderBoard={(region: string, skip:number, top:number) => dispatch(loadRegionalLeaderBoard(region, skip, top))}
-                      ui={ui}
-                      updateUI={updateUI}
-                      currentUser = {regionalLeaderBoard.currentUserPosition}
-                      loadCurrentRegionalPosition = {(region: string) => dispatch(loadCurrentRegionalPosition(region))}/>
+                    <Loader show={regionalLeaderBoard.loading} message={'Loading...'}>
+                      <RegionalLeaderBoard
+                        leaders={regionalLeaderBoard.regionalLeaders}
+                        loadRegionalLeaderBoard={(region: string, skip: number, top: number) => dispatch(loadRegionalLeaderBoard(region, skip, top))}
+                        ui={ui}
+                        updateUI={updateUI}
+                        currentUser={regionalLeaderBoard.currentUserPosition}
+                        loadCurrentRegionalPosition={(region: string) => dispatch(loadCurrentRegionalPosition(region))} />
+                    </Loader>
                   </div>
                 </div>
               </div>
@@ -84,8 +88,7 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
 const mapStateToProps = (state, ownProps) => {
   return {
     globalLeaderBoard: state.leaderBoardState.globalLeaderBoard,
-    regionalLeaderBoard: state.leaderBoardState.regionalLeaderBoard,
-
+    regionalLeaderBoard: state.leaderBoardState.regionalLeaderBoard
   }
 };
 

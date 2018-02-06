@@ -5,6 +5,7 @@ import Services from '../../common/services/services';
 import Footer from '../../home/components/Footer';
 interface TestDriveDetailsProps {
     testDriveInstance: TestDriveInstance;
+    createTestDriveInstance: (testDriveInstance: TestDriveInstance) => any;
 };
 class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
     constructor(props, context) {
@@ -12,7 +13,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
     }
 
     render() {
-        const { testDriveInstance } = this.props;
+        const { testDriveInstance, createTestDriveInstance } = this.props;
         return (<div className="col-md-12 detailed_box">
             <div className="row">
                 <div className="container">
@@ -200,8 +201,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                         </div>
 
                         <div className="col-md-12 popup_buttonbox">
-                            <Link to={"/testdriveparticipation/" + testDriveInstance.id}></Link>
-                            <input className="button type1" type="button" value="Go For Drive" />
+                            <input onClick={() => createTestDriveInstance(this.props.testDriveInstance)} className="button type1" type="button" value="Go For Drive" />
                         </div>
                     </div>
                 </div>

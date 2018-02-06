@@ -4,17 +4,26 @@ import { TestDriveInstance, TestCase, Question } from './model';
 import Services from '../common/services/services';
 
 import {
-  LOAD_TestDriveInstanceByID
+  LOAD_TestDriveInstanceByID,
+  CREATE_TestDriveInstance
 
 } from './constants/ActionTypes';
 
 // Test Drives action creators.
 
-const loadTestDriveInstanceByID = createAction<any, number, number>(
+const loadTestDriveInstanceByID = createAction<any, number>(
   LOAD_TestDriveInstanceByID,
-  (testDriveId: number, instanceID: number) => Services.getTestDriveInstanceById(testDriveId, instanceID)
+  (testDriveId: number) => Services.getTestDriveInstanceById(testDriveId)
 )
 
+const createOrSaveTestDriveInstance = createAction<any, TestDriveInstance>(
+  CREATE_TestDriveInstance,
+  (testDriveInstance: TestDriveInstance) => Services.createOrSaveTestDriveInstance(testDriveInstance)
+)
+
+
+
 export {
-  loadTestDriveInstanceByID
+  loadTestDriveInstanceByID,
+  createOrSaveTestDriveInstance
 }

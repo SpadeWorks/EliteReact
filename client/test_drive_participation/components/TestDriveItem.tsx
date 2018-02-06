@@ -26,7 +26,7 @@ class TestDriveItem extends React.Component<AppProps> {
                 </div>
                 <div className="col-md-2">
                     <h4>
-                        <Link to={'/testdrive/' + testDrive.id}>
+                        <Link to={'/testdrive/' + testDrive.testDriveID}>
                             <input
                                 className="btn btn-primary"
                                 type="button"
@@ -42,7 +42,7 @@ class TestDriveItem extends React.Component<AppProps> {
                             className="btn btn-danger"
                             type="button"
                             value="Delete"
-                            onClick={() => deleteTestDrive(testDrive.id)} />
+                            onClick={() => deleteTestDrive(testDrive.testDriveID)} />
                     </h4>
                 </div>
             </div>

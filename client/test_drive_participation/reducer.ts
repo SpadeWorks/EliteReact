@@ -3,13 +3,17 @@ import { TestDriveInstance, TestCase, Question, IState } from './model';
 import {
     LOAD_TestDriveInstanceByID_PENDING,
     LOAD_TestDriveInstanceByID_FULFILLED,
-    LOAD_TestDriveInstanceByID_REJECTED
+    LOAD_TestDriveInstanceByID_REJECTED,
+    CREATE_TestDriveInstance_PENDING,
+    CREATE_TestDriveInstance_FULFILLED,
+    CREATE_TestDriveInstance_REJECTED
 
 } from './constants/ActionTypes';
 
 const initialState: IState = {
     testDriveInstance: {
-        id: -1,
+        testDriveID: -1,
+        instanceID: -1,
         title: "",
         description: "",
         maxPoints: 0,
@@ -79,6 +83,27 @@ export default handleActions<IState, any>({
     },
 
     [LOAD_TestDriveInstanceByID_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            loading: false
+        }
+    },
+
+    [CREATE_TestDriveInstance_PENDING]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            loading:true
+        }
+    },
+    [CREATE_TestDriveInstance_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            testDriveInstance: action.payload,
+            loading:false
+        }
+    },
+
+    [CREATE_TestDriveInstance_REJECTED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
             loading: false
