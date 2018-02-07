@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import { TestDriveInstance, TestCaseInstance, Question } from './model';
+import { TestDriveInstance, TestCaseInstance, QuestionInstance } from './model';
 import Services from '../common/services/services';
 
 import {
@@ -21,9 +21,20 @@ const createOrSaveTestDriveInstance = createAction<any, TestDriveInstance>(
   (testDriveInstance: TestDriveInstance) => Services.createOrSaveTestDriveInstance(testDriveInstance)
 )
 
+const createOrSaveQuestionInstance = createAction<any, QuestionInstance>(
+  CREATE_TestDriveInstance,
+  (QuestionInstance: QuestionInstance) => Services.createOrSaveQuestionInstance(QuestionInstance)
+)
 
+
+const createOrSaveTestCaseInstance = createAction<any, TestCaseInstance>(
+  CREATE_TestDriveInstance,
+  (testCaseInstance: TestCaseInstance) => Services.createOrSaveTestCaseInstance(testCaseInstance)
+)
 
 export {
   loadTestDriveInstanceByID,
-  createOrSaveTestDriveInstance
+  createOrSaveTestDriveInstance,
+  createOrSaveQuestionInstance,
+  createOrSaveTestCaseInstance
 }

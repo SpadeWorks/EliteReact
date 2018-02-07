@@ -5,7 +5,7 @@ import Loader from 'react-loader-advanced';
 import ui from 'redux-ui';
 import services from '../../common/services/services';
 import {TestDrive} from '../../test_drive/model';
-
+import Footer from '../../common/components/Footer';
 import {
     TestDrives,
     model,
@@ -26,8 +26,10 @@ interface AppProps {
 
 class TestDriveContainer extends React.Component<AppProps> {
   componentDidMount(){
+    document.body.className = "black-bg";
     this.props.dispatch(loadTestDrives(services.getCurrentUserID()));
   }
+
   render() {
     const { testDriveState, dispatch } = this.props;
     return (
@@ -39,6 +41,7 @@ class TestDriveContainer extends React.Component<AppProps> {
           deleteTestDrive={(id: number) => dispatch(deleteTestDrive(id))}
         />
       </Loader>
+      <Footer />
       </div>
     );
   }

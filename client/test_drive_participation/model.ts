@@ -1,6 +1,7 @@
 export type TestCaseInstance = {
     testCaseId: number;
     testDriveID?: number;
+    responseID: number;
     userID: number;
     title: string;
     description: string;
@@ -13,12 +14,14 @@ export type TestCaseInstance = {
     reTest: boolean;
     newItem?: boolean;
     testCaseResponse: string;
+    selectedResponse: string;
     responseStatus: string;
     
 }
 
-export type Question = {
+export type QuestionInstance = {
     questionID: number;
+    responseID: number;
     testDriveID?: number;
     title: string;
     questionType: string;
@@ -26,6 +29,8 @@ export type Question = {
     isInEditMode?: boolean;
     newItem?: boolean
     responseStatus: string;
+    questionResponse: string;
+    selectedResponse: string;
     userID: number;
     
 }
@@ -48,7 +53,7 @@ export type TestDriveInstance = {
     maxTestDrivers: number;
     testCases: TestCaseInstance[];
     testCaseIDs?: number[];
-    questions: Question[];
+    questions: QuestionInstance[];
     questionIDs?: number[];
     status: string;
     level: string;
@@ -67,8 +72,8 @@ export type Configurations = {
 
 export type IState = {
     testDriveInstance: TestDriveInstance,
-    testCase: TestCaseInstance,
-    question: Question,
+    testCaseInstance: TestCaseInstance,
+    questionInstance: QuestionInstance,
     loading: boolean,
     activeTab: string,
     configurations: Configurations;

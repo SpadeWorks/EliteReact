@@ -1,5 +1,5 @@
 import { handleActions, Action } from 'redux-actions';
-import { TestDriveInstance, TestCaseInstance, Question, IState } from './model';
+import { TestDriveInstance, TestCaseInstance, QuestionInstance, IState } from './model';
 import {
     LOAD_TestDriveInstanceByID_PENDING,
     LOAD_TestDriveInstanceByID_FULFILLED,
@@ -12,8 +12,8 @@ import {
 
 const initialState: IState = {
     testDriveInstance: {
-        testDriveID: -1,
-        instanceID: -1,
+        testDriveID: 0,
+        instanceID: 0,
         title: "",
         description: "",
         maxPoints: 0,
@@ -35,34 +35,40 @@ const initialState: IState = {
         numberOfTestCasesCompleted: 0,
         questionIDs: [],
         testCaseIDs: []
-        
-    },
-    testCase: {
-        testCaseId: -1,
-        testDriveID: -1,
-        title: "",
-        description: "",
-        expectedOutcome: "",
-        isInEditMode: false,
-        testCaseType: "",
-        scenario: "",
-        priority: "High",
-        reTest: false,
-        points: 0,
-        responseStatus: 'Draft',
-        testCaseResponse: '',
-        userID: -1
 
     },
-    question: {
-        questionID: -1,
-        testDriveID: -1,
-        responseStatus: '',
-        userID: -1,
+    testCaseInstance: {
+        testCaseId: 0,
+        testDriveID: 0,
+        responseID: 0,
+        userID: 0,
         title: '',
+        description: '',
+        expectedOutcome: '',
+        isInEditMode: false,
+        testCaseType: '',
+        scenario: '',
+        priority: '',
+        points: 0,
+        reTest: false,
+        newItem: false,
+        testCaseResponse: '',
+        selectedResponse: '',
+        responseStatus: ''
+    },
+    questionInstance: {
+        questionID: 0,
+        responseID: 0,
+        testDriveID: 0,
+        title: 'string',
         questionType: '',
         options: [],
-        isInEditMode: false
+        isInEditMode: false,
+        newItem: false,
+        responseStatus: '',
+        questionResponse: '',
+        selectedResponse: '',
+        userID: 0
     },
     loading: true,
     activeTab: '1',
@@ -78,14 +84,14 @@ export default handleActions<IState, any>({
     [LOAD_TestDriveInstanceByID_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            loading:true
+            loading: true
         }
     },
     [LOAD_TestDriveInstanceByID_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
             testDriveInstance: action.payload,
-            loading:false
+            loading: false
         }
     },
 
@@ -99,14 +105,14 @@ export default handleActions<IState, any>({
     [CREATE_TestDriveInstance_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            loading:true
+            loading: true
         }
     },
     [CREATE_TestDriveInstance_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
             testDriveInstance: action.payload,
-            loading:false
+            loading: false
         }
     },
 

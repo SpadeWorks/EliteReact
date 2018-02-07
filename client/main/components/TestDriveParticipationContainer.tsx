@@ -7,11 +7,14 @@ import services from '../../common/services/services';
 import TestDriveDetails from '../../test_drive_participation/components/TestDriveDetails';
 import TestDriveParticipation from '../../test_drive_participation/components/TestDriveParticipation';
 import Services from '../../common/services/services';
+import Footer from '../../common/components/Footer';
 import {
   model,
   loadTestDriveInstanceByID,
-  createOrSaveTestDriveInstance
+  createOrSaveTestDriveInstance,
+  createOrSaveTestCaseInstance
 } from '../../test_drive_participation';
+
 
 interface AppProps {
   instanceID: number;
@@ -19,6 +22,8 @@ interface AppProps {
   testDriveInstance: any;
   dispatch: Dispatch<{}>;
   loading: boolean;
+  updateUI: (any) => any;
+  ui: any;
 }
 
 @ui({
@@ -28,27 +33,35 @@ interface AppProps {
 
 class TestDriveParticipationContainer extends React.Component<AppProps> {
   componentDidMount() {
+    document.body.className = "black-bg";
     let userID = Services.getCurrentUserID();
     this.props.dispatch(loadTestDriveInstanceByID(this.props.testDriveID, userID));
   }
+
   render() {
-    const { dispatch, testDriveInstance, loading } = this.props;
+    const { dispatch, testDriveInstance, loading, ui, updateUI } = this.props;
     return (
-      <div className="testDrives container">
+      <div className="test-drive-participation">
         <Loader show={loading} message={'loading'}>
           {
-            testDriveInstance.instanceID == -1 && 
-                <TestDriveDetails 
-                  testDriveInstance={testDriveInstance}
-                  createTestDriveInstance={
-                    (testDriveInstance: model.TestDriveInstance) => 
-                      dispatch(createOrSaveTestDriveInstance(testDriveInstance))} />
+            !loading && testDriveInstance.instanceID == -1 &&
+            <TestDriveDetails
+              testDriveInstance={testDriveInstance}
+              createTestDriveInstance={
+                (testDriveInstance: model.TestDriveInstance) =>
+                  dispatch(createOrSaveTestDriveInstance(testDriveInstance))} />
           }
           {
-            testDriveInstance.instanceID != -1 &&
-              <TestDriveParticipation testDriveInstance={testDriveInstance} />
+            !loading && testDriveInstance.instanceID != -1 &&
+            <TestDriveParticipation testDriveInstance={testDriveInstance}
+              saveTestCaseResponse={(testDriveInstance) =>
+                dispatch(createOrSaveTestCaseInstance(testDriveInstance))}
+              updateUI={updateUI}
+              ui={ui}
+            />
           }
         </Loader>
+        <Footer />
       </div>
     );
   }

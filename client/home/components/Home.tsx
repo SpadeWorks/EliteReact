@@ -33,7 +33,7 @@ import {
     loadCurrentUser
 } from '../../home';
 import { constants } from 'zlib';
-import Footer from './Footer';
+import Footer from '../../common/components/Footer';
 
 
 interface HomeProps {
@@ -74,24 +74,25 @@ class Home extends React.Component<HomeProps, HomeState> {
     constructor(props, context) {
         super(props, context);
     }
-
     componentDidMount() {
+        document.body.className = "img-bg";
+
         let user = Services.getUserProfileProperties();
-        if(user.eliteProfileID){
+        if (user.eliteProfileID) {
             this.props.dispatch(loadEliteProfile(user.eliteProfileID));
-            this.props.dispatch(loadLeaderBoard(0,3));       
-            this.props.dispatch(loadRegionLeaderBoard(user.region, 0, 3)); 
+            this.props.dispatch(loadLeaderBoard(0, 3));
+            this.props.dispatch(loadRegionLeaderBoard(user.region, 0, 3));
             this.props.dispatch(getUserRank(user.eliteProfileID));
             this.props.dispatch(loadMyTestDrive());
-            this.props.dispatch(loadTestDriveThatIRun(user.eliteProfileID, 0, 3));      
+            this.props.dispatch(loadTestDriveThatIRun(user.eliteProfileID, 0, 3));
             this.props.dispatch(loadUpcomingTestDrive());
             this.props.dispatch(loadActiveTestDrive());
             this.props.dispatch(loadTotalUserCount());
             this.props.dispatch(loadTotalTestDrives());
             this.props.dispatch(loadTestDrivesCompleted());
             this.props.dispatch(loadTotalTasks());
-            this.props.dispatch(loadUserPoints(user.eliteProfileID));    
-            
+            this.props.dispatch(loadUserPoints(user.eliteProfileID));
+
 
         }
         $("a#link1").show(4200);
@@ -106,7 +107,7 @@ class Home extends React.Component<HomeProps, HomeState> {
         const { ui, updateUI, mytestDrive, testDriveThatIRun, upcomingTestDrive, activeTestDrive,
             leaders, regionLeaders, myTestDriveLoading, totalCount, totalPoints, totalTasks,
             testDrivesCompleted, totalTestDrives, userCarImage, testDriveThatIRunLoading,
-            activeTestDriveLoading, upcomingTestDriveLoading, eliteProfile, userRank} = this.props;
+            activeTestDriveLoading, upcomingTestDriveLoading, eliteProfile, userRank } = this.props;
         return (
             <div className="col-md-12">
                 <div className="row">
@@ -127,8 +128,8 @@ class Home extends React.Component<HomeProps, HomeState> {
                                 mytestDrive={mytestDrive}
                                 myTestDriveLoading={myTestDriveLoading}
                                 testDriveThatIRun={testDriveThatIRun}
-                                testDriveThatIRunLoading={testDriveThatIRunLoading} 
-                                />
+                                testDriveThatIRunLoading={testDriveThatIRunLoading}
+                            />
 
                             <div className="col-md-4">
                                 <h2 className="text-center skills_heading">Skills.Speed.Smarts. Brind it all.</h2>
@@ -137,17 +138,17 @@ class Home extends React.Component<HomeProps, HomeState> {
                                 ui={ui}
                                 updateUI={updateUI}
                                 upcomingTestDrive={upcomingTestDrive}
-                                upcomingTestDriveLoading = {upcomingTestDriveLoading}
+                                upcomingTestDriveLoading={upcomingTestDriveLoading}
                                 activeTestDrive={activeTestDrive}
                                 activeTestDriveLoading={activeTestDriveLoading} />
 
-                            <OverallPointsDashboard totalUsers={totalCount} 
-                                testDrivesCompleted={testDrivesCompleted} 
-                                currentRideImage={eliteProfile.carImage} 
+                            <OverallPointsDashboard totalUsers={totalCount}
+                                testDrivesCompleted={testDrivesCompleted}
+                                currentRideImage={eliteProfile.carImage}
                                 pointsEarned={totalPoints} totalTestDrives={totalTestDrives} totalTasks={totalTasks}>
                             </OverallPointsDashboard>
                         </div>
-                        <UserRank userName={eliteProfile.displayName} userRank={userRank}/>
+                        <UserRank userName={eliteProfile.displayName} userRank={userRank} />
                         <Footer />
                     </div>
                 </div>

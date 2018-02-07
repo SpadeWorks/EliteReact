@@ -13,7 +13,7 @@ import { resolve } from "path";
 import { Columns } from "./constants";
 import { Util } from "sp-pnp-js/lib/utils/util";
 import index from "../../home/index";
-import { TestDriveInstance } from '../../test_drive_participation/model';
+import { TestDriveInstance, QuestionInstance, TestCaseInstance } from '../../test_drive_participation/model';
 
 const delay = 100;
 declare var SP: any;
@@ -48,99 +48,85 @@ export class Services {
                 [Constants.Columns.TEST_CASE_COMPLETED]: testDriveInstance.numberOfTestCasesCompleted,
                 [Constants.Columns.CURRENT_POINTS]: testDriveInstance.currentPoint
             }]).then(newTestDrive => {
-                resolve(newTestDrive);
+                resolve(<TestDriveInstance>{
+                    ...testDriveInstance,
+                    instanceID: newTestDrive ? newTestDrive[Constants.Columns.ID] : -1,
+                    currentPoint: newTestDrive ? newTestDrive[Constants.Columns.CURRENT_POINTS] : 0,
+                    dateJoined: newTestDrive ? newTestDrive[Constants.Columns.DATE_JOINED] : "",
+                    numberOfTestCasesCompleted: newTestDrive ? newTestDrive[Constants.Columns.TEST_CASE_COMPLETED] : 0,
+                    status: newTestDrive ? newTestDrive[Constants.Columns.STATUS] : Constants.ColumnsValues.DRAFT,
+                });
             }, err => reject(err))
         })
     }
 
-    // static getTestDriveInstanceById(testDriveID: number) {
-    //     return new Promise((resolve, reject) => {
-    //         let user = Services.getUserProfileProperties();
-    //         pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
-    //             .select(
-    //             Constants.Columns.ID,
-    //             Constants.Columns.PERCENTAGE_COMPLETION,
-    //             Constants.Columns.CURRENT_POINTS,
-    //             Constants.Columns.STATUS,
-    //             Constants.Columns.DATE_JOINED,
-    //             Constants.Columns.TEST_CASE_COMPLETED,
-    //             Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID
-    //             )
-    //             .filter(Constants.Columns.USER_ID + ' eq ' + user.eliteProfileID +
-    //             ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
-    //             .expand(Constants.Columns.TEST_DRIVE_ID)
-    //             .get().then(testDriveInstances => {
-    //                 if (testDriveInstances && testDriveInstances.length > 0) {
-    //                     var testDriveInstance = testDriveInstances[0];
-    //                     Services.getTestDriveById(testDriveInstance[Constants.Columns.TEST_DRIVE_ID][Constants.Columns.ID])
-    //                         .then((testDrive: TestDrive) => {
-    //                             Services.getTestCasesByIds(testDrive.testCaseIDs).then(testCases => {
-    //                                 Services.getTestCaseResponses(testDrive.testCaseIDs, user.eliteProfileID).then(testCaseResponses => {
-    //                                     resolve(<TestDriveInstance>{
-    //                                         instanceID: testDriveInstance[Constants.Columns.ID],
-    //                                         currentPoint: testDriveInstance[Constants.Columns.CURRENT_POINTS],
-    //                                         dateJoined: testDriveInstance[Constants.Columns.DATE_JOINED],
-    //                                         numberOfTestCasesCompleted: testDriveInstance[Constants.Columns.TEST_CASE_COMPLETED],
-    //                                         status: testDriveInstance[Constants.Columns.STATUS],
-    //                                         testDriveID: testDrive.id,
-    //                                         title: testDrive.title,
-    //                                         description: testDrive.description,
-    //                                         startDate: testDrive.startDate,
-    //                                         endDate: testDrive.endDate,
-    //                                         maxPoints: testDrive.maxTestDrivers,
-    //                                         department: testDrive.department,
-    //                                         location: testDrive.location,
-    //                                         requiredDevices: testDrive.requiredDevices,
-    //                                         requiredOs: testDrive.requiredOs,
-    //                                         maxTestDrivers: testDrive.maxTestDrivers,
-    //                                         level: testDrive.level,
-    //                                         owner: testDrive.owner,
-    //                                         testCases: testCases,
-    //                                         questions: null,
-    //                                         testCaseIDs: testDrive.testCaseIDs,
-    //                                         questionIDs: testDrive.questionIDs,
-    //                                         expectedBusinessValue: testDrive.expectedBusinessValue,
-    //                                         region: testDrive.region
-    //                                     })
-    //                                 })
+    static createOrSaveQuestionInstance(questionInstance: QuestionInstance) {
+        return new Promise((resolve, reject) => {
+            Services.createOrUpdateListItemsInBatch(Constants.Lists.TEST_DRIVE_INSTANCES, [{
+                [Constants.Columns.ID]: questionInstance.responseID,
+                [Constants.Columns.TEST_DRIVE_ID]: questionInstance.testDriveID,
+                [Constants.Columns.QUESTION_ID]: questionInstance.questionID,
+                [Constants.Columns.STATUS]: questionInstance.responseStatus,
+                [Constants.Columns.USER_ID]: questionInstance.userID,
+                [Constants.Columns.SURVEY_RESPONSE]: questionInstance.questionResponse,
+                [Constants.Columns.Selected_Response]: questionInstance.selectedResponse
+            }]).then(newResponse => {
+                resolve(<QuestionInstance>{
+                    ...questionInstance,
+                    responseID: newResponse[Constants.Columns.ID],
+                    testDriveID: newResponse[Constants.Columns.TEST_DRIVE_ID],
+                    questionID: newResponse[Constants.Columns.QUESTION_ID],
+                    responseStatus: newResponse[Constants.Columns.STATUS],
+                    userID: newResponse[Constants.Columns.USER_ID],
+                    response: newResponse[Constants.Columns.SURVEY_RESPONSE],
+                    selectedResponse: newResponse[Constants.Columns.Selected_Response]
+                });
+            }, err => reject(err))
+        })
+    }
 
-    //                             })
+    testCaseId: number;
+    testDriveID?: number;
+    responseID: number;
+    userID: number;
+    title: string;
+    description: string;
+    expectedOutcome: string;
+    isInEditMode?: boolean;
+    testCaseType: string;
+    scenario: string;
+    priority: string;
+    points: number;
+    reTest: boolean;
+    newItem?: boolean;
+    testCaseResponse: string;
 
-    //                         })
-    //                 } else {
-    //                     Services.getTestDriveById(testDriveID).then((testDrive: TestDrive) => {
-    //                         resolve(<TestDriveInstance>{
-    //                             instanceID: -1,
-    //                             currentPoint: 0,
-    //                             dateJoined: "",
-    //                             numberOfTestCasesCompleted: 0,
-    //                             status: "",
-    //                             testDriveID: testDrive.id,
-    //                             title: testDrive.title,
-    //                             description: testDrive.description,
-    //                             startDate: testDrive.startDate,
-    //                             endDate: testDrive.endDate,
-    //                             maxPoints: testDrive.maxTestDrivers,
-    //                             department: testDrive.department,
-    //                             location: testDrive.location,
-    //                             requiredDevices: testDrive.requiredDevices,
-    //                             requiredOs: testDrive.requiredOs,
-    //                             maxTestDrivers: testDrive.maxTestDrivers,
-    //                             level: testDrive.level,
-    //                             owner: testDrive.owner,
-    //                             testCases: null,
-    //                             questions: null,
-    //                             testCaseIDs: testDrive.testCaseIDs,
-    //                             questionIDs: testDrive.questionIDs,
-    //                             expectedBusinessValue: testDrive.expectedBusinessValue,
-    //                             region: testDrive.region
-    //                         })
-    //                     })
-    //                 }
-    //             });
+    responseStatus: string;
 
-    //     });
-    // }
+    static createOrSaveTestCaseInstance(testCasesInstance: TestCaseInstance) {
+        return new Promise((resolve, reject) => {
+            Services.createOrUpdateListItemsInBatch(Constants.Lists.TEST_CASE_RESPONSES, [{
+                [Constants.Columns.ID]: testCasesInstance.responseID,
+                [Constants.Columns.TESTCASE_ID]: testCasesInstance.testCaseId,
+                [Constants.Columns.TEST_DRIVE_ID]: testCasesInstance.testDriveID,
+                [Constants.Columns.STATUS]: testCasesInstance.responseStatus,
+                [Constants.Columns.USER_ID]: testCasesInstance.userID,
+                [Constants.Columns.Selected_Response]: testCasesInstance.selectedResponse,
+                [Constants.Columns.TEST_CASE_RESPONSE]: testCasesInstance.testCaseResponse
+            }]).then(newResponse => {
+                resolve(<QuestionInstance>{
+                    ...newResponse,
+                    responseID: newResponse[Constants.Columns.ID],
+                    testDriveID: newResponse[Constants.Columns.TEST_DRIVE_ID],
+                    questionID: newResponse[Constants.Columns.QUESTION_ID],
+                    responseStatus: newResponse[Constants.Columns.STATUS],
+                    userID: newResponse[Constants.Columns.USER_ID],
+                    questionResponse: newResponse[Constants.Columns.SURVEY_RESPONSE],
+                    selectedResponse: newResponse[Constants.Columns.Selected_Response]
+                });
+            }, err => reject(err))
+        })
+    }
 
     static getTestDriveResponse(testDriveID: number, userId: number) {
         return new Promise((resolve, reject) => {
@@ -171,11 +157,13 @@ export class Services {
                 Constants.Columns.ID,
                 Constants.Columns.TEST_CASE_RESPONSE,
                 Constants.Columns.TEST_CASE_RESPONSE_STATUS,
+                Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
                 Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
                 Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
             )
                 .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
-                .expand(Constants.Columns.USER_ID, Constants.Columns.TEST_DRIVE_ID)
+                .expand(Constants.Columns.USER_ID, 
+                    Constants.Columns.TEST_DRIVE_ID, Constants.Columns.TESTCASE_ID)
                 .get().then(testCases => {
                     let testCaseArray = [];
                     testCases.map(t => {
@@ -183,12 +171,53 @@ export class Services {
                             responseID: t[Constants.Columns.ID],
                             testCaseResponse: t[Constants.Columns.TEST_CASE_RESPONSE],
                             responseStatus: t[Constants.Columns.TEST_CASE_RESPONSE_STATUS],
+                            testCaseId: t[Constants.Columns.TESTCASE_ID ][Constants.Columns.ID]
                         })
                     })
                     resolve(testCaseArray);
                 }, error => {
                     reject(error);
                 });
+        });
+    }
+
+    static getSurveyQuestionWithResponses(testDriveID: number, questionIDs: number[], userID: number) {
+        return new Promise((resolve, reject) => {
+            Services.getQuestonsByIds(questionIDs).then((questions: any) => {
+                pnp.sp.web.lists.getByTitle(Constants.Lists.SURVEY_RESPONSES).items
+                    .select(
+                    Constants.Columns.ID,
+                    Constants.Columns.SURVEY_RESPONSE,
+                    Constants.Columns.Selected_Response,
+                    Constants.Columns.STATUS,
+                    Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
+                )
+                    .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
+                    .expand(Constants.Columns.USER_ID, Constants.Columns.TEST_DRIVE_ID, Constants.Columns.QUESTION_ID)
+                    .get().then(questionResponses => {
+                        let questionsArray: QuestionInstance[] = [];
+                        questions.map(question => {
+                            let response = questionResponses.filter(response => {
+                                return response[Constants.Columns.QUESTION_ID] == question.id;
+                            })
+                            questionsArray.push({
+                                ...question,
+                                responseStatus: response[Constants.Columns.STATUS],
+                                response: response[Constants.Columns.SURVEY_RESPONSE],
+                                selectedResponse: response[Constants.Columns.Selected_Response],
+                                testDriveID: testDriveID,
+                                questionID: question.id,
+                                options: question.options,
+                                userID: userID
+                            })
+                        })
+                        resolve(questionsArray);
+                    }, error => {
+                        reject(error);
+                    });
+            })
         });
     }
 
@@ -208,14 +237,36 @@ export class Services {
             let testDrive = Services.getTestDriveWithTestCases(testDriveID);
             let testCaseResponses = Services.getTestCaseResponses(testDriveID, userID);
             let testDriveResponse = Services.getTestDriveResponse(testDriveID, userID);
+            let response;
             Promise.all([testDrive, testCaseResponses, testDriveResponse]).then(results => {
                 let testDrive = <any>results[0];
                 let testCaseResponses = <any>results[1];
-                let testDriveInstance = results[2][0];
-                let testCasesInstances = testDrive.testCases.map((testCase, index) => {
-                    return {
-                        ...testCase, ...testCaseResponses[index]
-                    }
+                let testDriveInstance = results[2];
+
+                let testCasesInstances = testDrive.testCases.map((t, index) => {
+                    response = testCaseResponses.filter(response =>{
+                        return t.id == response.testCaseId;
+                    });
+                    response = response[0];
+                    return (<TestCaseInstance>{
+                        description: t.description,
+                        expectedOutcome: t.expectedOutcome,
+                        isInEditMode: false,
+                        newItem: false,
+                        points: t.points,
+                        priority: t.priority,
+                        reTest: t.reTest,
+                        scenario: t.scenario,
+                        testCaseId: t.id,
+                        title: t.title,
+                        testCaseType: t.testCaseType,
+                        userID: userID,
+                        testDriveID: testDriveID,
+                        responseID: response ? response.ID : -1 ,
+                        responseStatus: response ? response.responseStatus : Constants.ColumnsValues.DRAFT,
+                        selectedResponse: response ? response.selectedResponse : '',
+                        testCaseResponse: response ? response.testCaseResponse : ''
+                    });
                 })
 
                 var instance = <TestDriveInstance>{
@@ -246,7 +297,7 @@ export class Services {
                 };
 
                 resolve(instance)
-            }, err=> reject(err))
+            }, err => reject(err))
         })
     }
 

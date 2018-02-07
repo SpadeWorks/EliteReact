@@ -2,16 +2,36 @@ import * as React from 'react';
 import { Link } from "react-router-dom";
 import { TestDriveInstance } from '../../test_drive_participation/model';
 import TestCases from '../../test_drive_participation/components/TestCases';
+import { TestCaseInstance } from '../../test_drive_participation/model';
+import Overview from './OverView';
+import * as $ from 'jquery';
 
 interface TestDriveParticipationProps {
     testDriveInstance: TestDriveInstance;
+    saveTestCaseResponse: (testCase: TestCaseInstance) => any;
+    updateUI: (any) => any;
+    ui: any;
 };
 class TestDriveParticipation extends React.Component<TestDriveParticipationProps> {
     constructor(props, context) {
         super(props, context);
     }
+
+    componentDidMount() {
+        $('#carousel-example-vertical').bind('mousewheel', function (e) {
+            if (e.originalEvent.wheelDelta / 120 > 0) {
+                $(this).carousel('next');
+                $('#carousel-example-vertical').carousel({
+                    interval: 3000
+                });
+            }
+            else {
+                $(this).carousel('prev');
+            }
+        });
+    }
     render() {
-        const { testDriveInstance } = this.props;
+        const { testDriveInstance, saveTestCaseResponse, ui, updateUI } = this.props;
         return (<div className="col-md-12">
             <div className="row">
                 <div className="container">
@@ -37,9 +57,12 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                 </ul>
                                 <div id="myTabContent" className="tab-content">
                                     <div className="tab-pane active in" id="test_Cases">
-                                        <TestCases testCases={testDriveInstance.testCases} />
+                                        <TestCases testCases={testDriveInstance.testCases}
+                                            saveTestCaseResponse={(t) => saveTestCaseResponse(t)}
+                                        updateUI={updateUI}
+                                        ui={ui}
+                                        />
                                     </div>
-
                                     <div className="tab-pane fade " id="Servay_q">
                                         <h1>tab2</h1>
                                     </div>
@@ -47,7 +70,6 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                         <h1>tab3</h1>
                                     </div>
                                 </div>
-
                             </div >
                         </div >
                     </div >
@@ -59,69 +81,8 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                         </ul>
                     </div>
                 </div>
-                <div className="row overview ">
-                    <div className="container ">
-                        <div className="col-md-10 col-md-offset-1 ">
-                            <div className="col-md-3 ">
-                                <div className="row ">
-                                    <div className="col-md-12 ">
-                                        <p><span className="orange "><i>1</i></span> of 8</p>
-                                    </div>
-                                    <div className="col-md-12 ">
-                                        <h4 className="testcase_title ">Test case completed</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-3 ">
-                                <div className="row ">
-                                    <div className="col-md-12 ">
-                                        <p><span className="orange "><i>1</i></span> of 8</p>
-                                    </div>
-                                    <div className="col-md-12 ">
-                                        <h4 className="testcase_title ">Test case completed</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-3 ">
-                                <div className="row ">
-                                    <div className="col-md-12 testcase_title ">
-                                        <p className="inactive ">Mar 13, 2018</p>
-                                    </div>
-                                    <div className="col-md-12 ">
-                                        <h4 className="testcase_title ">Test drive end date</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-3 ">
-                                <div className="row ">
-                                    <div className="col-md-12 ">
-                                        <p>Mar 13, 2018</p>
-                                    </div>
-                                    <div className="col-md-12 ">
-                                        <h4 className="testcase_title ">Test drive end date</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-1 navigation_box ">
-                            <div className="row ">
-                                <div className="col-md-6 ">
-                                    <a className="up carousel-control " href="#carousel-example-vertical " role="button" data-slide="prev ">
-                                        <span className="glyphicon glyphicon-chevron-up " aria-hidden="true "></span>
-                                        <span className="sr-only ">Previous</span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="col-md-6 ">
-                                <a className="down carousel-control " href="#carousel-example-vertical " role="button" data-slide="next ">
-                                    <span className="glyphicon glyphicon-chevron-down " aria-hidden="true "></span>
-                                    <span className="sr-only ">Next</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
+            <Overview />
         </div>)
     }
 }

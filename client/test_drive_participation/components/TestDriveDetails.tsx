@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Link } from "react-router-dom";
 import { TestDriveInstance } from '../model';
 import Services from '../../common/services/services';
-import Footer from '../../home/components/Footer';
 interface TestDriveDetailsProps {
     testDriveInstance: TestDriveInstance;
     createTestDriveInstance: (testDriveInstance: TestDriveInstance) => any;
@@ -205,7 +204,6 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                         </div>
                     </div>
                 </div>
-                <Footer />
             </div>
         </div>)
     }

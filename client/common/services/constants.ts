@@ -67,6 +67,7 @@ export class Columns{
     static TEST_CASE_RESPONSE = "TestCaseResponse";
     static TEST_CASE_RESPONSE_STATUS = "TestCaseResponseStatus";
     static SURVEY_RESPONSE = "SurveyResponse";
+    static Selected_Response =  "SelectedResponse";
 
 
 }
