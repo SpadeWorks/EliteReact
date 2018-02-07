@@ -107,20 +107,21 @@ export class Services {
         return new Promise((resolve, reject) => {
             Services.createOrUpdateListItemsInBatch(Constants.Lists.TEST_CASE_RESPONSES, [{
                 [Constants.Columns.ID]: testCasesInstance.responseID,
-                [Constants.Columns.TESTCASE_ID]: testCasesInstance.testCaseId,
-                [Constants.Columns.TEST_DRIVE_ID]: testCasesInstance.testDriveID,
-                [Constants.Columns.STATUS]: testCasesInstance.responseStatus,
-                [Constants.Columns.USER_ID]: testCasesInstance.userID,
+                [Constants.Columns.TESTCASE_ID + '_id'] : testCasesInstance.testCaseId,
+                [Constants.Columns.TEST_DRIVE_ID + '_id']: testCasesInstance.testDriveID,
+                [Constants.Columns.TEST_CASE_RESPONSE_STATUS]: testCasesInstance.responseStatus,
+                [Constants.Columns.USER_ID + '_id']: testCasesInstance.userID,
                 [Constants.Columns.Selected_Response]: testCasesInstance.selectedResponse,
                 [Constants.Columns.TEST_CASE_RESPONSE]: testCasesInstance.testCaseResponse
-            }]).then(newResponse => {
-                resolve(<QuestionInstance>{
-                    ...newResponse,
-                    responseID: newResponse[Constants.Columns.ID],
-                    testDriveID: newResponse[Constants.Columns.TEST_DRIVE_ID],
-                    questionID: newResponse[Constants.Columns.QUESTION_ID],
-                    responseStatus: newResponse[Constants.Columns.STATUS],
-                    userID: newResponse[Constants.Columns.USER_ID],
+            }]).then((newResponses: any) => {
+                let newResponse = newResponses[0];
+                resolve({
+                    ...testCasesInstance,
+                    responseID: newResponse.id,
+                    testDriveID: newResponse[Constants.Columns.TESTCASE_ID + '_id'],
+                    questionID: newResponse[Constants.Columns.TEST_DRIVE_ID + '_id'],
+                    responseStatus: newResponse[Constants.Columns.TEST_CASE_RESPONSE_STATUS],
+                    userID: newResponse[Constants.Columns.USER_ID + '_id'],
                     questionResponse: newResponse[Constants.Columns.SURVEY_RESPONSE],
                     selectedResponse: newResponse[Constants.Columns.Selected_Response]
                 });
@@ -157,6 +158,7 @@ export class Services {
                 Constants.Columns.ID,
                 Constants.Columns.TEST_CASE_RESPONSE,
                 Constants.Columns.TEST_CASE_RESPONSE_STATUS,
+                Constants.Columns.Selected_Response,
                 Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
                 Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
                 Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
@@ -171,7 +173,8 @@ export class Services {
                             responseID: t[Constants.Columns.ID],
                             testCaseResponse: t[Constants.Columns.TEST_CASE_RESPONSE],
                             responseStatus: t[Constants.Columns.TEST_CASE_RESPONSE_STATUS],
-                            testCaseId: t[Constants.Columns.TESTCASE_ID ][Constants.Columns.ID]
+                            testCaseId: t[Constants.Columns.TESTCASE_ID ][Constants.Columns.ID],
+                            selectedResponse: t[Constants.Columns.Selected_Response]
                         })
                     })
                     resolve(testCaseArray);
@@ -262,7 +265,7 @@ export class Services {
                         testCaseType: t.testCaseType,
                         userID: userID,
                         testDriveID: testDriveID,
-                        responseID: response ? response.ID : -1 ,
+                        responseID: response ? response.responseID : -1 ,
                         responseStatus: response ? response.responseStatus : Constants.ColumnsValues.DRAFT,
                         selectedResponse: response ? response.selectedResponse : '',
                         testCaseResponse: response ? response.testCaseResponse : ''

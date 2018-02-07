@@ -26,7 +26,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         this.props.updateUI({ selectedResponse: this.props.testCase.selectedResponse });
     }
 
-    onChange(e){
+    onChange(e) {
         this.props.updateUI({ testCaseResponse: e.target.value });
     }
     saveTestCaseResponse(testCase: TestCaseInstance) {
@@ -59,14 +59,14 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                         <div className="row ">
                             <div className="test_progress ">
                                 <div className="col-md-3 ">
-                                    <a href="javascript:void(0)" 
+                                    <a href="javascript:void(0)"
                                         className={ui.selectedResponse == "Inprogress" ? "status_pass" : "status_inprogress"}
                                         onClick={(e) => updateUI({ selectedResponse: "Inprogress" })}>
                                         Inprogress
                                         {ui.selectedResponse == "Inprogress" && <i className="material-icons ">done</i>}</a>
                                 </div>
                                 <div className="col-md-3 ">
-                                    <a href="javascript:void(0)" 
+                                    <a href="javascript:void(0)"
                                         className={ui.selectedResponse == "Pass" ? "status_pass" : "status_inprogress"}
                                         onClick={(e) => updateUI({ selectedResponse: "Pass" })}>
                                         Pass
@@ -74,7 +74,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                     </a>
                                 </div>
                                 <div className="col-md-3 ">
-                                    <a href="javascript:void(0)" 
+                                    <a href="javascript:void(0)"
                                         className={ui.selectedResponse == "Fail" ? "status_pass" : "status_inprogress"}
                                         onClick={(e) => updateUI({ selectedResponse: "Fail" })}>Fail
                                         {ui.selectedResponse == "Fail" && <i className="material-icons ">done</i>}
@@ -93,7 +93,10 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                     <label className="disc_lable ">Description</label>
                                 </div>
                                 <div className="test-case-btn-controls">
-                                    <input type="button" value="Save" onClick={() => this.saveTestCaseResponse(testCase)} />
+                                    {
+                                        testCase.responseStatus != ColumnsValues.COMPLETE_STATUS &&
+                                        <input type="button" value="Save" onClick={() => this.saveTestCaseResponse(testCase)} />
+                                    }
                                     <input type="button" value="Submit" onClick={() => this.submitTestCaseResponse(testCase)} />
                                 </div>
                             </div>

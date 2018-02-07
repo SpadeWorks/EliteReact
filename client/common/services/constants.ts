@@ -76,6 +76,7 @@ export class ColumnsValues{
     static COMPLETE_STATUS = 'Complete';
     static DRAFT = "Draft";    
     static TEST_CASE_COMPLETION = 'Test Case Bonus';
+    static QUESTION_TYPE_OBJECTIVE = "Objective";
 }
 
 export class Globals{}

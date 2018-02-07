@@ -72,11 +72,7 @@ export type Configurations = {
 
 export type IState = {
     testDriveInstance: TestDriveInstance,
-    testCaseInstance: TestCaseInstance,
-    questionInstance: QuestionInstance,
     loading: boolean,
-    activeTab: string,
-    configurations: Configurations;
-    configurationLoaded: boolean;
+
 }
 

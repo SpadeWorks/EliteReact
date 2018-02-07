@@ -37,47 +37,7 @@ const initialState: IState = {
         testCaseIDs: []
 
     },
-    testCaseInstance: {
-        testCaseId: 0,
-        testDriveID: 0,
-        responseID: 0,
-        userID: 0,
-        title: '',
-        description: '',
-        expectedOutcome: '',
-        isInEditMode: false,
-        testCaseType: '',
-        scenario: '',
-        priority: '',
-        points: 0,
-        reTest: false,
-        newItem: false,
-        testCaseResponse: '',
-        selectedResponse: '',
-        responseStatus: ''
-    },
-    questionInstance: {
-        questionID: 0,
-        responseID: 0,
-        testDriveID: 0,
-        title: 'string',
-        questionType: '',
-        options: [],
-        isInEditMode: false,
-        newItem: false,
-        responseStatus: '',
-        questionResponse: '',
-        selectedResponse: '',
-        userID: 0
-    },
     loading: true,
-    activeTab: '1',
-    configurationLoaded: false,
-    configurations: {
-        testCasePoints: 10,
-        fieldDescription: {},
-        testDriveLevelsConfig: {}
-    }
 };
 
 export default handleActions<IState, any>({
@@ -105,13 +65,19 @@ export default handleActions<IState, any>({
     [CREATE_TestDriveInstance_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            loading: true
+            loading: false
         }
     },
     [CREATE_TestDriveInstance_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            testDriveInstance: action.payload,
+            testDriveInstance: {
+                ...state.testDriveInstance,
+                testCases: state.testDriveInstance.testCases.map(testCase => {
+                    return testCase.testCaseId == action.payload.testCaseId ? 
+                        action.payload : testCase;
+                })
+            },
             loading: false
         }
     },
