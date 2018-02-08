@@ -24,8 +24,18 @@ interface QuestionFormProps {
 class QuestionForm extends React.Component<QuestionFormProps> {
     constructor(props, context) {
         super(props, context);
+        this.onChangeSeletedResponseChange = this.onChangeSeletedResponseChange.bind(this);
+
+        this.props.updateUI({
+            questionResponse: this.props.question.questionResponse,
+            selectedResponse: this.props.question.selectedResponse
+        });
     }
-    onChange(value) {
+
+    onChange(e){
+        this.props.updateUI({[e.target.name] : e.target.value});
+    }
+    onChangeSeletedResponseChange(value) {
         this.props.updateUI({ selectedResponse: value });
     }
     saveQuestionResponse(question: QuestionInstance) {
@@ -68,7 +78,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                     clearable={true}
                                     name="selectedResponse"
                                     value={ui.selectedResponse}
-                                    onChange={(value) => this.onChange(value)}
+                                    onChange={(value) => this.onChangeSeletedResponseChange(value)}
                                     rtl={false}
                                     searchable={false}
                                 />
@@ -79,7 +89,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                     <div className="col-md-12 comment_box ">
                                         <i className="material-icons pull-right ">camera_enhance</i>
                                         <textarea className="inputMaterial form-control"
-                                            onChange={(e: any) => this.onChange(e)}
+                                            onChange={(e) => this.onChange(e)}
                                             name="questionResponse"
                                             value={ui.questionResponse}
                                             required />

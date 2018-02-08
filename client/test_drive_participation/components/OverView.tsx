@@ -1,54 +1,58 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
-
+import { TestDriveInstance } from '../../test_drive_participation/model';
+import Services from '../../common/services/services';
 interface OverViewProps {
-
+    testDriveInstance: TestDriveInstance; 
 };
 class OverView extends React.Component<OverViewProps> {
     constructor(props, context) {
         super(props, context);
     }
     render() {
+        const {testDriveInstance} = this.props;
         return (<div className="row overview ">
             <div className="container ">
                 <div className="col-md-10 col-md-offset-1 ">
                     <div className="col-md-3 ">
                         <div className="row ">
                             <div className="col-md-12 ">
-                                <p><span className="orange "><i>1</i></span> of 8</p>
+                                <p><span className="orange "><i>
+                                {testDriveInstance.numberOfTestCasesCompleted}</i></span> of {testDriveInstance.testCases.length}
+                                </p>
                             </div>
                             <div className="col-md-12 ">
-                                <h4 className="testcase_title ">Test case completed</h4>
+                                <h4 className="testcase_title ">TEST CASES COMPLETED</h4>
                             </div>
                         </div>
                     </div>
                     <div className="col-md-3 ">
                         <div className="row ">
                             <div className="col-md-12 ">
-                                <p><span className="orange "><i>1</i></span> of 8</p>
+                                <p><span className="orange "><i>{testDriveInstance.currentPoint}</i></span> of {testDriveInstance.maxPoints}</p>
                             </div>
                             <div className="col-md-12 ">
-                                <h4 className="testcase_title ">Test case completed</h4>
+                                <h4 className="testcase_title ">POINTS EARNED FOR TEST CASES</h4>
                             </div>
                         </div>
                     </div>
                     <div className="col-md-3 ">
                         <div className="row ">
                             <div className="col-md-12 testcase_title ">
-                                <p className="inactive ">Mar 13, 2018</p>
+                                <p className="inactive ">{Services.formatDate(testDriveInstance.startDate)}</p>
                             </div>
                             <div className="col-md-12 ">
-                                <h4 className="testcase_title ">Test drive end date</h4>
+                                <h4 className="testcase_title ">TEST DRIVE START DATE</h4>
                             </div>
                         </div>
                     </div>
                     <div className="col-md-3 ">
                         <div className="row ">
                             <div className="col-md-12 ">
-                                <p>Mar 13, 2018</p>
+                                <p>{Services.formatDate(testDriveInstance.endDate)}</p>
                             </div>
                             <div className="col-md-12 ">
-                                <h4 className="testcase_title ">Test drive end date</h4>
+                                <h4 className="testcase_title ">TEST DRIVE END DATE</h4>
                             </div>
                         </div>
                     </div>

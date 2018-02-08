@@ -8,6 +8,7 @@ import Overview from './OverView';
 import Survey from './Survey';
 import TestDriveInfo from './TestDriveInfo';
 import * as $ from 'jquery';
+import * as Constants from '../../common/services/constants';
 
 interface TestDriveParticipationProps {
     testDriveInstance: TestDriveInstance;
@@ -86,16 +87,25 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                             </div >
                         </div >
                     </div >
-                    <div className="testcase_no ">
+                    <div className="testcase_no " id="test_Cases">
                         <ul className="task_circle ">
-                            <li data-target="#carousel-example-vertical " data-slide-to="0 " className="active ">
-                                <p> 1. <img src="images/empty.png " className="img-responsive " /></p>
-                            </li>
+                            {
+                                testDriveInstance.testCases && testDriveInstance.testCases.length &&
+                                testDriveInstance.testCases.map((testCase, index) => {
+                                    return (<li data-target="#carousel-example-vertical " data-slide-to={index} className="active">
+                                        <p> {index + 1}. {testCase.responseStatus == Constants.ColumnsValues.DRAFT &&
+                                            <img src={Constants.Globals.IMAGE_BASE_URL + "/empty.png"} className="img-responsive" />}
+                                            {testCase.responseStatus == Constants.ColumnsValues.COMPLETE_STATUS &&
+                                            <img src={Constants.Globals.IMAGE_BASE_URL + "/done.png"} className="img-responsive" />}
+                                        </p>
+                                    </li>)
+                                })
+                            }
                         </ul>
                     </div>
                 </div>
             </div>
-            <Overview />
+            <Overview testDriveInstance={testDriveInstance} />
         </div>)
     }
 }

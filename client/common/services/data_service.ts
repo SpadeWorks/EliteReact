@@ -63,22 +63,23 @@ export class Services {
 
     static createOrSaveQuestionInstance(questionInstance: QuestionInstance) {
         return new Promise((resolve, reject) => {
-            Services.createOrUpdateListItemsInBatch(Constants.Lists.TEST_DRIVE_INSTANCES, [{
-                [Constants.Columns.ID]: questionInstance.responseID,
-                [Constants.Columns.TEST_DRIVE_ID]: questionInstance.testDriveID,
-                [Constants.Columns.QUESTION_ID]: questionInstance.questionID,
+            Services.createOrUpdateListItemsInBatch(Constants.Lists.SURVEY_RESPONSES, [{
+                [Constants.Columns.ID]: questionInstance.responseID || -1,
+                [Constants.Columns.TEST_DRIVE_ID + '_id']: questionInstance.testDriveID,
+                [Constants.Columns.QUESTION_ID + '_id']: questionInstance.questionID,
                 [Constants.Columns.STATUS]: questionInstance.responseStatus,
-                [Constants.Columns.USER_ID]: questionInstance.userID,
+                [Constants.Columns.USER_ID + '_id']: questionInstance.userID,
                 [Constants.Columns.SURVEY_RESPONSE]: questionInstance.questionResponse,
                 [Constants.Columns.Selected_Response]: questionInstance.selectedResponse
-            }]).then((newResponse: any) => {
+            }]).then((newResponses: any) => {
+                const newResponse = newResponses[0];
                 resolve(<QuestionInstance>{
                     ...questionInstance,
                     responseID: newResponse.id,
-                    testDriveID: newResponse[Constants.Columns.TEST_DRIVE_ID],
-                    questionID: newResponse[Constants.Columns.QUESTION_ID],
+                    testDriveID: newResponse[Constants.Columns.TEST_DRIVE_ID + '_id'],
+                    questionID: newResponse[Constants.Columns.QUESTION_ID + '_id'],
                     responseStatus: newResponse[Constants.Columns.STATUS],
-                    userID: newResponse[Constants.Columns.USER_ID],
+                    userID: newResponse[Constants.Columns.USER_ID + '_id'],
                     response: newResponse[Constants.Columns.SURVEY_RESPONSE],
                     selectedResponse: newResponse[Constants.Columns.Selected_Response]
                 });
@@ -208,13 +209,15 @@ export class Services {
                         let questionsArray: QuestionInstance[] = [];
                         questions.map(question => {
                             let response = questionResponses.filter(response => {
-                                return response[Constants.Columns.QUESTION_ID] == question.id;
+                                return response[Constants.Columns.QUESTION_ID][Constants.Columns.ID] == question.id;
                             })
+                            response = response[0];
                             questionsArray.push({
                                 ...question,
-                                responseStatus: response[Constants.Columns.STATUS],
-                                response: response[Constants.Columns.SURVEY_RESPONSE],
-                                selectedResponse: response[Constants.Columns.Selected_Response],
+                                responseID: response ? response.id : -1,
+                                responseStatus: response ? response[Constants.Columns.STATUS] : Constants.ColumnsValues.DRAFT,
+                                response: response ? response[Constants.Columns.SURVEY_RESPONSE] : '',
+                                selectedResponse: response ? response[Constants.Columns.Selected_Response] : '',
                                 testDriveID: testDriveID,
                                 questionID: question.id,
                                 options: question.options,
