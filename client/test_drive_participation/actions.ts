@@ -5,7 +5,10 @@ import Services from '../common/services/services';
 
 import {
   LOAD_TestDriveInstanceByID,
-  CREATE_TestDriveInstance
+  LOAD_Questions,
+  CREATE_TestDriveInstance,
+  CREATE_QuestionInstance,
+  CREATE_TestCaseInstance
 
 } from './constants/ActionTypes';
 
@@ -16,24 +19,32 @@ const loadTestDriveInstanceByID = createAction<any, number, number>(
   (testDriveId: number, userID: number) => Services.getTestDriveInstance(testDriveId, userID)
 )
 
+const loadQuestions = createAction<any, number, number[], number>(
+  LOAD_Questions,
+  (testDriveID: number, questionIDs: number[], userID: number) => 
+    Services.getSurveyQuestionWithResponses(testDriveID, questionIDs, userID)
+)
+
 const createOrSaveTestDriveInstance = createAction<any, TestDriveInstance>(
   CREATE_TestDriveInstance,
   (testDriveInstance: TestDriveInstance) => Services.createOrSaveTestDriveInstance(testDriveInstance)
 )
 
 const createOrSaveQuestionInstance = createAction<any, QuestionInstance>(
-  CREATE_TestDriveInstance,
+  CREATE_QuestionInstance,
   (QuestionInstance: QuestionInstance) => Services.createOrSaveQuestionInstance(QuestionInstance)
 )
 
 
-const createOrSaveTestCaseInstance = createAction<any, TestCaseInstance>(
-  CREATE_TestDriveInstance,
-  (testCaseInstance: TestCaseInstance) => Services.createOrSaveTestCaseInstance(testCaseInstance)
+const createOrSaveTestCaseInstance = createAction<any, TestCaseInstance, TestDriveInstance>(
+  CREATE_TestCaseInstance,
+  (testCaseInstance: TestCaseInstance, testDriveInstance: TestDriveInstance) => 
+    Services.createOrSaveTestCaseInstance(testCaseInstance, testDriveInstance)
 )
 
 export {
   loadTestDriveInstanceByID,
+  loadQuestions,
   createOrSaveTestDriveInstance,
   createOrSaveQuestionInstance,
   createOrSaveTestCaseInstance

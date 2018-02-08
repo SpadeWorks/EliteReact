@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
-import { TestCaseInstance } from '../../test_drive_participation/model';
-import { ColumnsValues } from '../../common/services/constants';
+import { TestCaseInstance, TestDriveInstance } from '../../test_drive_participation/model';
+import * as Constants from '../../common/services/constants';
 import ui from 'redux-ui';
+import Services from '../../common/services/services';
+
 interface TestCaseFormProps {
+    testDriveInstance: TestDriveInstance 
     testCase: TestCaseInstance;
     active: boolean;
-    saveTestCaseResponse: (testCase: TestCaseInstance) => any;
+    saveTestCaseResponse: (testCase: TestCaseInstance, testdrive: TestDriveInstance) => any;
     updateUI: (any) => any;
     ui: any;
 };
@@ -30,22 +33,25 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         this.props.updateUI({ testCaseResponse: e.target.value });
     }
     saveTestCaseResponse(testCase: TestCaseInstance) {
+        let testDrive = this.props.testDriveInstance;
         testCase = {
             ...testCase,
-            responseStatus: ColumnsValues.DRAFT,
+            newItem: false,
+            responseStatus: Constants.ColumnsValues.DRAFT,
             testCaseResponse: this.props.ui.testCaseResponse,
             selectedResponse: this.props.ui.selectedResponse
         }
-        this.props.saveTestCaseResponse(testCase);
+        this.props.saveTestCaseResponse(testCase, testDrive);
     }
     submitTestCaseResponse(testCase: TestCaseInstance) {
         testCase = {
             ...testCase,
-            responseStatus: ColumnsValues.COMPLETE_STATUS,
+            newItem: testCase.responseStatus == Constants.ColumnsValues.DRAFT,
+            responseStatus: Constants.ColumnsValues.COMPLETE_STATUS,
             testCaseResponse: this.props.ui.testCaseResponse,
             selectedResponse: this.props.ui.selectedResponse
         }
-        this.props.saveTestCaseResponse(testCase);
+        this.props.saveTestCaseResponse(testCase, this.props.testDriveInstance);
     }
     render() {
         const { testCase, active, saveTestCaseResponse, ui, updateUI } = this.props;
@@ -94,7 +100,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                 </div>
                                 <div className="test-case-btn-controls">
                                     {
-                                        testCase.responseStatus != ColumnsValues.COMPLETE_STATUS &&
+                                        testCase.responseStatus != Constants.ColumnsValues.COMPLETE_STATUS &&
                                         <input type="button" value="Save" onClick={() => this.saveTestCaseResponse(testCase)} />
                                     }
                                     <input type="button" value="Submit" onClick={() => this.submitTestCaseResponse(testCase)} />
