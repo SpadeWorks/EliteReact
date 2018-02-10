@@ -298,7 +298,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             </span>
                     </div>
                     <div className="col-md-12">
-                        <h5>Allowed Regions:</h5>
+                        <label>Allowed Regions:</label>
                         <Select.Async multi={true}
                             value={testDrive.region}
                             onChange={this.regionChange}
@@ -311,7 +311,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 {fieldDescriptions  && fieldDescriptions.TestDriveRegion}
                             </span>
                         <br></br>
-                        <h5>Allowed Locations:</h5>
+                        <label>Allowed Locations:</label>
                         <Select.Async multi={true}
                             value={testDrive.location}
                             onChange={this.locationChange}
@@ -325,7 +325,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             </span>
 
                         <br></br>
-                        <h5>Required Devices:</h5>
+                         <label>Required Devices: </label>
                         <Select.Async multi={true}
                             value={testDrive.requiredDevices}
                             onChange={this.deviceChange}
@@ -339,7 +339,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             </span>
 
                         <br></br>
-                        <h5>Required OS:</h5>
+                         <label>Required OS: </label>
                         <Select.Async multi={true}
                             value={testDrive.requiredOs}
                             onChange={this.osChange}

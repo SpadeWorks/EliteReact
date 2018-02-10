@@ -144,6 +144,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
     }
 
     componentDidMount() {
+        
         this.updateInitialEditorValue("scenario");
         this.updateInitialEditorValue("expectedOutcome");
     }

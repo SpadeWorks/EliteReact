@@ -37,7 +37,7 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
           </Link>
         </div>
         <div className="col-md-12" style={{ overflow: "auto" }}>
-          <div className="col-md-12" style={{ height: "900px", background: "#020202de" }}>
+          <div className="col-md-12" style={{ height: "900px"}}>
             <div className="col-md-12 profile_box" style={{ height: "500px" }}>
               <div className="well count_box">
                 <ul className="nav nav-tabs">

@@ -156,6 +156,27 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
             if (!container.is(e.target) && container.has(e.target).length === 0) {
                 this.props.updateUI({ showDatePicker: false });
             }
+            
+                /* for car*/
+                $(".test_cases a").click(function(){
+                     $(".car").addClass("middle");
+
+                });
+
+                $(".servay a").click(function(){
+                    $(".car").removeClass("middle");   
+                    $(".car").addClass("last");
+
+                });
+
+                
+
+
+
+                
+                /*for car ends */
+
+
         });
     }
 
@@ -166,7 +187,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         }
         const format = 'dddd, D MMMM YYYY';
         return (
-
+          
             <form className="registration_form">
                 <div className="col-xs-12 form_box">
                     <div className="col-md-12 register_input">
