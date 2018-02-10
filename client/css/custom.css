@@ -10,6 +10,16 @@
     src: url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/TitilliumWeb-Regular.ttf");
 }
 
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot');
+  src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), 
+  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), 
+  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), 
+  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), 
+  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
 .starts-bg {
     font: 1em "HemiHeadRg-BoldItalic", Monospace;
     color: #fff;
@@ -2679,13 +2689,20 @@ fieldset[disabled] .btn {
 /*material design effect starts here*/
 
 .inputMaterial {
-    font-size: 18px;
+       font-size: 18px;
     padding: 0px 10px 10px 5px;
     display: block;
     width: 100%;
     border: none;
     border-bottom: 1px solid #575757;
     background: none;
+    height: 50px;
+}
+
+textarea.inputMaterial{
+ 
+    font-family:titanium;
+    padding-top:10px;
 }
 
 .inputMaterial:focus {
@@ -2702,7 +2719,7 @@ label {
     position: absolute;
     pointer-events: none;
     left: 11px;
-    top: 0px;
+    top: 15px;
     transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
@@ -2715,14 +2732,17 @@ label {
 
 .inputMaterial:focus~label,
 .inputMaterial:valid~label {
-    top: -20px;
+    top: -21px;
     font-size: 14px;
     color: red;
 }
 
+textarea.inputMaterial:focus{padding-top:20px; height:auto !important; overflow: inherit !important;}
+textarea.inputMaterial:focus~label{top: -21px; }
+
 .disc_lable {
     position: absolute;
-    top: -10px;
+    top: 15px;
 }
 
 
@@ -3183,18 +3203,17 @@ a.drive_name h4 {
 }
 
 .leader_rank span {
-    -webkit-transform: skewX(25deg) !important;
+   -webkit-transform: skewX(25deg) !important;
     color: white;
     position: absolute;
     box-sizing: border-box;
     -moz-transform: skewX(45deg);
     -ms-transform: skewX(45deg);
     -webkit-transform: skewX(45deg);
-    /* transform: skewX(45deg); */
-    left: 3px;
+    left: 6px;
     font-size: 23px;
     padding-left: 13px;
-    top: 6px;
+    top: 7px;
 }
 
 .leader_name {
@@ -3421,7 +3440,7 @@ width: 28px !important;
     border-radius: 50%;
     position: absolute;
     top: 12px;
-    right: 52px;
+    right: 36px;
     transition: all 0.5s;
 }
 
@@ -3457,14 +3476,14 @@ width: 28px !important;
     position: absolute;
     width: 400px;
     opacity: 00;
-    bottom: -320px;
+    bottom: 0px;
     background: #060612;
     /*top: -140px;*/
     float: left;
     transition: all 0.5s;
     z-index: 102;
     border: solid 1px#fff;
-    display: none;
+    /*display: none;*/
 }
 
 .letest_driveboxclick2 {
@@ -3480,13 +3499,13 @@ width: 28px !important;
 
 .letest_driveboxclick_right {
     position: absolute;
-    right: 440px;
+    right: 356px;
     display: block;
     transition: 0.5s;
     width: 450px;
     opacity: 1;
     z-index: 198;
-    bottom: -320px;
+    bottom: 0px;
     display: block;
 }
 
@@ -3561,29 +3580,29 @@ width: 28px !important;
 }
 
 .letest_drivebox {
-    left: 350px;
+    left: 300px;
     position: absolute;
     opacity: 00;
     transition: all 0.9s;
     /*height: 500px;*/
     background: #060612;
     position: absolute;
-    bottom: -250px;
+    bottom: -300px;
     width: 400px;
     z-index: 102;
     border: solid 1px#fff;
-    display: none;
+    /*display: none;*/
 }
 
 .letest_driveboxclick {
     position: absolute;
-    left: 455px;
+    left: 370px;
     display: block;
     transition: 0.5s;
     width: 450px;
     opacity: 1;
     z-index: 111;
-    bottom: -250px;
+    bottom: -300px;
     display: block;
 }
 
@@ -3761,8 +3780,9 @@ span.testd_count {
 }
 
 .orange {
-    font-size: 14px;
+    font-size: 12px;
     color: #ff8d00;
+    letter-spacing: 1px;
 }
 
 .ride_box {
@@ -3841,7 +3861,7 @@ span.testd_count {
     width: 94%;
     border: solid 1px #fff;
     transform: skewX(-21deg);
-    height: 74px;
+    height: 85px;
     background: none;
     border: solid 1px #fff;
     background: #0000008a;
@@ -3861,7 +3881,7 @@ span.testd_count {
 .leader_namenphoto,
 .leader_car {
     float: left;
-    -webkit-transform: skewX(27deg) !important;
+    -webkit-transform: skewX(20deg) !important;
     color: white;
     box-sizing: border-box;
     -moz-transform: skewX(45deg);
@@ -3871,6 +3891,7 @@ span.testd_count {
     left: 0px;
     /* padding-left: 13px; */
     padding-top: 5px;
+    padding-left: 50px;
 }
 
 .leader_namenphoto img {
@@ -3881,6 +3902,7 @@ span.testd_count {
 .drive_status {
     height: 40px;
     float: left;
+    margin-top: 6px;
 }
 
 .point_box span.orange {
@@ -4182,13 +4204,14 @@ label.rdw-image-modal-upload-option-label {
     display: table !important;
     border-spacing: 0 !important;
     border-collapse: separate !important;
-    height: 36px !important;
+    height: 50px !important;
     outline: none !important;
     overflow: hidden !important;
     position: relative !important;
     width: 100% !important;
     border-bottom: 1px solid #575757 !important;
     outline: none !important;
+    font-family: titanium;
 }
 
 .Select--multi .Select-value {
@@ -4250,10 +4273,14 @@ input#form-control.date_box {
 }
 
 input.inputMaterial {
-    background: transparent !important;
+     background: transparent !important;
     border: none;
     color: white;
     border-bottom: 1px solid #575757 !important;
+    height: 50px;
+    padding-top: 15px;
+    font-family: titanium;
+    font-size: 16px;
 }
 
 .Select.is-focused:not(.is-open)>.Select-control {
@@ -4462,7 +4489,7 @@ span.teams:hover {
 .drive_completionbox h3 {
     margin-top: 10px;
     position: absolute;
-    top: 110px;
+    top: 87px;
     left: 58px;
     text-transform: uppercase !important;
 }
@@ -4611,20 +4638,20 @@ span.testd_count {
     width: 94%;
     border: solid 1px #fff;
     transform: skewX(-21deg);
-    height: 74px;
+    height: 85px;
     background: none;
     border: solid 1px #fff;
     background: #0000008a;
 }
 
 .leader_listbox .leader_rank {
-    width: 4%;
+    width: 5%;
     float: left;
-    height: 43px;
+    height: 65px;
     background: #ed1b24;
     transform: skewX(-20deg);
     position: relative;
-    left: 10px;
+    left: 23px;
     z-index: 99;
 }
 
@@ -4970,7 +4997,7 @@ span.teams:hover {
 
 .profile_box img {
     float: left;
-    margin-right: 40px;
+    margin-right: 15px;
 }
 
 .profile_box h2 {
@@ -5205,6 +5232,12 @@ li.active-thumbnail {
     font-size: 14px;
     color: red;
 }
+input.inputMaterial:focus~label {
+    top: 3px;
+    font-size: 14px;
+    color: red;
+}
+
 
 .editpro_box .inputMaterial {
     font-size: 18px;
@@ -5303,10 +5336,10 @@ h1#dialogTitleSpan {
 
 .testdrivedetails_box .earn_box h3,
 .drive_completionbox h3 {
-    margin-top: 10px;
+      margin-top: 10px;
     position: absolute;
-    top: 50px;
-    left: 45px;
+    top: 110px;
+    left: 55px;
     text-transform: uppercase !important;
 }
 
@@ -5317,7 +5350,7 @@ h1#dialogTitleSpan {
 .earn_box span.small,
 .drive_completionbox span.small {
     position: absolute;
-    top: 154px;
+   
     left: 31px;
     font-family: titanium;
     font-size: 15px;
@@ -5768,7 +5801,7 @@ animation-delay: 10s;
 }
 
 .leader_car img {
-    max-width: 200px;
+    max-width: 150px;
     max-height: 65px;
 }
 
@@ -5789,3 +5822,142 @@ animation-delay: 10s;
 }
 
 /* Fix for home page ends here */
+
+
+
+/*added by shreyas after 8Feb//////////////////////////////////////*/
+
+canvas#myDriveCanvasPoints1 {
+    margin-top: 25px;
+}
+
+canvas#myDriveCanvasDrive1 {
+    margin-top: 25px;
+}
+
+
+.Select.Select--single.is-clearable.is-searchable.has-value {
+    z-index: 1000;
+}
+
+.rdr-DateRange {
+    background: none !important;
+}
+.rdr-Calendar {
+    background: #000 !important;
+    color: #fff !important;
+    padding: 10px;
+}
+
+button.rdr-MonthAndYear-button.prev,button.rdr-MonthAndYear-button.next{background:#f6981e !important;}
+span.rdr-Day.is-selected {
+    background: #f6981e !important;
+    color: #000 !important;
+}
+
+
+span.help-text {
+    font-family: titanium;
+    color: #f6981e;
+}
+
+.Select--multi .Select-value-icon{float: right;border:none!important;font-size:18px!important;}
+.Select--multi .Select-value-icon:hover, .Select--multi .Select-value-icon:focus {
+    background-color: #d8eafd;
+    background-color: rgba(0, 113, 230, 0.08);
+    color: #f6981e !important;
+    background: none !important;
+    font-size: 18px !important;
+}
+.input-number {
+    margin-top: 40px;
+    padding-top: 10px;
+}
+
+
+
+
+input.type1 {
+    color: #f4313f;
+}
+
+input.type1.type1::after,
+.button.type1.type1::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 10%;
+    height: 30%;
+    transition: all 0.6s ease;
+    border-radius: 2px;
+}
+
+input.type1.type1::after {
+    bottom: 0;
+    right: 0;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: #00f8bc;
+    border-right-color: #00f8bc;
+}
+
+input.type1.type1::before {
+    top: 0;
+    left: 0;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    border-top-color: #00f8bc;
+    border-left-color: #00f8bc;
+}
+
+input.type1.type1:hover:after,
+input.type1.type1:hover:before {
+    width: 100%;
+    height: 100%;
+}
+
+.pagination>.active>a,.pagination>.active>a:focus, 
+.pagination>.active>a:hover,.pagination>.active>span, 
+.pagination>.active>span:focus,.pagination>.active>span:hover{
+background: none !important;
+color:red;
+border:none;
+}
+
+.pagination>li>a:focus, 
+.pagination>li>a:hover, 
+.pagination>li>span:focus, 
+.pagination>li>span:hover
+{
+color:red;
+background: none;
+border: none;
+}
+
+.pagination>li>a, .pagination>li>span{background: none;border:none; font-size: 15px;color: #bfbfbf;}
+
+.pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, 
+.pagination>.disabled>span, 
+.pagination>.disabled>span:focus, 
+.pagination>.disabled>span:hover
+{display: none;}
+
+.leader_namenphoto h4{padding-top:20px;}
+
+img.leader-image {
+    border: solid 1px #676767;
+    margin-top: 15px;
+}
+
+h2.header_prevlink{color:#fff;}
+a:focus, a:hover {
+text-decoration:none !important;
+}
+
+.header_part span {
+    font-size: 22px;
+}
+
+.leader_car{padding-top: 10px;}
+
+.read_morelink{color:red;}

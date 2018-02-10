@@ -28,7 +28,7 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
             testDriveThatIRunLoading,
         } = this.props;
 
-        return (<div className="col-md-4 black_box black_box_left pull-left">
+        return (<div className="col-md-3 black_box black_box_left pull-left">
             <div className="row">
                 <div className="well">
                     <ul className="nav nav-tabs">
@@ -52,7 +52,7 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                         })
                                     }
                                     {(!myTestDriveLoading) && mytestDrive.length == 0 && <p>You have not participated in any test dirve yet.</p>}
-                                    <Link className="pull-right" to={"/testdrives/mytestDrive"}>
+                                    <Link className="read_morelink" to={"/testdrives/mytestDrive"}>
                                         MORE >>
                                     </Link>
                                 </div>

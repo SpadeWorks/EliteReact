@@ -30,14 +30,14 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
     const { dispatch, globalLeaderBoard, regionalLeaderBoard, ui, updateUI } = this.props;
     return (<div className="col-md-12">
       <div className="row">
-        <div className="container">
+        <div className="container header_part">
           <Link to={"/"} >
-            <h2>
-              <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span> My Profile</h2>
+            <h2 className="header_prevlink">
+             <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Leaderboard</h2>
           </Link>
         </div>
         <div className="col-md-12" style={{ overflow: "auto" }}>
-          <div className="col-md-12" style={{ height: "900px", background: "#020202de" }}>
+          <div className="col-md-12" style={{ height: "900px"}}>
             <div className="col-md-12 profile_box" style={{ height: "500px" }}>
               <div className="well count_box">
                 <ul className="nav nav-tabs">

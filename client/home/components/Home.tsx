@@ -115,7 +115,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                         <h2><img src="http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/logo.png" className="img-responsive" /> </h2>
                     </div>
                     <div className="col-md-12">
-                        <div className="col-md-12 location_box">
+                        <div className="col-md-12">
                             <Navigation />
                             <LeaderBoard updateUI={updateUI}
                                 ui={ui}
