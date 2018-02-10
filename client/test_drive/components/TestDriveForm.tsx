@@ -6,7 +6,7 @@ import { DateRange, Calendar } from 'react-date-range';
 import { TestDrive, IState } from '../model';
 import Service from '../../common/services/services';
 import * as $ from 'jquery';
-import { validateControl, required } from '../../common/components/Validations';
+import { validateControl, required, validateForm} from '../../common/components/Validations';
 import { updateDate } from '../index';
 
 interface TestDriveFormProps {
@@ -194,6 +194,17 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         });
     }
 
+    onSave(testDrive){
+        var isFormValid = validateForm();
+
+        if(isFormValid){
+            this.props.saveTestDrive(testDrive);
+        }
+        else{
+            alert('There are some errors in the form. Please correct them and Save again.')
+        }  
+    }
+
     render() {
         const { testDrive, saveTestDrive, submitTestDrive, updateMultiSelect, ui, updateUI, fieldDescriptions } = this.props;
         const butttonGroup = {
@@ -348,6 +359,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         </span>
                         <br></br>
                         <h5>Allowed Locations:</h5>
+                        <div data-container-name="location" data-validations={[required]} >
                         <Select.Async multi={true}
                             value={testDrive.location}
                             onChange={this.locationChange}
@@ -358,6 +370,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             name="location"
                             data-validations={[required]}
                         />
+                        </div>
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.TestDriveLocation}
                         </span>
@@ -414,7 +427,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         <div style={butttonGroup}>
                             <input type="button" value="Next" className="button type1 nextBtn btn-lg pull-right" />
                             <input type="button" value="Save" className="button type1 nextBtn btn-lg pull-right"
-                                onClick={() => { saveTestDrive(testDrive) }} />
+                                onClick={() => { this.onSave(testDrive) }} />
 
                         </div>
                     </div>
