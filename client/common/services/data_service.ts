@@ -493,7 +493,7 @@ export class Services {
 
     static getConfigurations() {
         return new Promise((resolve, reject) => {
-            let cachedConfig = Cache.getCache(Constants.CacheKeys.CONFIGURATIONS);
+            let cachedConfig = false && Cache.getCache(Constants.CacheKeys.CONFIGURATIONS);
             if (cachedConfig) {
                 resolve(cachedConfig);
             } else {

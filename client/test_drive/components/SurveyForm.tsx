@@ -3,6 +3,7 @@ import { TestDrive, IState, Question } from '../model';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import ui from 'redux-ui';
+import * as Constants from '../../common/services/constants';
 
 interface SurveyFormProps {
     question: Question,
@@ -12,6 +13,7 @@ interface SurveyFormProps {
     onChange: (event: any, question: Question) => any;
     updateUI: (any) => any;
     ui: any;
+    fieldDescriptions: any;
 };
 
 @ui({
@@ -70,7 +72,7 @@ class SurveyForm extends React.Component<SurveyFormProps> {
     }
 
     render() {
-        const { question, editQuestion, saveQuestion, deleteQuestion, ui } = this.props;
+        const { question, editQuestion, saveQuestion, deleteQuestion, ui, fieldDescriptions } = this.props;
         question.isInEditMode = question.isInEditMode === undefined ? false : question.isInEditMode;
         const checkBoxStyle = {
             color: "green"
@@ -124,9 +126,12 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                                 <span className="highlight"></span>
                                 <span className="bar"></span>
                                 <label>Test drive title</label>
+                                <span className="help-text">
+                                    {fieldDescriptions && fieldDescriptions[Constants.Columns.TITLE]}
+                                </span>
                             </div>
 
-                            
+
                             <div className="col-md-12">
                                 <h5>Question Type:</h5>
                                 <Select
@@ -143,16 +148,22 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                                     rtl={false}
                                     searchable={false}
                                 />
+                                <span className="help-text">
+                                    {fieldDescriptions && fieldDescriptions[Constants.Columns.RESPONSETYPE]}
+                                </span>
 
                                 <br></br>
-                                { question.questionType === "Objective" && <div>
-                                <h5>Please Select the Choices or add new choices.</h5>
-                                <Select.Creatable
-                                    multi={true}
-                                    options={this.answers}
-                                    onChange={this.updateQuestionOptions}
-                                    value={question.options}
-                                />
+                                {question.questionType === "Objective" && <div>
+                                    <h5>Please Select the Choices or add new choices.</h5>
+                                    <Select.Creatable
+                                        multi={true}
+                                        options={this.answers}
+                                        onChange={this.updateQuestionOptions}
+                                        value={question.options}
+                                    />
+                                    <span className="help-text">
+                                        {fieldDescriptions && fieldDescriptions[Constants.Columns.RESPONSES]}
+                                    </span>
                                 </div>}
                             </div>
                         </form>

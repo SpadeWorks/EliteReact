@@ -22,6 +22,7 @@ interface TestCasesProps {
     onChange: (event: any, TestCase: TestCase) => any;
     saveTestDrive: (testDrive: TestDrive) => any;
     loadTestCases: (testCasesIds: number[]) => any
+    fieldDescriptions: any;
     testDrive: TestDrive;
     updateUI: (any) => any;
     ui: any;
@@ -58,7 +59,8 @@ class TestCases extends React.Component<TestCasesProps> {
             addTestCase,
             saveTestDrive,
             ui,
-            updateUI
+            updateUI,
+            fieldDescriptions,
         } = this.props;
         return (
             <div className="test-case-container col-xs-12">
@@ -78,6 +80,7 @@ class TestCases extends React.Component<TestCasesProps> {
                                 key={testCase.id}
                                 ui={ui}
                                 updateUI={updateUI}
+                                fieldDescriptions={fieldDescriptions}
                             />
                         })
                     }

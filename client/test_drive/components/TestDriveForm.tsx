@@ -6,7 +6,7 @@ import { DateRange, Calendar } from 'react-date-range';
 import { TestDrive, IState } from '../model';
 import Service from '../../common/services/services';
 import * as $ from 'jquery';
-
+import { validateControl, required } from '../../common/components/Validations';
 import { updateDate } from '../index';
 
 interface TestDriveFormProps {
@@ -48,6 +48,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
 
     onChange = (e) => {
         this.props.onChange(e, this.props.testDrive);
+        validateControl(e);
     }
 
     regionChange = (value) => {
@@ -150,6 +151,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     }
 
     componentDidMount() {
+        document.body.className = "black-bg";
         $(document).mouseup((e) => {
             var container = $(".date_box");
             // if the target of the click isn't the container nor a descendant of the container
@@ -160,7 +162,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     }
 
     render() {
-        const { testDrive, saveTestDrive, submitTestDrive, updateMultiSelect, ui, updateUI, fieldDescriptions} = this.props;
+        const { testDrive, saveTestDrive, submitTestDrive, updateMultiSelect, ui, updateUI, fieldDescriptions } = this.props;
         const butttonGroup = {
             float: 'right'
         }
@@ -172,10 +174,10 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                     <div className="col-md-12 register_input">
                         <input className="inputMaterial"
                             type="text"
-                            required
                             onChange={this.onChange}
                             name="title"
                             value={testDrive.title || ""}
+                            data-validations={[required]}
                         />
                         <span className="highlight"></span>
                         <span className="bar"></span>
@@ -190,12 +192,13 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             onChange={this.onChange}
                             name="description"
                             value={testDrive.description || ""}
+                            data-validations={[required]}
                         />
                         <span className="highlight"></span>
                         <span className="bar"></span>
                         <label className="disc_lable">Description</label>
                         <span className="help-text">
-                            {fieldDescriptions  && fieldDescriptions.EliteDescription}
+                            {fieldDescriptions && fieldDescriptions.EliteDescription}
                         </span>
                     </div>
 
@@ -211,7 +214,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 readOnly
                             />
                             <span className="help-text">
-                                 {fieldDescriptions  && fieldDescriptions.TestDriveStartDate}
+                                {fieldDescriptions && fieldDescriptions.TestDriveStartDate}
                             </span>
                         </div>
                     </div>
@@ -227,10 +230,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 value={Service.formatDate(testDrive.endDate) || ''}
                                 onFocus={() => { updateUI({ showDatePicker: true }) }}
                                 readOnly
-
                             />
                             <span className="help-text">
-                                {fieldDescriptions  && fieldDescriptions.TestDriveEndDate}
+                                {fieldDescriptions && fieldDescriptions.TestDriveEndDate}
                             </span>
                         </div>
                     </div>
@@ -256,7 +258,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 readOnly
                             />
                             <span className="help-text">
-                                {fieldDescriptions  && fieldDescriptions.TotalPoints}
+                                {fieldDescriptions && fieldDescriptions.TotalPoints}
                             </span>
                         </div>
                     </div>
@@ -277,7 +279,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 searchable={false}
                             />
                             <span className="help-text">
-                                {fieldDescriptions  && fieldDescriptions.TotalPoints}
+                                {fieldDescriptions && fieldDescriptions.TotalPoints}
                             </span>
                         </div>
                     </div>
@@ -294,8 +296,8 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         <span className="bar"></span>
                         <label className="disc_lable">Expected Business Value</label>
                         <span className="help-text">
-                                {fieldDescriptions  && fieldDescriptions.ExpectedBusinessValue}
-                            </span>
+                            {fieldDescriptions && fieldDescriptions.ExpectedBusinessValue}
+                        </span>
                     </div>
                     <div className="col-md-12">
                         <h5>Allowed Regions:</h5>
@@ -308,8 +310,8 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             type="select-multiple"
                         />
                         <span className="help-text">
-                                {fieldDescriptions  && fieldDescriptions.TestDriveRegion}
-                            </span>
+                            {fieldDescriptions && fieldDescriptions.TestDriveRegion}
+                        </span>
                         <br></br>
                         <h5>Allowed Locations:</h5>
                         <Select.Async multi={true}
@@ -319,10 +321,11 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             labelKey="Label"
                             loadOptions={this.getLocations}
                             type="select-multiple"
+                            data-validations={[required]}
                         />
                         <span className="help-text">
-                                {fieldDescriptions  && fieldDescriptions.TestDriveLocation}
-                            </span>
+                            {fieldDescriptions && fieldDescriptions.TestDriveLocation}
+                        </span>
 
                         <br></br>
                         <h5>Required Devices:</h5>
@@ -333,10 +336,11 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             labelKey="Label"
                             loadOptions={this.getDevices}
                             type="select-multiple"
+                            data-validations={[required]}
                         />
                         <span className="help-text">
-                                {fieldDescriptions  && fieldDescriptions.AvailableDevices}
-                            </span>
+                            {fieldDescriptions && fieldDescriptions.AvailableDevices}
+                        </span>
 
                         <br></br>
                         <h5>Required OS:</h5>
@@ -347,10 +351,11 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             labelKey="Label"
                             loadOptions={this.getOSes}
                             type="select-multiple"
+                            data-validations={[required]}
                         />
                         <span className="help-text">
-                                {fieldDescriptions  && fieldDescriptions.AvailableOS}
-                            </span>
+                            {fieldDescriptions && fieldDescriptions.AvailableOS}
+                        </span>
                     </div>
                     <br></br>
                     <div className="col-md-12 register_input input-number" >
@@ -359,13 +364,14 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             onChange={this.onChange}
                             name="maxTestDrivers"
                             value={testDrive.maxTestDrivers || ""}
+                            data-validations={[required]}
                         />
                         <span className="highlight"></span>
                         <span className="bar"></span>
                         <label>Maximum allowed test drivers.</label>
                         <span className="help-text">
-                                {fieldDescriptions  && fieldDescriptions.MaxTestDrivers}
-                            </span>
+                            {fieldDescriptions && fieldDescriptions.MaxTestDrivers}
+                        </span>
                     </div>
                     <div className="col-md-12">
                         <div style={butttonGroup}>
