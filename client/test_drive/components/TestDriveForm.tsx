@@ -52,25 +52,58 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     }
 
     regionChange = (value) => {
+        var e = {
+            target: {
+                type: 'custom-select',
+                name: 'region',
+                value: value
+            }
+        };
+        validateControl(e);
+
         this.props.updateMultiSelect(value, "region", this.props.testDrive);
     }
 
     locationChange = (value) => {
+        var e = {
+            target: {
+                type: 'custom-select',
+                name: 'location',
+                value: value
+            }
+        };
+        validateControl(e);
         this.props.updateMultiSelect(value, "location", this.props.testDrive);
     }
 
     deviceChange = (value) => {
+        var e = {
+            target: {
+                type: 'custom-select',
+                name: 'requiredDevices',
+                value: value
+            }
+        };
+        validateControl(e);
         this.props.updateMultiSelect(value, "requiredDevices", this.props.testDrive);
     }
 
     osChange = (value) => {
+        var e = {
+            target: {
+                type: 'custom-select',
+                name: 'requiredOs',
+                value: value
+            }
+        };
+        validateControl(e);
         this.props.updateMultiSelect(value, "requiredOs", this.props.testDrive);
     }
 
     updateLevel(value) {
-        let e = {
+        var e = {
             target: {
-                type: 'custom-select',
+                type: 'select',
                 name: 'level',
                 value: value
             }
@@ -306,6 +339,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             onChange={this.regionChange}
                             valueKey="TermGuid"
                             labelKey="Label"
+                            name="region"
                             loadOptions={this.getRegions}
                             type="select-multiple"
                         />
@@ -321,6 +355,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             labelKey="Label"
                             loadOptions={this.getLocations}
                             type="select-multiple"
+                            name="location"
                             data-validations={[required]}
                         />
                         <span className="help-text">
@@ -336,6 +371,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             labelKey="Label"
                             loadOptions={this.getDevices}
                             type="select-multiple"
+                            name="requiredDevices"
                             data-validations={[required]}
                         />
                         <span className="help-text">
@@ -351,6 +387,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             labelKey="Label"
                             loadOptions={this.getOSes}
                             type="select-multiple"
+                            name="requiredOs"
                             data-validations={[required]}
                         />
                         <span className="help-text">

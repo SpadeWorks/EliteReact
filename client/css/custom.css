@@ -5784,4 +5784,8 @@ animation-delay: 10s;
     height: 50px !important;
 }
 
+.error-lable{
+    color: red;
+}
+
 /* Fix for home page ends here */
