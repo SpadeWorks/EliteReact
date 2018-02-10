@@ -11,6 +11,8 @@ import { TestDrive, IState, TestCase } from '../model';
 import { Services } from '../../common/services/data_service';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import { unemojify } from "node-emoji";
+import * as Constants from '../../common/services/constants';
+
 interface TestCaseFormProps {
     testCase: TestCase,
     deleteTestCase: (id: number) => any;
@@ -20,6 +22,7 @@ interface TestCaseFormProps {
     updateMaxPoints: () => any;
     updateUI: (any) => any;
     ui: any;
+    fieldDescriptions: any;
 };
 
 @ui({
@@ -150,7 +153,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
     }
 
     render() {
-        const { testCase, editTestCase, saveTestCase, deleteTestCase, ui, updateUI } = this.props;
+        const { testCase, editTestCase, saveTestCase, deleteTestCase, ui, updateUI, fieldDescriptions } = this.props;
         testCase.isInEditMode = testCase.isInEditMode === undefined ? false : testCase.isInEditMode;
         const checkBoxStyle = {
             color: "green"
@@ -204,6 +207,9 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                 <span className="highlight"></span>
                                 <span className="bar"></span>
                                 <label>Test drive title</label>
+                                <span className="help-text">
+                                    {fieldDescriptions && fieldDescriptions[Constants.Columns.TITLE]}
+                                </span>
                             </div>
                             <div className="col-md-12 register_input">
                                 <textarea className="inputMaterial"
@@ -214,6 +220,9 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                 <span className="highlight"></span>
                                 <span className="bar"></span>
                                 <label className="disc_lable">Description</label>
+                                <span className="help-text">
+                                    {fieldDescriptions && fieldDescriptions[Constants.Columns.ELITE_DESCRIPTION]}
+                                </span>
                             </div>
                             <h5>Test Case Type</h5>
                             <Select
@@ -230,6 +239,10 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                 rtl={false}
                                 searchable={false}
                             />
+                            <span className="help-text">
+                                {fieldDescriptions && fieldDescriptions[Constants.Columns.TYPE]}
+                            </span>
+
                             <h5>Scenario</h5>
                             <div id="scenario">
                                 {ui.scenario &&
@@ -250,6 +263,10 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                         }}
                                     />
                                 }
+                                <span className="help-text">
+                                    {fieldDescriptions && fieldDescriptions[Constants.Columns.SCENARIO]}
+                                </span>
+
                             </div>
                             <h5>Expected Outcome</h5>
                             <div id="expectedOutcome">
@@ -271,6 +288,9 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                         }}
                                     />
                                 }
+                                <span className="help-text">
+                                    {fieldDescriptions && fieldDescriptions[Constants.Columns.TEST_CASE_OUTCOME]}
+                                </span>
                             </div>
 
                         </form>

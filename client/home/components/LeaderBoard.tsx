@@ -2,6 +2,7 @@ import * as React from 'react';
 import ui from 'redux-ui';
 import { Leaders } from '../../home/model';
 import LeaderBoardUser from './LeaderBoardUser'
+import { Link } from "react-router-dom";
 
 interface LeaderBoardProps {
     updateUI: (any) => any;
@@ -36,7 +37,9 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                                                         points={leaderBoard.totalPoints} userId={leaderBoard.id}></LeaderBoardUser>)
                                                 })
                                             }
-                                            <a href="#" className="pull-right"> MORE >></a>
+                                            <Link className="pull-right" to={"/leaderboard"}>
+                                                MORE >>                                                                                              
+                                            </Link>                                            
                                         </div>
                                     </div>
                                 </div>
@@ -53,7 +56,9 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                                                         points={leaderBoard.totalPoints} userId={leaderBoard.id}></LeaderBoardUser>)
                                                 })
                                             }
-                                            <a href="#" className="pull-right"> MORE >></a>
+                                            <Link className="pull-right" to={"/leaderboard"}>
+                                                MORE >>                                                                                              
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

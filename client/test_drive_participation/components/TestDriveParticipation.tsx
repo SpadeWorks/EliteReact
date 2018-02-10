@@ -1,14 +1,20 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
-import { TestDriveInstance } from '../../test_drive_participation/model';
+import Services from '../../common/services/services';
+import { Lists } from '../../common/services/constants';
+import { TestDriveInstance, QuestionInstance, TestCaseInstance } from '../../test_drive_participation/model';
 import TestCases from '../../test_drive_participation/components/TestCases';
-import { TestCaseInstance } from '../../test_drive_participation/model';
 import Overview from './OverView';
+import Survey from './Survey';
+import TestDriveInfo from './TestDriveInfo';
 import * as $ from 'jquery';
+import * as Constants from '../../common/services/constants';
 
 interface TestDriveParticipationProps {
     testDriveInstance: TestDriveInstance;
-    saveTestCaseResponse: (testCase: TestCaseInstance) => any;
+    saveTestCaseResponse: (testCase: TestCaseInstance, testDrive: TestDriveInstance) => any;
+    saveQuestionResponse: (question: QuestionInstance) => any;
+    loadQuestions: (testDriveID: number, questions: number[], userID: number) => any;
     updateUI: (any) => any;
     ui: any;
 };
@@ -16,7 +22,6 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
     constructor(props, context) {
         super(props, context);
     }
-
     componentDidMount() {
         $('#carousel-example-vertical').bind('mousewheel', function (e) {
             if (e.originalEvent.wheelDelta / 120 > 0) {
@@ -31,7 +36,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
         });
     }
     render() {
-        const { testDriveInstance, saveTestCaseResponse, ui, updateUI } = this.props;
+        const { testDriveInstance, saveTestCaseResponse, loadQuestions, saveQuestionResponse, ui, updateUI } = this.props;
         return (<div className="col-md-12">
             <div className="row">
                 <div className="container">
@@ -57,32 +62,50 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                 </ul>
                                 <div id="myTabContent" className="tab-content">
                                     <div className="tab-pane active in" id="test_Cases">
-                                        <TestCases testCases={testDriveInstance.testCases}
-                                            saveTestCaseResponse={(t) => saveTestCaseResponse(t)}
-                                        updateUI={updateUI}
-                                        ui={ui}
+                                        <TestCases
+                                            testDriveInstance={testDriveInstance}
+                                            testCases={testDriveInstance.testCases}
+                                            saveTestCaseResponse={(testCase, testDrive) =>
+                                                saveTestCaseResponse(testCase, testDrive)}
+                                            updateUI={updateUI}
+                                            ui={ui}
                                         />
                                     </div>
                                     <div className="tab-pane fade " id="Servay_q">
-                                        <h1>tab2</h1>
+                                        <Survey questions={testDriveInstance.questions}
+                                            saveQuestionResponse={(q) => saveQuestionResponse(q)}
+                                            loadQuestions={(testDriveID, questionIDs, userID) =>
+                                                loadQuestions(testDriveID, questionIDs, userID)}
+                                            ui={ui}
+                                            updateUI={updateUI}
+                                            testDriveInstance={testDriveInstance} />
                                     </div>
                                     <div className="tab-pane fade " id="Description">
-                                        <h1>tab3</h1>
+                                        <TestDriveInfo testDriveInstance={testDriveInstance} />
                                     </div>
                                 </div>
                             </div >
                         </div >
                     </div >
-                    <div className="testcase_no ">
+                    <div className="testcase_no " id="test_Cases">
                         <ul className="task_circle ">
-                            <li data-target="#carousel-example-vertical " data-slide-to="0 " className="active ">
-                                <p> 1. <img src="images/empty.png " className="img-responsive " /></p>
-                            </li>
+                            {
+                                testDriveInstance.testCases && testDriveInstance.testCases.length &&
+                                testDriveInstance.testCases.map((testCase, index) => {
+                                    return (<li data-target="#carousel-example-vertical " data-slide-to={index} className="active">
+                                        <p> {index + 1}. {testCase.responseStatus == Constants.ColumnsValues.DRAFT &&
+                                            <img src={Constants.Globals.IMAGE_BASE_URL + "/empty.png"} className="img-responsive" />}
+                                            {testCase.responseStatus == Constants.ColumnsValues.COMPLETE_STATUS &&
+                                            <img src={Constants.Globals.IMAGE_BASE_URL + "/done.png"} className="img-responsive" />}
+                                        </p>
+                                    </li>)
+                                })
+                            }
                         </ul>
                     </div>
                 </div>
             </div>
-            <Overview />
+            <Overview testDriveInstance={testDriveInstance} />
         </div>)
     }
 }

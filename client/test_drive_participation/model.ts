@@ -31,8 +31,7 @@ export type QuestionInstance = {
     responseStatus: string;
     questionResponse: string;
     selectedResponse: string;
-    userID: number;
-    
+    userID: number;    
 }
 
 
@@ -62,6 +61,7 @@ export type TestDriveInstance = {
     currentPoint: number;
     dateJoined: string;
     numberOfTestCasesCompleted: number;
+    questionLoaded: boolean;
 };
 
 export type Configurations = {

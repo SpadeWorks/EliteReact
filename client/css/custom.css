@@ -5799,7 +5799,16 @@ animation-delay: 10s;
     padding-top: 34px;
     float: right;
 }
+/*Should be changed by Shreyas, Added for now to work well*/
+.col-md-12.end_date {
+    position: relative !important;
+    bottom: -23px !important;
+    height: 50px !important;
+}
 
+.error-lable{
+    color: red;
+}
 
 /* Fix for home page ends here */
 

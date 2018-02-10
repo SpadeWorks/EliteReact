@@ -22,12 +22,21 @@ export type HomeTestDriveObj = {
 }
 
 export type HomeTestDrive = {
-    id: number;
-    title: string;
-    enddate: string;    
-    participants: number;
+    id?: number;
+    title?: string;
+    enddate?: string;    
+    participants?: number;
     testDrive: TestDrive;
+    testDriveResponse?: TestDriveResponse;
 };
+
+export type TestDriveResponse = {
+    instanceID: number;
+    status: string;
+    currentPoint: number;
+    dateJoined: string;
+    numberOfTestCasesCompleted: number; 
+}
 
 export type Leaders = {
     id: number;

@@ -49,11 +49,11 @@ class TestDrives extends React.Component<AppProps> {
                                     <Link to={"/testdrive"} >+ Create Test Drive</Link>
                                 </div>
                                 {
-                                    testDrives && testDrives.map(testDrive => {
+                                    testDrives && testDrives.map((testDriveObj: any) => {
                                         return <TestDriveItem
-                                            key={testDrive.id}
-                                            indexKey={testDrive.id}
-                                            testDrive={testDrive}
+                                            key={testDriveObj.testDrive.id}
+                                            indexKey={testDriveObj.testDrive.id}
+                                            testDrive={testDriveObj.testDrive}
                                             editTestDrive={editTestDrive}
                                             deleteTestDrive={deleteTestDrive} />
                                     })

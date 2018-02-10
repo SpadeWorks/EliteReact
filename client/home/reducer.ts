@@ -109,10 +109,13 @@ export default handleActions<IState, any>({
         }
     },
     [LOAD_TestDriveIRun_FULFILLED]: (state: IState, action: Action<any>): IState => {
+
         return {
             ...state,
-            testDriveThatIRun: { homeTestDrives: action.payload, loading: false },
-            loading: false,
+            testDriveThatIRun: {
+                homeTestDrives: action.payload,
+                loading: false,
+            },
         }
     },
 

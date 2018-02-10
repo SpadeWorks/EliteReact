@@ -11,9 +11,12 @@ import Footer from '../../common/components/Footer';
 import {
   model,
   loadTestDriveInstanceByID,
+  loadQuestions,
   createOrSaveTestDriveInstance,
-  createOrSaveTestCaseInstance
+  createOrSaveTestCaseInstance,
+  createOrSaveQuestionInstance
 } from '../../test_drive_participation';
+import { create } from 'domain';
 
 
 interface AppProps {
@@ -53,9 +56,14 @@ class TestDriveParticipationContainer extends React.Component<AppProps> {
           }
           {
             !loading && testDriveInstance.instanceID != -1 &&
-            <TestDriveParticipation testDriveInstance={testDriveInstance}
-              saveTestCaseResponse={(testDriveInstance) =>
-                dispatch(createOrSaveTestCaseInstance(testDriveInstance))}
+            <TestDriveParticipation 
+              testDriveInstance={testDriveInstance}
+              saveTestCaseResponse={(testcaseInstance, testDriveInstance) =>
+                dispatch(createOrSaveTestCaseInstance(testcaseInstance, testDriveInstance))}
+              saveQuestionResponse={(questionInstance) => 
+                dispatch(createOrSaveQuestionInstance(questionInstance))}
+                loadQuestions = {(testDriveID: number, questionIDs: number[], userID: number)=> 
+                  dispatch(loadQuestions(testDriveID, questionIDs, userID))}
               updateUI={updateUI}
               ui={ui}
             />

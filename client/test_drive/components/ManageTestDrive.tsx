@@ -129,6 +129,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                             ui={ui}
                                             loadTestCases={(t) => dispatch(loadTestCases(t))}
                                             testCaseIds={testDrive.testCaseIDs}
+                                            fieldDescriptions = {testCaseFields}
                                         />}
                                 </div>
                             </div>
@@ -149,6 +150,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                             ui={ui}
                                             loadQuestions={(t) => dispatch(loadQuestions(t))}
                                             questionIds={testDrive.questionIDs}
+                                            fieldDescriptions = {surveyFields}
                                         />
                                     }
                                 </div>

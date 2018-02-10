@@ -1,24 +1,40 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
-import { TestCaseInstance, QuestionInstance } from '../../test_drive_participation/model';
+import { TestDriveInstance, QuestionInstance } from '../../test_drive_participation/model';
 import QuestionForm from './QuestionForm';
 import * as $ from 'jquery';
+import Services from '../../common/services/services';
 interface SurveyProps {
-    Questions: QuestionInstance[];
+    questions: QuestionInstance[];
+    testDriveInstance: TestDriveInstance;
     saveQuestionResponse: (question: QuestionInstance) => any;
+    loadQuestions: (testDriveID: number, questionIDs: number[], userID: number) => any;
     updateUI: (any) => any;
     ui: any;
 };
 class Survey extends React.Component<SurveyProps> {
     constructor(props, context) {
         super(props, context);
+        this.isTestDriveCompleted = this.isTestDriveCompleted.bind(this);
+    }
+
+    isTestDriveCompleted(){
+        let testDrive = this.props.testDriveInstance;
+        return testDrive.testCases.length == testDrive.numberOfTestCasesCompleted;
     }
 
     componentDidMount() {
-        $('#carousel-example-vertical').bind('mousewheel', function (e) {
+        let question = this.props.testDriveInstance.questions;
+        let testDrive = this.props.testDriveInstance;
+        let userID = Services.getCurrentUserID();
+        if(this.isTestDriveCompleted() && !testDrive.questionLoaded){
+            this.props.loadQuestions(testDrive.testDriveID, testDrive.questionIDs, userID);
+        }
+        
+        $('#carousel-question-vertical').bind('mousewheel', function (e) {
             if (e.originalEvent.wheelDelta / 120 > 0) {
                 $(this).carousel('next');
-                $('#carousel-example-vertical').carousel({
+                $('#carousel-question-vertical').carousel({
                     interval: 3000
                 });
             }
@@ -28,22 +44,23 @@ class Survey extends React.Component<SurveyProps> {
         });
     }
     render() {
-        const { Questions, saveQuestionResponse, ui, updateUI } = this.props;
+        const { questions, saveQuestionResponse, ui, updateUI } = this.props;
         return (
             <div className="col-md-12">
-                <div id="carousel-example-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
+                <div id="carousel-question-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
                     <div className="carousel-inner " role="listbox ">
                         {
-                            Questions &&
-                            Questions.length &&
-                            Questions.map((question, index) => {
+                            questions &&
+                            questions.length &&
+                            questions.map((question, index) => {
                                 return (<QuestionForm
                                     key={index}
                                     active={index == 0 ? true : false}
                                     question={question}
                                     saveQuestionResponse={(survey) => saveQuestionResponse(survey)}
                                     ui={ui}
-                                    updateUI={updateUI} />)
+                                    updateUI={updateUI}
+                                    showSurvey={this.isTestDriveCompleted()} />)
                             })
                         }
                     </div>

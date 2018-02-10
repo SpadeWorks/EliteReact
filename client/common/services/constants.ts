@@ -79,4 +79,6 @@ export class ColumnsValues{
     static QUESTION_TYPE_OBJECTIVE = "Objective";
 }
 
-export class Globals{}
+export class Globals{
+    static IMAGE_BASE_URL = _spPageContextInfo.siteAbsoluteUrl + '/Style%20Library/Elite/images/';
+}

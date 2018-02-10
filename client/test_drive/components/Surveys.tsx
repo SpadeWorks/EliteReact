@@ -23,6 +23,7 @@ interface SurveysProps {
     ui: any;
     loadQuestions: (questionIds: number[]) => any
     questionIds: number[];   
+    fieldDescriptions: any;
 };
 
 class Surveys extends React.Component<SurveysProps> {
@@ -50,7 +51,8 @@ class Surveys extends React.Component<SurveysProps> {
             addQquestion,
             saveTestDrive,
             ui,
-            updateUI
+            updateUI,
+            fieldDescriptions
         } = this.props;
         return (
             <div className="test-case-container col-xs-12">
@@ -70,6 +72,7 @@ class Surveys extends React.Component<SurveysProps> {
                                 updateUI={updateUI}
                                 ui={ui}
                                 key={question.id}
+                                fieldDescriptions={fieldDescriptions}
                             />
                         })
                     }

@@ -7,7 +7,8 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
 interface QuestionFormProps {
-    question: QuestionInstance
+    showSurvey: boolean;
+    question: QuestionInstance;
     active: boolean;
     saveQuestionResponse: (question: QuestionInstance) => any;
     updateUI: (any) => any;
@@ -20,16 +21,22 @@ interface QuestionFormProps {
         selectedResponse: ''
     }
 })
-
-
-
 class QuestionForm extends React.Component<QuestionFormProps> {
     constructor(props, context) {
         super(props, context);
+        this.onChangeSeletedResponseChange = this.onChangeSeletedResponseChange.bind(this);
+
+        this.props.updateUI({
+            questionResponse: this.props.question.questionResponse,
+            selectedResponse: this.props.question.selectedResponse
+        });
     }
 
-    onChange(e) {
-        this.props.updateUI({ testCaseResponse: e.target.value });
+    onChange(e){
+        this.props.updateUI({[e.target.name] : e.target.value});
+    }
+    onChangeSeletedResponseChange(value) {
+        this.props.updateUI({ selectedResponse: value });
     }
     saveQuestionResponse(question: QuestionInstance) {
         question = {
@@ -59,6 +66,9 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                         <h1>{question.title}</h1>
                         <div className="row ">
                             <div className="test_progress ">
+                            {
+                                    question.questionType == ColumnsValues.QUESTION_TYPE_OBJECTIVE &&
+
                                 <Select
                                     id="question-response"
                                     onBlurResetsInput={false}
@@ -68,17 +78,18 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                     clearable={true}
                                     name="selectedResponse"
                                     value={ui.selectedResponse}
-                                    onChange={(e) => this.onChange(e)}
+                                    onChange={(value) => this.onChangeSeletedResponseChange(value)}
                                     rtl={false}
                                     searchable={false}
                                 />
+                            }
                                 {
                                     question.questionType != ColumnsValues.QUESTION_TYPE_OBJECTIVE &&
 
                                     <div className="col-md-12 comment_box ">
                                         <i className="material-icons pull-right ">camera_enhance</i>
                                         <textarea className="inputMaterial form-control"
-                                            onChange={(e: any) => this.onChange(e)}
+                                            onChange={(e) => this.onChange(e)}
                                             name="questionResponse"
                                             value={ui.questionResponse}
                                             required />
@@ -89,11 +100,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                 }
 
                                 <div className="test-case-btn-controls">
-                                    {
-                                        question.responseStatus != ColumnsValues.COMPLETE_STATUS &&
-                                        <input type="button" value="Save" onClick={() => this.saveQuestionResponse(question)} />
-                                    }
-                                    <input type="button" value="Submit" onClick={() => this.submitQuestionResponse(question)} />
+                                    <input type="button" value="Done" onClick={() => this.submitQuestionResponse(question)} />
                                 </div>
                             </div>
                         </div>
