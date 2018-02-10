@@ -26,7 +26,7 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
             activeTestDrive,
             activeTestDriveLoading
         } = this.props
-        return (<div className="col-md-4 black_box_right pull-right black_box">
+        return (<div className="col-md-3 black_box_right pull-right black_box">
             <div className="row">
                 <div className="well">
                     <ul className="nav nav-tabs">

@@ -10,6 +10,16 @@
     src: url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/TitilliumWeb-Regular.ttf");
 }
 
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot');
+  src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), 
+  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), 
+  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), 
+  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), 
+  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
 .starts-bg {
     font: 1em "HemiHeadRg-BoldItalic", Monospace;
     color: #fff;
@@ -3193,18 +3203,17 @@ a.drive_name h4 {
 }
 
 .leader_rank span {
-    -webkit-transform: skewX(25deg) !important;
+   -webkit-transform: skewX(25deg) !important;
     color: white;
     position: absolute;
     box-sizing: border-box;
     -moz-transform: skewX(45deg);
     -ms-transform: skewX(45deg);
     -webkit-transform: skewX(45deg);
-    /* transform: skewX(45deg); */
-    left: 3px;
+    left: 6px;
     font-size: 23px;
     padding-left: 13px;
-    top: 6px;
+    top: 7px;
 }
 
 .leader_name {
@@ -3431,7 +3440,7 @@ width: 28px !important;
     border-radius: 50%;
     position: absolute;
     top: 12px;
-    right: 52px;
+    right: 36px;
     transition: all 0.5s;
 }
 
@@ -3467,7 +3476,7 @@ width: 28px !important;
     position: absolute;
     width: 400px;
     opacity: 00;
-    bottom: -320px;
+    bottom: 0px;
     background: #060612;
     /*top: -140px;*/
     float: left;
@@ -3490,13 +3499,13 @@ width: 28px !important;
 
 .letest_driveboxclick_right {
     position: absolute;
-    right: 440px;
+    right: 356px;
     display: block;
     transition: 0.5s;
     width: 450px;
     opacity: 1;
     z-index: 198;
-    bottom: -320px;
+    bottom: 0px;
     display: block;
 }
 
@@ -3571,7 +3580,7 @@ width: 28px !important;
 }
 
 .letest_drivebox {
-    left: 350px;
+    left: 300px;
     position: absolute;
     opacity: 00;
     transition: all 0.9s;
@@ -3587,7 +3596,7 @@ width: 28px !important;
 
 .letest_driveboxclick {
     position: absolute;
-    left: 455px;
+    left: 370px;
     display: block;
     transition: 0.5s;
     width: 450px;
@@ -3882,6 +3891,7 @@ span.testd_count {
     left: 0px;
     /* padding-left: 13px; */
     padding-top: 5px;
+    padding-left: 50px;
 }
 
 .leader_namenphoto img {
@@ -3892,6 +3902,7 @@ span.testd_count {
 .drive_status {
     height: 40px;
     float: left;
+    margin-top: 6px;
 }
 
 .point_box span.orange {
@@ -4986,7 +4997,7 @@ span.teams:hover {
 
 .profile_box img {
     float: left;
-    margin-right: 40px;
+    margin-right: 15px;
 }
 
 .profile_box h2 {
@@ -5877,7 +5888,6 @@ input.type1.type1::after,
     position: absolute;
     width: 10%;
     height: 30%;
-    border: 2px solid;
     transition: all 0.6s ease;
     border-radius: 2px;
 }
@@ -5931,3 +5941,23 @@ border: none;
 .pagination>.disabled>span:focus, 
 .pagination>.disabled>span:hover
 {display: none;}
+
+.leader_namenphoto h4{padding-top:20px;}
+
+img.leader-image {
+    border: solid 1px #676767;
+    margin-top: 15px;
+}
+
+h2.header_prevlink{color:#fff;}
+a:focus, a:hover {
+text-decoration:none !important;
+}
+
+.header_part span {
+    font-size: 22px;
+}
+
+.leader_car{padding-top: 10px;}
+
+.read_morelink{color:red;}
