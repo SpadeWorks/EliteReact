@@ -25,7 +25,7 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
             mytestDrive,
             myTestDriveLoading,
             testDriveThatIRun,
-            testDriveThatIRunLoading
+            testDriveThatIRunLoading,
         } = this.props;
 
         return (<div className="col-md-4 black_box black_box_left pull-left">
@@ -41,19 +41,20 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                 <div className="col-md-12">
                                     {
                                         mytestDrive && mytestDrive.map((testDrive, index) => {
-                                            return (<LeftContainer
+                                            return (testDrive && <LeftContainer
                                                 key={index}
-                                                testDriveId={index + 1}
-                                                testDriveName={testDrive.title}
-                                                endDate={testDrive.enddate}
                                                 participants={testDrive.participants}
                                                 checkPortion={"myTestDrive"}
-                                                testDrive = {testDrive.testDrive} />)
+                                                testDrive={testDrive.testDrive}
+                                                testDriveResponse={testDrive.testDriveResponse}
+                                                index={index + 1}
+                                            />)
                                         })
-
-                                         
                                     }
-                                    {mytestDrive.length == 0 && <p>You have not participated in any test dirve yet.</p>}
+                                    {(!myTestDriveLoading) && mytestDrive.length == 0 && <p>You have not participated in any test dirve yet.</p>}
+                                    <Link className="pull-right" to={"/testdrives/mytestDrive"}>
+                                        MORE >>
+                                    </Link>
                                 </div>
                             </Loader>
                         </div>
@@ -62,17 +63,19 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                 <div className="col-md-12">
                                     {
                                         testDriveThatIRun && testDriveThatIRun.map((testDrive, index) => {
-                                            return (<LeftContainer
+                                            return (testDrive && <LeftContainer
                                                 key={index}
-                                                testDriveId={index + 1}
-                                                testDriveName={testDrive.title}
-                                                endDate={testDrive.enddate}
                                                 participants={testDrive.participants}
                                                 checkPortion={"testDriveThatIRun"}
-                                                testDrive = {testDrive.testDrive} />)
+                                                testDrive={testDrive.testDrive}
+                                                testDriveResponse={undefined}
+                                                index={index + 1} />)
                                         })
                                     }
-                                    {testDriveThatIRun.length == 0  && <p>You have not created any test dive yet.</p>}
+                                    {(!testDriveThatIRunLoading) && testDriveThatIRun.length == 0 && <p>You have not created any test dive yet.</p>}
+                                    <Link className="pull-right" to={"/testdrives/testDriveThatIRun"}>
+                                        MORE >>
+                                    </Link>
                                 </div>
                             </Loader>
                         </div>

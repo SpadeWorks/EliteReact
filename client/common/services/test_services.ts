@@ -199,6 +199,8 @@ class TestServices {
         // Services.getDevices();
         // Services.getOSes();
 
+        Services.getMyTestDrives();
+
     }
 
 }

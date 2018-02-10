@@ -1,16 +1,19 @@
 import * as React from 'react';
 import ui from 'redux-ui';
+import { Link } from "react-router-dom";
 import * as $ from 'jquery';
 import Service from '../../common/services/services';
-import { HomeTestDrive, TestDrive } from '../../home/model';
+import { HomeTestDrive, TestDrive, TestDriveResponse } from '../../home/model';
+import MyTestDriveHoverPanel from './MyTestDriveHoverPanel';
+import TestDriveHoverPanel from './TestDriveHoverPanel';
 
 interface LeftContainer {
-    testDriveName: string;
-    endDate: string;
-    participants: number;
-    testDriveId: number;
     checkPortion: string;
-    testDrive: TestDrive
+    testDrive: TestDrive;
+    testDriveResponse: TestDriveResponse;
+    participants: number;
+    key:number;
+    index:number;
 };
 
 
@@ -64,19 +67,19 @@ class MyTestDrives extends React.Component<LeftContainer> {
     }
 
     render() {
-        const {testDriveName, checkPortion, children, endDate, participants, testDrive, testDriveId} = this.props
+        const { checkPortion, participants, testDrive, testDriveResponse, index } = this.props
         var drivenoID = "";
         var canvasID1 = "";
         var canvasID2 = "";
         if (checkPortion == "myTestDrive") {
-            drivenoID = "myDriveno" + testDriveId;
-            canvasID1 = "myDriveCanvasPoints" + testDriveId;
-            canvasID2 = "myDriveCanvasDrive" + testDriveId;
+            drivenoID = "myDriveno" + index;
+            canvasID1 = "myDriveCanvasPoints" + index;
+            canvasID2 = "myDriveCanvasDrive" + index;
         }
         else {
-            drivenoID = "testIRunDriveno" + testDriveId
-            canvasID1 = "testIRunDrivePointsCanvas" + testDriveId;
-            canvasID2 = "testIRunDriveDriveCanvas" + testDriveId;
+            drivenoID = "testIRunDriveno" + index
+            canvasID1 = "testIRunDrivePointsCanvas" + index;
+            canvasID2 = "testIRunDriveDriveCanvas" + index;
         }
         return (<div>{
             <div className={"row test_drive " + drivenoID}>
@@ -84,12 +87,12 @@ class MyTestDrives extends React.Component<LeftContainer> {
                 <div className="col-md-10">
                     <a className="drive_name">
                         <h4 onClick={() => this.openMyTestDriveDialog(drivenoID)}>
-                            {testDriveName}
+                            {testDrive.title}
                             <span className={"glyphicon glyphicon-triangle-right hidden"} aria-hidden="true">
                             </span>
                         </h4>
                     </a>
-                    <p><span className="end_date">END DATE :</span>{Service.formatDate(endDate)}</p>
+                    <p><span className="end_date">END DATE :</span>{Service.formatDate(testDrive.endDate)}</p>
                     <p><span className="participants">PARTICIPANTS :</span> {participants}</p>
                 </div>
                 <div className="col-md-2 pull-right">
@@ -100,78 +103,21 @@ class MyTestDrives extends React.Component<LeftContainer> {
                     </div>
                 </div>
                 <div className="letest_drivebox">
-                    <div className="col-md-12">
-                        <h3>{testDriveName}</h3>
-                        <div className="col-md-12 social_box">
-                            <div className="row">
-                                <a href="#"><i className="material-icons">info</i></a>
-                                <a href="#"><i className="material-icons">email</i></a>
-                                <a href="#"><span className="teams"></span></a>
-                                <a href="#"><i className="material-icons">share</i></a>
-                            </div>
-                        </div>
-                        <div className="col-md-12 popup_infocontainer">
-                            <div className="row">
-                                <div className="col-md-6 earned_pointbox">
-                                    <div className="row">
-                                        <div className="col-md-12 earn_box">
-                                            <span className="orange"><i>POINTS :</i></span>
-                                            <canvas id={canvasID1} width="150" height="150"></canvas>
-                                            <h3>80 %</h3>
-                                            <span className="small">7 of 8 tasks done</span>
-                                        </div>
-                                        <div className="col-md-12 drive_completionbox">
-                                            <span className="orange"><i>DRIVE COMPLETION</i></span>
-                                            <canvas id={canvasID2} width="150" height="150"></canvas>
-                                            <h3>400</h3>
-                                            <span className="small">400 of 500 points earned</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-6 drive_info">
-                                    <div className="row">
-                                        <div className="col-md-12 popup_dificultybox">
-                                            <div className="row">
-                                                <div className="col-md-12 owner">
-                                                    <span className="orange">
-                                                        <i>DRIVE OWNER</i>
-                                                    </span>
-                                                    <h4>Kenny Morphase</h4>
-                                                </div>
-                                                <div className="col-md-12 end_date">
-                                                    <span className="orange">
-                                                        <i>End Date</i>
-                                                    </span>
-                                                    <h4>{Service.formatDate(endDate)}</h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12 popup_ownerbox">
-                                            <div className="row">
-                                                <div className="col-md-12 owner">
-                                                    <span className="orange">
-                                                        <i>PARTICIPANTS</i>
-                                                    </span>
-                                                    <h4>{participants}</h4>
-                                                </div>
-                                                <div className="col-md-12 end_date">
-                                                    <span className="orange">
-                                                        <i>DEFICULTY LEVEL</i>
-                                                    </span>
-                                                    <h4>Street Race</h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-12 popup_buttonbox">
-                                <button className="button type1">
-                                    Drive Through
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    {
+                        testDriveResponse &&
+                        <MyTestDriveHoverPanel
+                            participants={participants}
+                            checkPortion={checkPortion}
+                            testDrive={testDrive}
+                            testDriveResponse={testDriveResponse} />
+                    }
+                    {
+                        !testDriveResponse &&
+                        <TestDriveHoverPanel
+                            participants={participants}
+                            checkPortion={checkPortion}
+                            testDrive={testDrive} />
+                    }
                 </div>
             </div>
         }</div>);
