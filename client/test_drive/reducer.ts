@@ -171,8 +171,8 @@ export default handleActions<IState, any>({
         const testDrives = state.testDrives;
         return {
             ...state,
-            testDrives: testDrives.filter((testDrive) => {
-                return testDrive.id !== action.payload;
+            testDrives: testDrives.filter((testDrive:any) => {
+                return testDrive.testDrive.id !== action.payload;
             }),
             loading: false
 
@@ -188,10 +188,12 @@ export default handleActions<IState, any>({
     },
 
     [SAVE_TestDrive_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        const newTestDrive = action.payload;
         return {
             ...state,
-            testDrives: state.testDrives.map(testDrive =>
-                testDrive.id == action.payload.id ? action.payload : testDrive),
+            testDrive: {...state.testDrive, ...newTestDrive},
+            testDrives: (state.testDrives && state.testDrives.length) ? state.testDrives.map((testDriveObj: any) =>
+                testDriveObj.testDrive.id == newTestDrive.id ? newTestDrive : testDriveObj.testDrive): [],
             loading: false
         }
     },

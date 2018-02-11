@@ -12,11 +12,12 @@ import { Services } from '../../common/services/data_service';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import { unemojify } from "node-emoji";
 import * as Constants from '../../common/services/constants';
+import { validateControl, required, validateForm } from '../../common/components/Validations';
 
 interface TestCaseFormProps {
     testCase: TestCase,
     deleteTestCase: (id: number) => any;
-    saveTestCase: (testCase: TestCase) => any;
+    saveTestCase: (testCase: TestCase, formID: string) => any;
     editTestCase: (TestCase: TestCase) => any;
     onChange: (event: any, TestCase: TestCase) => any;
     updateMaxPoints: () => any;
@@ -48,7 +49,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
     constructor(props, context) {
         super(props, context);
         this.onChange = this.onChange.bind(this);
-        this.updateTestCaseType = this.updateTestCaseType.bind(this);
+        this.selectControlChange = this.selectControlChange.bind(this);
         this.onScenarioChange = this.onScenarioChange.bind(this);
         this.onExpectedOutcomeChange = this.onExpectedOutcomeChange.bind(this);
         this.uploadImageCallBack = this.uploadImageCallBack.bind(this);
@@ -57,23 +58,28 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
 
     onChange = (e) => {
         this.props.onChange(e, this.props.testCase);
+        validateControl(e.target.id, e.target.value);
     }
+
+    selectControlChange = (value, id, name) => {
+
+        let e = {
+            target: {
+                type: 'custom-select',
+                name: 'testCaseType',
+                value: value,
+                id: id
+            }
+        };
+        this.onChange(e);
+        validateControl(id, value);
+    }
+
 
     testCaseTypes = [
         { value: 'Positive', label: 'Positive' },
         { value: 'Negative', label: 'Negative' },
     ]
-
-    updateTestCaseType(value) {
-        let e = {
-            target: {
-                type: 'custom-select',
-                name: 'testCaseType',
-                value: value
-            }
-        };
-        this.onChange(e);
-    }
 
     onScenarioChange(value) {
         let e = {
@@ -147,7 +153,6 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
     }
 
     componentDidMount() {
-        
         this.updateInitialEditorValue("scenario");
         this.updateInitialEditorValue("expectedOutcome");
     }
@@ -169,10 +174,8 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                             aria-controls="collapseOne"
                             className="pull-left"
                             onClick={() => editTestCase(testCase)}>
-                            {testCase.title}
-
+                            {testCase.title || "New test case " + testCase.id}
                         </a>
-
                         <div className="pull-right">
                             <a href="javascript:void(0);"><i className="material-icons"
                                 onClick={() => this.deleteTestCase(testCase.id)}>delete</i></a>
@@ -182,7 +185,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                             }
                             {testCase.isInEditMode &&
                                 <a href="javascript:void(0);" className="check_ico"
-                                    onClick={() => saveTestCase(testCase)}>
+                                    onClick={() => saveTestCase(testCase, "test-case-form" + testCase.id)}>
                                     <i className="material-icons" style={checkBoxStyle}>check</i>
                                 </a>}
                         </div>
@@ -197,54 +200,60 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                         life accusamus terry richardson ad squid. 3 wolf moon
                         officia aute, non cupidatat skateboard dolor brunch.
 
-                        <form>
+                        <form id={"test-case-form" + testCase.id}>
                             <div className="col-md-12 register_input">
-
                                 <input className="inputMaterial" type="text"
                                     onChange={this.onChange} name="title"
                                     value={testCase.title || ""}
-                                    required />
+                                    data-validations={[required]}
+                                    data-container-name="test-case-title"
+                                    id={"test-case-title" + testCase.id}
+                                />
                                 <span className="highlight"></span>
                                 <span className="bar"></span>
-                                <label>Test drive title</label>
+                                <label>Test case title*</label>
                                 <span className="help-text">
                                     {fieldDescriptions && fieldDescriptions[Constants.Columns.TITLE]}
                                 </span>
                             </div>
-                            <div className="col-md-12 register_input">
+                            <div className="col-md-12 register_input textarea-custom">
                                 <textarea className="inputMaterial"
                                     onChange={this.onChange}
                                     name="description"
+                                    id={"test-case-description" + testCase.id}
                                     value={testCase.description || ""}
-                                    required />
+                                    data-validations={[required]} />
                                 <span className="highlight"></span>
                                 <span className="bar"></span>
-                                <label className="disc_lable">Description</label>
+                                <label className="disc_lable">Description*</label>
                                 <span className="help-text">
                                     {fieldDescriptions && fieldDescriptions[Constants.Columns.ELITE_DESCRIPTION]}
                                 </span>
                             </div>
-                            <h5>Test Case Type</h5>
-                            <Select
-                                id="question-type"
-                                onBlurResetsInput={false}
-                                onSelectResetsInput={false}
-                                autoFocus
-                                options={this.testCaseTypes}
-                                simpleValue
-                                clearable={true}
-                                name="question-type"
-                                value={testCase.testCaseType}
-                                onChange={this.updateTestCaseType}
-                                rtl={false}
-                                searchable={false}
-                            />
-                            <span className="help-text">
-                                {fieldDescriptions && fieldDescriptions[Constants.Columns.TYPE]}
-                            </span>
+                            <div className="col-md-12 register_input">
+                                <div data-validations={[required]} className="custom-select" id={"test-case-type" + testCase.id}>
+                                    <Select
+                                        id={"test-case-type" + testCase.id}
+                                        onBlurResetsInput={false}
+                                        onSelectResetsInput={false}
+                                        autoFocus
+                                        options={this.testCaseTypes}
+                                        simpleValue
+                                        clearable={true}
+                                        name="testCaseType"
+                                        value={testCase.testCaseType}
+                                        onChange={(value) => this.selectControlChange(value, "test-case-type" + testCase.id, "testCaseType")}
+                                        rtl={false}
+                                        searchable={false}
+                                    />
+                                </div>
+                                <span className="help-text">
+                                    {fieldDescriptions && fieldDescriptions[Constants.Columns.TYPE]}
+                                </span>
+                                <label className="disc_lable">Question type*</label>
+                            </div>
 
-                            <h5>Scenario</h5>
-                            <div id="scenario">
+                            <div className="col-md-12 register_input custom-editor" id="scenario">
                                 {ui.scenario &&
                                     <Editor
                                         editorState={ui.scenario}
@@ -263,13 +272,12 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                         }}
                                     />
                                 }
+                                <label className="disc_lable">Scenario*</label>
                                 <span className="help-text">
                                     {fieldDescriptions && fieldDescriptions[Constants.Columns.SCENARIO]}
                                 </span>
-
                             </div>
-                            <h5>Expected Outcome</h5>
-                            <div id="expectedOutcome">
+                            <div className="col-md-12 register_input custom-editor" id="expectedOutcome">
                                 {ui.expectedOutcome &&
                                     <Editor
                                         /*editorState={ui.expectedOutcome}*/
@@ -288,11 +296,11 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                         }}
                                     />
                                 }
+                                <label className="disc_lable">Expected outcome*</label>
                                 <span className="help-text">
                                     {fieldDescriptions && fieldDescriptions[Constants.Columns.TEST_CASE_OUTCOME]}
                                 </span>
                             </div>
-
                         </form>
                     </div>
                 </div>

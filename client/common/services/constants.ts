@@ -74,11 +74,20 @@ export class Columns{
 
 export class ColumnsValues{
     static COMPLETE_STATUS = 'Complete';
-    static DRAFT = "Draft";    
+    static DRAFT = "Draft";   
+    static SUBMIT = "Submit";   
     static TEST_CASE_COMPLETION = 'Test Case Bonus';
     static QUESTION_TYPE_OBJECTIVE = "Objective";
 }
 
 export class Globals{
     static IMAGE_BASE_URL = _spPageContextInfo.siteAbsoluteUrl + '/Style%20Library/Elite/images/';
+}
+
+export class Messages{
+    static SAVE_UNSAVED_QUESTION = 'Please save the unsaved question and then try saving test drive again.';
+    static SAVE_UNSAVED_TEST_CASE = 'Please save the unsaved test case and then try saving test drive again.';
+    static TEST_CASE_ERROR = 'There are some errors in the form. Please correct them and Save again.';
+    static TEST_DRIVE_ERROR = 'There are some errors in the form. Please correct them and Save again.';
+    static QUESTION_ERROR = 'There are some errors in the form. Please correct them and Save again.';
 }

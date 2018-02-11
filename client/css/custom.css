@@ -11,13 +11,9 @@
 }
 
 @font-face {
-  font-family: 'Glyphicons Halflings';
-  src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot');
-  src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), 
-  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), 
-  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), 
-  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), 
-  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+    font-family: 'Glyphicons Halflings';
+    src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot');
+    src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
 .starts-bg {
@@ -2649,8 +2645,11 @@ span.counter {
 }
 
 a.btn.btn-default {
-    border-right: solid 2px #000;
     color: #fff;
+}
+
+a.btn.tab-border{
+    border-right: solid 2px #000;
 }
 
 .left {
@@ -2689,7 +2688,7 @@ fieldset[disabled] .btn {
 /*material design effect starts here*/
 
 .inputMaterial {
-       font-size: 18px;
+    font-size: 18px;
     padding: 0px 10px 10px 5px;
     display: block;
     width: 100%;
@@ -2699,10 +2698,9 @@ fieldset[disabled] .btn {
     height: 50px;
 }
 
-textarea.inputMaterial{
- 
-    font-family:titanium;
-    padding-top:10px;
+textarea.inputMaterial {
+    font-family: titanium;
+    padding-top: 10px;
 }
 
 .inputMaterial:focus {
@@ -2737,8 +2735,15 @@ label {
     color: red;
 }
 
-textarea.inputMaterial:focus{padding-top:20px; height:auto !important; overflow: inherit !important;}
-textarea.inputMaterial:focus~label{top: -21px; }
+textarea.inputMaterial:focus {
+    padding-top: 20px;
+    height: auto !important;
+    overflow: inherit !important;
+}
+
+textarea.inputMaterial:focus~label {
+    top: -21px;
+}
 
 .disc_lable {
     position: absolute;
@@ -3203,7 +3208,7 @@ a.drive_name h4 {
 }
 
 .leader_rank span {
-   -webkit-transform: skewX(25deg) !important;
+    -webkit-transform: skewX(25deg) !important;
     color: white;
     position: absolute;
     box-sizing: border-box;
@@ -3989,8 +3994,6 @@ a.status_pass {
     text-decoration: none;
 }
 
-
-
 a.status_fail {
     background: #151515;
     padding: 12px;
@@ -4273,7 +4276,7 @@ input#form-control.date_box {
 }
 
 input.inputMaterial {
-     background: transparent !important;
+    background: transparent !important;
     border: none;
     color: white;
     border-bottom: 1px solid #575757 !important;
@@ -4750,8 +4753,6 @@ a.status_pass {
     min-width: 150px;
     text-decoration: none;
 }
-
-
 
 a.status_fail {
     background: #151515;
@@ -5232,12 +5233,12 @@ li.active-thumbnail {
     font-size: 14px;
     color: red;
 }
+
 input.inputMaterial:focus~label {
     top: 3px;
     font-size: 14px;
     color: red;
 }
-
 
 .editpro_box .inputMaterial {
     font-size: 18px;
@@ -5336,7 +5337,7 @@ h1#dialogTitleSpan {
 
 .testdrivedetails_box .earn_box h3,
 .drive_completionbox h3 {
-      margin-top: 10px;
+    margin-top: 10px;
     position: absolute;
     top: 110px;
     left: 55px;
@@ -5350,7 +5351,6 @@ h1#dialogTitleSpan {
 .earn_box span.small,
 .drive_completionbox span.small {
     position: absolute;
-   
     left: 31px;
     font-family: titanium;
     font-size: 15px;
@@ -5445,7 +5445,6 @@ h4.testcase_title {
     margin-top: 25px;
     width: 100%;
 }
-
 
 a.status_inprogress:hover {
     border: solid 1px #abe225;
@@ -5810,19 +5809,22 @@ animation-delay: 10s;
     padding-top: 34px;
     float: right;
 }
+
+
 /*Should be changed by Shreyas, Added for now to work well*/
+
 .col-md-12.end_date {
     position: relative !important;
     bottom: -23px !important;
     height: 50px !important;
 }
 
-.error-lable{
+.error-lable {
     color: red;
 }
 
-/* Fix for home page ends here */
 
+/* Fix for home page ends here */
 
 
 /*added by shreyas after 8Feb//////////////////////////////////////*/
@@ -5835,7 +5837,6 @@ canvas#myDriveCanvasDrive1 {
     margin-top: 25px;
 }
 
-
 .Select.Select--single.is-clearable.is-searchable.has-value {
     z-index: 1000;
 }
@@ -5843,39 +5844,47 @@ canvas#myDriveCanvasDrive1 {
 .rdr-DateRange {
     background: none !important;
 }
+
 .rdr-Calendar {
     background: #000 !important;
     color: #fff !important;
     padding: 10px;
 }
 
-button.rdr-MonthAndYear-button.prev,button.rdr-MonthAndYear-button.next{background:#f6981e !important;}
+button.rdr-MonthAndYear-button.prev,
+button.rdr-MonthAndYear-button.next {
+    background: #f6981e !important;
+}
+
 span.rdr-Day.is-selected {
     background: #f6981e !important;
     color: #000 !important;
 }
-
 
 span.help-text {
     font-family: titanium;
     color: #f6981e;
 }
 
-.Select--multi .Select-value-icon{float: right;border:none!important;font-size:18px!important;}
-.Select--multi .Select-value-icon:hover, .Select--multi .Select-value-icon:focus {
+.Select--multi .Select-value-icon {
+    float: right;
+    border: none!important;
+    font-size: 18px!important;
+}
+
+.Select--multi .Select-value-icon:hover,
+.Select--multi .Select-value-icon:focus {
     background-color: #d8eafd;
     background-color: rgba(0, 113, 230, 0.08);
     color: #f6981e !important;
     background: none !important;
     font-size: 18px !important;
 }
+
 .input-number {
     margin-top: 40px;
     padding-top: 10px;
 }
-
-
-
 
 input.type1 {
     color: #f4313f;
@@ -5916,48 +5925,103 @@ input.type1.type1:hover:before {
     height: 100%;
 }
 
-.pagination>.active>a,.pagination>.active>a:focus, 
-.pagination>.active>a:hover,.pagination>.active>span, 
-.pagination>.active>span:focus,.pagination>.active>span:hover{
-background: none !important;
-color:red;
-border:none;
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover {
+    background: none !important;
+    color: red;
+    border: none;
 }
 
-.pagination>li>a:focus, 
-.pagination>li>a:hover, 
-.pagination>li>span:focus, 
-.pagination>li>span:hover
-{
-color:red;
-background: none;
-border: none;
+.pagination>li>a:focus,
+.pagination>li>a:hover,
+.pagination>li>span:focus,
+.pagination>li>span:hover {
+    color: red;
+    background: none;
+    border: none;
 }
 
-.pagination>li>a, .pagination>li>span{background: none;border:none; font-size: 15px;color: #bfbfbf;}
+.pagination>li>a,
+.pagination>li>span {
+    background: none;
+    border: none;
+    font-size: 15px;
+    color: #bfbfbf;
+}
 
-.pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, 
-.pagination>.disabled>span, 
-.pagination>.disabled>span:focus, 
-.pagination>.disabled>span:hover
-{display: none;}
+.pagination>.disabled>a,
+.pagination>.disabled>a:focus,
+.pagination>.disabled>a:hover,
+.pagination>.disabled>span,
+.pagination>.disabled>span:focus,
+.pagination>.disabled>span:hover {
+    display: none;
+}
 
-.leader_namenphoto h4{padding-top:20px;}
+.leader_namenphoto h4 {
+    padding-top: 20px;
+}
 
 img.leader-image {
     border: solid 1px #676767;
     margin-top: 15px;
 }
 
-h2.header_prevlink{color:#fff;}
-a:focus, a:hover {
-text-decoration:none !important;
+h2.header_prevlink {
+    color: #fff;
+}
+
+a:focus,
+a:hover {
+    text-decoration: none !important;
 }
 
 .header_part span {
     font-size: 22px;
 }
 
-.leader_car{padding-top: 10px;}
+.leader_car {
+    padding-top: 10px;
+}
 
-.read_morelink{color:red;}
+.read_morelink {
+    color: red;
+}
+
+.disc_lable {
+    position: absolute;
+    top: -20px;
+}
+
+.Select-placeholder, .Select--single>.Select-control .Select-value {
+    padding-left: 0px !important;
+    top: 8px !important;
+}
+
+input.inputMaterial:focus~label {
+    top: -5px;
+    font-size: 14px;
+    color: red;
+}
+
+.editpro_box .inputMaterial:focus~label, .inputMaterial:valid~label {
+    top: -6px;
+    font-size: 14px;
+    color: white;
+}
+
+.textarea-custom textarea{
+    height: 85px;
+}
+
+.custom-editor{
+    margin-bottom: 50px;
+}
+
+.textarea-custom {
+    height: 148px !important;
+}

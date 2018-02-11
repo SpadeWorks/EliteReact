@@ -968,7 +968,7 @@ export class Services {
 
                 this.createOrUpdateListItemsInBatch(Constants.Lists.TEST_DRIVES,
                     testDrives).then((data: TestDrive) => {
-                        resolve({ ...testDrive, id: data.id, testCases: testCases, questions: questions });
+                        resolve({ ...testDrive, id: data[0].id, testCases: testCases, questions: questions });
                     }, err => {
                         reject(err);
                     }).catch(err => {
