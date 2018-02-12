@@ -11,9 +11,13 @@
 }
 
 @font-face {
-    font-family: 'Glyphicons Halflings';
-    src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot');
-    src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  font-family: 'Glyphicons Halflings';
+  src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot');
+  src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), 
+  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), 
+  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), 
+  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), 
+  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
 .starts-bg {
@@ -5939,6 +5943,10 @@ a:focus,
 a:hover {
     text-decoration: none !important;
 }
+h2.header_prevlink{color:#fff;}
+a:focus, a:hover {
+text-decoration:none !important;
+}
 
 .header_part span {
     font-size: 22px;
@@ -5981,6 +5989,8 @@ input.inputMaterial:focus~label {
 .custom-editor{
     margin-bottom: 50px;
 }
+
+.leader_car{padding-top: 10px;}
 
 .read_morelink{color:red;}
 
