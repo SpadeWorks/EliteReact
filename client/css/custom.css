@@ -5311,9 +5311,6 @@ h1#dialogTitleSpan {
 
 
 /*testdrive details starts here*/
-
-<<<<<<< HEAD
-=======
 .testdrivedetails_box .earn_box h3,
 .drive_completionbox h3 {
     margin-top: 10px;
@@ -5323,7 +5320,6 @@ h1#dialogTitleSpan {
     text-transform: uppercase !important;
 }
 
->>>>>>> a60559cd02842544c421d98c135a80314f8cb316
 .testdrivedetails_box .earn_box {
     border: none;
 }
@@ -5986,7 +5982,6 @@ input.inputMaterial:focus~label {
     margin-bottom: 50px;
 }
 
-<<<<<<< HEAD
 .read_morelink{color:red;}
 
 
@@ -6020,9 +6015,7 @@ input.inputMaterial:focus~label {
     text-transform: uppercase !important;
 }
 
-
-=======
 .textarea-custom {
     height: 148px !important;
 }
->>>>>>> a60559cd02842544c421d98c135a80314f8cb316
+
