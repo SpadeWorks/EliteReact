@@ -2955,16 +2955,19 @@ li.select2-selection__choice {
     position: relative;
     top: 20px;
     background: #41404e;
-    width: 15% !important;
-    padding-left: 14px;
+    min-width: 15% !important;
+    padding-left: 10px;
     border-radius: 50px;
     float: left;
     padding-top: 5px;
     font-family: titanium !important;
-    /* margin-left: 10px; */
     font-size: 15px;
     padding-bottom: 4px;
-    margin-left: 10px;
+    margin-left: 0px;
+    padding-right: 10px;
+    margin-top: 9px;
+    margin-right: 10px;
+
 }
 
 ul.select2-results__options {
@@ -3132,7 +3135,7 @@ border: solid 1px#fff;
 .nav-tabs>li>a {
     color: #fff;
     border: none;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .nav-tabs>li.active>a,
@@ -3141,6 +3144,8 @@ border: solid 1px#fff;
     background: none;
     border: none;
     color: #ff8d00;
+    font-weight: bold;
+    font-size: 12px;
 }
 
 .nav-tabs>li>a:hover {
@@ -3355,6 +3360,7 @@ span.l_count {
     border: solid 1px #fff;
     border-radius: 43px;
     padding: 10px;
+    padding-bottom:0;
 }
 
 .vertical.outer-therm {
@@ -3476,7 +3482,7 @@ width: 28px !important;
     position: absolute;
     width: 400px;
     opacity: 00;
-    bottom: 0px;
+    top: -300px;
     background: #060612;
     /*top: -140px;*/
     float: left;
@@ -3487,25 +3493,28 @@ width: 28px !important;
 }
 
 .letest_driveboxclick2 {
+       display: block;
+   width: 133px;
+    transition: 0.5s;
+    opacity: 1;
+    -webkit-box-direction: reverse;
     position: absolute;
-    left: 455px;
+    right: 22px;
+    height: 100px;
+    border-left: solid 2px #fff;
+    margin-top: -32px;
+    transition: all 0.5s;
+}
+
+.letest_driveboxclick_right {
+  position: absolute;
+    right: 389px;
+    display: block;
     transition: 0.5s;
     width: 450px;
     opacity: 1;
     z-index: 111;
-    bottom: -250px;
-    display: block;
-}
-
-.letest_driveboxclick_right {
-    position: absolute;
-    right: 356px;
-    display: block;
-    transition: 0.5s;
-    width: 450px;
-    opacity: 1;
-    z-index: 198;
-    bottom: 0px;
+    top: -300px;
     display: block;
 }
 
@@ -3560,13 +3569,7 @@ width: 28px !important;
     margin-top: 0px;
 }
 
-.white_circleclick {
-    height: 20px;
-    border-radius: 50px;
-    background: #fff;
-    float: left;
-    display: block;
-}
+
 
 .lc_containerclick {
     display: block;
@@ -3580,30 +3583,32 @@ width: 28px !important;
 }
 
 .letest_drivebox {
-    left: 300px;
+      left: 300px;
     position: absolute;
-    opacity: 00;
+    opacity: 0;
     transition: all 0.9s;
-    /*height: 500px;*/
+    /* height: 500px; */
     background: #060612;
-    position: absolute;
-    bottom: -300px;
+    position: relative;
+    top: -300px;
     width: 400px;
     z-index: 102;
     border: solid 1px#fff;
-    /*display: none;*/
+    /* display: none; */
+    float: left;
 }
 
 .letest_driveboxclick {
-    position: absolute;
+      position: relative;
     left: 370px;
     display: block;
     transition: 0.5s;
     width: 450px;
     opacity: 1;
     z-index: 111;
-    bottom: -300px;
+    top: -300px;
     display: block;
+    float: left;
 }
 
 .letest_driveboxclick3 {
@@ -3622,7 +3627,7 @@ width: 28px !important;
 
 .lc_containerclick2 {
     display: block;
-    width: 100px;
+    width: 133px;
     transition: 0.5s;
     opacity: 1;
     -webkit-box-direction: reverse;
@@ -3634,15 +3639,6 @@ width: 28px !important;
     transition: all 0.5s;
 }
 
-.letest_driveboxclick2 {
-    position: absolute;
-    right: 440px;
-    display: block;
-    transition: 0.5s;
-    width: 450px;
-    opacity: 1;
-    z-index: 111;
-}
 
 .map_container {
     width: auto;
@@ -4395,8 +4391,9 @@ div#s4-ribbonrow {
 
 .skills_heading {
     position: absolute;
-    top: 130px;
+    top: 106px;
     font-size: 35px;
+    left: 110px;
 }
 
 .overall_box {
@@ -4457,7 +4454,7 @@ span.teams:hover {
 
 .popup_infocontainer {
     float: left;
-    margin-top: 30px;
+    margin-top: 10px;
     padding-top: 11px;
 }
 
@@ -4485,14 +4482,6 @@ span.teams:hover {
     left: 20px;
 }
 
-.earn_box h3,
-.drive_completionbox h3 {
-    margin-top: 10px;
-    position: absolute;
-    top: 87px;
-    left: 58px;
-    text-transform: uppercase !important;
-}
 
 .earn_box span.small,
 .drive_completionbox span.small {
@@ -4503,11 +4492,16 @@ span.teams:hover {
     font-size: 11px;
 }
 
-.popup_ownerbox,
+.popup_ownerbox{
+    min-height: 250px;
+    padding-top: 0px;
+}
+
 .popup_dificultybox {
     min-height: 250px;
-    padding-top: 20px;
+    padding-top: 0px;
 }
+
 
 .popup_ownerbox h4 {
     font-family: titanium !important;
@@ -4524,9 +4518,6 @@ span.teams:hover {
     margin-left: 100px;
 }
 
-.popup_buttonbox {
-    margin-top: 20px;
-}
 
 
 /*test case popup ends here*/
@@ -4900,11 +4891,6 @@ span.teams:hover {
     color: #5659b0;
 }
 
-.popup_infocontainer {
-    float: left;
-    margin-top: 30px;
-    padding-top: 11px;
-}
 
 .earned_pointbox {
     /* background: #333; */
@@ -4930,14 +4916,6 @@ span.teams:hover {
     left: 20px;
 }
 
-.earn_box h3,
-.drive_completionbox h3 {
-    margin-top: 10px;
-    position: absolute;
-    top: 110px;
-    left: 58px;
-    text-transform: uppercase !important;
-}
 
 .earn_box span.small,
 .drive_completionbox span.small {
@@ -4948,11 +4926,6 @@ span.teams:hover {
     font-size: 11px;
 }
 
-.popup_ownerbox,
-.popup_dificultybox {
-    min-height: 250px;
-    padding-top: 20px;
-}
 
 .popup_ownerbox h4 {
     font-family: titanium !important;
@@ -4963,6 +4936,8 @@ span.teams:hover {
     position: absolute;
     bottom: 50px;
     height: 50px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .popup_infocontainer button {
@@ -4970,9 +4945,11 @@ span.teams:hover {
 }
 
 .popup_buttonbox {
-    margin-top: 20px;
+    margin-top: 50px;
+    float: left;
+    margin-bottom: 30px;
+    margin-left: 85px;
 }
-
 
 /*test case popup ends here*/
 
@@ -5334,15 +5311,6 @@ h1#dialogTitleSpan {
 
 /*testdrive details starts here*/
 
-.testdrivedetails_box .earn_box h3,
-.drive_completionbox h3 {
-      margin-top: 10px;
-    position: absolute;
-    top: 110px;
-    left: 55px;
-    text-transform: uppercase !important;
-}
-
 .testdrivedetails_box .earn_box {
     border: none;
 }
@@ -5391,22 +5359,6 @@ h1#dialogTitleSpan {
     font-size: 16px;
 }
 
-.detailed_box li.select2-selection__choice {
-    position: relative;
-    top: 0px;
-    background: #41404e;
-    padding-left: 14px;
-    border-radius: 50px;
-    float: left;
-    padding-top: 5px;
-    font-family: titanium !important;
-    /* margin-left: 10px; */
-    font-size: 15px;
-    padding-bottom: 4px;
-    margin-left: 10px;
-    padding-left: 3%;
-    padding-right: 3%;
-}
 
 .carousel-inner .container {
     width: 100%;
@@ -5961,3 +5913,36 @@ text-decoration:none !important;
 .leader_car{padding-top: 10px;}
 
 .read_morelink{color:red;}
+
+
+.col-md-12.earn_box canvas {
+    margin-top: 15px;
+}
+
+.col-md-12.drive_completionbox canvas {
+    margin-top: 15px;
+}
+
+.col-md-12.owner {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.earn_box h3
+ {
+    margin-top: 10px;
+    position: absolute;
+    top: 87px !important;
+    left: 55px !important;
+    text-transform: uppercase !important;
+}
+
+.drive_completionbox h3{
+     margin-top: 10px;
+    position: absolute;
+    top: 102px !important;
+    left: 65px !important;
+    text-transform: uppercase !important;
+}
+
+

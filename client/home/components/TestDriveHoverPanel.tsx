@@ -71,6 +71,9 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                     </div>
                                 </div>
                                 <div className="col-md-12 end_date">
+                                    <div className="row">
+                                        
+                                   
                                     <span className="orange">
                                         <i>OS REQUIRED:</i>
                                     </span>
@@ -88,6 +91,7 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                     </div>
                                 </div>
                             </div>
+                             </div>
                         </div>
                     </div>
                     <div className="col-md-6 drive_info">

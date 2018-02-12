@@ -49,7 +49,7 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                             <div className="col-md-12 earn_box">
                                 <span className="orange"><i>POINTS :</i></span>
                                 <canvas id={canvasID1} width="150" height="150"></canvas>
-                                <h3>{percentComplete} %</h3>
+                                <h3 className="earn_boxcount">{percentComplete} %</h3>
                                 <span className="small">
                                     {completedTestCases} 
                                         of {totalTestCases}  tasks done
@@ -58,7 +58,7 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                             <div className="col-md-12 drive_completionbox">
                                 <span className="orange"><i>DRIVE COMPLETION</i></span>
                                 <canvas id={canvasID2} width="150" height="150"></canvas>
-                                <h3>{testDriveResponse.currentPoint}</h3>
+                                <h3 className="completionboxcount">{testDriveResponse.currentPoint}</h3>
                                 <span className="small">{testDriveResponse.currentPoint} of {testDrive.maxPoints} points earned</span>
                             </div>
                         </div>
