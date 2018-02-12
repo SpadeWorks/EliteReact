@@ -22,7 +22,7 @@ class OverView extends React.Component<OverViewProps> {
                                 </p>
                             </div>
                             <div className="col-md-12 ">
-                                <h4 className="testcase_title ">TEST CASES COMPLETED</h4>
+                                <h4 className="testcase_title ">TEST CASE COMPLETED</h4>
                             </div>
                         </div>
                     </div>
@@ -36,17 +36,17 @@ class OverView extends React.Component<OverViewProps> {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-3 ">
-                        <div className="row ">
-                            <div className="col-md-12 testcase_title ">
+                    <div className="col-md-3 start_date">
+                        <div className="row">
+                            <div className="col-md-12 testcase_title">
                                 <p className="inactive ">{Services.formatDate(testDriveInstance.startDate)}</p>
                             </div>
                             <div className="col-md-12 ">
-                                <h4 className="testcase_title ">TEST DRIVE START DATE</h4>
+                                <h4 className="testcase_title">TEST DRIVE START DATE</h4>
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-3 ">
+                    <div className="col-md-3 end_date">
                         <div className="row ">
                             <div className="col-md-12 ">
                                 <p>{Services.formatDate(testDriveInstance.endDate)}</p>
@@ -59,14 +59,14 @@ class OverView extends React.Component<OverViewProps> {
                 </div>
                 <div className="col-md-1 navigation_box ">
                     <div className="row ">
-                        <div className="col-md-6 ">
+                        <div className="col-md-6 pull-left">
                             <a className="up carousel-control " href="#carousel-example-vertical" role="button" data-slide="prev ">
                                 <span className="glyphicon glyphicon-chevron-up " aria-hidden="true "></span>
                                 <span className="sr-only ">Previous</span>
                             </a>
                         </div>
                     </div>
-                    <div className="col-md-6 ">
+                    <div className="col-md-6 pull-right">
                         <a className="down carousel-control " href="#carousel-example-vertical" role="button" data-slide="next ">
                             <span className="glyphicon glyphicon-chevron-down " aria-hidden="true "></span>
                             <span className="sr-only ">Next</span>

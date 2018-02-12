@@ -69,11 +69,13 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         const { testCase, active, saveTestCaseResponse, ui, updateUI, index } = this.props;
         return (<div className={"item " + (active ? 'active' : '')} id={'test-case-form' + testCase.responseID}>
             <div className="container ">
+                <div className="row"></div>
                 <div className="col-md-12 ">
                     <div className="row testcase_box ">
-                        <h5>{"Test Caes " + (index + 1)}</h5>
-                        <h1>{testCase.title}</h1>
+                        <span className="orange">{"Test Caes " + (index + 1)}</span>
+                        <h1 className="testcase_name">{testCase.title}</h1>
                         <p>{testCase.description}</p>
+                        
                         <a href="javascript:void(0);" onClick={this.openPopUp}> <h5>Guide me to solve this test case</h5></a>
                         <h4 className="testcase_title ">Select the test case status</h4>
                         <div className="row ">

@@ -25,13 +25,13 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
     componentDidMount() {
         $('#carousel-example-vertical').bind('mousewheel', function (e) {
             if (e.originalEvent.wheelDelta / 120 > 0) {
-                $(this).carousel('next');
+                $(this).carousel('prev');
                 $('#carousel-example-vertical').carousel({
                     interval: 3000
                 });
             }
             else {
-                $(this).carousel('prev');
+                $(this).carousel('next');
             }
         });
     }

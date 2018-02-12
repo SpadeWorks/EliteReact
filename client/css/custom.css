@@ -3203,6 +3203,7 @@ a.drive_name:hover {
 
 a.drive_name h4 {
     color: #fff;
+    cursor: pointer;
 }
 
 .leader_rank {
@@ -3598,7 +3599,7 @@ width: 28px !important;
     transition: all 0.9s;
     /* height: 500px; */
     background: #060612;
-    position: relative;
+    position: absolute;
     top: -300px;
     width: 400px;
     z-index: 102;
@@ -3608,7 +3609,7 @@ width: 28px !important;
 }
 
 .letest_driveboxclick {
-      position: relative;
+      position: absolute;
     left: 370px;
     display: block;
     transition: 0.5s;
@@ -3953,12 +3954,6 @@ span.testd_count {
     font-size: 15px;
 }
 
-h4.testcase_title {
-    font-family: titanium !important;
-    font-size: 20px;
-    color: #868686;
-    margin-top: 30px;
-}
 
 .test_progress {
     float: left;
@@ -4041,9 +4036,6 @@ a.status_fail {
     font-size: 25px;
 }
 
-.overview span.orange {
-    font-size: 42px;
-}
 
 .overview h4.testcase_title {
     margin-top: 0px;
@@ -4518,7 +4510,7 @@ span.teams:hover {
 .col-md-12.end_date {
     position: absolute;
     bottom: 50px;
-    height: 50px;
+   
 }
 
 .popup_infocontainer button {
@@ -4723,7 +4715,7 @@ span.testd_count {
 
 h4.testcase_title {
     font-family: titanium !important;
-    font-size: 20px;
+    font-size: 13px;
     color: #868686;
     margin-top: 30px;
 }
@@ -4797,7 +4789,7 @@ a.status_fail {
 }
 
 .overview span.orange {
-    font-size: 42px;
+    font-size: 37px;
 }
 
 .overview h4.testcase_title {
@@ -4940,7 +4932,7 @@ span.teams:hover {
 .col-md-12.end_date {
     position: absolute;
     bottom: 50px;
-    height: 50px;
+  
     margin-top: 15px;
     margin-bottom: 15px;
 }
@@ -5397,12 +5389,7 @@ h1#dialogTitleSpan {
     font-size: 15px;
 }
 
-h4.testcase_title {
-    font-family: titanium !important;
-    font-size: 20px;
-    color: #868686;
-    margin-top: 30px;
-}
+
 
 .test_progress {
     float: left;
@@ -5488,9 +5475,6 @@ a.status_fail:hover {
     font-size: 25px;
 }
 
-.overview span.orange {
-    font-size: 42px;
-}
 
 .overview h4.testcase_title {
     margin-top: 0px;
@@ -5780,7 +5764,7 @@ animation-delay: 10s;
 .col-md-12.end_date {
     position: relative !important;
     bottom: -23px !important;
-    height: 50px !important;
+  
 }
 
 .error-lable {
@@ -6012,7 +5996,7 @@ input.inputMaterial:focus~label {
  {
     margin-top: 10px;
     position: absolute;
-    top: 87px !important;
+    top: 99px !important;
     left: 55px !important;
     text-transform: uppercase !important;
 }
@@ -6029,3 +6013,12 @@ input.inputMaterial:focus~label {
     height: 148px !important;
 }
 
+.overview .col-md-3.start_date p {
+    font-size: 37px;
+}
+
+.overview .col-md-3.end_date p {
+    font-size: 37px;
+}
+
+h1.testcase_name {margin-top: 30px;}
