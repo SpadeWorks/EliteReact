@@ -54,21 +54,22 @@ class TestDriveParticipationContainer extends React.Component<AppProps> {
                 (testDriveInstance: model.TestDriveInstance) =>
                   dispatch(createOrSaveTestDriveInstance(testDriveInstance))} />
           }
-          {
-            !loading && testDriveInstance.instanceID != -1 &&
-            <TestDriveParticipation 
-              testDriveInstance={testDriveInstance}
-              saveTestCaseResponse={(testcaseInstance, testDriveInstance) =>
-                dispatch(createOrSaveTestCaseInstance(testcaseInstance, testDriveInstance))}
-              saveQuestionResponse={(questionInstance) => 
-                dispatch(createOrSaveQuestionInstance(questionInstance))}
-                loadQuestions = {(testDriveID: number, questionIDs: number[], userID: number)=> 
-                  dispatch(loadQuestions(testDriveID, questionIDs, userID))}
-              updateUI={updateUI}
-              ui={ui}
-            />
-          }
         </Loader>
+        {
+          !loading && testDriveInstance.instanceID != -1 &&
+          <TestDriveParticipation
+            testDriveInstance={testDriveInstance}
+            saveTestCaseResponse={(testcaseInstance, testDriveInstance) =>
+              dispatch(createOrSaveTestCaseInstance(testcaseInstance, testDriveInstance))}
+            saveQuestionResponse={(questionInstance) =>
+              dispatch(createOrSaveQuestionInstance(questionInstance))}
+            loadQuestions={(testDriveID: number, questionIDs: number[], userID: number) =>
+              dispatch(loadQuestions(testDriveID, questionIDs, userID))}
+            updateUI={updateUI}
+            ui={ui}
+          />
+        }
+
         <Footer />
       </div>
     );

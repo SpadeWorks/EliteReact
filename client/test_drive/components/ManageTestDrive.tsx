@@ -9,6 +9,8 @@ import TabCar from './TabCar';
 import Services from '../../common/services/services';
 import Surveys from './Surveys';
 import { Link } from "react-router-dom";
+import { validateControl, required, validateForm } from '../../common/components/Validations';
+import {Messages} from '../../common/services/constants';
 import {
     model,
     saveTestDrive,
@@ -60,7 +62,14 @@ interface AppProps {
 class ManageTestDrive extends React.Component<AppProps> {
     constructor(props, context) {
         super(props, context);
-        this.getTabClass.bind(this);
+        this.getTabClass = this.getTabClass.bind(this);
+        this.switchTab = this.switchTab.bind(this);
+        this.onTestDriveSave = this.onTestDriveSave.bind(this);
+        this.onAddQuestion = this.onAddQuestion.bind(this);
+        this.onAddTestCase = this.onAddTestCase.bind(this);
+        this.onSaveQuestion = this.onSaveQuestion.bind(this);
+        this.onSaveTestCase = this.onSaveTestCase.bind(this);
+        this.checkForUnsavedItems = this.checkForUnsavedItems.bind(this);
     }
 
     getTabClass(key) {
@@ -79,15 +88,93 @@ class ManageTestDrive extends React.Component<AppProps> {
     }
 
     componentDidMount() {
-        if(!this.props.configurationLoaded){
+        if (!this.props.configurationLoaded) {
             this.props.dispatch(loadConfigurations());
         }
         this.props.dispatch(loadTestDrive(this.props.id || -1));
     }
 
+    onTestDriveSave(testDrive, formID) {
+        var isFormValid = validateForm(formID);
+        var testCases = this.props.testDrive.testCases;
+        var questions = this.props.testDrive.questions;
+        if (isFormValid) {
+            if (testCases && testCases.length &&
+                this.checkForUnsavedItems(testCases, Messages.SAVE_UNSAVED_TEST_CASE)) {
+                this.switchTab('step-2');
+                return false;
+            }
+            if (questions && questions.length &&
+                this.checkForUnsavedItems(questions, Messages.SAVE_UNSAVED_QUESTION)) {
+                this.switchTab('step-3');
+                return false;
+            }
+
+            this.props.dispatch(saveTestDrive(testDrive));
+        }
+        else {
+            this.switchTab('step-1');
+            alert(Messages.TEST_DRIVE_ERROR);
+        }
+    }
+
+    onSaveQuestion(question, formID) {
+        var isFormValid = validateForm(formID);
+        if (isFormValid) {
+            this.props.dispatch(saveQuestion(question));
+        } else {
+            alert(Messages.QUESTION_ERROR);
+        }
+    }
+
+    onSaveTestCase(testCase, formID) {
+        var isFormValid = validateForm(formID);
+        if (isFormValid) {
+            this.props.dispatch(saveTestCase(testCase));
+        } else {
+            alert(Messages.TEST_CASE_ERROR);
+        }
+    }
+
+    checkForUnsavedItems(items, message) {
+        var unsaveTestCase = items && items.filter(item => {
+            return item.isInEditMode == true;
+        });
+
+        if (unsaveTestCase.length) {
+            alert(message);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    onAddQuestion() {
+        var questions = this.props.testDrive.questions;
+        var isUnsavedItem = true;;
+        isUnsavedItem = this.checkForUnsavedItems(questions, Messages.SAVE_UNSAVED_QUESTION);
+        if (!isUnsavedItem) {
+            this.props.dispatch(addQuestion());
+        } else {
+            this.switchTab('step-3');
+        }
+    }
+
+    onAddTestCase() {
+        var testCases = this.props.testDrive.testCases;
+        var isUnsavedItem = false;
+        isUnsavedItem = this.checkForUnsavedItems(testCases, Messages.SAVE_UNSAVED_TEST_CASE);
+        if (!isUnsavedItem) {
+            this.props.dispatch(addTestCase());
+            this.props.dispatch(updateMaxPoints());
+        } else {
+            this.switchTab('step-2');
+        }
+    }
+
     render() {
-        const { testDrive, question, dispatch, loading, testCase, ui, updateUI, 
-                testCaseFields, surveyFields, testDriveFields} = this.props;
+        const { testDrive, question, dispatch, loading, testCase, ui, updateUI,
+            testCaseFields, surveyFields, testDriveFields } = this.props;
         return (
             <div className="container">
                 <h2 className="page-heading">Create Test Drive</h2>
@@ -95,62 +182,64 @@ class ManageTestDrive extends React.Component<AppProps> {
                 <div className="col-md-12">
                     <div className="wrapper">
                         <Loader show={loading} message={'Loading...'}>
-                            <TabCar switchTab={(key) => this.switchTab(key)} />
+                            <TabCar switchTab={this.switchTab} ui={ui} updateUI={updateUI} />
                             <div className={"row setup-content " + this.getTabClass('step-1')} id="step-1" >
                                 <div className="col-xs-12 form_box tab-container">
                                     <TestDriveForm
                                         testDrive={testDrive}
-                                        saveTestDrive={(t) => dispatch(saveTestDrive(t))}
+                                        saveTestDrive={(t, f) => this.onTestDriveSave(t, f)}
                                         submitTestDrive={(t) => dispatch(submitTestDrive(t))}
                                         onChange={(e, testDrive) => dispatch(updateTestDrive(e, testDrive))}
                                         updateMultiSelect={(value, control, testDrive) => dispatch(updateMultiSelect(value, control, testDrive))}
                                         updateDates={(dates) => dispatch(updateDate(dates))}
-                                        updateMaxPoints = {() => dispatch(updateMaxPoints())}
+                                        updateMaxPoints={() => dispatch(updateMaxPoints())}
                                         updateUI={updateUI}
-                                        fieldDescriptions = {testDriveFields}
+                                        fieldDescriptions={testDriveFields}
                                         ui={ui}
+                                        switchTab={this.switchTab}
                                     />
                                 </div>
                             </div>
                             <div className={"row setup-content " + this.getTabClass('step-2')} id="step-2">
                                 <div className="col-xs-12 form_box tab-container">
-                                    {(this.getTabClass('step-2') ==  "show-tab") &&
+                                    {(this.getTabClass('step-2') == "show-tab") &&
                                         <TestCases testCases={testDrive.testCases}
                                             newTestCase={testCase}
-                                            saveTestCase={(t) => dispatch(saveTestCase(t))}
-                                            saveTestDrive={(t) => dispatch(saveTestDrive(t))}
+                                            saveTestCase={(t, f) => this.onSaveTestCase(t, f)}
+                                            saveTestDrive={(t, f) => this.onTestDriveSave(t, f)}
                                             editTestCase={(t) => dispatch(editTestCase(t))}
                                             deleteTestCase={(id) => dispatch(deleteTestCase(id))}
                                             onChange={(e, testCase) => dispatch(updateTestCase(e, testCase))}
-                                            addTestCase={() => dispatch(addTestCase())}
-                                            updateMaxPoints = {() => dispatch(updateMaxPoints())}
+                                            addTestCase={this.onAddTestCase}
+                                            updateMaxPoints={() => dispatch(updateMaxPoints())}
                                             testDrive={testDrive}
                                             updateUI={updateUI}
                                             ui={ui}
                                             loadTestCases={(t) => dispatch(loadTestCases(t))}
                                             testCaseIds={testDrive.testCaseIDs}
-                                            fieldDescriptions = {testCaseFields}
+                                            fieldDescriptions={testCaseFields}
+                                            switchTab={this.switchTab}
                                         />}
                                 </div>
                             </div>
                             <div className={"row setup-content " + this.getTabClass('step-3')} id="step-3">
                                 <div className="col-xs-12 form_box tab-container">
                                     {
-                                        (this.getTabClass('step-3') ==  "show-tab") &&
+                                        (this.getTabClass('step-3') == "show-tab") &&
                                         <Surveys questions={testDrive.questions}
                                             newQuestion={question}
-                                            saveQuestion={(t) => dispatch(saveQuestion(t))}
-                                            saveTestDrive={(t) => dispatch(saveTestDrive(t))}
+                                            saveQuestion={(t, f) => this.onSaveQuestion(t, f)}
+                                            saveTestDrive={(t, f) => this.onTestDriveSave(t, f)}
                                             editQuestion={(t) => dispatch(editQuestion(t))}
                                             deleteQuestion={(id) => dispatch(deleteQuestion(id))}
                                             onChange={(e, question) => dispatch(updateQuestion(e, question))}
-                                            addQquestion={() => dispatch(addQuestion())}
+                                            addQuestion={this.onAddQuestion}
                                             testDrive={testDrive}
                                             updateUI={updateUI}
                                             ui={ui}
                                             loadQuestions={(t) => dispatch(loadQuestions(t))}
                                             questionIds={testDrive.questionIDs}
-                                            fieldDescriptions = {surveyFields}
+                                            fieldDescriptions={surveyFields}
                                         />
                                     }
                                 </div>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { TestDrive, IState, Question } from '../model';
 import SurveyForm from './SurveyForm';
+import {ColumnsValues} from '../../common/services/constants';
 import {
     model,
     saveQuestion,
@@ -12,12 +13,12 @@ import {
 interface SurveysProps {
     questions: Question[];
     newQuestion: Question;
-    addQquestion: () => any;
+    addQuestion: () => any;
     deleteQuestion: (id: number) => any;
-    saveQuestion: (question: Question) => any;
+    saveQuestion: (question: Question, formID: string) => any;
     editQuestion: (question: Question) => any;
     onChange: (event: any, question: Question) => any;
-    saveTestDrive: (testDrive: TestDrive) => any;
+    saveTestDrive: (testDrive: TestDrive, formID: string) => any;
     testDrive: TestDrive;
     updateUI: (any) => any;
     ui: any;
@@ -29,7 +30,14 @@ interface SurveysProps {
 class Surveys extends React.Component<SurveysProps> {
     constructor(props, context) {
         super(props, context);
+        this.onSubmit = this.onSubmit.bind(this);
         //  this.handleEdit = this.handleEdit.bind(this);
+    }
+
+    onSubmit(){
+        var testDrive = this.props.testDrive;
+        testDrive.status = ColumnsValues.SUBMIT;
+        this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id)
     }
 
     componentDidMount(){
@@ -48,7 +56,7 @@ class Surveys extends React.Component<SurveysProps> {
             onChange,
             newQuestion,
             deleteQuestion,
-            addQquestion,
+            addQuestion,
             saveTestDrive,
             ui,
             updateUI,
@@ -57,7 +65,7 @@ class Surveys extends React.Component<SurveysProps> {
         return (
             <div className="test-case-container col-xs-12">
                 <div className="add-button col-md-2 add_test pull-right text-right">
-                    <a href="javascript:void(0);" onClick={addQquestion}> + add Question </a>
+                    <a href="javascript:void(0);" onClick={addQuestion}> + add Question </a>
                 </div>
                 <div className="col-md-12">
                     {
@@ -79,10 +87,10 @@ class Surveys extends React.Component<SurveysProps> {
                 </div>
                 
                 <div className="col-md-12">
-
-                    <input type="button" value="Next" className="button type1 nextBtn btn-lg pull-right" />
-                    <input type="button" value="Save" className="button type1 nextBtn btn-lg pull-right"
-                        onClick={() => { saveTestDrive(testDrive) }} />
+                    <input type="button" value="Save as a draft" className="button type1 nextBtn btn-lg pull-right"
+                        onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id)}} />
+                        <input type="button" value="Done" className="button type1 nextBtn btn-lg pull-right"
+                        onClick={this.onSubmit} />
                 </div>
             </div>
         );

@@ -42,7 +42,7 @@ const loadTestDrive = createAction<any, number>(
 
 const loadTestDrives = createAction<any, number>(
   LOAD_TestDrives,
-  (ownerID: number) => Services.getTestDrivesByOwerneID(ownerID)
+  (ownerID: number) => Services.getTestDrivesByOwerneID(ownerID, 0, 100)
 );
 
 const saveTestDrive = createAction<any, TestDrive>(

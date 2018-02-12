@@ -34,13 +34,12 @@ class TestDriveContainer extends React.Component<AppProps> {
     const { testDriveState, dispatch } = this.props;
     return (
       <div className="testDrives container">
-      <Loader show={testDriveState.loading} message={'loading'}>
         <TestDrives 
+          loading={testDriveState.loading}
           testDrives={testDriveState.testDrives} 
           editTestDrive={(t: model.TestDrive) => dispatch(editTestDrive(t))}
           deleteTestDrive={(id: number) => dispatch(deleteTestDrive(id))}
         />
-      </Loader>
       <Footer />
       </div>
     );

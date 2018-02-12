@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from "react-router-dom";
 
 interface VideoProps {
-
+    videoUrl: string;
 };
 class Video extends React.Component<VideoProps> {
     constructor(props, context) {
@@ -13,8 +13,7 @@ class Video extends React.Component<VideoProps> {
             <div className="modal-dialog video_box" role="document">
                 <div className="modal-content">
                     <video width="100%" controls>
-                        <source src="images/elite_video.mp4" type="video/mp4" />
-                        <source src="images/elite_video.ogg" type="video/ogg" />
+                        <source src={this.props.videoUrl} type="video/mp4" />
                         Your browser does not support HTML5 video.
                     </video>
                 </div>

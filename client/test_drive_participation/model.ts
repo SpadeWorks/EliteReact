@@ -15,8 +15,7 @@ export type TestCaseInstance = {
     newItem?: boolean;
     testCaseResponse: string;
     selectedResponse: string;
-    responseStatus: string;
-    
+    responseStatus: string;   
 }
 
 export type QuestionInstance = {
@@ -31,7 +30,7 @@ export type QuestionInstance = {
     responseStatus: string;
     questionResponse: string;
     selectedResponse: string;
-    userID: number;    
+    userID: number;
 }
 
 
@@ -62,6 +61,8 @@ export type TestDriveInstance = {
     dateJoined: string;
     numberOfTestCasesCompleted: number;
     questionLoaded: boolean;
+    loading: boolean;
+    loadingMessage: string;
 };
 
 export type Configurations = {

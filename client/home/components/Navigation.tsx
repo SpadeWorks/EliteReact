@@ -49,10 +49,9 @@ class Navigation extends React.Component<NavigationProps> {
                         <img src="http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/leaderboard.png" />
                         <span>Leaderboard</span>
                     </Link>
-                    <Link className="maplinks" to={"/video"} id="link6">
-                        <img src="http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/video.png" />
-                        <span>Video</span>
-                    </Link>
+                    <a data-toggle="modal" data-target="#exampleModal" id="link6" className="maplinks">
+                    <img src="http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/video.png" />
+                    <span>Video</span></a>
                 </object>
             </div>
         </div>)

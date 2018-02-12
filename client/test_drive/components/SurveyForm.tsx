@@ -4,11 +4,12 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import ui from 'redux-ui';
 import * as Constants from '../../common/services/constants';
+import { validateControl, required, validateForm } from '../../common/components/Validations';
 
 interface SurveyFormProps {
     question: Question,
     deleteQuestion: (id: number) => any;
-    saveQuestion: (question: Question) => any;
+    saveQuestion: (question: Question, formID: string) => any;
     editQuestion: (question: Question) => any;
     onChange: (event: any, question: Question) => any;
     updateUI: (any) => any;
@@ -27,12 +28,12 @@ class SurveyForm extends React.Component<SurveyFormProps> {
     constructor(props, context) {
         super(props, context);
         this.onChange = this.onChange.bind(this);
-        this.updateQuestionType = this.updateQuestionType.bind(this);
-        this.updateQuestionOptions = this.updateQuestionOptions.bind(this);
+        this.selectControlChange = this.selectControlChange.bind(this);
     }
 
     onChange = (e) => {
         this.props.onChange(e, this.props.onChange(e, this.props.question));
+        validateControl(e.target.id, e.target.value);
     }
 
     options = [
@@ -47,28 +48,17 @@ class SurveyForm extends React.Component<SurveyFormProps> {
         { value: 'unsatisfied', label: 'unsatisfied' }
     ]
 
-    updateQuestionType(newValue) {
+    selectControlChange = (value, id, name) => {
         let e = {
             target: {
                 type: 'custom-select',
-                name: 'questionType',
-                value: newValue
+                name: name,
+                value: value,
+                id: id
             }
         };
-
-        this.props.onChange(e, this.props.onChange(e, this.props.question));
-    }
-
-    updateQuestionOptions(value) {
-        let e = {
-            target: {
-                type: 'custom-select',
-                name: 'options',
-                value: value
-            }
-        };
-
-        this.props.onChange(e, this.props.onChange(e, this.props.question));
+        this.onChange(e);
+        validateControl(id, value);
     }
 
     render() {
@@ -88,7 +78,7 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                             aria-controls="collapseOne"
                             className="pull-left"
                             onClick={() => editQuestion(question)}>
-                            {question.title}
+                            {question.title || "Question " + question.id}
 
                         </a>
 
@@ -101,7 +91,7 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                             }
                             {question.isInEditMode &&
                                 <a href="javascript:void(0);" className="check_ico"
-                                    onClick={() => saveQuestion(question)}>
+                                    onClick={() => saveQuestion(question, "question-form" + question.id)}>
                                     <i className="material-icons" style={checkBoxStyle}>check</i>
                                 </a>}
                         </div>
@@ -116,51 +106,55 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                         life accusamus terry richardson ad squid. 3 wolf moon
                         officia aute, non cupidatat skateboard dolor brunch.
 
-                        <form>
+                        <form id={"question-form" + question.id}>
                             <div className="col-md-12 register_input">
-
-                                <input className="inputMaterial" type="text"
-                                    onChange={this.onChange} name="title"
+                                <input className="inputMaterial" 
+                                    type="text"
+                                    onChange={this.onChange}
+                                    name="title"
                                     value={question.title || ""}
-                                    required />
+                                    id={"question-title" + question.id}
+                                    data-validations={[required]} />
                                 <span className="highlight"></span>
                                 <span className="bar"></span>
-                                <label>Test drive title</label>
+                                <label>Question*</label>
                                 <span className="help-text">
                                     {fieldDescriptions && fieldDescriptions[Constants.Columns.TITLE]}
                                 </span>
                             </div>
-
-
-                            <div className="col-md-12">
-                                <h5>Question Type:</h5>
-                                <Select
-                                    id="question-type"
-                                    onBlurResetsInput={false}
-                                    onSelectResetsInput={false}
-                                    autoFocus
-                                    options={this.options}
-                                    simpleValue
-                                    clearable={true}
-                                    name="question-type"
-                                    value={question.questionType}
-                                    onChange={this.updateQuestionType}
-                                    rtl={false}
-                                    searchable={false}
-                                />
+                            <div className="col-md-12 register_input">
+                                <div data-validations={[required]} className="custom-select" id={"question-type-" + question.id}>
+                                    <Select
+                                        onBlurResetsInput={false}
+                                        onSelectResetsInput={false}
+                                        autoFocus
+                                        options={this.options}
+                                        simpleValue
+                                        clearable={true}
+                                        name="question-type"
+                                        value={question.questionType}
+                                        onChange={(value) => this.selectControlChange(value, "question-type-" + question.id, "questionType")}
+                                        rtl={false}
+                                        searchable={false}
+                                    />
+                                </div>
+                                <label className="disc_lable">Question type*</label>
                                 <span className="help-text">
                                     {fieldDescriptions && fieldDescriptions[Constants.Columns.RESPONSETYPE]}
                                 </span>
-
-                                <br></br>
+                            </div>
+                            <div className="col-md-12 register_input">
                                 {question.questionType === "Objective" && <div>
-                                    <h5>Please Select the Choices or add new choices.</h5>
-                                    <Select.Creatable
-                                        multi={true}
-                                        options={this.answers}
-                                        onChange={this.updateQuestionOptions}
-                                        value={question.options}
-                                    />
+                                    <div data-validations={[required]} className="custom-select" id={"question-options" + question.id}>
+                                        <Select.Creatable
+                                            name="options"
+                                            multi={true}
+                                            options={this.answers}
+                                            onChange={(value) => this.selectControlChange(value, "question-options-" + question.id, "options")}
+                                            value={question.options}
+                                        />
+                                    </div>
+                                    <label className="disc_lable">Responses</label>
                                     <span className="help-text">
                                         {fieldDescriptions && fieldDescriptions[Constants.Columns.RESPONSES]}
                                     </span>

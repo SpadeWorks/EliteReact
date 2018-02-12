@@ -6,17 +6,18 @@ import { DateRange, Calendar } from 'react-date-range';
 import { TestDrive, IState } from '../model';
 import Service from '../../common/services/services';
 import * as $ from 'jquery';
-import { validateControl, required } from '../../common/components/Validations';
+import { validateControl, required, validateForm } from '../../common/components/Validations';
 import { updateDate } from '../index';
 
 interface TestDriveFormProps {
     testDrive: TestDrive,
-    saveTestDrive: (testDrive: TestDrive) => any;
+    saveTestDrive: (testDrive: TestDrive, formID: string) => any;
     submitTestDrive: (testDrive: TestDrive) => any;
     onChange: (event: any, testDrive: TestDrive) => any;
     updateMultiSelect: (value: any, control: string, testDrive: TestDrive) => any;
     updateMaxPoints: () => any;
     updateDates: (dates: any) => any;
+    switchTab: (tabName) => any;
     updateUI: (any) => any;
     fieldDescriptions: any;
     ui: any;
@@ -39,77 +40,21 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     constructor(props, state) {
         super(props, state);
         this.onChange = this.onChange.bind(this);
-        this.regionChange = this.regionChange.bind(this);
-        this.locationChange = this.locationChange.bind(this);
-        this.deviceChange = this.deviceChange.bind(this);
-        this.osChange = this.osChange.bind(this);
-        this.updateLevel = this.updateLevel.bind(this);
+        this.selectControlChange = this.selectControlChange.bind(this);
+        this.onMoveNext = this.onMoveNext.bind(this);
     }
 
     onChange = (e) => {
         this.props.onChange(e, this.props.testDrive);
-        validateControl(e);
+        validateControl(e.target.id, e.target.value);
     }
 
-    regionChange = (value) => {
-        var e = {
-            target: {
-                type: 'custom-select',
-                name: 'region',
-                value: value
-            }
-        };
-        validateControl(e);
-
-        this.props.updateMultiSelect(value, "region", this.props.testDrive);
-    }
-
-    locationChange = (value) => {
-        var e = {
-            target: {
-                type: 'custom-select',
-                name: 'location',
-                value: value
-            }
-        };
-        validateControl(e);
-        this.props.updateMultiSelect(value, "location", this.props.testDrive);
-    }
-
-    deviceChange = (value) => {
-        var e = {
-            target: {
-                type: 'custom-select',
-                name: 'requiredDevices',
-                value: value
-            }
-        };
-        validateControl(e);
-        this.props.updateMultiSelect(value, "requiredDevices", this.props.testDrive);
-    }
-
-    osChange = (value) => {
-        var e = {
-            target: {
-                type: 'custom-select',
-                name: 'requiredOs',
-                value: value
-            }
-        };
-        validateControl(e);
-        this.props.updateMultiSelect(value, "requiredOs", this.props.testDrive);
-    }
-
-    updateLevel(value) {
-        var e = {
-            target: {
-                type: 'select',
-                name: 'level',
-                value: value
-            }
-        };
-        this.onChange(e);
-        this.props.updateMaxPoints();
+    selectControlChange = (value, id, name) => {
+        this.props.updateMultiSelect(value, name, this.props.testDrive);
+        validateControl(id, value);
+        if(name == 'level'){
+            this.props.updateMaxPoints();
+        }
     }
 
     testDriveTypes = [
@@ -183,6 +128,11 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         });
     }
 
+    onMoveNext(){
+        this.props.saveTestDrive(this.props.testDrive, "test-drive-form" + this.props.testDrive.id);
+        this.props.switchTab('step-2');
+    }
+
     componentDidMount() {
         document.body.className = "black-bg";
         $(document).mouseup((e) => {
@@ -191,27 +141,19 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
             if (!container.is(e.target) && container.has(e.target).length === 0) {
                 this.props.updateUI({ showDatePicker: false });
             }
-            
-                /* for car*/
-                $(".test_cases a").click(function(){
-                     $(".car").addClass("middle");
 
-                });
+            /* for car*/
+            $(".test_cases a").click(function () {
+                $(".car").addClass("middle");
 
-                $(".servay a").click(function(){
-                    $(".car").removeClass("middle");   
-                    $(".car").addClass("last");
+            });
 
-                });
+            $(".servay a").click(function () {
+                $(".car").removeClass("middle");
+                $(".car").addClass("last");
 
-                
-
-
-
-                
-                /*for car ends */
-
-
+            });
+            /*for car ends */
         });
     }
 
@@ -222,8 +164,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         }
         const format = 'dddd, D MMMM YYYY';
         return (
-          
-            <form className="registration_form">
+            <form className="registration_form" id={"test-drive-form" + testDrive.id}>
                 <div className="col-xs-12 form_box">
                     <div className="col-md-12 register_input">
                         <input className="inputMaterial"
@@ -231,26 +172,27 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             onChange={this.onChange}
                             name="title"
                             value={testDrive.title || ""}
+                            id={"testDrive-title" + testDrive.id}
                             data-validations={[required]}
                         />
                         <span className="highlight"></span>
                         <span className="bar"></span>
-                        <label>Test drive title</label>
+                        <label className="disc_lable">Test drive title*</label>
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.TestDriveName}
                         </span>
                     </div>
-                    <div className="col-md-12 register_input">
+                    <div className="col-md-12 register_input textarea-custom">
                         <textarea className="inputMaterial"
-                            required
                             onChange={this.onChange}
                             name="description"
                             value={testDrive.description || ""}
+                            id={"testDrive-description" + testDrive.id}
                             data-validations={[required]}
                         />
                         <span className="highlight"></span>
                         <span className="bar"></span>
-                        <label className="disc_lable">Description</label>
+                        <label className="disc_lable">Description*</label>
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.EliteDescription}
                         </span>
@@ -267,6 +209,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 onFocus={() => { updateUI({ showDatePicker: true }) }}
                                 readOnly
                             />
+                            <label className="disc_lable">Start date*</label>
                             <span className="help-text">
                                 {fieldDescriptions && fieldDescriptions.TestDriveStartDate}
                             </span>
@@ -285,6 +228,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 onFocus={() => { updateUI({ showDatePicker: true }) }}
                                 readOnly
                             />
+                            <label className="disc_lable">End date*</label>
                             <span className="help-text">
                                 {fieldDescriptions && fieldDescriptions.TestDriveEndDate}
                             </span>
@@ -303,14 +247,21 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
 
                     <div className="col-md-6 register_input">
                         <div className="form-group">
-                            <input className="form-control inputMaterial date_box"
-                                id="maxPoints"
-                                name="maxPoints"
-                                placeholder="Max Points"
-                                type="text"
-                                value={testDrive.maxPoints.toString() || '0'}
-                                readOnly
-                            />
+                            <div data-validations={[required]} className="custom-select" id={"test-drive-type-" + testDrive.id}>
+                                <Select
+                                    onBlurResetsInput={false}
+                                    onSelectResetsInput={false}
+                                    options={this.testDriveTypes}
+                                    simpleValue
+                                    clearable={true}
+                                    name="level"
+                                    value={testDrive.level}
+                                    onChange={(value) => this.selectControlChange(value, "test-drive-type-" + testDrive.id, "level")}
+                                    rtl={false}
+                                    searchable={false}
+                                />
+                            </div>
+                            <label className="disc_lable">Test drive levle*</label>
                             <span className="help-text">
                                 {fieldDescriptions && fieldDescriptions.TotalPoints}
                             </span>
@@ -319,27 +270,21 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
 
                     <div className="col-md-6 register_input">
                         <div className="form-group">
-                            <Select
-                                id="testDriveType"
-                                onBlurResetsInput={false}
-                                onSelectResetsInput={false}
-                                options={this.testDriveTypes}
-                                simpleValue
-                                clearable={true}
-                                name="level"
-                                value={testDrive.level}
-                                onChange={this.updateLevel}
-                                rtl={false}
-                                searchable={false}
+                            <input className="form-control inputMaterial date_box"
+                                id="maxPoints"
+                                name="maxPoints"
+                                placeholder="Max Points"
+                                type="text"
+                                value={testDrive.maxPoints.toString() || '0'}
+                                readOnly
                             />
+                            <label className="disc_lable">Maximum Points</label>
                             <span className="help-text">
                                 {fieldDescriptions && fieldDescriptions.TotalPoints}
                             </span>
                         </div>
                     </div>
-
-
-                    <div className="col-md-12 register_input">
+                    <div className="col-md-12 register_input textarea-custom">
                         <textarea className="inputMaterial"
                             name="expectedBusinessValue"
                             onChange={this.onChange}
@@ -348,99 +293,107 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         />
                         <span className="highlight"></span>
                         <span className="bar"></span>
-                        <label className="disc_lable">Expected Business Value</label>
+                        <label className="disc_lable">Expected business value</label>
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.ExpectedBusinessValue}
                         </span>
                     </div>
-                    <div className="col-md-12">
-                        <h5>Allowed Regions:</h5>
-                        <Select.Async multi={true}
-                            value={testDrive.region}
-                            onChange={this.regionChange}
-                            valueKey="TermGuid"
-                            labelKey="Label"
-                            name="region"
-                            loadOptions={this.getRegions}
-                            type="select-multiple"
-                        />
+                    <div className="col-md-12 register_input">
+                            <Select.Async multi={true}
+                                value={testDrive.region}
+                                onChange={(value) => this.selectControlChange(value, "test-drive-region-" + testDrive.id, "region")}
+                                valueKey="TermGuid"
+                                labelKey="Label"
+                                name="region"
+                                loadOptions={this.getRegions}
+                                type="select-multiple"
+                            />
+                        <label className="disc_lable">Allowed Regions</label>
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.TestDriveRegion}
                         </span>
-                        <br></br>
-                        <h5>Allowed Locations:</h5>
-                        <Select.Async multi={true}
-                            value={testDrive.location}
-                            onChange={this.locationChange}
-                            valueKey="TermGuid"
-                            labelKey="Label"
-                            loadOptions={this.getLocations}
-                            type="select-multiple"
-                            name="location"
-                            data-validations={[required]}
-                        />
+                    </div>
+                    <div className="col-md-12 register_input">
+                        <div data-validations={[required]} className="custom-select" id={"testDrive-location" + testDrive.id}>
+                            <Select.Async multi={true}
+                                value={testDrive.location}
+                                onChange={(value) =>
+                                    this.selectControlChange(value, "testDrive-location" + testDrive.id, "location")}
+                                valueKey="TermGuid"
+                                labelKey="Label"
+                                loadOptions={this.getLocations}
+                                type="select-multiple"
+                                name="location"
+                                data-validations={[required]}
+                            />
+                        </div>
+                        <label className="disc_lable">Eligible drive location*</label>
+
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.TestDriveLocation}
                         </span>
-
-                        <br></br>
-                        <h5>Required Devices:</h5>
-                        <Select.Async multi={true}
-                            value={testDrive.requiredDevices}
-                            onChange={this.deviceChange}
-                            valueKey="TermGuid"
-                            labelKey="Label"
-                            loadOptions={this.getDevices}
-                            type="select-multiple"
-                            name="requiredDevices"
-                            data-validations={[required]}
-                        />
+                    </div>
+                    <div className="col-md-12 register_input">
+                        <div data-validations={[required]} className="custom-select" id={"requiredDevices" + testDrive.id}>
+                            <Select.Async multi={true}
+                                value={testDrive.requiredDevices}
+                                onChange={(value) => this.selectControlChange(value, "requiredDevices" + testDrive.id, "requiredDevices")}
+                                valueKey="TermGuid"
+                                labelKey="Label"
+                                loadOptions={this.getDevices}
+                                type="select-multiple"
+                                name="requiredDevices"
+                            />
+                        </div>
+                        <label className="disc_lable">Eligible devices*</label>
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.AvailableDevices}
                         </span>
-
-                        <br></br>
-                        <h5>Required OS:</h5>
-                        <Select.Async multi={true}
-                            value={testDrive.requiredOs}
-                            onChange={this.osChange}
-                            valueKey="TermGuid"
-                            labelKey="Label"
-                            loadOptions={this.getOSes}
-                            type="select-multiple"
-                            name="requiredOs"
-                            data-validations={[required]}
-                        />
+                    </div>
+                    <div className="col-md-12 register_input">
+                        <div data-validations={[required]} className="custom-select" id={"requiredOs" + testDrive.id}>
+                            <Select.Async multi={true}
+                                value={testDrive.requiredOs}
+                                onChange={(value) => this.selectControlChange(value, "requiredOs" + testDrive.id, "requiredOs")}
+                                valueKey="TermGuid"
+                                labelKey="Label"
+                                loadOptions={this.getOSes}
+                                type="select-multiple"
+                                name="requiredOs"
+                            />
+                        </div>
+                        <label className="disc_lable">Eligible os*</label>
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.AvailableOS}
                         </span>
                     </div>
-                    <br></br>
-                    <div className="col-md-12 register_input input-number" >
+                    <div className="col-md-12 register_input" >
                         <input className="inputMaterial"
                             type="number"
                             onChange={this.onChange}
                             name="maxTestDrivers"
                             value={testDrive.maxTestDrivers || ""}
                             data-validations={[required]}
+                            id={"testDrive-maxTestDrivers" + testDrive.id.toString()}
                         />
                         <span className="highlight"></span>
                         <span className="bar"></span>
-                        <label>Maximum allowed test drivers.</label>
+                        <label>Max test drivers*</label>
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.MaxTestDrivers}
                         </span>
                     </div>
                     <div className="col-md-12">
                         <div style={butttonGroup}>
-                            <input type="button" value="Next" className="button type1 nextBtn btn-lg pull-right" />
+                            <input type="button" value="Next" className="button type1 nextBtn btn-lg pull-right" 
+                                onClick={this.onMoveNext}/>
                             <input type="button" value="Save" className="button type1 nextBtn btn-lg pull-right"
-                                onClick={() => { saveTestDrive(testDrive) }} />
+                                onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
 
                         </div>
                     </div>
                 </div>
-            </form>
+            </form >
         );
     }
 }

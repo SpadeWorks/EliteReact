@@ -64,3 +64,8 @@ export const LOAD_Rank_FULFILLED = 'LOAD_Rank_FULFILLED';
 export const LOAD_Rank_REJECTED = 'LOAD_Rank_REJECTED';
 
 export const LOAD_CurrentUser = 'LOAD_CurrentUser';
+
+export const LOAD_Video = 'LOAD_Video';
+export const LOAD_Video_PENDING = 'LOAD_Video_PENDING';
+export const LOAD_Video_FULFILLED = 'LOAD_Video_FULFILLED';
+export const LOAD_Video_REJECTED = 'LOAD_Video_REJECTED';

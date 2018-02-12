@@ -10,10 +10,14 @@ export type IState = {
     userPoints: number;
     totalTasks: number;
     totalTestDrives: number;
-    testDrivesCompleted: number;    
+    testDrivesCompleted: number;
     eliteProfile: EliteProfile;
     rank: number;
     currentUser: any;
+    currentTestDrives: number;
+    avatars: string[];
+    cars: string[];
+    videoUrl?: string;
 }
 
 export type HomeTestDriveObj = {
@@ -24,7 +28,7 @@ export type HomeTestDriveObj = {
 export type HomeTestDrive = {
     id?: number;
     title?: string;
-    enddate?: string;    
+    enddate?: string;
     participants?: number;
     testDrive: TestDrive;
     testDriveResponse?: TestDriveResponse;
@@ -35,7 +39,7 @@ export type TestDriveResponse = {
     status: string;
     currentPoint: number;
     dateJoined: string;
-    numberOfTestCasesCompleted: number; 
+    numberOfTestCasesCompleted: number;
 }
 
 export type Leaders = {
@@ -73,8 +77,14 @@ export type EliteProfile = {
     avatarName: string;
     avatarImage: string;
     avatarID: number;
-} 
-
+    role: string;
+    dateJoined: string;
+    completedTestDrives: number;
+    completedTestCases: number;
+    availableOS: string[];
+    availableDevices: string[];
+    isInEditMode: boolean;
+}
 export type TestDrive = {
     id: number;
     title: string;

@@ -13,6 +13,7 @@ export class Lists {
     static APPLICATION_CONFIGURATIONS = "Application Configuration";
     static TEST_CASE_RESPONSES = "Test Case Responses";
     static SURVEY_RESPONSES = "Survey Responses";
+    static VIDEOS = "Videos";
 }
 
 export class CacheKeys{
@@ -48,6 +49,10 @@ export class Columns{
     static Car_ID = 'CarID';
     static AVATAR_IMAGE = 'AvatarImage';
     static AVATAR_NAME = 'AvatarName';
+    static COMPLETED_TEST_DRIVES = 'CompletedTestDrives';
+    static COMPLETED_TEST_CASES = 'CompletedTestCases';
+    static DATE_JOINED = 'DateJoined';
+    static USER_ROLE = 'UserInfoRole';    
     static POINTS = 'Points';
     static TYPE = 'Type';
     static SCENARIO = 'Scenario';
@@ -57,11 +62,11 @@ export class Columns{
     static QUESTION = 'Question';
     static RESPONSES = 'Responses';
     static RESPONSETYPE = 'ResponseType';
-    static USER_ID = 'UserID';
+    static USER_ID = 'UserID';		 
+    static USER_LOCATION = 'UserLocation';
     static PERCENTAGE_COMPLETION = "PercentageCompletion";
     static CURRENT_POINTS = "CurrentPoints";
     static STATUS = "Status";
-    static DATE_JOINED = "DateJoined";
     static TEST_CASE_COMPLETED = "TestCaseCompleted";
     static TEST_DRIVE_ID = "TestDriveID";
     static TEST_CASE_RESPONSE = "TestCaseResponse";
@@ -74,11 +79,28 @@ export class Columns{
 
 export class ColumnsValues{
     static COMPLETE_STATUS = 'Complete';
-    static DRAFT = "Draft";    
+    static DRAFT = "Draft";   
+    static SUBMIT = "Submit";   
     static TEST_CASE_COMPLETION = 'Test Case Bonus';
     static QUESTION_TYPE_OBJECTIVE = "Objective";
 }
 
 export class Globals{
     static IMAGE_BASE_URL = _spPageContextInfo.siteAbsoluteUrl + '/Style%20Library/Elite/images/';
+}
+
+export class Messages{
+    static SAVE_UNSAVED_QUESTION = 'Please save the unsaved question and then try saving test drive again.';
+    static SAVE_UNSAVED_TEST_CASE = 'Please save the unsaved test case and then try saving test drive again.';
+    static TEST_CASE_ERROR = 'There are some errors in the form. Please correct them and Save again.';
+    static TEST_DRIVE_ERROR = 'There are some errors in the form. Please correct them and Save again.';
+    static QUESTION_ERROR = 'There are some errors in the form. Please correct them and Save again.';
+    static LOADING_QUESTIONS = 'Loading questions...';
+    static LOADING_TSETCASES = 'Loading test cases...';
+    static LOADING_TESTDRIVE = 'Loading test drive...';
+    static SAVING_TESTCASE = 'Saving test case...';
+    static Saving_question = 'Saving questions...';
+    static SAVING = 'Saving...';
+    static LOADING = 'Loading...';
+    static ERROR_IN_FORM = 'There are some errors in the form. Please correct them and Save again.';
 }

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { TestDrive, IState, TestCase } from '../model';
 import TestCaseForm from './TestCaseForm';
 
+
 import {
     model,
     saveTestCase,
@@ -17,11 +18,12 @@ interface TestCasesProps {
     addTestCase: () => any;
     updateMaxPoints: () => any;
     deleteTestCase: (id: number) => any;
-    saveTestCase: (testCase: TestCase) => any;
+    saveTestCase: (testCase: TestCase, formID: string) => any;
     editTestCase: (TestCase: TestCase) => any;
     onChange: (event: any, TestCase: TestCase) => any;
-    saveTestDrive: (testDrive: TestDrive) => any;
+    saveTestDrive: (testDrive: TestDrive, formID: string) => any;
     loadTestCases: (testCasesIds: number[]) => any
+    switchTab: (tabName) => any;
     fieldDescriptions: any;
     testDrive: TestDrive;
     updateUI: (any) => any;
@@ -31,23 +33,23 @@ interface TestCasesProps {
 class TestCases extends React.Component<TestCasesProps> {
     constructor(props, context) {
         super(props, context);
-        //  this.handleEdit = this.handleEdit.bind(this);
-        this.addTestCase = this.addTestCase.bind(this);
+        this.onMoveNext = this.onMoveNext.bind(this);
     }
 
-    componentDidMount(){
+    onMoveNext() {
+        this.props.saveTestDrive(this.props.testDrive, "test-drive-form" + this.props.testDrive.id);
+        this.props.switchTab('step-3');
+    }
+
+    componentDidMount() {
         const testCase = this.props.testCases;
-        if(!testCase || testCase.length == 0){
+        if (!testCase || testCase.length == 0) {
             this.props.loadTestCases(this.props.testCaseIds);
         }
     }
 
-    addTestCase(){
-        this.props.addTestCase();
-        this.props.updateMaxPoints();
-    }
     render() {
-        const { 
+        const {
             testDrive,
             testCases,
             saveTestCase,
@@ -65,7 +67,7 @@ class TestCases extends React.Component<TestCasesProps> {
         return (
             <div className="test-case-container col-xs-12">
                 <div className="add-button col-md-2 add_test pull-right text-right">
-                    <a href="javascript:void(0);" onClick={this.addTestCase}> + add test case </a>
+                    <a href="javascript:void(0);" onClick={addTestCase}> + add test case </a>
                 </div>
                 <div className="col-md-12">
                     {
@@ -75,7 +77,7 @@ class TestCases extends React.Component<TestCasesProps> {
                                 saveTestCase={saveTestCase}
                                 editTestCase={editTestCase}
                                 deleteTestCase={deleteTestCase}
-                                updateMaxPoints = {updateMaxPoints}
+                                updateMaxPoints={updateMaxPoints}
                                 onChange={onChange}
                                 key={testCase.id}
                                 ui={ui}
@@ -85,12 +87,13 @@ class TestCases extends React.Component<TestCasesProps> {
                         })
                     }
                 </div>
-                
+
                 <div className="col-md-12">
 
-                    <input type="button" value="Next" className="button type1 nextBtn btn-lg pull-right" />
+                    <input type="button" value="Next" className="button type1 nextBtn btn-lg pull-right"
+                        onClick={this.onMoveNext } />
                     <input type="button" value="Save" className="button type1 nextBtn btn-lg pull-right"
-                        onClick={() => { saveTestDrive(testDrive) }} />
+                        onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
                 </div>
             </div>
         );
