@@ -17,7 +17,7 @@ export const validateControl = (id: any, newValue?: any) => {
         errorContainer = selectControl;
         validators = target.attr("data-validations");
     } else {
-        value = target.val();
+        value = target.val() || target.attr('data-value');
         errorContainer = target;
         validators = target.attr("data-validations");
     }

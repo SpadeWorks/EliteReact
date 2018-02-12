@@ -102,4 +102,5 @@ export class Messages{
     static Saving_question = 'Saving questions...';
     static SAVING = 'Saving...';
     static LOADING = 'Loading...';
+    static ERROR_IN_FORM = 'There are some errors in the form. Please correct them and Save again.';
 }
