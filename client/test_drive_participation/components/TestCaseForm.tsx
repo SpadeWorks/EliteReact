@@ -4,7 +4,7 @@ import { TestCaseInstance, TestDriveInstance } from '../../test_drive_participat
 import * as Constants from '../../common/services/constants';
 import ui from 'redux-ui';
 import Services from '../../common/services/services';
-
+import * as $ from 'jquery';
 interface TestCaseFormProps {
     testDriveInstance: TestDriveInstance 
     testCase: TestCaseInstance;
@@ -12,6 +12,7 @@ interface TestCaseFormProps {
     saveTestCaseResponse: (testCase: TestCaseInstance, testdrive: TestDriveInstance) => any;
     updateUI: (any) => any;
     ui: any;
+    index: number;
 };
 
 @ui({
@@ -44,6 +45,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         this.props.saveTestCaseResponse(testCase, testDrive);
     }
     submitTestCaseResponse(testCase: TestCaseInstance) {
+        $('#carousel-example-vertical').carousel('next');
         testCase = {
             ...testCase,
             newItem: testCase.responseStatus == Constants.ColumnsValues.DRAFT,
@@ -53,14 +55,20 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         }
         this.props.saveTestCaseResponse(testCase, this.props.testDriveInstance);
     }
+
+    openPopUp(){
+
+    }
     render() {
-        const { testCase, active, saveTestCaseResponse, ui, updateUI } = this.props;
+        const { testCase, active, saveTestCaseResponse, ui, updateUI, index } = this.props;
         return (<div className={"item " + (active ? 'active' : '')}>
             <div className="container ">
                 <div className="col-md-12 ">
                     <div className="row testcase_box ">
+                        <h5>{"Test Caes " + (index + 1)}</h5>
                         <h1>{testCase.title}</h1>
-                        <p>{testCase.scenario}</p>
+                        <p>{testCase.description}</p>
+                        <a href="javascript:void(0);" onClick={this.openPopUp}> <h5>Guide me to solve this test case</h5></a>
                         <h4 className="testcase_title ">Select the test case status</h4>
                         <div className="row ">
                             <div className="test_progress ">
@@ -99,11 +107,11 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                     <label className="disc_lable ">Description</label>
                                 </div>
                                 <div className="test-case-btn-controls">
-                                    {
+                                    {/* {
                                         testCase.responseStatus != Constants.ColumnsValues.COMPLETE_STATUS &&
                                         <input type="button" value="Save" onClick={() => this.saveTestCaseResponse(testCase)} />
-                                    }
-                                    <input type="button" value="Submit" onClick={() => this.submitTestCaseResponse(testCase)} />
+                                    } */}
+                                    <input type="button" value="Done" onClick={() => this.submitTestCaseResponse(testCase)} />
                                 </div>
                             </div>
                         </div>

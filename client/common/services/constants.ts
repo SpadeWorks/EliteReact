@@ -13,6 +13,7 @@ export class Lists {
     static APPLICATION_CONFIGURATIONS = "Application Configuration";
     static TEST_CASE_RESPONSES = "Test Case Responses";
     static SURVEY_RESPONSES = "Survey Responses";
+    static VIDEOS = "Videos";
 }
 
 export class CacheKeys{
@@ -94,4 +95,11 @@ export class Messages{
     static TEST_CASE_ERROR = 'There are some errors in the form. Please correct them and Save again.';
     static TEST_DRIVE_ERROR = 'There are some errors in the form. Please correct them and Save again.';
     static QUESTION_ERROR = 'There are some errors in the form. Please correct them and Save again.';
+    static LOADING_QUESTIONS = 'Loading questions...';
+    static LOADING_TSETCASES = 'Loading test cases...';
+    static LOADING_TESTDRIVE = 'Loading test drive...';
+    static SAVING_TESTCASE = 'Saving test case...';
+    static Saving_question = 'Saving questions...';
+    static SAVING = 'Saving...';
+    static LOADING = 'Loading...';
 }

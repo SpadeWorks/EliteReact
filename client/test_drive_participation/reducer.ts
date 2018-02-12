@@ -45,7 +45,9 @@ const initialState: IState = {
         numberOfTestCasesCompleted: 0,
         questionIDs: [],
         testCaseIDs: [],
-        questionLoaded: false
+        questionLoaded: false,
+        loading: false,
+        loadingMessage: 'Loading...'
 
     },
     loading: true,
@@ -76,7 +78,11 @@ export default handleActions<IState, any>({
     [LOAD_Questions_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            loading: true
+            testDriveInstance:{
+                ...state.testDriveInstance,
+                loading: true,
+                loadingMessage: 'Loading questions...'
+            }
         }
     },
     [LOAD_Questions_FULFILLED]: (state: IState, action: Action<any>): IState => {
@@ -101,7 +107,7 @@ export default handleActions<IState, any>({
     [CREATE_TestDriveInstance_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            loading: true
+            loading: false
         }
     },
     [CREATE_TestDriveInstance_FULFILLED]: (state: IState, action: Action<any>): IState => {

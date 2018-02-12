@@ -36,7 +36,16 @@ pnp.setup({
 });
 
 export class Services {
-
+    static getVideoUrl(){
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.APPLICATION_CONFIGURATIONS).items
+            .select('AppConfigKey, AppConfigValue')
+            .filter("AppConfigKey eq 'Video'").get().then((video:any) =>{
+                const videoUrl = video[0].AppConfigValue;
+                resolve(videoUrl);
+            })
+        })
+    }
     static createOrSaveTestDriveInstance(testDriveInstance: TestDriveInstance) {
         return new Promise((resolve, reject) => {
             Services.createOrUpdateListItemsInBatch(Constants.Lists.TEST_DRIVE_INSTANCES, [{
@@ -290,7 +299,7 @@ export class Services {
                     description: testDrive.description,
                     startDate: testDrive.startDate,
                     endDate: testDrive.endDate,
-                    maxPoints: testDrive.maxTestDrivers,
+                    maxPoints: testDrive.maxPoints,
                     department: testDrive.department,
                     location: testDrive.location,
                     requiredDevices: testDrive.requiredDevices,

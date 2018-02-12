@@ -16,7 +16,8 @@ import {
   LOAD_TestDriveIRun,
   LOAD_EliteProfile,
   LOAD_Rank,
-  LOAD_CurrentUser
+  LOAD_CurrentUser,
+  LOAD_Video
 } from './constants/ActionTypes';
 
 // Test Drives action creators.
@@ -25,6 +26,12 @@ const loadMyTestDrive = createAction<any>(
   LOAD_MyTestDrive, 
   () => Services.getMyTestDrives()
 )
+
+const loadVideo = createAction(
+  LOAD_Video, 
+  () => Services.getVideoUrl()
+)
+
 
 const loadTestDriveThatIRun = createAction<any, number, number, number>(
   LOAD_TestDriveIRun, 
@@ -110,5 +117,6 @@ export {
   loadTestDriveThatIRun,
   loadEliteProfile,
   getUserRank,
-  loadCurrentUser
+  loadCurrentUser,
+  loadVideo
 }

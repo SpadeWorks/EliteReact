@@ -38,7 +38,10 @@ import {
     LOAD_Rank_FULFILLED,
     LOAD_Rank_REJECTED,
     LOAD_CurrentUser,
-    LOAD_RegionLeaderBoard_REJECTED
+    LOAD_RegionLeaderBoard_REJECTED,
+    LOAD_Video_PENDING,
+    LOAD_Video_FULFILLED,
+    LOAD_Video_REJECTED
 } from './constants/ActionTypes';
 import { access, stat } from 'fs';
 import { totalmem } from 'os';
@@ -78,20 +81,40 @@ const initialState: IState = {
         avatarID: -1,
         role: "",
         dateJoined: "",
-        completedTestCases: 0,        
-        completedTestDrives: 0,        
+        completedTestCases: 0,
+        completedTestDrives: 0,
         availableOS: [],
         availableDevices: [],
-        isInEditMode: false      
+        isInEditMode: false
     },
     currentUser: {},
     rank: -1,
     currentTestDrives: 0,
     avatars: [],
-    cars: []    
+    cars: []
 };
 
 export default handleActions<IState, any>({
+    [LOAD_Video_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            videoUrl: action.payload 
+        }
+    },
+    [LOAD_MyTestDrive_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            myTestDrive: { homeTestDrives: action.payload, loading: false },
+        }
+    },
+    [LOAD_MyTestDrive_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            myTestDrive: { ...state.myTestDrive, loading: false },
+        }
+    },
+
+
     [LOAD_MyTestDrive_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,

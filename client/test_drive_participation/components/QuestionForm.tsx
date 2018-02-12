@@ -5,7 +5,7 @@ import ui from 'redux-ui';
 import { ColumnsValues } from '../../common/services/constants';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
-
+import * as $ from 'jquery';
 interface QuestionFormProps {
     showSurvey: boolean;
     question: QuestionInstance;
@@ -48,6 +48,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         this.props.saveQuestionResponse(question);
     }
     submitQuestionResponse(question: QuestionInstance) {
+        $('#carousel-question-vertical').carousel('next');
         question = {
             ...question,
             responseStatus: ColumnsValues.COMPLETE_STATUS,

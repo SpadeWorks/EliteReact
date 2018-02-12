@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
-import { TestCaseInstance, TestDriveInstance} from '../../test_drive_participation/model';
+import { TestCaseInstance, TestDriveInstance } from '../../test_drive_participation/model';
 import TestCaseForm from './TestCaseForm';
 import * as $ from 'jquery';
+import Loader from 'react-loader-advanced';
 interface TestCasesProps {
     testDriveInstance: TestDriveInstance;
     testCases: TestCaseInstance[];
@@ -15,7 +16,7 @@ class TestCases extends React.Component<TestCasesProps> {
         super(props, context);
 
     }
-
+    
     componentDidMount() {
         $('#carousel-example-vertical').bind('mousewheel', function (e) {
             if (e.originalEvent.wheelDelta / 120 > 0) {
@@ -35,16 +36,18 @@ class TestCases extends React.Component<TestCasesProps> {
             <div className="col-md-12">
                 <div id="carousel-example-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
                     <div className="carousel-inner " role="listbox ">
+
                         {
                             testCases &&
                             testCases.length &&
                             testCases.map((testCase, index) => {
                                 return (<TestCaseForm
-                                    testDriveInstance = {testDriveInstance}
+                                    testDriveInstance={testDriveInstance}
                                     key={index}
+                                    index ={index}
                                     active={index == 0 ? true : false}
                                     testCase={testCase}
-                                    saveTestCaseResponse={(testCase, testDrive) => 
+                                    saveTestCaseResponse={(testCase, testDrive) =>
                                         saveTestCaseResponse(testCase, testDrive)}
                                     ui={ui}
                                     updateUI={updateUI} />)
