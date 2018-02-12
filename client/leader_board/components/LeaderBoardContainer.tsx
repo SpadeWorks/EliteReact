@@ -26,6 +26,10 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
   constructor(props, context) {
     super(props, context);
   }
+  componentDidMount() {
+    document.body.className = "plane_back";
+  }
+
   render() {
     const { dispatch, globalLeaderBoard, regionalLeaderBoard, ui, updateUI } = this.props;
     return (<div className="col-md-12">

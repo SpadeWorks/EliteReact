@@ -272,7 +272,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                         }}
                                     />
                                 }
-                                <label className="disc_lable">Scenario*</label>
+                                <label className="disc_lable">Scenario</label>
                                 <span className="help-text">
                                     {fieldDescriptions && fieldDescriptions[Constants.Columns.SCENARIO]}
                                 </span>
@@ -280,7 +280,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                             <div className="col-md-12 register_input custom-editor" id="expectedOutcome">
                                 {ui.expectedOutcome &&
                                     <Editor
-                                        /*editorState={ui.expectedOutcome}*/
+                                        editorState={ui.expectedOutcome}
                                         toolbarOnFocus
                                         toolbarClassName="rte-toolbar"
                                         wrapperClassName="rte-wrapper"
@@ -296,7 +296,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                         }}
                                     />
                                 }
-                                <label className="disc_lable">Expected outcome*</label>
+                                <label className="disc_lable">Expected outcome</label>
                                 <span className="help-text">
                                     {fieldDescriptions && fieldDescriptions[Constants.Columns.TEST_CASE_OUTCOME]}
                                 </span>

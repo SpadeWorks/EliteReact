@@ -658,7 +658,7 @@ export class Services {
                         })
                         resolve(testDrivesResults);
                     })
-                    
+
                 }, error => {
                     Utils.clientLog(error);
                 });
@@ -947,8 +947,8 @@ export class Services {
                 }
                 if (questions.length > 0) {
                     let ids = [];
-                    results[1].map(questions => {
-                        ids.push(questions.id);
+                    questions.map(question => {
+                        ids.push(question.id);
                     })
                     newTestDrive["QuestionID_id"] = {
                         results: ids || []
@@ -956,7 +956,7 @@ export class Services {
                 }
                 if (testCases.length > 0) {
                     let ids = [];
-                    results[0].map(testCase => {
+                    testCases.map(testCase => {
                         ids.push(testCase.id);
                     })
                     newTestDrive["TestCaseID_id"] = {
@@ -968,7 +968,12 @@ export class Services {
 
                 this.createOrUpdateListItemsInBatch(Constants.Lists.TEST_DRIVES,
                     testDrives).then((data: TestDrive) => {
-                        resolve({ ...testDrive, id: data[0].id, testCases: testCases, questions: questions });
+                        resolve({
+                            ...testDrive,
+                            id: data[0].id,
+                            testCases: testCases,
+                            questions: questions
+                        });
                     }, err => {
                         reject(err);
                     }).catch(err => {
@@ -996,11 +1001,25 @@ export class Services {
                     });
                 });
 
-                this.createOrUpdateListItemsInBatch(Constants.Lists.TEST_CASES, testCasesArray).then((data) => {
-                    resolve(data);
-                }, err => {
-                    reject(err);
-                });
+                this.createOrUpdateListItemsInBatch(Constants.Lists.TEST_CASES, testCasesArray)
+                    .then((data: any) => {
+                        var testCases = data && data.length && data.map(testCase => {
+                            return (<TestCase>{
+                                id: testCase.id,
+                                title: testCase.Title,
+                                description: testCase.EliteDescription,
+                                expectedOutcome: testCase.TestCaseOutcome,
+                                points: testCase.Points,
+                                reTest: testCase.ReTest,
+                                testCaseType: testCase.Type,
+                                scenario: testCase.Scenario,
+                                priority: testCase.TestCasePriority
+                            })
+                        })
+                        resolve(testCases);
+                    }, err => {
+                        reject(err);
+                    });
             } else {
                 resolve([]);
             }
@@ -1019,11 +1038,21 @@ export class Services {
                         ResponseType: question.questionType
                     });
                 });
-                this.createOrUpdateListItemsInBatch(Constants.Lists.SURVEY_QUESTIONS, questionsArray).then((data) => {
-                    resolve(data);
-                }, err => {
-                    reject(err);
-                })
+                this.createOrUpdateListItemsInBatch(Constants.Lists.SURVEY_QUESTIONS, questionsArray).
+                    then((questions: any) => {
+                        var data = questions && questions.length && questions.map(question => {
+                            return {
+                                id: question.id,
+                                ID: questions.ID,
+                                options: (question.Responses && question.Responses.length) ? Utils.tryParseJSON(question.Responses) : [],
+                                questionType: question.ResponseType,
+                                title: question.Question
+                            }
+                        });
+                        resolve(data);
+                    }, err => {
+                        reject(err);
+                    })
             } else {
                 resolve([]);
             }
