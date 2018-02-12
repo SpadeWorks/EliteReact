@@ -365,7 +365,8 @@ export class Services {
 
     static getEliteProfile() {
         return new Promise((resolve, reject) => {
-            let cachedUser = Cache.getCache(Constants.CacheKeys.ELITE_PROFILE);
+            let cachedUser = false && Cache.getCache(Constants.CacheKeys.ELITE_PROFILE);
+            // Disabling caching.
             if (cachedUser) {
                 resolve(cachedUser);
             } else {
@@ -404,6 +405,55 @@ export class Services {
                     });
             }
         });
+    } 
+
+  static getEliteProfileByID(id) {
+        return new Promise((resolve, reject) => {
+            let user = this.getUserProfileProperties();
+            pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION).items
+                .getById(id)
+                .select(
+                Constants.Columns.CAR_IMAGE,
+                Constants.Columns.CAR_NAME,
+                Constants.Columns.Car_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.AVATAR_IMAGE,
+                Constants.Columns.AVATAR_NAME,
+                Constants.Columns.COMPLETED_TEST_DRIVES,
+                Constants.Columns.COMPLETED_TEST_CASES,
+                Constants.Columns.DATE_JOINED,
+                Constants.Columns.USER_ROLE,
+                Constants.Columns.AVAILABLE_OS,
+                Constants.Columns.AVAILABLE_DEVICES,
+            )
+                .expand(Constants.Columns.Car_ID)
+                .get().then(profile => {
+                    resolve(<EliteProfile>{
+                        eliteProfileID: user.eliteProfileID,
+                        accountName: user.accountName,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        displayName: user.displayName,
+                        location: user.location,
+                        department: user.department,
+                        sipAddress: user.sipAddress,
+                        workEmail: user.workEmail,
+                        languages: user.languages,
+                        region: user.region,
+                        carImage: profile.CarImage,                        
+                        carName: profile.CarName,
+                        avatarName: profile.AvatarName,
+                        avatarImage: profile.AvatarImage,
+                        completedTestDrives: profile.completedTestDrives == null ? 0 : profile.CompletedTestDrives,
+                        completedTestCases: profile.completedTestCases == null ? 0 : profile.CompletedTestCases,
+                        dateJoined: this.formatDate(profile.DateJoined),
+                        role: profile.UserInfoRole,
+                        availableOS: profile.AvailableOS.results,
+                        availableDevices: profile.AvailableDevices.results
+                    });
+                }, err => {
+                    Utils.clientLog(err);
+                });
+        });
     }
 
     static getUserRank(userID: number) { //TODO Update logic for more that 5000 users.
@@ -426,6 +476,29 @@ export class Services {
                     })
                     resolve({ rank, points });
                 }, err => reject(err))
+        })
+    } 
+
+static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 users.
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
+                .select(Constants.Columns.ID,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID)
+                .expand(Constants.Columns.USER_ID)
+                .orderBy(Constants.Columns.POINTS, false)
+                .get().then(results => {                    
+                    var result = {rank: 0, totalUsers: 0};
+                    let chkRank=0;
+                    results.forEach((item, index) => {
+                        if (item[Constants.Columns.USER_ID][Constants.Columns.ID] == userID) {
+                            chkRank = index;
+                            result.rank = chkRank;
+                            results.totalUsers = results.length;
+                            return false;
+                        }
+                    })
+                    resolve(result);
+                })
         })
     }
 
@@ -491,9 +564,34 @@ export class Services {
         }
     }
 
+    static getConfigurationsEliteProfile() {
+        return new Promise((resolve, reject) => {
+            let cachedConfig = Cache.getCache(Constants.CacheKeys.CONFIGURATIONS);
+            if (cachedConfig) {
+                resolve(cachedConfig);
+            } else {
+                let eliteProfileFields = Services.getFieldMetadata(Constants.Lists.USER_INFORMATION, [
+                    Constants.Columns.USER_NAME,
+                    Constants.Columns.AVAILABLE_DEVICES,
+                    Constants.Columns.AVAILABLE_OS,
+                    Constants.Columns.DATE_JOINED,
+                    Constants.Columns.USER_LOCATION,
+                    Constants.Columns.USER_ROLE,
+                    Constants.Columns.USER_REGION                    
+                ]);
+                
+                Promise.all([eliteProfileFields                   
+                ]).then(results => {                    
+                    Cache.setCache(Constants.CacheKeys.CONFIGURATIONS, results[0]);
+                    resolve(results[0]);
+                });
+            }
+        });
+    }
+
     static getConfigurations() {
         return new Promise((resolve, reject) => {
-            let cachedConfig = false && Cache.getCache(Constants.CacheKeys.CONFIGURATIONS);
+            let cachedConfig = Cache.getCache(Constants.CacheKeys.CONFIGURATIONS);
             if (cachedConfig) {
                 resolve(cachedConfig);
             } else {
@@ -565,6 +663,30 @@ export class Services {
                     resolve(configObj);
                 });
             }
+        });
+    }
+
+    static getAvatars()
+    {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.AVATAR).items
+            .select("FileRef/FileRef", "ID", "AvatarName").get().then(avatar => {                    
+                    resolve(avatar);
+                }, err => {
+                    reject(err);
+                })
+        });
+    }
+
+    static getCars()
+    {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
+            .select("FileRef/FileRef", "ID", "CarName").get().then(car => {                    
+                    resolve(car);
+                }, err => {
+                    reject(err);
+                })
         });
     }
 
@@ -981,6 +1103,37 @@ export class Services {
                     });
             });
         });
+    }	
+   static createOrSaveEliteProfile(eliteProfile: EliteProfile) {
+        return new Promise((resolve, reject) => {
+            var promises = [];         
+            Promise.all(promises).then((results) => {              
+                let eliteProfiles = [];
+                let newEliteProfile = {
+                    ID: eliteProfile.eliteProfileID,
+                    Title: eliteProfile.accountName,                                       
+                    AvailableDevices_tax: eliteProfile.availableDevices,
+                    AvailableOS_tax: eliteProfile.availableOS,
+                    AvatarID_id: eliteProfile.avatarID,
+                    AvatarImage: eliteProfile.avatarImage,
+                    AvatarName: eliteProfile.avatarName, 
+                    CarID_id: eliteProfile.carID,
+                    CarImage: eliteProfile.carImage,
+                    CarName: eliteProfile.carName                    
+                }                
+
+                eliteProfiles.push(newEliteProfile);
+
+                this.createOrUpdateListItemsInBatch(Constants.Lists.USER_INFORMATION,
+                    eliteProfiles).then((data: EliteProfile) => {
+                        resolve({ ...eliteProfile, id: data.eliteProfileID });
+                    }, err => {
+                        reject(err);
+                    }).catch(err => {
+                        Utils.clientLog(err);
+                    });
+            });
+        });
     }
 
     static createTestCase(testCases: TestCase[]) {
@@ -1060,6 +1213,23 @@ export class Services {
     }
 
     static getDefaultCarDetails() {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
+                .select("FileRef/FileRef",
+                "IsDefault",
+                "LevelName",
+                "CarName",
+                "CarLevel",
+                "ID")
+                .filter("IsDefault eq 1 and CarLevel eq 1")
+                .get().then(car => {
+                    resolve(car[0]);
+                    console.log(car);
+                })
+        });
+    }
+
+    static getCarDetailsByFilter(str) {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
                 .select("FileRef/FileRef",
@@ -1508,6 +1678,17 @@ export class Services {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
                 .select("ID,UserID/ID").expand("UserID")
                 .filter("UserID eq '1' and Status eq '" + Constants.ColumnsValues.COMPLETE_STATUS + "'")
+                .get().then(testDrives => {
+                    resolve(testDrives.length);
+                })
+        });
+    }
+
+    static getCurrentTestDrivesNotCompleted(userID) {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
+                .select("ID,UserID/ID").expand("UserID")
+                .filter("UserID eq '"+userID+"' and Status ne '" + Constants.ColumnsValues.COMPLETE_STATUS + "'")
                 .get().then(testDrives => {
                     resolve(testDrives.length);
                 })
@@ -2175,3 +2356,4 @@ export class Cache {
 };
 
 export default Services;
+

@@ -1,18 +1,101 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import EditProfilePopUp from "./EditProfilePopUp";
+import MyProfileLeftContainer from "./MyProfileLeftContainer"
+import MyProfileRightContainer from "./MyProfileRightContainer"
+import MyProfileMiddleContainer from "./MyProfileMiddleContainer"
+import { EliteProfile } from '../../home/model';
+// import '../../js/jssor.slider-27.0.2.min.js';
+import ui from 'redux-ui';
+
+declare var $Jease$: any;
+declare var $JssorSlideshowRunner$: any;
+declare var $JssorArrowNavigator$: any;
+declare var $JssorThumbnailNavigator$: any;
+declare var $JssorSlider$: any;
+declare var $Jssor$: any;
+
+import {
+    loadEliteProfile,
+    loadUserRank,
+    loadUserPoints,
+    loadCurrentTestDrives,
+    updateMultiSelect,
+    loadConfigurations,
+    saveEliteProfile,
+    setEditMode,
+    loadCars
+} from '../';
+import Services from '../../common/services/services';
+import { Dispatch } from 'redux';
 
 interface MyProfileProps {
-
+    eliteProfile: EliteProfile;
+    dispatch: Dispatch<{}>;
+    rank: number;
+    totalPoints: 0;
+    currentTestDrives: 0;
+    eliteProfileFields: object;
+    configurationLoaded: boolean;
+    updateUI: (any) => any;
+    ui: any;
+    avatars: string[];
+    cars: any[];
+    totalTestDrives: number;
 };
+
+@ui({
+    state: {
+        carSelectedID: 0,
+        carSelectedImage: "",
+        carSelectedName: ""
+    }
+})
+
 class MyProfile extends React.Component<MyProfileProps> {
     constructor(props, context) {
         super(props, context);
     }
+
+    carSelected(car, baseUrl) {
+        this.props.updateUI({
+            carSelectedID: car.ID,
+            carSelectedImage: baseUrl + car.FileRef,
+            carSelectedName: car.CarName
+        })
+        updateMultiSelect(this.props.ui.carSelectedImage, "carImage", this.props.eliteProfile);
+        this.props.eliteProfile.carID = car.ID;
+        this.props.eliteProfile.carImage = baseUrl + car.FileRef;
+        this.props.eliteProfile.carName = car.CarName;
+        saveEliteProfile(this.props.eliteProfile)
+    }
+
+    componentDidMount() {
+        document.body.className = "plane_back";
+        let user = Services.getUserProfileProperties();
+        if (user.eliteProfileID) {
+            this.props.dispatch(loadEliteProfile(user.eliteProfileID));
+            this.props.dispatch(loadUserRank(user.eliteProfileID));
+            this.props.dispatch(loadUserPoints(user.eliteProfileID));
+            this.props.dispatch(loadCurrentTestDrives(user.eliteProfileID));
+        }
+        if (!this.props.configurationLoaded) {
+            this.props.dispatch(loadConfigurations());
+        }
+        this.props.dispatch(loadCars());
+    }
+
     render() {
+        const { eliteProfile, rank, totalPoints, 
+                currentTestDrives, dispatch, 
+                eliteProfileFields, updateUI, ui,
+                totalTestDrives
+            , avatars, cars } = this.props;
+        let baseUrl = location.protocol + "//" + location.hostname;
         return (<div className="col-md-12">
             <div className="row">
                 <div className="container">
-
                     <Link to={"/"} >
                         <h2>
                             <span className="glyphicon glyphicon-menu-left" aria-hidden="true">
@@ -25,370 +108,42 @@ class MyProfile extends React.Component<MyProfileProps> {
                         <div className="col-md-12 profile_box">
                             <div className="row">
                                 <div className="col-md-2">
-                                    <img src="images/propic.png" className="img-responsive" />
+                                    <img src={eliteProfile.avatarImage} className="img-responsive" />
                                 </div>
                                 <div className="col-md-10">
                                     <div className="col-md-12">
                                         <div className="col-md-5 pull-left">
                                             <div className="row">
-                                                <h2>jennifer Vietel</h2>
+                                                <h2>{eliteProfile.displayName}</h2>
                                             </div>
                                         </div>
                                         <div className="col-md-1 edit_profile pull-right">
-                                            <a data-toggle="modal" data-target="#edit_pro">
+                                            <a data-toggle="modal" onClick={() => dispatch(setEditMode())} data-target="#edit_pro">
                                                 <i className="material-icons">mode_edit</i>
                                             </a>
                                         </div>
                                     </div>
                                     {/* Edit profile modal starts here */}
                                     <div id="edit_pro" className="modal fade" role="dialog">
-                                        <div className="modal-dialog edit_profile">
-                                            {/* <!-- Modal content--> */}
-                                            <div className="modal-content editpro_box">
-                                                <div className="modal-header">
-                                                    <button type="button" className="close" data-dismiss="modal">
-                                                        <i className="material-icons">close</i>
-                                                    </button>
-                                                    <h4 className="modal-title">Profile Details</h4>
-                                                </div>
-                                                <div className="col-md-12 avtar_selection">
-                                                    <span className="orange">Select Avtar</span>
-                                                </div>
-                                                <div className="modal-body">
-                                                    <div id="myCarousel" className="carousel slide" data-ride="carousel">
-                                                        {/* <!-- Indicators --> */}
-                                                        <ol className="carousel-indicators">
-                                                            <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
-                                                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                                                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                                                        </ol>
-                                                        {/* <!-- Wrapper for slides --> */}
-                                                        <div className="carousel-inner avatar_box">
-                                                            <div className="item active">
-                                                                <div className="col-md-12">
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar1.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar2.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar3.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar4.png" />
-                                                                    </a>
-                                                                </div>
-                                                                <div className="col-md-12">
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar1.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar2.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar3.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar4.png" />
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div className="item">
-                                                                <div className="col-md-12">
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar1.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar2.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar3.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar4.png" />
-                                                                    </a>
-                                                                </div>
-                                                                <div className="col-md-12">
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar1.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar2.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar3.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar4.png" />
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div className="item">
-                                                                <div className="col-md-12">
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar1.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar2.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar3.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar4.png" />
-                                                                    </a>
-                                                                </div>
-                                                                <div className="col-md-12">
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar1.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar2.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar3.png" />
-                                                                    </a>
-                                                                    <a href="#">
-                                                                        <img src="images/profile/avatar4.png" />
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        {/* <!-- Left and right controls --> */}
-                                                        <a className="left carousel-control" href="#myCarousel" data-slide="prev">
-                                                            <span className="glyphicon glyphicon-chevron-left"></span>
-                                                            <span className="sr-only">Previous</span>
-                                                        </a>
-                                                        <a className="right carousel-control" href="#myCarousel" data-slide="next">
-                                                            <span className="glyphicon glyphicon-chevron-right"></span>
-                                                            <span className="sr-only">Next</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div className="col-xs-12 form_box">
-                                                    <div className="col-md-12 register_input">
-                                                        <input className="inputMaterial" type="text" required />
-                                                        <span className="highlight"></span>
-                                                        <span className="bar"></span>
-                                                        <label>Test drive title</label>
-                                                    </div>
-                                                    <div className="col-md-12 register_input">
-                                                        <select className="inputMaterial">
-                                                            <option value="maximum points">Roll</option>
-                                                            <option value="maximum points">100</option>
-                                                            <option value="maximum points">500</option>
-                                                            <option value="maximum points">1000</option>
-                                                            <option value="maximum points">1500</option>
-                                                        </select>
-                                                    </div>
-                                                    <div className="col-md-4 register_input">
-                                                        <select className="inputMaterial">
-                                                            <option value="maximum points">Maximum points</option>
-                                                            <option value="maximum points">100</option>
-                                                            <option value="maximum points">500</option>
-                                                            <option value="maximum points">1000</option>
-                                                            <option value="maximum points">1500</option>
-                                                        </select>
-                                                    </div>
-                                                    <div className="col-md-4 register_input">
-                                                        <input className="inputMaterial" type="text" required />
-                                                        <span className="highlight"></span>
-                                                        <span className="bar"></span>
-                                                        <label>Location</label>
-                                                    </div>
-                                                    <div className="col-md-4 register_input">
-                                                        <input className="inputMaterial" type="text" required />
-                                                        <span className="highlight"></span>
-                                                        <span className="bar"></span>
-                                                        <label>Joined Date</label>
-                                                    </div>
-                                                    <div className="col-md-12 register_input">
-                                                        <input className="inputMaterial" type="text" required />
-                                                        <span className="highlight"></span>
-                                                        <span className="bar"></span>
-                                                        <label>Region</label>
-                                                    </div>
-                                                    <div className="col-md-12 register_input">
-                                                        <input className="inputMaterial" type="text" required />
-                                                        <span className="highlight"></span>
-                                                        <span className="bar"></span>
-                                                        <label>Test drive title</label>
-                                                    </div>
-                                                    <div className="col-md-12 register_input">
-                                                        <select className="inputMaterial">
-                                                            <option value="maximum points">Device I own</option>
-                                                            <option value="maximum points">100</option>
-                                                            <option value="maximum points">500</option>
-                                                            <option value="maximum points">1000</option>
-                                                            <option value="maximum points">1500</option>
-                                                        </select>
-                                                    </div>
-                                                    <div className="col-md-12 register_input">
-                                                        <select className="inputMaterial">
-                                                            <option value="maximum points">Operating system I have</option>
-                                                            <option value="maximum points">100</option>
-                                                            <option value="maximum points">500</option>
-                                                            <option value="maximum points">1000</option>
-                                                            <option value="maximum points">1500</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div className="modal-footer">
-                                                    <div className="col-md-5 col-md-offset-3 popup_buttonbox">
-
-                                                        <button className="button type1">
-                                                            All Set
-                              </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {eliteProfile.isInEditMode &&
+                                            <EditProfilePopUp eliteProfile={eliteProfile}
+                                                dispatch={dispatch}
+                                                updateUI={updateUI}
+                                                ui={ui}
+                                                avatars={avatars}
+                                                saveEliteProfile={(t) => dispatch(saveEliteProfile(t))}
+                                                updateMultiSelect={(value, control, eliteProfile) => dispatch(updateMultiSelect(value, control, eliteProfile))}
+                                                fieldDescriptions={eliteProfileFields}
+                                            />}
                                     </div>
                                     {/* <!-- Edit profile modal starts here--> */}
-                                    <div className="col-md-5  profileinfo_box" style={{ borderRight: "solid 1px #3c3c3c", height: "200px" }}>
-                                        <div className="row inforow">
-                                            <div className="col-md-4">
-                                                <span className="orange">Roll:</span>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <h5>Test Driver</h5>
-                                            </div>
-                                        </div>
-                                        <div className="row inforow">
-                                            <div className="col-md-4">
-                                                <span className="orange">region:</span>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <h5>Europe & Middle East</h5>
-                                            </div>
-                                        </div>
-                                        <div className="row inforow">
-                                            <div className="col-md-4">
-                                                <span className="orange">Location:</span>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <h5>Sweden</h5>
-                                            </div>
-                                        </div>
-                                        <div className="row inforow">
-                                            <div className="col-md-4">
-                                                <span className="orange">End Date:</span>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <h5>JAN 15, 2017</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6 col-md-offset-1 device_box">
-                                        <div className="row devicelist">
-                                            <div className="col-md-3">
-                                                <span className="orange">os :</span>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <ul className="select2-selection__rendered">
-                                                    <li className="select2-selection__choice" title="iwatch">
-                                                        i Pad
-                            </li>
-                                                    <li className="select2-selection__choice" title="iwatch">
-                                                        i Phone
-                            </li>
-                                                    <li className="select2-selection__choice" title="iwatch">
-                                                        pc
-                            </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div className="row devicelist">
-                                            <div className="col-md-3">
-                                                <span className="orange">Devices :</span>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <ul className="select2-selection__rendered">
-                                                    <li className="select2-selection__choice" title="iwatch">
-                                                        Windows 10
-                            </li>
-                                                    <li className="select2-selection__choice" title="iwatch">
-                                                        iOS
-                            </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <MyProfileLeftContainer eliteProfile={eliteProfile} />
+                                    <MyProfileRightContainer eliteProfile={eliteProfile} />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="row profile_overviewbox">
-                        <div className="col-md-12 overview">
-                            <div className="col-md-3">
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <p>
-                                            <span className="orange">
-                                                <i>10</i>
-                                            </span>
-                                        </p>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <h4 className="testcase_title">Current test drives</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-2">
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <img src="images/current_white.png" />
-                                    </div>
-                                    <div className="col-md-12">
-                                        <h4 className="testcase_title">Currnt ride</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-2">
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <p>
-                                            <span className="orange">
-                                                <i>4</i>
-                                            </span>
-                                        </p>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <h4 className="testcase_title">Current Level</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-3">
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <p>
-                                            <span className="orange">
-                                                <i>100</i>
-                                            </span>
-                                        </p>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <h4 className="testcase_title">Completed test drives</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-2">
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <p>
-                                            <span className="orange">
-                                                <i>447</i>
-                                            </span>
-                                        </p>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <h4 className="testcase_title">Completed test drives</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <MyProfileMiddleContainer eliteProfile={eliteProfile} currentTestDrives={currentTestDrives} />
                     <div className="row car_sliderbox">
                         <div className="row profile_overviewbox">
                             <div className="container">
@@ -398,12 +153,16 @@ class MyProfile extends React.Component<MyProfileProps> {
                                             <div className="col-md-12">
                                                 <div className="testd_box">
                                                     <p>
-                                                        <span className="testd_count">76 </span>
-                                                        <span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span> of 2000</p>
+                                                        <span className="testd_count">
+                                                            {rank}
+                                                        </span>
+                                                        <span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span> of
+                                                        {totalTestDrives}
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div className="col-md-12">
-                                                <h4 className="testcase_title">Current test drives</h4>
+                                                <h4 className="testcase_title">Your current position</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -425,7 +184,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                             <div className="col-md-12">
                                                 <p>
                                                     <span className="orange">
-                                                        <i>15,530</i>
+                                                        <i>{totalPoints}</i>
                                                     </span>
                                                 </p>
                                             </div>
@@ -439,96 +198,69 @@ class MyProfile extends React.Component<MyProfileProps> {
                         </div>
                         <div className="col-md-12">
                             {/* <!-- bootstrap carousel --> */}
-                            <div id="carousel-example-generic" className="carousel slide" data-ride="carousel" data-interval="false">
-                                {/* <!-- Indicators --> */}
-                                <ol className="carousel-indicators">
-                                    <li data-target="#carousel-example-generic" data-slide-to="0" className="active"></li>
-                                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                                    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                                </ol>
-                                {/* <!-- Wrapper for slides --> */}
-                                <div className="carousel-inner">
-                                    <div className="item active srle">
-                                        <img src="images/cars/car1.png" alt="1.jpg" className="img-responsive" />
-                                        <div className="carousel-caption">
-                                        </div>
-                                    </div>
-                                    <div className="item">
-                                        <img src="images/cars/car2.png" alt="2.jpg" className="img-responsive" />
-                                        <div className="carousel-caption">
-                                        </div>
-                                    </div>
-
-                                    <div className="item">
-                                        <img src="images/cars/car3.png" alt="3.jpg" className="img-responsive" />
-                                        <div className="carousel-caption">
-
-                                        </div>
-                                    </div>
-
-                                    <div className="item">
-                                        <img src="images/cars/car4.png" alt="4.jpg" className="img-responsive" />
-                                        <div className="carousel-caption">
-
-                                        </div>
-                                    </div>
-
-                                    <div className="item">
-                                        <img src="images/cars/car1.png" alt="2.jpg" className="img-responsive" />
-                                        <div className="carousel-caption">
-                                            <img src="images/cars/locked-car.png" />
-                                        </div>
-                                    </div>
-
-                                    <div className="item">
-                                        <img src="images/cars/car2.png" alt="3.jpg" className="img-responsive" />
-                                        <div className="carousel-caption">
-                                            <img src="images/cars/locked-car.png" />
-                                        </div>
-                                    </div>
-
-                                    <div className="item">
-                                        <img src="images/cars/car3.png" alt="4.jpg" className="img-responsive" />
-                                        <div className="carousel-caption">
-                                            <img src="images/cars/locked-car.png" />
-                                        </div>
-                                    </div>
+                            <div id="jssor_1" className="car_boxslider">
+                                {
+                                    cars && cars.map((car, index) => {
+                                        return (
+                                            <div key={index}>
+                                                <div data-u="loading" className="jssorl-009-spin" >
+                                                    <img src="images/spin.svg" />
+                                                </div>
+                                                <div data-u="slides" >
+                                                    {
+                                                        (index == 0) ?
+                                                            <div data-p="170.00" className="car_pack">
+                                                                <div className="row">
+                                                                    <div className="col-md-12 text-center">
+                                                                        <h4 className="text-center">Level 5</h4>
+                                                                    </div>
+                                                                    <div className="col-md-12 text-center">
+                                                                        <span className="orange"><i>{car.CarName}</i></span>
+                                                                    </div>
+                                                                </div>
+                                                                <img data-u="image" className="car_bigview" src={car.FileRef} />
+                                                                <img data-u="thumb" src={car.FileRef} />
+                                                                <div className="car-selection"><a href="#"></a></div>
+                                                            </div> :
+                                                            <div data-p="170.00">
+                                                                <div className="car-name"> <h5>{car.CarName}</h5></div>
+                                                                <img data-u="image" className="car_bigview" src={car.FileRef} />
+                                                                <img data-u="thumb" id="present_ride" src={car.FileRef} />
+                                                            </div>
+                                                    }
+                                                </div>
+                                                <div data-u="thumbnavigator" className="jssort101" >
+                                                    <div data-u="slides">
+                                                        <div data-u="prototype" className="p" >
+                                                            <div data-u="thumbnailtemplate" className="t"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-2 col-md-offset-5" >
+                                                    <p><a href="#" id="present_ride"><img src="images/done.png" />current Ride.</a></p>
+                                                    <p><a href="javascript:void(0)" onClick={() => this.carSelected(car, baseUrl)} id="future_ride"><img src="images/empty.png" />Get This Ride</a></p>
+                                                    <p><a href="#" id="locked_ride"><img src="images/empty.png" />Get This Ride</a></p>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                                <div data-u="arrowleft" className="jssora106" data-scale="0.75">
+                                    <svg >
+                                        <circle className="c" cx="8000" cy="8000" r="6260.9"></circle>
+                                        <polyline className="a" points="7930.4,5495.7 5426.1,8000 7930.4,10504.3 "></polyline>
+                                        <line className="a" x1="10573.9" y1="8000" x2="5426.1" y2="8000"></line>
+                                    </svg>
                                 </div>
-                                {/* <!-- Controls --> */}
-                                <a className="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                                    <span className="glyphicon glyphicon-chevron-left"></span>
-                                </a>
-                                <a className="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                                    <span className="glyphicon glyphicon-chevron-right"></span>
-                                </a>
+                                <div data-u="arrowright" className="jssora106" data-scale="0.75">
+                                    <svg >
+                                        <circle className="c" cx="8000" cy="8000" r="6260.9"></circle>
+                                        <polyline className="a" points="8069.6,5495.7 10573.9,8000 8069.6,10504.3 "></polyline>
+                                        <line className="a" x1="5426.1" y1="8000" x2="10573.9" y2="8000"></line>
+                                    </svg>
+                                </div>
 
-                                {/* <!-- Thumbnails --> */}
-                                <ul className="thumbnails-carousel clearfix">
-                                    <li>
-                                        <img src="images/cars/car1.png" alt="1_tn.jpg" />
-                                    </li>
-                                    <li>
-                                        <img src="images/cars/car2.png" alt="1_tn.jpg" />
-                                    </li>
-                                    <li>
-                                        <img src="images/cars/car1.png" alt="1_tn.jpg" />
-                                    </li>
-                                    <li>
-                                        <img src="images/cars/car2.png" alt="1_tn.jpg" />
-                                        <p className="current_ridecheck">
-                                            <img src="images/done.png" /> Your Ride</p>
-                                    </li>
-                                    <li>
-                                        <img src="images/cars/car1.png" alt="1_tn.jpg" />
-                                    </li>
-                                    <li>
-                                        <img src="images/cars/car2.png" alt="1_tn.jpg" />
-                                    </li>
-                                    <li>
-                                        <img src="images/cars/car3.png" alt="1_tn.jpg" />
-                                    </li>
-                                </ul>
+
                             </div>
                         </div>
                     </div>
@@ -541,4 +273,16 @@ class MyProfile extends React.Component<MyProfileProps> {
     }
 }
 
-export default MyProfile;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        eliteProfile: state.profileState.eliteProfile,
+        totalPoints: state.profileState.userPoints,
+        rank: state.profileState.rank,
+        totalTestDrives: state.profileState.totalTestDrives,
+        currentTestDrives: state.profileState.currentTestDrives,
+        avatars: state.profileState.avatars,
+        cars: state.profileState.cars
+    }
+};
+
+export default connect(mapStateToProps)(MyProfile);

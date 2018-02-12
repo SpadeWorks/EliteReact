@@ -76,10 +76,19 @@ const initialState: IState = {
         avatarName: "",
         avatarImage: "",
         avatarID: -1,
+        role: "",
+        dateJoined: "",
+        completedTestCases: 0,        
+        completedTestDrives: 0,        
+        availableOS: [],
+        availableDevices: [],
+        isInEditMode: false      
     },
     currentUser: {},
-    rank: -1
-
+    rank: -1,
+    currentTestDrives: 0,
+    avatars: [],
+    cars: []    
 };
 
 export default handleActions<IState, any>({

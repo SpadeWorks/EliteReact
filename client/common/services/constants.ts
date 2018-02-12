@@ -48,6 +48,10 @@ export class Columns{
     static Car_ID = 'CarID';
     static AVATAR_IMAGE = 'AvatarImage';
     static AVATAR_NAME = 'AvatarName';
+    static COMPLETED_TEST_DRIVES = 'CompletedTestDrives';
+    static COMPLETED_TEST_CASES = 'CompletedTestCases';
+    static DATE_JOINED = 'DateJoined';
+    static USER_ROLE = 'UserInfoRole';    
     static POINTS = 'Points';
     static TYPE = 'Type';
     static SCENARIO = 'Scenario';
@@ -57,11 +61,11 @@ export class Columns{
     static QUESTION = 'Question';
     static RESPONSES = 'Responses';
     static RESPONSETYPE = 'ResponseType';
-    static USER_ID = 'UserID';
+    static USER_ID = 'UserID';		 
+    static USER_LOCATION = 'UserLocation';
     static PERCENTAGE_COMPLETION = "PercentageCompletion";
     static CURRENT_POINTS = "CurrentPoints";
     static STATUS = "Status";
-    static DATE_JOINED = "DateJoined";
     static TEST_CASE_COMPLETED = "TestCaseCompleted";
     static TEST_DRIVE_ID = "TestDriveID";
     static TEST_CASE_RESPONSE = "TestCaseResponse";

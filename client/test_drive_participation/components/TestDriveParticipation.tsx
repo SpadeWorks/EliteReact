@@ -41,8 +41,11 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
             <div className="row">
                 <div className="container">
                     <h2>
-                        <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-                        {testDriveInstance.title}
+                        <Link to={"/"}><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                            {testDriveInstance.title}
+                        </Link>
+
+
                     </h2>
                 </div>
                 <div className="col-md-12" style={{ overflow: "auto" }}>
@@ -92,11 +95,11 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                             {
                                 testDriveInstance.testCases && testDriveInstance.testCases.length &&
                                 testDriveInstance.testCases.map((testCase, index) => {
-                                    return (<li data-target="#carousel-example-vertical " data-slide-to={index} className="active">
+                                    return (<li key={index} data-target="#carousel-example-vertical " data-slide-to={index} className="active">
                                         <p> {index + 1}. {testCase.responseStatus == Constants.ColumnsValues.DRAFT &&
                                             <img src={Constants.Globals.IMAGE_BASE_URL + "/empty.png"} className="img-responsive" />}
                                             {testCase.responseStatus == Constants.ColumnsValues.COMPLETE_STATUS &&
-                                            <img src={Constants.Globals.IMAGE_BASE_URL + "/done.png"} className="img-responsive" />}
+                                                <img src={Constants.Globals.IMAGE_BASE_URL + "/done.png"} className="img-responsive" />}
                                         </p>
                                     </li>)
                                 })
