@@ -52,7 +52,9 @@ class TestDriveParticipationContainer extends React.Component<AppProps> {
               testDriveInstance={testDriveInstance}
               createTestDriveInstance={
                 (testDriveInstance: model.TestDriveInstance) =>
-                  dispatch(createOrSaveTestDriveInstance(testDriveInstance))} />
+                  dispatch(createOrSaveTestDriveInstance(testDriveInstance))}
+              ui={ui}
+              updateUI={updateUI} />
           }
         </Loader>
         {

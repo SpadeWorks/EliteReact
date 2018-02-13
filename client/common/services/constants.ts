@@ -6,24 +6,24 @@ export class Lists {
     static POINTS_CONFIGURATIONS = 'Points Configurations'
     static USER_INFORMATION = 'User Information';
     static TEST_DRIVE_INSTANCES = 'Test Drive Instances';
-    static POINTS = 'Points'; 
-    static AVATAR = 'Avatars';  
-    static CARMASTER = 'Car Master';   
-    static BADGES = 'Badges'; 
+    static POINTS = 'Points';
+    static AVATAR = 'Avatars';
+    static CARMASTER = 'Car Master';
+    static BADGES = 'Badges';
     static APPLICATION_CONFIGURATIONS = "Application Configuration";
     static TEST_CASE_RESPONSES = "Test Case Responses";
     static SURVEY_RESPONSES = "Survey Responses";
     static VIDEOS = "Videos";
 }
 
-export class CacheKeys{
+export class CacheKeys {
     static CONFIGURATIONS = 'configurations';
     static ELITE_PROFILE = 'ELITE_PROFILE';
-    
+
 }
 
-export class Columns{
-    static TITLE = 'Title';    
+export class Columns {
+    static TITLE = 'Title';
     static USER_REGION = 'UserRegion';
     static ID = 'ID';
     static TEST_DRIVE_NAME = 'TestDriveName';
@@ -52,7 +52,7 @@ export class Columns{
     static COMPLETED_TEST_DRIVES = 'CompletedTestDrives';
     static COMPLETED_TEST_CASES = 'CompletedTestCases';
     static DATE_JOINED = 'DateJoined';
-    static USER_ROLE = 'UserInfoRole';    
+    static USER_ROLE = 'UserInfoRole';
     static POINTS = 'Points';
     static TYPE = 'Type';
     static SCENARIO = 'Scenario';
@@ -62,7 +62,7 @@ export class Columns{
     static QUESTION = 'Question';
     static RESPONSES = 'Responses';
     static RESPONSETYPE = 'ResponseType';
-    static USER_ID = 'UserID';		 
+    static USER_ID = 'UserID';
     static USER_LOCATION = 'UserLocation';
     static PERCENTAGE_COMPLETION = "PercentageCompletion";
     static CURRENT_POINTS = "CurrentPoints";
@@ -72,24 +72,27 @@ export class Columns{
     static TEST_CASE_RESPONSE = "TestCaseResponse";
     static TEST_CASE_RESPONSE_STATUS = "TestCaseResponseStatus";
     static SURVEY_RESPONSE = "SurveyResponse";
-    static Selected_Response =  "SelectedResponse";
+    static Selected_Response = "SelectedResponse";
+    static USER_INFO_NAME = "UserInfoName"
+    static ACCOUNT_NAME = "AccountName"
+
 
 
 }
 
-export class ColumnsValues{
+export class ColumnsValues {
     static COMPLETE_STATUS = 'Complete';
-    static DRAFT = "Draft";   
-    static SUBMIT = "Submit";   
+    static DRAFT = "Draft";
+    static SUBMIT = "Submit";
     static TEST_CASE_COMPLETION = 'Test Case Bonus';
     static QUESTION_TYPE_OBJECTIVE = "Objective";
 }
 
-export class Globals{
+export class Globals {
     static IMAGE_BASE_URL = _spPageContextInfo.siteAbsoluteUrl + '/Style%20Library/Elite/images/';
 }
 
-export class Messages{
+export class Messages {
     static SAVE_UNSAVED_QUESTION = 'Please save the unsaved question and then try saving test drive again.';
     static SAVE_UNSAVED_TEST_CASE = 'Please save the unsaved test case and then try saving test drive again.';
     static TEST_CASE_ERROR = 'There are some errors in the form. Please correct them and Save again.';
@@ -103,4 +106,7 @@ export class Messages{
     static SAVING = 'Saving...';
     static LOADING = 'Loading...';
     static ERROR_IN_FORM = 'There are some errors in the form. Please correct them and Save again.';
+    static TEST_DRIVE_LOCATION_ERROR = 'This test drive is not available for your location.';
+    static TEST_DRIVE_DEVICE_ERROR = 'You don\'t have the required device to participate in this test drive.';
+    static TEST_DRIVE_OS_ERROR = 'You don\'t have the required os to participate in this test drive.';
 }

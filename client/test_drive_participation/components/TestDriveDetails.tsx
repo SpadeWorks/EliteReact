@@ -1,14 +1,76 @@
+import Promise from "ts-promise";
 import * as React from 'react';
 import { Link } from "react-router-dom";
 import { TestDriveInstance } from '../model';
 import Services from '../../common/services/services';
+import { EliteProfile } from '../../home/model';
+import { Messages } from '../../common/services/constants';
 interface TestDriveDetailsProps {
     testDriveInstance: TestDriveInstance;
     createTestDriveInstance: (testDriveInstance: TestDriveInstance) => any;
+    updateUI: (any) => any;
+    ui: any;
 };
 class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
     constructor(props, context) {
         super(props, context);
+        this.participate = this.participate.bind(this);
+        this.isUserEligible = this.isUserEligible.bind(this);
+    }
+
+    checkForElements(array1: string[], array2: string[]) {
+        var matchedElements = [];
+        var matchedElement;
+        array1.filter((item1: any) => {
+            matchedElement = array2.filter((item2:any) => {
+                return item1.Label == item2.Label;
+            })
+            matchedElement && matchedElements.push(matchedElement);
+        });
+        return matchedElement.length == array1.length;
+    }
+
+    isUserEligible() {
+        return new Promise((resolve, reject) => {
+            var ctx = this;
+            Services.getEliteProfileByID().then((user: EliteProfile) => {
+                var message = '';
+                var isUserEligible: boolean;
+                var matchedLocation = ctx.props.testDriveInstance.location.filter(location => {
+                    return location == user.location;
+                });
+    
+                if (!matchedLocation || !matchedLocation.length) {
+                    message += Messages.TEST_DRIVE_LOCATION_ERROR + '\n';
+                    isUserEligible = false;
+                }
+                var matchedDevices = [];
+                var matchedDevice;
+    
+                if (!ctx.checkForElements(ctx.props.testDriveInstance.requiredDevices, user.availableDevices)) {
+                    message += Messages.TEST_DRIVE_DEVICE_ERROR + '\n';
+                    isUserEligible = false;
+                }
+    
+                if(!ctx.checkForElements(ctx.props.testDriveInstance.requiredOs, user.availableOS)){
+                    message += Messages.TEST_DRIVE_DEVICE_ERROR + '\n';
+                    isUserEligible = false;
+                }
+    
+                resolve({isUserEligible, message});
+            })
+        });
+    }
+
+    participate() {
+        this.isUserEligible().then((data: any)=>{
+            if(data.isUserEligible){
+                this.props.createTestDriveInstance(this.props.testDriveInstance)
+            } else{
+                alert(data.message);
+            }
+        })
+        
     }
 
     render() {
@@ -200,8 +262,9 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                         </div>
 
                         <div className="col-md-12 popup_buttonbox">
-                            <input onClick={() => createTestDriveInstance(this.props.testDriveInstance)} className="button type1" type="button" value="Go For Drive" />
+                            <input onClick={this.participate} className="button type1" type="button" value="Go For Drive" />
                         </div>
+
                     </div>
                 </div>
             </div>
