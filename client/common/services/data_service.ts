@@ -14,6 +14,7 @@ import { Columns } from "./constants";
 import { Util } from "sp-pnp-js/lib/utils/util";
 import index from "../../home/index";
 import { TestDriveInstance, QuestionInstance, TestCaseInstance } from '../../test_drive_participation/model';
+import { File } from "@microsoft/microsoft-graph-types";
 
 const delay = 100;
 declare var SP: any;
@@ -36,14 +37,56 @@ pnp.setup({
 });
 
 export class Services {
-    static getVideoUrl(){
+
+    static getAttachmentsByItemID(id: number) {
+        let item = pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).items.getById(id);
+        item.attachmentFiles.get().then(v => {
+            console.log(v);
+        });
+    }
+
+    static setAttachmentByItemID(id: number, files) {
+        this.buildFileArray(files).then((filesInfo:any) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES)
+            .items.getById(id).attachmentFiles.addMultiple(filesInfo).then(r => {
+                console.log(r);
+            }, error => {
+                console.log(error);
+            });
+        })
+    }
+
+    static buildFileArray(files) {
+        return new Promise((resolve, reject) => {
+            var fileInfos = [];
+            var counter = 0;
+            for (var i = 0; i < files.length; i++) {
+                var toUpload = files[i];
+                var r = new FileReader();
+                r.onloadend = function (e: any) {
+                    counter++;
+                    var fileContent = e.target.result;
+                    fileInfos.push({
+                        name: files[counter-1].name,
+                        content: fileContent
+                    })
+                    if (files.length == counter) {
+                        resolve(fileInfos);
+                    }
+                }
+                r.readAsArrayBuffer(toUpload);
+            }
+        });
+    }
+
+    static getVideoUrl() {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.APPLICATION_CONFIGURATIONS).items
-            .select('AppConfigKey, AppConfigValue')
-            .filter("AppConfigKey eq 'Video'").get().then((video:any) =>{
-                const videoUrl = video[0].AppConfigValue;
-                resolve(videoUrl);
-            })
+                .select('AppConfigKey, AppConfigValue')
+                .filter("AppConfigKey eq 'Video'").get().then((video: any) => {
+                    const videoUrl = video[0].AppConfigValue;
+                    resolve(videoUrl);
+                })
         })
     }
     static createOrSaveTestDriveInstance(testDriveInstance: TestDriveInstance) {
@@ -414,7 +457,7 @@ export class Services {
                     });
             }
         });
-    } 
+    }
 
     static getEliteProfileByID(id?: number) {
         id = id || this.getCurrentUserID();
@@ -444,11 +487,11 @@ export class Services {
                 .get().then(profile => {
                     resolve(<EliteProfile>{
                         eliteProfileID: profile.Id,
-                        accountName: profile.AccountName, 
-                        displayName: profile.UserInfoName,                       
-                        location: profile.UserLocation,                                                                        
+                        accountName: profile.AccountName,
+                        displayName: profile.UserInfoName,
+                        location: profile.UserLocation,
                         region: profile.UserRegion,
-                        carImage: profile.CarImage,                        
+                        carImage: profile.CarImage,
                         carName: profile.CarName,
                         avatarName: profile.AvatarName,
                         avatarImage: profile.AvatarImage,
@@ -487,18 +530,18 @@ export class Services {
                     resolve({ rank, points });
                 }, err => reject(err))
         })
-    } 
+    }
 
-static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 users.
+    static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 users.
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
                 .select(Constants.Columns.ID,
                 Constants.Columns.USER_ID + '/' + Constants.Columns.ID)
                 .expand(Constants.Columns.USER_ID)
                 .orderBy(Constants.Columns.POINTS, false)
-                .get().then(results => {                    
-                    var result = {rank: 0, totalUsers: 0};
-                    let chkRank=0;
+                .get().then(results => {
+                    var result = { rank: 0, totalUsers: 0 };
+                    let chkRank = 0;
                     results.forEach((item, index) => {
                         if (item[Constants.Columns.USER_ID][Constants.Columns.ID] == userID) {
                             chkRank = index;
@@ -587,11 +630,11 @@ static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 
                     Constants.Columns.DATE_JOINED,
                     Constants.Columns.USER_LOCATION,
                     Constants.Columns.USER_ROLE,
-                    Constants.Columns.USER_REGION                    
+                    Constants.Columns.USER_REGION
                 ]);
-                
-                Promise.all([eliteProfileFields                   
-                ]).then(results => {                    
+
+                Promise.all([eliteProfileFields
+                ]).then(results => {
                     Cache.setCache(Constants.CacheKeys.CONFIGURATIONS, results[0]);
                     resolve(results[0]);
                 });
@@ -676,11 +719,10 @@ static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 
         });
     }
 
-    static getAvatars()
-    {
+    static getAvatars() {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.AVATAR).items
-            .select("FileRef/FileRef", "ID", "AvatarName").get().then(avatar => {                    
+                .select("FileRef/FileRef", "ID", "AvatarName").get().then(avatar => {
                     resolve(avatar);
                 }, err => {
                     reject(err);
@@ -688,11 +730,10 @@ static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 
         });
     }
 
-    static getCars()
-    {
+    static getCars() {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
-            .select("FileRef/FileRef", "ID", "CarName").get().then(car => {                    
+                .select("FileRef/FileRef", "ID", "CarName").get().then(car => {
                     resolve(car);
                 }, err => {
                     reject(err);
@@ -1113,24 +1154,24 @@ static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 
                     });
             });
         });
-    }	
-   static createOrSaveEliteProfile(eliteProfile: EliteProfile) {
+    }
+    static createOrSaveEliteProfile(eliteProfile: EliteProfile) {
         return new Promise((resolve, reject) => {
-            var promises = [];         
-            Promise.all(promises).then((results) => {              
+            var promises = [];
+            Promise.all(promises).then((results) => {
                 let eliteProfiles = [];
                 let newEliteProfile = {
                     ID: eliteProfile.eliteProfileID,
-                    Title: eliteProfile.accountName,                                       
+                    Title: eliteProfile.accountName,
                     AvailableDevices_tax: eliteProfile.availableDevices,
                     AvailableOS_tax: eliteProfile.availableOS,
                     AvatarID_id: eliteProfile.avatarID,
                     AvatarImage: eliteProfile.avatarImage,
-                    AvatarName: eliteProfile.avatarName, 
+                    AvatarName: eliteProfile.avatarName,
                     CarID_id: eliteProfile.carID,
                     CarImage: eliteProfile.carImage,
-                    CarName: eliteProfile.carName                    
-                }                
+                    CarName: eliteProfile.carName
+                }
 
                 eliteProfiles.push(newEliteProfile);
 
@@ -1698,7 +1739,7 @@ static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
                 .select("ID,UserID/ID").expand("UserID")
-                .filter("UserID eq '"+userID+"' and Status ne '" + Constants.ColumnsValues.COMPLETE_STATUS + "'")
+                .filter("UserID eq '" + userID + "' and Status ne '" + Constants.ColumnsValues.COMPLETE_STATUS + "'")
                 .get().then(testDrives => {
                     resolve(testDrives.length);
                 })
