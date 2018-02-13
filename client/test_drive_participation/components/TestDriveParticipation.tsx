@@ -35,6 +35,12 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
             }
         });
     }
+
+    closePopUp(id) {
+        $("#test-case-details" + id)
+            .css({ "position": "fixed", "right": "-700px", "transition": "0.5s" });
+
+    }
     render() {
         const { testDriveInstance, saveTestCaseResponse, loadQuestions, saveQuestionResponse, ui, updateUI } = this.props;
         return (<div className="col-md-12">
@@ -105,6 +111,26 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                 })
                             }
                         </ul>
+                    </div>
+                    <div>
+                        {
+                            testDriveInstance.testCases && testDriveInstance.testCases.length &&
+                            testDriveInstance.testCases.map((testCase, index) => {
+                                return (<div className="col-md-8 write_testdrivebox" id={"test-case-details" + testCase.responseID}>
+                                    <div className="col-md-12">
+                                        <i onClick={() => this.closePopUp(testCase.responseID)} className="material-icons pull-right" id={"close_discription" + testCase.responseID}>close</i>
+                                    </div>
+                                    <div className="col-md-12 testdrive_completionbox">
+                                        <div className="col-md-11 pull-left"><h3>Scenario</h3></div>
+                                        <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.scenario }}>
+                                        </div>
+                                        <div className="col-md-11 pull-left"><h3>Expected Outcome</h3></div>
+                                        <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.expectedOutcome }}>
+                                        </div>
+                                    </div>
+                                </div>)
+                            })
+                        }
                     </div>
                 </div>
             </div>

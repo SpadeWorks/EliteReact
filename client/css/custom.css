@@ -11,13 +11,9 @@
 }
 
 @font-face {
-  font-family: 'Glyphicons Halflings';
-  src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot');
-  src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), 
-  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), 
-  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), 
-  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), 
-  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+    font-family: 'Glyphicons Halflings';
+    src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot');
+    src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
 .starts-bg {
@@ -2652,7 +2648,7 @@ a.btn.btn-default {
     color: #fff;
 }
 
-a.btn.tab-border{
+a.btn.tab-border {
     border-right: solid 2px #000;
 }
 
@@ -2976,7 +2972,6 @@ li.select2-selection__choice {
     padding-right: 10px;
     margin-top: 9px;
     margin-right: 10px;
-
 }
 
 ul.select2-results__options {
@@ -3370,7 +3365,7 @@ span.l_count {
     border: solid 1px #fff;
     border-radius: 43px;
     padding: 10px;
-    padding-bottom:0;
+    padding-bottom: 0;
 }
 
 .vertical.outer-therm {
@@ -3503,8 +3498,8 @@ width: 28px !important;
 }
 
 .letest_driveboxclick2 {
-       display: block;
-   width: 133px;
+    display: block;
+    width: 133px;
     transition: 0.5s;
     opacity: 1;
     -webkit-box-direction: reverse;
@@ -3517,7 +3512,7 @@ width: 28px !important;
 }
 
 .letest_driveboxclick_right {
-  position: absolute;
+    position: absolute;
     right: 389px;
     display: block;
     transition: 0.5s;
@@ -3579,8 +3574,6 @@ width: 28px !important;
     margin-top: 0px;
 }
 
-
-
 .lc_containerclick {
     display: block;
     width: 100px;
@@ -3593,7 +3586,7 @@ width: 28px !important;
 }
 
 .letest_drivebox {
-      left: 300px;
+    left: 300px;
     position: absolute;
     opacity: 0;
     transition: all 0.9s;
@@ -3609,7 +3602,7 @@ width: 28px !important;
 }
 
 .letest_driveboxclick {
-      position: absolute;
+    position: absolute;
     left: 370px;
     display: block;
     transition: 0.5s;
@@ -3648,7 +3641,6 @@ width: 28px !important;
     margin-top: -32px;
     transition: all 0.5s;
 }
-
 
 .map_container {
     width: auto;
@@ -3954,7 +3946,6 @@ span.testd_count {
     font-size: 15px;
 }
 
-
 .test_progress {
     float: left;
     margin-top: 25px;
@@ -4027,7 +4018,7 @@ a.status_fail {
 }
 
 .overview {
-     margin-top: 0px;
+    margin-top: 0px;
     padding-bottom: 30px;
     padding-top: 30px;
     background: #333;
@@ -4036,7 +4027,6 @@ a.status_fail {
 .overview p {
     font-size: 25px;
 }
-
 
 .overview h4.testcase_title {
     margin-top: 0px;
@@ -4482,7 +4472,6 @@ span.teams:hover {
     left: 20px;
 }
 
-
 .earn_box span.small,
 .drive_completionbox span.small {
     position: absolute;
@@ -4492,7 +4481,7 @@ span.teams:hover {
     font-size: 11px;
 }
 
-.popup_ownerbox{
+.popup_ownerbox {
     min-height: 250px;
     padding-top: 0px;
 }
@@ -4502,7 +4491,6 @@ span.teams:hover {
     padding-top: 0px;
 }
 
-
 .popup_ownerbox h4 {
     font-family: titanium !important;
     text-transform: uppercase !important;
@@ -4511,13 +4499,11 @@ span.teams:hover {
 .col-md-12.end_date {
     position: absolute;
     bottom: 50px;
-   
 }
 
 .popup_infocontainer button {
     margin-left: 100px;
 }
-
 
 
 /*test case popup ends here*/
@@ -4727,10 +4713,6 @@ h4.testcase_title {
     width: 100%;
 }
 
-
-
-
-
 .comment_box {
     margin-top: 55px;
 }
@@ -4865,7 +4847,6 @@ span.teams:hover {
     color: #5659b0;
 }
 
-
 .earned_pointbox {
     /* background: #333; */
     border-right: solid 1px #333333;
@@ -4890,7 +4871,6 @@ span.teams:hover {
     left: 20px;
 }
 
-
 .earn_box span.small,
 .drive_completionbox span.small {
     position: absolute;
@@ -4900,7 +4880,6 @@ span.teams:hover {
     font-size: 11px;
 }
 
-
 .popup_ownerbox h4 {
     font-family: titanium !important;
     text-transform: uppercase !important;
@@ -4909,7 +4888,6 @@ span.teams:hover {
 .col-md-12.end_date {
     position: absolute;
     bottom: 50px;
-  
     margin-top: 15px;
     margin-bottom: 15px;
 }
@@ -4924,6 +4902,7 @@ span.teams:hover {
     margin-bottom: 30px;
     margin-left: 85px;
 }
+
 
 /*test case popup ends here*/
 
@@ -5284,6 +5263,7 @@ h1#dialogTitleSpan {
 
 
 /*testdrive details starts here*/
+
 .testdrivedetails_box .earn_box h3,
 .drive_completionbox h3 {
     margin-top: 10px;
@@ -5340,7 +5320,6 @@ h1#dialogTitleSpan {
     font-size: 16px;
 }
 
-
 .carousel-inner .container {
     width: 100%;
 }
@@ -5366,8 +5345,6 @@ h1#dialogTitleSpan {
     font-size: 15px;
 }
 
-
-
 .test_progress {
     float: left;
     margin-top: 25px;
@@ -5382,7 +5359,6 @@ a.status_pass i {
     float: right;
     color: #abe816;
 }
-
 
 a.status_fail:hover {
     border: solid 1px #abe225;
@@ -5421,7 +5397,6 @@ a.status_fail:hover {
 .overview p {
     font-size: 25px;
 }
-
 
 .overview h4.testcase_title {
     margin-top: 0px;
@@ -5711,7 +5686,6 @@ animation-delay: 10s;
 .col-md-12.end_date {
     position: relative !important;
     bottom: -23px !important;
-  
 }
 
 .error-lable {
@@ -5874,9 +5848,14 @@ a:focus,
 a:hover {
     text-decoration: none !important;
 }
-h2.header_prevlink{color:#fff;}
-a:focus, a:hover {
-text-decoration:none !important;
+
+h2.header_prevlink {
+    color: #fff;
+}
+
+a:focus,
+a:hover {
+    text-decoration: none !important;
 }
 
 .header_part span {
@@ -5896,7 +5875,8 @@ text-decoration:none !important;
     top: -20px;
 }
 
-.Select-placeholder, .Select--single>.Select-control .Select-value {
+.Select-placeholder,
+.Select--single>.Select-control .Select-value {
     padding-left: 0px !important;
     top: 8px !important;
 }
@@ -5907,24 +5887,28 @@ input.inputMaterial:focus~label {
     color: red;
 }
 
-.editpro_box .inputMaterial:focus~label, .inputMaterial:valid~label {
+.editpro_box .inputMaterial:focus~label,
+.inputMaterial:valid~label {
     top: -6px;
     font-size: 14px;
     color: white;
 }
 
-.textarea-custom textarea{
+.textarea-custom textarea {
     height: 85px;
 }
 
-.custom-editor{
+.custom-editor {
     margin-bottom: 50px;
 }
 
-.leader_car{padding-top: 10px;}
+.leader_car {
+    padding-top: 10px;
+}
 
-.read_morelink{color:red;}
-
+.read_morelink {
+    color: red;
+}
 
 .col-md-12.earn_box canvas {
     margin-top: 15px;
@@ -5939,8 +5923,7 @@ input.inputMaterial:focus~label {
     margin-top: 10px;
 }
 
-.earn_box h3
- {
+.earn_box h3 {
     margin-top: 10px;
     position: absolute;
     top: 99px !important;
@@ -5948,8 +5931,8 @@ input.inputMaterial:focus~label {
     text-transform: uppercase !important;
 }
 
-.drive_completionbox h3{
-     margin-top: 10px;
+.drive_completionbox h3 {
+    margin-top: 10px;
     position: absolute;
     top: 102px !important;
     left: 65px !important;
@@ -5968,7 +5951,9 @@ input.inputMaterial:focus~label {
     font-size: 37px;
 }
 
-h1.testcase_name {margin-top: 15px;}
+h1.testcase_name {
+    margin-top: 15px;
+}
 
 .testcase_box p {
     font-family: titanium !important;
@@ -5977,20 +5962,60 @@ h1.testcase_name {margin-top: 15px;}
     padding-bottom: 10px;
 }
 
-.testcase_box  span.red{color: red; font-size: 18px; font-family: titanium;}
-
-.testcase_box  span img{padding-top: 5px;}
-
-
-.testcase_box .inputMaterial:valid~label{top: -6px;
+.testcase_box span.red {
+    color: red;
     font-size: 18px;
-    color: #909090;}
+    font-family: titanium;
+}
 
+.testcase_box span img {
+    padding-top: 5px;
+}
 
-.modal-content{
+.testcase_box .inputMaterial:valid~label {
+    top: -6px;
+    font-size: 18px;
+    color: #909090;
+}
+
+.modal-content {
     background-color: black;
 }
 
-.error{
+.error {
     color: red;
+}
+
+/*participation_box starts here*/
+
+.write_testdrivebox {
+    height: 100%;
+    background: #000;
+    position: fixed;
+    right: -700px;
+    top: 0px;
+    width: 700px;
+    z-index: 9999;
+    border-left: solid 1px #fff;
+    padding-top: 10px;
+}
+
+.write_testdrivebox p {
+    font-family: titanium;
+}
+
+.testdrive_completionbox {
+    border-bottom: solid 1px #333;
+    padding-bottom: 30px;
+}
+
+.favourite i {
+    padding-top: 24px;
+    color: #999;
+    font-size: 18px;
+}
+
+.testdrive_completionbox{
+    overflow: auto;
+    height: 100%;
 }
