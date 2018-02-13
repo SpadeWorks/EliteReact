@@ -82,8 +82,8 @@ class GlobalLeaderBoard extends React.Component<GlobalLeaderBoardProps> {
                 }
 
 
-                <LeaderItem
-                    leader={currentUser} />
+                {currentUser.rank && currentUser.rank != -1 && <LeaderItem
+                    leader={currentUser} />}
             </div>)
     }
 }

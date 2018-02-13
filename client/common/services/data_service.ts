@@ -416,7 +416,8 @@ export class Services {
         });
     } 
 
-  static getEliteProfileByID(id) {
+    static getEliteProfileByID(id?: number) {
+        id = id || this.getCurrentUserID();
         return new Promise((resolve, reject) => {
             //let user = this.getUserProfileProperties();
             pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION).items
@@ -434,8 +435,13 @@ export class Services {
                 Constants.Columns.AVAILABLE_OS,
                 Constants.Columns.AVAILABLE_DEVICES,
                 Constants.Columns.ID,
+<<<<<<< HEAD
                 Constants.Columns.ACCOUNT_NAME,
                 Constants.Columns.USER_INFO_NAME,
+=======
+                Constants.Columns.USER_INFO_NAME,
+                Constants.Columns.ACCOUNT_NAME,
+>>>>>>> 92f567cd28943464f71b7a0e4810111a7107227b
                 Constants.Columns.USER_LOCATION,
                 Constants.Columns.USER_REGION,
             )
@@ -463,6 +469,7 @@ export class Services {
                 });
         });
     }
+
 
     static getUserRank(userID: number) { //TODO Update logic for more that 5000 users.
         return new Promise((resolve, reject) => {
