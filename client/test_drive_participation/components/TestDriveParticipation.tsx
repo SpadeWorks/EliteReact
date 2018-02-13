@@ -39,7 +39,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
         const { testDriveInstance, saveTestCaseResponse, loadQuestions, saveQuestionResponse, ui, updateUI } = this.props;
         return (<div className="col-md-12">
             <div className="row">
-                <div className="container">
+                <div className="container header_part">
                     <h2>
                         <Link to={"/"}><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                             {testDriveInstance.title}
@@ -50,7 +50,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                 </div>
                 <div className="col-md-12" style={{ overflow: "auto" }}>
                     <div className="wrapper" style={{ height: "544px" }}>
-                        <div className="col-md-10 profile_box col-md-offset-1" style={{ height: "500px" }}>
+                        <div className="col-md-10 profile_box col-md-offset-1">
                             <div className="well count_box">
                                 <ul className="nav nav-tabs">
                                     <li className="active">
