@@ -68,15 +68,16 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
     render() {
         const { testCase, active, saveTestCaseResponse, ui, updateUI, index } = this.props;
         return (<div className={"item " + (active ? 'active' : '')} id={'test-case-form' + testCase.responseID}>
+               <div className="row">
             <div className="container ">
-                <div className="row"></div>
+             
                 <div className="col-md-12 ">
                     <div className="row testcase_box ">
                         <span className="orange">{"Test Caes " + (index + 1)}</span>
                         <h1 className="testcase_name">{testCase.title}</h1>
                         <p>{testCase.description}</p>
                         
-                        <a href="javascript:void(0);" onClick={this.openPopUp}> <h5>Guide me to solve this test case</h5></a>
+                        <a href="javascript:void(0);" onClick={this.openPopUp}> <span className="red"><img src="http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images//i.png" />Guide me to solve this test case</span></a>
                         <h4 className="testcase_title ">Select the test case status</h4>
                         <div className="row ">
                             <div className="test_progress ">
@@ -124,12 +125,14 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                         testCase.responseStatus != Constants.ColumnsValues.COMPLETE_STATUS &&
                                         <input type="button" value="Save" onClick={() => this.saveTestCaseResponse(testCase)} />
                                     } */}
-                                    <input type="button" value="Done" onClick={() => this.submitTestCaseResponse(testCase)} />
+                                   <input type="button" value="Done" onClick={() => this.submitTestCaseResponse(testCase)} />
+                                     <Link className="button type1" onClick={() => this.submitTestCaseResponse(testCase)} > Drive Through </Link>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
         )
