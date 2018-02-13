@@ -5985,3 +5985,12 @@ h1.testcase_name {margin-top: 15px;}
 .testcase_box .inputMaterial:valid~label{top: -6px;
     font-size: 18px;
     color: #909090;}
+
+
+.modal-content{
+    background-color: black;
+}
+
+.error{
+    color: red;
+}

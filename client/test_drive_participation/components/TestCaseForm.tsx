@@ -126,7 +126,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                         <input type="button" value="Save" onClick={() => this.saveTestCaseResponse(testCase)} />
                                     } */}
                                    <input type="button" value="Done" onClick={() => this.submitTestCaseResponse(testCase)} />
-                                     <Link className="button type1" onClick={() => this.submitTestCaseResponse(testCase)} > Drive Through </Link>
+                                     
                                 </div>
                             </div>
                         </div>

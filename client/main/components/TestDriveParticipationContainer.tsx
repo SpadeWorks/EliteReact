@@ -84,7 +84,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     testDriveID: testDriveID || -1,
     testDriveInstance: state.participationState.testDriveInstance,
-    loading: state.participationState.loading
+    loading: state.participationState.loading,
   }
 };
 
