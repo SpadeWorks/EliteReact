@@ -37,7 +37,7 @@ class Navigation extends React.Component<NavigationProps> {
                         <span>Refer a friend</span>
                     </a>
 
-                    <Link className="maplinks" to={"/myprofile"} id="link3">
+                    <Link className="maplinks" to={"/profile/"} id="link3">
                         <img src="http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/refer.png" />
                         <span>My Profile</span>
                     </Link>
@@ -50,8 +50,8 @@ class Navigation extends React.Component<NavigationProps> {
                         <span>Leaderboard</span>
                     </Link>
                     <a data-toggle="modal" data-target="#exampleModal" id="link6" className="maplinks">
-                    <img src="http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/video.png" />
-                    <span>Video</span></a>
+                        <img src="http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/video.png" />
+                        <span>Video</span></a>
                 </object>
             </div>
         </div>)

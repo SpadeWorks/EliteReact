@@ -18,6 +18,7 @@ export type IState = {
     avatars: string[];
     cars: string[];
     videoUrl?: string;
+    profileState?: any;
 }
 
 export type HomeTestDriveObj = {

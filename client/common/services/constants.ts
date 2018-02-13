@@ -1,3 +1,5 @@
+import { STATUS_CODES } from "http";
+
 export class Lists {
     static TEST_DRIVES = 'Test Drives';
     static TEST_CASES = 'Test Cases';
@@ -73,8 +75,8 @@ export class Columns{
     static TEST_CASE_RESPONSE_STATUS = "TestCaseResponseStatus";
     static SURVEY_RESPONSE = "SurveyResponse";
     static Selected_Response =  "SelectedResponse";
-
-
+    static USER_INFO_NAME = "UserInfoName"
+    static ACCOUNT_NAME= "AccountName"
 }
 
 export class ColumnsValues{

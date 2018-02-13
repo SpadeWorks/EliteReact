@@ -418,7 +418,7 @@ export class Services {
 
   static getEliteProfileByID(id) {
         return new Promise((resolve, reject) => {
-            let user = this.getUserProfileProperties();
+            //let user = this.getUserProfileProperties();
             pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION).items
                 .getById(id)
                 .select(
@@ -433,21 +433,20 @@ export class Services {
                 Constants.Columns.USER_ROLE,
                 Constants.Columns.AVAILABLE_OS,
                 Constants.Columns.AVAILABLE_DEVICES,
+                Constants.Columns.ID,
+                Constants.Columns.ACCOUNT_NAME,
+                Constants.Columns.USER_INFO_NAME,
+                Constants.Columns.USER_LOCATION,
+                Constants.Columns.USER_REGION,
             )
                 .expand(Constants.Columns.Car_ID)
                 .get().then(profile => {
                     resolve(<EliteProfile>{
-                        eliteProfileID: user.eliteProfileID,
-                        accountName: user.accountName,
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        displayName: user.displayName,
-                        location: user.location,
-                        department: user.department,
-                        sipAddress: user.sipAddress,
-                        workEmail: user.workEmail,
-                        languages: user.languages,
-                        region: user.region,
+                        eliteProfileID: profile.Id,
+                        accountName: profile.AccountName, 
+                        displayName: profile.UserInfoName,                       
+                        location: profile.UserLocation,                                                                        
+                        region: profile.UserRegion,
                         carImage: profile.CarImage,                        
                         carName: profile.CarName,
                         avatarName: profile.AvatarName,

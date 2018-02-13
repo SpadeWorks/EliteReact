@@ -21,7 +21,8 @@ import {
     LOAD_SetEditMode,
     LOAD_Cars_PENDING,
     LOAD_Cars_FULFILLED,
-    LOAD_Cars_REJECTED
+    LOAD_Cars_REJECTED,
+    RESET_EliteProfile
 } from './constants/ActionTypes';
 import { access, stat } from 'fs';
 import { totalmem } from 'os';
@@ -92,6 +93,13 @@ export default handleActions<IState, any>({
         return {
             ...state,
             loading: false
+        }
+    },
+
+    [RESET_EliteProfile]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            eliteProfile: null
         }
     },
 
