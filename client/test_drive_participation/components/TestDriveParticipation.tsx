@@ -116,9 +116,11 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                         {
                             testDriveInstance.testCases && testDriveInstance.testCases.length &&
                             testDriveInstance.testCases.map((testCase, index) => {
-                                return (<div className="col-md-8 write_testdrivebox" id={"test-case-details" + testCase.responseID}>
+                                return (<div className="col-md-8 write_testdrivebox" id={"test-case-details" + index}>
                                     <div className="col-md-12">
-                                        <i onClick={() => this.closePopUp(testCase.responseID)} className="material-icons pull-right" id={"close_discription" + testCase.responseID}>close</i>
+                                        <i onClick={() => this.closePopUp(index)} 
+                                        className="material-icons pull-right" 
+                                        id={"close_discription" + index}>close</i>
                                     </div>
                                     <div className="col-md-12 testdrive_completionbox">
                                         <div className="col-md-11 pull-left"><h3>Scenario</h3></div>

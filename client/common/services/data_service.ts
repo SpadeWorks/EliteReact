@@ -14,7 +14,8 @@ import { Columns } from "./constants";
 import { Util } from "sp-pnp-js/lib/utils/util";
 import index from "../../home/index";
 import { TestDriveInstance, QuestionInstance, TestCaseInstance } from '../../test_drive_participation/model';
-import { File } from "@microsoft/microsoft-graph-types";
+import { File, ListItem } from "@microsoft/microsoft-graph-types";
+import { error } from "util";
 
 const delay = 100;
 declare var SP: any;
@@ -38,22 +39,39 @@ pnp.setup({
 
 export class Services {
 
-    static getAttachmentsByItemID(id: number) {
-        let item = pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).items.getById(id);
-        item.attachmentFiles.get().then(v => {
-            console.log(v);
+    static getAttachmentsByItemID(item) {
+        return new Promise((resolve, reject) => {
+            item.attachmentFiles.get().then(files => {
+                resolve(files);
+                console.log(files);
+            }, error =>{
+                reject (error);
+            });
         });
     }
 
-    static setAttachmentByItemID(id: number, files) {
-        this.buildFileArray(files).then((filesInfo:any) => {
-            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES)
-            .items.getById(id).attachmentFiles.addMultiple(filesInfo).then(r => {
-                console.log(r);
-            }, error => {
-                console.log(error);
-            });
+    static setAttachmentByItemID(item, files) {
+        return new Promise((resolve, reject) => {
+            this.buildFileArray(files).then((filesInfo: any) => {
+                item.attachmentFiles.addMultiple(filesInfo).then((r: any) => {
+                        Services.getAttachmentsByItemID(item).then(files => {
+                            resolve(files);
+                        });
+                    }, error => {
+                        reject(error);
+                    });
+            })
         })
+    }
+
+    static deletAttachments(item, files: string[]) {
+        return new Promise((resolve, reject) => {
+            item.attachmentFiles.deleteMultiple(files.toString()).then(r => {
+                resolve(r)
+            }, error =>{
+                reject (error);
+            });
+        });
     }
 
     static buildFileArray(files) {
@@ -67,7 +85,7 @@ export class Services {
                     counter++;
                     var fileContent = e.target.result;
                     fileInfos.push({
-                        name: files[counter-1].name,
+                        name: files[counter - 1].name,
                         content: fileContent
                     })
                     if (files.length == counter) {

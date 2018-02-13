@@ -6,11 +6,13 @@ import ui from 'redux-ui';
 import Services from '../../common/services/services';
 import * as $ from 'jquery';
 import { validateControl, required, validateForm } from '../../common/components/Validations';
+import Files from 'react-files';
 interface TestCaseFormProps {
     testDriveInstance: TestDriveInstance
     testCase: TestCaseInstance;
     active: boolean;
     saveTestCaseResponse: (testCase: TestCaseInstance, testdrive: TestDriveInstance) => any;
+
     updateUI: (any) => any;
     ui: any;
     index: number;
@@ -19,10 +21,13 @@ interface TestCaseFormProps {
 @ui({
     state: {
         testCaseResponse: '',
-        selectedResponse: ''
+        selectedResponse: '',
+        files: []
     }
 })
 class TestCaseForm extends React.Component<TestCaseFormProps> {
+    private stepInput: FileList;
+
     constructor(props, context) {
         super(props, context);
         this.saveTestCaseResponse = this.saveTestCaseResponse.bind(this);
@@ -30,6 +35,30 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         this.props.updateUI({ testCaseResponse: this.props.testCase.testCaseResponse });
         this.props.updateUI({ selectedResponse: this.props.testCase.selectedResponse });
         this.openPopUp = this.openPopUp.bind(this);
+        this.onFilesChange = this.onFilesChange.bind(this);
+        this.filesRemoveOne = this.filesRemoveOne.bind(this);
+        this.onFilesError = this.onFilesError.bind(this);
+    }
+
+    onFilesChange(files) {
+        this.props.updateUI({
+            files: files
+        });
+    }
+
+    filesRemoveOne = (removedFile) => {
+        var  files:any = this.refs.files;
+        files.removeFile(removedFile);
+        const newFiles = this.props.ui.files.filter((file: any) => {
+            return file.id != removedFile.id;
+        })
+        this.props.updateUI({
+            files: newFiles
+        });
+    }
+
+    onFilesError(error, file) {
+        console.log('error code ' + error.code + ': ' + error.message)
     }
 
     onChange(e) {
@@ -63,8 +92,8 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         }
     }
 
-    openPopUp() {
-        var id = this.props.testCase.responseID;
+    openPopUp(id) {
+        $(".write_testdrivebox").css({ "position": "fixed", "right": "-700px", "transition": "0.5s" });
         $("#test-case-details" + id)
             .css({ "position": "fixed", "right": "0px", "height": "100%", "transition": "0.5s" });
     }
@@ -75,14 +104,16 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
             <div className={"item " + (active ? 'active' : '')} id={'test-case-form' + testCase.responseID}>
                 <div className="row">
                     <div className="container ">
-
                         <div className="col-md-12 ">
                             <div className="row testcase_box ">
                                 <span className="orange">{"Test Caes " + (index + 1)}</span>
                                 <h1 className="testcase_name">{testCase.title}</h1>
                                 <p>{testCase.description}</p>
 
-                                <a href="javascript:void(0);" onClick={this.openPopUp}> <span className="red"><img src="http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images//i.png" />Guide me to solve this test case</span></a>
+                                <a href="javascript:void(0);" onClick={() => this.openPopUp(index)}> <span className="red">
+                                    <img src="http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images//i.png" />
+                                    Guide me to solve this test case</span>
+                                </a>
                                 <h4 className="testcase_title ">Select the test case status</h4>
                                 <div className="row ">
                                     <div className="test_progress ">
@@ -113,7 +144,20 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                             </div>
                                         </div>
                                         <div className="col-md-12 comment_box ">
-                                            <i className="material-icons pull-right ">camera_enhance</i>
+                                            <Files
+                                                ref='files'
+                                                className='files-dropzone-list'
+                                                style={{ height: '100px' }}
+                                                onChange={this.onFilesChange}
+                                                onError={this.onFilesError}
+                                                multiple
+                                                maxFiles={10}
+                                                maxFileSize={10000000}
+                                                minFileSize={0}
+                                                clickable
+                                            ><i className="material-icons pull-right ">camera_enhance</i>
+                                            </Files>
+
                                             <textarea className="inputMaterial form-control"
                                                 onChange={(e: any) => this.onChange(e)}
                                                 name="description"
@@ -125,13 +169,34 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                             <span className="bar "></span>
                                             <label className="disc_lable ">Test case result comments*</label>
                                         </div>
-                                        <div className="test-case-btn-controls">
-                                            {/* {
-                                        testCase.responseStatus != Constants.ColumnsValues.COMPLETE_STATUS &&
-                                        <input type="button" value="Save" onClick={() => this.saveTestCaseResponse(testCase)} />
-                                    } */}
-                                            <input type="button" value="Done" onClick={() => this.submitTestCaseResponse(testCase)} />
+                                        <div className="files" style={{ clear: 'both' }}>
 
+                                            {
+                                                ui.files && ui.files.length &&
+                                                <div className='files-list'>
+                                                    <ul>{ui.files.map((file) =>
+                                                        <li className='files-list-item' key={file.id}>
+                                                            <div className='files-list-item-preview'>
+                                                                {file.preview.type === 'image'
+                                                                    ? <img className='files-list-item-preview-image' src={file.preview.url} />
+                                                                    : <div className='files-list-item-preview-extension'>{file.extension}</div>}
+                                                            </div>
+                                                            <div className='files-list-item-content'>
+                                                                <div className='files-list-item-content-item files-list-item-content-item-1'>{file.name}</div>
+                                                                <div className='files-list-item-content-item files-list-item-content-item-2'>{file.sizeReadable}</div>
+                                                            </div>
+                                                            <div
+                                                                id={file.id}
+                                                                className='files-list-item-remove'
+                                                                onClick={this.filesRemoveOne.bind(this, file)} // eslint-disable-line
+                                                            />
+                                                        </li>
+                                                    )}</ul>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div className="test-case-btn-controls">
+                                            <input type="button" value="Done" onClick={() => this.submitTestCaseResponse(testCase)} />
                                         </div>
                                     </div>
                                 </div>
