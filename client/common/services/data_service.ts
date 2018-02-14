@@ -44,8 +44,8 @@ export class Services {
             item.attachmentFiles.get().then(files => {
                 resolve(files);
                 console.log(files);
-            }, error =>{
-                reject (error);
+            }, error => {
+                reject(error);
             });
         });
     }
@@ -54,12 +54,12 @@ export class Services {
         return new Promise((resolve, reject) => {
             this.buildFileArray(files).then((filesInfo: any) => {
                 item.attachmentFiles.addMultiple(filesInfo).then((r: any) => {
-                        Services.getAttachmentsByItemID(item).then(files => {
-                            resolve(files);
-                        });
-                    }, error => {
-                        reject(error);
+                    Services.getAttachmentsByItemID(item).then(files => {
+                        resolve(files);
                     });
+                }, error => {
+                    reject(error);
+                });
             })
         })
     }
@@ -68,8 +68,8 @@ export class Services {
         return new Promise((resolve, reject) => {
             item.attachmentFiles.deleteMultiple(files.toString()).then(r => {
                 resolve(r)
-            }, error =>{
-                reject (error);
+            }, error => {
+                reject(error);
             });
         });
     }
@@ -764,10 +764,10 @@ export class Services {
             pnp.sp.web.lists.getByTitle(Constants.Lists.APPLICATION_CONFIGURATIONS).items
                 .top(100).get().then(configurations => {
                     var appConfig = {};
-                    configurations && configurations.length && 
+                    configurations && configurations.length &&
                         configurations.map(configuration => {
-                        appConfig[configuration.AppConfigKey] = configuration.AppConfigValue;
-                    })
+                            appConfig[configuration.AppConfigKey] = configuration.AppConfigValue;
+                        })
                     resolve(appConfig);
                 }, err => {
                     reject(err);
@@ -1984,8 +1984,8 @@ export class Services {
         });
     }
 
-    static loadProgressBar(val, optionsVal, optionsSize, canvasID) {
-        Utils.loadProgressBar(val, optionsVal, optionsSize, canvasID);
+    static loadProgressBar(canvasID, value = 0.75, size=60) {
+        Utils.loadProgressBar(canvasID, value, size);
     }
 }
 
@@ -2002,90 +2002,94 @@ export class Utils {
         return results === null ? null : decodeURIComponent(results[1]);
     }
 
-    public static loadProgressBar(val, optionsVal, optionsSize, canvasID) {
-        if ($('#' + canvasID)[0] != undefined) {
-            window["options" + val] = {
-                value: optionsVal,
-                size: optionsSize,
-                startAngle: -Math.PI,
-                startColor: 'red',
-                endColor: 'red',
-                animation: {
-                    duration: 1200,
-                    easing: 'circleProgressEase'
-                }
-            };
+    public static loadProgressBar(canvasID, value, size) {
+        var options = {
+            value: value,
+            size: size,
+            startAngle: -Math.PI,
+            startColor: 'red',
+            endColor: 'red',
+            animation: {
+                duration: 1200,
+                easing: 'circleProgressEase'
+            }
+        };
 
-            $.easing.circleProgressEase = function (x, t, b, c, d) {
-                if ((t /= d / 2) < 1)
-                    return c / 2 * t * t * t + b;
-                return c / 2 * ((t -= 2) * t * t + 2) + b;
-            };
+        $.easing.circleProgressEase = function (x, t, b, c, d) {
+            if ((t /= d / 2) < 1)
+                return c / 2 * t * t * t + b;
+            return c / 2 * ((t -= 2) * t * t + 2) + b;
+        };
 
-            window["s" + val] = window["options" + val].size, // square size
-                window["v" + val] = window["options" + val].value, // current value: from 0.0 to 1.0
-                window["r" + val] = window["s" + val] / 2, // radius
-                window["t" + val] = window["s" + val] / 14; // thickness
+        var s = options.size, // square size
+            v = options.value, // current value: from 0.0 to 1.0
+            r = s / 2, // radius
+            t = s / 14; // thickness
 
-            window["canvas" + val] = $('#' + canvasID)[0];
-            window["canvas" + val].width = window["s" + val];
-            window["canvas" + val].height = window["s" + val];
-            window["ctx" + val] = window["canvas" + val].getContext('2d');
-            window["lg" + val] = window["ctx" + val].createLinearGradient(0, 0, window["s" + val], 0);
-            window["lg" + val].addColorStop(0, window["options" + val].startColor);
-            window["lg" + val].addColorStop(1, window["options" + val].endColor);
-            window["ctx" + val].fillStyle = "rgba(0, 0, 0, .1)";
+        // Prepare canvas
+        var canvas = $('#' + canvasID)[0];
 
-            // Draw circle
-            if (window["options" + val].animation)
-                _drawAnimated(window["v" + val]);
-            else
-                _draw(window["v" + val]);
+        canvas.width = s;
+        canvas.height = s;
+        var ctx = canvas.getContext('2d');
+        var lg = ctx.createLinearGradient(0, 0, s, 0);
+        lg.addColorStop(0, options.startColor);
+        lg.addColorStop(1, options.endColor);
+        ctx.fillStyle = "rgba(0, 0, 0, .1)";
 
-            // now let's animate numbers
-            window["valE" + val] = $('.value');
-            window["valE" + val].data('origVal', window["valE" + val].text());
-            $(window["canvas" + val]).on('circle-animation-progress', function (e, progress) {
-                window["valE" + val].text(parseInt(window["valE" + val].data('origVal')) * progress)
-            });
-        }
+        // Draw circle
+        if (options.animation)
+            _drawAnimated(v);
+        else
+            _draw(v);
+
 
         function _draw(p) {
             // Clear frame
-            window["ctx" + val].clearRect(0, 0, window["s" + val], window["s" + val]);
+            ctx.clearRect(0, 0, s, s);
 
             // Draw background circle
-            window["ctx" + val].beginPath();
-            window["ctx" + val].arc(window["r" + val], window["r" + val], window["r" + val], -Math.PI, Math.PI);
-            window["ctx" + val].arc(window["r" + val], window["r" + val], window["r" + val] - window["t" + val], Math.PI, -Math.PI, true);
-            window["ctx" + val].closePath();
-            window["ctx" + val].fill(); // gray fill
+            ctx.beginPath();
+            ctx.arc(r, r, r, -Math.PI, Math.PI);
+            ctx.arc(r, r, r - t, Math.PI, -Math.PI, true);
+            ctx.closePath();
+            ctx.fill(); // gray fill
 
             // Draw progress arc
-            window["ctx" + val].beginPath();
-            window["ctx" + val].arc(window["r" + val], window["r" + val], window["r" + val], -Math.PI, -Math.PI + Math.PI * 2 * p);
-            window["ctx" + val].arc(window["r" + val], window["r" + val], window["r" + val] - window["t" + val], -Math.PI + Math.PI * 2 * p, -Math.PI, true);
-            window["ctx" + val].closePath();
-            window["ctx" + val].save();
-            window["ctx" + val].clip();
-            window["ctx" + val].fillStyle = window["lg" + val];
-            window["ctx" + val].fillRect(0, 0, window["s" + val], window["s" + val]); // gradient fill
-            window["ctx" + val].restore();
+            ctx.beginPath();
+            ctx.arc(r, r, r, -Math.PI, -Math.PI + Math.PI * 2 * p);
+            ctx.arc(r, r, r - t, -Math.PI + Math.PI * 2 * p, -Math.PI, true);
+            ctx.closePath();
+            ctx.save();
+            ctx.clip();
+            ctx.fillStyle = lg;
+            ctx.fillRect(0, 0, s, s); // gradient fill
+            ctx.restore();
         }
 
         function _drawAnimated(v) {
-            $(window["canvas" + val]).stop(true, true).css({ value: 0 }).animate({ value: window["v" + val] }, $.extend({}, window["options" + val].animation, {
+            $(canvas).stop(true, true).css({ value: 0 }).animate({ value: v }, $.extend({}, options.animation, {
                 step: function (p) {
                     _draw(p);
-                    $(window["canvas" + val]).trigger('circle-animation-progress', [p / window["v" + val], p]);
+                    $(canvas).trigger('circle-animation-progress', [p / v, p]);
                 },
 
                 complete: function () {
-                    $(window["canvas" + val]).trigger('circle-animation-end');
+                    $(canvas).trigger('circle-animation-end');
                 }
             }));
         }
+
+        // now let's animate numbers
+        var valEl:any = $('.value');
+        valEl.data('origVal', valEl.text());
+        $(canvas).on('circle-animation-progress', function (e, progress) {
+            var p:any = valEl.data('origVal') * progress
+            valEl.text(parseInt(p))
+        });
     }
+
+
 
     public static uploadFile(ctx: SP.ClientContext, folderName: string, fileName: any, file: any): any {
         return new Promise((resolve, reject) => {
