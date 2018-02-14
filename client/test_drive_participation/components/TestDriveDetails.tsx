@@ -6,6 +6,7 @@ import Services from '../../common/services/services';
 import { EliteProfile } from '../../home/model';
 import { Messages } from '../../common/services/constants';
 import ui from 'redux-ui';
+
 interface TestDriveDetailsProps {
     testDriveInstance: TestDriveInstance;
     createTestDriveInstance: (testDriveInstance: TestDriveInstance) => any;
@@ -85,6 +86,11 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
 
     }
 
+    componentDidMount(){
+        Services.loadProgressBar("completed-test-cases-canvas", 0.4, 200);
+        Services.loadProgressBar("test-drive-points-canvas");
+    }
+
     render() {
         const { testDriveInstance, createTestDriveInstance, ui, updateUI } = this.props;
         return (<div className="col-md-12 detailed_box">
@@ -132,16 +138,16 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
 
                                 <div className="col-md-4">
                                     <div className="row">
-                                        <canvas id="canvas5" width="140" height="140"></canvas>
-                                        {/* <h3>{((testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 0)) * 100}</h3> */}
-                                        <span className="small">{testDriveInstance.numberOfTestCasesCompleted} of {testDriveInstance.testCaseIDs.length} tasks done</span>
+                                        <canvas id="completed-test-cases-canvas" width="140" height="140"></canvas>
+                                         <h3>{((testDriveInstance.numberOfTestCasesCompleted || 1) / (testDriveInstance.testCaseIDs.length || 1)) * 100}</h3> 
+                                        <span className="small">{testDriveInstance.numberOfTestCasesCompleted } of {testDriveInstance.testCaseIDs.length} tasks done</span>
                                     </div>
                                 </div>
 
                                 <div className="col-md-4">
                                     <div className="row">
-                                        <canvas id="canvas4" width="140" height="140"></canvas>
-                                        <h3>{testDriveInstance.currentPoint}.</h3>
+                                        <canvas id="test-drive-points-canvas" width="140" height="140"></canvas>
+                                        <h3>{testDriveInstance.currentPoint || 323}.</h3>
                                         <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
                                     </div>
 

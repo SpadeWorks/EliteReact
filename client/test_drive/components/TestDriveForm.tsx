@@ -167,6 +167,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
             <form className="registration_form" id={"test-drive-form" + testDrive.id}>
                 <div className="col-xs-12 form_box">
                     <div className="col-md-12 register_input">
+                        <div className="group">
                         <input className="inputMaterial"
                             type="text"
                             onChange={this.onChange}
@@ -182,7 +183,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             {fieldDescriptions && fieldDescriptions.TestDriveName}
                         </span>
                     </div>
+                    </div>
                     <div className="col-md-12 register_input textarea-custom">
+                        <div className="group">
                         <textarea className="inputMaterial"
                             onChange={this.onChange}
                             name="description"
@@ -197,8 +200,10 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             {fieldDescriptions && fieldDescriptions.EliteDescription}
                         </span>
                     </div>
+                    </div>
 
                     <div className="col-md-6 register_input">
+                          <div className="group">
                         <div className="form-group">
                             <input className="form-control inputMaterial date_box"
                                 id="startDate"
@@ -215,7 +220,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             </span>
                         </div>
                     </div>
-
+                    </div>
 
                     <div className="col-md-6 register_input">
                         <div className="form-group">

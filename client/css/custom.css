@@ -2960,7 +2960,7 @@ li.select2-selection__choice {
     position: relative;
     top: 20px;
     background: #41404e;
-    min-width: 15% !important;
+  
     padding-left: 10px;
     border-radius: 50px;
     float: left;
@@ -3488,7 +3488,7 @@ width: 28px !important;
     width: 400px;
     opacity: 00;
     top: -300px;
-    background: #060612;
+    background: #1c1c27;
     /*top: -140px;*/
     float: left;
     transition: all 0.5s;
@@ -3591,7 +3591,7 @@ width: 28px !important;
     opacity: 0;
     transition: all 0.9s;
     /* height: 500px; */
-    background: #060612;
+    background: #1c1c27;
     position: absolute;
     top: -300px;
     width: 400px;
