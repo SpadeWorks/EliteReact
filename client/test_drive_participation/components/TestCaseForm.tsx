@@ -63,8 +63,8 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         }
     }
 
-    openPopUp() {
-        var id = this.props.testCase.responseID;
+    openPopUp(id) {
+        $(".write_testdrivebox").css({ "position": "fixed", "right": "-700px", "transition": "0.5s" });
         $("#test-case-details" + id)
             .css({ "position": "fixed", "right": "0px", "height": "100%", "transition": "0.5s" });
     }
@@ -82,7 +82,12 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                 <h1 className="testcase_name">{testCase.title}</h1>
                                 <p>{testCase.description}</p>
 
-                                <a href="javascript:void(0);" onClick={this.openPopUp}> <span className="red"><img src="http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images//i.png" />Guide me to solve this test case</span></a>
+                                <a href="javascript:void(0);" onClick={() => this.openPopUp(index)}>
+                                    <span className="red">
+                                        <img src="http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images//i.png" />
+                                        Guide me to solve this test case
+                                        </span>
+                                </a>
                                 <h4 className="testcase_title ">Select the test case status</h4>
                                 <div className="row ">
                                     <div className="test_progress ">
