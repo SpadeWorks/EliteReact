@@ -435,13 +435,8 @@ export class Services {
                 Constants.Columns.AVAILABLE_OS,
                 Constants.Columns.AVAILABLE_DEVICES,
                 Constants.Columns.ID,
-<<<<<<< HEAD
-                Constants.Columns.ACCOUNT_NAME,
-                Constants.Columns.USER_INFO_NAME,
-=======
                 Constants.Columns.USER_INFO_NAME,
                 Constants.Columns.ACCOUNT_NAME,
->>>>>>> 92f567cd28943464f71b7a0e4810111a7107227b
                 Constants.Columns.USER_LOCATION,
                 Constants.Columns.USER_REGION,
             )

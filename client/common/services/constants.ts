@@ -74,18 +74,12 @@ export class Columns {
     static TEST_CASE_RESPONSE = "TestCaseResponse";
     static TEST_CASE_RESPONSE_STATUS = "TestCaseResponseStatus";
     static SURVEY_RESPONSE = "SurveyResponse";
-<<<<<<< HEAD
-    static Selected_Response =  "SelectedResponse";
-    static USER_INFO_NAME = "UserInfoName"
-    static ACCOUNT_NAME= "AccountName"
-=======
     static Selected_Response = "SelectedResponse";
     static USER_INFO_NAME = "UserInfoName"
     static ACCOUNT_NAME = "AccountName"
 
 
 
->>>>>>> 92f567cd28943464f71b7a0e4810111a7107227b
 }
 
 export class ColumnsValues {
