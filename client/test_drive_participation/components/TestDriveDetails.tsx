@@ -43,9 +43,9 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
             var ctx = this;
             Services.getEliteProfileByID().then((user: EliteProfile) => {
                 var message = '';
-                var isUserEligible: boolean;
-                var matchedLocation = ctx.props.testDriveInstance.location.filter(location => {
-                    return location == user.location;
+                var isUserEligible: boolean = true;
+                var matchedLocation = ctx.props.testDriveInstance.location.filter((location:any) => {
+                    return location.Label == user.location;
                 });
 
                 if (!matchedLocation || !matchedLocation.length) {

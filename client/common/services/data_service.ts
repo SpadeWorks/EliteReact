@@ -763,9 +763,10 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.APPLICATION_CONFIGURATIONS).items
                 .top(100).get().then(configurations => {
-                    let appConfig;
-                    configurations.map(configuration => {
-                        appConfig[configuration.key] = configuration.value;
+                    var appConfig = {};
+                    configurations && configurations.length && 
+                        configurations.map(configuration => {
+                        appConfig[configuration.AppConfigKey] = configuration.AppConfigValue;
                     })
                     resolve(appConfig);
                 }, err => {
