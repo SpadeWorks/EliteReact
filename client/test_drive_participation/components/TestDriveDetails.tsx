@@ -34,9 +34,9 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
             matchedElement = array2.filter((item2: any) => {
                 return item1.Label == item2.Label;
             })
-            matchedElement && matchedElements.push(matchedElement);
+            matchedElement && matchedElement.length && matchedElements.push(matchedElement);
         });
-        return matchedElement.length == array1.length;
+        return matchedElements.length == array1.length;
     }
 
     isUserEligible() {

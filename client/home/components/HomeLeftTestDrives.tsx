@@ -4,7 +4,7 @@ import MyTestDrives from './LeftContainer';
 import Loader from 'react-loader-advanced';
 import { HomeTestDrive, TestDrive } from '../../home/model';
 import LeftContainer from './LeftContainer';
-
+import {Globals} from '../../common/services/constants';
 interface HomeLeftTestDrivesProps {
     updateUI: (any) => any;
     ui: any;
@@ -66,7 +66,7 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                             return (testDrive && <LeftContainer
                                                 key={index}
                                                 participants={testDrive.participants}
-                                                checkPortion={"testDriveThatIRun"}
+                                                checkPortion={Globals.TEST_DRIVE_THAT_I_RUN}
                                                 testDrive={testDrive.testDrive}
                                                 testDriveResponse={undefined}
                                                 index={index + 1} />)

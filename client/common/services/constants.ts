@@ -90,6 +90,7 @@ export class ColumnsValues {
 
 export class Globals {
     static IMAGE_BASE_URL = _spPageContextInfo.siteAbsoluteUrl + '/Style%20Library/Elite/images/';
+    static TEST_DRIVE_THAT_I_RUN = "testDriveThatIRun";
 }
 
 export class Messages {
