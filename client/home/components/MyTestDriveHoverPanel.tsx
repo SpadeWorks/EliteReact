@@ -7,30 +7,31 @@ interface MyTestDriveHoverPanelProps {
     checkPortion: string;
     testDrive: TestDrive;
     testDriveResponse: TestDriveResponse;
+    index: number;
 };
 class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> {
     constructor(props, context) {
         super(props, context);
     }
-    render() {
-        const { participants, checkPortion, testDrive, testDriveResponse } = this.props;
+
+    componentDidMount() {
+        const { participants, checkPortion, testDrive, testDriveResponse, index } = this.props;
         const completedTestCases = testDriveResponse ? testDriveResponse.numberOfTestCasesCompleted : 0;
         const totalTestCases = testDrive ? testDrive.testCaseIDs.length : 1;
-        const percentComplete = (completedTestCases/totalTestCases) * 100;
-        var drivenoID = "";
-        var canvasID1 = "";
-        var canvasID2 = "";
-        if (checkPortion == "upTestDrive") {
-            drivenoID = "upDriveno" + testDrive.id;
-            canvasID1 = "upDriveCanvasPoints" + testDrive.id;
-            canvasID2 = "upDriveCanvasDrive" + testDrive.id;
-        }
-        else {
-            drivenoID = "activeDriveno" + testDrive.id;
-            canvasID1 = "activeDrivePointsCanvas" + testDrive.id;
-            canvasID2 = "activeDriveDriveCanvas" + testDrive.id;
-        }
-
+        const percentComplete = (completedTestCases / totalTestCases);
+        const pointEarned = (testDriveResponse.currentPoint / testDrive.maxPoints);
+        var pointsProgressID = 'point-canvas' + checkPortion + index;
+        var driveProgressID = 'drive-canvas' + checkPortion + index;
+        Service.loadProgressBar(pointsProgressID, pointEarned, 140);
+        Service.loadProgressBar(driveProgressID, percentComplete, 140);
+    }
+    render() {
+        const { participants, checkPortion, testDrive, testDriveResponse, index } = this.props;
+        const completedTestCases = testDriveResponse ? testDriveResponse.numberOfTestCasesCompleted : 0;
+        const totalTestCases = testDrive ? testDrive.testCaseIDs.length : 1;
+        const percentComplete = (completedTestCases / totalTestCases) * 100;
+        var pointsProgressID = 'point-canvas' + checkPortion + index;
+        var driveProgressID = 'drive-canvas' + checkPortion + index;
 
         return (<div className="col-md-12">
             <h3>{testDrive.title}</h3>
@@ -48,18 +49,19 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                         <div className="row">
                             <div className="col-md-12 earn_box">
                                 <span className="orange"><i>POINTS :</i></span>
-                                <canvas id={canvasID1} width="150" height="150"></canvas>
-                                <h3 className="earn_boxcount">{percentComplete} %</h3>
-                                <span className="small">
-                                    {completedTestCases} 
-                                        of {totalTestCases}  tasks done
-                                    </span>
+                                <canvas id={pointsProgressID} width="150" height="150"></canvas>
+                                <h3 className="completionboxcount">{testDriveResponse.currentPoint}</h3>
+                                <span className="small">{testDriveResponse.currentPoint} of {testDrive.maxPoints} points earned</span>
+
                             </div>
                             <div className="col-md-12 drive_completionbox">
                                 <span className="orange"><i>DRIVE COMPLETION</i></span>
-                                <canvas id={canvasID2} width="150" height="150"></canvas>
-                                <h3 className="completionboxcount">{testDriveResponse.currentPoint}</h3>
-                                <span className="small">{testDriveResponse.currentPoint} of {testDrive.maxPoints} points earned</span>
+                                <canvas id={driveProgressID} width="150" height="150"></canvas>
+                                <h3 className="earn_boxcount">{percentComplete} %</h3>
+                                <span className="small">
+                                    {completedTestCases}
+                                    of {totalTestCases}  tasks done
+                                    </span>
                             </div>
                         </div>
                     </div>

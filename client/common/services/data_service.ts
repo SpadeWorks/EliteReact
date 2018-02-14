@@ -14,6 +14,8 @@ import { Columns } from "./constants";
 import { Util } from "sp-pnp-js/lib/utils/util";
 import index from "../../home/index";
 import { TestDriveInstance, QuestionInstance, TestCaseInstance } from '../../test_drive_participation/model';
+import { File, ListItem } from "@microsoft/microsoft-graph-types";
+import { error } from "util";
 
 const delay = 100;
 declare var SP: any;
@@ -36,14 +38,73 @@ pnp.setup({
 });
 
 export class Services {
-    static getVideoUrl(){
+
+    static getAttachmentsByItemID(item) {
+        return new Promise((resolve, reject) => {
+            item.attachmentFiles.get().then(files => {
+                resolve(files);
+                console.log(files);
+            }, error => {
+                reject(error);
+            });
+        });
+    }
+
+    static setAttachmentByItemID(item, files) {
+        return new Promise((resolve, reject) => {
+            this.buildFileArray(files).then((filesInfo: any) => {
+                item.attachmentFiles.addMultiple(filesInfo).then((r: any) => {
+                    Services.getAttachmentsByItemID(item).then(files => {
+                        resolve(files);
+                    });
+                }, error => {
+                    reject(error);
+                });
+            })
+        })
+    }
+
+    static deletAttachments(item, files: string[]) {
+        return new Promise((resolve, reject) => {
+            item.attachmentFiles.deleteMultiple(files.toString()).then(r => {
+                resolve(r)
+            }, error => {
+                reject(error);
+            });
+        });
+    }
+
+    static buildFileArray(files) {
+        return new Promise((resolve, reject) => {
+            var fileInfos = [];
+            var counter = 0;
+            for (var i = 0; i < files.length; i++) {
+                var toUpload = files[i];
+                var r = new FileReader();
+                r.onloadend = function (e: any) {
+                    counter++;
+                    var fileContent = e.target.result;
+                    fileInfos.push({
+                        name: files[counter - 1].name,
+                        content: fileContent
+                    })
+                    if (files.length == counter) {
+                        resolve(fileInfos);
+                    }
+                }
+                r.readAsArrayBuffer(toUpload);
+            }
+        });
+    }
+
+    static getVideoUrl() {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.APPLICATION_CONFIGURATIONS).items
-            .select('AppConfigKey, AppConfigValue')
-            .filter("AppConfigKey eq 'Video'").get().then((video:any) =>{
-                const videoUrl = video[0].AppConfigValue;
-                resolve(videoUrl);
-            })
+                .select('AppConfigKey, AppConfigValue')
+                .filter("AppConfigKey eq 'Video'").get().then((video: any) => {
+                    const videoUrl = video[0].AppConfigValue;
+                    resolve(videoUrl);
+                })
         })
     }
     static createOrSaveTestDriveInstance(testDriveInstance: TestDriveInstance) {
@@ -414,7 +475,7 @@ export class Services {
                     });
             }
         });
-    } 
+    }
 
     static getEliteProfileByID(id?: number) {
         id = id || this.getCurrentUserID();
@@ -444,11 +505,11 @@ export class Services {
                 .get().then(profile => {
                     resolve(<EliteProfile>{
                         eliteProfileID: profile.Id,
-                        accountName: profile.AccountName, 
-                        displayName: profile.UserInfoName,                       
-                        location: profile.UserLocation,                                                                        
+                        accountName: profile.AccountName,
+                        displayName: profile.UserInfoName,
+                        location: profile.UserLocation,
                         region: profile.UserRegion,
-                        carImage: profile.CarImage,                        
+                        carImage: profile.CarImage,
                         carName: profile.CarName,
                         avatarName: profile.AvatarName,
                         avatarImage: profile.AvatarImage,
@@ -487,18 +548,18 @@ export class Services {
                     resolve({ rank, points });
                 }, err => reject(err))
         })
-    } 
+    }
 
-static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 users.
+    static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 users.
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
                 .select(Constants.Columns.ID,
                 Constants.Columns.USER_ID + '/' + Constants.Columns.ID)
                 .expand(Constants.Columns.USER_ID)
                 .orderBy(Constants.Columns.POINTS, false)
-                .get().then(results => {                    
-                    var result = {rank: 0, totalUsers: 0};
-                    let chkRank=0;
+                .get().then(results => {
+                    var result = { rank: 0, totalUsers: 0 };
+                    let chkRank = 0;
                     results.forEach((item, index) => {
                         if (item[Constants.Columns.USER_ID][Constants.Columns.ID] == userID) {
                             chkRank = index;
@@ -587,11 +648,11 @@ static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 
                     Constants.Columns.DATE_JOINED,
                     Constants.Columns.USER_LOCATION,
                     Constants.Columns.USER_ROLE,
-                    Constants.Columns.USER_REGION                    
+                    Constants.Columns.USER_REGION
                 ]);
-                
-                Promise.all([eliteProfileFields                   
-                ]).then(results => {                    
+
+                Promise.all([eliteProfileFields
+                ]).then(results => {
                     Cache.setCache(Constants.CacheKeys.CONFIGURATIONS, results[0]);
                     resolve(results[0]);
                 });
@@ -676,11 +737,10 @@ static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 
         });
     }
 
-    static getAvatars()
-    {
+    static getAvatars() {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.AVATAR).items
-            .select("FileRef/FileRef", "ID", "AvatarName").get().then(avatar => {                    
+                .select("FileRef/FileRef", "ID", "AvatarName").get().then(avatar => {
                     resolve(avatar);
                 }, err => {
                     reject(err);
@@ -688,11 +748,10 @@ static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 
         });
     }
 
-    static getCars()
-    {
+    static getCars() {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
-            .select("FileRef/FileRef", "ID", "CarName").get().then(car => {                    
+                .select("FileRef/FileRef", "ID", "CarName").get().then(car => {
                     resolve(car);
                 }, err => {
                     reject(err);
@@ -704,10 +763,11 @@ static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.APPLICATION_CONFIGURATIONS).items
                 .top(100).get().then(configurations => {
-                    let appConfig;
-                    configurations.map(configuration => {
-                        appConfig[configuration.key] = configuration.value;
-                    })
+                    var appConfig = {};
+                    configurations && configurations.length &&
+                        configurations.map(configuration => {
+                            appConfig[configuration.AppConfigKey] = configuration.AppConfigValue;
+                        })
                     resolve(appConfig);
                 }, err => {
                     reject(err);
@@ -1113,24 +1173,24 @@ static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 
                     });
             });
         });
-    }	
-   static createOrSaveEliteProfile(eliteProfile: EliteProfile) {
+    }
+    static createOrSaveEliteProfile(eliteProfile: EliteProfile) {
         return new Promise((resolve, reject) => {
-            var promises = [];         
-            Promise.all(promises).then((results) => {              
+            var promises = [];
+            Promise.all(promises).then((results) => {
                 let eliteProfiles = [];
                 let newEliteProfile = {
                     ID: eliteProfile.eliteProfileID,
-                    Title: eliteProfile.accountName,                                       
+                    Title: eliteProfile.accountName,
                     AvailableDevices_tax: eliteProfile.availableDevices,
                     AvailableOS_tax: eliteProfile.availableOS,
                     AvatarID_id: eliteProfile.avatarID,
                     AvatarImage: eliteProfile.avatarImage,
-                    AvatarName: eliteProfile.avatarName, 
+                    AvatarName: eliteProfile.avatarName,
                     CarID_id: eliteProfile.carID,
                     CarImage: eliteProfile.carImage,
-                    CarName: eliteProfile.carName                    
-                }                
+                    CarName: eliteProfile.carName
+                }
 
                 eliteProfiles.push(newEliteProfile);
 
@@ -1698,7 +1758,7 @@ static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
                 .select("ID,UserID/ID").expand("UserID")
-                .filter("UserID eq '"+userID+"' and Status ne '" + Constants.ColumnsValues.COMPLETE_STATUS + "'")
+                .filter("UserID eq '" + userID + "' and Status ne '" + Constants.ColumnsValues.COMPLETE_STATUS + "'")
                 .get().then(testDrives => {
                     resolve(testDrives.length);
                 })
@@ -1924,8 +1984,8 @@ static getUserRankByID(userID: number) { //TODO Update logic for more that 5000 
         });
     }
 
-    static loadProgressBar(val, optionsVal, optionsSize, canvasID) {
-        Utils.loadProgressBar(val, optionsVal, optionsSize, canvasID);
+    static loadProgressBar(canvasID, value = 0.75, size=60) {
+        Utils.loadProgressBar(canvasID, value, size);
     }
 }
 
@@ -1942,90 +2002,94 @@ export class Utils {
         return results === null ? null : decodeURIComponent(results[1]);
     }
 
-    public static loadProgressBar(val, optionsVal, optionsSize, canvasID) {
-        if ($('#' + canvasID)[0] != undefined) {
-            window["options" + val] = {
-                value: optionsVal,
-                size: optionsSize,
-                startAngle: -Math.PI,
-                startColor: 'red',
-                endColor: 'red',
-                animation: {
-                    duration: 1200,
-                    easing: 'circleProgressEase'
-                }
-            };
+    public static loadProgressBar(canvasID, value, size) {
+        var options = {
+            value: value,
+            size: size,
+            startAngle: -Math.PI,
+            startColor: 'red',
+            endColor: 'red',
+            animation: {
+                duration: 1200,
+                easing: 'circleProgressEase'
+            }
+        };
 
-            $.easing.circleProgressEase = function (x, t, b, c, d) {
-                if ((t /= d / 2) < 1)
-                    return c / 2 * t * t * t + b;
-                return c / 2 * ((t -= 2) * t * t + 2) + b;
-            };
+        $.easing.circleProgressEase = function (x, t, b, c, d) {
+            if ((t /= d / 2) < 1)
+                return c / 2 * t * t * t + b;
+            return c / 2 * ((t -= 2) * t * t + 2) + b;
+        };
 
-            window["s" + val] = window["options" + val].size, // square size
-                window["v" + val] = window["options" + val].value, // current value: from 0.0 to 1.0
-                window["r" + val] = window["s" + val] / 2, // radius
-                window["t" + val] = window["s" + val] / 14; // thickness
+        var s = options.size, // square size
+            v = options.value, // current value: from 0.0 to 1.0
+            r = s / 2, // radius
+            t = s / 14; // thickness
 
-            window["canvas" + val] = $('#' + canvasID)[0];
-            window["canvas" + val].width = window["s" + val];
-            window["canvas" + val].height = window["s" + val];
-            window["ctx" + val] = window["canvas" + val].getContext('2d');
-            window["lg" + val] = window["ctx" + val].createLinearGradient(0, 0, window["s" + val], 0);
-            window["lg" + val].addColorStop(0, window["options" + val].startColor);
-            window["lg" + val].addColorStop(1, window["options" + val].endColor);
-            window["ctx" + val].fillStyle = "rgba(0, 0, 0, .1)";
+        // Prepare canvas
+        var canvas = $('#' + canvasID)[0];
 
-            // Draw circle
-            if (window["options" + val].animation)
-                _drawAnimated(window["v" + val]);
-            else
-                _draw(window["v" + val]);
+        canvas.width = s;
+        canvas.height = s;
+        var ctx = canvas.getContext('2d');
+        var lg = ctx.createLinearGradient(0, 0, s, 0);
+        lg.addColorStop(0, options.startColor);
+        lg.addColorStop(1, options.endColor);
+        ctx.fillStyle = "rgba(0, 0, 0, .1)";
 
-            // now let's animate numbers
-            window["valE" + val] = $('.value');
-            window["valE" + val].data('origVal', window["valE" + val].text());
-            $(window["canvas" + val]).on('circle-animation-progress', function (e, progress) {
-                window["valE" + val].text(parseInt(window["valE" + val].data('origVal')) * progress)
-            });
-        }
+        // Draw circle
+        if (options.animation)
+            _drawAnimated(v);
+        else
+            _draw(v);
+
 
         function _draw(p) {
             // Clear frame
-            window["ctx" + val].clearRect(0, 0, window["s" + val], window["s" + val]);
+            ctx.clearRect(0, 0, s, s);
 
             // Draw background circle
-            window["ctx" + val].beginPath();
-            window["ctx" + val].arc(window["r" + val], window["r" + val], window["r" + val], -Math.PI, Math.PI);
-            window["ctx" + val].arc(window["r" + val], window["r" + val], window["r" + val] - window["t" + val], Math.PI, -Math.PI, true);
-            window["ctx" + val].closePath();
-            window["ctx" + val].fill(); // gray fill
+            ctx.beginPath();
+            ctx.arc(r, r, r, -Math.PI, Math.PI);
+            ctx.arc(r, r, r - t, Math.PI, -Math.PI, true);
+            ctx.closePath();
+            ctx.fill(); // gray fill
 
             // Draw progress arc
-            window["ctx" + val].beginPath();
-            window["ctx" + val].arc(window["r" + val], window["r" + val], window["r" + val], -Math.PI, -Math.PI + Math.PI * 2 * p);
-            window["ctx" + val].arc(window["r" + val], window["r" + val], window["r" + val] - window["t" + val], -Math.PI + Math.PI * 2 * p, -Math.PI, true);
-            window["ctx" + val].closePath();
-            window["ctx" + val].save();
-            window["ctx" + val].clip();
-            window["ctx" + val].fillStyle = window["lg" + val];
-            window["ctx" + val].fillRect(0, 0, window["s" + val], window["s" + val]); // gradient fill
-            window["ctx" + val].restore();
+            ctx.beginPath();
+            ctx.arc(r, r, r, -Math.PI, -Math.PI + Math.PI * 2 * p);
+            ctx.arc(r, r, r - t, -Math.PI + Math.PI * 2 * p, -Math.PI, true);
+            ctx.closePath();
+            ctx.save();
+            ctx.clip();
+            ctx.fillStyle = lg;
+            ctx.fillRect(0, 0, s, s); // gradient fill
+            ctx.restore();
         }
 
         function _drawAnimated(v) {
-            $(window["canvas" + val]).stop(true, true).css({ value: 0 }).animate({ value: window["v" + val] }, $.extend({}, window["options" + val].animation, {
+            $(canvas).stop(true, true).css({ value: 0 }).animate({ value: v }, $.extend({}, options.animation, {
                 step: function (p) {
                     _draw(p);
-                    $(window["canvas" + val]).trigger('circle-animation-progress', [p / window["v" + val], p]);
+                    $(canvas).trigger('circle-animation-progress', [p / v, p]);
                 },
 
                 complete: function () {
-                    $(window["canvas" + val]).trigger('circle-animation-end');
+                    $(canvas).trigger('circle-animation-end');
                 }
             }));
         }
+
+        // now let's animate numbers
+        var valEl:any = $('.value');
+        valEl.data('origVal', valEl.text());
+        $(canvas).on('circle-animation-progress', function (e, progress) {
+            var p:any = valEl.data('origVal') * progress
+            valEl.text(parseInt(p))
+        });
     }
+
+
 
     public static uploadFile(ctx: SP.ClientContext, folderName: string, fileName: any, file: any): any {
         return new Promise((resolve, reject) => {

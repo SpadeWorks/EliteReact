@@ -79,6 +79,7 @@ class Home extends React.Component<HomeProps, HomeState> {
     }
     componentDidMount() {
         document.body.className = "img-bg";
+        Services.loadProgressBar("total-task-canvas");
 
         let user = Services.getUserProfileProperties();
         if (user.eliteProfileID) {

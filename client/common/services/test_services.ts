@@ -1,5 +1,6 @@
 import { Services, Utils, TermStore } from './data_service';
 import * as $ from 'jquery';
+import pnp, { config } from 'sp-pnp-js';
 import * as Constants from './constants';
 
 const testDrive = {
@@ -199,8 +200,11 @@ class TestServices {
         // Services.getDevices();
         // Services.getOSes();
 
-        Services.getMyTestDrives();
-
+        const  item = pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).items.getById(87);
+        Services.getAttachmentsByItemID(item);
+        Services.deletAttachments(item, ['Jellyfish.jpg']).then(t=>{
+            Services.getAttachmentsByItemID(item);
+        })
     }
 
 }
@@ -211,16 +215,19 @@ $(function () {
         $("#DeltaPlaceHolderMain").after("<input type='button' value='Add' id='add'>");
         $('#add').bind('click', function () {
             if ($("#file").length > 0) {
+                const  item = pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).items.getById(87);
                 let input = <HTMLInputElement>document.getElementById("file");
-                let file = input.files[0];
-                Services.uploadFiles(file, "testFile");
+                Services.setAttachmentByItemID(item, input.files).then(files =>{
+                    console.log(files);
+                    Services.getAttachmentsByItemID(item);
+                })
+                
             } else {
                 var addControl = '<label>Upload Text File:</label>';
-                addControl += ' <input type="file" name = "file[]" class="imageupload" id="file"> ';
+                addControl += ' <input type="file" name = "file[]" class="imageupload" id="file" multiple="multiple"> ';
                 addControl += '<input type="button" value="upload" id="upload">';
                 $('#add').before(addControl);
             }
-
         });
     // });
 });

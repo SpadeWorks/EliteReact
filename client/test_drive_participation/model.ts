@@ -16,6 +16,7 @@ export type TestCaseInstance = {
     testCaseResponse: string;
     selectedResponse: string;
     responseStatus: string;   
+    files?: any[];
 }
 
 export type QuestionInstance = {
