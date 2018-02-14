@@ -6139,3 +6139,20 @@ h1.testcase_name {
   
 
 /* file uploader ends here */
+
+
+.testdrive-detail_first-time .earn_box h3{    margin-top: 10px;
+    position: absolute;
+    top: 69px !important;
+    left: 52px !important;
+    text-transform: uppercase !important;}
+
+
+.testdrive-detail_first-time .earn_box span.small, .testdrive-detail_first-time .drive_completionbox span.small {
+    position: absolute;
+    left: 12px;
+    font-family: titanium;
+    font-size: 15px;
+    float: left;
+    bottom: -35px;
+}

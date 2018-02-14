@@ -87,21 +87,21 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
     }
 
     componentDidMount(){
-        Services.loadProgressBar("completed-test-cases-canvas", 0.4, 200);
-        Services.loadProgressBar("test-drive-points-canvas");
+        Services.loadProgressBar("completed-test-cases-canvas", 0.4, 150);
+        Services.loadProgressBar("test-drive-points-canvas",0.5,150);
     }
 
     render() {
         const { testDriveInstance, createTestDriveInstance, ui, updateUI } = this.props;
         return (<div className="col-md-12 detailed_box">
             <div className="row">
-                <div className="container">
+                <div className="container header_part">
 
                     <Link to={"/"}>
                         <h2><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>{testDriveInstance.title}</h2>
                     </Link>
                 </div>
-                <div className="col-md-12" style={{ overflow: "auto" }}>
+                <div className="col-md-12 testdrive-detail_first-time" style={{ overflow: "auto" }}>
                     <div className="wrapper">
                         <div className="col-md-12">
                             <div className="col-md-4">
