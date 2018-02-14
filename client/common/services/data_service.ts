@@ -39,7 +39,7 @@ pnp.setup({
 
 export class Services {
 
-    static getAttachmentsByItemID(item) {
+    static getAttachments(item) {
         return new Promise((resolve, reject) => {
             item.attachmentFiles.get().then(files => {
                 resolve(files);
@@ -54,7 +54,7 @@ export class Services {
         return new Promise((resolve, reject) => {
             this.buildFileArray(files).then((filesInfo: any) => {
                 item.attachmentFiles.addMultiple(filesInfo).then((r: any) => {
-                    Services.getAttachmentsByItemID(item).then(files => {
+                    Services.getAttachments(item).then(files => {
                         resolve(files);
                     });
                 }, error => {
@@ -170,6 +170,12 @@ export class Services {
                 [Constants.Columns.TEST_CASE_RESPONSE]: testCasesInstance.testCaseResponse
             }]).then((newResponses: any) => {
                 let newResponse = newResponses[0];
+                var responseID = newResponse.id;
+                var attachmentPromise;
+                var testDrivePromise;
+                var listItem = pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES)
+                    .items.getById(responseID);
+
                 let testCase = {
                     ...testCasesInstance,
                     responseID: newResponse.id,
@@ -188,18 +194,39 @@ export class Services {
                                 currentPoint: testDriveInstance.currentPoint + testCasePoints,
                                 numberOfTestCasesCompleted: testDriveInstance.numberOfTestCasesCompleted + 1
                             })
-                            Services.createOrSaveTestDriveInstance(testDrive).then(testDriveInstance => {
-                                resolve({
-                                    testDriveInstance: testDriveInstance,
-                                    testCaseInstance: testCase
-                                })
+                            testDrivePromise = Services.createOrSaveTestDriveInstance(testDrive).then(testDriveInstance => {
+                                if (responseID && testCasesInstance.files.length) {
+
+                                    Services.setAttachmentByItemID(listItem, testCasesInstance.files).then((files: any) => {
+                                        testCasesInstance.files = files;
+                                        resolve({
+                                            testDriveInstance: testDriveInstance,
+                                            testCaseInstance: testCase,
+                                        })
+                                    })
+                                } else {
+                                    resolve({
+                                        testDriveInstance: testDriveInstance,
+                                        testCaseInstance: testCase
+                                    })
+                                }
                             })
                         })
                 } else {
-                    resolve({
-                        testDriveInstance: testDriveInstance,
-                        testCaseInstance: testCase
-                    })
+                    if (responseID && testCasesInstance.files.length) {
+                        Services.setAttachmentByItemID(listItem, testCasesInstance.files).then((files: any) => {
+                            testCasesInstance.files = files;
+                            resolve({
+                                testDriveInstance: testDriveInstance,
+                                testCaseInstance: testCase,
+                            })
+                        })
+                    } else {
+                        resolve({
+                            testDriveInstance: testDriveInstance,
+                            testCaseInstance: testCase,
+                        })
+                    }
                 }
             }, err => reject(err))
         })
@@ -229,7 +256,7 @@ export class Services {
 
     static getTestCaseResponses(testDriveID: number, userID: number) {
         return new Promise((resolve, reject) => {
-            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).items
+            var items = pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).items
                 .select(
                 Constants.Columns.ID,
                 Constants.Columns.TEST_CASE_RESPONSE,
@@ -241,8 +268,14 @@ export class Services {
             )
                 .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                 .expand(Constants.Columns.USER_ID,
-                Constants.Columns.TEST_DRIVE_ID, Constants.Columns.TESTCASE_ID)
-                .get().then(testCases => {
+                Constants.Columns.TEST_DRIVE_ID, Constants.Columns.TESTCASE_ID);
+                
+                Services.getAttachments(items).then(items => {
+                    console.log(items);
+                });
+
+
+                items.get().then(testCases => {
                     let testCaseArray = [];
                     testCases.map(t => {
                         testCaseArray.push({
@@ -1984,7 +2017,7 @@ export class Services {
         });
     }
 
-    static loadProgressBar(canvasID, value = 0.75, size=60) {
+    static loadProgressBar(canvasID, value = 0.75, size = 60) {
         Utils.loadProgressBar(canvasID, value, size);
     }
 }
@@ -2081,10 +2114,10 @@ export class Utils {
         }
 
         // now let's animate numbers
-        var valEl:any = $('.value');
+        var valEl: any = $('.value');
         valEl.data('origVal', valEl.text());
         $(canvas).on('circle-animation-progress', function (e, progress) {
-            var p:any = valEl.data('origVal') * progress
+            var p: any = valEl.data('origVal') * progress
             valEl.text(parseInt(p))
         });
     }

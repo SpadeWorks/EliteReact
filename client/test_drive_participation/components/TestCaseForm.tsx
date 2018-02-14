@@ -71,7 +71,8 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
             newItem: false,
             responseStatus: Constants.ColumnsValues.DRAFT,
             testCaseResponse: this.props.ui.testCaseResponse,
-            selectedResponse: this.props.ui.selectedResponse
+            selectedResponse: this.props.ui.selectedResponse,
+            files: this.props.ui.files
         }
         this.props.saveTestCaseResponse(testCase, testDrive);
     }
@@ -84,7 +85,8 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                 newItem: testCase.responseStatus == Constants.ColumnsValues.DRAFT,
                 responseStatus: Constants.ColumnsValues.COMPLETE_STATUS,
                 testCaseResponse: this.props.ui.testCaseResponse,
-                selectedResponse: this.props.ui.selectedResponse
+                selectedResponse: this.props.ui.selectedResponse,
+                files: this.props.ui.files
             }
             this.props.saveTestCaseResponse(testCase, this.props.testDriveInstance);
         } else {
@@ -170,7 +172,19 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                             <label className="disc_lable ">Test case result comments*</label>
                                         </div>
                                         <div className="files" style={{ clear: 'both' }}>
-
+                                            {
+                                                testCase && testCase.files && testCase.files.length &&
+                                                <div className='files-list'>
+                                                    <ul>{ui.files.map((file) =>
+                                                        <li className='files-list-item' key={file.id}>
+                                                            <div className='files-list-item-preview'>
+                                                                <img className='files-list-item-preview-image' src={file.ServerRelativeUrl} />
+                                                                {file.FileName}
+                                                            </div>
+                                                        </li>
+                                                    )}</ul>
+                                                </div>
+                                            }
                                             {
                                                 ui.files && ui.files.length &&
                                                 <div className='files-list'>
