@@ -42,7 +42,10 @@ export class Services {
     static getAttachments(item) {
         return new Promise((resolve, reject) => {
             item.attachmentFiles.get().then(files => {
-                resolve(files);
+                resolve({
+                    id: item.id,
+                    files: files
+                });
                 console.log(files);
             }, error => {
                 reject(error);
@@ -186,6 +189,19 @@ export class Services {
                     questionResponse: newResponse[Constants.Columns.SURVEY_RESPONSE],
                     selectedResponse: newResponse[Constants.Columns.Selected_Response]
                 };
+                if (responseID && testCasesInstance.files.length) {
+                    Services.setAttachmentByItemID(listItem, testCasesInstance.files).then((files: any) => {
+                        testCasesInstance.files = files;
+                        Services.createOrUpdateListItemsInBatch(Constants.Lists.TEST_CASE_RESPONSES, [{
+                            [Constants.Columns.RESPONSE_ATTACHMENTS]: JSON.stringify(testCasesInstance.files),
+                        }]).then(result =>{
+                            Utils.clientLog(result);
+                        }, error => {
+                            Utils.clientLog(error);
+                        })
+                    })
+                }
+
                 if (testCasesInstance.newItem) {
                     Services.getTestPointConfiguration(Constants.Lists.POINTS_CONFIGURATIONS)
                         .then((testCasePoints: number) => {
@@ -194,39 +210,19 @@ export class Services {
                                 currentPoint: testDriveInstance.currentPoint + testCasePoints,
                                 numberOfTestCasesCompleted: testDriveInstance.numberOfTestCasesCompleted + 1
                             })
-                            testDrivePromise = Services.createOrSaveTestDriveInstance(testDrive).then(testDriveInstance => {
-                                if (responseID && testCasesInstance.files.length) {
+                            Services.createOrSaveTestDriveInstance(testDrive).then(testDriveInstance => {
+                                resolve({
+                                    testDriveInstance: testDriveInstance,
+                                    testCaseInstance: testCase
+                                })
 
-                                    Services.setAttachmentByItemID(listItem, testCasesInstance.files).then((files: any) => {
-                                        testCasesInstance.files = files;
-                                        resolve({
-                                            testDriveInstance: testDriveInstance,
-                                            testCaseInstance: testCase,
-                                        })
-                                    })
-                                } else {
-                                    resolve({
-                                        testDriveInstance: testDriveInstance,
-                                        testCaseInstance: testCase
-                                    })
-                                }
                             })
                         })
                 } else {
-                    if (responseID && testCasesInstance.files.length) {
-                        Services.setAttachmentByItemID(listItem, testCasesInstance.files).then((files: any) => {
-                            testCasesInstance.files = files;
-                            resolve({
-                                testDriveInstance: testDriveInstance,
-                                testCaseInstance: testCase,
-                            })
-                        })
-                    } else {
-                        resolve({
-                            testDriveInstance: testDriveInstance,
-                            testCaseInstance: testCase,
-                        })
-                    }
+                    resolve({
+                        testDriveInstance: testDriveInstance,
+                        testCaseInstance: testCase,
+                    })
                 }
             }, err => reject(err))
         })
@@ -254,6 +250,19 @@ export class Services {
         });
     }
 
+    static getAttachmentsByItemIDs(itemIDs, listName) {
+        return new Promise((resolve, reject) => {
+            var promisses = [];
+            itemIDs && itemIDs.length && itemIDs.map(id => {
+                var item = pnp.sp.web.lists.getByTitle(listName).items.getById(id);
+                promisses.push(Services.getAttachments(item));
+            });
+            Promise.all(promisses).then(results => {
+                resolve(results);
+            })
+        })
+    }
+
     static getTestCaseResponses(testDriveID: number, userID: number) {
         return new Promise((resolve, reject) => {
             var items = pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).items
@@ -261,6 +270,7 @@ export class Services {
                 Constants.Columns.ID,
                 Constants.Columns.TEST_CASE_RESPONSE,
                 Constants.Columns.TEST_CASE_RESPONSE_STATUS,
+                Constants.Columns.RESPONSE_ATTACHMENTS,
                 Constants.Columns.Selected_Response,
                 Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
                 Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
@@ -269,27 +279,22 @@ export class Services {
                 .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                 .expand(Constants.Columns.USER_ID,
                 Constants.Columns.TEST_DRIVE_ID, Constants.Columns.TESTCASE_ID);
-                
-                Services.getAttachments(items).then(items => {
-                    console.log(items);
-                });
-
-
-                items.get().then(testCases => {
-                    let testCaseArray = [];
-                    testCases.map(t => {
-                        testCaseArray.push({
-                            responseID: t[Constants.Columns.ID],
-                            testCaseResponse: t[Constants.Columns.TEST_CASE_RESPONSE],
-                            responseStatus: t[Constants.Columns.TEST_CASE_RESPONSE_STATUS],
-                            testCaseId: t[Constants.Columns.TESTCASE_ID][Constants.Columns.ID],
-                            selectedResponse: t[Constants.Columns.Selected_Response]
-                        })
+            items.get().then(testCases => {
+                let testCaseArray = [];
+                testCases.map(t => {
+                    testCaseArray.push({
+                        responseID: t[Constants.Columns.ID],
+                        testCaseResponse: t[Constants.Columns.TEST_CASE_RESPONSE],
+                        responseStatus: t[Constants.Columns.TEST_CASE_RESPONSE_STATUS],
+                        testCaseId: t[Constants.Columns.TESTCASE_ID][Constants.Columns.ID],
+                        selectedResponse: t[Constants.Columns.Selected_Response],
+                        files: t[Constants.Columns.RESPONSE_ATTACHMENTS]
                     })
-                    resolve(testCaseArray);
-                }, error => {
-                    reject(error);
-                });
+                })
+                resolve(testCaseArray);
+            }, error => {
+                reject(error);
+            });
         });
     }
 
@@ -350,12 +355,12 @@ export class Services {
             let testDrive = Services.getTestDriveWithTestCases(testDriveID);
             let testCaseResponses = Services.getTestCaseResponses(testDriveID, userID);
             let testDriveResponse = Services.getTestDriveResponse(testDriveID, userID);
+
             let response;
             Promise.all([testDrive, testCaseResponses, testDriveResponse]).then(results => {
                 let testDrive = <any>results[0];
                 let testCaseResponses = <any>results[1];
                 let testDriveInstance: any = results[2];
-
                 let testCasesInstances = testDrive.testCases.map((t, index) => {
                     response = testCaseResponses.filter(response => {
                         return t.id == response.testCaseId;
@@ -378,7 +383,8 @@ export class Services {
                         responseID: response ? response.responseID : -1,
                         responseStatus: response ? response.responseStatus : Constants.ColumnsValues.DRAFT,
                         selectedResponse: response ? response.selectedResponse : '',
-                        testCaseResponse: response ? response.testCaseResponse : ''
+                        testCaseResponse: response ? response.testCaseResponse : '',
+                        files: response.file
                     });
                 })
 
