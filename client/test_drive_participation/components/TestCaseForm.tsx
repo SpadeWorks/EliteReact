@@ -149,7 +149,6 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                             <Files
                                                 ref='files'
                                                 className='files-dropzone-list'
-                                                style={{ height: '100px' }}
                                                 onChange={this.onFilesChange}
                                                 onError={this.onFilesError}
                                                 multiple
@@ -209,8 +208,10 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                                 </div>
                                             }
                                         </div>
-                                        <div className="test-case-btn-controls">
+                                        <div className="col-md-12 participation_actionbox">
+                                            <div className="button type1 nextBtn btn-lg animated_button">
                                             <input type="button" value="Done" onClick={() => this.submitTestCaseResponse(testCase)} />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -8,14 +8,20 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
     constructor(props, context) {
         super(props, context);
     }
+componentDidMount(){
+        Services.loadProgressBar("participation-time-completed-tcases", 0.4, 150);
+        Services.loadProgressBar("participation-time-total-points",0.5,150);
+    }
+
 
     render() {
         const { testDriveInstance } = this.props;
         return (<div className="col-md-12 detailed_box">
             <div className="row">
                 <div className="col-md-12" style={{ overflow: "auto" }}>
-                    <div className="wrapper">
+                   
                         <div className="col-md-12">
+                            <div className="row">
                             <div className="col-md-4">
                                 <div className="row">
                                     <span className="orange">
@@ -23,7 +29,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                     </span>
                                 </div>
                             </div>
-                            <div className="col-md-3 pull-right">
+                            <div className="col-md-4 pull-right">
                                 <div className="col-md-12 social_box">
                                     <div className="row">
                                         <a href="#">
@@ -40,9 +46,10 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                         </a>
                                     </div>
                                 </div>
+                                </div>
                             </div>
                         </div>
-                        <div className="col-md-12 TestDriveInfo_box">
+                        <div className="col-md-12 TestDriveInfo_box pariciation_time_details">
                             <span className="orange">
                                 <i>POINTS :</i>
                             </span>
@@ -50,15 +57,15 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
 
                                 <div className="col-md-4">
                                     <div className="row">
-                                        <canvas id="canvas5" width="140" height="140"></canvas>
-                                        {/* <h3>{((testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 0)) * 100}</h3> */}
+                                        <canvas id="participation-time-completed-tcases" width="140" height="140"></canvas>
+                                         <h3>{((testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 0)) * 100}</h3>
                                         <span className="small">{testDriveInstance.numberOfTestCasesCompleted} of {testDriveInstance.testCaseIDs.length} tasks done</span>
                                     </div>
                                 </div>
 
                                 <div className="col-md-4">
                                     <div className="row">
-                                        <canvas id="canvas4" width="140" height="140"></canvas>
+                                        <canvas id="participation-time-total-points" width="140" height="140"></canvas>
                                         <h3>{testDriveInstance.currentPoint}.</h3>
                                         <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
                                     </div>
@@ -192,7 +199,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                         </div>
                     </div>
                 </div>
-            </div>
+            
         </div>)
     }
 }

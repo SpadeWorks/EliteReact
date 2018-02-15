@@ -102,9 +102,7 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                     className={question.isInEditMode ? "collapse in" : "collapse"}
                     aria-labelledby="headingOne" data-parent="#accordion">
                     <div className="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high
-                        life accusamus terry richardson ad squid. 3 wolf moon
-                        officia aute, non cupidatat skateboard dolor brunch.
+                        
 
                         <form id={"question-form" + question.id}>
                             <div className="col-md-12 register_input">
