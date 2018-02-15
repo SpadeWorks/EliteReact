@@ -573,7 +573,7 @@ export class Services {
                     let points;
                     results.forEach((item, index) => {
                         if (item[Constants.Columns.USER_ID][Constants.Columns.ID] == userID) {
-                            rank = index;
+                            rank = index + 1;
                             points = item[Constants.Columns.POINTS];
                             return false;
                         }
