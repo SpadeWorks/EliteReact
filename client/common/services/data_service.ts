@@ -668,7 +668,9 @@ export class Services {
                 data = data.replace(/\r?\n|\r/igm, "");
                 data = data.replace(/\\/igm, "\\\\");
             }
-            return Utils.tryParseJSON(data);
+            var userProfile = Utils.tryParseJSON(data);
+            userProfile.location = userProfile.location || 'Location1';
+            return userProfile;
         } catch (e) {
             return null;
         }
@@ -1520,7 +1522,7 @@ export class Services {
     static getRegions() {
         return new Promise((resolve, reject) => {
             let termSetName = "region";
-            let termSetID = "b8faa129-d458-4a1d-94a4-8820d7cc3840";
+            let termSetID = "81720ac7-739a-45fa-94bc-d611a7c6cfe1";
             this.getTermSetAsOptions(termSetName, termSetID).then(options => {
                 Cache.setCache("region", options)
                 resolve(options);
@@ -1531,7 +1533,7 @@ export class Services {
     static getLocations() {
         return new Promise((resolve, reject) => {
             let termSetName = "location";
-            let termSetID = "b49f64b3-4722-4336-9a5c-56c326b344d4";
+            let termSetID = "1307d046-6b76-4fbc-ac87-ea5f6392cf9e";
             this.getTermSetAsOptions(termSetName, termSetID).then(options => {
                 resolve(options);
             });
