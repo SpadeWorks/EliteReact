@@ -1600,7 +1600,7 @@ export class Services {
     //                         id: index + 1,
     //                         name: testDrive.UserID.UserInfoName,
     //                         points: testDrive.Points,
-    //                         avatar: "http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
+    //                         avatar: "/sites/elite/Style%20Library/Elite/images/masc1.png"
     //                     });
     //                 });
     //                 resolve(leaderBoardArr);
@@ -1630,7 +1630,7 @@ export class Services {
     //                                 id: index + 1,
     //                                 name: testDrive.UserID.UserInfoName,
     //                                 points: testDrive.Points,
-    //                                 avatar: "http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
+    //                                 avatar: "/sites/elite/Style%20Library/Elite/images/masc1.png"
     //                             });
     //                         });
     //                         resolve(regionLeaderBoardArr);
