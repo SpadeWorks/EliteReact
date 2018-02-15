@@ -201,9 +201,9 @@ class TestServices {
         // Services.getOSes();
 
         const  item = pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).items.getById(87);
-        Services.getAttachmentsByItemID(item);
+        Services.getAttachments(item);
         Services.deletAttachments(item, ['Jellyfish.jpg']).then(t=>{
-            Services.getAttachmentsByItemID(item);
+            Services.getAttachments(item);
         })
     }
 
@@ -219,7 +219,7 @@ $(function () {
                 let input = <HTMLInputElement>document.getElementById("file");
                 Services.setAttachmentByItemID(item, input.files).then(files =>{
                     console.log(files);
-                    Services.getAttachmentsByItemID(item);
+                    Services.getAttachments(item);
                 })
                 
             } else {

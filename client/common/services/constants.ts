@@ -74,7 +74,8 @@ export class Columns {
     static SURVEY_RESPONSE = "SurveyResponse";
     static Selected_Response = "SelectedResponse";
     static USER_INFO_NAME = "UserInfoName"
-    static ACCOUNT_NAME = "AccountName"
+    static ACCOUNT_NAME = "AccountName";
+    static ATTACHMENT_FILES = "AttachmentFiles";
 
 
 
