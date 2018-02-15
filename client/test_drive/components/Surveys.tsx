@@ -86,11 +86,16 @@ class Surveys extends React.Component<SurveysProps> {
                     }
                 </div>
                 
-                <div className="col-md-12">
-                    <input type="button" value="Save as a draft" className="button type1 nextBtn btn-lg pull-right"
+                <div className="col-md-12 testdrive_actionbox">
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                    <input type="button" value="Save as a draft"
                         onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id)}} />
-                        <input type="button" value="Done" className="button type1 nextBtn btn-lg pull-right"
+                        </div>
+
+                        <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <input type="button" value="Done"
                         onClick={this.onSubmit} />
+                        </div>
                 </div>
             </div>
         );

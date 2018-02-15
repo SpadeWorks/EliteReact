@@ -196,10 +196,8 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                     className={testCase.isInEditMode ? "collapse in" : "collapse"}
                     aria-labelledby="headingOne" data-parent="#accordion">
                     <div className="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high
-                        life accusamus terry richardson ad squid. 3 wolf moon
-                        officia aute, non cupidatat skateboard dolor brunch.
-
+                        
+                        <div className="testcase_details">
                         <form id={"test-case-form" + testCase.id}>
                             <div className="col-md-12 register_input">
                                 <input className="inputMaterial" type="text"
@@ -253,7 +251,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                 <label className="disc_lable">Question type*</label>
                             </div>
 
-                            <div className="col-md-12 register_input custom-editor" id="scenario">
+                            <div className="col-md-12 custom-editor" id="scenario">
                                 {ui.scenario &&
                                     <Editor
                                         editorState={ui.scenario}
@@ -277,7 +275,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                     {fieldDescriptions && fieldDescriptions[Constants.Columns.SCENARIO]}
                                 </span>
                             </div>
-                            <div className="col-md-12 register_input custom-editor" id="expectedOutcome">
+                            <div className="col-md-12 custom-editor" id="expectedOutcome">
                                 {ui.expectedOutcome &&
                                     <Editor
                                         editorState={ui.expectedOutcome}
@@ -302,6 +300,8 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                 </span>
                             </div>
                         </form>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

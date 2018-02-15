@@ -2479,7 +2479,7 @@ span.counter {
     display: table;
     width: 100%;
     position: relative;
-    border-top: solid 2px #ebebeb;
+  
 }
 
 .stepwizard-step button[disabled] {
@@ -2490,9 +2490,8 @@ span.counter {
 .stepwizard-step {
     text-align: center;
     position: relative;
-    width: 33.3%;
-    float: left;
-    background: #555555;
+     float: left;
+   
 }
 
 .btn-circle {
@@ -2606,7 +2605,7 @@ span.counter {
     font-size: 18px;
     font-weight: 400;
     line-height: 1.42857143;
-    text-align: center;
+    text-align: left;
     white-space: nowrap;
     vertical-align: middle;
     -ms-touch-action: manipulation;
@@ -2624,32 +2623,42 @@ span.counter {
 }
 
 .stepwizard-step .btn-primary {
-    background-color: #000000b8;
+    background:none;
     color: #f6981e !important;
+    text-transform: uppercase;
+        letter-spacing: 1px;
+            margin-right: 40px;
 }
 
 .stepwizard-step .btn-primary:hover {
-    background-color: #000000d6;
+    background:none;
+        letter-spacing: 1px;
 }
 
 .stepwizard-step .btn-default {
-    background-color: #000000b8;
+    background:none;
+    text-transform: uppercase;
+        letter-spacing: 1px;
+         margin-right: 40px;
 }
 
 .stepwizard-step .btn-default:hover {
-    background-color: #0b0b0b;
+    background:none;
+        letter-spacing: 1px;
 }
-
+.stepwizard-step .btn-defaultfocus{background: none;color: #505050;}
 .stepwizard-step .btn-default:focus {
-    background-color: #000000d6;
+    background:none;
+    color: orange;
 }
 
 a.btn.btn-default {
-    color: #fff;
+    color: #505050;
+    
 }
 
 a.btn.tab-border {
-    border-right: solid 2px #000;
+    /*border-right: solid 2px #000;*/
 }
 
 .left {
@@ -2825,7 +2834,7 @@ margin-top: 130px;
 .wrapper {
     width: 88%;
     margin: 0 auto;
-    margin-top: 15px;
+    margin-top: 50px;
 }
 
 .form-control {
@@ -3004,26 +3013,24 @@ span.select2-selection__choice__remove {
     height: 100px;
 }
 
-.form_box {
-    height: 500px;
-    overflow: auto;
-}
+
 
 .card-header {
-    background: #18171f;
+    background: #272727;
     padding: 0px;
     margin-bottom: 10px;
-    padding: 5px;
+    padding: 3px;
     color: #fff;
     padding-left: 10px;
-    border-radius: 5px;
+    border-radius: 3px;
     float: left;
     width: 100%;
 }
 
+
 .card-header a {
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .card-header a i {
@@ -3032,8 +3039,8 @@ span.select2-selection__choice__remove {
 }
 
 .add_test a {
-    font-size: 15px;
-    color: #fff;
+    font-size: 13px;
+    color: #acacac;
 }
 
 .card-body .register_input {
@@ -5688,10 +5695,16 @@ animation-delay: 10s;
     bottom: -23px !important;
 }
 
+
 .error-lable {
     color: red;
+    font-family: titanium;
+    float: left;
+    margin-left: 5px;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 11px;
 }
-
 
 /* Fix for home page ends here */
 
@@ -5733,6 +5746,7 @@ span.rdr-Day.is-selected {
 span.help-text {
     font-family: titanium;
     color: #f6981e;
+    font-size: 10px;
 }
 
 .Select--multi .Select-value-icon {
@@ -5842,6 +5856,7 @@ img.leader-image {
 
 h2.header_prevlink {
     color: #fff;
+    float: left;
 }
 
 a:focus,
@@ -5849,18 +5864,14 @@ a:hover {
     text-decoration: none !important;
 }
 
-h2.header_prevlink {
-    color: #fff;
-}
+
 
 a:focus,
 a:hover {
     text-decoration: none !important;
 }
 
-.header_part span {
-    font-size: 22px;
-}
+
 
 .leader_car {
     padding-top: 10px;
@@ -6156,3 +6167,45 @@ h1.testcase_name {
     float: left;
     bottom: -35px;
 }
+
+
+.header_part{margin-bottom: 50px;}
+  .testdrive_actionbox .button{
+   position: relative;
+    padding: 4px 15px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    font: 18px "HemiHeadRg-BoldItalic", "Arial", Helvetica, sans-serif;
+    margin: 20px 0px 10px 0px;
+    color: red;
+    right: 170px;
+    margin-left: 50px;
+}
+
+.testdrive_actionbox{    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background:#181821;}
+.testdrive_actionbox input[type=button], input[type=reset], input[type=submit], button {
+    min-width: 6em;
+    padding: 7px 10px;
+    border:none !important;
+    background:none!important;
+    background:none!important;
+    margin-left: 0px !important;
+    font-family: inherit !important;
+    font-size: 15px !important;
+    color: #ed1b24;
+ 
+}
+.testcase_details {
+    float: left;
+    background: #1d1d27;
+    /* border: solid 1px #272727; */
+    height: 430px;
+    overflow: auto;
+}
+
+.sample_text{font-family: titanium; font-size: 11px;}

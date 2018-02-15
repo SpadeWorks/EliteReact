@@ -367,7 +367,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 {fieldDescriptions  && fieldDescriptions.MaxTestDrivers}
                             </span>
                     </div>
-                    <div className="col-md-12">
+                    <div className="col-md-12 testdrive_actionbox">
                         <div style={butttonGroup}>
                             <input type="button" value="Next" className="button type1 nextBtn btn-lg pull-right" />
                             <input type="button" value="Save" className="button type1 nextBtn btn-lg pull-right"
