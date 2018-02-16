@@ -49,7 +49,6 @@ class UpcomingTestDrives extends React.Component<UpcomingTestDrivesProps> {
         }
     }
 
-
     render() {
         const { testDrive, checkPortion, children, participants, index } = this.props;
         var drivenoID = checkPortion + index;

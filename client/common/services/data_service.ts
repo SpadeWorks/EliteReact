@@ -81,11 +81,11 @@ export class Services {
     static deletAttachment(itemID, files: string) {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).
-            items.getById(itemID).attachmentFiles.deleteMultiple(files).then(r => {
-                resolve(true)
-            }, error => {
-                reject(error);
-            });
+                items.getById(itemID).attachmentFiles.deleteMultiple(files).then(r => {
+                    resolve(true)
+                }, error => {
+                    reject(error);
+                });
         });
     }
 
@@ -142,7 +142,9 @@ export class Services {
                     numberOfTestCasesCompleted: newTestDrive ? newTestDrive[Constants.Columns.TEST_CASE_COMPLETED] : 0,
                     status: newTestDrive ? newTestDrive[Constants.Columns.STATUS] : Constants.ColumnsValues.DRAFT,
                 });
-            }, err => reject(err))
+            }, err =>{ 
+                reject(err)
+            })
         })
     }
 
@@ -201,19 +203,6 @@ export class Services {
                     questionResponse: newResponse[Constants.Columns.SURVEY_RESPONSE],
                     selectedResponse: newResponse[Constants.Columns.Selected_Response]
                 };
-                if (responseID && testCasesInstance.files.length) {
-                    Services.setAttachmentByItemID(listItem, testCasesInstance.files).then((files: any) => {
-                        testCasesInstance.files = files;
-                        Services.createOrUpdateListItemsInBatch(Constants.Lists.TEST_CASE_RESPONSES, [{
-                            ID: responseID,
-                            [Constants.Columns.RESPONSE_ATTACHMENTS]: JSON.stringify(testCasesInstance.files),
-                        }]).then(result =>{
-                            Utils.clientLog(result);
-                        }, error => {
-                            Utils.clientLog(error);
-                        })
-                    })
-                }
 
                 if (testCasesInstance.newItem) {
                     Services.getTestPointConfiguration(Constants.Lists.POINTS_CONFIGURATIONS)
@@ -224,20 +213,53 @@ export class Services {
                                 numberOfTestCasesCompleted: testDriveInstance.numberOfTestCasesCompleted + 1
                             })
                             Services.createOrSaveTestDriveInstance(testDrive).then(testDriveInstance => {
-                                resolve({
-                                    testDriveInstance: testDriveInstance,
-                                    testCaseInstance: testCase
-                                })
-
+                                Services.saveResponseAttachment(responseID, testCasesInstance, listItem)
+                                    .then(att => {
+                                    resolve({
+                                        testDriveInstance: testDriveInstance,
+                                        testCaseInstance: testCase
+                                    })
+                                }, (error) => {
+                                    Utils.clientLog(error);
+                                });
                             })
                         })
                 } else {
-                    resolve({
-                        testDriveInstance: testDriveInstance,
-                        testCaseInstance: testCase,
-                    })
+                    Services.saveResponseAttachment(responseID, testCasesInstance, listItem).then(att => {
+                        resolve({
+                            testDriveInstance: testDriveInstance,
+                            testCaseInstance: testCase,
+                        })
+                    }, (error) => {
+                        reject(error);
+                        Utils.clientLog(error);
+                    });
                 }
             }, err => reject(err))
+        })
+    }
+
+    static saveResponseAttachment(responseID, testCasesInstance, listItem) {
+        return new Promise((resolve, reject) => {
+            if (responseID && testCasesInstance.files.length) {
+                Services.setAttachmentByItemID(listItem, testCasesInstance.files).then((files: any) => {
+                    testCasesInstance.files = files;
+                    Services.createOrUpdateListItemsInBatch(Constants.Lists.TEST_CASE_RESPONSES, [{
+                        ID: responseID,
+                        [Constants.Columns.RESPONSE_ATTACHMENTS]: JSON.stringify(testCasesInstance.files),
+                    }]).then(result => {
+                        resolve(result);
+                        Utils.clientLog(result);
+                    }, error => {
+                        reject(error);
+                        Utils.clientLog(error);
+                    })
+                }, (error) =>{
+                    reject(error);
+                })
+            } else {
+                resolve([]);
+            }
         })
     }
 
@@ -301,9 +323,9 @@ export class Services {
                         responseStatus: t[Constants.Columns.TEST_CASE_RESPONSE_STATUS],
                         testCaseId: t[Constants.Columns.TESTCASE_ID].results[0][Constants.Columns.ID],
                         selectedResponse: t[Constants.Columns.Selected_Response],
-                        files: t[Constants.Columns.RESPONSE_ATTACHMENTS] && t[Constants.Columns.RESPONSE_ATTACHMENTS].length 
+                        files: t[Constants.Columns.RESPONSE_ATTACHMENTS] && t[Constants.Columns.RESPONSE_ATTACHMENTS].length
                             && Utils.tryParseJSON(t[Constants.Columns.RESPONSE_ATTACHMENTS])
-                     })
+                    })
                 })
                 resolve(testCaseArray);
             }, error => {
@@ -2039,7 +2061,7 @@ export class Services {
         });
     }
 
-    static loadProgressBar(canvasID, value:any = 0.75, size = 60) {
+    static loadProgressBar(canvasID, value: any = 0.75, size = 60) {
         Utils.loadProgressBar(canvasID, value, size);
     }
 }

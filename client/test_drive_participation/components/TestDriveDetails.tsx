@@ -145,7 +145,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                 <div className="col-md-4">
                                     <div className="row">
                                         <canvas id="completed-test-cases-canvas" width="140" height="140"></canvas>
-                                         <h3>{testDriveInstance.numberOfTestCasesCompleted}</h3> 
+                                         <h3>{testCaseCompletion}</h3> 
                                         <span className="small">{testDriveInstance.numberOfTestCasesCompleted } of {testDriveInstance.testCaseIDs.length} tasks done</span>
                                     </div>
                                 </div>
@@ -153,7 +153,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                 <div className="col-md-4">
                                     <div className="row">
                                         <canvas id="test-drive-points-canvas" width="140" height="140"></canvas>
-                                        <h3>{testDriveInstance.currentPoint}</h3>
+                                        <h3>{pointsEarned}</h3>
                                         <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
                                     </div>
 

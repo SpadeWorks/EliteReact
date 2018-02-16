@@ -17,7 +17,7 @@ export type TestCaseInstance = {
     selectedResponse: string;
     responseStatus: string;   
     files?: any[];
-    savepending?: boolean;
+    saveInProgress?: boolean;
 }
 
 export type QuestionInstance = {
@@ -33,7 +33,7 @@ export type QuestionInstance = {
     questionResponse: string;
     selectedResponse: string;
     userID: number;
-    savepending: boolean;
+    saveInProgress: boolean;
 }
 
 
@@ -66,6 +66,8 @@ export type TestDriveInstance = {
     questionLoaded: boolean;
     loading: boolean;
     loadingMessage: string;
+    testCaseSaveInProgress?: boolean;
+    questionSaveInProgress?: boolean;
 };
 
 export type Configurations = {

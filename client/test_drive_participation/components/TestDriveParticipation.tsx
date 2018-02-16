@@ -51,7 +51,6 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                             {testDriveInstance.title}
                         </Link>
 
-
                     </h2>
                 </div>
                 <div className="col-md-12" style={{ overflow: "auto" }}>
@@ -96,22 +95,6 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                             </div >
                         </div >
                     </div >
-                    <div className="testcase_no " id="test_Cases">
-                        <ul className="task_circle ">
-                            {
-                                testDriveInstance.testCases && testDriveInstance.testCases.length &&
-                                testDriveInstance.testCases.map((testCase, index) => {
-                                    return (<li key={index} data-target="#carousel-example-vertical " data-slide-to={index} className="active">
-                                        <p> {index + 1}. {testCase.responseStatus == Constants.ColumnsValues.DRAFT &&
-                                            <img src={Constants.Globals.IMAGE_BASE_URL + "/empty.png"} className="img-responsive" />}
-                                            {testCase.responseStatus == Constants.ColumnsValues.COMPLETE_STATUS &&
-                                                <img src={Constants.Globals.IMAGE_BASE_URL + "/done.png"} className="img-responsive" />}
-                                        </p>
-                                    </li>)
-                                })
-                            }
-                        </ul>
-                    </div>
                     <div>
                         {
                             testDriveInstance.testCases && testDriveInstance.testCases.length &&

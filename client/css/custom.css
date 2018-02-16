@@ -4058,7 +4058,7 @@ a.prev_task i:hover {
     height: 300px;
     width: 100px;
     position: absolute;
-    left: 0px;
+    left: -150px;
     top: 30%;
 }
 
@@ -4777,14 +4777,6 @@ a.prev_task i:hover {
     color: #ff8d00;
 }
 
-.testcase_no {
-    height: 300px;
-    width: 100px;
-    position: absolute;
-    left: 0px;
-    top: 30%;
-}
-
 ul.task_circle {
     list-style-type: none;
     padding-left: 5px;
@@ -5422,14 +5414,6 @@ a.prev_task i {
 a.next_task i:hover,
 a.prev_task i:hover {
     color: #ff8d00;
-}
-
-.testcase_no {
-    height: 300px;
-    width: 100px;
-    position: absolute;
-    left: 0px;
-    top: 30%;
 }
 
 ul.task_circle {
@@ -6203,6 +6187,9 @@ h1.testcase_name {
     font-family: inherit !important;
     font-size: 15px !important;
     color: #ed1b24;
+    outline: none;
+    position: relative;
+    z-index: 99;
  
 }
 .testcase_details {
@@ -6240,6 +6227,9 @@ h1.testcase_name {
     font-family: inherit !important;
     font-size: 15px !important;
     color: #ed1b24;
+    outline: none;
+    position: relative;
+    z-index: 99;
  
 }
 

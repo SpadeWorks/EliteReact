@@ -19,7 +19,6 @@ interface LeftContainer {
 
 class MyTestDrives extends React.Component<LeftContainer> {
     openMyTestDriveDialog(letest_driveboxID) {
-    
         var popUpContainer = $("#" + letest_driveboxID + ' ' + " .letest_drivebox");
 
         // $(".modal-backdrop").toggleClass("overlay");

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Service from '../../common/services/services';
 import { TestDrive } from '../../home/model';
 import {Globals} from '../../common/services/constants';
+import * as $ from 'jquery';
 interface TestDriveHoverPanelProps {
     participants: number;
     checkPortion: string;
@@ -11,6 +12,11 @@ interface TestDriveHoverPanelProps {
 class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
     constructor(props, context) {
         super(props, context);
+    }
+
+    componentDidMount(){
+        $(".letest_drivebox").hide();
+        $(".letest_drivebox2").hide();
     }
     render() {
         const { testDrive, checkPortion, participants } = this.props;

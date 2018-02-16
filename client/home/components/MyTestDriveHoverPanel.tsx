@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link } from "react-router-dom";
 import Service from '../../common/services/services';
 import { TestDrive, TestDriveResponse } from '../../home/model';
+import * as $ from 'jquery';
 interface MyTestDriveHoverPanelProps {
     participants: number;
     checkPortion: string;
@@ -15,6 +16,8 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
     }
 
     componentDidMount() {
+        $(".letest_drivebox").hide();
+        $(".letest_drivebox2").hide();
         const { participants, checkPortion, testDrive, testDriveResponse, index } = this.props;
         const completedTestCases = testDriveResponse ? testDriveResponse.numberOfTestCasesCompleted : 0;
         const totalTestCases = testDrive ? testDrive.testCaseIDs.length : 1;
