@@ -176,8 +176,12 @@ class ManageTestDrive extends React.Component<AppProps> {
         const { testDrive, question, dispatch, loading, testCase, ui, updateUI,
             testCaseFields, surveyFields, testDriveFields } = this.props;
         return (
-            <div className="container">
-                <h2 className="page-heading">Create Test Drive</h2>
+            <div className="container header_part">
+                <Link to={"/"} >
+                <h2 className="header_prevlink">
+             <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Create Test Drive</h2>
+                </Link>
+            
                 <h4 className="cancel-btn"><Link to={"/testdrives"}>Cancel</Link></h4>
                 <div className="col-md-12">
                     <div className="wrapper">

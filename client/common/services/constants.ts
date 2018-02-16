@@ -76,7 +76,8 @@ export class Columns {
     static SURVEY_RESPONSE = "SurveyResponse";
     static Selected_Response = "SelectedResponse";
     static USER_INFO_NAME = "UserInfoName"
-    static ACCOUNT_NAME = "AccountName"
+    static ACCOUNT_NAME = "AccountName";
+    static RESPONSE_ATTACHMENTS = "ResponseAttachments";
 
 
 
@@ -92,6 +93,7 @@ export class ColumnsValues {
 
 export class Globals {
     static IMAGE_BASE_URL = _spPageContextInfo.siteAbsoluteUrl + '/Style%20Library/Elite/images/';
+    static TEST_DRIVE_THAT_I_RUN = "testDriveThatIRun";
 }
 
 export class Messages {

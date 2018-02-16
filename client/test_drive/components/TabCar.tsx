@@ -21,11 +21,11 @@ class TabCar extends React.Component<TabCarProps>{
         const { switchTab } = this.props;
         return (
             <div className="col-md-12">
-                <div className="car_box">
+                {/*<div className="car_box">
                     <div className="car">
-                        <img src="http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/car.png" className="img-responsive" />
+                        <img src="/sites/elite/Style%20Library/Elite/images/car.png" className="img-responsive" />
                     </div>
-                </div>
+                </div>*/}
                 <div className="stepwizard">
                     <div className="stepwizard-row setup-panel">
                         <div className="stepwizard-step register_drive">

@@ -18,7 +18,7 @@ class Survey extends React.Component<SurveyProps> {
         this.isTestDriveCompleted = this.isTestDriveCompleted.bind(this);
     }
 
-    isTestDriveCompleted(){
+    isTestDriveCompleted() {
         let testDrive = this.props.testDriveInstance;
         return testDrive.testCases.length == testDrive.numberOfTestCasesCompleted;
     }
@@ -27,10 +27,10 @@ class Survey extends React.Component<SurveyProps> {
         let question = this.props.testDriveInstance.questions;
         let testDrive = this.props.testDriveInstance;
         let userID = Services.getCurrentUserID();
-        if(this.isTestDriveCompleted() && !testDrive.questionLoaded){
+        if (this.isTestDriveCompleted() && !testDrive.questionLoaded) {
             this.props.loadQuestions(testDrive.testDriveID, testDrive.questionIDs, userID);
         }
-        
+
         $('#carousel-question-vertical').bind('mousewheel', function (e) {
             if (e.originalEvent.wheelDelta / 120 > 0) {
                 $(this).carousel('prev');
@@ -47,24 +47,31 @@ class Survey extends React.Component<SurveyProps> {
         const { questions, saveQuestionResponse, ui, updateUI } = this.props;
         return (
             <div className="col-md-12">
-                <div id="carousel-question-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
-                    <div className="carousel-inner " role="listbox ">
-                        {
-                            questions &&
-                            questions.length &&
-                            questions.map((question, index) => {
-                                return (<QuestionForm
-                                    key={index}
-                                    active={index == 0 ? true : false}
-                                    question={question}
-                                    saveQuestionResponse={(survey) => saveQuestionResponse(survey)}
-                                    ui={ui}
-                                    updateUI={updateUI}
-                                    showSurvey={this.isTestDriveCompleted()} />)
-                            })
-                        }
+                {this.isTestDriveCompleted() &&
+                    <div id="carousel-question-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
+                        <div className="carousel-inner " role="listbox ">
+                            {
+                                questions &&
+                                questions.length &&
+                                questions.map((question, index) => {
+                                    return (<QuestionForm
+                                        key={index}
+                                        active={index == 0 ? true : false}
+                                        question={question}
+                                        saveQuestionResponse={(survey) => saveQuestionResponse(survey)}
+                                        ui={ui}
+                                        updateUI={updateUI}
+                                        showSurvey={this.isTestDriveCompleted()} />)
+                                })
+                            }
+                        </div>
                     </div>
-                </div>
+                }
+                {
+                    !this.isTestDriveCompleted() && <div>
+                        <h3>Survey will open once you complete all the test cases.</h3>    
+                    </div>
+                }
             </div>
         )
     }

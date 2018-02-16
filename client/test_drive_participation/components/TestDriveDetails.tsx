@@ -33,9 +33,9 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
             matchedElement = array2.filter((item2: any) => {
                 return item1.Label == item2.Label;
             })
-            matchedElement && matchedElements.push(matchedElement);
+            matchedElement && matchedElement.length && matchedElements.push(matchedElement);
         });
-        return matchedElement.length == array1.length;
+        return matchedElements.length == array1.length;
     }
 
     isUserEligible() {
@@ -43,9 +43,9 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
             var ctx = this;
             Services.getEliteProfileByID().then((user: EliteProfile) => {
                 var message = '';
-                var isUserEligible: boolean;
-                var matchedLocation = ctx.props.testDriveInstance.location.filter(location => {
-                    return location == user.location;
+                var isUserEligible: boolean = true;
+                var matchedLocation = ctx.props.testDriveInstance.location.filter((location:any) => {
+                    return location.Label == user.location;
                 });
 
                 if (!matchedLocation || !matchedLocation.length) {
@@ -85,17 +85,28 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
 
     }
 
+    componentDidMount(){
+        const {testDriveInstance} = this.props;
+        var testCaseCompletion = (testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 1);
+        var pointsEarned = testDriveInstance.currentPoint / (testDriveInstance.maxPoints || 1)
+        Services.loadProgressBar("completed-test-cases-canvas", testCaseCompletion, 150);
+        Services.loadProgressBar("test-drive-points-canvas",pointsEarned,150);
+    }
+
     render() {
         const { testDriveInstance, createTestDriveInstance, ui, updateUI } = this.props;
+        var testCaseCompletion = (testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 1) * 100;
+        var pointsEarned = testDriveInstance.currentPoint / (testDriveInstance.maxPoints || 1) * 100
+
         return (<div className="col-md-12 detailed_box">
             <div className="row">
-                <div className="container">
+                <div className="container header_part">
 
                     <Link to={"/"}>
                         <h2><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>{testDriveInstance.title}</h2>
                     </Link>
                 </div>
-                <div className="col-md-12" style={{ overflow: "auto" }}>
+                <div className="col-md-12 testdrive-detail_first-time" style={{ overflow: "auto" }}>
                     <div className="wrapper">
                         <div className="col-md-12">
                             <div className="col-md-4">
@@ -132,16 +143,16 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
 
                                 <div className="col-md-4">
                                     <div className="row">
-                                        <canvas id="canvas5" width="140" height="140"></canvas>
-                                        {/* <h3>{((testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 0)) * 100}</h3> */}
-                                        <span className="small">{testDriveInstance.numberOfTestCasesCompleted} of {testDriveInstance.testCaseIDs.length} tasks done</span>
+                                        <canvas id="completed-test-cases-canvas" width="140" height="140"></canvas>
+                                         <h3>{testCaseCompletion}</h3> 
+                                        <span className="small">{testDriveInstance.numberOfTestCasesCompleted } of {testDriveInstance.testCaseIDs.length} tasks done</span>
                                     </div>
                                 </div>
 
                                 <div className="col-md-4">
                                     <div className="row">
-                                        <canvas id="canvas4" width="140" height="140"></canvas>
-                                        <h3>{testDriveInstance.currentPoint}.</h3>
+                                        <canvas id="test-drive-points-canvas" width="140" height="140"></canvas>
+                                        <h3>{pointsEarned}</h3>
                                         <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
                                     </div>
 

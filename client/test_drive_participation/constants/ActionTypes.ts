@@ -22,3 +22,8 @@ export const LOAD_Questions = 'LOAD_Questions';
 export const LOAD_Questions_PENDING = 'LOAD_Questions_PENDING';
 export const LOAD_Questions_FULFILLED = 'LOAD_Questions_FULFILLED';
 export const LOAD_Questions_REJECTED = 'LOAD_Questions_REJECTED';
+
+export const DELETE_Attachment = 'DELETE_Attachment';
+export const DELETE_Attachment_PENDING = 'DELETE_Attachment_PENDING';
+export const DELETE_Attachment_FULFILLED = 'DELETE_Attachment_FULFILLED';
+export const DELETE_Attachment_REJECTED = 'DELETE_Attachment_REJECTED';

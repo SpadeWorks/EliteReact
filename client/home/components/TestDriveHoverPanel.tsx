@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Link } from "react-router-dom";
 import Service from '../../common/services/services';
 import { TestDrive } from '../../home/model';
+import {Globals} from '../../common/services/constants';
+import * as $ from 'jquery';
 interface TestDriveHoverPanelProps {
     participants: number;
     checkPortion: string;
@@ -11,23 +13,13 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
     constructor(props, context) {
         super(props, context);
     }
+
+    componentDidMount(){
+        $(".letest_drivebox").hide();
+        $(".letest_drivebox2").hide();
+    }
     render() {
         const { testDrive, checkPortion, participants } = this.props;
-        var drivenoID = "";
-        var canvasID1 = "";
-        var canvasID2 = "";
-        if (checkPortion == "upTestDrive") {
-            drivenoID = "upDriveno" + testDrive.id;
-            canvasID1 = "upDriveCanvasPoints" + testDrive.id;
-            canvasID2 = "upDriveCanvasDrive" + testDrive.id;
-        }
-        else {
-            drivenoID = "activeDriveno" + testDrive.id;
-            canvasID1 = "activeDrivePointsCanvas" + testDrive.id;
-            canvasID2 = "activeDriveDriveCanvas" + testDrive.id;
-        }
-
-
         return (<div className="col-md-12">
             <h3>{testDrive.title}</h3>
             <div className="col-md-12 social_box">
@@ -134,7 +126,10 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                     </div>
                 </div>
                 <div className="col-md-12 popup_buttonbox">
-                    <Link className="button type1" to={"/participation/" + testDrive.id}> Drive Through </Link>
+                                                    
+                    <Link className="button type1" 
+                        to={(checkPortion == Globals.TEST_DRIVE_THAT_I_RUN ? "/testdrive/" : "/participation/")  
+                            + testDrive.id}> Drive Through </Link>
                 </div>
             </div>
         </div>)

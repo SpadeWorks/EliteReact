@@ -73,7 +73,7 @@ class OverallPointsDashboard extends React.Component<OverallPointsDashboardProps
                     <div className="total_tasks">
                         <h4>TOTAL TASKS</h4>
                         <div className="number">
-                            <canvas id="canvas" width="100" height="100"></canvas>
+                            <canvas id="total-task-canvas" width="100" height="100"></canvas>
                             <h3>{this.props.totalTasks}</h3>
                         </div>
                     </div>

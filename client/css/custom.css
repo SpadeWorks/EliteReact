@@ -1,23 +1,19 @@
 @font-face {
     font-family: "HemiHeadRg-BoldItalic";
-    src: url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.eot?") format("eot"), url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.woff") format("woff"), url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.ttf") format("truetype"), url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.svg#HemiHeadRg-BoldItalic") format("svg");
+    src: url("/sites/elite/Style Library/Elite/fonts/hemi_head_bd_it.eot?") format("eot"), url("/sites/elite/Style Library/Elite/fonts/hemi_head_bd_it.woff") format("woff"), url("/sites/elite/Style Library/Elite/fonts/hemi_head_bd_it.ttf") format("truetype"), url("/sites/elite/Style Library/Elite/fonts/hemi_head_bd_it.svg#HemiHeadRg-BoldItalic") format("svg");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: titanium;
-    src: url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/TitilliumWeb-Regular.ttf");
+    src: url("/sites/elite/Style Library/Elite/fonts/TitilliumWeb-Regular.ttf");
 }
 
 @font-face {
-  font-family: 'Glyphicons Halflings';
-  src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot');
-  src: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), 
-  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), 
-  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), 
-  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), 
-  url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+    font-family: 'Glyphicons Halflings';
+    src: url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.eot');
+    src: url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/sites/elite/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
 .starts-bg {
@@ -46,7 +42,7 @@
     height: 100vh;
     -webkit-transform: opacity 0.3s linear;
     transform: opacity 0.3s linear;
-    background: url('http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/dash_back.jpg') no-repeat !important;
+    background: url('/sites/elite/Style%20Library/Elite/images/dash_back.jpg') no-repeat !important;
     width: 100%;
     height: auto;
     width: 100%;
@@ -2483,7 +2479,7 @@ span.counter {
     display: table;
     width: 100%;
     position: relative;
-    border-top: solid 2px #ebebeb;
+  
 }
 
 .stepwizard-step button[disabled] {
@@ -2494,9 +2490,8 @@ span.counter {
 .stepwizard-step {
     text-align: center;
     position: relative;
-    width: 33.3%;
-    float: left;
-    background: #555555;
+     float: left;
+   
 }
 
 .btn-circle {
@@ -2610,7 +2605,7 @@ span.counter {
     font-size: 18px;
     font-weight: 400;
     line-height: 1.42857143;
-    text-align: center;
+    text-align: left;
     white-space: nowrap;
     vertical-align: middle;
     -ms-touch-action: manipulation;
@@ -2628,32 +2623,42 @@ span.counter {
 }
 
 .stepwizard-step .btn-primary {
-    background-color: #000000b8;
+    background:none;
     color: #f6981e !important;
+    text-transform: uppercase;
+        letter-spacing: 1px;
+            margin-right: 40px;
 }
 
 .stepwizard-step .btn-primary:hover {
-    background-color: #000000d6;
+    background:none;
+        letter-spacing: 1px;
 }
 
 .stepwizard-step .btn-default {
-    background-color: #000000b8;
+    background:none;
+    text-transform: uppercase;
+        letter-spacing: 1px;
+         margin-right: 40px;
 }
 
 .stepwizard-step .btn-default:hover {
-    background-color: #0b0b0b;
+    background:none;
+        letter-spacing: 1px;
 }
-
+.stepwizard-step .btn-defaultfocus{background: none;color: #505050;}
 .stepwizard-step .btn-default:focus {
-    background-color: #000000d6;
+    background:none;
+    color: orange;
 }
 
 a.btn.btn-default {
-    color: #fff;
+    color: #505050;
+    
 }
 
-a.btn.tab-border{
-    border-right: solid 2px #000;
+a.btn.tab-border {
+    /*border-right: solid 2px #000;*/
 }
 
 .left {
@@ -2829,7 +2834,7 @@ margin-top: 130px;
 .wrapper {
     width: 88%;
     margin: 0 auto;
-    margin-top: 15px;
+    margin-top: 50px;
 }
 
 .form-control {
@@ -2964,7 +2969,7 @@ li.select2-selection__choice {
     position: relative;
     top: 20px;
     background: #41404e;
-    min-width: 15% !important;
+  
     padding-left: 10px;
     border-radius: 50px;
     float: left;
@@ -2976,7 +2981,6 @@ li.select2-selection__choice {
     padding-right: 10px;
     margin-top: 9px;
     margin-right: 10px;
-
 }
 
 ul.select2-results__options {
@@ -3009,26 +3013,24 @@ span.select2-selection__choice__remove {
     height: 100px;
 }
 
-.form_box {
-    height: 500px;
-    overflow: auto;
-}
+
 
 .card-header {
-    background: #18171f;
+    background: #272727;
     padding: 0px;
     margin-bottom: 10px;
-    padding: 5px;
+    padding: 3px;
     color: #fff;
     padding-left: 10px;
-    border-radius: 5px;
+    border-radius: 3px;
     float: left;
     width: 100%;
 }
 
+
 .card-header a {
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .card-header a i {
@@ -3037,8 +3039,8 @@ span.select2-selection__choice__remove {
 }
 
 .add_test a {
-    font-size: 15px;
-    color: #fff;
+    font-size: 13px;
+    color: #acacac;
 }
 
 .card-body .register_input {
@@ -3053,7 +3055,7 @@ span.select2-selection__choice__remove {
 
 /*.line_box {
 height: 200px;
-background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/line.png) no-repeat;
+background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
 width: 100%;
 background-size: contain;
 margin-top: -90px;
@@ -3370,7 +3372,7 @@ span.l_count {
     border: solid 1px #fff;
     border-radius: 43px;
     padding: 10px;
-    padding-bottom:0;
+    padding-bottom: 0;
 }
 
 .vertical.outer-therm {
@@ -3389,12 +3391,12 @@ span.l_count {
 
 
 /*.therm.outer-therm.vertical {
-background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
+background: url(/sites/elite/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
 border-radius: 0;
 }
 
 .therm.inner-therm.vertical {
-background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
+background: url(/sites/elite/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
 border-radius: 0;
 width: 28px !important;
 }*/
@@ -3493,7 +3495,7 @@ width: 28px !important;
     width: 400px;
     opacity: 00;
     top: -300px;
-    background: #060612;
+    background: #1c1c27;
     /*top: -140px;*/
     float: left;
     transition: all 0.5s;
@@ -3503,8 +3505,8 @@ width: 28px !important;
 }
 
 .letest_driveboxclick2 {
-       display: block;
-   width: 133px;
+    display: block;
+    width: 133px;
     transition: 0.5s;
     opacity: 1;
     -webkit-box-direction: reverse;
@@ -3517,7 +3519,7 @@ width: 28px !important;
 }
 
 .letest_driveboxclick_right {
-  position: absolute;
+    position: absolute;
     right: 389px;
     display: block;
     transition: 0.5s;
@@ -3579,8 +3581,6 @@ width: 28px !important;
     margin-top: 0px;
 }
 
-
-
 .lc_containerclick {
     display: block;
     width: 100px;
@@ -3593,12 +3593,12 @@ width: 28px !important;
 }
 
 .letest_drivebox {
-      left: 300px;
+    left: 300px;
     position: absolute;
     opacity: 0;
     transition: all 0.9s;
     /* height: 500px; */
-    background: #060612;
+    background: #1c1c27;
     position: absolute;
     top: -300px;
     width: 400px;
@@ -3609,7 +3609,7 @@ width: 28px !important;
 }
 
 .letest_driveboxclick {
-      position: absolute;
+    position: absolute;
     left: 370px;
     display: block;
     transition: 0.5s;
@@ -3648,7 +3648,6 @@ width: 28px !important;
     margin-top: -32px;
     transition: all 0.5s;
 }
-
 
 .map_container {
     width: auto;
@@ -3954,7 +3953,6 @@ span.testd_count {
     font-size: 15px;
 }
 
-
 .test_progress {
     float: left;
     margin-top: 25px;
@@ -4027,7 +4025,7 @@ a.status_fail {
 }
 
 .overview {
-     margin-top: 0px;
+    margin-top: 0px;
     padding-bottom: 30px;
     padding-top: 30px;
     background: #333;
@@ -4036,7 +4034,6 @@ a.status_fail {
 .overview p {
     font-size: 25px;
 }
-
 
 .overview h4.testcase_title {
     margin-top: 0px;
@@ -4061,7 +4058,7 @@ a.prev_task i:hover {
     height: 300px;
     width: 100px;
     position: absolute;
-    left: 0px;
+    left: -150px;
     top: 30%;
 }
 
@@ -4095,19 +4092,19 @@ ul.task_circle li p.inactive_task {
 
 .line_box {
     height: 200px;
-    background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/line.png) no-repeat;
+    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
     width: 100%;
     background-size: contain;
     margin-top: -90px;
 }
 
 .therm.outer-therm.vertical {
-    background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
+    background: url(/sites/elite/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
     border-radius: 0;
 }
 
 .therm.inner-therm.vertical {
-    background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
+    background: url(/sites/elite/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
     border-radius: 0;
     width: 28px !important;
 }
@@ -4427,14 +4424,14 @@ div#s4-ribbonrow {
 }
 
 span.teams {
-    background: url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/teams1.png") no-repeat;
+    background: url("/sites/elite/Style%20Library/Elite/images/teams1.png") no-repeat;
     height: 23px;
     width: 23px;
     float: left;
 }
 
 span.teams:hover {
-    background: url("http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/teams2.png") no-repeat;
+    background: url("/sites/elite/Style%20Library/Elite/images/teams2.png") no-repeat;
     height: 23px;
     width: 23px;
     float: left;
@@ -4482,7 +4479,6 @@ span.teams:hover {
     left: 20px;
 }
 
-
 .earn_box span.small,
 .drive_completionbox span.small {
     position: absolute;
@@ -4492,7 +4488,7 @@ span.teams:hover {
     font-size: 11px;
 }
 
-.popup_ownerbox{
+.popup_ownerbox {
     min-height: 250px;
     padding-top: 0px;
 }
@@ -4502,7 +4498,6 @@ span.teams:hover {
     padding-top: 0px;
 }
 
-
 .popup_ownerbox h4 {
     font-family: titanium !important;
     text-transform: uppercase !important;
@@ -4511,13 +4506,11 @@ span.teams:hover {
 .col-md-12.end_date {
     position: absolute;
     bottom: 50px;
-   
 }
 
 .popup_infocontainer button {
     margin-left: 100px;
 }
-
 
 
 /*test case popup ends here*/
@@ -4727,10 +4720,6 @@ h4.testcase_title {
     width: 100%;
 }
 
-
-
-
-
 .comment_box {
     margin-top: 55px;
 }
@@ -4788,14 +4777,6 @@ a.prev_task i:hover {
     color: #ff8d00;
 }
 
-.testcase_no {
-    height: 300px;
-    width: 100px;
-    position: absolute;
-    left: 0px;
-    top: 30%;
-}
-
 ul.task_circle {
     list-style-type: none;
     padding-left: 5px;
@@ -4840,14 +4821,14 @@ ul.task_circle li p.inactive_task {
 }
 
 span.teams {
-    background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/teams1.png) no-repeat;
+    background: url(/sites/elite/Style%20Library/Elite/images/teams1.png) no-repeat;
     height: 23px;
     width: 23px;
     float: left;
 }
 
 span.teams:hover {
-    background: url(http://intranet.spdev.equinix.com/sites/elite-dev-akash/Style%20Library/Elite/images/teams2.png) no-repeat;
+    background: url(/sites/elite/Style%20Library/Elite/images/teams2.png) no-repeat;
     height: 23px;
     width: 23px;
     float: left;
@@ -4864,7 +4845,6 @@ span.teams:hover {
 .social_box a i:hover {
     color: #5659b0;
 }
-
 
 .earned_pointbox {
     /* background: #333; */
@@ -4890,7 +4870,6 @@ span.teams:hover {
     left: 20px;
 }
 
-
 .earn_box span.small,
 .drive_completionbox span.small {
     position: absolute;
@@ -4900,7 +4879,6 @@ span.teams:hover {
     font-size: 11px;
 }
 
-
 .popup_ownerbox h4 {
     font-family: titanium !important;
     text-transform: uppercase !important;
@@ -4909,7 +4887,6 @@ span.teams:hover {
 .col-md-12.end_date {
     position: absolute;
     bottom: 50px;
-  
     margin-top: 15px;
     margin-bottom: 15px;
 }
@@ -4924,6 +4901,7 @@ span.teams:hover {
     margin-bottom: 30px;
     margin-left: 85px;
 }
+
 
 /*test case popup ends here*/
 
@@ -5284,6 +5262,7 @@ h1#dialogTitleSpan {
 
 
 /*testdrive details starts here*/
+
 .testdrivedetails_box .earn_box h3,
 .drive_completionbox h3 {
     margin-top: 10px;
@@ -5340,7 +5319,6 @@ h1#dialogTitleSpan {
     font-size: 16px;
 }
 
-
 .carousel-inner .container {
     width: 100%;
 }
@@ -5366,8 +5344,6 @@ h1#dialogTitleSpan {
     font-size: 15px;
 }
 
-
-
 .test_progress {
     float: left;
     margin-top: 25px;
@@ -5382,7 +5358,6 @@ a.status_pass i {
     float: right;
     color: #abe816;
 }
-
 
 a.status_fail:hover {
     border: solid 1px #abe225;
@@ -5422,7 +5397,6 @@ a.status_fail:hover {
     font-size: 25px;
 }
 
-
 .overview h4.testcase_title {
     margin-top: 0px;
 }
@@ -5440,14 +5414,6 @@ a.prev_task i {
 a.next_task i:hover,
 a.prev_task i:hover {
     color: #ff8d00;
-}
-
-.testcase_no {
-    height: 300px;
-    width: 100px;
-    position: absolute;
-    left: 0px;
-    top: 30%;
 }
 
 ul.task_circle {
@@ -5711,13 +5677,18 @@ animation-delay: 10s;
 .col-md-12.end_date {
     position: relative !important;
     bottom: -23px !important;
-  
 }
+
 
 .error-lable {
     color: red;
+    font-family: titanium;
+    float: left;
+    margin-left: 5px;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 11px;
 }
-
 
 /* Fix for home page ends here */
 
@@ -5759,6 +5730,7 @@ span.rdr-Day.is-selected {
 span.help-text {
     font-family: titanium;
     color: #f6981e;
+    font-size: 10px;
 }
 
 .Select--multi .Select-value-icon {
@@ -5868,20 +5840,22 @@ img.leader-image {
 
 h2.header_prevlink {
     color: #fff;
+    float: left;
 }
 
 a:focus,
 a:hover {
     text-decoration: none !important;
 }
-h2.header_prevlink{color:#fff;}
-a:focus, a:hover {
-text-decoration:none !important;
+
+
+
+a:focus,
+a:hover {
+    text-decoration: none !important;
 }
 
-.header_part span {
-    font-size: 22px;
-}
+
 
 .leader_car {
     padding-top: 10px;
@@ -5896,7 +5870,8 @@ text-decoration:none !important;
     top: -20px;
 }
 
-.Select-placeholder, .Select--single>.Select-control .Select-value {
+.Select-placeholder,
+.Select--single>.Select-control .Select-value {
     padding-left: 0px !important;
     top: 8px !important;
 }
@@ -5907,24 +5882,28 @@ input.inputMaterial:focus~label {
     color: red;
 }
 
-.editpro_box .inputMaterial:focus~label, .inputMaterial:valid~label {
+.editpro_box .inputMaterial:focus~label,
+.inputMaterial:valid~label {
     top: -6px;
     font-size: 14px;
     color: white;
 }
 
-.textarea-custom textarea{
+.textarea-custom textarea {
     height: 85px;
 }
 
-.custom-editor{
+.custom-editor {
     margin-bottom: 50px;
 }
 
-.leader_car{padding-top: 10px;}
+.leader_car {
+    padding-top: 10px;
+}
 
-.read_morelink{color:red;}
-
+.read_morelink {
+    color: red;
+}
 
 .col-md-12.earn_box canvas {
     margin-top: 15px;
@@ -5939,8 +5918,7 @@ input.inputMaterial:focus~label {
     margin-top: 10px;
 }
 
-.earn_box h3
- {
+.earn_box h3 {
     margin-top: 10px;
     position: absolute;
     top: 99px !important;
@@ -5948,8 +5926,8 @@ input.inputMaterial:focus~label {
     text-transform: uppercase !important;
 }
 
-.drive_completionbox h3{
-     margin-top: 10px;
+.drive_completionbox h3 {
+    margin-top: 10px;
     position: absolute;
     top: 102px !important;
     left: 65px !important;
@@ -5968,7 +5946,9 @@ input.inputMaterial:focus~label {
     font-size: 37px;
 }
 
-h1.testcase_name {margin-top: 15px;}
+h1.testcase_name {
+    margin-top: 15px;
+}
 
 .testcase_box p {
     font-family: titanium !important;
@@ -5977,12 +5957,56 @@ h1.testcase_name {margin-top: 15px;}
     padding-bottom: 10px;
 }
 
-.testcase_box  span.red{color: red; font-size: 18px; font-family: titanium;}
+.testcase_box span.red {
+    color: red;
+    font-size: 18px;
+    font-family: titanium;
+}
 
-.testcase_box  span img{padding-top: 5px;}
+.testcase_box span img {
+    padding-top: 5px;
+}
 
+.testcase_box .inputMaterial:valid~label {
+    top: -6px;
+    font-size: 18px;
+    color: #909090;
+}
 
-.testcase_box .inputMaterial:valid~label{top: -6px;
+.modal-content {
+    background-color: black;
+}
+
+.error {
+    color: red;
+}
+
+/*participation_box starts here*/
+
+.write_testdrivebox {
+    height: 100%;
+    background: #000;
+    position: fixed;
+    right: -700px;
+    top: 0px;
+    width: 700px;
+    z-index: 9999;
+    border-left: solid 1px #fff;
+    padding-top: 10px;
+}
+
+.write_testdrivebox p {
+    font-family: titanium;
+}
+
+.testdrive_completionbox {
+    border-bottom: solid 1px #333;
+    padding-bottom: 30px;
+}
+
+.favourite i {
+    padding-top: 24px;
+    color: #999;
     font-size: 18px;
     color: #909090;}
 

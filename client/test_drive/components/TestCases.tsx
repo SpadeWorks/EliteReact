@@ -66,6 +66,11 @@ class TestCases extends React.Component<TestCasesProps> {
         } = this.props;
         return (
             <div className="test-case-container col-xs-12">
+                <div className="col-md-8 sample_text">
+                   <p>Anim pariatur cliche reprehenderit, enim eiusmod high
+                        life accusamus terry richardson ad squid. 3 wolf moon
+                        officia aute, non cupidatat skateboard dolor brunch.</p>
+                </div>
                 <div className="add-button col-md-2 add_test pull-right text-right">
                     <a href="javascript:void(0);" onClick={addTestCase}> + add test case </a>
                 </div>
@@ -88,12 +93,13 @@ class TestCases extends React.Component<TestCasesProps> {
                     }
                 </div>
 
-                <div className="col-md-12">
-
-                    <input type="button" value="Next" className="button type1 nextBtn btn-lg pull-right"
-                        onClick={this.onMoveNext } />
-                    <input type="button" value="Save" className="button type1 nextBtn btn-lg pull-right"
-                        onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
+                <div className="col-md-12 testdrive_actionbox">
+                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                            <input type="button" value="Next" onClick={this.onMoveNext } />
+                     </div>
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                    <input type="button" value="Save as a draft" onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
+                    </div>
                 </div>
             </div>
         );
