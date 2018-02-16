@@ -196,7 +196,6 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                     className={testCase.isInEditMode ? "collapse in" : "collapse"}
                     aria-labelledby="headingOne" data-parent="#accordion">
                     <div className="card-body">
-                        
                         <div className="testcase_details">
                         <form id={"test-case-form" + testCase.id}>
                             <div className="col-md-12 register_input">
