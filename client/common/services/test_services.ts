@@ -199,7 +199,7 @@ class TestServices {
         // Services.getDevices();
         // Services.getOSes();
 
-        Services.getMyTestDrives();
+        Services.getAttachmentsByItemID(86);
 
     }
 
@@ -212,15 +212,13 @@ $(function () {
         $('#add').bind('click', function () {
             if ($("#file").length > 0) {
                 let input = <HTMLInputElement>document.getElementById("file");
-                let file = input.files[0];
-                Services.uploadFiles(file, "testFile");
+                Services.setAttachmentByItemID(88, input.files);
             } else {
                 var addControl = '<label>Upload Text File:</label>';
-                addControl += ' <input type="file" name = "file[]" class="imageupload" id="file"> ';
+                addControl += ' <input type="file" name = "file[]" class="imageupload" id="file" multiple="multiple"> ';
                 addControl += '<input type="button" value="upload" id="upload">';
                 $('#add').before(addControl);
             }
-
         });
     // });
 });

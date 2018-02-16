@@ -5,12 +5,20 @@ import { TestDriveInstance } from '../model';
 import Services from '../../common/services/services';
 import { EliteProfile } from '../../home/model';
 import { Messages } from '../../common/services/constants';
+import ui from 'redux-ui';
 interface TestDriveDetailsProps {
     testDriveInstance: TestDriveInstance;
     createTestDriveInstance: (testDriveInstance: TestDriveInstance) => any;
     updateUI: (any) => any;
     ui: any;
 };
+
+@ui({
+    state: {
+        showPopUp: false,
+        message: ''
+    }
+})
 class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
     constructor(props, context) {
         super(props, context);
@@ -22,7 +30,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         var matchedElements = [];
         var matchedElement;
         array1.filter((item1: any) => {
-            matchedElement = array2.filter((item2:any) => {
+            matchedElement = array2.filter((item2: any) => {
                 return item1.Label == item2.Label;
             })
             matchedElement && matchedElements.push(matchedElement);
@@ -39,42 +47,46 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                 var matchedLocation = ctx.props.testDriveInstance.location.filter(location => {
                     return location == user.location;
                 });
-    
+
                 if (!matchedLocation || !matchedLocation.length) {
                     message += Messages.TEST_DRIVE_LOCATION_ERROR + '\n';
                     isUserEligible = false;
                 }
                 var matchedDevices = [];
                 var matchedDevice;
-    
+
                 if (!ctx.checkForElements(ctx.props.testDriveInstance.requiredDevices, user.availableDevices)) {
                     message += Messages.TEST_DRIVE_DEVICE_ERROR + '\n';
                     isUserEligible = false;
                 }
-    
-                if(!ctx.checkForElements(ctx.props.testDriveInstance.requiredOs, user.availableOS)){
+
+                if (!ctx.checkForElements(ctx.props.testDriveInstance.requiredOs, user.availableOS)) {
                     message += Messages.TEST_DRIVE_DEVICE_ERROR + '\n';
                     isUserEligible = false;
                 }
-    
-                resolve({isUserEligible, message});
+
+                resolve({ isUserEligible, message });
             })
         });
     }
 
     participate() {
-        this.isUserEligible().then((data: any)=>{
-            if(data.isUserEligible){
-                this.props.createTestDriveInstance(this.props.testDriveInstance)
-            } else{
-                alert(data.message);
+        var ctx = this;
+        this.isUserEligible().then((data: any) => {
+            if (data.isUserEligible) {
+                ctx.props.createTestDriveInstance(this.props.testDriveInstance)
+            } else {
+                ctx.props.updateUI({
+                    showPopUp: true,
+                    message: data.message
+                });
             }
         })
-        
+
     }
 
     render() {
-        const { testDriveInstance, createTestDriveInstance } = this.props;
+        const { testDriveInstance, createTestDriveInstance, ui, updateUI } = this.props;
         return (<div className="col-md-12 detailed_box">
             <div className="row">
                 <div className="container">
@@ -263,8 +275,24 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
 
                         <div className="col-md-12 popup_buttonbox">
                             <input onClick={this.participate} className="button type1" type="button" value="Go For Drive" />
+                            <button id="participationButton" style={{display: 'none'}} type="participationError" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
                         </div>
-
+                    </div>
+                </div>
+            </div>
+            <div id="participationError" className={"modal fade " + (ui.showPopUp ? 'in' : '')}
+                role="dialog" style={{ display: ui.showPopUp ? 'block' : 'none' }}>
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <input 
+                                onClick={() => {updateUI({showPopUp: false})}}
+                            type="button" className="close" data-dismiss="modal" value="X"/>
+                            <h4 className="modal-title">Modal Header</h4>
+                        </div>
+                        <div className="modal-body error">
+                            <p>{ui.message}</p>
+                        </div>
                     </div>
                 </div>
             </div>
