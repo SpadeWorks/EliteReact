@@ -16,6 +16,7 @@ import index from "../../home/index";
 import { TestDriveInstance, QuestionInstance, TestCaseInstance } from '../../test_drive_participation/model';
 import { File, ListItem } from "@microsoft/microsoft-graph-types";
 import { error } from "util";
+import { Lists } from "sp-pnp-js/lib/sharepoint/lists";
 
 const delay = 100;
 declare var SP: any;
@@ -71,6 +72,17 @@ export class Services {
         return new Promise((resolve, reject) => {
             item.attachmentFiles.deleteMultiple(files.toString()).then(r => {
                 resolve(r)
+            }, error => {
+                reject(error);
+            });
+        });
+    }
+
+    static deletAttachment(itemID, files: string) {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).
+            items.getById(itemID).attachmentFiles.deleteMultiple(files).then(r => {
+                resolve(true)
             }, error => {
                 reject(error);
             });
@@ -193,6 +205,7 @@ export class Services {
                     Services.setAttachmentByItemID(listItem, testCasesInstance.files).then((files: any) => {
                         testCasesInstance.files = files;
                         Services.createOrUpdateListItemsInBatch(Constants.Lists.TEST_CASE_RESPONSES, [{
+                            ID: responseID,
                             [Constants.Columns.RESPONSE_ATTACHMENTS]: JSON.stringify(testCasesInstance.files),
                         }]).then(result =>{
                             Utils.clientLog(result);
@@ -286,10 +299,11 @@ export class Services {
                         responseID: t[Constants.Columns.ID],
                         testCaseResponse: t[Constants.Columns.TEST_CASE_RESPONSE],
                         responseStatus: t[Constants.Columns.TEST_CASE_RESPONSE_STATUS],
-                        testCaseId: t[Constants.Columns.TESTCASE_ID][Constants.Columns.ID],
+                        testCaseId: t[Constants.Columns.TESTCASE_ID].results[0][Constants.Columns.ID],
                         selectedResponse: t[Constants.Columns.Selected_Response],
-                        files: t[Constants.Columns.RESPONSE_ATTACHMENTS]
-                    })
+                        files: t[Constants.Columns.RESPONSE_ATTACHMENTS] && t[Constants.Columns.RESPONSE_ATTACHMENTS].length 
+                            && Utils.tryParseJSON(t[Constants.Columns.RESPONSE_ATTACHMENTS])
+                     })
                 })
                 resolve(testCaseArray);
             }, error => {
@@ -317,7 +331,7 @@ export class Services {
                         let questionsArray: QuestionInstance[] = [];
                         questions.map(question => {
                             let response = questionResponses.filter(response => {
-                                return response[Constants.Columns.QUESTION_ID][Constants.Columns.ID] == question.id;
+                                return response[Constants.Columns.QUESTION_ID].results[0][Constants.Columns.ID] == question.id;
                             })
                             response = response[0];
                             questionsArray.push({
@@ -384,7 +398,7 @@ export class Services {
                         responseStatus: response ? response.responseStatus : Constants.ColumnsValues.DRAFT,
                         selectedResponse: response ? response.selectedResponse : '',
                         testCaseResponse: response ? response.testCaseResponse : '',
-                        files: response.file
+                        files: response ? (response.files && response.files.files) : []
                     });
                 })
 
@@ -2025,7 +2039,7 @@ export class Services {
         });
     }
 
-    static loadProgressBar(canvasID, value = 0.75, size = 60) {
+    static loadProgressBar(canvasID, value:any = 0.75, size = 60) {
         Utils.loadProgressBar(canvasID, value, size);
     }
 }

@@ -57,7 +57,7 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                             <div className="col-md-12 drive_completionbox">
                                 <span className="orange"><i>DRIVE COMPLETION</i></span>
                                 <canvas id={driveProgressID} width="150" height="150"></canvas>
-                                <h3 className="earn_boxcount">{percentComplete} %</h3>
+                                <h3 className="earn_boxcount">{percentComplete.toFixed(2)} %</h3>
                                 <span className="small">
                                     {completedTestCases}
                                     of {totalTestCases}  tasks done

@@ -48,6 +48,7 @@ class MyTestDrives extends React.Component<LeftContainer> {
         } else {
             popUpContainer.removeClass("box");
             $('#' + letest_driveboxID + ' ' + ".letest_drivebox").hide();
+            $('#' + letest_driveboxID + ' ' + ".letest_driveboxclick").hide();
         }
     }
 

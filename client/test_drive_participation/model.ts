@@ -17,6 +17,7 @@ export type TestCaseInstance = {
     selectedResponse: string;
     responseStatus: string;   
     files?: any[];
+    savepending?: boolean;
 }
 
 export type QuestionInstance = {
@@ -32,6 +33,7 @@ export type QuestionInstance = {
     questionResponse: string;
     selectedResponse: string;
     userID: number;
+    savepending: boolean;
 }
 
 

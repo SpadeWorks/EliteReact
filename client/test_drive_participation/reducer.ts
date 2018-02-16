@@ -16,7 +16,9 @@ import {
     CREATE_QuestionInstance_FULFILLED,
     CREATE_TestCaseInstance_PENDING,
     CREATE_QuestionInstance_PENDING,
-    CREATE_QuestionInstance_REJECTED
+    CREATE_QuestionInstance_REJECTED,
+    DELETE_Attachment,
+    DELETE_Attachment_FULFILLED
 
 } from './constants/ActionTypes';
 
@@ -107,7 +109,7 @@ export default handleActions<IState, any>({
     [CREATE_TestDriveInstance_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            loading: false
+            loading: true
         }
     },
     [CREATE_TestDriveInstance_FULFILLED]: (state: IState, action: Action<any>): IState => {
@@ -180,6 +182,23 @@ export default handleActions<IState, any>({
         return {
             ...state,
             loading: false
+        }
+    },
+
+    [DELETE_Attachment_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            testDriveInstance: {
+                ...state.testDriveInstance,
+                testCases: state.testDriveInstance.testCases.map(testCase => {
+                    if(testCase.testCaseId == action.payload.testCaseId){
+                        return testCase.files = action.payload.files
+                    }
+                    else{
+                        return testCase
+                    }
+                })
+            }
         }
     },
 }, initialState);

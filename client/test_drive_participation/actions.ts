@@ -8,9 +8,11 @@ import {
   LOAD_Questions,
   CREATE_TestDriveInstance,
   CREATE_QuestionInstance,
-  CREATE_TestCaseInstance
+  CREATE_TestCaseInstance,
+  DELETE_Attachment
 
 } from './constants/ActionTypes';
+import { TestCase } from '../test_drive/model';
 
 // Test Drives action creators.
 
@@ -35,17 +37,19 @@ const createOrSaveQuestionInstance = createAction<any, QuestionInstance>(
   (QuestionInstance: QuestionInstance) => Services.createOrSaveQuestionInstance(QuestionInstance)
 )
 
-
 const createOrSaveTestCaseInstance = createAction<any, TestCaseInstance, TestDriveInstance>(
   CREATE_TestCaseInstance,
   (testCaseInstance: TestCaseInstance, testDriveInstance: TestDriveInstance) => 
     Services.createOrSaveTestCaseInstance(testCaseInstance, testDriveInstance)
 )
 
+const deleteAttachment = createAction(DELETE_Attachment)
+
 export {
   loadTestDriveInstanceByID,
   loadQuestions,
   createOrSaveTestDriveInstance,
   createOrSaveQuestionInstance,
-  createOrSaveTestCaseInstance
+  createOrSaveTestCaseInstance,
+  deleteAttachment
 }
