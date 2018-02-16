@@ -9,7 +9,7 @@ import Survey from './Survey';
 import TestDriveInfo from './TestDriveInfo';
 import * as $ from 'jquery';
 import * as Constants from '../../common/services/constants';
-
+import ui from 'redux-ui';
 interface TestDriveParticipationProps {
     testDriveInstance: TestDriveInstance;
     saveTestCaseResponse: (testCase: TestCaseInstance, testDrive: TestDriveInstance) => any;
@@ -18,6 +18,13 @@ interface TestDriveParticipationProps {
     updateUI: (any) => any;
     ui: any;
 };
+
+@ui({
+    state: {
+        activeTab: 'test_Cases',
+    }
+})
+
 class TestDriveParticipation extends React.Component<TestDriveParticipationProps> {
     constructor(props, context) {
         super(props, context);
@@ -59,13 +66,13 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                             <div className="well count_box">
                                 <ul className="nav nav-tabs">
                                     <li className="active">
-                                        <a href="#test_Cases" data-toggle="tab">Test Cases</a>
+                                        <a href="#test_Cases" data-toggle="tab" onClick={() => updateUI({activeTab: 'test_Cases'})}>Test Cases</a>
                                     </li>
                                     <li>
-                                        <a href="#Servay_q" data-toggle="tab">Survey</a>
+                                        <a href="#Servay_q" data-toggle="tab" onClick={() => updateUI({activeTab: 'Servay_q'})}>Survey</a>
                                     </li>
                                     <li>
-                                        <a href="#Description" data-toggle="tab">Description</a>
+                                        <a href="#Description" data-toggle="tab" onClick={() => updateUI({activeTab: 'Description'})}>Description</a>
                                     </li>
                                 </ul>
                                 <div id="myTabContent" className="tab-content">
@@ -119,7 +126,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                     </div>
                 </div>
             </div>
-            <Overview testDriveInstance={testDriveInstance} />
+            <Overview testDriveInstance={testDriveInstance} ui={ui} updateUI={updateUI} />
         </div>)
     }
 }

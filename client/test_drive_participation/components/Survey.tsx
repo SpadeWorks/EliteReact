@@ -4,6 +4,7 @@ import { TestDriveInstance, QuestionInstance } from '../../test_drive_participat
 import QuestionForm from './QuestionForm';
 import * as $ from 'jquery';
 import Services from '../../common/services/services';
+import * as Constants from '../../common/services/constants';
 interface SurveyProps {
     questions: QuestionInstance[];
     testDriveInstance: TestDriveInstance;
@@ -47,7 +48,26 @@ class Survey extends React.Component<SurveyProps> {
         const { questions, saveQuestionResponse, ui, updateUI } = this.props;
         return (
             <div className="col-md-12">
-                {this.isTestDriveCompleted() &&
+
+
+                {this.isTestDriveCompleted() && <div>
+                    <div className="testcase_no " id="test_Cases">
+                        <ul className="task_circle ">
+                            {
+                                questions &&
+                                questions.length &&
+                                questions.map((question, index) => {
+                                    return (<li key={index} data-target="#carousel-question-vertical" data-slide-to={index} className="active">
+                                        <p> {index + 1}. {question.responseStatus == Constants.ColumnsValues.DRAFT &&
+                                            <img src={Constants.Globals.IMAGE_BASE_URL + "/empty.png"} className="img-responsive" />}
+                                            {question.responseStatus == Constants.ColumnsValues.COMPLETE_STATUS &&
+                                                <img src={Constants.Globals.IMAGE_BASE_URL + "/done.png"} className="img-responsive" />}
+                                        </p>
+                                    </li>)
+                                })
+                            }
+                        </ul>
+                    </div>
                     <div id="carousel-question-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
                         <div className="carousel-inner " role="listbox ">
                             {
@@ -55,6 +75,7 @@ class Survey extends React.Component<SurveyProps> {
                                 questions.length &&
                                 questions.map((question, index) => {
                                     return (<QuestionForm
+                                        isLast={index == questions.length - 1}
                                         key={index}
                                         active={index == 0 ? true : false}
                                         question={question}
@@ -66,10 +87,11 @@ class Survey extends React.Component<SurveyProps> {
                             }
                         </div>
                     </div>
+                </div>
                 }
                 {
                     !this.isTestDriveCompleted() && <div>
-                        <h3>Survey will open once you complete all the test cases.</h3>    
+                        <h3>Survey will open once you complete all the test cases.</h3>
                     </div>
                 }
             </div>

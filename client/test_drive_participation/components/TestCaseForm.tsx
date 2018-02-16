@@ -16,6 +16,8 @@ interface TestCaseFormProps {
     updateUI: (any) => any;
     ui: any;
     index: number;
+    isLast: boolean;
+    isTestDriveCompleted: () => (boolean);
 };
 
 @ui({
@@ -30,7 +32,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
 
     constructor(props, context) {
         super(props, context);
-        this.saveTestCaseResponse = this.saveTestCaseResponse.bind(this);
+        // this.saveTestCaseResponse = this.saveTestCaseResponse.bind(this);
         this.submitTestCaseResponse = this.submitTestCaseResponse.bind(this);
         this.props.updateUI({ testCaseResponse: this.props.testCase.testCaseResponse });
         this.props.updateUI({ selectedResponse: this.props.testCase.selectedResponse });
@@ -65,22 +67,39 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
     onChange(e) {
         this.props.updateUI({ testCaseResponse: e.target.value });
     }
-    saveTestCaseResponse(testCase: TestCaseInstance) {
-        let testDrive = this.props.testDriveInstance;
-        testCase = {
-            ...testCase,
-            newItem: false,
-            responseStatus: Constants.ColumnsValues.DRAFT,
-            testCaseResponse: this.props.ui.testCaseResponse,
-            selectedResponse: this.props.ui.selectedResponse,
-            files: this.props.ui.files
-        }
-        this.props.saveTestCaseResponse(testCase, testDrive);
-    }
+    
+    // saveTestCaseResponse(testCase: TestCaseInstance, index) {
+    //     let testDrive = this.props.testDriveInstance;
+    //     testCase = {
+    //         ...testCase,
+    //         newItem: false,
+    //         responseStatus: Constants.ColumnsValues.DRAFT,
+    //         testCaseResponse: this.props.ui.testCaseResponse,
+    //         selectedResponse: this.props.ui.selectedResponse,
+    //         files: this.props.ui.files
+    //     }
+    //     this.props.saveTestCaseResponse(testCase, testDrive);
+
+    //     var isFormValid = validateForm('test-case-form' + index);
+    //     if (isFormValid) {
+    //         testCase = {
+    //             ...testCase,
+    //             newItem: testCase.responseStatus == Constants.ColumnsValues.DRAFT,
+    //             responseStatus: Constants.ColumnsValues.COMPLETE_STATUS,
+    //             testCaseResponse: this.props.ui.testCaseResponse,
+    //             selectedResponse: this.props.ui.selectedResponse,
+    //             files: this.props.ui.files
+    //         }
+    //         this.props.saveTestCaseResponse(testCase, this.props.testDriveInstance);
+    //     } else {
+    //         alert(Constants.Messages.ERROR_IN_FORM);
+    //     }
+
+    // }
+
     submitTestCaseResponse(testCase: TestCaseInstance, index) {
         var isFormValid = validateForm('test-case-form' + index);
         if (isFormValid) {
-            $('#carousel-example-vertical').carousel('next');
             testCase = {
                 ...testCase,
                 newItem: testCase.responseStatus == Constants.ColumnsValues.DRAFT,
@@ -109,7 +128,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
     }
 
     render() {
-        const { testCase, active, saveTestCaseResponse, ui, updateUI, index, testDriveInstance } = this.props;
+        const { testCase, active, saveTestCaseResponse, ui, updateUI, index, testDriveInstance, isLast } = this.props;
         return (
 
             <div className={"item " + (active ? 'active' : '')} id={'test-case-form' + index}>
@@ -215,11 +234,20 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                                 </div>
 
                                             </div>
-                                            <div className="col-md-12 participation_actionbox">
+                                            {!isLast && <div className="col-md-12 participation_actionbox">
                                                 <div className="button type1 nextBtn btn-lg pull-right animated_button">
                                                     <input type="button" value="Done" onClick={() => this.submitTestCaseResponse(testCase, index)} />
                                                 </div>
                                             </div>
+                                            }
+
+                                            {isLast && <div className="col-md-12 participation_actionbox">
+                                                <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                                    <input type="button" value="Done" onClick={() => this.submitTestCaseResponse(testCase, index)} />
+                                                </div>
+                                            </div>
+                                            }
+
                                         </div>
                                     </div>
                                 </div>
@@ -227,7 +255,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                         </div>
                     </Loader>
                 </div>
-            </div>
+            </div >
 
         )
     }

@@ -13,6 +13,7 @@ interface QuestionFormProps {
     saveQuestionResponse: (question: QuestionInstance) => any;
     updateUI: (any) => any;
     ui: any;
+    isLast: boolean;
 };
 
 @ui({
@@ -25,6 +26,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
     constructor(props, context) {
         super(props, context);
         this.onChangeSeletedResponseChange = this.onChangeSeletedResponseChange.bind(this);
+        this.saveQuestionResponse = this.saveQuestionResponse.bind(this);
 
         this.props.updateUI({
             questionResponse: this.props.question.questionResponse,
@@ -32,8 +34,8 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         });
     }
 
-    onChange(e){
-        this.props.updateUI({[e.target.name] : e.target.value});
+    onChange(e) {
+        this.props.updateUI({ [e.target.name]: e.target.value });
     }
     onChangeSeletedResponseChange(value) {
         this.props.updateUI({ selectedResponse: value });
@@ -58,8 +60,13 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         this.props.saveQuestionResponse(question);
     }
 
+    submitSurvey(question) {
+        this.submitQuestionResponse(question);
+        window.location.hash = "/";
+    }
+
     render() {
-        const { question, saveQuestionResponse, ui, updateUI, active } = this.props;
+        const { question, saveQuestionResponse, ui, updateUI, active, isLast } = this.props;
         return (<div className={"item " + (active ? 'active' : '')}>
             <div className="container ">
                 <div className="col-md-12 ">
@@ -67,23 +74,23 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                         <h1>{question.title}</h1>
                         <div className="row ">
                             <div className="test_progress ">
-                            {
+                                {
                                     question.questionType == ColumnsValues.QUESTION_TYPE_OBJECTIVE &&
 
-                                <Select
-                                    id="question-response"
-                                    onBlurResetsInput={false}
-                                    onSelectResetsInput={false}
-                                    options={question.options}
-                                    simpleValue
-                                    clearable={true}
-                                    name="selectedResponse"
-                                    value={ui.selectedResponse}
-                                    onChange={(value) => this.onChangeSeletedResponseChange(value)}
-                                    rtl={false}
-                                    searchable={false}
-                                />
-                            }
+                                    <Select
+                                        id="question-response"
+                                        onBlurResetsInput={false}
+                                        onSelectResetsInput={false}
+                                        options={question.options}
+                                        simpleValue
+                                        clearable={true}
+                                        name="selectedResponse"
+                                        value={ui.selectedResponse}
+                                        onChange={(value) => this.onChangeSeletedResponseChange(value)}
+                                        rtl={false}
+                                        searchable={false}
+                                    />
+                                }
                                 {
                                     question.questionType != ColumnsValues.QUESTION_TYPE_OBJECTIVE &&
 
@@ -99,18 +106,27 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                         <label className="disc_lable ">Description</label>
                                     </div>
                                 }
-
-                                <div className="col-md-12 participation_actionbox">
-                                    <div className="button">
-                                    <input type="button" value="Done" onClick={() => this.submitQuestionResponse(question)} />
+                                {
+                                    !isLast && < div className="col-md-12 participation_actionbox">
+                                        <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                            <input type="button" value="Done" onClick={() => this.submitQuestionResponse(question)} />
+                                        </div>
                                     </div>
-                                </div>
+                                }
+                                {
+                                    isLast && <div className="col-md-12 participation_actionbox">
+                                        <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                            <input type="button" value="Submit survey" onClick={() => this.submitSurvey(question)} />
+                                        </div>
+                                    </div>
+                                }
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>)
+        </div >)
     }
 }
 
