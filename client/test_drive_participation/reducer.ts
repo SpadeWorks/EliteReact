@@ -16,7 +16,9 @@ import {
     CREATE_QuestionInstance_FULFILLED,
     CREATE_TestCaseInstance_PENDING,
     CREATE_QuestionInstance_PENDING,
-    CREATE_QuestionInstance_REJECTED
+    CREATE_QuestionInstance_REJECTED,
+    DELETE_Attachment,
+    DELETE_Attachment_FULFILLED
 
 } from './constants/ActionTypes';
 
@@ -47,7 +49,9 @@ const initialState: IState = {
         testCaseIDs: [],
         questionLoaded: false,
         loading: false,
-        loadingMessage: 'Loading...'
+        loadingMessage: 'Loading...',
+        questionSaveInProgress: false,
+        testCaseSaveInProgress: false
 
     },
     loading: true,
@@ -78,7 +82,7 @@ export default handleActions<IState, any>({
     [LOAD_Questions_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            testDriveInstance:{
+            testDriveInstance: {
                 ...state.testDriveInstance,
                 loading: true,
                 loadingMessage: 'Loading questions...'
@@ -89,7 +93,7 @@ export default handleActions<IState, any>({
         return {
             ...state,
             testDriveInstance: {
-                ...state.testDriveInstance, 
+                ...state.testDriveInstance,
                 questions: action.payload,
                 questionLoaded: true
             },
@@ -107,7 +111,7 @@ export default handleActions<IState, any>({
     [CREATE_TestDriveInstance_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            loading: false
+            loading: true
         }
     },
     [CREATE_TestDriveInstance_FULFILLED]: (state: IState, action: Action<any>): IState => {
@@ -130,7 +134,11 @@ export default handleActions<IState, any>({
     [CREATE_TestCaseInstance_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            loading: false
+            testDriveInstance: {
+                ...state.testDriveInstance,
+                testCaseSaveInProgress: true
+            }
+
         }
     },
     [CREATE_TestCaseInstance_FULFILLED]: (state: IState, action: Action<any>): IState => {
@@ -138,10 +146,11 @@ export default handleActions<IState, any>({
             ...state,
             testDriveInstance: {
                 ...state.testDriveInstance,
+                testCaseSaveInProgress: false,
                 numberOfTestCasesCompleted: action.payload.testDriveInstance.numberOfTestCasesCompleted,
                 currentPoint: action.payload.testDriveInstance.currentPoint,
                 testCases: state.testDriveInstance.testCases.map(testCase => {
-                    return testCase.testCaseId == action.payload.testCaseInstance.testCaseId ? 
+                    return testCase.testCaseId == action.payload.testCaseInstance.testCaseId ?
                         action.payload.testCaseInstance : testCase;
                 })
             },
@@ -152,14 +161,20 @@ export default handleActions<IState, any>({
     [CREATE_TestCaseInstance_REJECTED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            loading: false
+            testDriveInstance: {
+                ...state.testDriveInstance,
+                testCaseSaveInProgress: false
+            }
         }
     },
 
     [CREATE_QuestionInstance_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            loading: false
+            testDriveInstance: {
+                ...state.testDriveInstance,
+                questionSaveInProgress: true
+            }
         }
     },
     [CREATE_QuestionInstance_FULFILLED]: (state: IState, action: Action<any>): IState => {
@@ -167,8 +182,9 @@ export default handleActions<IState, any>({
             ...state,
             testDriveInstance: {
                 ...state.testDriveInstance,
+                questionSaveInProgress: false,
                 questions: state.testDriveInstance.questions.map(question => {
-                    return question.questionID == action.payload.questionID ? 
+                    return question.questionID == action.payload.questionID ?
                         action.payload : question;
                 })
             },
@@ -179,7 +195,27 @@ export default handleActions<IState, any>({
     [CREATE_QuestionInstance_REJECTED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            loading: false
+            testDriveInstance: {
+                ...state.testDriveInstance,
+                questionSaveInProgress: false
+            }
+        }
+    },
+
+    [DELETE_Attachment_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            testDriveInstance: {
+                ...state.testDriveInstance,
+                testCases: state.testDriveInstance.testCases.map(testCase => {
+                    if (testCase.testCaseId == action.payload.testCaseId) {
+                        return testCase.files = action.payload.files
+                    }
+                    else {
+                        return testCase
+                    }
+                })
+            }
         }
     },
 }, initialState);

@@ -101,7 +101,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                 }
 
                                 <div className="col-md-12 participation_actionbox">
-                                    <div className="button type1 nextBtn btn-lg animated_button pull-right">
+                                    <div className="button">
                                     <input type="button" value="Done" onClick={() => this.submitQuestionResponse(question)} />
                                     </div>
                                 </div>

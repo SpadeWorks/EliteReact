@@ -75,7 +75,7 @@ export class Columns {
     static Selected_Response = "SelectedResponse";
     static USER_INFO_NAME = "UserInfoName"
     static ACCOUNT_NAME = "AccountName";
-    static ATTACHMENT_FILES = "AttachmentFiles";
+    static RESPONSE_ATTACHMENTS = "ResponseAttachments";
 
 
 

@@ -87,12 +87,18 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
     }
 
     componentDidMount(){
-        Services.loadProgressBar("completed-test-cases-canvas", 0.4, 150);
-        Services.loadProgressBar("test-drive-points-canvas",0.5,150);
+        const {testDriveInstance} = this.props;
+        var testCaseCompletion = (testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 1);
+        var pointsEarned = testDriveInstance.currentPoint / (testDriveInstance.maxPoints || 1)
+        Services.loadProgressBar("completed-test-cases-canvas", testCaseCompletion, 150);
+        Services.loadProgressBar("test-drive-points-canvas",pointsEarned,150);
     }
 
     render() {
         const { testDriveInstance, createTestDriveInstance, ui, updateUI } = this.props;
+        var testCaseCompletion = (testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 1) * 100;
+        var pointsEarned = testDriveInstance.currentPoint / (testDriveInstance.maxPoints || 1) * 100
+
         return (<div className="col-md-12 detailed_box">
             <div className="row">
                 <div className="container header_part">
@@ -139,7 +145,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                 <div className="col-md-4">
                                     <div className="row">
                                         <canvas id="completed-test-cases-canvas" width="140" height="140"></canvas>
-                                         <h3>{((testDriveInstance.numberOfTestCasesCompleted || 1) / (testDriveInstance.testCaseIDs.length || 1)) * 100}</h3> 
+                                         <h3>{testCaseCompletion}</h3> 
                                         <span className="small">{testDriveInstance.numberOfTestCasesCompleted } of {testDriveInstance.testCaseIDs.length} tasks done</span>
                                     </div>
                                 </div>
@@ -147,7 +153,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                 <div className="col-md-4">
                                     <div className="row">
                                         <canvas id="test-drive-points-canvas" width="140" height="140"></canvas>
-                                        <h3>{testDriveInstance.currentPoint || 323}.</h3>
+                                        <h3>{pointsEarned}</h3>
                                         <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
                                     </div>
 
