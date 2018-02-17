@@ -356,11 +356,11 @@ export class Services {
                                 return response[Constants.Columns.QUESTION_ID].results[0][Constants.Columns.ID] == question.id;
                             })
                             response = response[0];
-                            questionsArray.push({
+                            questionsArray.push(<QuestionInstance>{
                                 ...question,
-                                responseID: response ? response.id : -1,
+                                responseID: response ? response.Id : -1,
                                 responseStatus: response ? response[Constants.Columns.STATUS] : Constants.ColumnsValues.DRAFT,
-                                response: response ? response[Constants.Columns.SURVEY_RESPONSE] : '',
+                                questionResponse: response ? response[Constants.Columns.SURVEY_RESPONSE] : '',
                                 selectedResponse: response ? response[Constants.Columns.Selected_Response] : '',
                                 testDriveID: testDriveID,
                                 questionID: question.id,
