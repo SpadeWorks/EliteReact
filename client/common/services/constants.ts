@@ -84,6 +84,7 @@ export class Columns {
 export class ColumnsValues {
     static COMPLETE_STATUS = 'Complete';
     static DRAFT = "Draft";
+    static INPROGRESS = "Inprogress";
     static SUBMIT = "Submit";
     static TEST_CASE_COMPLETION = 'Test Case Bonus';
     static QUESTION_TYPE_OBJECTIVE = "Objective";

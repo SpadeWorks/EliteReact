@@ -122,6 +122,60 @@ export class Services {
                 })
         })
     }
+    static submitTestDriveResponse(testDriveInstance: TestDriveInstance) {
+        return new Promise((resolve, reject) => {
+            var testCaseArray = [];
+            testDriveInstance.testCases.map(testCasesInstance => {
+                if (testCasesInstance.responseStatus == Constants.ColumnsValues.DRAFT) {
+                    testCaseArray.push({
+                        [Constants.Columns.ID]: testCasesInstance.responseID,
+                        [Constants.Columns.TEST_CASE_RESPONSE_STATUS]: Constants.ColumnsValues.COMPLETE_STATUS,
+                    })
+                    testCasesInstance.responseStatus = Constants.ColumnsValues.COMPLETE_STATUS
+                }
+            });
+            Services.createOrUpdateListItemsInBatch(Constants.Lists.TEST_CASE_RESPONSES, testCaseArray)
+                .then((newResponses: any) => {
+                    testDriveInstance.testCases.map(testCasesInstance => {
+                        if (testCasesInstance.responseStatus == Constants.ColumnsValues.DRAFT) {
+                            testCasesInstance.responseStatus = Constants.ColumnsValues.COMPLETE_STATUS
+                        }
+                    });
+
+                    Services.getTestPointConfiguration(Constants.Lists.POINTS_CONFIGURATIONS)
+                        .then((testCasePoints: number) => {
+                            let testDrive = (<TestDriveInstance>{
+                                ...testDriveInstance,
+                                ID: testDriveInstance.instanceID,
+                            })
+
+                            if (testDriveInstance.status == Constants.ColumnsValues.DRAFT) {
+                                testDrive.numberOfTestCasesCompleted = testDriveInstance.numberOfTestCasesCompleted + testCaseArray.length,
+                                    testDrive.currentPoint = testDriveInstance.currentPoint + testCasePoints * testCaseArray.length
+                            }
+
+                            if (testDrive.numberOfTestCasesCompleted == testDriveInstance.testCases.length) {
+                                testDrive.status = Constants.ColumnsValues.COMPLETE_STATUS
+                            }
+
+                            Services.createOrSaveTestDriveInstance(testDrive).then((testDriveResponse: TestDriveInstance) => {
+                                resolve({
+                                    ...testDriveInstance,
+                                    currentPoint: testDriveResponse.currentPoint,
+                                    numberOfTestCasesCompleted: testDriveResponse.numberOfTestCasesCompleted,
+                                    status: testDriveResponse.status
+                                })
+                            })
+                        }, err => {
+                            Utils.clientLog(err);
+                        });
+                }, err => {
+                    Utils.clientLog(err);
+                });
+
+        });
+    }
+
     static createOrSaveTestDriveInstance(testDriveInstance: TestDriveInstance) {
         return new Promise((resolve, reject) => {
             Services.createOrUpdateListItemsInBatch(Constants.Lists.TEST_DRIVE_INSTANCES, [{
@@ -142,7 +196,7 @@ export class Services {
                     numberOfTestCasesCompleted: newTestDrive ? newTestDrive[Constants.Columns.TEST_CASE_COMPLETED] : 0,
                     status: newTestDrive ? newTestDrive[Constants.Columns.STATUS] : Constants.ColumnsValues.DRAFT,
                 });
-            }, err =>{ 
+            }, err => {
                 reject(err)
             })
         })
@@ -204,57 +258,38 @@ export class Services {
                     selectedResponse: newResponse[Constants.Columns.Selected_Response]
                 };
 
-                if (testCasesInstance.newItem) {
-                    Services.getTestPointConfiguration(Constants.Lists.POINTS_CONFIGURATIONS)
-                        .then((testCasePoints: number) => {
-                            let testDrive = (<TestDriveInstance>{
-                                ...testDriveInstance,
-                                currentPoint: testDriveInstance.currentPoint + testCasePoints,
-                                numberOfTestCasesCompleted: testDriveInstance.numberOfTestCasesCompleted + 1
-                            })
-                            Services.createOrSaveTestDriveInstance(testDrive).then(testDriveInstance => {
-                                Services.saveResponseAttachment(responseID, testCasesInstance, listItem)
-                                    .then(att => {
-                                    resolve({
-                                        testDriveInstance: testDriveInstance,
-                                        testCaseInstance: testCase
-                                    })
-                                }, (error) => {
-                                    Utils.clientLog(error);
-                                });
-                            })
-                        })
-                } else {
-                    Services.saveResponseAttachment(responseID, testCasesInstance, listItem).then(att => {
-                        resolve({
-                            testDriveInstance: testDriveInstance,
-                            testCaseInstance: testCase,
-                        })
-                    }, (error) => {
-                        reject(error);
-                        Utils.clientLog(error);
-                    });
-                }
+                Services.saveResponseAttachment(responseID, testCasesInstance, listItem).then((attachments: any) => {
+                    testCase.files = attachments;
+                    resolve({
+                        testDriveInstance: testDriveInstance,
+                        testCaseInstance: testCase,
+                    })
+                }, (error) => {
+                    reject(error);
+                    Utils.clientLog(error);
+                });
+
+
             }, err => reject(err))
         })
     }
+
 
     static saveResponseAttachment(responseID, testCasesInstance, listItem) {
         return new Promise((resolve, reject) => {
             if (responseID && testCasesInstance.files.length) {
                 Services.setAttachmentByItemID(listItem, testCasesInstance.files).then((files: any) => {
                     testCasesInstance.files = files;
-                    Services.createOrUpdateListItemsInBatch(Constants.Lists.TEST_CASE_RESPONSES, [{
-                        ID: responseID,
-                        [Constants.Columns.RESPONSE_ATTACHMENTS]: JSON.stringify(testCasesInstance.files),
-                    }]).then(result => {
-                        resolve(result);
+                    pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).items.getById(responseID).update({
+                        [Constants.Columns.RESPONSE_ATTACHMENTS]: JSON.stringify(testCasesInstance.files)
+                    }).then(result => {
+                        resolve(testCasesInstance.files);
                         Utils.clientLog(result);
                     }, error => {
                         reject(error);
                         Utils.clientLog(error);
                     })
-                }, (error) =>{
+                }, (error) => {
                     reject(error);
                 })
             } else {
@@ -262,6 +297,8 @@ export class Services {
             }
         })
     }
+
+
 
     static getTestDriveResponse(testDriveID: number, userId: number) {
         return new Promise((resolve, reject) => {
@@ -417,7 +454,7 @@ export class Services {
                         userID: userID,
                         testDriveID: testDriveID,
                         responseID: response ? response.responseID : -1,
-                        responseStatus: response ? response.responseStatus : Constants.ColumnsValues.DRAFT,
+                        responseStatus: response ? response.responseStatus : Constants.ColumnsValues.INPROGRESS,
                         selectedResponse: response ? response.selectedResponse : '',
                         testCaseResponse: response ? response.testCaseResponse : '',
                         files: response ? (response.files && response.files.files) : []
@@ -425,7 +462,7 @@ export class Services {
                 })
 
                 var instance = <TestDriveInstance>{
-                    instanceID: testDriveInstance ? testDriveInstance.TestDriveID[Constants.Columns.ID] : -1,
+                    instanceID: testDriveInstance ? testDriveInstance[Constants.Columns.ID] : -1,
                     currentPoint: testDriveInstance ? testDriveInstance[Constants.Columns.CURRENT_POINTS] : 0,
                     dateJoined: testDriveInstance ? testDriveInstance[Constants.Columns.DATE_JOINED] : "",
                     numberOfTestCasesCompleted: testDriveInstance ? testDriveInstance[Constants.Columns.TEST_CASE_COMPLETED] : 0,
@@ -2313,19 +2350,17 @@ export class TermStore {
     }
 
     getTermSet(id, callback) {
-        this.loadTaxonomyScripts().then(() => {
-            var ctx = SP.ClientContext.get_current(),
-                taxonomySession = SP.Taxonomy.TaxonomySession.getTaxonomySession(ctx),
-                termStore = taxonomySession.getDefaultSiteCollectionTermStore(),
-                termSet = termStore.getTermSet(id),
-                terms = termSet.getAllTerms();
+        var ctx = SP.ClientContext.get_current(),
+            taxonomySession = SP.Taxonomy.TaxonomySession.getTaxonomySession(ctx),
+            termStore = taxonomySession.getDefaultSiteCollectionTermStore(),
+            termSet = termStore.getTermSet(id),
+            terms = termSet.getAllTerms();
 
-            ctx.load(terms);
+        ctx.load(terms);
 
-            ctx.executeQueryAsync(() => {
-                callback(terms);
-            }, (sender, args) => { });
-        });
+        ctx.executeQueryAsync(() => {
+            callback(terms);
+        }, (sender, args) => { });
     };
 
     getTermSetAsTree(id, termSetName) {

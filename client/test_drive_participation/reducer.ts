@@ -1,4 +1,5 @@
 import { handleActions, Action } from 'redux-actions';
+import * as Constants from '../common/services/constants';
 import { TestDriveInstance, TestCaseInstance, QuestionInstance, IState } from './model';
 import {
     LOAD_TestDriveInstanceByID_PENDING,
@@ -18,9 +19,13 @@ import {
     CREATE_QuestionInstance_PENDING,
     CREATE_QuestionInstance_REJECTED,
     DELETE_Attachment,
-    DELETE_Attachment_FULFILLED
+    DELETE_Attachment_FULFILLED,
+    SUBMIT_TestDriveInstance_PENDING,
+    SUBMIT_TestDriveInstance_FULFILLED,
+    SUBMIT_TestDriveInstance_REJECTED
 
 } from './constants/ActionTypes';
+import { submitTestDrive } from '../test_drive/index';
 
 const initialState: IState = {
     testDriveInstance: {
@@ -39,7 +44,7 @@ const initialState: IState = {
         maxTestDrivers: 5000,
         testCases: [],
         questions: [],
-        status: 'Draft',
+        status: Constants.ColumnsValues.INPROGRESS,
         level: 'Level1',
         currentPoint: 0,
         dateJoined: "",
@@ -198,6 +203,39 @@ export default handleActions<IState, any>({
             testDriveInstance: {
                 ...state.testDriveInstance,
                 questionSaveInProgress: false
+            }
+        }
+    },
+
+    [SUBMIT_TestDriveInstance_PENDING]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            testDriveInstance: {
+                ...state.testDriveInstance,
+                testCaseSaveInProgress: true
+            }
+        }
+    },
+    [SUBMIT_TestDriveInstance_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            testDriveInstance: {
+                ...state.testDriveInstance,
+                currentPoint: action.payload.currentPoint,
+                numberOfTestCasesCompleted: action.payload.numberOfTestCasesCompleted,
+                testCaseSaveInProgress: false,
+                status: action.payload.status
+            },
+            loading: false
+        }
+    },
+
+    [SUBMIT_TestDriveInstance_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            testDriveInstance: {
+                ...state.testDriveInstance,
+                testCaseSaveInProgress: false
             }
         }
     },

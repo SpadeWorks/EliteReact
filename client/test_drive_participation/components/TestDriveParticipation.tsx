@@ -13,6 +13,7 @@ import ui from 'redux-ui';
 interface TestDriveParticipationProps {
     testDriveInstance: TestDriveInstance;
     saveTestCaseResponse: (testCase: TestCaseInstance, testDrive: TestDriveInstance) => any;
+    submitTestDriveInstance: (testDriveInstance: TestDriveInstance) => any;
     saveQuestionResponse: (question: QuestionInstance) => any;
     loadQuestions: (testDriveID: number, questions: number[], userID: number) => any;
     updateUI: (any) => any;
@@ -49,7 +50,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
 
     }
     render() {
-        const { testDriveInstance, saveTestCaseResponse, loadQuestions, saveQuestionResponse, ui, updateUI } = this.props;
+        const { testDriveInstance, saveTestCaseResponse, submitTestDriveInstance, loadQuestions, saveQuestionResponse, ui, updateUI } = this.props;
         return (<div className="col-md-12">
             <div className="row">
                 <div className="container header_part">
@@ -82,6 +83,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                             testCases={testDriveInstance.testCases}
                                             saveTestCaseResponse={(testCase, testDrive) =>
                                                 saveTestCaseResponse(testCase, testDrive)}
+                                            submitTestDriveInstance={(t) => submitTestDriveInstance(t)}
                                             updateUI={updateUI}
                                             ui={ui}
                                         />
@@ -106,7 +108,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                         {
                             testDriveInstance.testCases && testDriveInstance.testCases.length &&
                             testDriveInstance.testCases.map((testCase, index) => {
-                                return (<div className="col-md-8 write_testdrivebox" id={"test-case-details" + index}>
+                                return (<div className="col-md-8 write_testdrivebox" id={"test-case-details" + index} key={index}>
                                     <div className="col-md-12">
                                         <i onClick={() => this.closePopUp(index)} 
                                             className="material-icons pull-right" 
