@@ -43,14 +43,14 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
             <Pane label="PENDING APPROVAL">
                 {
                     (testDrivesWaitingForApproval && testDrivesWaitingForApproval.length) ? testDrivesWaitingForApproval.map(testDrive => {
-                        <ApprovalPendingItem testDrive={testDrive} />
+                        return <ApprovalPendingItem testDrive={testDrive} />
                     }) : ''
                 }
             </Pane>
             <Pane label="APPROVED TEST DRIVES">
                 {
                     (approvedTestDrives && approvedTestDrives.length) ? approvedTestDrives.map(testDrive => {
-                        <ApprovalPendingItem testDrive={testDrive} />
+                        return <ApprovalPendingItem testDrive={testDrive} />
                     }) : ''
                 }
             </Pane>
