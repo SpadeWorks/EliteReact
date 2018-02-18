@@ -19,6 +19,7 @@ export class Lists {
 export class CacheKeys {
     static CONFIGURATIONS = 'configurations';
     static ELITE_PROFILE = 'ELITE_PROFILE';
+    static APPLICATION_CONFIGURATIONS = 'APPLICATION_CONFIGURATIONS';
 
 }
 
@@ -83,11 +84,14 @@ export class Columns {
 
 export class ColumnsValues {
     static COMPLETE_STATUS = 'Complete';
+    static ACTIVE = 'Active';
+    static READY_FOR_LAUNCH = 'Ready for Launch';
     static DRAFT = "Draft";
     static INPROGRESS = "Inprogress";
     static SUBMIT = "Submit";
     static TEST_CASE_COMPLETION = 'Test Case Bonus';
     static QUESTION_TYPE_OBJECTIVE = "Objective";
+
 }
 
 export class Globals {

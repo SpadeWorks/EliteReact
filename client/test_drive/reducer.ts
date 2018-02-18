@@ -1,5 +1,4 @@
 import { handleActions, Action } from 'redux-actions';
-
 import { TestDrive, TestCase, Question, IState } from './model';
 import {
     LOAD_TestDrive_PENDING,
@@ -41,12 +40,52 @@ import {
     SWITCH_Tab,
     UPDATE_Date,
     DATE_FocusChange,
-    LOAD_Configurations
+    LOAD_Configurations,
+
+    LOAD_TestDrivesWaitingFormApproval_PENDING,
+    LOAD_TestDrivesWaitingFormApproval_FULFILLED,
+    LOAD_TestDrivesWaitingFormApproval_REJECTED,
+
+    LOAD_ApprovedTestDrives_PENDING,
+    LOAD_ApprovedTestDrives_FULFILLED,
+    LOAD_ApprovedTestDrives_REJECTED,
+
+    LOAD_UpCommingTestDrives_PENDING,
+    LOAD_UpCommingTestDrives_FULFILLED,
+    LOAD_UpCommingTestDrives_REJECTED,
+
+    LOAD_ActiveTestDrives_PENDING,
+    LOAD_ActiveTestDrives_FULFILLED,
+    LOAD_ActiveTestDrives_REJECTED,
+
+    LOAD_InProgressTestDrivesIRun_PENDING,
+    LOAD_InProgressTestDrivesIRun_FULFILLED,
+    LOAD_InProgressTestDrivesIRun_REJECTED,
+    LOAD_CompletedTestDrivesIRun_PENDING,
+    LOAD_CompletedTestDrivesIRun_FULFILLED,
+    LOAD_CompletedTestDrivesIRun_REJECTED,
+    LOAD_UpcommingTestDrivesIRun_PENDING,
+    LOAD_UpcommingTestDrivesIRun_FULFILLED,
+    LOAD_UpcommingTestDrivesIRun_REJECTED,
+    LOAD_DraftedTestDrivesIRun_PENDING,
+    LOAD_DraftedTestDrivesIRun_FULFILLED,
+    LOAD_DraftedTestDrivesIRun_REJECTED,
+    LOAD_SubmittedTestDrivesIRun_PENDING,
+    LOAD_SubmittedTestDrivesIRun_FULFILLED,
+    LOAD_SubmittedTestDrivesIRun_REJECTED,
+
+    LOAD_MyInprogressTestDrives_PENDING,
+    LOAD_MyInprogressTestDrives_FULFILLED,
+    LOAD_MyInprogressTestDrives_REJECTED,
+    LOAD_MyCompletedTestDrives_PENDING,
+    LOAD_MyCompletedTestDrives_FULFILLED,
+    LOAD_MyCompletedTestDrives_REJECTED,
+    LOAD_CompletedTestDrivesIRun
+
 
 } from './constants/ActionTypes';
-import { access, stat } from 'fs';
-import TestDrives from './components/TestDrives';
-import { loadTestDrives } from './index';
+import { LOAD_ActiveTestDrive_PENDING, LOAD_ActiveTestDrive_FULFILLED, LOAD_ActiveTestDrive_REJECTED, LOAD_UpcomingTestDrive_PENDING } from '../home/constants/ActionTypes';
+import { SUBMIT_TestDriveInstance_FULFILLED } from '../test_drive_participation/constants/ActionTypes';
 
 const initialState: IState = {
     testDrive: {
@@ -442,6 +481,226 @@ export default handleActions<IState, any>({
         }
     },
 
+    [LOAD_TestDrivesWaitingFormApproval_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
+        return {
+            ...state,
+            testDrivesWaitingFormApprovalLoading: true
+        }
+    },
+
+    [LOAD_TestDrivesWaitingFormApproval_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            testDrivesWaitingFormApproval: action.payload,
+            testDrivesWaitingFormApprovalLoading: false
+        }
+    },
+
+    [LOAD_TestDrivesWaitingFormApproval_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            testDrivesWaitingFormApprovalLoading: false
+        }
+    },
+
+    [LOAD_ApprovedTestDrives_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
+        return {
+            ...state,
+            approvedTestDrivesLoading: true
+        }
+    },
+
+    [LOAD_ApprovedTestDrives_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            approvedTestDrives: action.payload,
+            approvedTestDrivesLoading: true
+        }
+    },
+
+    [LOAD_ApprovedTestDrives_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            approvedTestDrivesLoading: false
+        }
+    },
+
+    [LOAD_ActiveTestDrive_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
+        return {
+            ...state,
+            activeTestDrivesLoading: true
+        }
+    },
+
+    [LOAD_ActiveTestDrive_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            activeTestDrives: action.payload,
+            activeTestDrivesLoading: true
+        }
+    },
+
+    [LOAD_ActiveTestDrive_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            activeTestDrivesLoading: false
+        }
+    },
+
+    [LOAD_UpcomingTestDrive_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
+        return {
+            ...state,
+            upCommingTestDrivesLoading: true
+        }
+    },
+
+    [LOAD_UpCommingTestDrives_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            upCommingTestDrives: action.payload,
+            upCommingTestDrivesLoading: true
+        }
+    },
+
+    [LOAD_UpCommingTestDrives_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            upCommingTestDrivesLoading: false
+        }
+    },
+
+    [LOAD_CompletedTestDrivesIRun_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
+        return {
+            ...state,
+            completedTestDrivesIRunLoading: true
+        }
+    },
+
+    [LOAD_CompletedTestDrivesIRun_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            completedTestDrivesIRun: action.payload,
+            completedTestDrivesIRunLoading: true
+        }
+    },
+
+    [LOAD_CompletedTestDrivesIRun_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            completedTestDrivesIRunLoading: false
+        }
+    },
+
+
+    [LOAD_InProgressTestDrivesIRun_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
+        return {
+            ...state,
+            inProgressTestDrivesIRunLoading: true
+        }
+    },
+
+    [LOAD_InProgressTestDrivesIRun_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            inProgressTestDrivesIRun: action.payload,
+            inProgressTestDrivesIRunLoading: true
+        }
+    },
+
+    [LOAD_InProgressTestDrivesIRun_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            inProgressTestDrivesIRunLoading: false
+        }
+    },
+
+    [LOAD_DraftedTestDrivesIRun_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
+        return {
+            ...state,
+            draftedTestDrivesIRunLoading: true
+        }
+    },
+
+    [LOAD_DraftedTestDrivesIRun_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            draftedTestDrivesIRun: action.payload,
+            draftedTestDrivesIRunLoading: true
+        }
+    },
+
+    [LOAD_DraftedTestDrivesIRun_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            draftedTestDrivesIRunLoading: false
+        }
+    },
+
+    [LOAD_SubmittedTestDrivesIRun_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
+        return {
+            ...state,
+            submittedTestDrivesIRunLoading: true
+        }
+    },
+
+    [SUBMIT_TestDriveInstance_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            submittedTestDrivesIRun: action.payload,
+            submittedTestDrivesIRunLoading: true
+        }
+    },
+
+    [LOAD_SubmittedTestDrivesIRun_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            submittedTestDrivesIRunLoading: false
+        }
+    },
+
+    [LOAD_MyCompletedTestDrives_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
+        return {
+            ...state,
+            myCompletedTestDrivesLoading: true
+        }
+    },
+
+    [LOAD_MyCompletedTestDrives_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            myCompletedTestDrives: action.payload,
+            myCompletedTestDrivesLoading: true
+        }
+    },
+
+    [LOAD_MyCompletedTestDrives_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            myCompletedTestDrivesLoading: false
+        }
+    },
+
+    [LOAD_MyInprogressTestDrives_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
+        return {
+            ...state,
+            myInprogressTestDrivesLoading: true
+        }
+    },
+
+    [LOAD_MyInprogressTestDrives_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            myCompletedTestDrives: action.payload,
+            myInprogressTestDrivesLoading: true
+        }
+    },
+
+    [LOAD_MyInprogressTestDrives_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            myInprogressTestDrivesLoading: false
+        }
+    },
 
 
 }, initialState);

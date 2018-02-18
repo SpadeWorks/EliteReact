@@ -40,6 +40,47 @@ pnp.setup({
 
 export class Services {
 
+    static getTestDrivesWaitingForApproval(skip: number, top: number) {
+        return new Promise((resolve, reject) => {
+            var filter = Constants.Columns.TESTDRIVE_STATUS + " eq '" + Constants.ColumnsValues.COMPLETE_STATUS + "'";
+            Services.getTestDrivesByFilter(filter, skip, top).then(testdrives => {
+                resolve(testdrives);
+            }, error => {
+                reject(error);
+            });
+        });
+    }
+
+    static getApprovedTestDrives(skip: number, top: number) {
+        return new Promise((resolve, reject) => {
+            var filter = Constants.Columns.TESTDRIVE_STATUS + " eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'"
+            Services.getTestDrivesByFilter(filter, skip, top).then(testdrives => {
+                resolve(testdrives);
+            }, error => {
+                reject(error);
+            });
+        });
+    }
+
+    static approveTestdrive(id) {
+        return new Promise((resolve, reject) => {
+            let newTestDrive = {
+                ID: id,
+                [Constants.Columns.TESTDRIVE_STATUS]: Constants.ColumnsValues.READY_FOR_LAUNCH
+            }
+            this.createOrUpdateListItemsInBatch(Constants.Lists.TEST_DRIVES,
+                [newTestDrive]).then((data: TestDrive) => {
+                    resolve({
+                        status: data[Constants.Columns.TESTDRIVE_STATUS]
+                    });
+                }, err => {
+                    reject(err);
+                }).catch(err => {
+                    Utils.clientLog(err);
+                });
+        });
+    }
+
     static getAttachments(item) {
         return new Promise((resolve, reject) => {
             item.attachmentFiles.get().then(files => {
@@ -47,7 +88,7 @@ export class Services {
                     id: item.id,
                     files: files
                 });
-                console.log(files);
+                Utils.clientLog(files);
             }, error => {
                 reject(error);
             });
@@ -298,8 +339,6 @@ export class Services {
         })
     }
 
-
-
     static getTestDriveResponse(testDriveID: number, userId: number) {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
@@ -492,53 +531,6 @@ export class Services {
             }, err => reject(err))
         })
     }
-
-    // static getTestDriveInstanceWithFilter(filter) {
-    //     return new Promise((resolve, reject) => {
-    //         let testDriveResponses = Services.getTestDriveResponsesWithFilter(filter);
-    //         let testDrives = Services.getTestDrivesByFilter(filter);
-    //         let response;
-    //         Promise.all([testDrives, testDriveResponses]).then(results => {
-    //             let testDrives = <any>results[0];
-    //             let testDriveResponses = <any>results[1];
-
-    //             testDriveResponses && 
-    //             testDriveResponses.length &&
-    //             testDriveResponses.map(testDriveInstance => {
-    //                 var instance = <TestDriveInstance>{
-    //                     instanceID: testDriveInstance ? testDriveInstance.TestDriveID[Constants.Columns.ID] : -1,
-    //                     currentPoint: testDriveInstance ? testDriveInstance[Constants.Columns.CURRENT_POINTS] : 0,
-    //                     dateJoined: testDriveInstance ? testDriveInstance[Constants.Columns.DATE_JOINED] : "",
-    //                     numberOfTestCasesCompleted: testDriveInstance ? testDriveInstance[Constants.Columns.TEST_CASE_COMPLETED] : 0,
-    //                     status: testDriveInstance ? testDriveInstance[Constants.Columns.STATUS] : Constants.ColumnsValues.DRAFT,
-    //                     testDriveID: testDrive.id,
-    //                     title: testDrive.title,
-    //                     description: testDrive.description,
-    //                     startDate: testDrive.startDate,
-    //                     endDate: testDrive.endDate,
-    //                     maxPoints: testDrive.maxTestDrivers,
-    //                     department: testDrive.department,
-    //                     location: testDrive.location,
-    //                     requiredDevices: testDrive.requiredDevices,
-    //                     requiredOs: testDrive.requiredOs,
-    //                     maxTestDrivers: testDrive.maxTestDrivers,
-    //                     level: testDrive.level,
-    //                     owner: testDrive.owner,
-    //                     testCases: testCasesInstances,
-    //                     questions: null,
-    //                     testCaseIDs: testDrive.testCaseIDs,
-    //                     questionIDs: testDrive.questionIDs,
-    //                     expectedBusinessValue: testDrive.expectedBusinessValue,
-    //                     region: testDrive.region
-    //                 };
-    //             });
-
-
-
-    //             resolve(instance)
-    //         }, err => reject(err))
-    //     })
-    // }
 
     static getCurrentUserID() {
         let user = <User>this.getUserProfileProperties();
@@ -875,17 +867,23 @@ export class Services {
 
     static getApplicationConfigurations() {
         return new Promise((resolve, reject) => {
-            pnp.sp.web.lists.getByTitle(Constants.Lists.APPLICATION_CONFIGURATIONS).items
-                .top(100).get().then(configurations => {
-                    var appConfig = {};
-                    configurations && configurations.length &&
-                        configurations.map(configuration => {
-                            appConfig[configuration.AppConfigKey] = configuration.AppConfigValue;
-                        })
-                    resolve(appConfig);
-                }, err => {
-                    reject(err);
-                })
+            var appConfig = Cache.getCache(Constants.CacheKeys.APPLICATION_CONFIGURATIONS);
+            if (appConfig) {
+                resolve(appConfig);
+            } else {
+                pnp.sp.web.lists.getByTitle(Constants.Lists.APPLICATION_CONFIGURATIONS).items
+                    .top(100).get().then(configurations => {
+                        var appConfig = {};
+                        configurations && configurations.length &&
+                            configurations.map(configuration => {
+                                appConfig[configuration.AppConfigKey] = configuration.AppConfigValue;
+                            })
+                        Cache.setCache(Constants.CacheKeys.APPLICATION_CONFIGURATIONS, appConfig);
+                        resolve(appConfig);
+                    }, err => {
+                        reject(err);
+                    })
+            }
         });
     }
 
@@ -948,7 +946,8 @@ export class Services {
 
     static getTestDrivesByOwerneID(ownerID: number, skip = 0, top = 3) {
         return new Promise((resolve, reject) => {
-            Services.getTestDrivesByFilter("TestDriveOwner eq " + ownerID, skip, top)
+            var filter = "TestDriveOwner eq " + ownerID;
+            Services.getTestDrivesByFilter(filter, skip, top)
                 .then((testDrives: any) => {
                     var testDrivesIDs = [];
                     testDrives.map((testDrive, index) => {
@@ -970,6 +969,158 @@ export class Services {
                 });
         });
     }
+
+    static getDraftedTestDrivesIRun(ownerID: number, skip = 0, top = 3) {
+        return new Promise((resolve, reject) => {
+            var d = new Date();
+            var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            var filter = "TestDriveOwner eq " + ownerID +
+                " and TestDriveStatus eq '" + Constants.ColumnsValues.DRAFT + "'";
+            Services.getTestDrivesByFilter(filter, skip, top)
+                .then((testDrives: any) => {
+                    var testDrivesIDs = [];
+                    testDrives.map((testDrive, index) => {
+                        testDrivesIDs.push(testDrive.id);
+                    });
+                    Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
+                        var testDrivesResults = [];
+                        testDrives.map((testDrive, index) => {
+                            testDrivesResults.push({
+                                participants: participants[index],
+                                testDrive: testDrive
+                            })
+                        })
+                        resolve(testDrivesResults);
+                    })
+
+                }, error => {
+                    Utils.clientLog(error);
+                });
+        });
+    }
+
+    static getSubmitedTestDrivesIRun(ownerID: number, skip = 0, top = 3) {
+        return new Promise((resolve, reject) => {
+            var d = new Date();
+            var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            var filter = "TestDriveOwner eq " + ownerID +
+                " and TestDriveStatus eq '" + Constants.ColumnsValues.SUBMIT + "'";
+            Services.getTestDrivesByFilter(filter, skip, top)
+                .then((testDrives: any) => {
+                    var testDrivesIDs = [];
+                    testDrives.map((testDrive, index) => {
+                        testDrivesIDs.push(testDrive.id);
+                    });
+                    Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
+                        var testDrivesResults = [];
+                        testDrives.map((testDrive, index) => {
+                            testDrivesResults.push({
+                                participants: participants[index],
+                                testDrive: testDrive
+                            })
+                        })
+                        resolve(testDrivesResults);
+                    })
+
+                }, error => {
+                    Utils.clientLog(error);
+                });
+        });
+    }
+
+
+    static getInProgressTestDrivesIRun(ownerID: number, skip = 0, top = 3) {
+        return new Promise((resolve, reject) => {
+            var d = new Date();
+            var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            var filter = "TestDriveOwner eq " + ownerID +
+                " and TestDriveStatus eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'" +
+                " and TestDriveStartDate le datetime'" + todayDate + "T00:00:00.000Z'" +
+                " and TestDriveEndDate ge datetime'" + todayDate + "T00:00:00.000Z'";
+            Services.getTestDrivesByFilter(filter, skip, top)
+                .then((testDrives: any) => {
+                    var testDrivesIDs = [];
+                    testDrives.map((testDrive, index) => {
+                        testDrivesIDs.push(testDrive.id);
+                    });
+                    Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
+                        var testDrivesResults = [];
+                        testDrives.map((testDrive, index) => {
+                            testDrivesResults.push({
+                                participants: participants[index],
+                                testDrive: testDrive
+                            })
+                        })
+                        resolve(testDrivesResults);
+                    })
+
+                }, error => {
+                    Utils.clientLog(error);
+                });
+        });
+    }
+
+    static getCompletedTestDriveIRun(ownerID: number, skip = 0, top = 3) {
+        return new Promise((resolve, reject) => {
+            var d = new Date();
+            var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            var filter = "TestDriveOwner eq " + ownerID +
+                " and TestDriveStatus eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'" +
+                " and TestDriveEndDate lt datetime'" + todayDate + "T00:00:00.000Z'";
+            Services.getTestDrivesByFilter(filter, skip, top)
+                .then((testDrives: any) => {
+                    var testDrivesIDs = [];
+                    testDrives.map((testDrive, index) => {
+                        testDrivesIDs.push(testDrive.id);
+                    });
+                    Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
+                        var testDrivesResults = [];
+                        testDrives.map((testDrive, index) => {
+                            testDrivesResults.push({
+                                participants: participants[index],
+                                testDrive: testDrive
+                            })
+                        })
+                        resolve(testDrivesResults);
+                    })
+
+                }, error => {
+                    Utils.clientLog(error);
+                });
+        });
+    }
+
+    static getUpCommingTestDriveIRun(ownerID: number, skip = 0, top = 3) {
+        return new Promise((resolve, reject) => {
+            var d = new Date();
+            var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            var filter = "TestDriveOwner eq " + ownerID +
+                " and TestDriveStatus eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'" +
+                " and TestDriveStartDate gt datetime'" + todayDate + "T00:00:00.000Z'";
+            Services.getTestDrivesByFilter(filter, skip, top)
+                .then((testDrives: any) => {
+                    var testDrivesIDs = [];
+                    testDrives.map((testDrive, index) => {
+                        testDrivesIDs.push(testDrive.id);
+                    });
+                    Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
+                        var testDrivesResults = [];
+                        testDrives.map((testDrive, index) => {
+                            testDrivesResults.push({
+                                participants: participants[index],
+                                testDrive: testDrive
+                            })
+                        })
+                        resolve(testDrivesResults);
+                    })
+
+                }, error => {
+                    Utils.clientLog(error);
+                });
+        });
+    }
+
+
 
     static getTestDriveById(testDriveID: number) {
         return new Promise((resolve, reject) => {
@@ -1408,7 +1559,7 @@ export class Services {
                 .filter("IsDefault eq 1 and CarLevel eq 1")
                 .get().then(car => {
                     resolve(car[0]);
-                    console.log(car);
+                    Utils.clientLog(car);
                 })
         });
     }
@@ -1425,7 +1576,7 @@ export class Services {
                 .filter("IsDefault eq 1 and CarLevel eq 1")
                 .get().then(car => {
                     resolve(car[0]);
-                    console.log(car);
+                    Utils.clientLog(car);
                 })
         });
     }
@@ -1437,7 +1588,7 @@ export class Services {
                 .filter("IsDefault eq 1")
                 .get().then(avatar => {
                     resolve(avatar[0]);
-                    console.log(avatar[0]);
+                    Utils.clientLog(avatar[0]);
                 })
         })
 
@@ -1556,7 +1707,7 @@ export class Services {
                     promises.push(termStore.getTermSetAsTree(termSet.id, termSet.name));
                 });
                 Promise.all(promises).then((data) => {
-                    console.log(data);
+                    Utils.clientLog(data);
                 })
             })
         })
@@ -1742,7 +1893,7 @@ export class Services {
                 .filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z'")
                 .skip(skip).top(count)
                 .get().then(leaders => {
-                    console.log(leaders);
+                    Utils.clientLog(leaders);
                     leaders.map((leader, index) => {
                         globalLeaders.push({
                             id: leader.ID,
@@ -1781,7 +1932,7 @@ export class Services {
                 .filter("PointsEarnedOnDate gt datetime'" +
                 lastYear + "T23:59:59.000Z' and " + Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION + " eq '" + region + "'")
                 .get().then(leaders => {
-                    console.log(leaders);
+                    Utils.clientLog(leaders);
                     leaders.map((leader, index) => {
                         regionalLeaders.push({
                             id: leader.ID,
@@ -1881,40 +2032,46 @@ export class Services {
 
     static getActiveTestDrives(skip = 0, top = 3) {
         var d = new Date();
+        var userRegion = Services.getUserProfileProperties().region || '';
         var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+        var filter = "TestDriveStatus eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'"
+        " and TestDriveStartDate le datetime'" + todayDate + "T00:00:00.000Z'" +
+            " and TestDriveEndDate ge datetime'" + todayDate + "T00:00:00.000Z'";
         return new Promise((resolve, reject) => {
-            Services.getTestDrivesByFilter("TestDriveStatus eq 'Active' and TestDriveStartDate le datetime'" + todayDate +
-                "T00:00:00.000Z' and TestDriveEndDate ge datetime'" + todayDate + "T00:00:00.000Z'").then((testDriveInstances: TestDrive[]) => {
-                    if (testDriveInstances && testDriveInstances.length > 0) {
-                        let activeTestDriveArr: HomeTestDrive[] = [];
-                        let testDrivesIDs = [];
-                        testDriveInstances.map((value, index) => {
-                            testDrivesIDs.push(testDriveInstances[index].id);
-                        });
-                        Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
-                            testDriveInstances.map((testDrive, index) => {
-                                activeTestDriveArr.push({
-                                    id: testDrive.id,
-                                    title: testDrive.title,
-                                    enddate: testDrive.endDate,
-                                    participants: parseInt(participants[index]),
-                                    testDrive: testDrive
-                                });
+            Services.getTestDrivesByFilter(filter).then((testDriveInstances: TestDrive[]) => {
+                if (testDriveInstances && testDriveInstances.length > 0) {
+                    let activeTestDriveArr: HomeTestDrive[] = [];
+                    let testDrivesIDs = [];
+                    testDriveInstances.map((value, index) => {
+                        testDrivesIDs.push(testDriveInstances[index].id);
+                    });
+                    Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
+                        testDriveInstances.map((testDrive, index) => {
+                            activeTestDriveArr.push({
+                                id: testDrive.id,
+                                title: testDrive.title,
+                                enddate: testDrive.endDate,
+                                participants: parseInt(participants[index]),
+                                testDrive: testDrive
                             });
-                            resolve(activeTestDriveArr);
-                        }, err => reject(err))
-                    } else {
-                        resolve(testDriveInstances);
-                    }
-                })
+                        });
+                        resolve(activeTestDriveArr);
+                    }, err => reject(err))
+                } else {
+                    resolve(testDriveInstances);
+                }
+            })
         });
     }
 
     static getUpcomingTestDrives(skip = 0, top = 3) {
         var d = new Date();
+        var userRegion = Services.getUserProfileProperties().region || '';
         var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+        var filter = "TestDriveStatus eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'" +
+            " and TestDriveStartDate ge datetime'" + todayDate + "T00:00:00.000Z'";
         return new Promise((resolve, reject) => {
-            Services.getTestDrivesByFilter("TestDriveStatus eq 'Active' and TestDriveStartDate ge datetime'" + todayDate + "T00:00:00.000Z'")
+            Services.getTestDrivesByFilter(filter)
                 .then((testDriveInstances: TestDrive[]) => {
                     if (testDriveInstances && testDriveInstances.length > 0) {
                         let upcomingTestDriveArr: HomeTestDrive[] = [];
@@ -2004,80 +2161,106 @@ export class Services {
     static getMyTestDrives(skip = 0, top = 3) {
         return new Promise((resolve, reject) => {
             var filter = Constants.Columns.USER_ID + ' eq ' + Services.getCurrentUserID();
-            Services.getTestDriveResponsesWithFilter(filter).then((testDriveInstances: any) => {
-                if (testDriveInstances && testDriveInstances.length > 0) {
-                    var myTestDriveArr: HomeTestDrive[] = [];
-                    var testDrivesIDs = [];
-                    testDriveInstances.map((value, index) => {
-                        testDrivesIDs.push(value.TestDriveID.ID);
-                    });
-                    Promise.all([Services.getTestDrivesByIDs(testDrivesIDs),
-                    Services.getTestDrivesParticipantCount(testDrivesIDs)]).then(results => {
-                        let testDrives: any = results[0];
-                        let participants = results[1];
-
-                        testDriveInstances.map((testDriveInstances, index) => {
-                            var testDrive = testDrives.filter(testdrive => {
-                                return testdrive.id == testDriveInstances.TestDriveID.ID;
-                            })
-                            testDrive = testDrive.length && testDrive[0];
-
-                            myTestDriveArr.push({
-                                id: testDrive.id,
-                                title: testDrive.title,
-                                enddate: testDrive.endDate,
-                                participants: parseInt(participants[index]),
-                                testDrive: testDrive,
-                                testDriveResponse: (<TestDriveResponse>{
-                                    instanceID: testDriveInstances.ID,
-                                    status: testDriveInstances.Status,
-                                    currentPoint: testDriveInstances.CurrentPoints,
-                                    dateJoined: testDriveInstances.DateJoined,
-                                    numberOfTestCasesCompleted: testDriveInstances.TestCaseCompleted
-                                })
-                            });
-                        });
-                        resolve(myTestDriveArr);
-                    }, err => reject(err))
-                } else {
-                    resolve(testDriveInstances);
-                }
-
+            Services.getMyTestDrivesByFilter(filter, skip, top).then(testDrives => {
+                resolve(testDrives);
+            }, error => {
+                reject(error);
             })
+        })
+    }
+    static getMyCompletedTestDrives(skip = 0, top = 3) {
+        return new Promise((resolve, reject) => {
+            var filter = Constants.Columns.USER_ID + ' eq ' + Services.getCurrentUserID() + ' and ' +
+                Constants.Columns.TESTDRIVE_STATUS + ' eq ' + Constants.ColumnsValues.COMPLETE_STATUS;
+            Services.getMyTestDrivesByFilter(filter, skip, top).then(testDrives => {
+                resolve(testDrives);
+            }, error => {
+                reject(error);
+            })
+        });
+    }
+
+    static getMyTestDrivesByFilter(filter, skip = 0, top = 3) {
+        return new Promise((resolve, reject) => {
+            var filter =
+                Services.getTestDriveResponsesWithFilter(filter).then((testDriveInstances: any) => {
+                    if (testDriveInstances && testDriveInstances.length > 0) {
+                        var myTestDriveArr: HomeTestDrive[] = [];
+                        var testDrivesIDs = [];
+                        testDriveInstances.map((value, index) => {
+                            testDrivesIDs.push(value.TestDriveID.ID);
+                        });
+                        Promise.all([Services.getTestDrivesByIDs(testDrivesIDs),
+                        Services.getTestDrivesParticipantCount(testDrivesIDs)]).then(results => {
+                            let testDrives: any = results[0];
+                            let participants = results[1];
+
+                            testDriveInstances.map((testDriveInstances, index) => {
+                                var testDrive = testDrives.filter(testdrive => {
+                                    return testdrive.id == testDriveInstances.TestDriveID.ID;
+                                })
+                                testDrive = testDrive.length && testDrive[0];
+
+                                myTestDriveArr.push({
+                                    id: testDrive.id,
+                                    title: testDrive.title,
+                                    enddate: testDrive.endDate,
+                                    participants: parseInt(participants[index]),
+                                    testDrive: testDrive,
+                                    testDriveResponse: (<TestDriveResponse>{
+                                        instanceID: testDriveInstances.ID,
+                                        status: testDriveInstances.Status,
+                                        currentPoint: testDriveInstances.CurrentPoints,
+                                        dateJoined: testDriveInstances.DateJoined,
+                                        numberOfTestCasesCompleted: testDriveInstances.TestCaseCompleted
+                                    })
+                                });
+                            });
+                            resolve(myTestDriveArr);
+                        }, err => reject(err))
+                    } else {
+                        resolve(testDriveInstances);
+                    }
+
+                })
         });
     }
 
     static getTestDrivesParticipantCount(testDrivesID) {
         return new Promise((resolve, reject) => {
-            SP.SOD.executeFunc("sp.js", "SP.ClientContext", () => {
-                let resultArr = [];
-                let testDrivesCount = testDrivesID.length;
-                var testDrives = [];
-                var clientContext = new SP.ClientContext.get_current();
-                var web = clientContext.get_web();
-                var list = web.get_lists().getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES);
-                $.each(testDrivesID, function (index, testDriveID) {
-                    var camlQuery = new SP.CamlQuery();
-                    var q = "<View><Query><Where><Eq><FieldRef Name='TestDriveID' /><Value Type='Integer'>" + testDriveID + "</Value></Eq></Where></Query></View>";
-                    camlQuery.set_viewXml(q);
-                    var listItems = list.getItems(camlQuery);
-                    testDrives[index] = listItems;
-                    clientContext.load(testDrives[index], 'Include(Id)');
+            if (testDrivesID.length) {
+                SP.SOD.executeFunc("sp.js", "SP.ClientContext", () => {
+                    let resultArr = [];
+                    let testDrivesCount = testDrivesID.length;
+                    var testDrives = [];
+                    var clientContext = new SP.ClientContext.get_current();
+                    var web = clientContext.get_web();
+                    var list = web.get_lists().getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES);
+                    $.each(testDrivesID, function (index, testDriveID) {
+                        var camlQuery = new SP.CamlQuery();
+                        var q = "<View><Query><Where><Eq><FieldRef Name='TestDriveID' /><Value Type='Integer'>" + testDriveID + "</Value></Eq></Where></Query></View>";
+                        camlQuery.set_viewXml(q);
+                        var listItems = list.getItems(camlQuery);
+                        testDrives[index] = listItems;
+                        clientContext.load(testDrives[index], 'Include(Id)');
+                    });
+                    clientContext.executeQueryAsync(
+                        Function.createDelegate(null, function () {
+                            var allCounts;
+                            $.each(testDrives, function (index, testDrive) {
+                                resultArr.push(testDrive.get_count());
+                                if (testDrivesCount - 1 == index) {
+                                    resolve(resultArr);
+                                }
+                                Utils.clientLog("JSOM : " + testDrive.get_count());
+                            });
+                        }),
+                        Function.createDelegate(null, function () {
+                        }));
                 });
-                clientContext.executeQueryAsync(
-                    Function.createDelegate(null, function () {
-                        var allCounts;
-                        $.each(testDrives, function (index, testDrive) {
-                            resultArr.push(testDrive.get_count());
-                            if (testDrivesCount - 1 == index) {
-                                resolve(resultArr);
-                            }
-                            console.log("JSOM : " + testDrive.get_count());
-                        });
-                    }),
-                    Function.createDelegate(null, function () {
-                    }));
-            });
+            } else{
+                resolve(0);
+            }
         });
     }
 
@@ -2091,9 +2274,9 @@ export class Services {
                 props.forEach((prop, index) => {
                     propValue += prop.Key + " - " + prop.Value + "<br/>";
                 });
-                console.log(propValue);
+                Utils.clientLog(propValue);
             }).catch(function (err) {
-                console.log("Error: " + err);
+                Utils.clientLog("Error: " + err);
             });
         });
     }
