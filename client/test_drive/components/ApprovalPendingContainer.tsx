@@ -6,16 +6,15 @@ import { Dispatch } from 'redux';
 
 import {
     ApprovalPendingItem,
-    loadApprovedTestDrives,
-    loadTestDrivesWaitingForApproval,
     model,
 } from '../../test_drive';
 
 interface ApprovalPendingContainerProps {
-    approvedTestDrives: model.TestDrive[],
-    approvedTestDrivesLoading: boolean,
-    testDrivesWaitingForApproval: model.TestDrive[],
-    testDrivesWaitingForApprovalLoading: boolean
+    approvedTestDrives: model.TestDrive[];
+    approvedTestDrivesLoading: boolean;
+    testDrivesWaitingForApproval: model.TestDrive[];
+    testDrivesWaitingForApprovalLoading: boolean;
+    saveTestDriveApprovalLoading: boolean;
     loadApprovedTestDrives: (skip: number, top: number) => any;
     loadTestDrivesWaitingFormApproval: (skip: number, top: number) => any;
     approveTestDrive: (id) => any;
@@ -36,25 +35,44 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
             approvedTestDrives,
             approvedTestDrivesLoading,
             testDrivesWaitingForApproval,
-            testDrivesWaitingForApprovalLoading
+            testDrivesWaitingForApprovalLoading,
+            approveTestDrive,
+            saveTestDriveApprovalLoading
         } = this.props;
-
+        const loading = testDrivesWaitingForApprovalLoading || saveTestDriveApprovalLoading; 
         return (<Tabs selected={0}>
+            
             <Pane label="PENDING APPROVAL">
-                {
-                    (testDrivesWaitingForApproval && testDrivesWaitingForApproval.length) ? testDrivesWaitingForApproval.map(testDrive => {
-                        return <ApprovalPendingItem testDrive={testDrive} />
-                    }) : ''
-                }
+                <div>
+                    <Loader show={loading} message={'Loading...'}>
+                        {
+                            (testDrivesWaitingForApproval && testDrivesWaitingForApproval.length) ?
+                                testDrivesWaitingForApproval.map((testDrive, index) => {
+                                    return (<ApprovalPendingItem
+                                        key={index}
+                                        testDrive={testDrive}
+                                        saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
+                                        approveTestDrive={(id) => approveTestDrive(id)} />)
+                                }) : 'There are no items waiting for approval.'
+                        }
+                    </Loader>
+                </div>
             </Pane>
             <Pane label="APPROVED TEST DRIVES">
-                {
-                    (approvedTestDrives && approvedTestDrives.length) ? approvedTestDrives.map(testDrive => {
-                        return <ApprovalPendingItem testDrive={testDrive} />
-                    }) : ''
-                }
+                <Loader show={loading} message={'Loading...'}>
+                    {
+                        (approvedTestDrives && approvedTestDrives.length) ?
+                            approvedTestDrives.map((testDrive, index) => {
+                                return (<ApprovalPendingItem
+                                    key={index}
+                                    testDrive={testDrive}
+                                    saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
+                                    approveTestDrive={(id) => approveTestDrive(id)} />)
+                            }) : 'There are no approved items.'
+                    }
+                </Loader>
             </Pane>
-        </Tabs>)
+        </Tabs >)
     }
 }
 

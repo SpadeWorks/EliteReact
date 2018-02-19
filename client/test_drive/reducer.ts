@@ -1,5 +1,6 @@
 import { handleActions, Action } from 'redux-actions';
 import { TestDrive, TestCase, Question, IState } from './model';
+import { ColumnsValues } from '../common/services/constants';
 import {
     LOAD_TestDrive_PENDING,
     LOAD_TestDrive_FULFILLED,
@@ -45,6 +46,9 @@ import {
     LOAD_TestDrivesWaitingFormApproval_PENDING,
     LOAD_TestDrivesWaitingFormApproval_FULFILLED,
     LOAD_TestDrivesWaitingFormApproval_REJECTED,
+    SAVE_TestDriveApproval_PENDING,
+    SAVE_TestDriveApproval_FULFILLED,
+    SAVE_TestDriveApproval_REJECTED,
 
     LOAD_ApprovedTestDrives_PENDING,
     LOAD_ApprovedTestDrives_FULFILLED,
@@ -238,7 +242,7 @@ export default handleActions<IState, any>({
             });
         return {
             ...state,
-            testDrive: {...state.testDrive, ...newTestDrive},
+            testDrive: { ...state.testDrive, ...newTestDrive },
             testDrives: testDrives || [],
             loading: false
         }
@@ -484,22 +488,56 @@ export default handleActions<IState, any>({
     [LOAD_TestDrivesWaitingFormApproval_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
         return {
             ...state,
-            testDrivesWaitingFormApprovalLoading: true
+            testDrivesWaitingForApprovalLoading: true
         }
     },
 
     [LOAD_TestDrivesWaitingFormApproval_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            testDrivesWaitingFormApproval: action.payload,
-            testDrivesWaitingFormApprovalLoading: false
+            testDrivesWaitingForApproval: action.payload,
+            testDrivesWaitingForApprovalLoading: false
         }
     },
 
     [LOAD_TestDrivesWaitingFormApproval_REJECTED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            testDrivesWaitingFormApprovalLoading: false
+            testDrivesWaitingForApprovalLoading: false
+        }
+    },
+
+    [SAVE_TestDriveApproval_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
+        return {
+            ...state,
+            saveTestDriveApprovalLoading: true
+        }
+    },
+
+    [SAVE_TestDriveApproval_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        const readyForLaunch = ColumnsValues.READY_FOR_LAUNCH;
+        const approvedTestDrives = state.testDrivesWaitingForApproval.filter(testdrive => {
+            if(testdrive.id == action.payload.id &&
+                action.payload.TestDriveStatus == readyForLaunch){
+                    testdrive.status = action.payload.TestDriveStatus;
+                    return testdrive
+                }
+        })
+        return {
+            ...state,
+            testDrivesWaitingForApproval: state.testDrivesWaitingForApproval &&
+                state.testDrivesWaitingForApproval.filter(testdrive => {
+                    return (testdrive.id != action.payload.id)
+                }),
+            approvedTestDrives: [...state.approvedTestDrives, ...approvedTestDrives],
+            saveTestDriveApprovalLoading: false
+        }
+    },
+
+    [SAVE_TestDriveApproval_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            saveTestDriveApprovalLoading: false
         }
     },
 
@@ -525,22 +563,22 @@ export default handleActions<IState, any>({
         }
     },
 
-    [LOAD_ActiveTestDrive_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
+    [LOAD_ActiveTestDrives_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
         return {
             ...state,
             activeTestDrivesLoading: true
         }
     },
 
-    [LOAD_ActiveTestDrive_FULFILLED]: (state: IState, action: Action<any>): IState => {
+    [LOAD_ActiveTestDrives_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
             activeTestDrives: action.payload,
-            activeTestDrivesLoading: true
+            activeTestDrivesLoading: false
         }
     },
 
-    [LOAD_ActiveTestDrive_REJECTED]: (state: IState, action: Action<any>): IState => {
+    [LOAD_ActiveTestDrives_REJECTED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
             activeTestDrivesLoading: false
@@ -558,7 +596,7 @@ export default handleActions<IState, any>({
         return {
             ...state,
             upCommingTestDrives: action.payload,
-            upCommingTestDrivesLoading: true
+            upCommingTestDrivesLoading: false
         }
     },
 
@@ -580,7 +618,7 @@ export default handleActions<IState, any>({
         return {
             ...state,
             completedTestDrivesIRun: action.payload,
-            completedTestDrivesIRunLoading: true
+            completedTestDrivesIRunLoading: false
         }
     },
 
@@ -603,7 +641,7 @@ export default handleActions<IState, any>({
         return {
             ...state,
             inProgressTestDrivesIRun: action.payload,
-            inProgressTestDrivesIRunLoading: true
+            inProgressTestDrivesIRunLoading: false
         }
     },
 
@@ -625,7 +663,7 @@ export default handleActions<IState, any>({
         return {
             ...state,
             draftedTestDrivesIRun: action.payload,
-            draftedTestDrivesIRunLoading: true
+            draftedTestDrivesIRunLoading: false
         }
     },
 
@@ -647,7 +685,7 @@ export default handleActions<IState, any>({
         return {
             ...state,
             submittedTestDrivesIRun: action.payload,
-            submittedTestDrivesIRunLoading: true
+            submittedTestDrivesIRunLoading: false
         }
     },
 
@@ -669,7 +707,7 @@ export default handleActions<IState, any>({
         return {
             ...state,
             myCompletedTestDrives: action.payload,
-            myCompletedTestDrivesLoading: true
+            myCompletedTestDrivesLoading: false
         }
     },
 
@@ -691,7 +729,7 @@ export default handleActions<IState, any>({
         return {
             ...state,
             myCompletedTestDrives: action.payload,
-            myInprogressTestDrivesLoading: true
+            myInprogressTestDrivesLoading: false
         }
     },
 

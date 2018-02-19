@@ -1,4 +1,5 @@
 import { TestDriveInstance } from "../test_drive_participation/model";
+import { SAVE_TestDriveApproval_PENDING } from "./constants/ActionTypes";
 
 export type TestCase = {
     id: number;
@@ -131,7 +132,9 @@ export type IState = {
     upCommingTestDrivesLoading?: boolean,
     approvedTestDrives?: TestDrive[],
     approvedTestDrivesLoading?: boolean,
-    testDrivesWaitingFormApproval?: TestDrive[],
-    testDrivesWaitingFormApprovalLoading?: boolean
+    testDrivesWaitingForApproval?: TestDrive[],
+    testDrivesWaitingForApprovalLoading?: boolean,
+    saveTestDriveApprovalLoading?: boolean
+
 }
 

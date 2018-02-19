@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import { Tabs, Pane } from '../../common/components/Tabs';
 import Loader from 'react-loader-advanced';
 import {
-    model, loadMyCompletedTestDrives,
+    model,
+    loadMyCompletedTestDrives,
+    MyTestDrivesCompletedItem,
+    MyTestDrivesInProgressItem
 } from '../../test_drive';
 
 interface MyTestDrivesContainerProps {
@@ -11,25 +14,37 @@ interface MyTestDrivesContainerProps {
     myCompletedTestDrivesLoading: boolean,
     myInprogressTestDrives: model.MyTestDrive[],
     myInprogressTestDrivesLoading: boolean,
-    loadMyCompletedTestDrives: (skip:number, top: number) => any;
-    loadMyInprogressTestDrives: (skip:number, top: number) => any;
+    loadMyCompletedTestDrives: (skip: number, top: number) => any;
+    loadMyInprogressTestDrives: (skip: number, top: number) => any;
 };
 class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> {
     constructor(props, context) {
         super(props, context);
     }
 
-    componentDidMount(){
-        this.props.loadMyCompletedTestDrives(0, 100);
+    componentDidMount() {
+
         this.props.loadMyInprogressTestDrives(0, 100);
     }
     render() {
+        const { myCompletedTestDrives, myCompletedTestDrivesLoading, myInprogressTestDrives, 
+            myInprogressTestDrivesLoading } = this.props;
         return (<Tabs selected={0}>
             <Pane label="TEST DRIVES IN PROGRESS">
-                <h1>TEST DRIVES IN PROGRESS</h1>
+                <MyTestDrivesCompletedItem
+                    myCompletedTestDrives={myCompletedTestDrives}
+                    myCompletedTestDrivesLoading={myCompletedTestDrivesLoading}
+                    loadMyCompletedTestDrives={(skip, top) =>
+                        loadMyCompletedTestDrives(skip, top)}
+                />
             </Pane>
             <Pane label="COMPLETED TEST DRIVES">
-                <h1>COMPLETED TEST DRIVES</h1>
+                <MyTestDrivesCompletedItem
+                    myCompletedTestDrives={myInprogressTestDrives}
+                    myCompletedTestDrivesLoading={myInprogressTestDrivesLoading}
+                    loadMyCompletedTestDrives={(skip, top) =>
+                        loadMyCompletedTestDrives(skip, top)}
+                />
             </Pane>
         </Tabs>)
     }

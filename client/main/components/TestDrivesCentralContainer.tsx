@@ -40,28 +40,29 @@ interface AppProps {
   testDriveState: model.IState;
   testDriveIRun: model.TestDrive[];
   dispatch: Dispatch<{}>;
-  myCompletedTestDrives: model.MyTestDrive[],
+  myCompletedTestDrives: model.MyTestDrive[];
   myCompletedTestDrivesLoading: boolean;
-  myInprogressTestDrives: model.MyTestDrive[],
-  myInprogressTestDrivesLoading: boolean,
-  inProgressTestDrivesIRun: model.TestDriveIRun[],
-  inProgressTestDrivesIRunLoading: boolean,
+  myInprogressTestDrives: model.MyTestDrive[];
+  myInprogressTestDrivesLoading: boolean;
+  inProgressTestDrivesIRun: model.TestDriveIRun[];
+  inProgressTestDrivesIRunLoading: boolean;
   upcommingTestDrivesIRun: TestDrive[]
-  upcommingTestDrivesIRunLoading: boolean,
-  completedTestDrivesIRun: model.TestDriveIRun[],
-  completedTestDrivesIRunLoading: boolean,
-  draftedTestDrivesIRun: TestDrive[],
-  draftedTestDrivesIRunLoading: boolean,
-  submittedTestDrivesIRun: TestDrive[],
-  submittedTestDrivesIRunLoading: boolean,
-  activeTestDrives: TestDrive[],
-  activeTestDrivesLoading: boolean,
-  upCommingTestDrives: TestDrive[],
-  upCommingTestDrivesLoading: boolean,
-  approvedTestDrives: TestDrive[],
-  approvedTestDrivesLoading: boolean,
-  testDrivesWaitingForApproval: TestDrive[],
-  testDrivesWaitingForApprovalLoading: boolean
+  upcommingTestDrivesIRunLoading: boolean;
+  completedTestDrivesIRun: model.TestDriveIRun[];
+  completedTestDrivesIRunLoading: boolean;
+  draftedTestDrivesIRun: TestDrive[];
+  draftedTestDrivesIRunLoading: boolean;
+  submittedTestDrivesIRun: TestDrive[];
+  submittedTestDrivesIRunLoading: boolean;
+  activeTestDrives: TestDrive[];
+  activeTestDrivesLoading: boolean;
+  upCommingTestDrives: TestDrive[];
+  upCommingTestDrivesLoading: boolean;
+  approvedTestDrives: TestDrive[];
+  approvedTestDrivesLoading: boolean;
+  testDrivesWaitingForApproval: TestDrive[];
+  testDrivesWaitingForApprovalLoading: boolean;
+  saveTestDriveApprovalLoading: boolean;
 }
 
 @ui({
@@ -99,7 +100,8 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
       approvedTestDrives,
       approvedTestDrivesLoading,
       testDrivesWaitingForApproval,
-      testDrivesWaitingForApprovalLoading
+      testDrivesWaitingForApprovalLoading,
+      saveTestDriveApprovalLoading
 
     } = this.props;
     return (
@@ -144,6 +146,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                       testDrivesWaitingForApprovalLoading={testDrivesWaitingForApprovalLoading}
                       loadApprovedTestDrives={(skip, top) => dispatch(loadApprovedTestDrives(skip, top))}
                       loadTestDrivesWaitingFormApproval={(skip, top) => dispatch(loadTestDrivesWaitingForApproval(skip, top))}
+                      saveTestDriveApprovalLoading = {saveTestDriveApprovalLoading}
                       approveTestDrive={(id) => dispatch(approveTestDrive(id))}
                     />
                   </Pane>
@@ -186,7 +189,8 @@ const mapStateToProps = state => {
     approvedTestDrives,
     approvedTestDrivesLoading,
     testDrivesWaitingForApproval,
-    testDrivesWaitingForApprovalLoading
+    testDrivesWaitingForApprovalLoading,
+    saveTestDriveApprovalLoading
   } = state.testDriveState;
 
   return {
@@ -213,7 +217,8 @@ const mapStateToProps = state => {
     approvedTestDrives,
     approvedTestDrivesLoading,
     testDrivesWaitingForApproval,
-    testDrivesWaitingForApprovalLoading
+    testDrivesWaitingForApprovalLoading,
+    saveTestDriveApprovalLoading
   }
 };
 

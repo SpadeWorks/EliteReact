@@ -42,7 +42,7 @@ export class Services {
 
     static getTestDrivesWaitingForApproval(skip: number, top: number) {
         return new Promise((resolve, reject) => {
-            var filter = Constants.Columns.TESTDRIVE_STATUS + " eq '" + Constants.ColumnsValues.COMPLETE_STATUS + "'";
+            var filter = Constants.Columns.TESTDRIVE_STATUS + " eq '" + Constants.ColumnsValues.SUBMIT + "'";
             Services.getTestDrivesByFilter(filter, skip, top).then(testdrives => {
                 resolve(testdrives);
             }, error => {
@@ -70,9 +70,7 @@ export class Services {
             }
             this.createOrUpdateListItemsInBatch(Constants.Lists.TEST_DRIVES,
                 [newTestDrive]).then((data: TestDrive) => {
-                    resolve({
-                        status: data[Constants.Columns.TESTDRIVE_STATUS]
-                    });
+                    resolve(data[0]);
                 }, err => {
                     reject(err);
                 }).catch(err => {
