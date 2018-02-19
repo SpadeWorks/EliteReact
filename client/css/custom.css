@@ -6021,7 +6021,7 @@ h1.testcase_name {
 {cursor:default;position:relative;top:0px;left:0px;width:980px;height:650px;overflow:hidden;}
 
 .jsSort
-{position:absolute;left:0px;bottom:0px;width:980px;height:100px;background-color:#000;}
+{position:absolute !important;left:0px !important;bottom:0px !important;width:980px !important;height:100px !important;background-color:#000 !important;}
 
 .jsOffset
 {height: 50px;background: red; position: relative;top: 450px;}
@@ -6034,6 +6034,8 @@ h1.testcase_name {
 
 .jsViewBox
 {position:absolute;top:0;left:0;width:100%;height:100%;}
+.jsPrototype
+{width:190px !important;height:90px !important;}
 
 
 

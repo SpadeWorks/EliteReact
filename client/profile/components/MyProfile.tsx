@@ -15,7 +15,7 @@ declare var $JssorArrowNavigator$: any;
 declare var $JssorThumbnailNavigator$: any;
 declare var $JssorSlider$: any;
 declare var $Jssor$: any;
-declare var window:any;
+declare var window: any;
 
 import {
     loadEliteProfile,
@@ -27,7 +27,7 @@ import {
     saveEliteProfile,
     setEditMode,
     loadCars,
-    resetEliteProfile
+    resetEliteProfile    
 } from '../';
 import Services from '../../common/services/services';
 import { Dispatch } from 'redux';
@@ -71,18 +71,17 @@ class MyProfile extends React.Component<MyProfileProps> {
         this.props.eliteProfile.carID = car.ID;
         this.props.eliteProfile.carImage = baseUrl + car.FileRef;
         this.props.eliteProfile.carName = car.CarName;
-        saveEliteProfile(this.props.eliteProfile)
+        saveEliteProfile(this.props.eliteProfile)        
     }
 
-    componentWillUnmount()
-    {
+    componentWillUnmount() {
         this.props.dispatch(resetEliteProfile());
-    }  
-    
-    componentDidMount() {        
+    }
+
+    componentDidMount() {
         document.body.className = "plane_back";
         let user = Services.getUserProfileProperties();
-        if (user.eliteProfileID) {
+        if (user.eliteProfileID) {            
             this.props.dispatch(loadEliteProfile(this.props.id || user.eliteProfileID));
             this.props.dispatch(loadUserRank(user.eliteProfileID));
             this.props.dispatch(loadUserPoints(user.eliteProfileID));
@@ -92,7 +91,8 @@ class MyProfile extends React.Component<MyProfileProps> {
             this.props.dispatch(loadConfigurations());
         }
         this.props.dispatch(loadCars());
-        window.jssor_1_slider_init();
+
+        /* window.jssor_1_slider_init();                   */
     }
 
     render() {
@@ -102,7 +102,7 @@ class MyProfile extends React.Component<MyProfileProps> {
             totalTestDrives
             , avatars, cars } = this.props;
         let baseUrl = location.protocol + "//" + location.hostname;
-        
+
         return (eliteProfile && <div className="col-md-12">
             <div className="row">
                 <div className="container">
@@ -185,7 +185,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                             </div>
                                         </div>
                                     </div>
-                                   {/* <div className="col-md-4 text-center">
+                                    {/* <div className="col-md-4 text-center">
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <h4>Level 5</h4>
@@ -218,120 +218,118 @@ class MyProfile extends React.Component<MyProfileProps> {
                         <div className="col-md-12">
                             {
                                 (!this.props.id && this.props.id != -1) &&
-                                
+
                                 <div id="jssor_1" className="car_boxslider jsTop">
-        
-                                <div data-u="loading" className="jssorl-009-spin jsLoading" >
-                                    <img  />
-                                </div>
-                                <div data-u="slides" className="jsSlides">
-                                    <div data-p="170.00" className="car_pack">
-                                     <div className="row">
-                                   <div className="col-md-12 text-center">
-                                      <h4 className="text-center">Level 5</h4>
+
+                                    <div data-u="loading" className="jssorl-009-spin jsLoading" >
+                                        <img />
                                     </div>
-                        
-                                    <div className="col-md-12 text-center">
-                                      <span className="orange"><i>458 Itala</i></span>
-                                    </div>
-                                   
-                        
-                                  </div>
-                                        <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car1.png" />
-                                        <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car1.png" />
-                                          <div className="car-selection"><a href="#"></a></div>
-                                        
-                                      
-                                    </div>
-                                    <div data-p="170.00"> 
-                                        <div className="car-name"> <h5>Car 1</h5></div>
-                                        <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car2.png" />
-                                        <img data-u="thumb" id="present_ride" src="/sites/elite-dev-akash/Lists/CarMaster/car2.png"/>
-                                        
-                        
-                                    </div>
-                                    <div data-p="170.00">
-                                        <div className="car-name"> <h5>Car 2</h5></div>
-                                        <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                        <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" className="future_ride"/>
-                                        
-                                    </div>
-                                     <div data-p="170.00">
-                                        <div className="car-name"> <h5>Car 2</h5></div>
-                                        <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                        <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" className="lock_ride"/>
-                                        
-                                    </div>
-                                    <div data-p="170.00">
-                                        <div className="car-name"> <h5>Car 2</h5></div>
-                                        <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                        <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                        
-                                    </div>
-                                     <div data-p="170.00">
-                                        <div className="car-name"> <h5>Car 2</h5></div>
-                                        <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                        <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                        
-                                    </div>
-                                     <div data-p="170.00">
-                                        <div className="car-name"> <h5>Car 2</h5></div>
-                                        <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                        <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                       
-                                    </div>
-                                    <div data-p="170.00">
-                                        <div className="car-name"> <h5>Car 2</h5></div>
-                                        <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                        <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                        
-                                    </div>
-                                     <div data-p="170.00">
-                                        <div className="car-name"> <h5>Car 2</h5></div>
-                                        <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                        <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                      
-                                    </div>
-                                     <div data-p="170.00">
-                                        <div className="car-name"> <h5>Car 2</h5></div>
-                                        <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                        <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                       
-                                    </div>
-                                </div>                
-                                <div data-u="thumbnavigator" className="jssort101 jsSort"  data-autocenter="1" data-scale-bottom="0.75">
-                                    <div data-u="slides">
-                                        <div data-u="prototype" className="p" >
-                                            <div data-u="thumbnailtemplate" className="t"></div>
-                        
-                                         
-                                      
+                                    <div data-u="slides" className="jsSlides">
+                                        {
+                                            cars && cars.map((car, index) => {
+                                                return (
+                                                    (index == 0) ?
+                                                    <div>
+                                                        <div data-p="170.00" className="car_pack">
+                                                            <div className="row">
+                                                                <div className="col-md-12 text-center">
+                                                                    <h4 className="text-center">Level 5</h4>
+                                                                </div>
+                                                                <div className="col-md-12 text-center">
+                                                                    <span className="orange"><i>{car.CarName}</i></span>
+                                                                </div>
+                                                            </div>
+                                                            <img data-u="image" className="car_bigview" src={car.FileRef} />
+                                                            <img data-u="thumb" src={car.FileRef} />
+                                                            <div className="car-selection"><a href="#"></a></div>
+                                                        </div><div className="col-md-2 col-md-offset-5 jsOffset">
+                                                            {totalPoints < car.PointsRequired ? 
+                                                                <p><a href="#" className="locked_ride"><img src="images/empty.png" />Locked Ride</a></p> :
+                                                                totalPoints > car.PointsRequired ? <p><a href="#" className="future_ride"><img src="images/empty.png" />Feature Ride</a></p>
+                                                                : car.CarName == eliteProfile.carName ? <p><a href="#" className="present_ride"><img src="images/done.png" />current Ride.</a></p> : <p><a href="#" className="present_ride"><img src="images/done.png" />Get This Ride.</a></p>
+                                                            }</div></div> :
+                                                        <div>                                                        
+                                                        <div data-p="170.00">
+                                                            <div className="car-name"> <h5>{car.CarName}</h5></div>
+                                                            <img data-u="image" className="car_bigview" src={car.FileRef} />
+                                                            <img data-u="thumb" src={car.FileRef} />
+                                                        </div>
+                                                        <div className="col-md-2 col-md-offset-5 jsOffset">
+                                                            {totalPoints < car.PointsRequired ? 
+                                                                <p><a href="#" className="locked_ride"><img src="images/empty.png" />Locked Ride</a></p> :
+                                                                totalPoints > car.PointsRequired ? <p><a href="#" className="future_ride"><img src="images/empty.png" />Feature Ride</a></p>
+                                                                : car.CarName == eliteProfile.carName ? <p><a href="#" className="present_ride"><img src="images/done.png" />current Ride.</a></p> : <p><a href="#" className="present_ride"><img src="images/done.png" />Get This Ride.</a></p>
+                                                            }</div>
+                                                        </div>
+                                                )
+                                            })                                            
+                                        }
+                                        {/*<div data-p="170.00" className="car_pack">
+                                            <div className="row">
+                                                <div className="col-md-12 text-center">
+                                                    <h4 className="text-center">Level 5</h4>
+                                                </div>
+                                                <div className="col-md-12 text-center">
+                                                    <span className="orange"><i>458 Itala</i></span>
+                                                </div>
+                                            </div>
+                                            <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car1.png" />
+                                            <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car1.png" />
+                                            <div className="car-selection"><a href="#"></a></div>
                                         </div>
-                        
+                                        <div data-p="170.00">
+                                            <div className="car-name"> <h5>Car 1</h5></div>
+                                            <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car2.png" />
+                                            <img data-u="thumb" id="present_ride" src="/sites/elite-dev-akash/Lists/CarMaster/car2.png" />
+                                        </div>
+                                        <div data-p="170.00">
+                                            <div className="car-name"> <h5>Car 2</h5></div>
+                                            <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
+                                            <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" className="future_ride" />
+                                        </div>
+                                        <div data-p="170.00">
+                                            <div className="car-name"> <h5>Car 2</h5></div>
+                                            <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
+                                            <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" className="lock_ride" />
+                                        </div>
+                                        <div data-p="170.00">
+                                            <div className="car-name"> <h5>Car 2</h5></div>
+                                            <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
+                                            <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
+                                        </div>
+                                        <div data-p="170.00">
+                                            <div className="car-name"> <h5>Car 2</h5></div>
+                                            <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
+                                            <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
+                                        </div>
+                                        <div data-p="170.00">
+                                            <div className="car-name"> <h5>Car 2</h5></div>
+                                            <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
+                                            <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
+                                    </div>*/}
+                                    </div>
+                                    <div data-u="thumbnavigator" className="jssort101 jsSort" data-autocenter="1" data-scale-bottom="0.75">
+                                        <div data-u="slides">
+                                            <div data-u="prototype" className="p jsPrototype" >
+                                                <div data-u="thumbnailtemplate" className="t"></div>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                    <div data-u="arrowleft" className="jssora106 jsArrowLeft" data-scale="0.75">
+                                        <svg className="jsViewBox">
+                                            <circle className="c" cx="8000" cy="8000" r="6260.9"></circle>
+                                            <polyline className="a" points="7930.4,5495.7 5426.1,8000 7930.4,10504.3 "></polyline>
+                                            <line className="a" x1="10573.9" y1="8000" x2="5426.1" y2="8000"></line>
+                                        </svg>
+                                    </div>
+                                    <div data-u="arrowright" className="jssora106 jsArrowRight" data-scale="0.75">
+                                        <svg className="jsViewBox">
+                                            <circle className="c" cx="8000" cy="8000" r="6260.9"></circle>
+                                            <polyline className="a" points="8069.6,5495.7 10573.9,8000 8069.6,10504.3 "></polyline>
+                                            <line className="a" x1="5426.1" y1="8000" x2="10573.9" y2="8000"></line>
+                                        </svg>
                                     </div>
                                 </div>
-                                <div className="col-md-2 col-md-offset-5 jsOffset">
-                                <p><a href="#" id="present_ride"><img src="images/done.png"/>current Ride.</a></p>
-                                <p><a href="#" id="future_ride"><img src="images/empty.png"/>Get This Ride</a></p>
-                                <p><a href="#" id="locked_ride"><img src="images/empty.png"/>Get This Ride</a></p>
-                                </div>
-                                
-                                <div data-u="arrowleft" className="jssora106 jsArrowLeft"  data-scale="0.75">
-                                    <svg  className="jsViewBox">
-                                        <circle className="c" cx="8000" cy="8000" r="6260.9"></circle>
-                                        <polyline className="a" points="7930.4,5495.7 5426.1,8000 7930.4,10504.3 "></polyline>
-                                        <line className="a" x1="10573.9" y1="8000" x2="5426.1" y2="8000"></line>
-                                    </svg>
-                                </div>
-                                <div data-u="arrowright" className="jssora106 jsArrowRight"  data-scale="0.75">
-                                    <svg  className="jsViewBox">
-                                        <circle className="c" cx="8000" cy="8000" r="6260.9"></circle>
-                                        <polyline className="a" points="8069.6,5495.7 10573.9,8000 8069.6,10504.3 "></polyline>
-                                        <line className="a" x1="5426.1" y1="8000" x2="10573.9" y2="8000"></line>
-                                    </svg>
-                                </div>                                                
-                            </div>
-                                
                             }
                         </div>
                     </div>
