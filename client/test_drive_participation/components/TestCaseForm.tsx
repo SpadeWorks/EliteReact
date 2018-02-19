@@ -13,9 +13,12 @@ interface TestCaseFormProps {
     testCase: TestCaseInstance;
     active: boolean;
     saveTestCaseResponse: (testCase: TestCaseInstance, testdrive: TestDriveInstance) => any;
+    submitTestDriveInstance: (testDriveInstance: TestDriveInstance) => any;
     updateUI: (any) => any;
     ui: any;
     index: number;
+    isLast: boolean;
+    isTestDriveCompleted: () => (boolean);
 };
 
 @ui({
@@ -30,7 +33,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
 
     constructor(props, context) {
         super(props, context);
-        this.saveTestCaseResponse = this.saveTestCaseResponse.bind(this);
+        // this.saveTestCaseResponse = this.saveTestCaseResponse.bind(this);
         this.submitTestCaseResponse = this.submitTestCaseResponse.bind(this);
         this.props.updateUI({ testCaseResponse: this.props.testCase.testCaseResponse });
         this.props.updateUI({ selectedResponse: this.props.testCase.selectedResponse });
@@ -42,9 +45,24 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
     }
 
     onFilesChange(files) {
-        this.props.updateUI({
-            files: files
-        });
+        var duplicateFiles = [];
+        var oldFiles = this.props.testCase.files;
+        oldFiles.length && oldFiles.map(oldFile => {
+            var machedElement = files && files.length && files.filter(newFile => {
+                return oldFile.FileName == newFile.name
+            });
+            machedElement.length && duplicateFiles.push(machedElement[0].name);
+        })
+
+        if (duplicateFiles.length) {
+            alert("Files with following names are alredy attached:" + '\n' + duplicateFiles.join(', '));
+        } else {
+            this.props.updateUI({
+                files: files
+            });
+        }
+
+
     }
 
     filesRemoveOne = (removedFile) => {
@@ -65,26 +83,14 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
     onChange(e) {
         this.props.updateUI({ testCaseResponse: e.target.value });
     }
-    saveTestCaseResponse(testCase: TestCaseInstance) {
-        let testDrive = this.props.testDriveInstance;
-        testCase = {
-            ...testCase,
-            newItem: false,
-            responseStatus: Constants.ColumnsValues.DRAFT,
-            testCaseResponse: this.props.ui.testCaseResponse,
-            selectedResponse: this.props.ui.selectedResponse,
-            files: this.props.ui.files
-        }
-        this.props.saveTestCaseResponse(testCase, testDrive);
-    }
-    submitTestCaseResponse(testCase: TestCaseInstance, index) {
+
+    saveTestCaseResponse(testCase: TestCaseInstance, index) {
         var isFormValid = validateForm('test-case-form' + index);
         if (isFormValid) {
-            $('#carousel-example-vertical').carousel('next');
             testCase = {
                 ...testCase,
-                newItem: testCase.responseStatus == Constants.ColumnsValues.DRAFT,
-                responseStatus: Constants.ColumnsValues.COMPLETE_STATUS,
+                responseStatus: testCase.responseStatus == Constants.ColumnsValues.INPROGRESS ? 
+                    Constants.ColumnsValues.DRAFT : testCase.responseStatus,
                 testCaseResponse: this.props.ui.testCaseResponse,
                 selectedResponse: this.props.ui.selectedResponse,
                 files: this.props.ui.files
@@ -93,6 +99,13 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         } else {
             alert(Constants.Messages.ERROR_IN_FORM);
         }
+
+    }
+
+    submitTestCaseResponse(testCase: TestCaseInstance, index) {
+        this.props.submitTestDriveInstance(this.props.testDriveInstance);
+        this.props.updateUI({showSurveyPopUp: true})
+        $('#test-drive-completion-btn').trigger('click');
     }
 
 
@@ -109,12 +122,12 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
     }
 
     render() {
-        const { testCase, active, saveTestCaseResponse, ui, updateUI, index, testDriveInstance } = this.props;
+        const { testCase, active, saveTestCaseResponse, ui, updateUI, index, testDriveInstance, isLast } = this.props;
         return (
 
             <div className={"item " + (active ? 'active' : '')} id={'test-case-form' + index}>
                 <div className="row">
-                    <Loader show={testDriveInstance.testCaseSaveInProgress} message={'Loading...'}>
+                    <Loader show={testDriveInstance.testCaseSaveInProgress || false} message={'Loading...'}>
                         <div className="container ">
                             <div className="col-md-12 ">
                                 <div className="row testcase_box ">
@@ -183,15 +196,16 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                             <div className="files" style={{ clear: 'both' }}>
                                                 {
                                                     (testCase && testCase.files && testCase.files.length) && <div className='files-list'>
-                                                        <ul>{testCase.files.map((file, index) =>
-                                                            <li className='files-list-item' key={file.FileName + index}>
+                                                        <ul>{testCase.files.map((file, index) => {
+                                                            return (<li className='files-list-item' key={file.FileName + index}>
                                                                 <div className='files-list-item-preview'>
                                                                     <img className='files-list-item-preview-image' src={file.ServerRelativeUrl} />
                                                                 </div>
                                                                 <div className='files-list-item-content'>
                                                                     <div className='files-list-item-content-item files-list-item-content-item-1'>{file.FileName}</div>
                                                                 </div>
-                                                            </li>
+                                                            </li>)
+                                                        }
                                                         )}</ul>
                                                     </div>
                                                 }
@@ -217,9 +231,17 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                             </div>
                                             <div className="col-md-12 participation_actionbox">
                                                 <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                                    <input type="button" value="Done" onClick={() => this.submitTestCaseResponse(testCase, index)} />
+                                                    <input type="button" value="Save" onClick={() => this.saveTestCaseResponse(testCase, index)} />
                                                 </div>
                                             </div>
+
+                                            {isLast && <div className="col-md-12 participation_actionbox">
+                                                <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                                    <input type="button" value="Submit test cases" onClick={() => this.submitTestCaseResponse(testCase, index)} />
+                                                </div>
+                                            </div>
+                                            }
+
                                         </div>
                                     </div>
                                 </div>
@@ -227,7 +249,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                         </div>
                     </Loader>
                 </div>
-            </div>
+            </div >
 
         )
     }

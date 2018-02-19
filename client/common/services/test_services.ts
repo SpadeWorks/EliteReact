@@ -200,10 +200,49 @@ class TestServices {
         // Services.getDevices();
         // Services.getOSes();
 
-        const  item = pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).items.getById(87);
-        Services.getAttachments(item);
-        Services.deletAttachments(item, ['Jellyfish.jpg']).then(t=>{
-            Services.getAttachments(item);
+        // const  item = pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).items.getById(87);
+        // Services.getAttachments(item);
+        // Services.deletAttachments(item, ['Jellyfish.jpg']).then(t=>{
+        //     Services.getAttachments(item);
+        // })
+
+
+        // Services.getTestDrivesWaitingForApproval().then(t=>{
+        //     console.log("getTestDrivesWaitingForApproval", t);
+        // })
+        // Services.getApprovedTestDrives().then(t=>{
+        //     console.log("getApprovedTestDrives", t);
+        // })
+        Services.approveTestdrive(3).then(t=>{
+            console.log("approveTestdrive", t);
+        })
+        Services.getApplicationConfigurations().then(t=>{
+            console.log("getApplicationConfigurations", t);
+        })
+        Services.getTestDrivesByOwerneID(18).then(t=>{
+            console.log("getTestDrivesByOwerneID", t);
+        })
+        Services.getDraftedTestDrivesIRun(18).then(t=>{
+            console.log("getDraftedTestDrivesIRun", t);
+        })
+        Services.getSubmitedTestDrivesIRun(18).then(t=>{
+            console.log("getSubmitedTestDrivesIRun",t);
+        })
+
+        Services.getInProgressTestDrivesIRun(18).then(t=>{
+            console.log("getInProgressTestDrivesIRun", t);
+        })
+        Services.getCompletedTestDriveIRun(18).then(t=>{
+            console.log("getCompletedTestDriveIRun", t);
+        })
+        Services.getUpCommingTestDriveIRun(18).then(t=>{
+            console.log("getUpCommingTestDriveIRun",t);
+        })
+        Services.getUpcomingTestDrives().then(t=>{
+            console.log("getUpcomingTestDrives",t);
+        })
+        Services.getActiveTestDrives().then(t=>{
+            console.log("getActiveTestDrives",t);
         })
     }
 
@@ -212,23 +251,23 @@ class TestServices {
 $(function () {
     // SP.SOD.executeFunc("sp.js", "SP.ClientContext", function () {
         TestServices.main();
-        $("#DeltaPlaceHolderMain").after("<input type='button' value='Add' id='add'>");
-        $('#add').bind('click', function () {
-            if ($("#file").length > 0) {
-                const  item = pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).items.getById(87);
-                let input = <HTMLInputElement>document.getElementById("file");
-                Services.setAttachmentByItemID(item, input.files).then(files =>{
-                    console.log(files);
-                    Services.getAttachments(item);
-                })
+        // $("#DeltaPlaceHolderMain").after("<input type='button' value='Add' id='add'>");
+        // $('#add').bind('click', function () {
+        //     if ($("#file").length > 0) {
+        //         const  item = pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).items.getById(87);
+        //         let input = <HTMLInputElement>document.getElementById("file");
+        //         Services.setAttachmentByItemID(item, input.files).then(files =>{
+        //             console.log(files);
+        //             Services.getAttachments(item);
+        //         })
                 
-            } else {
-                var addControl = '<label>Upload Text File:</label>';
-                addControl += ' <input type="file" name = "file[]" class="imageupload" id="file" multiple="multiple"> ';
-                addControl += '<input type="button" value="upload" id="upload">';
-                $('#add').before(addControl);
-            }
-        });
+        //     } else {
+        //         var addControl = '<label>Upload Text File:</label>';
+        //         addControl += ' <input type="file" name = "file[]" class="imageupload" id="file" multiple="multiple"> ';
+        //         addControl += '<input type="button" value="upload" id="upload">';
+        //         $('#add').before(addControl);
+        //     }
+        // });
     // });
 });
 

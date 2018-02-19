@@ -13,14 +13,14 @@ class Navigation extends React.Component<NavigationProps> {
         var options = {
             url: '/sites/elite/Pages/referral.aspx',
             title: 'User Referral',
-            width: 500,
-            height: 300,
+            width: 600,
+            height: 600,
         };
         SP.UI.ModalDialog.showModalDialog(options);
-        let dialog = SP.UI.ModalDialog.showWaitScreenWithNoClose('Operation in progress...', 'Please wait...', 350, 550);
-        setTimeout(() => {
-            dialog.close(SP.UI.DialogResult.OK);
-        }, 4000)
+        // let dialog = SP.UI.ModalDialog.showWaitScreenWithNoClose('Operation in progress...', 'Please wait...', 350, 550);
+        // setTimeout(() => {
+        //     dialog.close(SP.UI.DialogResult.OK);
+        // }, 4000)
     }
     render() {
         return (<div className="col-md-8 location_box">
