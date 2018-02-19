@@ -47,6 +47,7 @@ export type TestDrive = {
     level: string;
     owner?: string;
     newItem?: boolean;
+    levelNumber?: number;
 };
 
 export type TestDriveIRun = {

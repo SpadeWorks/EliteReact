@@ -63,6 +63,8 @@ interface AppProps {
   testDrivesWaitingForApproval: TestDrive[];
   testDrivesWaitingForApprovalLoading: boolean;
   saveTestDriveApprovalLoading: boolean;
+  updateUI: (any) => any;
+  ui: any;
 }
 
 @ui({
@@ -101,8 +103,9 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
       approvedTestDrivesLoading,
       testDrivesWaitingForApproval,
       testDrivesWaitingForApprovalLoading,
-      saveTestDriveApprovalLoading
-
+      saveTestDriveApprovalLoading,
+      updateUI,
+      ui
     } = this.props;
     return (
       <div className="testDrives container">
@@ -124,7 +127,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                       loadMyInprogressTestDrives={(skip, top) => dispatch(loadMyInprogressTestDrives(skip, top))} />
                   </Pane>
                   <Pane label="TEST DRIEVES I RUN">
-                      <TestDrivesIRunContainer testDriveIRun={testDriveIRun} />
+                    <TestDrivesIRunContainer testDriveIRun={testDriveIRun} />
                   </Pane>
                   <Pane label="Active Test Drive">
                     <ActiveTestDrivesContainer
@@ -146,8 +149,10 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                       testDrivesWaitingForApprovalLoading={testDrivesWaitingForApprovalLoading}
                       loadApprovedTestDrives={(skip, top) => dispatch(loadApprovedTestDrives(skip, top))}
                       loadTestDrivesWaitingFormApproval={(skip, top) => dispatch(loadTestDrivesWaitingForApproval(skip, top))}
-                      saveTestDriveApprovalLoading = {saveTestDriveApprovalLoading}
+                      saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
                       approveTestDrive={(id) => dispatch(approveTestDrive(id))}
+                      ui={ui}
+                      updateUI={updateUI}
                     />
                   </Pane>
                 </Tabs>

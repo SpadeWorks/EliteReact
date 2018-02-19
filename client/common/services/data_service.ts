@@ -901,6 +901,7 @@ export class Services {
                 Constants.Columns.AVAILABLE_DEVICES,
                 Constants.Columns.AVAILABLE_OS,
                 Constants.Columns.MAX_TESTDRIVERS,
+                Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LevelNumber,
                 Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LEVEL_NAME,
                 Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.ID,
                 Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
@@ -932,7 +933,8 @@ export class Services {
                             questionIDs: testDrive[Constants.Columns.QUESTION_ID].results,
                             expectedBusinessValue: '',
                             testCases: null,
-                            questions: null
+                            questions: null,
+                            levelNumber: testDrive.LevelID[Constants.Columns.LevelNumber]
                         };
                     });
                     resolve(results);
