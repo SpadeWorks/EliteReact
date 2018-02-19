@@ -50,7 +50,8 @@ const store: Store<any> = createStore(rootReducer,
 
 let user = Services.getUserProfileProperties();
 let application;
-if (user.eliteProfileID) {
+var isFalse = false;
+if (isFalse) {
   application = (<Provider store={store}>
     <HashRouter basename="/" >
       <div>

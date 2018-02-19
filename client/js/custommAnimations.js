@@ -302,19 +302,9 @@ $(window).on('load', function () {
 
 $(document).ready(function () {
     setTimeout(
-        function mytext() {
-            $('#typewriteText').typewrite({
-                actions: [
-                    { type: 'For a nerve-wracking, exciting journey. Internet points as pay, bitter competition,long months of testing cool, new stuff, a changed person on return. Honour, recognition (and one amazing gift) in case of success.+ Do you have it in you?' }
-
-                    /*{type: 'Do you have it in you?'}*/
-                ]
-            });
-        }, 5000);
-    setTimeout(
         function activebtn() {
             $("button.type1").css("opacity", "1").fadeIn();
-        }, 14000);
+        },1200);
         var counterDiv = $('.counter');
         if(counterDiv.length > 0){
             UI.transform_number(counterDiv, 200, 'fixed_width');
