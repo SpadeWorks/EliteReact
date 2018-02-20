@@ -37,9 +37,11 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                                                         points={leaderBoard.totalPoints} userId={leaderBoard.id}></LeaderBoardUser>)
                                                 })
                                             }
-                                            <Link className="pull-right" to={"/leaderboard"}>
-                                                MORE >>                                                                                              
-                                            </Link>                                            
+                                            {
+                                                (regionLeaders && regionLeaders.length >= 3) && <Link className="pull-right" to={"/leaderboard"}>
+                                                    MORE >>
+                                            </Link>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -56,9 +58,11 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                                                         points={leaderBoard.totalPoints} userId={leaderBoard.id}></LeaderBoardUser>)
                                                 })
                                             }
-                                            <Link className="pull-right" to={"/leaderboard"}>
-                                                MORE >>                                                                                              
+                                            {
+                                                (leaders && leaders.length >= 3) && <Link className="pull-right" to={"/leaderboard"}>
+                                                    MORE >>
                                             </Link>
+                                            }
                                         </div>
                                     </div>
                                 </div>

@@ -41,20 +41,22 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                 <div className="col-md-12">
                                     {
                                         upcomingTestDrive && upcomingTestDrive.map((testDrive, index) => {
-                                            return ( testDrive && 
+                                            return (testDrive &&
                                                 <RightContainer
                                                     key={index}
                                                     participants={testDrive.participants}
                                                     checkPortion={"upTestDrive"}
                                                     testDrive={testDrive.testDrive}
-                                                    index={index+1}
+                                                    index={index + 1}
                                                 ></RightContainer>)
                                         })
                                     }
                                     {(!upcomingTestDriveLoading) && upcomingTestDrive.length == 0 && <p>There are no upcomming test drives.</p>}
-                                    <Link className="pull-right" to={"/testdrives/upTestDrive"}>
-                                        MORE >>
-                                    </Link>
+                                    {
+                                        upcomingTestDrive && upcomingTestDrive.length >= 3 && <Link className="pull-right" to={"/testdrives/upTestDrive"}>
+                                            MORE >>
+                                        </Link>
+                                    }
                                 </div>
                             </Loader>
                         </div>
@@ -65,19 +67,21 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                 <div className="col-md-12">
                                     {
                                         activeTestDrive && activeTestDrive.map((testDrive, index) => {
-                                            return ( testDrive &&
+                                            return (testDrive &&
                                                 <RightContainer
                                                     key={index}
                                                     participants={testDrive.participants}
                                                     checkPortion={"activeTestDrive"}
                                                     testDrive={testDrive.testDrive}
-                                                    index={index+1}></RightContainer>)
+                                                    index={index + 1}></RightContainer>)
                                         })
                                     }
                                     {(!activeTestDriveLoading) && activeTestDrive.length == 0 && <p>There are no active test drives.</p>}
-                                    <Link className="pull-right" to={"/testdrives/activeTestDrive"}>
-                                        MORE >>
+                                    {
+                                        activeTestDrive && activeTestDrive.length >= 3 && <Link className="pull-right" to={"/testdrives/activeTestDrive"}>
+                                            MORE >>
                                     </Link>
+                                    }
                                 </div>
                             </Loader>
                         </div>
