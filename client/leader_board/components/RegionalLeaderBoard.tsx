@@ -44,7 +44,7 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
         this.props.updateUI({
             region: value
         });
-        this.props.loadRegionalLeaderBoard(this.props.ui.region.Label, 0, 100);
+        this.props.loadRegionalLeaderBoard(value.Label, 0, 100);
     }
 
     componentDidMount() {

@@ -14,7 +14,8 @@ import {
   loadQuestions,
   createOrSaveTestDriveInstance,
   createOrSaveTestCaseInstance,
-  createOrSaveQuestionInstance
+  createOrSaveQuestionInstance,
+  submitTestDriveInstance
 } from '../../test_drive_participation';
 import { create } from 'domain';
 
@@ -63,6 +64,7 @@ class TestDriveParticipationContainer extends React.Component<AppProps> {
             testDriveInstance={testDriveInstance}
             saveTestCaseResponse={(testcaseInstance, testDriveInstance) =>
               dispatch(createOrSaveTestCaseInstance(testcaseInstance, testDriveInstance))}
+            submitTestDriveInstance={(testDriveInstance) => dispatch(submitTestDriveInstance(testDriveInstance))}
             saveQuestionResponse={(questionInstance) =>
               dispatch(createOrSaveQuestionInstance(questionInstance))}
             loadQuestions={(testDriveID: number, questionIDs: number[], userID: number) =>
