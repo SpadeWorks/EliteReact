@@ -5,8 +5,8 @@ export { default as TestDrivesIRunContainer} from './components/TestDrivesIRunCo
 export { default as TestDriveIRunItem} from './components/TestDriveIRunItem';
 export { default as TestDrivesIRunCompletedItem} from './components/TestDrivesIRunCompletedItem';
 export { default as MyTestDrivesContainer} from './components/MyTestDrivesContainer';
-export { default as MyTestDrivesCompleted} from './components/MyTestDrivesCompleted';
-export { default as MyTestDrivesInProgress} from './components/MyTestDrivesInProgress';
+export { default as MyTestDrivesCompletedItem} from './components/MyTestDrivesCompletedItem';
+export { default as MyTestDrivesInProgressItem} from './components/MyTestDrivesInProgressItem';
 export { default as TestDriveCardItem} from './components/TestDriveCardItem';
 export { default as ApprovalPendingContainer} from './components/ApprovalPendingContainer';
 export { default as ApprovalPendingItem} from './components/ApprovalPendingItem';
