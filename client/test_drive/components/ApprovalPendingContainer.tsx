@@ -38,7 +38,6 @@ interface ApprovalPendingContainerProps {
 class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerProps> {
     constructor(props, context) {
         super(props, context);
-        this.handlePageChanged = this.handlePageChanged.bind(this);
         this.getVisibleItems = this.getVisibleItems.bind(this);
     }
 
@@ -47,7 +46,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
         this.props.loadTestDrivesWaitingFormApproval(0, 100);
     }
 
-    getVisibleItems(newPage, array, visibleItems, currentPage) {
+    getVisibleItems(newPage: number, array: any[], visibleItems: string, currentPage: string) {
         let skip = newPage * this.props.ui.itemsPerPage;
         this.props.updateUI({
             [currentPage]: newPage,
@@ -55,17 +54,15 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
         });
     }
 
-    handlePageChanged(newPage, array, visibleItems, currentPage) {
-        this.getVisibleItems(newPage, array, visibleItems, currentPage);
+    approveTestDrive(id){
+        this.props.updateUI({
+            pendingItems: [],
+            approvedItems: [],
+        });
+        this.props.approveTestDrive(id);
+        window.location.href = window.location.href;
     }
-
     render() {
-        if (this.props.approvedTestDrives && this.props.approvedTestDrives.length && !this.props.ui.approvedItems.length) {
-            this.getVisibleItems(this.props.ui.approvedItemCurrent, this.props.approvedTestDrives.length, 'approvedItems', 'approvedItemCurrent');
-        }
-        if (this.props.testDrivesWaitingForApproval && this.props.testDrivesWaitingForApproval.length && !this.props.ui.pendingItems.length) {
-            this.getVisibleItems(this.props.ui.pendingItemCurrent, this.props.testDrivesWaitingForApproval, 'pendingItems', 'pendingItemCurrent');
-        }
         const {
             ui, updateUI,
             approvedTestDrives,
@@ -75,6 +72,22 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
             approveTestDrive,
             saveTestDriveApprovalLoading
         } = this.props;
+
+        if (!saveTestDriveApprovalLoading && approvedTestDrives && approvedTestDrives.length && !ui.approvedItems.length) {
+            var currentPage = ui.approvedItemCurrent;
+            if(ui.approvedItems.length < ui.approvedItemCurrent * ui.itemsPerPage ){
+                currentPage = currentPage - 1;      
+            }
+            this.getVisibleItems(currentPage, approvedTestDrives, 'approvedItems', 'approvedItemCurrent');
+        }
+        if (!saveTestDriveApprovalLoading && testDrivesWaitingForApproval && testDrivesWaitingForApproval.length && !ui.pendingItems.length) {
+            var currentPage = ui.pendingItemCurrent;
+            if(ui.pendingItems.length < ui.pendingItemCurrent * ui.itemsPerPage ){
+                currentPage = currentPage - 1;      
+            }
+            this.getVisibleItems(currentPage, this.props.testDrivesWaitingForApproval, 'pendingItems', 'pendingItemCurrent');
+        }
+        
         const loading = testDrivesWaitingForApprovalLoading || saveTestDriveApprovalLoading;
         return (<Tabs selected={0}>
 
@@ -88,7 +101,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                                         key={index}
                                         testDrive={testDrive}
                                         saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
-                                        approveTestDrive={(id) => approveTestDrive(id)} />)
+                                        approveTestDrive={(id) => this.approveTestDrive(id)} />)
                                 }) : 'There are no items waiting for approval.'
                         }
                         {
@@ -99,7 +112,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                                 visiblePages={ui.visiblePages}
                                 titles={{ first: '<', last: '>' }}
                                 className="pagination-sm pull-right"
-                                onPageChanged={(newPage) => this.handlePageChanged(newPage, testDrivesWaitingForApproval, 'pendingItems', 'pendingItemCurrent')}
+                                onPageChanged={(newPage) => this.getVisibleItems(newPage, testDrivesWaitingForApproval, 'pendingItems', 'pendingItemCurrent')}
                             />
                         }
 
@@ -127,7 +140,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                                 visiblePages={ui.visiblePages}
                                 titles={{ first: '<', last: '>' }}
                                 className="pagination-sm pull-right"
-                                onPageChanged={(newPage) => this.handlePageChanged(newPage, approvedTestDrives, 'approvedItems', 'approvedItemCurrent')}
+                                onPageChanged={(newPage) => this.getVisibleItems(newPage, approvedTestDrives, 'approvedItems', 'approvedItemCurrent')}
                             />
                         }
 

@@ -529,7 +529,7 @@ export default handleActions<IState, any>({
                 state.testDrivesWaitingForApproval.filter(testdrive => {
                     return (testdrive.id != action.payload.id)
                 }),
-            approvedTestDrives: [...state.approvedTestDrives, ...approvedTestDrives],
+            approvedTestDrives: [...approvedTestDrives, ...state.approvedTestDrives],
             saveTestDriveApprovalLoading: false
         }
     },
