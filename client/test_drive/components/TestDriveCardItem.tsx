@@ -37,7 +37,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                         </div>
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <h5>{Services.formatDate(testDrive.status)}</h5>
+                                                <h5>{Services.formatDate(testDrive.startDate)}</h5>
                                             </div>
                                         </div>
                                     </div>
