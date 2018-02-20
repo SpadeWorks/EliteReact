@@ -1620,7 +1620,6 @@ export class Services {
                     .then((users: any) => {
                         let user = users[0];
                         let newUser = { ...user, eliteProfileID: user.id }
-                        window.location.href = _spPageContextInfo.siteAbsoluteUrl;
                     }, err => {
                         Utils.clientLog(err);
                     })

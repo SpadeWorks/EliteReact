@@ -1,20 +1,15 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
 import * as $ from 'jquery';
-interface IntroProps {
+interface RideChoiceProps {
     updateUI: (any) => any;
     ui: any;
 };
-class Intro extends React.Component<IntroProps> {
+class RideChoice extends React.Component<RideChoiceProps> {
     constructor(props, context) {
         super(props, context);
-        this.backToReferrer = this.backToReferrer.bind(this);
 
     }
-    backToReferrer() {
-        location.href = window.location.href;
-    }
-
     componentDidMount() {
         setTimeout(
             function mytext() {
@@ -33,20 +28,15 @@ class Intro extends React.Component<IntroProps> {
         return (
             <div className="header-title">
                 <h1 className="title"></h1>
-                <p className="first-text">CREW</p>
-                <p className="next-text">WANTED</p>
+                <p className="first-text">YOU GOA A</p>
+                <p className="next-text">CHOICE, BUD_</p>
                 <div id="typewriteText"></div>
-                <div className="col-md-12 intro_actionbox testdrive_actionbox">
+                <div className="col-md-12 CarAnimation_actionbox testdrive_actionbox">
                     <div className="button type1 pull-right animated_button">
-                        <input onClick={this.backToReferrer} type="button" value="Take me home!" />
-                    </div>
-                    <div className="button type1 pull-right animated_button">
-                        <input onClick={() => updateUI({ nextScreen: ui.nextScreen + 1 })} type="button" value="Hell Yeah!" />
+                        <input onClick={() => updateUI({ nextScreen: ui.nextScreen + 1 })} type="button" value="Get a better ride" />
                     </div>
                 </div>
-
-
             </div>)
     }
 }
-export default Intro;
+export default RideChoice;

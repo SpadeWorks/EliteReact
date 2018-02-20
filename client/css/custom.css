@@ -16,23 +16,22 @@
     src: url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/sites/elite/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
-.starts-bg {
-    font: 1em "HemiHeadRg-BoldItalic", Monospace;
+body.starts {
+        font: 1em "HemiHeadRg-BoldItalic", Monospace;
     color: #fff;
     height: 100vh;
     -webkit-transform: opacity 0.3s linear;
     transform: opacity 0.3s linear;
-    width: 100%;
+    background: url('/sites/elite/Style%20Library/Elite/images/bg-stars.gif');
+    width: 30%;
     height: auto;
     /* width: 100%; */
     /* height: 100%; */
     /* background-size: cover; */
     left: 0px;
     top: 0px;
-    background-attachment: fixed;
-    overflow-x: hidden;
+   
 }
-
 .img-bg {
     font: 1em "HemiHeadRg-BoldItalic", Monospace;
     /*background: black url(./images/back.jpg) repeat 0 0;*/
@@ -2316,13 +2315,10 @@ h1 {
 
 /*equiliser style starts here*/
 
-
-/*.equilizer {
-height: $max;
-width: $max;
+.equilizer {
 transform: rotate(180deg);
 width: 183px;
-}*/
+}
 
 .bar {
     fill: DeepPink;
@@ -6013,6 +6009,195 @@ h1.testcase_name {
     animation-duration: 1.6s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+ }
+.sample_text {
+    font-family: titanium;
+    font-size: 11px;
+}
+
+.participation_actionbox .button {
+    position: relative;
+    padding: 4px 15px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    font: 18px "HemiHeadRg-BoldItalic", "Arial", Helvetica, sans-serif;
+    margin: 20px 0px 10px 0px;
+    color: red;
+    width: 119px;
+}
+
+.participation_actionbox input[type=button],
+input[type=reset],
+input[type=submit],
+button {
+    min-width: 6em;
+    padding: 7px 10px;
+    border: none !important;
+    background: none!important;
+    background: none!important;
+    margin-left: 0px !important;
+    font-family: inherit !important;
+    font-size: 15px !important;
+    color: #ed1b24;
+    outline: none;
+    position: relative;
+    z-index: 99;
+}
+
+.pariciation_time_details .earn_box {
+    border: none;
+}
+
+.pariciation_time_details .earn_box h3 {
+    margin-top: 10px;
+    position: absolute;
+    top: 68px !important;
+    left: 55px !important;
+    text-transform: uppercase !important;
+}
+
+.pariciation_time_details .earn_box span.small,
+.pariciation_time_details .drive_completionbox span.small {
+    position: absolute;
+    left: 31px;
+    font-family: titanium;
+    font-size: 15px;
+    float: left;
+    left: 14px;
+    bottom: -30px;
+}
+
+
+/*testdrive central style starts here*/
+
+.tdrive_center_box .carousel-control.left {
+    margin-left: -100px !important;
+    background: none !important;
+}
+
+.central_Card {
+    background: #07070a;
+    border: solid 1px #545454;
+}
+
+.partcipant_enddate {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.enddate_Section img,
+.partcipant_Section img {
+    height: 20px;
+    width: 20px;
+}
+
+.enddate_Section span.orange {
+    font-size: 10px;
+}
+
+.partcipant_Section span.orange {
+    font-size: 10px;
+    padding-left: 10px;
+}
+
+.enddate_Section h5 {
+    font-family: titanium;
+    color: #fff;
+}
+
+.partcipant_Section h5 {
+    font-family: titanium;
+    color: #fff;
+    padding-left: 10px;
+}
+
+.testcase_completionbox {
+    margin-top: 10px;
+    min-height: 105px;
+}
+
+#jqmeter-horizontal {
+    background: url(/sites/elite/Style%20Library/Elite/images/guage_1.png) no-repeat !important;
+}
+
+.therm .inner-therm {
+    background: url(/sites/elite/Style%20Library/Elite/images/guage_2.png)no-repeat !important;
+}
+
+.progress_drivebox {
+    background: #0a0a10;
+    border: solid 1px #333;
+}
+
+.progress_drivebox h4 {
+    color: #ff8d00;
+}
+
+ul.dragrace_indicator {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+ul.dragrace_indicator li {
+    float: left;
+}
+
+ul.dragrace_indicator li span {
+    height: 20px;
+    width: 20px;
+    background: red;
+    border-radius: 50%;
+    float: left;
+    margin-left: 5px;
+}
+
+.partcipant_Section span.orange {
+    font-size: 12px;
+    padding-left: 10px;
+    text-transform: uppercase;
+}
+
+.enddate_Section span.orange {
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.progress_drivebox .enddate_Section canvas {
+    margin-top: 20px;
+}
+
+.race_type {
+    margin-top: 10px;
+}
+
+.point_board {
+    margin-top: -100px;
+}
+
+.carousel-control.right {
+    right: -8%;
+}
+
+.carousel-control.left {
+    left: -8%;
+}
+
+.testdrive_I_runbox .inforow {
+    margin-bottom: 0px;
+}
+
+.testdrive_I_runbox h4 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.testdrive_I_runbox .inforow h5 {
+    font-family: titanium;
+    font-size: 12px;
+    padding-top: 0px !important;
+    margin-top: 0px !important;
 }
 
 @keyframes jssorl-009-spin {
@@ -6141,7 +6326,115 @@ top: 110px;
 .jsPrototype
 {width:190px !important;height:90px !important;}
 
+/*prize styles ends here*/
+#s4-workspace{    overflow-x: hidden;
+    position: relative;}
+.intro_actionbox.testdrive_actionbox .button {
+    position: relative;
+    padding: 4px 15px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    font: 18px "HemiHeadRg-BoldItalic", "Arial", Helvetica, sans-serif;
+    margin: 20px 0px 10px 0px;
+    color: red;
+    right: 170px;
+    margin-left: 50px;
+}
+
+.intro_actionbox.testdrive_actionbox {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background: none!important;
+}
+
+.intro_actionbox.testdrive_actionbox input[type=button],
+input[type=reset],
+input[type=submit],
+button {
+    min-width: 6em;
+    padding: 7px 10px;
+    border: none !important;
+    background: none!important;
+    background: none!important;
+    margin-left: 0px !important;
+    font-family: inherit !important;
+    font-size: 24px !important;
+    color: #ed1b24;
+    outline: none;
+    position: relative;
+    z-index: 99;
+}
 
 
+.red_box.red-box-container{height: 50px !important;
+    margin-top: -83px!important;
+    width: 25%!important;
+    position: absolute!important;
+    left: -72px!important;}
 
-/*jssor slider style ends here*/
+
+.bar {
+    fill: #0091ff;
+    width: 5px;
+    animation: equalize 1.25s steps(25, end) 3s infinite;
+}
+
+/*my ride styeles starts here*/
+
+.outer_ride img {
+    /* height: 130px; */
+    /* position: absolute; */
+    /* z-index: 62; */
+    /* left: 80px; */
+    position: absolute;
+    left: 72px;
+    top: 19px;
+        -webkit-animation: rotate 30s infinite;
+    animation-play-state: running;
+}
+.ride_ring img {
+    /* height: 100px; */
+    /* position: relative; */
+    /* left: 15px; */
+    /* top: 14px; */
+    /* z-index: 51; */
+    position: absolute;
+    left: 87px;
+    top: 31px;
+        -webkit-animation: rotate 5s infinite;
+          animation-direction:reverse;
+}
+
+.ride_image img{
+    position:relative;
+
+    left: 116px;
+    top: 58px;
+}
+
+
+@-webkit-keyframes rotate {
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes rotate {
+    from {-moz-transform: rotate(0deg);}
+    to {-moz-transform: rotate(360deg);}
+}
+
+.initial_ride{position: absolute;top: 250px; left: 300px;}
+
+.ride_track {
+    width: 100%;
+    /* background: red; */
+    position: absolute;
+    border-bottom: solid;
+    margin-top: 160px;
+}
+.ride_track img{position: relative;
+left: 0px;}
+/*my ride styles ends here*/

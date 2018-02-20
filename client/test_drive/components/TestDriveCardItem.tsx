@@ -98,8 +98,8 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                             <div className="row">
                                                 <ul className="select2-selection__rendered">
                                                     {(testDrive.location && testDrive.location.length) ?
-                                                        testDrive.location.map((location: any) => {
-                                                            return (<li className="select2-selection__choice" title="iwatch">
+                                                        testDrive.location.map((location: any, index) => {
+                                                            return (<li key={index} className="select2-selection__choice" title="iwatch">
                                                                 {location.Label || ''}
                                                             </li>)
                                                         }) : ''
@@ -122,8 +122,8 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                                     <div className="row">
                                                         <ul className="select2-selection__rendered">
                                                             {(testDrive.requiredDevices && testDrive.requiredDevices.length) ?
-                                                                testDrive.requiredDevices.map((device: any) => {
-                                                                    return (<li className="select2-selection__choice" title="iwatch">
+                                                                testDrive.requiredDevices.map((device: any, index) => {
+                                                                    return (<li key={index} className="select2-selection__choice" title="iwatch">
                                                                         {device.Label || ''}
                                                                     </li>)
                                                                 }) : ''
@@ -142,8 +142,8 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                                     <div className="row">
                                                         <ul className="select2-selection__rendered">
                                                             {(testDrive.requiredOs && testDrive.requiredOs.length) ?
-                                                                testDrive.requiredOs.map((os: any) => {
-                                                                    return (<li className="select2-selection__choice" title="iwatch">
+                                                                testDrive.requiredOs.map((os: any, index) => {
+                                                                    return (<li key={index} className="select2-selection__choice" title="iwatch">
                                                                         {os.Label || ''}
                                                                     </li>)
                                                                 }) : ''
