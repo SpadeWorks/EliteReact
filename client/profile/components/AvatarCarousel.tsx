@@ -14,22 +14,7 @@ interface AvatarCarouselProps {
 class AvatarCarousel extends React.Component<AvatarCarouselProps> {
     constructor(props, context) {
         super(props, context);
-    }
-
-    getAvatarLI() {
-        var stringLI = "";
-        var index = 0;
-        for (var i = 0; i < this.props.avatars.length; i = i + 8) {
-            if (i == 0) {
-                stringLI += "<li data-target='#myCarousel' data-slide-to=" + index + " className='active'></li>";
-            }
-            else {
-                stringLI += "<li data-target='#myCarousel' data-slide-to=" + index + "></li>"
-            }
-            index++;
-        }
-        return stringLI;
-    }
+    }   
 
     avatarSelected(avatar,baseUrl)
     {

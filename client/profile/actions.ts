@@ -11,7 +11,8 @@ import {
   SAVE_EliteProfile,
   LOAD_Avatars,
   LOAD_SetEditMode,
-  LOAD_Cars
+  LOAD_Cars,
+  RESET_EliteProfile
 } from './constants/ActionTypes';
 import { EliteProfile } from '../home/model';
 
@@ -53,6 +54,10 @@ const setEditMode = createAction(
   LOAD_SetEditMode  
 )
 
+const resetEliteProfile = createAction(
+  RESET_EliteProfile
+)
+
 const loadAvatars = createAction<any>(
   LOAD_Avatars,
   () => Services.getAvatars()
@@ -80,5 +85,6 @@ export {
   saveEliteProfile,
   loadAvatars,
   loadCars,
-  setEditMode
+  setEditMode,
+  resetEliteProfile
 }

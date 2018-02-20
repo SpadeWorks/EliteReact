@@ -855,7 +855,7 @@ export class Services {
     static getCars() {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
-                .select("FileRef/FileRef", "ID", "CarName").get().then(car => {
+                .select("FileRef/FileRef", "ID", "CarName", "PointsRequired", "CarLevel").get().then(car => {
                     resolve(car);
                 }, err => {
                     reject(err);
@@ -1961,8 +1961,8 @@ export class Services {
                 )
                 .expand(Constants.Columns.USER_ID).orderBy(Constants.Columns.POINTS, false)
                 .filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z' and UserID eq " + userID)
-                .get().then(testDrives => {
-                    resolve(testDrives[0].Points);
+                .get().then(userPoints => {
+                    resolve(userPoints[0].Points);
                 })
         });
     }

@@ -6,7 +6,6 @@ import Services from '../../common/services/services';
 import { EliteProfile } from '../../home/model';
 import { Messages } from '../../common/services/constants';
 import ui from 'redux-ui';
-
 interface TestDriveDetailsProps {
     testDriveInstance: TestDriveInstance;
     createTestDriveInstance: (testDriveInstance: TestDriveInstance) => any;
