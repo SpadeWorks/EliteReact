@@ -1,19 +1,19 @@
 @font-face {
     font-family: "HemiHeadRg-BoldItalic";
-    src: url("/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.eot?") format("eot"), url("/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.woff") format("woff"), url("/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.ttf") format("truetype"), url("/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.svg#HemiHeadRg-BoldItalic") format("svg");
+    src: url("/sites/elite/Style Library/Elite/fonts/hemi_head_bd_it.eot?") format("eot"), url("/sites/elite/Style Library/Elite/fonts/hemi_head_bd_it.woff") format("woff"), url("/sites/elite/Style Library/Elite/fonts/hemi_head_bd_it.ttf") format("truetype"), url("/sites/elite/Style Library/Elite/fonts/hemi_head_bd_it.svg#HemiHeadRg-BoldItalic") format("svg");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: titanium;
-    src: url("/sites/elite-dev-akash/Style Library/Elite/fonts/TitilliumWeb-Regular.ttf");
+    src: url("/sites/elite/Style Library/Elite/fonts/TitilliumWeb-Regular.ttf");
 }
 
 @font-face {
     font-family: 'Glyphicons Halflings';
-    src: url('/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot');
-    src: url('/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/sites/elite-dev-akash/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+    src: url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.eot');
+    src: url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/sites/elite/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
 body.starts {
@@ -22,7 +22,7 @@ body.starts {
     height: 100vh;
     -webkit-transform: opacity 0.3s linear;
     transform: opacity 0.3s linear;
-    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/39132/bg-stars.gif);
+    background: url('/sites/elite/Style%20Library/Elite/images/bg-stars.gif');
     width: 30%;
     height: auto;
     /* width: 100%; */
@@ -41,7 +41,7 @@ body.starts {
     height: 100vh;
     -webkit-transform: opacity 0.3s linear;
     transform: opacity 0.3s linear;
-    background: url('/sites/elite-dev-akash/Style%20Library/Elite/images/dash_back.jpg') no-repeat !important;
+    background: url('/sites/elite/Style%20Library/Elite/images/dash_back.jpg') no-repeat !important;
     width: 100%;
     height: auto;
     width: 100%;
@@ -3054,7 +3054,7 @@ span.select2-selection__choice__remove {
 
 /*.line_box {
 height: 200px;
-background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/line.png) no-repeat;
+background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
 width: 100%;
 background-size: contain;
 margin-top: -90px;
@@ -3390,12 +3390,12 @@ span.l_count {
 
 
 /*.therm.outer-therm.vertical {
-background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
+background: url(/sites/elite/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
 border-radius: 0;
 }
 
 .therm.inner-therm.vertical {
-background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
+background: url(/sites/elite/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
 border-radius: 0;
 width: 28px !important;
 }*/
@@ -4093,19 +4093,19 @@ ul.task_circle li p.inactive_task {
 
 .line_box {
     height: 200px;
-    background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/line.png) no-repeat;
+    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
     width: 100%;
     background-size: contain;
     margin-top: -90px;
 }
 
 .therm.outer-therm.vertical {
-    background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
+    background: url(/sites/elite/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
     border-radius: 0;
 }
 
 .therm.inner-therm.vertical {
-    background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
+    background: url(/sites/elite/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
     border-radius: 0;
     width: 28px !important;
 }
@@ -4425,14 +4425,14 @@ div#s4-ribbonrow {
 }
 
 span.teams {
-    background: url("/sites/elite-dev-akash/Style%20Library/Elite/images/teams1.png") no-repeat;
+    background: url("/sites/elite/Style%20Library/Elite/images/teams1.png") no-repeat;
     height: 23px;
     width: 23px;
     float: left;
 }
 
 span.teams:hover {
-    background: url("/sites/elite-dev-akash/Style%20Library/Elite/images/teams2.png") no-repeat;
+    background: url("/sites/elite/Style%20Library/Elite/images/teams2.png") no-repeat;
     height: 23px;
     width: 23px;
     float: left;
@@ -4819,14 +4819,14 @@ ul.task_circle li p.inactive_task {
 }
 
 span.teams {
-    background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/teams1.png) no-repeat;
+    background: url(/sites/elite/Style%20Library/Elite/images/teams1.png) no-repeat;
     height: 23px;
     width: 23px;
     float: left;
 }
 
 span.teams:hover {
-    background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/teams2.png) no-repeat;
+    background: url(/sites/elite/Style%20Library/Elite/images/teams2.png) no-repeat;
     height: 23px;
     width: 23px;
     float: left;
@@ -6003,230 +6003,17 @@ h1.testcase_name {
     padding-top: 24px;
     color: #999;
     font-size: 18px;
-}
-
-.testdrive_completionbox {
-    overflow: auto;
-    height: 100%;
-}
+    color: #909090;}
 
 
-/* file uploader */
-
-
-/* LIST */
-
-
-/* ================== */
-
-.files-dropzone {
-    float: right;
-}
-
-.files-dropzone-list {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-    padding: 10px;
-    border: 1px dashed #D3D3D3;
-    cursor: pointer;
-    float: right;
-}
-
-.files-buttons {
-    border-top: 1px solid #D3D3D3;
-    cursor: pointer;
-}
-
-.files-button-submit {
-    display: inline-block;
-    text-align: center;
-    height: 40px;
-    line-height: 40px;
-    width: 50%;
-    box-sizing: border-box;
-    border-right: 1px solid #D3D3D3;
-}
-
-.files-button-submit:before {
-    content: "Submit"
-}
-
-.files-button-clear {
-    display: inline-block;
-    text-align: center;
-    height: 40px;
-    line-height: 40px;
-    width: 50%;
-    box-sizing: border-box;
-}
-
-.files-button-clear:before {
-    content: "Clear"
-}
-
-.files-list {
-    width: 100%;
-}
-
-.files-list ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-}
-
-.files-list li:last-child {
-    border: none;
-}
-
-.files-list-item {
-    padding: 8px 0px 2px 19px;
-    float: left !important;
-    width: 210px !important;
-    background: #24242d;
-    margin-left: 4px;
-    border: solid 1px #14141d;
-    margin-top: 5px;
-}
-
-.files-list-item-content {
-    float: left;
-    padding-top: 5px;
-    padding-left: 10px;
-    width: calc(100% - 130px);
-}
-
-.files-list-item-content-item {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.files-list-item-content-item-1 {
-    font-size: 10px;
-    line-height: 30px;
-}
-
-.files-list-item-content-item-2 {
-    font-size: 16px;
-    line-height: 20px;
-}
-
-.files-list-item-preview {
-    height: 50px;
-    width: 50px;
-    float: left;
-}
-
-.files-list-item-preview-image {
-    height: 100%;
-    width: 100%;
-}
-
-.files-list-item-preview-extension {
-    text-align: center;
-    line-height: 60px;
-    color: #FFF;
-    background-color: #D3D3D3;
-    font-size: 16px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    padding-left: 5px;
-    padding-right: 5px;
-    box-sizing: border-box;
-}
-
-.files-list-item-remove {
-    height: 60px;
-    width: 60px;
-    float: right;
-    cursor: pointer;
-    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4IiB3aWR0aD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTM4IDEyLjgzbC0yLjgzLTIuODMtMTEuMTcgMTEuMTctMTEuMTctMTEuMTctMi44MyAyLjgzIDExLjE3IDExLjE3LTExLjE3IDExLjE3IDIuODMgMi44MyAxMS4xNy0xMS4xNyAxMS4xNyAxMS4xNyAyLjgzLTIuODMtMTEuMTctMTEuMTd6Ii8+PHBhdGggZD0iTTAgMGg0OHY0OGgtNDh6IiBmaWxsPSJub25lIi8+PC9zdmc+) no-repeat center center;
-    background-size: 30px 30px;
-}
-
-.files-list-item-remove-image {
-    height: 30px;
-    width: 30px;
-    margin-top: 15px;
-    margin-right: 10px;
-    float: right;
-}
-
-
-/* file uploader ends here */
-
-.testdrive-detail_first-time .earn_box h3 {
-    margin-top: 10px;
-    position: absolute;
-    top: 69px !important;
-    left: 52px !important;
-    text-transform: uppercase !important;
-}
-
-.testdrive-detail_first-time .earn_box span.small,
-.testdrive-detail_first-time .drive_completionbox span.small {
-    position: absolute;
-    left: 12px;
-    font-family: titanium;
-    font-size: 15px;
-    float: left;
-    bottom: -35px;
-}
-
-.header_part {
-    margin-bottom: 50px;
-}
-
-.testdrive_actionbox .button {
-    position: relative;
-    padding: 4px 15px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    outline: none;
-    font: 18px "HemiHeadRg-BoldItalic", "Arial", Helvetica, sans-serif;
-    margin: 20px 0px 10px 0px;
-    color: red;
-    right: 170px;
-    margin-left: 50px;
-}
-
-.testdrive_actionbox {
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-    background: #181821;
-}
-
-.testdrive_actionbox input[type=button],
-input[type=reset],
-input[type=submit],
-button {
-    min-width: 6em;
-    padding: 7px 10px;
-    border: none !important;
-    background: none!important;
-    background: none!important;
-    margin-left: 0px !important;
-    font-family: inherit !important;
-    font-size: 15px !important;
-    color: #ed1b24;
-    outline: none;
-    position: relative;
-    z-index: 99;
-}
-
-.testcase_details {
-    float: left;
-    background: #1d1d27;
-    /* border: solid 1px #272727; */
-    height: 430px;
-    overflow: auto;
-}
-
+/*jssor slider styling starts here*/
+ /*jssor slider loading skin spin css*/
+ .jssorl-009-spin img {
+    animation-name: jssorl-009-spin;
+    animation-duration: 1.6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+ }
 .sample_text {
     font-family: titanium;
     font-size: 11px;
@@ -6336,11 +6123,11 @@ button {
 }
 
 #jqmeter-horizontal {
-    background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/guage_1.png) no-repeat !important;
+    background: url(/sites/elite/Style%20Library/Elite/images/guage_1.png) no-repeat !important;
 }
 
 .therm .inner-therm {
-    background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/guage_2.png)no-repeat !important;
+    background: url(/sites/elite/Style%20Library/Elite/images/guage_2.png)no-repeat !important;
 }
 
 .progress_drivebox {
@@ -6417,193 +6204,135 @@ ul.dragrace_indicator li span {
     margin-top: 0px !important;
 }
 
-.testdrive_I_runbox span.orange {
-    font-size: 12px;
-    text-transform: uppercase;
+@keyframes jssorl-009-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
-
-.testdrive_I_runbox .testd_box {
-    padding-top: 0px;
-    margin-top: -3px;
-    margin-bottom: 10px;
-}
-
-span.up_no {
-    margin-top: -3px;
-    font-size: 17px;
-    color: green;
-}
-
-.testdrive_I_runbox .testd_box span.glyphicon-triangle-top {
-    font-size: 10px;
-    color: green;
-}
-
-span.big_text {
-    font-size: 20px;
-}
-
-.outofbox {
-    margin-top: 3px;
-}
-
-.outof {
-    margin-top: -10px;
-}
-
-.testdrive_I_runbox .social_box {
-    margin-top: 0px;
-}
-
-.testdrive_I_runbox .social_box a {
-    float: left;
-    margin-left: 19px;
-}
-
-.testdrive_I_runbox .social_box a:first-child {
-    margin-left: 0px;
-}
-
-.testdrive_I_runbox .social_box a i:hover {
-    color: red;
-}
-
-.testdrive_I_runbox ul.dragrace_indicator li span {
-    height: 15px !important;
-    width: 15px !important;
-    background: red;
-    border-radius: 50%;
-    float: left;
-    /* margin-left: 5px; */
-}
-
-ul.streetrace_indicator {
-    list-style-type: none;
-    padding-left: 0px;
-}
-
-.testdrive_I_runbox ul.streetrace_indicator li span {
-    height: 15px !important;
-    width: 15px !important;
-    background: red;
-    border-radius: 50%;
-    float: left;
-    /* margin-left: 5px; */
-}
-
-.testdrive_I_runbox ul.streetrace_indicator li span {
-    height: 15px !important;
-    width: 15px !important;
-    background: #f8971d;
-    border-radius: 50%;
-    float: left;
-    /* margin-left: 5px; */
-}
-
-ul.streetrace_indicator li {
-    float: left;
-}
-
-ul.streetrace_indicator li span {
-    margin-left: 5px;
-}
-
-.testdrive_I_runbox ul.dragrace_indicator {
-    margin-top: 2px;
-    margin-bottom: 2px
-}
-
-.testdrive_I_runbox ul.dragrace_indicator li:first-child span {
-    margin-left: 0px;
-}
-
-.testdrive_I_runbox h5.race_neme {
-    text-transform: uppercase;
-    margin-top: 3px !important;
-}
-
-li.select2-selection__choice {
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.enddate_Section:first-child {
-    border-right: solid 1px #333;
-}
-
-.col-md-6 .partcipant_Section {
-    border: solid 1px #333 !important;
-}
-
-
-/*testdrive central style ends here*/
-
-
-/*prize style start here*/
-
-.prize_description span.orange {
-    letter-spacing: 17px;
-    font-size: 20px;
-    text-transform: uppercase;
-    text-shadow: 0px 5px 5px #000000;
-}
-
-.prize_description h2 {
-    font-size: 45px;
-}
-
-.prize_description p {
-    font-family: titanium;
-}
-
-.prize_model img {
-    -webkit-animation: prize_rorate 5s infinite;
-    /* Safari 4.0 - 8.0 */
-    animation: prize_rorate 3s infinite;
+/*jssor slider loading skin spin css*/
+.jssorl-009-spin img {
+    animation-name: jssorl-009-spin;
+    animation-duration: 1.6s;
     animation-iteration-count: infinite;
-    animation-direction: alternate;
+    animation-timing-function: linear;
 }
 
-
-/* Safari 4.0 - 8.0 */
-
-@-webkit-keyframes prize_rorate {
-    from {
-        top: -100px;
-    }
-    to {
-        top: 200px;
-    }
+@keyframes jssorl-009-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
+/*jssor slider arrow skin 106 css*/
+.jssora106 {display:block;position:absolute;cursor:pointer;}
+.jssora106 .c {fill:#fff;opacity:.3;}
+.jssora106 .a {fill:none;stroke:#000;stroke-width:350;stroke-miterlimit:10;}
+.jssora106:hover .c {opacity:.5;}
+.jssora106:hover .a {opacity:.8;}
+.jssora106.jssora106dn .c {opacity:.2;}
+.jssora106.jssora106dn .a {opacity:1;}
+.jssora106.jssora106ds {opacity:.3;pointer-events:none;}
 
-/* Standard syntax */
+/*jssor slider thumbnail skin 101 css*/
+.jssort101 .p {position: absolute;top:0;left:0;box-sizing:border-box;background:#000;}
+.jssort101 .p .cv {position:relative;top:0;left:0;width:100%;height:100%;border:2px solid #000;box-sizing:border-box;z-index:1;}
+.jssort101 .a {fill:none;stroke:#fff;stroke-width:400;stroke-miterlimit:10;visibility:hidden;}
+.jssort101 .p:hover .cv, .jssort101 .p.pdn .cv {border:none;border-color:transparent;}
+.jssort101 .p:hover{padding:2px;}
+.jssort101 .p:hover .cv {background-color:rgba(0,0,0,6);opacity:.35;}
+.jssort101 .p:hover.pdn{padding:0;}
+.jssort101 .p:hover.pdn .cv {border:2px solid #fff;background:none;opacity:.35;}
+.jssort101 .pav .cv {border-color:#fff;opacity:.35;}
+.jssort101 .pav .a, .jssort101 .p:hover .a {visibility:visible;}
+.jssort101 .t {
+position: absolute;
+top: 0;
+left: 30px;
+width: 70%;
+height: 83%;
+border: none;
+opacity: .6;
+}
+.jssort101 .pav .t, .jssort101 .p:hover .t{opacity:1;}
 
-@keyframes prize_rorate {
-    from {
-        transform: rotate(360deg);
-    }
-    to {
-        transform: rotate(350deg);
-    }
+
+.jssort101{height: 130px !important; position: relative;z-index: 90; background: none !important;
+      margin-top: -242px;}
+.ride_staus{position: relative;top:70px;}
+
+.car-name{width:100%; text-align: center;}
+
+img.car_bigview {
+width: 77%;
+margin-left: 10%;
 }
 
-.more_prizes {
-    margin-top: 207px;
-    margin-left: 88px;
-    font-family: titanium;
+.jssort101 .p{z-index: 90 !important; position: relative; background: none;}
+
+.car-selection {text-align: center;}
+
+
+.car_boxslider{    position: relative;
+margin: 0px auto;
+top: -73px;
+left: 0px;
+width: 980px;
+height: 480px;
+overflow: hidden;
+visibility: visible;
+height: 700px !important;}
+
+
+.slider_containermain{position: absolute;
+display: block;
+top: 0px;
+left: 0px;
+width: 980px;
+height: 380px !important;}
+
+.car-selection {
+text-align: center;
+position: relative;
+top: 110px;
 }
 
+.profile_screen .overview{background: none; }
+
+.car_pack h4{font-size: 20px;}
+
+.car_pack span.orange{font-size: 29px;}
+
+.rank_box{position: relative;top: 50px;background:#100f1b; padding-top: 5px; z-index:50}
+
+
+/*  Added by Swapnil  */
+.jsTop 
+{position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);}
+
+.jsLoading 
+{margin-top:-19px;position:relative;top:50%;width:38px;height:38px;}
+
+.jsSlides
+{cursor:default;position:relative;top:0px;left:0px;width:980px;height:650px;overflow:hidden;}
+
+.jsSort
+{position:absolute !important;left:0px !important;bottom:0px !important;width:980px !important;height:100px !important;background-color:#000 !important;}
+
+.jsOffset
+{height: 50px;background: red; position: relative;/*top: 450px;*/}
+
+.jsArrowLeft
+{width:55px;height:55px;top:162px;left:30px;}
+
+.jsArrowRight
+{width:55px;height:55px;top:162px;right:30px;}
+
+.jsViewBox
+{position:absolute;top:0;left:0;width:100%;height:100%;}
+.jsPrototype
+{width:190px !important;height:90px !important;}
 
 /*prize styles ends here*/
-
-
-
 #s4-workspace{    overflow-x: hidden;
     position: relative;}
-
-
-
 .intro_actionbox.testdrive_actionbox .button {
     position: relative;
     padding: 4px 15px;
@@ -6658,3 +6387,60 @@ button {
     width: 5px;
     animation: equalize 1.25s steps(25, end) 3s infinite;
 }
+
+/*my ride styeles starts here*/
+
+.outer_ride img {
+    /* height: 130px; */
+    /* position: absolute; */
+    /* z-index: 62; */
+    /* left: 80px; */
+    position: absolute;
+    left: 72px;
+    top: 19px;
+        -webkit-animation: rotate 30s infinite;
+    animation-play-state: running;
+}
+.ride_ring img {
+    /* height: 100px; */
+    /* position: relative; */
+    /* left: 15px; */
+    /* top: 14px; */
+    /* z-index: 51; */
+    position: absolute;
+    left: 87px;
+    top: 31px;
+        -webkit-animation: rotate 5s infinite;
+          animation-direction:reverse;
+}
+
+.ride_image img{
+    position:relative;
+
+    left: 116px;
+    top: 58px;
+}
+
+
+@-webkit-keyframes rotate {
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes rotate {
+    from {-moz-transform: rotate(0deg);}
+    to {-moz-transform: rotate(360deg);}
+}
+
+.initial_ride{position: absolute;top: 250px; left: 300px;}
+
+.ride_track {
+    width: 100%;
+    /* background: red; */
+    position: absolute;
+    border-bottom: solid;
+    margin-top: 160px;
+}
+.ride_track img{position: relative;
+left: 0px;}
+/*my ride styles ends here*/

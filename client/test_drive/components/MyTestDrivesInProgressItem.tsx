@@ -6,6 +6,7 @@ interface MyTestDrivesInProgressItemProps {
     testDrive: TestDrive;
     participants: number;
     index: number;
+    loadeMore: (skip: number, top: number) => any;
 };
 class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressItemProps> {
     canvasID = 'my-test-drive-in-progress' + this.props.index;

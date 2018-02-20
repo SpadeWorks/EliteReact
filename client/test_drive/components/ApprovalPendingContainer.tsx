@@ -102,7 +102,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                                         testDrive={testDrive}
                                         saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
                                         approveTestDrive={(id) => this.approveTestDrive(id)} />)
-                                }) : 'There are no items waiting for approval.'
+                                }) : (!loading && 'There are no items waiting for approval.')
                         }
                         {
                             ui.pendingItems && ui.pendingItems.length > 0 &&
@@ -130,7 +130,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                                         testDrive={testDrive}
                                         saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
                                         approveTestDrive={(id) => approveTestDrive(id)} />)
-                                }) : 'There are no items waiting for approval.'
+                                }) : (!loading && 'There are no items waiting for approval.')
                         }
                         {
                             ui.approvedItems && ui.approvedItems.length > 0 &&

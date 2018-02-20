@@ -124,7 +124,9 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                       myInprogressTestDrives={myInprogressTestDrives}
                       myInprogressTestDrivesLoading={myInprogressTestDrivesLoading}
                       loadMyCompletedTestDrives={(skip, top) => dispatch(loadMyCompletedTestDrives(skip, top))}
-                      loadMyInprogressTestDrives={(skip, top) => dispatch(loadMyInprogressTestDrives(skip, top))} />
+                      loadMyInprogressTestDrives={(skip, top) => dispatch(loadMyInprogressTestDrives(skip, top))} 
+                      ui={ui}
+                      updateUI={updateUI}/>
                   </Pane>
                   <Pane label="TEST DRIEVES I RUN">
                     <TestDrivesIRunContainer testDriveIRun={testDriveIRun} />
@@ -133,13 +135,17 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                     <ActiveTestDrivesContainer
                       activeTestDrives={activeTestDrives}
                       activeTestDrivesLoading={activeTestDrivesLoading}
-                      loadActiveTestDrives={(skip, top) => dispatch(loadActiveTestDrives(skip, top))} />
+                      loadActiveTestDrives={(skip, top) => dispatch(loadActiveTestDrives(skip, top))}
+                      ui={ui}
+                      updateUI={updateUI} />
                   </Pane>
                   <Pane label="Upcomming Test Drive">
                     <UpCommingTestdrivesContainer
                       upCommingTestDrives={upCommingTestDrives}
                       upCommingTestDrivesLoading={upCommingTestDrivesLoading}
-                      loadUpCommingTestDrives={(skip, top) => dispatch(loadUpCommingTestDrives(skip, top))} />
+                      loadUpCommingTestDrives={(skip, top) => dispatch(loadUpCommingTestDrives(skip, top))} 
+                      ui={ui}
+                      updateUI={updateUI} />
                   </Pane>
                   <Pane label="PENDING APPROVALS">
                     <ApprovalPendingContainer

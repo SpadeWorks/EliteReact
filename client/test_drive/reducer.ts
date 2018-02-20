@@ -728,7 +728,7 @@ export default handleActions<IState, any>({
     [LOAD_MyInprogressTestDrives_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            myCompletedTestDrives: action.payload,
+            myInprogressTestDrives: action.payload,
             myInprogressTestDrivesLoading: false
         }
     },

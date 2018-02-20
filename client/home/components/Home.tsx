@@ -131,7 +131,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                                 mytestDrive={mytestDrive}
                                 myTestDriveLoading={myTestDriveLoading}
                                 testDriveThatIRun={testDriveThatIRun}
-                                testDriveThatIRunLoading={testDriveThatIRunLoading}                                
+                                testDriveThatIRunLoading={testDriveThatIRunLoading}
                             />
 
                             <div className="col-md-4">
@@ -152,7 +152,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                             </OverallPointsDashboard>
                         </div>
                         <UserRank userName={eliteProfile.displayName} userRank={userRank} />
-                        <Video videoUrl={videoUrl}/>
+                        <Video videoUrl={videoUrl} />
                         <Footer />
                     </div>
                 </div>

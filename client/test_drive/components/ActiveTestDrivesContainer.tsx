@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Link } from "react-router-dom";
 import { Dispatch } from 'redux';
 import Loader from 'react-loader-advanced';
+import Pager from 'react-pager';
+import ui from 'redux-ui';
 import {
     TestDriveCardItem,
     model,
@@ -12,10 +14,20 @@ interface ActiveTestDrivesContainerProps {
     activeTestDrives: model.TestDrive[];
     activeTestDrivesLoading: boolean;
     loadActiveTestDrives: (skip: number, top: number) => any;
+    updateUI: (any) => any;
+    ui: any;
 };
 
 
-
+@ui({
+    state: {
+        itemsPerPage: 3,
+        total: 11,
+        current: 0,
+        visibleItems: [],
+        visiblePages: 4,
+    }
+})
 class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContainerProps> {
     constructor(props, context) {
         super(props, context);
@@ -25,53 +37,52 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
         this.props.loadActiveTestDrives(0, 100);
     }
 
-    getPagedArray(activeTestDrives: any) {
-        var arrays = [];
-        var size = 3;
-        while (activeTestDrives.length > 0) {
-            arrays.push(activeTestDrives.splice(0, size));
-        }
-        return arrays;
+    getVisibleItems(newPage) {
+        let skip = newPage * this.props.ui.itemsPerPage;
+        this.props.updateUI({
+            current: newPage,
+            visibleItems: this.props.activeTestDrives.slice(skip, skip + this.props.ui.itemsPerPage)
+        });
     }
 
     render() {
-        const { activeTestDrives, activeTestDrivesLoading } = this.props;
-        return (<div>
-            <Loader show={activeTestDrivesLoading || false} message={'Loading...'}>
-                {
-                    (activeTestDrives && activeTestDrives.length) ?
-                        (<div id="activeTestDrivesCarousel" className="carousel slide"
-                            data-ride="carousel" data-interval="false">
-                            <div className="carousel-inner">
-                                {
-                                    this.getPagedArray(activeTestDrives).map((array, i) => {
-                                        return <div key={i} className={"item " + (i == 0 ? "active" : '')}>
-                                            {
-                                                array.map((testDriveObj, index) => {
-                                                    return (<TestDriveCardItem
-                                                        key={index}
-                                                        participants={testDriveObj.participents}
-                                                        testDrive={testDriveObj.testDrive} />)
+        const { activeTestDrives, activeTestDrivesLoading, ui, updateUI } = this.props;
 
-                                                })
-                                            }
-                                        </div>
-                                    })
-                                }
-                            </div>
-                            <a className="left carousel-control" href="#activeTestDrivesCarousel" data-slide="prev">
-                                <span className="glyphicon glyphicon-chevron-left"></span>
-                                <span className="sr-only">Previous</span>
-                            </a>
-                            <a className="right carousel-control" href="#activeTestDrivesCarousel" data-slide="next">
-                                <span className="glyphicon glyphicon-chevron-right"></span>
-                                <span className="sr-only">Next</span>
-                            </a>
-                        </div>) : (!activeTestDrivesLoading && 'There are no active testdrive items.')
+        if (!activeTestDrivesLoading && activeTestDrives && activeTestDrives.length && !ui.visibleItems.length) {
+            var currentPage = ui.current;
+            if ((ui.visibleItems.length < ui.visibleItems * ui.itemsPerPage) && ui.current != 0) {
+                currentPage = currentPage - 1;
+            }
+            this.getVisibleItems(currentPage);
+        }
+
+        return (<div>
+            <Loader show={activeTestDrivesLoading} message={'Loading...'}>
+                {
+                    (ui.visibleItems && ui.visibleItems.length) ?
+                        ui.visibleItems.map((testDriveObj, index) => {
+                            return (<TestDriveCardItem
+                                key={index}
+                                participants={testDriveObj.participents}
+                                testDrive={testDriveObj.testDrive} />)
+                        }) : (!activeTestDrivesLoading && 'There are no active test drives.')
+                }
+                {
+                    ui.visibleItems && ui.visibleItems.length > 0 &&
+                    <Pager
+                        total={Math.ceil(activeTestDrives.length / ui.itemsPerPage)}
+                        current={ui.current}
+                        visiblePages={ui.visiblePages}
+                        titles={{ first: '<', last: '>' }}
+                        className="pagination-sm pull-right"
+                        onPageChanged={(newPage) => this.getVisibleItems(newPage)}
+                    />
                 }
             </Loader>
         </div>)
+
     }
 }
+
 
 export default ActiveTestDrivesContainer;

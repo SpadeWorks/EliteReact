@@ -37,7 +37,7 @@ class Navigation extends React.Component<NavigationProps> {
                         <span>Refer a friend</span>
                     </a>
 
-                    <Link className="maplinks" to={"/myprofile"} id="link3">
+                    <Link className="maplinks" to={"/profile/"} id="link3">
                         <img src="/sites/elite/Style%20Library/Elite/images/refer.png" />
                         <span>My Profile</span>
                     </Link>
