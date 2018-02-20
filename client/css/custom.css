@@ -2309,6 +2309,11 @@ h1 {
     margin-left: 5px;
 }
 
+    .intro_actionbox.testdrive_actionbox.letsgo{position: fixed;
+    bottom: 31px;
+    left: -184px;
+    background: none!important;}
+
 
 /*welcome and landing text ends here*/
 
@@ -3790,6 +3795,8 @@ span.testd_count {
 
 .count_box {
     margin-top: 30px;
+    margin-top: -42px;
+    margin-left: 84px;
 }
 
 .profile_box.count_box:nth-child(4) {
@@ -4544,9 +4551,6 @@ span.testd_count {
     width: 20%;
 }
 
-.count_box {
-    margin-top: 30px;
-}
 
 .profile_box.count_box:nth-child(4) {
     border-bottom: solid 2px #fff;
@@ -6640,11 +6644,13 @@ button {
 }
 
 
-.red_box.red-box-container{height: 50px !important;
-    margin-top: -83px!important;
+.red_box.red-box-container {
+    height: 50px !important;
+    margin-top: -33px!important;
     width: 25%!important;
     position: absolute!important;
-    left: -72px!important;}
+    left: -72px!important;
+}
 
 
 .bar {

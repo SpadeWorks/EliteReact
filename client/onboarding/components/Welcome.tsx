@@ -48,7 +48,7 @@ class Welcome extends React.Component<WelcomeProps> {
             
 
 
-             <div className="col-md-12 intro_actionbox testdrive_actionbox">
+             <div className="col-md-12 intro_actionbox testdrive_actionbox letsgo">
 
 
                     <div className="button type1 pull-right animated_button">
