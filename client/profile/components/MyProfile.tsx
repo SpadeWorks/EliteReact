@@ -6,6 +6,7 @@ import MyProfileLeftContainer from "./MyProfileLeftContainer"
 import MyProfileRightContainer from "./MyProfileRightContainer"
 import MyProfileMiddleContainer from "./MyProfileMiddleContainer"
 import { EliteProfile } from '../../home/model';
+import * as $ from 'jquery';
 // import '../../js/jssor.slider-27.0.2.min.js';
 import ui from 'redux-ui';
 
@@ -27,7 +28,7 @@ import {
     saveEliteProfile,
     setEditMode,
     loadCars,
-    resetEliteProfile    
+    resetEliteProfile
 } from '../';
 import Services from '../../common/services/services';
 import { Dispatch } from 'redux';
@@ -71,7 +72,7 @@ class MyProfile extends React.Component<MyProfileProps> {
         this.props.eliteProfile.carID = car.ID;
         this.props.eliteProfile.carImage = baseUrl + car.FileRef;
         this.props.eliteProfile.carName = car.CarName;
-        saveEliteProfile(this.props.eliteProfile)        
+        saveEliteProfile(this.props.eliteProfile)
     }
 
     componentWillUnmount() {
@@ -81,7 +82,7 @@ class MyProfile extends React.Component<MyProfileProps> {
     componentDidMount() {
         document.body.className = "plane_back";
         let user = Services.getUserProfileProperties();
-        if (user.eliteProfileID) {            
+        if (user.eliteProfileID) {
             this.props.dispatch(loadEliteProfile(this.props.id || user.eliteProfileID));
             this.props.dispatch(loadUserRank(user.eliteProfileID));
             this.props.dispatch(loadUserPoints(user.eliteProfileID));
@@ -92,8 +93,15 @@ class MyProfile extends React.Component<MyProfileProps> {
         }
         this.props.dispatch(loadCars());
 
-        /* window.jssor_1_slider_init();                   */
     }
+
+    componentDidUpdate() {
+        var slider = $(".present_ride");
+        if (slider.length) {
+            window.jssor_1_slider_init();
+        }
+    }
+
 
     render() {
         const { eliteProfile, rank, totalPoints,
@@ -220,7 +228,6 @@ class MyProfile extends React.Component<MyProfileProps> {
                                 (!this.props.id && this.props.id != -1) &&
 
                                 <div id="jssor_1" className="car_boxslider jsTop">
-
                                     <div data-u="loading" className="jssorl-009-spin jsLoading" >
                                         <img />
                                     </div>
@@ -228,41 +235,54 @@ class MyProfile extends React.Component<MyProfileProps> {
                                         {
                                             cars && cars.map((car, index) => {
                                                 return (
-                                                    (index == 0) ?
-                                                    <div>
-                                                        <div data-p="170.00" className="car_pack">
-                                                            <div className="row">
-                                                                <div className="col-md-12 text-center">
-                                                                    <h4 className="text-center">Level 5</h4>
+                                                    <div key={index}>
+                                                        {
+                                                            (index == 0) ?
+                                                                <div>
+                                                                    <div data-p="170.00" className="car_pack">
+                                                                        <div className="row">
+                                                                            <div className="col-md-12 text-center">
+                                                                                <h4 className="text-center">Level 5</h4>
+                                                                            </div>
+                                                                            <div className="col-md-12 text-center">
+                                                                                <span className="orange"><i>{car.CarName}</i></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <img data-u="image" className="car_bigview" src={car.FileRef} />
+                                                                        <img data-u="thumb" src={car.FileRef} />
+                                                                        <div className="car-selection"><a href="#"></a></div>
+                                                                    </div>
+                                                                    <div className="col-md-2 col-md-offset-5 jsOffset">
+                                                                        {totalPoints < car.PointsRequired ?
+                                                                            <p><a href="#" className="locked_ride"><img src="images/empty.png" />Locked Ride</a></p> :
+                                                                            totalPoints > car.PointsRequired ?
+                                                                                <p><a href="#" className="future_ride"><img src="images/empty.png" />Feature Ride</a></p>
+                                                                                : car.CarName == eliteProfile.carName ?
+                                                                                    <p><a href="#" className="present_ride"><img src="images/done.png" />current Ride.</a></p> :
+                                                                                    <p><a href="javascript:void(0)" onClick={() => this.carSelected(car, baseUrl)} className="present_ride"><img src="images/done.png" />Get This Ride.</a></p>
+                                                                        }
+                                                                    </div>
+                                                                </div> :
+                                                                <div>
+                                                                    <div data-p="170.00">
+                                                                        <div className="car-name"> <h5>{car.CarName}</h5></div>
+                                                                        <img data-u="image" className="car_bigview" src={car.FileRef} />
+                                                                        <img data-u="thumb" src={car.FileRef} />
+                                                                    </div>
+                                                                    <div className="col-md-2 col-md-offset-5 jsOffset">
+                                                                        {
+                                                                            totalPoints < car.PointsRequired ?
+                                                                                <p><a href="#" className="locked_ride"><img src="images/empty.png" />Locked Ride</a></p> :
+                                                                                totalPoints > car.PointsRequired ? <p><a href="#" className="future_ride"><img src="images/empty.png" />Feature Ride</a></p>
+                                                                                    : car.CarName == eliteProfile.carName ? <p><a href="#" className="present_ride"><img src="images/done.png" />current Ride.</a></p> :
+                                                                                        <p><a href="javascript:void(0)" onClick={() => this.carSelected(car, baseUrl)} className="present_ride"><img src="images/done.png" />Get This Ride.</a></p>
+                                                                        }
+                                                                    </div>
                                                                 </div>
-                                                                <div className="col-md-12 text-center">
-                                                                    <span className="orange"><i>{car.CarName}</i></span>
-                                                                </div>
-                                                            </div>
-                                                            <img data-u="image" className="car_bigview" src={car.FileRef} />
-                                                            <img data-u="thumb" src={car.FileRef} />
-                                                            <div className="car-selection"><a href="#"></a></div>
-                                                        </div><div className="col-md-2 col-md-offset-5 jsOffset">
-                                                            {totalPoints < car.PointsRequired ? 
-                                                                <p><a href="#" className="locked_ride"><img src="images/empty.png" />Locked Ride</a></p> :
-                                                                totalPoints > car.PointsRequired ? <p><a href="#" className="future_ride"><img src="images/empty.png" />Feature Ride</a></p>
-                                                                : car.CarName == eliteProfile.carName ? <p><a href="#" className="present_ride"><img src="images/done.png" />current Ride.</a></p> : <p><a href="#" className="present_ride"><img src="images/done.png" />Get This Ride.</a></p>
-                                                            }</div></div> :
-                                                        <div>                                                        
-                                                        <div data-p="170.00">
-                                                            <div className="car-name"> <h5>{car.CarName}</h5></div>
-                                                            <img data-u="image" className="car_bigview" src={car.FileRef} />
-                                                            <img data-u="thumb" src={car.FileRef} />
-                                                        </div>
-                                                        <div className="col-md-2 col-md-offset-5 jsOffset">
-                                                            {totalPoints < car.PointsRequired ? 
-                                                                <p><a href="#" className="locked_ride"><img src="images/empty.png" />Locked Ride</a></p> :
-                                                                totalPoints > car.PointsRequired ? <p><a href="#" className="future_ride"><img src="images/empty.png" />Feature Ride</a></p>
-                                                                : car.CarName == eliteProfile.carName ? <p><a href="#" className="present_ride"><img src="images/done.png" />current Ride.</a></p> : <p><a href="#" className="present_ride"><img src="images/done.png" />Get This Ride.</a></p>
-                                                            }</div>
-                                                        </div>
+                                                        }
+                                                    </div>
                                                 )
-                                            })                                            
+                                            })
                                         }
                                         {/*<div data-p="170.00" className="car_pack">
                                             <div className="row">
@@ -314,7 +334,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                                 <div data-u="thumbnailtemplate" className="t"></div>
                                             </div>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                     <div data-u="arrowleft" className="jssora106 jsArrowLeft" data-scale="0.75">
                                         <svg className="jsViewBox">
                                             <circle className="c" cx="8000" cy="8000" r="6260.9"></circle>
