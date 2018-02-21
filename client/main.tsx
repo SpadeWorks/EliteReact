@@ -30,7 +30,7 @@ const loadStore = (currentState) => {
     Services.getApplicationConfigurations().then((data) => {
       resolve({
         ...currentState,
-          testDriveState: {
+        testDriveState: {
           ...currentState.testDriveState,
           appConfig: data,
           loading: false
@@ -56,9 +56,9 @@ if (user.eliteProfileID) {
       <div>
         <Switch>
           <Route exact path="/testdrive" component={ManageTestDrive} />
-          <Route exact path="/testdrives/activeTab" component={ManageTestDrive} />          
-          <Route exact path="/testdrives" component={TestDrivesCentralContainer} />
           <Route exact path="/testdrive/:id" component={ManageTestDrive} />
+          <Route exact path="/testdrives" component={TestDrivesCentralContainer} />
+          <Route exact path="/testdrives/:activeTab" component={TestDrivesCentralContainer} />
           <Route exact path="/leaderboard" component={LeaderBoardContainer} />
           <Route exact path="/video" component={Video} />
           <Route exact path="/prizes" component={Prizes} />

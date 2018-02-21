@@ -47,7 +47,11 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                         <div className="col-md-12">
                                             <div className="row">
                                                 <span className="orange"><i>End Date</i>
+<<<<<<< HEAD
                                                     <img src="\sites\elite-dev-akash\Style%20Library/Elite/images/flag.png" /></span>
+=======
+                                                    <img src="/sites/elite/Style%20Library/Elite/images/flag.png" /></span>
+>>>>>>> 1bafa98b312487ca661874a29a7225b82cf63dc3
                                             </div>
                                         </div>
                                         <div className="col-md-12">
@@ -66,7 +70,11 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                         <div className="col-md-12">
                                             <div className="row">
                                                 <span className="orange"><i>participants</i>
+<<<<<<< HEAD
                                                     <img src="\sites\elite-dev-akash\Style%20Library/Elite/images/helmet.png" /></span>
+=======
+                                                    <img src="/sites/elite/Style%20Library/Elite/images/helmet.png" /></span>
+>>>>>>> 1bafa98b312487ca661874a29a7225b82cf63dc3
                                             </div>
                                         </div>
                                         <div className="col-md-12">
@@ -80,7 +88,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <span className="orange">Dificulty Level</span>
+                                                <span className="orange">Difficulty Level</span>
                                             </div>
                                         </div>
                                     </div>

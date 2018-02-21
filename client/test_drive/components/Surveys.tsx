@@ -70,7 +70,7 @@ class Surveys extends React.Component<SurveysProps> {
                         officia aute, non cupidatat skateboard dolor brunch.</p>
                 </div>
                 <div className="add-button col-md-2 add_test pull-right text-right">
-                    <a href="javascript:void(0);" onClick={addQuestion}> + add Question </a>
+                    <a href="javascript:void(0);" onClick={addQuestion}> + ADD QUESTION </a>
                 </div>
                 <div className="col-md-12">
                     {

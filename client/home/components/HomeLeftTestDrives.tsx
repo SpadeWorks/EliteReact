@@ -4,7 +4,7 @@ import MyTestDrives from './LeftContainer';
 import Loader from 'react-loader-advanced';
 import { HomeTestDrive, TestDrive } from '../../home/model';
 import LeftContainer from './LeftContainer';
-import {Globals} from '../../common/services/constants';
+import { Globals } from '../../common/services/constants';
 interface HomeLeftTestDrivesProps {
     updateUI: (any) => any;
     ui: any;
@@ -52,9 +52,11 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                         })
                                     }
                                     {(!myTestDriveLoading) && mytestDrive.length == 0 && <p>You have not participated in any test dirve yet.</p>}
-                                    <Link className="read_morelink" to={"/testdrives/mytestDrive"}>
-                                        MORE >>
-                                    </Link>
+                                    {
+                                        mytestDrive && mytestDrive.length >= 3 && <Link className="read_morelink" to={"/testdrives/mytestDrive"}>
+                                            MORE >>
+                                        </Link>
+                                    }
                                 </div>
                             </Loader>
                         </div>
@@ -73,9 +75,11 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                         })
                                     }
                                     {(!testDriveThatIRunLoading) && testDriveThatIRun.length == 0 && <p>You have not created any test dive yet.</p>}
-                                    <Link className="pull-right" to={"/testdrives/testDriveThatIRun"}>
-                                        MORE >>
+                                    {
+                                        testDriveThatIRun && testDriveThatIRun.length >= 3 && <Link className="pull-right" to={"/testdrives/testDriveThatIRun"}>
+                                            MORE >>
                                     </Link>
+                                    }
                                 </div>
                             </Loader>
                         </div>
