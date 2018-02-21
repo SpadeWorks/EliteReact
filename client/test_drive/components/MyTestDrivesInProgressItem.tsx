@@ -14,7 +14,7 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
         super(props, context);
     }
     render() {
-        const { testDrive, participants } = this.props;
+        const { testDrive, participants} = this.props;
         return (<div className="col-md-4">
             <div className="col-md-12 progress_drivebox">
                 <h4>{testDrive.title}</h4>
@@ -35,11 +35,7 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
                                         <div className="col-md-12">
                                             <div className="row">
                                                 <span className="orange"><i>End Date</i>
-<<<<<<< HEAD
-                                                    <img src="\sites\elite-dev-akash\Style%20Library/Elite/images/flag.png" /></span>
-=======
-                                                    <img src="/sites/elite/Style%20Library/Elite/images/flag.png" /></span>
->>>>>>> 1bafa98b312487ca661874a29a7225b82cf63dc3
+                                                    <img src="/sites/elite-dev-akash/Style%20Library/Elite/images/flag.png" /></span>
                                             </div>
                                         </div>
                                         <div className="col-md-12">
@@ -54,11 +50,7 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
                                         <div className="col-md-12">
                                             <div className="row">
                                                 <span className="orange"><i>participants</i>
-<<<<<<< HEAD
-                                                    <img src="\sites\elite-dev-akash\Style%20Library/Elite/images/helmet.png" /></span>
-=======
-                                                    <img src="/sites/elite/Style%20Library/Elite/images/helmet.png" /></span>
->>>>>>> 1bafa98b312487ca661874a29a7225b82cf63dc3
+                                                    <img src="/sites/elite-dev-akash/Style%20Library/Elite/images/helmet.png" /></span>
                                             </div>
                                         </div>
                                         <div className="col-md-12">
