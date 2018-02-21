@@ -31,7 +31,7 @@ class Welcome extends React.Component<WelcomeProps> {
             function mytext() {
                 $('#typewriteText').typewrite({
                     actions: [
-                        { type: 'For a nerve-wracking, exciting journey. Internet points as pay, bitter competition, long months of testing cool,new stuff, a changed person on return. Honour, recognition (and one amazing gift) in case of success. Do you have it in you?' }
+                        { type: 'So, here is how this works...Equinix buys a ton of new software every year.But all this shiny, new stuff... it needs to fit just right into our workflow. Here is where you come in. You test drive these new applications, give your feedback and you earn points.Do this through the year and you could win some amazing prizes.That is all there is to it.' }
 
                         /*{type: 'Do you have it in you?'}*/
                     ]
@@ -45,25 +45,9 @@ class Welcome extends React.Component<WelcomeProps> {
             <p className="first-text">WELCOME</p>
             <p className="next-text">{currentUser.firstName || currentUser.displayName}</p>
             <div id="typewriteText" style={{ animationDelay: "10s" }}></div>
-<<<<<<< HEAD
-            
-
-
-             <div className="col-md-12 intro_actionbox testdrive_actionbox letsgo">
-
-
-                    <div className="button type1 pull-right animated_button">
-                      <input value="Let's Go" type="button" onClick={() => createEliteUserProfile(currentUser)} />
-                    </div>
-
-                 
-
-
-=======
             <div className="col-md-12 intro_actionbox testdrive_actionbox">
                 <div className="button type1 pull-right animated_button">
                     <input value="Let's Go" type="button" onClick={() => createEliteUserProfile(currentUser)} />
->>>>>>> 2c72b5e078faa4810e3c88a35fa24c01bb0f1373
                 </div>
             </div>
         </div>)

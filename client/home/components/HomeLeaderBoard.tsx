@@ -32,7 +32,7 @@ class HomeLeaderBoard extends React.Component<HomeLeaderBoardProps> {
                           </div>
                           <div className="col-md-12 leader_name">
                             <div className="avatar">
-                              <img src="/sites/elite/Style%20Library/Elite/images/masc1.png" className="img-responsive"
+                              <img src="\sites\elite-dev-akash\Style%20Library/Elite/images/masc1.png" className="img-responsive"
                               />
                             </div>
                             <div className="col-md-9 l_count_box">
@@ -56,7 +56,7 @@ class HomeLeaderBoard extends React.Component<HomeLeaderBoardProps> {
                           </div>
                           <div className="col-md-12 leader_name">
                             <div className="avatar">
-                              <img src="/sites/elite/Style%20Library/Elite/images/masc2.png" className="img-responsive"
+                              <img src="\sites\elite-dev-akash\Style%20Library/Elite/images/masc2.png" className="img-responsive"
                               />
                             </div>
                             <div className="col-md-9 l_count_box">
@@ -80,7 +80,7 @@ class HomeLeaderBoard extends React.Component<HomeLeaderBoardProps> {
                           </div>
                           <div className="col-md-12 leader_name">
                             <div className="avatar">
-                              <img src="/sites/elite/Style%20Library/Elite/images/masc3.png" className="img-responsive"
+                              <img src="\sites\elite-dev-akash\Style%20Library/Elite/images/masc3.png" className="img-responsive"
                               />
                             </div>
                             <div className="col-md-9 l_count_box">
