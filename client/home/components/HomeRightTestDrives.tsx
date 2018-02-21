@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import RightContainer from './RightContainer';
 import Loader from 'react-loader-advanced';
 import { HomeTestDrive } from '../../home/model';
+import { Globals } from '../../common/services/constants';
 
 
 interface HomeRightTestDrivesProps {
@@ -45,7 +46,7 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                                 <RightContainer
                                                     key={index}
                                                     participants={testDrive.participants}
-                                                    checkPortion={"upTestDrive"}
+                                                    checkPortion={Globals.UPCOMMING_Test_Drive}
                                                     testDrive={testDrive.testDrive}
                                                     index={index + 1}
                                                 ></RightContainer>)
@@ -60,8 +61,6 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                 </div>
                             </Loader>
                         </div>
-
-
                         <div className="tab-pane fade" id="active_drives">
                             <Loader show={activeTestDriveLoading} message={'Loading test drives...'}>
                                 <div className="col-md-12">

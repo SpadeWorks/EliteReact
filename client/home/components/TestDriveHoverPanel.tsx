@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from "react-router-dom";
 import Service from '../../common/services/services';
 import { TestDrive } from '../../home/model';
-import {Globals} from '../../common/services/constants';
+import { Globals } from '../../common/services/constants';
 import * as $ from 'jquery';
 interface TestDriveHoverPanelProps {
     participants: number;
@@ -14,7 +14,7 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
         super(props, context);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         $(".letest_drivebox").hide();
         $(".letest_drivebox2").hide();
     }
@@ -64,26 +64,26 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                 </div>
                                 <div className="col-md-12 end_date">
                                     <div className="row">
-                                        
-                                   
-                                    <span className="orange">
-                                        <i>OS REQUIRED:</i>
-                                    </span>
-                                    <div className="col-md-12 para">
-                                        <div className="row">
-                                            <ul className="select2-selection__rendered">
-                                                {
-                                                    testDrive && testDrive.requiredOs.map((os: any, index) => {
-                                                        return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                                            {os.Label}
-                                                        </li>)
-                                                    })}
-                                            </ul>
+
+
+                                        <span className="orange">
+                                            <i>OS REQUIRED:</i>
+                                        </span>
+                                        <div className="col-md-12 para">
+                                            <div className="row">
+                                                <ul className="select2-selection__rendered">
+                                                    {
+                                                        testDrive && testDrive.requiredOs.map((os: any, index) => {
+                                                            return (<li key={index} className="select2-selection__choice" title="iwatch">
+                                                                {os.Label}
+                                                            </li>)
+                                                        })}
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                             </div>
                         </div>
                     </div>
                     <div className="col-md-6 drive_info">
@@ -126,10 +126,11 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                     </div>
                 </div>
                 <div className="col-md-12 popup_buttonbox">
-                                                    
-                    <Link className="button type1" 
-                        to={(checkPortion == Globals.TEST_DRIVE_THAT_I_RUN ? "/testdrive/" : "/participation/")  
-                            + testDrive.id}> Drive Through </Link>
+                    {
+                        checkPortion != Globals.UPCOMMING_Test_Drive ? <Link className="button type1"
+                            to={(checkPortion == Globals.TEST_DRIVE_THAT_I_RUN ? "/testdrive/" : "/participation/")
+                                + testDrive.id}> Drive Through </Link> : ''
+                    }
                 </div>
             </div>
         </div>)

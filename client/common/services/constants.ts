@@ -100,6 +100,7 @@ export class ColumnsValues {
 export class Globals {
     static IMAGE_BASE_URL = _spPageContextInfo.siteAbsoluteUrl + '/Style%20Library/Elite/images/';
     static TEST_DRIVE_THAT_I_RUN = "testDriveThatIRun";
+    static UPCOMMING_Test_Drive = "upTestDrive";
 }
 
 export class Messages {
