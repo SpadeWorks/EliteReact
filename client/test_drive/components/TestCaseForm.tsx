@@ -247,7 +247,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                 <span className="help-text">
                                     {fieldDescriptions && fieldDescriptions[Constants.Columns.TYPE]}
                                 </span>
-                                <label className="disc_lable">Question type*</label>
+                                <label className="disc_lable">Test case type*</label>
                             </div>
 
                             <div className="col-md-12 custom-editor" id="scenario">

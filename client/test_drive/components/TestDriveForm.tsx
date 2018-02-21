@@ -266,7 +266,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                     searchable={false}
                                 />
                             </div>
-                            <label className="disc_lable">Test drive levle*</label>
+                            <label className="disc_lable">Test drive level*</label>
                             <span className="help-text">
                                 {fieldDescriptions && fieldDescriptions.TotalPoints}
                             </span>
@@ -283,7 +283,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 value={testDrive.maxPoints.toString() || '0'}
                                 readOnly
                             />
-                            <label className="disc_lable">Maximum Points</label>
+                            <label className="disc_lable">Points Awarded</label>
                             <span className="help-text">
                                 {fieldDescriptions && fieldDescriptions.TotalPoints}
                             </span>
@@ -350,7 +350,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 name="requiredDevices"
                             />
                         </div>
-                        <label className="disc_lable">Eligible devices*</label>
+                        <label className="disc_lable">Required devices*</label>
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.AvailableDevices}
                         </span>
@@ -367,7 +367,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 name="requiredOs"
                             />
                         </div>
-                        <label className="disc_lable">Eligible os*</label>
+                        <label className="disc_lable">Required os*</label>
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.AvailableOS}
                         </span>
