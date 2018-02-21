@@ -293,34 +293,34 @@ class MyProfile extends React.Component<MyProfileProps> {
                                                     <span className="orange"><i>458 Itala</i></span>
                                                 </div>
                                             </div>
-                                            <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car1.png" />
-                                            <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car1.png" />
+                                            <img data-u="image" className="car_bigview" src="/sites/elite/Lists/CarMaster/car1.png" />
+                                            <img data-u="thumb" src="/sites/elite/Lists/CarMaster/car1.png" />
                                             <div className="car-selection"><a href="#"></a></div>
                                         </div>
                                         <div data-p="170.00">
                                             <div className="car-name"> <h5>Car 1</h5></div>
-                                            <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car2.png" />
-                                            <img data-u="thumb" id="present_ride" src="/sites/elite-dev-akash/Lists/CarMaster/car2.png" />
+                                            <img data-u="image" className="car_bigview" src="/sites/elite/Lists/CarMaster/car2.png" />
+                                            <img data-u="thumb" id="present_ride" src="/sites/elite/Lists/CarMaster/car2.png" />
                                         </div>
                                         <div data-p="170.00">
                                             <div className="car-name"> <h5>Car 2</h5></div>
-                                            <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                            <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" className="future_ride" />
+                                            <img data-u="image" className="car_bigview" src="/sites/elite/Lists/CarMaster/car3.png" />
+                                            <img data-u="thumb" src="/sites/elite/Lists/CarMaster/car3.png" className="future_ride" />
                                         </div>
                                         <div data-p="170.00">
                                             <div className="car-name"> <h5>Car 2</h5></div>
-                                            <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                            <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" className="lock_ride" />
+                                            <img data-u="image" className="car_bigview" src="/sites/elite/Lists/CarMaster/car3.png" />
+                                            <img data-u="thumb" src="/sites/elite/Lists/CarMaster/car3.png" className="lock_ride" />
                                         </div>
                                         <div data-p="170.00">
                                             <div className="car-name"> <h5>Car 2</h5></div>
-                                            <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                            <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
+                                            <img data-u="image" className="car_bigview" src="/sites/elite/Lists/CarMaster/car3.png" />
+                                            <img data-u="thumb" src="/sites/elite/Lists/CarMaster/car3.png" />
                                         </div>
                                         <div data-p="170.00">
                                             <div className="car-name"> <h5>Car 2</h5></div>
-                                            <img data-u="image" className="car_bigview" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
-                                            <img data-u="thumb" src="/sites/elite-dev-akash/Lists/CarMaster/car3.png" />
+                                            <img data-u="image" className="car_bigview" src="/sites/elite/Lists/CarMaster/car3.png" />
+                                            <img data-u="thumb" src="/sites/elite/Lists/CarMaster/car3.png" />
                                         </div>
                                         <div data-p="170.00">
                                             <div className="car-name"> <h5>Car 2</h5></div>
