@@ -1831,7 +1831,7 @@ export class Services {
     //                         id: index + 1,
     //                         name: testDrive.UserID.UserInfoName,
     //                         points: testDrive.Points,
-    //                         avatar: "/sites/elite/Style%20Library/Elite/images/masc1.png"
+    //                         avatar: "/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
     //                     });
     //                 });
     //                 resolve(leaderBoardArr);
@@ -1861,7 +1861,7 @@ export class Services {
     //                                 id: index + 1,
     //                                 name: testDrive.UserID.UserInfoName,
     //                                 points: testDrive.Points,
-    //                                 avatar: "/sites/elite/Style%20Library/Elite/images/masc1.png"
+    //                                 avatar: "/sites/elite-dev-akash/Style%20Library/Elite/images/masc1.png"
     //                             });
     //                         });
     //                         resolve(regionLeaderBoardArr);
@@ -1887,7 +1887,7 @@ export class Services {
                     Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_NAME,
                     Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_IMAGE,
             )
-                .expand("UserID").top(100)
+                .expand("UserID").top(100)       
                 .orderBy('Points', false)
                 .filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z'")
                 .skip(skip).top(count)
