@@ -95,12 +95,12 @@ class MyProfile extends React.Component<MyProfileProps> {
 
     }
 
-    componentDidUpdate() {
-        var slider = $(".present_ride");
-        if (slider.length) {
-            window.jssor_1_slider_init();
-        }
-    }
+    // componentDidUpdate() {
+    //     var slider = $(".present_ride");
+    //     if (slider.length) {
+    //         window.jssor_1_slider_init();
+    //     }
+    // }
 
 
     render() {
@@ -223,7 +223,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-12">
+                        {/* <div className="col-md-12">
                             {
                                 (!this.props.id && this.props.id != -1) &&
 
@@ -284,7 +284,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                                 )
                                             })
                                         }
-                                        {/*<div data-p="170.00" className="car_pack">
+                                        <div data-p="170.00" className="car_pack">
                                             <div className="row">
                                                 <div className="col-md-12 text-center">
                                                     <h4 className="text-center">Level 5</h4>
@@ -326,7 +326,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                             <div className="car-name"> <h5>Car 2</h5></div>
                                             <img data-u="image" className="car_bigview" src="/sites/elite/Lists/CarMaster/car3.png" />
                                             <img data-u="thumb" src="/sites/elite/Lists/CarMaster/car3.png" />
-                                    </div>*/}
+                                    </div>
                                     </div>
                                     <div data-u="thumbnavigator" className="jssort101 jsSort" data-autocenter="1" data-scale-bottom="0.75">
                                         <div data-u="slides">
@@ -351,7 +351,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                     </div>
                                 </div>
                             }
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className="col-md-12 footer" style={{ height: "50px", background: "#000" }}>

@@ -1887,7 +1887,7 @@ export class Services {
                 Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_NAME,
                 Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_IMAGE,
             )
-                .expand("UserID").top(100)
+                .expand("UserID").top(100)       
                 .orderBy('Points', false)
                 .filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z'")
                 .skip(skip).top(count)
