@@ -3205,6 +3205,11 @@ a.drive_name:hover {
 a.drive_name h4 {
     color: #fff;
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    
 }
 
 .leader_rank {
@@ -3675,7 +3680,7 @@ a#link1 {
     color: red;
     font-family: titanium;
     text-decoration: none;
-    display: none;
+  
     transition: all 0.5s;
     z-index: 50;
 }
@@ -3687,7 +3692,7 @@ a#link2 {
     color: red;
     font-family: titanium;
     text-decoration: none;
-    display: none;
+
     transition: all 0.5s;
     z-index: 50;
 }
@@ -3700,7 +3705,7 @@ a#link3 {
     font-family: titanium;
     text-decoration: none;
     z-index: 50;
-    display: none;
+   
     transition: all 0.5s;
 }
 
@@ -3724,7 +3729,7 @@ a#link5 {
     font-family: titanium;
     text-decoration: none;
     z-index: 50;
-    display: none;
+
     transition: all 0.5s;
 }
 
@@ -3736,7 +3741,7 @@ a#link6 {
     font-family: titanium;
     text-decoration: none;
     z-index: 50;
-    display: none;
+
     transition: all 0.5s;
 }
 
@@ -4078,7 +4083,8 @@ ul.task_circle li {
 ul.task_circle li p {
     float: left;
     font-size: 27px;
-    width: 55px;
+    width: 80px;
+   
 }
 
 ul.task_circle li img {
@@ -4471,6 +4477,7 @@ span.teams:hover {
 .drive_completionbox {
     min-height: 250px;
     padding-top: 20px;
+    text-align: center;
 }
 
 .col-md-12.earn_box #canvas2,
@@ -4743,8 +4750,8 @@ h4.testcase_title {
 
 .overview {
     margin-top: 0px;
-    padding-bottom: 40px;
-    padding-top: 40px;
+    padding-bottom: 20px;
+    padding-top: 20px;
     background: #333;
 }
 
@@ -4790,13 +4797,14 @@ ul.task_circle li {
 ul.task_circle li p {
     float: left;
     font-size: 27px;
-    width: 55px;
+    width: 80px;
+  
 }
 
 ul.task_circle li img {
     float: right;
     padding-left: 10px;
-    padding-top: 3px;
+    padding-top: 8px;
 }
 
 ul.task_circle li p.inactive_task {
@@ -5431,7 +5439,7 @@ ul.task_circle li {
 ul.task_circle li p {
     float: left;
     font-size: 27px;
-    width: 55px;
+    width: 80px;
 }
 
 ul.task_circle li img {
@@ -6083,13 +6091,14 @@ h1.testcase_name {
 }
 
 .files-list-item {
-    padding: 8px 0px 2px 19px;
+        padding: 8px 0px 2px 19px;
     float: left !important;
-    width: 210px !important;
+    width: 202px !important;
     background: #24242d;
     margin-left: 4px;
     border: solid 1px #14141d;
     margin-top: 5px;
+    min-height: 74px;
 }
 
 .files-list-item-content {
@@ -6244,7 +6253,7 @@ button {
     font: 18px "HemiHeadRg-BoldItalic", "Arial", Helvetica, sans-serif;
     margin: 20px 0px 10px 0px;
     color: red;
-    width: 119px;
+    width: auto;
 }
 
 .participation_actionbox input[type=button],

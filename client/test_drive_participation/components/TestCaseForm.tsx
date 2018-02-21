@@ -179,7 +179,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                                     maxFileSize={10000000}
                                                     minFileSize={0}
                                                     clickable
-                                                ><i className="material-icons pull-right ">camera_enhance</i>
+                                                ><i className="material-icons pull-right">attachment</i>
                                                 </Files>
 
                                                 <textarea className="inputMaterial form-control"
@@ -230,11 +230,11 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
 
                                             </div>
                                             <div className="col-md-12 participation_actionbox">
-                                                <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                                <div className="button type1 nextBtn btn-lg pull-left animated_button">
                                                     <input type="button" value="Save" onClick={() => this.saveTestCaseResponse(testCase, index)} />
                                                 </div>
                                             </div>
-
+                                      
                                             {isLast && <div className="col-md-12 participation_actionbox">
                                                 <div className="button type1 nextBtn btn-lg pull-right animated_button">
                                                     <input type="button" value="Submit test cases" onClick={() => this.submitTestCaseResponse(testCase, index)} />

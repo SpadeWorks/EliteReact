@@ -63,7 +63,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                 </div>
                 <div className="col-md-12" style={{ overflow: "auto" }}>
                     <div className="wrapper" style={{ height: "544px" }}>
-                        <div className="col-md-10 profile_box col-md-offset-1">
+                        <div className="col-md-11 profile_box">
                             <div className="well count_box">
                                 <ul className="nav nav-tabs">
                                     <li className="active">
