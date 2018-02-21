@@ -95,12 +95,12 @@ class MyProfile extends React.Component<MyProfileProps> {
 
     }
 
-    componentDidUpdate() {
-        var slider = $(".present_ride");
-        if (slider.length) {
-            window.jssor_1_slider_init();
-        }
-    }
+    // componentDidUpdate() {
+    //     var slider = $(".present_ride");
+    //     if (slider.length) {
+    //         window.jssor_1_slider_init();
+    //     }
+    // }
 
 
     render() {

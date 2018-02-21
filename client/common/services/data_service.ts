@@ -27,6 +27,16 @@ export type listItem = {
     type: string;
 }
 
+export type appconfig = {
+    Video: string;
+    Region: string;
+    Os: string;
+    Location: string;
+    TotalUsers: string;
+    Devices: string;
+}
+
+
 declare var process: { exit(code?: number): void };
 // declare var SP: any;
 pnp.setup({
@@ -39,6 +49,19 @@ pnp.setup({
 });
 
 export class Services {
+
+    static getLevelNameClass(levelNumber) {
+        switch (levelNumber) {
+            case 1:
+                return 'streetrace_indicator soapbox_indicator';
+            case 2:
+                return 'streetrace_indicator'
+            case 3:
+                return 'dragrace_indicator'
+            default:
+                return 'streetrace_indicator';
+        }
+    }
 
     static getTestDrivesWaitingForApproval(skip: number, top: number) {
         return new Promise((resolve, reject) => {
@@ -341,16 +364,16 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
                 .select(
-                    Constants.Columns.ID,
-                    Constants.Columns.PERCENTAGE_COMPLETION,
-                    Constants.Columns.CURRENT_POINTS,
-                    Constants.Columns.STATUS,
-                    Constants.Columns.DATE_JOINED,
-                    Constants.Columns.TEST_CASE_COMPLETED,
-                    Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID
+                Constants.Columns.ID,
+                Constants.Columns.PERCENTAGE_COMPLETION,
+                Constants.Columns.CURRENT_POINTS,
+                Constants.Columns.STATUS,
+                Constants.Columns.DATE_JOINED,
+                Constants.Columns.TEST_CASE_COMPLETED,
+                Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID
                 )
                 .filter(Constants.Columns.USER_ID + ' eq ' + userId +
-                    ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
+                ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                 .expand(Constants.Columns.TEST_DRIVE_ID)
                 .get().then(testDriveInstances => {
                     const testDriveInstance = testDriveInstances.length ? testDriveInstances[0] : undefined;
@@ -376,18 +399,18 @@ export class Services {
         return new Promise((resolve, reject) => {
             var items = pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).items
                 .select(
-                    Constants.Columns.ID,
-                    Constants.Columns.TEST_CASE_RESPONSE,
-                    Constants.Columns.TEST_CASE_RESPONSE_STATUS,
-                    Constants.Columns.RESPONSE_ATTACHMENTS,
-                    Constants.Columns.Selected_Response,
-                    Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.ID,
+                Constants.Columns.TEST_CASE_RESPONSE,
+                Constants.Columns.TEST_CASE_RESPONSE_STATUS,
+                Constants.Columns.RESPONSE_ATTACHMENTS,
+                Constants.Columns.Selected_Response,
+                Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
             )
                 .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                 .expand(Constants.Columns.USER_ID,
-                    Constants.Columns.TEST_DRIVE_ID, Constants.Columns.TESTCASE_ID);
+                Constants.Columns.TEST_DRIVE_ID, Constants.Columns.TESTCASE_ID);
             items.get().then(testCases => {
                 let testCaseArray = [];
                 testCases.map(t => {
@@ -413,13 +436,13 @@ export class Services {
             Services.getQuestonsByIds(questionIDs).then((questions: any) => {
                 pnp.sp.web.lists.getByTitle(Constants.Lists.SURVEY_RESPONSES).items
                     .select(
-                        Constants.Columns.ID,
-                        Constants.Columns.SURVEY_RESPONSE,
-                        Constants.Columns.Selected_Response,
-                        Constants.Columns.STATUS,
-                        Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
-                        Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
-                        Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.ID,
+                    Constants.Columns.SURVEY_RESPONSE,
+                    Constants.Columns.Selected_Response,
+                    Constants.Columns.STATUS,
+                    Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
                 )
                     .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                     .expand(Constants.Columns.USER_ID, Constants.Columns.TEST_DRIVE_ID, Constants.Columns.QUESTION_ID)
@@ -546,11 +569,11 @@ export class Services {
                 pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION).items
                     .getById(user.eliteProfileID)
                     .select(
-                        Constants.Columns.CAR_IMAGE,
-                        Constants.Columns.CAR_NAME,
-                        Constants.Columns.Car_ID + '/' + Constants.Columns.ID,
-                        Constants.Columns.AVATAR_IMAGE,
-                        Constants.Columns.AVATAR_NAME)
+                    Constants.Columns.CAR_IMAGE,
+                    Constants.Columns.CAR_NAME,
+                    Constants.Columns.Car_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.AVATAR_IMAGE,
+                    Constants.Columns.AVATAR_NAME)
                     .expand(Constants.Columns.Car_ID)
                     .get().then(profile => {
                         let eliteProfle = <EliteProfile>{
@@ -586,22 +609,22 @@ export class Services {
             pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION).items
                 .getById(id)
                 .select(
-                    Constants.Columns.CAR_IMAGE,
-                    Constants.Columns.CAR_NAME,
-                    Constants.Columns.Car_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.AVATAR_IMAGE,
-                    Constants.Columns.AVATAR_NAME,
-                    Constants.Columns.COMPLETED_TEST_DRIVES,
-                    Constants.Columns.COMPLETED_TEST_CASES,
-                    Constants.Columns.DATE_JOINED,
-                    Constants.Columns.USER_ROLE,
-                    Constants.Columns.AVAILABLE_OS,
-                    Constants.Columns.AVAILABLE_DEVICES,
-                    Constants.Columns.ID,
-                    Constants.Columns.USER_INFO_NAME,
-                    Constants.Columns.ACCOUNT_NAME,
-                    Constants.Columns.USER_LOCATION,
-                    Constants.Columns.USER_REGION,
+                Constants.Columns.CAR_IMAGE,
+                Constants.Columns.CAR_NAME,
+                Constants.Columns.Car_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.AVATAR_IMAGE,
+                Constants.Columns.AVATAR_NAME,
+                Constants.Columns.COMPLETED_TEST_DRIVES,
+                Constants.Columns.COMPLETED_TEST_CASES,
+                Constants.Columns.DATE_JOINED,
+                Constants.Columns.USER_ROLE,
+                Constants.Columns.AVAILABLE_OS,
+                Constants.Columns.AVAILABLE_DEVICES,
+                Constants.Columns.ID,
+                Constants.Columns.USER_INFO_NAME,
+                Constants.Columns.ACCOUNT_NAME,
+                Constants.Columns.USER_LOCATION,
+                Constants.Columns.USER_REGION,
             )
                 .expand(Constants.Columns.Car_ID)
                 .get().then(profile => {
@@ -633,8 +656,8 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
                 .select(Constants.Columns.ID,
-                    Constants.Columns.POINTS,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID)
+                Constants.Columns.POINTS,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID)
                 .expand(Constants.Columns.USER_ID)
                 .orderBy(Constants.Columns.POINTS, false)
                 .get().then(results => {
@@ -656,7 +679,7 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
                 .select(Constants.Columns.ID,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID)
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID)
                 .expand(Constants.Columns.USER_ID)
                 .orderBy(Constants.Columns.POINTS, false)
                 .get().then(results => {
@@ -889,25 +912,25 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items
                 .select(
-                    Constants.Columns.ID,
-                    Constants.Columns.TEST_DRIVE_NAME,
-                    Constants.Columns.ELITE_DESCRIPTION,
-                    Constants.Columns.TESTDRIVE_STATUS,
-                    Constants.Columns.TEST_DRIVE_START_DATE,
-                    Constants.Columns.TESTDRIVE_END_DATE,
-                    Constants.Columns.TOTAL_POINTS,
-                    Constants.Columns.TEST_DRIVE_DEPARTMENT,
-                    Constants.Columns.TEST_DRIVE_LOCATION,
-                    Constants.Columns.AVAILABLE_DEVICES,
-                    Constants.Columns.AVAILABLE_OS,
-                    Constants.Columns.MAX_TESTDRIVERS,
-                    Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LevelNumber,
-                    Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LEVEL_NAME,
-                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.ID,
-                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
-                    Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.EXPECTED_BUSINESS_VALUE
+                Constants.Columns.ID,
+                Constants.Columns.TEST_DRIVE_NAME,
+                Constants.Columns.ELITE_DESCRIPTION,
+                Constants.Columns.TESTDRIVE_STATUS,
+                Constants.Columns.TEST_DRIVE_START_DATE,
+                Constants.Columns.TESTDRIVE_END_DATE,
+                Constants.Columns.TOTAL_POINTS,
+                Constants.Columns.TEST_DRIVE_DEPARTMENT,
+                Constants.Columns.TEST_DRIVE_LOCATION,
+                Constants.Columns.AVAILABLE_DEVICES,
+                Constants.Columns.AVAILABLE_OS,
+                Constants.Columns.MAX_TESTDRIVERS,
+                Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LevelNumber,
+                Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LEVEL_NAME,
+                Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.ID,
+                Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
+                Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.EXPECTED_BUSINESS_VALUE
                 ).skip(skip).top(top)
                 .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID, Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
                 .filter(filter).get().then(testDrives => {
@@ -1149,28 +1172,28 @@ export class Services {
             } else {
                 pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items.getById(testDriveID)
                     .select(
-                        Constants.Columns.ID,
-                        Constants.Columns.TEST_DRIVE_NAME,
-                        Constants.Columns.ELITE_DESCRIPTION,
-                        Constants.Columns.TESTDRIVE_STATUS,
-                        Constants.Columns.TEST_DRIVE_START_DATE,
-                        Constants.Columns.TESTDRIVE_END_DATE,
-                        Constants.Columns.TOTAL_POINTS,
-                        Constants.Columns.TEST_DRIVE_DEPARTMENT,
-                        Constants.Columns.TEST_DRIVE_LOCATION,
-                        Constants.Columns.AVAILABLE_DEVICES,
-                        Constants.Columns.AVAILABLE_OS,
-                        Constants.Columns.MAX_TESTDRIVERS,
-                        Constants.Columns.LEVEL_ID + '/' + Constants.Columns.ID,
-                        Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LEVEL_NAME,
-                        Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.ID,
-                        Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
-                        Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
-                        Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
-                        Constants.Columns.EXPECTED_BUSINESS_VALUE
+                    Constants.Columns.ID,
+                    Constants.Columns.TEST_DRIVE_NAME,
+                    Constants.Columns.ELITE_DESCRIPTION,
+                    Constants.Columns.TESTDRIVE_STATUS,
+                    Constants.Columns.TEST_DRIVE_START_DATE,
+                    Constants.Columns.TESTDRIVE_END_DATE,
+                    Constants.Columns.TOTAL_POINTS,
+                    Constants.Columns.TEST_DRIVE_DEPARTMENT,
+                    Constants.Columns.TEST_DRIVE_LOCATION,
+                    Constants.Columns.AVAILABLE_DEVICES,
+                    Constants.Columns.AVAILABLE_OS,
+                    Constants.Columns.MAX_TESTDRIVERS,
+                    Constants.Columns.LEVEL_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LEVEL_NAME,
+                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.ID,
+                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
+                    Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.EXPECTED_BUSINESS_VALUE
                     )
                     .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID,
-                        Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
+                    Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
                     .get().then(testDrive => {
                         let questions = testDrive.QuestionID.results.map((question) => {
                             return question.ID;
@@ -1239,15 +1262,15 @@ export class Services {
                 })
                 pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASES).items
                     .select(
-                        Constants.Columns.TITLE,
-                        Constants.Columns.ID,
-                        Constants.Columns.ELITE_DESCRIPTION,
-                        Constants.Columns.TYPE,
-                        Constants.Columns.SCENARIO,
-                        Constants.Columns.TEST_CASE_OUTCOME,
-                        Constants.Columns.TEST_CASE_PRIORITY,
-                        Constants.Columns.POINTS,
-                        Constants.Columns.RETEST
+                    Constants.Columns.TITLE,
+                    Constants.Columns.ID,
+                    Constants.Columns.ELITE_DESCRIPTION,
+                    Constants.Columns.TYPE,
+                    Constants.Columns.SCENARIO,
+                    Constants.Columns.TEST_CASE_OUTCOME,
+                    Constants.Columns.TEST_CASE_PRIORITY,
+                    Constants.Columns.POINTS,
+                    Constants.Columns.RETEST
                     )
                     .filter(filter)
                     .get().then(testCases => {
@@ -1285,11 +1308,11 @@ export class Services {
                 });
                 pnp.sp.web.lists.getByTitle(Constants.Lists.SURVEY_QUESTIONS).items
                     .select(
-                        Constants.Columns.TITLE,
-                        Constants.Columns.ID,
-                        Constants.Columns.QUESTION,
-                        Constants.Columns.RESPONSES,
-                        Constants.Columns.RESPONSETYPE
+                    Constants.Columns.TITLE,
+                    Constants.Columns.ID,
+                    Constants.Columns.QUESTION,
+                    Constants.Columns.RESPONSES,
+                    Constants.Columns.RESPONSETYPE
                     )
                     .filter(filter)
                     .get().then(questions => {
@@ -1352,9 +1375,9 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(listName).items
                 .select(
-                    'ActivityName',
-                    'ID',
-                    'TotalPoints'
+                'ActivityName',
+                'ID',
+                'TotalPoints'
                 )
                 .filter("ActivityName eq '" + Constants.ColumnsValues.TEST_CASE_COMPLETION + "'")
                 .get().then(item => {
@@ -1551,11 +1574,11 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
                 .select("FileRef/FileRef",
-                    "IsDefault",
-                    "LevelName",
-                    "CarName",
-                    "CarLevel",
-                    "ID")
+                "IsDefault",
+                "LevelName",
+                "CarName",
+                "CarLevel",
+                "ID")
                 .filter("IsDefault eq 1 and CarLevel eq 1")
                 .get().then(car => {
                     resolve(car[0]);
@@ -1568,11 +1591,11 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
                 .select("FileRef/FileRef",
-                    "IsDefault",
-                    "LevelName",
-                    "CarName",
-                    "CarLevel",
-                    "ID")
+                "IsDefault",
+                "LevelName",
+                "CarName",
+                "CarLevel",
+                "ID")
                 .filter("IsDefault eq 1 and CarLevel eq 1")
                 .get().then(car => {
                     resolve(car[0]);
@@ -1697,13 +1720,12 @@ export class Services {
     static getAllTermsInTermGroup() {
         // get termSet
         return new Promise((resolve, reject) => {
-            let termStore = new TermStore();
-            termStore.getTermSetsInGroup({
+            TermStore.getTermSetsInGroup({
                 groupId: "0b7c0b89-06e8-4b9b-a3ba-52b8183f1cc7"
             }).then((termSets: any[]) => {
                 var promises = [];
                 termSets.forEach(termSet => {
-                    promises.push(termStore.getTermSetAsTree(termSet.id, termSet.name));
+                    promises.push(TermStore.getTermSetAsTree(termSet.id, termSet.name));
                 });
                 Promise.all(promises).then((data) => {
                     Utils.clientLog(data);
@@ -1744,42 +1766,50 @@ export class Services {
 
     static getRegions() {
         return new Promise((resolve, reject) => {
-            let termSetName = "region";
-            let termSetID = "81720ac7-739a-45fa-94bc-d611a7c6cfe1";
-            this.getTermSetAsOptions(termSetName, termSetID).then(options => {
-                Cache.setCache("region", options)
-                resolve(options);
+            Services.getApplicationConfigurations().then((appConfig: appconfig) => {
+                let termSetName = "region";
+                let termSetID = appConfig.Region;
+                this.getTermSetAsOptions(termSetName, termSetID).then(options => {
+                    Cache.setCache("region", options)
+                    resolve(options);
+                });
             });
         });
     }
 
     static getLocations() {
         return new Promise((resolve, reject) => {
-            let termSetName = "location";
-            let termSetID = "1307d046-6b76-4fbc-ac87-ea5f6392cf9e";
-            this.getTermSetAsOptions(termSetName, termSetID).then(options => {
-                resolve(options);
+            Services.getApplicationConfigurations().then((appConfig: appconfig) => {
+                let termSetName = "location";
+                let termSetID = appConfig.Location;
+                this.getTermSetAsOptions(termSetName, termSetID).then(options => {
+                    resolve(options);
+                });
             });
         });
     }
 
     static getDevices() {
         return new Promise((resolve, reject) => {
-            let termSetName = "device";
-            let termSetID = "f28f2afc-b917-4063-b44d-0273e121a41d";
-            this.getTermSetAsOptions(termSetName, termSetID).then(options => {
-                resolve(options);
+            Services.getApplicationConfigurations().then((appConfig: appconfig) => {
+                let termSetName = "device";
+                let termSetID = appConfig.Devices;
+                this.getTermSetAsOptions(termSetName, termSetID).then(options => {
+                    resolve(options);
+                });
             });
         });
     }
 
     static getOSes() {
         return new Promise((resolve, reject) => {
-            let termSetName = "os";
-            let termSetID = "93cae476-6660-4625-b80b-51697ff26c3b";
-            this.getTermSetAsOptions(termSetName, termSetID).then(options => {
-                resolve(options);
-            });
+            Services.getApplicationConfigurations().then((appConfig: appconfig) => {
+                let termSetName = "os";
+                let termSetID = appConfig.Os;
+                this.getTermSetAsOptions(termSetName, termSetID).then(options => {
+                    resolve(options);
+                });
+            })
         });
     }
 
@@ -1797,9 +1827,8 @@ export class Services {
             if (record) {
                 resolve(record);
             } else {
-                let termStore = new TermStore();
-                termStore.getTermSetAsTree(termSetID, termSetName)
-                    .then(term => {
+                TermStore.getTermSetAsTree(termSetID, termSetName)
+                    .then((term: any) => {
                         let options = [];
                         term.children.map((term) => {
                             options.push({
@@ -1878,14 +1907,14 @@ export class Services {
             let globalLeaders: Leader[] = [];
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
                 .select(
-                    Constants.Columns.ID,
-                    Constants.Columns.POINTS,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.USER_NAME,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_IMAGE,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_NAME,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_NAME,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_IMAGE,
+                Constants.Columns.ID,
+                Constants.Columns.POINTS,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.USER_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_IMAGE,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_IMAGE,
             )
                 .expand("UserID").top(100)
                 .orderBy('Points', false)
@@ -1916,20 +1945,20 @@ export class Services {
             let regionalLeaders: Leader[] = [];
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
                 .select(
-                    Constants.Columns.ID,
-                    Constants.Columns.POINTS,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.USER_NAME,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_IMAGE,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_NAME,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_NAME,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_IMAGE,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION,
+                Constants.Columns.ID,
+                Constants.Columns.POINTS,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.USER_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_IMAGE,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_IMAGE,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION,
             )
                 .expand("UserID").top(top).skip(skip)
                 .orderBy('Points', false)
                 .filter("PointsEarnedOnDate gt datetime'" +
-                    lastYear + "T23:59:59.000Z' and " + Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION + " eq '" + region + "'")
+                lastYear + "T23:59:59.000Z' and " + Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION + " eq '" + region + "'")
                 .get().then(leaders => {
                     Utils.clientLog(leaders);
                     leaders.map((leader, index) => {
@@ -1954,9 +1983,9 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
                 .select(
-                    Constants.Columns.POINTS,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.USER_NAME
+                Constants.Columns.POINTS,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.USER_NAME
                 )
                 .expand(Constants.Columns.USER_ID).orderBy(Constants.Columns.POINTS, false)
                 .filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z' and UserID eq " + userID)
@@ -2070,7 +2099,7 @@ export class Services {
         var filter = "TestDriveStatus eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'" +
             " and TestDriveStartDate ge datetime'" + todayDate + "T00:00:00.000Z'";
         return new Promise((resolve, reject) => {
-            Services.getTestDrivesByFilter(filter)
+            Services.getTestDrivesByFilter(filter, skip, top)
                 .then((testDriveInstances: TestDrive[]) => {
                     if (testDriveInstances && testDriveInstances.length > 0) {
                         let upcomingTestDriveArr: HomeTestDrive[] = [];
@@ -2140,14 +2169,14 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
                 .select(
-                    Constants.Columns.ID,
-                    Constants.Columns.PERCENTAGE_COMPLETION,
-                    Constants.Columns.CURRENT_POINTS,
-                    Constants.Columns.STATUS,
-                    Constants.Columns.DATE_JOINED,
-                    Constants.Columns.TEST_CASE_COMPLETED,
-                    Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID
+                Constants.Columns.ID,
+                Constants.Columns.PERCENTAGE_COMPLETION,
+                Constants.Columns.CURRENT_POINTS,
+                Constants.Columns.STATUS,
+                Constants.Columns.DATE_JOINED,
+                Constants.Columns.TEST_CASE_COMPLETED,
+                Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID
                 )
                 .filter(filter)
                 .expand(Constants.Columns.TEST_DRIVE_ID, Constants.Columns.USER_ID)
@@ -2448,12 +2477,8 @@ export class Utils {
 }
 
 export class TermStore {
-    public LoadedScripts = [];
 
-    constructor() {
-        this.getTermSet = this.getTermSet.bind(this);
-    }
-    loadScript(scriptName, functionName = "") {
+    static loadScript(scriptName, functionName = "") {
         let classContext = this;
         let loadedScripts = $("#app").attr("loadded-scripts") || '';
         return new Promise((resolve, reject) => {
@@ -2474,10 +2499,9 @@ export class TermStore {
 
     }
 
-    loadTaxonomyScripts() {
+    static loadTaxonomyScripts() {
         return new Promise((resolve, reject) => {
             SP.SOD.executeFunc("sp.js", "SP.ClientContext", () => {
-
                 Promise.all([
                     // this.loadScript("sp.runtime.js"),
                     this.loadScript("sp.taxonomy.js")
@@ -2493,7 +2517,7 @@ export class TermStore {
         *
         * @param {Array} options - options is an array of termSetName,lcid and context.
         */
-    getTermSetsInGroup(options) {
+    static getTermSetsInGroup(options) {
         return new Promise((resolve, reject) => {
             this.loadTaxonomyScripts().then(() => {
                 let settings = { groupId: "0b7c0b89-06e8-4b9b-a3ba-52b8183f1cc7", lcid: "1033", context: SP.ClientContext.get_current() };
@@ -2532,85 +2556,96 @@ export class TermStore {
         })
     }
 
-    getTermSet(id, callback) {
-        var ctx = SP.ClientContext.get_current(),
-            taxonomySession = SP.Taxonomy.TaxonomySession.getTaxonomySession(ctx),
-            termStore = taxonomySession.getDefaultSiteCollectionTermStore(),
-            termSet = termStore.getTermSet(id),
-            terms = termSet.getAllTerms();
+    static getTermSet(id) {
+        return new Promise((resolve, reject) => {
+            try {
+                var ctx = SP.ClientContext.get_current();
+                var taxonomySession = SP.Taxonomy.TaxonomySession.getTaxonomySession(ctx);
+                var termStore = taxonomySession.getDefaultSiteCollectionTermStore();
+                var termSet = termStore.getTermSet(id);
+                var terms = termSet.getAllTerms();
 
-        ctx.load(terms);
+                ctx.load(terms);
+                console.log(terms);
 
-        ctx.executeQueryAsync(() => {
-            callback(terms);
-        }, (sender, args) => { });
+                ctx.executeQueryAsync(() => {
+                    console.log(terms);
+                    resolve(terms);
+                }, (sender, args) => {
+                    Utils.clientLog(args);
+                    reject(args);
+                });
+            } catch(e){
+                console.log(e);
+            }
+
+        });
+
     };
 
-    getTermSetAsTree(id, termSetName) {
-        const self = this;
-        let deferred = $.Deferred();
-        this.loadTaxonomyScripts().then(() => {
-            self.getTermSet(id, function (terms) {
-                var termsEnumerator = terms.getEnumerator(),
-                    tree = {
-                        name: termSetName,
-                        guid: id,
-                        term: terms,
-                        children: []
-                    };
+    static getTermSetAsTree(id, termSetName) {
+        return new Promise((resolve, reject) => {
+            TermStore.loadTaxonomyScripts().then(() => {
+                TermStore.getTermSet(id).then((terms: any) => {
+                    var termsEnumerator = terms.getEnumerator(),
+                        tree = {
+                            name: termSetName,
+                            guid: id,
+                            term: terms,
+                            children: []
+                        };
 
-                // Loop through each term
-                while (termsEnumerator.moveNext()) {
-                    var currentTerm = termsEnumerator.get_current();
-                    var currentTermPath = currentTerm.get_pathOfTerm().split(';');
-                    var children = tree.children;
+                    // Loop through each term
+                    while (termsEnumerator.moveNext()) {
+                        var currentTerm = termsEnumerator.get_current();
+                        var currentTermPath = currentTerm.get_pathOfTerm().split(';');
+                        var children = tree.children;
 
-                    // Loop through each part of the path
-                    for (var i = 0; i < currentTermPath.length; i++) {
-                        var foundNode = false;
+                        // Loop through each part of the path
+                        for (var i = 0; i < currentTermPath.length; i++) {
+                            var foundNode = false;
 
-                        for (var j = 0; j < children.length; j++) {
-                            if (children[j].name === currentTermPath[i]) {
-                                foundNode = true;
-                                break;
+                            for (var j = 0; j < children.length; j++) {
+                                if (children[j].name === currentTermPath[i]) {
+                                    foundNode = true;
+                                    break;
+                                }
                             }
-                        }
 
-                        // Select the node, otherwise create a new one
-                        var term = foundNode ? children[j] : { name: currentTermPath[i], children: [] };
+                            // Select the node, otherwise create a new one
+                            var term = foundNode ? children[j] : { name: currentTermPath[i], children: [] };
 
-                        // If we're a child element, add the term properties
-                        if (i === currentTermPath.length - 1) {
-                            term.term = currentTerm;
-                            term.title = currentTerm.get_name();
-                            term.guid = currentTerm.get_id().toString();
-                        }
+                            // If we're a child element, add the term properties
+                            if (i === currentTermPath.length - 1) {
+                                term.term = currentTerm;
+                                term.title = currentTerm.get_name();
+                                term.guid = currentTerm.get_id().toString();
+                            }
 
-                        // If the node did exist, let's look there next iteration
-                        if (foundNode) {
-                            children = term.children;
-                        }
-                        // If the segment of path does not exist, create it
-                        else {
-                            children.push(term);
-
-                            // Reset the children pointer to add there next iteration
-                            if (i !== currentTermPath.length - 1) {
+                            // If the node did exist, let's look there next iteration
+                            if (foundNode) {
                                 children = term.children;
+                            }
+                            // If the segment of path does not exist, create it
+                            else {
+                                children.push(term);
+
+                                // Reset the children pointer to add there next iteration
+                                if (i !== currentTermPath.length - 1) {
+                                    children = term.children;
+                                }
                             }
                         }
                     }
-                }
 
-                tree = self.sortTermsFromTree(tree);
-                deferred.resolve(tree);
+                    tree = TermStore.sortTermsFromTree(tree);
+                    resolve(tree);
+                });
             });
         });
-        return deferred.promise();
-
     };
 
-    sortTermsFromTree = function (tree) {
+    static sortTermsFromTree = function (tree) {
         // Check to see if the get_customSortOrder function is defined. If the term is actually a term collection,
         // there is nothing to sort.
         if (tree.children.length && tree.term.get_customSortOrder) {

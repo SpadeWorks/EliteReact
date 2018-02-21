@@ -32,7 +32,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <span className="orange"><i>Start Date</i></span>
+                                                <span className="orange"><i>START DATE</i></span>
                                             </div>
                                         </div>
                                         <div className="col-md-12">
@@ -46,7 +46,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <span className="orange"><i>End Date</i>
+                                                <span className="orange"><i>END DATE</i>
                                                     <img src="/sites/elite-dev-akash/Style%20Library/Elite/images/flag.png" /></span>
                                             </div>
                                         </div>
@@ -65,13 +65,13 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <span className="orange"><i>participants</i>
+                                                <span className="orange"><i>PARTICIPANTS</i>
                                                     <img src="/sites/elite-dev-akash/Style%20Library/Elite/images/helmet.png" /></span>
                                             </div>
                                         </div>
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <h5>{participants}</h5>
+                                                <h5>{participants ? participants.toString() : '0'}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -80,30 +80,17 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <span className="orange">Dificulty Level</span>
+                                                <span className="orange">DIFFICULTY LEVEL</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="row race_type">
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <ul className="dragrace_indicator">
+                                                <ul className={Services.getLevelNameClass(testDrive.levelNumber)}>
                                                     <li><span></span></li>
                                                     <li><span></span></li>
                                                     <li><span></span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="row">
-                                                <ul className="select2-selection__rendered">
-                                                    {(testDrive.location && testDrive.location.length) ?
-                                                        testDrive.location.map((location: any, index) => {
-                                                            return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                                                {location.Label || ''}
-                                                            </li>)
-                                                        }) : ''
-                                                    }
                                                 </ul>
                                             </div>
                                         </div>
@@ -118,7 +105,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                         <div className="col-md-12">
                                             <div className="row">
                                                 <div className="col-md-12 para">
-                                                    <span className="orange">DEVICE REQUIRED :</span>
+                                                    <span className="orange">DEVICE REQUIRED</span>
                                                     <div className="row">
                                                         <ul className="select2-selection__rendered">
                                                             {(testDrive.requiredDevices && testDrive.requiredDevices.length) ?
@@ -138,7 +125,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                         <div className="col-md-12">
                                             <div className="row">
                                                 <div className="col-md-12 para">
-                                                    <span className="orange">REQUIRED OS :</span>
+                                                    <span className="orange">OS REQUIRED</span>
                                                     <div className="row">
                                                         <ul className="select2-selection__rendered">
                                                             {(testDrive.requiredOs && testDrive.requiredOs.length) ?
@@ -159,11 +146,23 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <span className="orange">Possible Points</span>
+                                                <span className="orange">POSSIBLE POINTS</span>
                                             </div>
                                         </div>
                                         <div className="col-md-12">
                                             <span className="big_text">{testDrive.maxPoints}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-md-6 partcipant_Section">
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <div className="row">
+                                                <span className="orange">No. OF TEST CASES</span>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-12">
+                                            <span className="big_text">{testDrive.testCaseIDs.length}</span>
                                         </div>
                                     </div>
                                 </div>

@@ -57,7 +57,7 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
         }
 
         return (<div>
-            <Loader show={activeTestDrivesLoading} message={'Loading...'}>
+            <Loader show={activeTestDrivesLoading || false} message={'Loading...'}>
                 {
                     (ui.visibleItems && ui.visibleItems.length) ?
                         ui.visibleItems.map((testDriveObj, index) => {

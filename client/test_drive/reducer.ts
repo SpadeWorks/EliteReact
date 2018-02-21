@@ -138,7 +138,19 @@ const initialState: IState = {
         testCasePoints: 10,
         fieldDescription: {},
         testDriveLevelsConfig: {}
-    }
+    },
+    myCompletedTestDrivesLoading: false,
+    myInprogressTestDrivesLoading: false,
+    inProgressTestDrivesIRunLoading: false,
+    upcommingTestDrivesIRunLoading: false,
+    completedTestDrivesIRunLoading: false,
+    draftedTestDrivesIRunLoading: false,
+    submittedTestDrivesIRunLoading: false,
+    activeTestDrivesLoading: false,
+    upCommingTestDrivesLoading: false,
+    approvedTestDrivesLoading: false,
+    testDrivesWaitingForApprovalLoading: false,
+    saveTestDriveApprovalLoading: false
 };
 
 export default handleActions<IState, any>({

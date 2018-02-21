@@ -14,18 +14,7 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
         super(props, context);
     }
 
-    getLevelNameClass(levelNumber) {
-        switch (levelNumber) {
-            case 1:
-                return 'streetrace_indicator soapbox_indicator';
-            case 2:
-                return 'streetrace_indicator'
-            case 3:
-                return 'dragrace_indicator'
-            default:
-                return 'streetrace_indicator';
-        }
-    }
+
     render() {
         const { testDrive, approveTestDrive, saveTestDriveApprovalLoading } = this.props;
         return (<div className="col-md-12 currtestdrive_list testdrive_I_runbox">
@@ -87,7 +76,7 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                                 <div className="row">
                                                     <div className="col-md-12">
                                                         <div className="row">
-                                                            <ul className={this.getLevelNameClass(testDrive.levelNumber)}>
+                                                            <ul className={Services.getLevelNameClass(testDrive.levelNumber)}>
                                                                 <li><span></span></li>
                                                                 <li><span></span></li>
                                                                 <li><span></span></li>

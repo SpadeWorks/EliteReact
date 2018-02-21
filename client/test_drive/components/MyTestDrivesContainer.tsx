@@ -4,6 +4,7 @@ import { Tabs, Pane } from '../../common/components/Tabs';
 import Loader from 'react-loader-advanced';
 import ui from 'redux-ui';
 import Pager from 'react-pager';
+import Services from '../../common/services/services';
 import {
     model,
     loadMyCompletedTestDrives,
@@ -24,6 +25,7 @@ interface MyTestDrivesContainerProps {
 
 @ui({
     state: {
+        batchSize: 100,
         itemsPerPage: 3,
         total: 11,
         completedCurrent: 0,
@@ -32,77 +34,110 @@ interface MyTestDrivesContainerProps {
         inprogressItems: [],
         visiblePages: 4,
         inprogressVisible: [],
-        completedVisible: []
+        completedVisible: [],
+        inprogressTotalItems: 0,
+        completedTotalItems: 0,
+        inprogressItemsLoading: false,
+        completedItemsLoading: false
     }
 })
 class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> {
     constructor(props, context) {
         super(props, context);
+        this.getCompletedVisibleItems = this.getCompletedVisibleItems.bind(this);
+        this.getInprogressVisibleItems = this.getInprogressVisibleItems.bind(this);
     }
 
     componentDidMount() {
-        this.props.loadMyInprogressTestDrives(0, 100);
-        this.props.loadMyCompletedTestDrives(0, 100);
+        this.getCompletedVisibleItems(0);
+        this.getInprogressVisibleItems(0)
     }
 
-    getVisibleItems(newPage: number, array: any[], visibleItems: string, currentPage: string) {
-        let skip = newPage * this.props.ui.itemsPerPage;
-        this.props.updateUI({
-            [currentPage]: newPage,
-            [visibleItems]: array.slice(skip, skip + this.props.ui.itemsPerPage)
-        });
+    getCompletedVisibleItems(newPage) {
+        var self = this;
+        var skip = newPage * this.props.ui.itemsPerPage;
+        var top = skip + this.props.ui.itemsPerPage;
+        if (top >= this.props.ui.inprogressItems.length) {
+            this.props.updateUI({
+                completedItemsLoading: true
+            });
+            Services.getMyCompletedTestDrives(skip, top + this.props.ui.batchSize).then((testDrives: any) => {
+                var newBatchSize = top + self.props.ui.batchSize;
+                var total = testDrives.length < newBatchSize ? testDrives.length : newBatchSize; 
+                self.props.updateUI({
+                    completedTotalItems: total,
+                    completedCurrent: newPage,
+                    completedItems: [...self.props.ui.completedItems, ...testDrives],
+                    completedVisible: testDrives.slice(skip, top),
+                    completedItemsLoading: false
+                });
+            });
+        } else {
+            this.props.updateUI({
+                completedCurrent: newPage,
+                completedVisible: this.props.ui.completedItems.slice(skip, top)
+            });
+        }
+
+    }
+
+    getInprogressVisibleItems(newPage) {
+        var self = this;
+        var skip = newPage * this.props.ui.itemsPerPage;
+        var top = skip + this.props.ui.itemsPerPage;
+        if (top >= this.props.ui.completedItems.length) {
+            this.props.updateUI({
+                inprogressItemsLoading: true
+            });
+            Services.getMyTestDrives(skip, top + this.props.ui.batchSize).then((testDrives: any) => {
+                var newBatchSize = top + self.props.ui.batchSize;
+                var total = testDrives.length < newBatchSize ? testDrives.length : newBatchSize; 
+                self.props.updateUI({
+                    inprogressTotalItems: total,
+                    inprogressCurrent: newPage,
+                    inprogressItems: [...self.props.ui.inprogressItems, ...testDrives],
+                    inprogressVisible: testDrives.slice(skip, top),
+                    inprogressItemsLoading: false
+                });
+            });
+        } else {
+            this.props.updateUI({
+                inprogressCurrent: newPage,
+                inprogressVisible: this.props.ui.inprogressItems.slice(skip, top)
+            });
+        }
     }
 
     render() {
         const { myCompletedTestDrives, myCompletedTestDrivesLoading, myInprogressTestDrives,
-            myInprogressTestDrivesLoading, ui, updateUI, 
-            loadMyInprogressTestDrives, loadMyCompletedTestDrives} = this.props;
-
-        if (!myCompletedTestDrivesLoading && myCompletedTestDrives &&
-            myCompletedTestDrives.length && !ui.completedItems) {
-            var currentPage = ui.completedCurrent;
-            if (ui.myCompletedTestDrives.length < ui.completedItems * ui.itemsPerPage) {
-                currentPage = currentPage - 1;
-            }
-            this.getVisibleItems(currentPage, myCompletedTestDrives, 'completedItems', 'completedCurrent');
-        }
-        if (!myInprogressTestDrivesLoading && myInprogressTestDrives &&
-            myInprogressTestDrives.length && !ui.inprogressItems.length) {
-            var currentPage = ui.inprogressCurrent;
-            if (ui.inprogressItems.length < ui.inprogressCurrent * ui.itemsPerPage) {
-                currentPage = currentPage - 1;
-            }
-            this.getVisibleItems(currentPage, myInprogressTestDrives,
-                'inprogressItems', 'inprogressCurrent');
-        }
+            myInprogressTestDrivesLoading, ui, updateUI,
+            loadMyInprogressTestDrives, loadMyCompletedTestDrives } = this.props;
 
         return (<Tabs selected={0}>
             <Pane label="TEST DRIVES IN PROGRESS">
                 <div>
-                    <Loader show={myInprogressTestDrivesLoading || false} message={'Loading...'}>
+                    <Loader show={ui.inprogressItemsLoading} message={'Loading...'}>
                         {
-                            (ui.inprogressItems && ui.inprogressItems.length) ?
-                                ui.inprogressItems.map((testDriveObj: any, index) => {
+                            (ui.inprogressVisible && ui.inprogressVisible.length) ?
+                                ui.inprogressVisible.map((testDriveObj: any, index) => {
                                     return (<MyTestDrivesCompletedItem
                                         key={index}
                                         testDrive={testDriveObj.testDrive}
                                         participants={testDriveObj.participants}
                                         index={index}
-                                        loadeMore={(skip, top) => loadMyInprogressTestDrives(skip, top)}
                                     />)
-                                }) : (!myInprogressTestDrivesLoading && 'There are no items in this view.')
+                                }) : (!ui.inprogressItemsLoading && 'There are no items in this view.')
                         }
                         {
-                            ui.inprogressItems && ui.completedItems.length &&
+                            ui.inprogressItems && ui.inprogressItems.length &&
                             <Pager
-                                total={Math.ceil(myInprogressTestDrives.length / ui.itemsPerPage)}
+                                total={Math.ceil(ui.inprogressItemsLoading / ui.itemsPerPage)}
                                 current={ui.inprogressCurrent}
                                 visiblePages={ui.visiblePages}
                                 titles={{ first: '<', last: '>' }}
                                 className="pagination-sm pull-right"
-                                onPageChanged={(newPage) => 
-                                    this.getVisibleItems(newPage, myInprogressTestDrives, 
-                                        'inprogressItems', 'inprogressCurrent')}
+                                onPageChanged={(newPage) =>
+                                    this.getInprogressVisibleItems(newPage)}
                             />
                         }
                     </Loader>
@@ -110,30 +145,28 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
             </Pane>
             <Pane label="COMPLETED TEST DRIVES">
                 <div>
-                    <Loader show={myCompletedTestDrivesLoading || false} message={'Loading...'}>
+                    <Loader show={ui.completedItemsLoading} message={'Loading...'}>
                         {
-                            (ui.completedItems && ui.completedItems.length) ?
-                                ui.completedItems.map((testDriveObj: any, index) => {
+                            (ui.completedVisible && ui.completedVisible.length) ?
+                                ui.completedVisible.map((testDriveObj: any, index) => {
                                     return (<MyTestDrivesCompletedItem
                                         key={index}
                                         testDrive={testDriveObj.testDrive}
                                         participants={testDriveObj.participants}
                                         index={index}
-                                        loadeMore={(skip, top) => loadMyCompletedTestDrives(skip, top)}
                                     />)
-                                }) : (myCompletedTestDrivesLoading && 'There are no items in this view.')
+                                }) : (!ui.completedItemsLoading && 'There are no items in this view.')
                         }
                         {
                             ui.completedItems && ui.completedItems.length > 0 &&
                             <Pager
-                                total={Math.ceil(myCompletedTestDrives.length / ui.itemsPerPage)}
+                                total={Math.ceil(ui.completedTotalItems / ui.itemsPerPage)}
                                 current={ui.pendingItemCurrent}
                                 visiblePages={ui.visiblePages}
                                 titles={{ first: '<', last: '>' }}
                                 className="pagination-sm pull-right"
-                                onPageChanged={(newPage) => 
-                                    this.getVisibleItems(newPage, myCompletedTestDrives, 
-                                        'completedItems', 'completedCurrent')}
+                                onPageChanged={(newPage) =>
+                                    this.getCompletedVisibleItems(newPage)}
                             />
                         }
                     </Loader>
