@@ -80,7 +80,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <span className="orange">Difficulty Level</span>
+                                                <span className="orange">Dificulty Level</span>
                                             </div>
                                         </div>
                                     </div>

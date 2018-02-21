@@ -130,7 +130,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
 
                     <div id="header">
                         <div className="hud-box">
-                            {introComplete && <div>
+                            {ui.nextScreen == 1 && <div>
                                 <div className="red_box red-box-container">
                                     <svg className="equilizer" viewBox="0 0 296 128">
                                         <g>
@@ -152,7 +152,6 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                         </g>
                                     </svg>
                                 </div>
-
                                 <div className="count_box count-box-container" >
                                     <p>
                                         <span className="counter">{totalUsers}</span>
@@ -163,6 +162,55 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                             </div>
 
                             }
+                            {(ui.nextScreen == 2 || ui.nextScreen == 3) ?
+                                <div className="red_box red-box-container">
+                                    <div className="outer_ride">
+                                        <img src="/sites/elite/Style%20Library/Elite/images/loader2.png" />
+                                        <div className="ride_ring">
+                                            <img src="/sites/elite/Style%20Library/Elite/images/loader1.png" />
+                                                  <div className="count_box current_ridename">
+      
+<p> <span className="white">YOUR CURRENT</span> <span className="red">RIDE</span></p>
+
+    </div>
+                                        </div>
+                                    </div>
+                                    <div className="ride_image">
+                                        <img src="/sites/elite/Style%20Library/Elite/images/stroller-2.png" />
+                                    </div>
+
+
+                                    <div id="typewriteText2" style={{ animationDelay: "10s" }}></div>
+
+                                    <div className="ride_track">
+                                        <img src="/sites/elite/Style%20Library/Elite/images/stroller-1.png" />
+                                    </div>
+                                </div> : ''
+                            }
+
+                            {ui.nextScreen == 4 && <div className="red_box red-box-container">
+                                <div className="outer_ride">
+                                        <img src="/sites/elite/Style%20Library/Elite/images/loader2.png" />
+                                        <div className="ride_ring">
+                                            <img src="/sites/elite/Style%20Library/Elite/images/loader1.png" />
+                                                  <div className="count_box current_ridename">
+      
+<p> <span className="white">YOUR CURRENT</span> <span className="red">RIDE</span></p>
+
+    </div>
+      </div>
+    </div>
+<div className="ride_image">
+                                        <img src="/sites/elite/Style%20Library/Elite/images/stroller-2.png" />
+                                    </div>
+
+
+
+                            </div>
+
+                            }
+
+
 
                             <div className="hud-box-border"></div>
                             <div className="tics t">

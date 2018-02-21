@@ -14,7 +14,7 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
         super(props, context);
     }
     render() {
-        const { testDrive, participants } = this.props;
+        const { testDrive, participants} = this.props;
         return (<div className="col-md-4">
             <div className="col-md-12 progress_drivebox">
                 <h4>{testDrive.title}</h4>

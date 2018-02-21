@@ -27,6 +27,9 @@ class CarAnimation extends React.Component<CarAnimationProps> {
                 <h1 className="title"></h1>
                 <p className="first-text">GET SET</p>
                 <p className="next-text">GO_</p>
+
+
+                
             </div>)
     }
 }

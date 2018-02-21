@@ -298,7 +298,10 @@ var UI = (function () {
 $(window).on('load', function () {
     $('body').css('opacity', 1);
     UI.animate();
+    
 })
+
+
 
 $(document).ready(function () {
     setTimeout(

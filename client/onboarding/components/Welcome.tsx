@@ -31,7 +31,7 @@ class Welcome extends React.Component<WelcomeProps> {
             function mytext() {
                 $('#typewriteText').typewrite({
                     actions: [
-                        { type: 'For a nerve-wracking, exciting journey. Internet points as pay, bitter competition, long months of testing cool,new stuff, a changed person on return. Honour, recognition (and one amazing gift) in case of success. Do you have it in you?' }
+                        { type: 'So, here is how this works...Equinix buys a ton of new software every year.But all this shiny, new stuff... it needs to fit just right into our workflow. Here is where you come in. You test drive these new applications, give your feedback and you earn points.Do this through the year and you could win some amazing prizes.That is all there is to it.' }
 
                         /*{type: 'Do you have it in you?'}*/
                     ]

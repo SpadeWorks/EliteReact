@@ -15,12 +15,18 @@ class RideChoice extends React.Component<RideChoiceProps> {
             function mytext() {
                 $('#typewriteText').typewrite({
                     actions: [
-                        { type: 'So, here is how this works... Equinix buys a ton of new software every year. But all this shiny, new stuff.. it needs to fit just right into our workflow. Here is where you come in.You test drive these new applications, give your feedback and you earn points.Do this through the year and you could win some amazing prizes. That is all there is to it.' }
+                        { type: 'your current ride is a baby stroller. Here is  your chance to upgrade.'}
 
-                        /*{type: 'Do you have it in you?'}*/
+                        
                     ]
                 });
             }, 1500);
+
+        $("input.better_ride").click(function(){
+              $(".ride_track img").css({"position":"relative","left":"690px","transition":"all 3s","opacity":"0.1"});
+
+        });
+            
     }
 
     render() {
@@ -31,9 +37,15 @@ class RideChoice extends React.Component<RideChoiceProps> {
                 <p className="first-text">YOU GOA A</p>
                 <p className="next-text">CHOICE, BUD_</p>
                 <div id="typewriteText"></div>
-                <div className="col-md-12 CarAnimation_actionbox testdrive_actionbox">
-                    <div className="button type1 pull-right animated_button">
-                        <input onClick={() => updateUI({ nextScreen: ui.nextScreen + 1 })} type="button" value="Get a better ride" />
+
+                
+                  <div className="col-md-12 intro_actionbox testdrive_actionbox">
+                    <div className="button type1 pull-right">
+                        <input onClick={() => updateUI({ nextScreen: ui.nextScreen + 1 })} type="button" value="Get a better ride" className="better_ride"/>
+                    </div>
+
+                    <div className="button type1 pull-right">
+                        <input onClick={() => updateUI({ nextScreen: ui.nextScreen + 1 })} type="button" value="Goto Dashboard" className="better_ride"/>
                     </div>
                 </div>
             </div>)

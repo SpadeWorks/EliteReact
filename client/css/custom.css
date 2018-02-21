@@ -2309,6 +2309,11 @@ h1 {
     margin-left: 5px;
 }
 
+    .intro_actionbox.testdrive_actionbox.letsgo{position: fixed;
+    bottom: 31px;
+    left: -184px;
+    background: none!important;}
+
 
 /*welcome and landing text ends here*/
 
@@ -3200,6 +3205,11 @@ a.drive_name:hover {
 a.drive_name h4 {
     color: #fff;
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    
 }
 
 .leader_rank {
@@ -3670,7 +3680,7 @@ a#link1 {
     color: red;
     font-family: titanium;
     text-decoration: none;
-    display: none;
+  
     transition: all 0.5s;
     z-index: 50;
 }
@@ -3682,7 +3692,7 @@ a#link2 {
     color: red;
     font-family: titanium;
     text-decoration: none;
-    display: none;
+
     transition: all 0.5s;
     z-index: 50;
 }
@@ -3695,7 +3705,7 @@ a#link3 {
     font-family: titanium;
     text-decoration: none;
     z-index: 50;
-    display: none;
+   
     transition: all 0.5s;
 }
 
@@ -3719,7 +3729,7 @@ a#link5 {
     font-family: titanium;
     text-decoration: none;
     z-index: 50;
-    display: none;
+
     transition: all 0.5s;
 }
 
@@ -3731,7 +3741,7 @@ a#link6 {
     font-family: titanium;
     text-decoration: none;
     z-index: 50;
-    display: none;
+
     transition: all 0.5s;
 }
 
@@ -3790,6 +3800,8 @@ span.testd_count {
 
 .count_box {
     margin-top: 30px;
+    margin-top: -42px;
+    margin-left: 84px;
 }
 
 .profile_box.count_box:nth-child(4) {
@@ -4071,7 +4083,8 @@ ul.task_circle li {
 ul.task_circle li p {
     float: left;
     font-size: 27px;
-    width: 55px;
+    width: 80px;
+   
 }
 
 ul.task_circle li img {
@@ -4464,6 +4477,7 @@ span.teams:hover {
 .drive_completionbox {
     min-height: 250px;
     padding-top: 20px;
+    text-align: center;
 }
 
 .col-md-12.earn_box #canvas2,
@@ -4544,9 +4558,6 @@ span.testd_count {
     width: 20%;
 }
 
-.count_box {
-    margin-top: 30px;
-}
 
 .profile_box.count_box:nth-child(4) {
     border-bottom: solid 2px #fff;
@@ -4739,8 +4750,8 @@ h4.testcase_title {
 
 .overview {
     margin-top: 0px;
-    padding-bottom: 40px;
-    padding-top: 40px;
+    padding-bottom: 20px;
+    padding-top: 20px;
     background: #333;
 }
 
@@ -4786,13 +4797,14 @@ ul.task_circle li {
 ul.task_circle li p {
     float: left;
     font-size: 27px;
-    width: 55px;
+    width: 80px;
+  
 }
 
 ul.task_circle li img {
     float: right;
     padding-left: 10px;
-    padding-top: 3px;
+    padding-top: 8px;
 }
 
 ul.task_circle li p.inactive_task {
@@ -5255,6 +5267,8 @@ h1#dialogTitleSpan {
 }
 
 
+
+
 /*testdrive details starts here*/
 
 .testdrivedetails_box .earn_box h3,
@@ -5425,7 +5439,7 @@ ul.task_circle li {
 ul.task_circle li p {
     float: left;
     font-size: 27px;
-    width: 55px;
+    width: 80px;
 }
 
 ul.task_circle li img {
@@ -6077,13 +6091,14 @@ h1.testcase_name {
 }
 
 .files-list-item {
-    padding: 8px 0px 2px 19px;
+        padding: 8px 0px 2px 19px;
     float: left !important;
-    width: 210px !important;
+    width: 202px !important;
     background: #24242d;
     margin-left: 4px;
     border: solid 1px #14141d;
     margin-top: 5px;
+    min-height: 74px;
 }
 
 .files-list-item-content {
@@ -6238,7 +6253,7 @@ button {
     font: 18px "HemiHeadRg-BoldItalic", "Arial", Helvetica, sans-serif;
     margin: 20px 0px 10px 0px;
     color: red;
-    width: 119px;
+    width: auto;
 }
 
 .participation_actionbox input[type=button],
@@ -6742,11 +6757,13 @@ button {
 }
 
 
-.red_box.red-box-container{height: 50px !important;
-    margin-top: -83px!important;
+.red_box.red-box-container {
+    height: 50px !important;
+    margin-top: -33px!important;
     width: 25%!important;
     position: absolute!important;
-    left: -72px!important;}
+    left: -72px!important;
+}
 
 
 .bar {
@@ -6758,34 +6775,26 @@ button {
 /*my ride styeles starts here*/
 
 .outer_ride img {
-    /* height: 130px; */
-    /* position: absolute; */
-    /* z-index: 62; */
-    /* left: 80px; */
+   
     position: absolute;
     left: 72px;
-    top: 19px;
-        -webkit-animation: rotate 30s infinite;
+    top: -21px;
+   -webkit-animation: rotate 30s infinite;
     animation-play-state: running;
 }
 .ride_ring img {
-    /* height: 100px; */
-    /* position: relative; */
-    /* left: 15px; */
-    /* top: 14px; */
-    /* z-index: 51; */
+   
     position: absolute;
     left: 87px;
-    top: 31px;
-        -webkit-animation: rotate 5s infinite;
-          animation-direction:reverse;
+    top: -9px;
+ -webkit-animation: rotate 5s infinite;
+ animation-direction:reverse;
 }
 
 .ride_image img{
-    position:relative;
-
+      position: relative;
     left: 116px;
-    top: 58px;
+    bottom:25px;
 }
 
 
@@ -6802,12 +6811,24 @@ button {
 .initial_ride{position: absolute;top: 250px; left: 300px;}
 
 .ride_track {
-    width: 100%;
+    width: 800px;
     /* background: red; */
     position: absolute;
     border-bottom: solid;
-    margin-top: 160px;
+    margin-top: 300px;
+    margin-left: 133px;
 }
+
 .ride_track img{position: relative;
 left: 0px;}
+
+
+.shoping_cartbox{position: absolute;
+top: 280px;}
+
+.count_box.current_ridename {
+    width: 500px;
+    margin-left: 208px;
+    margin-top: -7px;
+}
 /*my ride styles ends here*/

@@ -17,15 +17,17 @@ class Intro extends React.Component<IntroProps> {
 
     componentDidMount() {
         setTimeout(
+           
             function mytext() {
                 $('#typewriteText').typewrite({
                     actions: [
-                        { type: 'So, here is how this works... Equinix buys a ton of new software every year. But all this shiny, new stuff.. it needs to fit just right into our workflow. Here is where you come in.You test drive these new applications, give your feedback and you earn points.Do this through the year and you could win some amazing prizes. That is all there is to it.' }
+                        { type: 'For a nerve-wracking, exciting journey. Internet points as pay,bitter competition,long months of testing cool, new stuff, a changed person on return.Honour, recognition (and one amazing gift) in case of success.Do you have it in you?' }
 
                         /*{type: 'Do you have it in you?'}*/
                     ]
                 });
             }, 1500);
+            
     }
 
     render() {
@@ -36,6 +38,7 @@ class Intro extends React.Component<IntroProps> {
                 <p className="first-text">CREW</p>
                 <p className="next-text">WANTED</p>
                 <div id="typewriteText"></div>
+            
                 <div className="col-md-12 intro_actionbox testdrive_actionbox">
                     <div className="button type1 pull-right animated_button">
                         <input onClick={this.backToReferrer} type="button" value="Take me home!" />
