@@ -1916,7 +1916,7 @@ export class Services {
                 Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_NAME,
                 Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_IMAGE,
             )
-                .expand("UserID").top(100)
+                .expand("UserID").top(100)       
                 .orderBy('Points', false)
                 .filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z'")
                 .skip(skip).top(count)
@@ -2038,9 +2038,10 @@ export class Services {
 
     static getTestDrivesCompleted() {
         return new Promise((resolve, reject) => {
+            var filter = "UserID eq '" + Services.getCurrentUserID() + "' and Status eq '" + Constants.ColumnsValues.COMPLETE_STATUS + "'";
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
                 .select("ID,UserID/ID").expand("UserID")
-                .filter("UserID eq '1' and Status eq '" + Constants.ColumnsValues.COMPLETE_STATUS + "'")
+                .filter(filter)
                 .get().then(testDrives => {
                     resolve(testDrives.length);
                 })

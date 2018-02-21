@@ -1,5 +1,7 @@
 import * as React from 'react';
 import ui from 'redux-ui';
+import * as $ from 'jquery';
+import '../../js/jqmeter.js';
 
 interface OverallPointsDashboardProps {
     totalUsers: number;
@@ -15,6 +17,18 @@ interface OverallPointsDashboardState {
 
 class OverallPointsDashboard extends React.Component<OverallPointsDashboardProps> {
 
+    componentDidUpdate() {
+        /*var jqmeter = $("#jqmeter-vertical2");
+            if (jqmeter.length) {
+        $('#jqmeter-vertical2').jQMeter({
+            goal: '$1,000',
+            raised: '$200',
+            meterOrientation: 'vertical',
+            width: '50px',
+            height: '200px'
+        });    
+    }*/
+    }
 
     render() {
         return (<div>{

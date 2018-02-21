@@ -72,7 +72,7 @@ class TestCases extends React.Component<TestCasesProps> {
                         officia aute, non cupidatat skateboard dolor brunch.</p>
                 </div>
                 <div className="add-button col-md-2 add_test pull-right text-right">
-                    <a href="javascript:void(0);" onClick={addTestCase}> + add test case </a>
+                    <a href="javascript:void(0);" onClick={addTestCase}> + ADD TEST CASE </a>
                 </div>
                 <div className="col-md-12">
                     {

@@ -44,7 +44,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
             Services.getEliteProfileByID().then((user: EliteProfile) => {
                 var message = '';
                 var isUserEligible: boolean = true;
-                var matchedLocation = ctx.props.testDriveInstance.location.filter((location:any) => {
+                var matchedLocation = ctx.props.testDriveInstance.location.filter((location: any) => {
                     return location.Label == user.location;
                 });
 
@@ -85,12 +85,12 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
 
     }
 
-    componentDidMount(){
-        const {testDriveInstance} = this.props;
+    componentDidMount() {
+        const { testDriveInstance } = this.props;
         var testCaseCompletion = (testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 1);
         var pointsEarned = testDriveInstance.currentPoint / (testDriveInstance.maxPoints || 1)
         Services.loadProgressBar("completed-test-cases-canvas", testCaseCompletion, 150);
-        Services.loadProgressBar("test-drive-points-canvas",pointsEarned,150);
+        Services.loadProgressBar("test-drive-points-canvas", pointsEarned, 150);
     }
 
     render() {
@@ -137,30 +137,30 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                         </div>
                         <div className="col-md-12 testdrivedetails_box">
                             <span className="orange">
-                                <i>POINTS :</i>
+                                <i>POINTS EARNED:</i>
+                            </span>
+                            <span className="orange">
+                                <i>DRIVE COMPLETION:</i>
                             </span>
                             <div className="col-md-12 earn_box">
-
-                                <div className="col-md-4">
-                                    <div className="row">
-                                        <canvas id="completed-test-cases-canvas" width="140" height="140"></canvas>
-                                         <h3>{testCaseCompletion}</h3> 
-                                        <span className="small">{testDriveInstance.numberOfTestCasesCompleted } of {testDriveInstance.testCaseIDs.length} tasks done</span>
-                                    </div>
-                                </div>
-
                                 <div className="col-md-4">
                                     <div className="row">
                                         <canvas id="test-drive-points-canvas" width="140" height="140"></canvas>
                                         <h3>{pointsEarned}</h3>
                                         <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
                                     </div>
-
+                                </div>
+                                <div className="col-md-4">
+                                    <div className="row">
+                                        <canvas id="completed-test-cases-canvas" width="140" height="140"></canvas>
+                                        <h3>{testCaseCompletion}</h3>
+                                        <span className="small">{testDriveInstance.numberOfTestCasesCompleted} of {testDriveInstance.testCaseIDs.length} tasks done</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-12 para">
-                            <span className="orange">TEST DRIVE PITCH</span>
+                            <span className="orange">TEST DRIVE PITCH:</span>
                             <p>{testDriveInstance.description}</p>
                         </div>
                         <div className="col-md-12">
@@ -286,7 +286,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
 
                         <div className="col-md-12 popup_buttonbox">
                             <input onClick={this.participate} className="button type1" type="button" value="Go For Drive" />
-                            <button id="participationButton" style={{display: 'none'}} type="participationError" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                            <button id="participationButton" style={{ display: 'none' }} type="participationError" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
                         </div>
                     </div>
                 </div>
@@ -296,9 +296,9 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <input 
-                                onClick={() => {updateUI({showPopUp: false})}}
-                            type="button" className="close" data-dismiss="modal" value="X"/>
+                            <input
+                                onClick={() => { updateUI({ showPopUp: false }) }}
+                                type="button" className="close" data-dismiss="modal" value="X" />
                             <h4 className="modal-title">Modal Header</h4>
                         </div>
                         <div className="modal-body error">
