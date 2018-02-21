@@ -10,7 +10,9 @@ import Services from '../../common/services/services';
 import Surveys from './Surveys';
 import { Link } from "react-router-dom";
 import { validateControl, required, validateForm } from '../../common/components/Validations';
-import {Messages} from '../../common/services/constants';
+import { Messages } from '../../common/services/constants';
+import { ToastContainer, toast } from 'react-toastify';
+import Popup from 'react-popup';
 import {
     model,
     saveTestDrive,
@@ -92,6 +94,36 @@ class ManageTestDrive extends React.Component<AppProps> {
             this.props.dispatch(loadConfigurations());
         }
         this.props.dispatch(loadTestDrive(this.props.id || -1));
+
+        /** Prompt plugin */
+        Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
+            let promptValue = null;
+            let promptChange = function (value) {
+                promptValue = value;
+            };
+
+            this.create({
+                title: 'Sucess',
+                content: 'Data Saved Sucessfully!',
+                buttons: {
+                    left: [{
+                        text: 'Go Back and Edit',
+                        action: function () {
+                            Popup.close();
+                        }
+                    }],
+                    right: [{
+                        text: 'Go to Dashboard',
+                        action: function () {
+                            window.location.href = "#";
+                            Popup.close();
+                        }
+                    }]
+                }
+            });
+        });
+
+        /** Call the plugin */
     }
 
     onTestDriveSave(testDrive, formID) {
@@ -111,10 +143,12 @@ class ManageTestDrive extends React.Component<AppProps> {
             }
 
             this.props.dispatch(saveTestDrive(testDrive));
+            Popup.plugins().prompt('', 'What do you want to do?');
+            toast.success("Test Drive Saved Sucessfully!");
         }
         else {
             this.switchTab('step-1');
-            alert(Messages.TEST_DRIVE_ERROR);
+            Popup.alert(Messages.TEST_DRIVE_ERROR);
         }
     }
 
@@ -122,6 +156,8 @@ class ManageTestDrive extends React.Component<AppProps> {
         var isFormValid = validateForm(formID);
         if (isFormValid) {
             this.props.dispatch(saveQuestion(question));
+            toast.success("Question Saved Sucessfully!");
+
         } else {
             alert(Messages.QUESTION_ERROR);
         }
@@ -131,6 +167,7 @@ class ManageTestDrive extends React.Component<AppProps> {
         var isFormValid = validateForm(formID);
         if (isFormValid) {
             this.props.dispatch(saveTestCase(testCase));
+            toast.success("Test Case Saved Sucessfully!");
         } else {
             alert(Messages.TEST_CASE_ERROR);
         }
@@ -177,11 +214,12 @@ class ManageTestDrive extends React.Component<AppProps> {
             testCaseFields, surveyFields, testDriveFields } = this.props;
         return (
             <div className="container header_part">
+                <Popup />
                 <Link to={"/"} >
-                <h2 className="header_prevlink">
-             <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Create Test Drive</h2>
+                    <h2 className="header_prevlink">
+                        <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Create Test Drive</h2>
                 </Link>
-            
+
                 <h4 className="cancel-btn"><Link to={"/testdrives"}>Cancel</Link></h4>
                 <div className="col-md-12">
                     <div className="wrapper">
@@ -251,6 +289,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                         </Loader>
                     </div>
                 </div>
+                <ToastContainer />
             </div>
         );
     }

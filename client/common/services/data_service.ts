@@ -2503,12 +2503,18 @@ export class TermStore {
     static loadTaxonomyScripts() {
         return new Promise((resolve, reject) => {
             SP.SOD.executeFunc("sp.js", "SP.ClientContext", () => {
-                Promise.all([
-                    // this.loadScript("sp.runtime.js"),
-                    this.loadScript("sp.taxonomy.js")
-                ]).then(() => {
+                // Register what you need from SharePoint (in this case the term store)
+                SP.SOD.registerSod('sp.taxonomy.js', SP.Utilities.Utility.getLayoutsPageUrl('sp.taxonomy.js'));
+                // Load the registered items
+                SP.SOD.executeFunc('sp.taxonomy.js', 'SP.Taxonomy.TaxonomySession', () => {
                     resolve(true);
-                }, (args) => reject(args));
+                });
+                // Promise.all([
+                //     // this.loadScript("sp.runtime.js"),
+                //     this.loadScript("sp.taxonomy.js")
+                // ]).then(() => {
+                //     resolve(true);
+                // }, (args) => reject(args));
             });
         });
     }

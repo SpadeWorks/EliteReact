@@ -135,7 +135,9 @@ export type IState = {
     approvedTestDrivesLoading?: boolean,
     testDrivesWaitingForApproval?: TestDrive[],
     testDrivesWaitingForApprovalLoading?: boolean,
-    saveTestDriveApprovalLoading?: boolean
-
+    saveTestDriveApprovalLoading?: boolean;
+    isTestDriveSaveComplet?: boolean; 
+    errorWhileSaving?: boolean;
+    errorSaveMessage?: boolean;
 }
 

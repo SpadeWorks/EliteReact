@@ -238,7 +238,8 @@ export default handleActions<IState, any>({
     [SAVE_TestDrive_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
         return {
             ...state,
-            loading: true
+            loading: true,
+            isTestDriveSaveComplet: false
         }
     },
 
@@ -256,14 +257,17 @@ export default handleActions<IState, any>({
             ...state,
             testDrive: { ...state.testDrive, ...newTestDrive },
             testDrives: testDrives || [],
-            loading: false
+            loading: false,
+            isTestDriveSaveComplet: true
         }
     },
 
     [SAVE_TestDrive_REJECTED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            loading: false
+            loading: false,
+            isTestDriveSaveComplet: true,
+            errorSaveMessage: action.payload.message 
         }
     },
 
