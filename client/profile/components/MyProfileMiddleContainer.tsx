@@ -13,7 +13,7 @@ class MyProfileMiddleContainer extends React.Component<MyProfileMiddleContainerP
     render() {
         const { eliteProfile, currentTestDrives } = this.props;
         return (
-            <div className="row profile_overviewbox">
+            <div className="profile_overviewbox">
                 <div className="col-md-12 overview">
                     <div className="col-md-3">
                         <div className="row">
@@ -32,7 +32,9 @@ class MyProfileMiddleContainer extends React.Component<MyProfileMiddleContainerP
                     <div className="col-md-2">
                         <div className="row">
                             <div className="col-md-12">
+                                <div className="row">
                                 <img src={eliteProfile.carImage} />
+                                </div>
                             </div>
                             <div className="col-md-12">
                                 <h4 className="testcase_title">Current ride</h4>

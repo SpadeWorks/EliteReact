@@ -75,7 +75,7 @@ body.starts {
 }
 
 body.plane_back {
-    background: #100f1b;
+    background: #181821;
 }
 
 h1 {
@@ -2979,8 +2979,8 @@ input.select2-search__field {
 
 li.select2-selection__choice {
     position: relative;
-    top: 20px;
-    background: #41404e;
+    top: 0px;
+    background: #27272f;
     padding-left: 10px;
     border-radius: 50px;
     float: left;
@@ -2990,8 +2990,8 @@ li.select2-selection__choice {
     padding-bottom: 4px;
     margin-left: 0px;
     padding-right: 10px;
-    margin-top: 9px;
     margin-right: 10px;
+    color: #fff;
 }
 
 ul.select2-results__options {
@@ -3784,15 +3784,17 @@ span.testd_count {
 .testd_box span.glyphicon-triangle-top {
     font-size: 12px;
     color: green;
+    position: absolute;
+    top: 9px;
 }
 
 .testd_box p {
-    color: green;
+    color: fff;
 }
 
 .orange {
     font-size: 12px;
-    color: #ff8d00;
+    color: #f8971d;
     letter-spacing: 1px;
 }
 
@@ -4546,13 +4548,10 @@ span.testd_count {
     color: green;
 }
 
-.testd_box p {
-    color: green;
-}
 
 .orange {
     font-size: 14px;
-    color: #ff8d00;
+    color: #f8971d;
 }
 
 .ride_box {
@@ -4932,10 +4931,12 @@ span.teams:hover {
 .profile_box img {
     float: left;
     margin-right: 15px;
+    width:100%;
 }
 
 .profile_box h2 {
-    font-size: 30px;
+    font-size: 40px;
+    color: #fff;
 }
 
 .profileinfo_box {
@@ -4944,12 +4945,15 @@ span.teams:hover {
 
 .profileinfo_box span.orange {
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .profileinfo_box h5 {
     margin-top: 0px;
     font-family: titanium !important;
     font-size: 14px;
+    color: #fff;
+    letter-spacing: 1px;
 }
 
 .inforow {
@@ -4965,7 +4969,7 @@ span.teams:hover {
 }
 
 .devicelist {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 a.edit_profile {
@@ -4987,11 +4991,12 @@ a.edit_profile {
 }
 
 .profile_overviewbox img {
-    height: 40px;
+    max-height: 63px;
 }
 
 .profile_overviewbox h4.testcase_title {
-    font-size: 16px;
+    font-size: 14px;
+    text-transform: uppercase;
 }
 
 
@@ -5050,7 +5055,7 @@ ul.thumbnails-carousel li {
 }
 
 .row.car_sliderbox .profile_overviewbox span.orange {
-    font-size: 26px;
+    font-size: 38px;
     padding-top: 0px;
     margin-top: 0px;
 }
@@ -5090,13 +5095,22 @@ li.active-thumbnail {
 }
 
 .modal-content.editpro_box {
-    background: #1d1923;
+    background: #060611;
     border: solid 1px #fff;
     border-radius: 0px;
     padding: 5px;
     float: left;
 }
 
+.editpro_box .carousel-inner{padding:30px;}
+
+.editpro_box .modal-title{
+    margin: 0;
+    line-height: 1.42857143;
+    color: #fff !important;}
+
+
+.editpro_box .wrapper{margin-top:30px;}
 .editpro_box .modal-header {
     border: none;
 }
@@ -5116,7 +5130,7 @@ li.active-thumbnail {
     width: 60px;
     margin-left: 0px;
     border-radius: 50%;
-    border: solid 1px #fff;
+    border: solid 2px #fff;
     margin-bottom: 5%;
     transition: all 0.5s;
 }
@@ -5126,9 +5140,9 @@ li.active-thumbnail {
 }
 
 .carousel-inner.avatar_box a:hover img {
-    height: 65px;
-    width: 65px;
-    border: solid 1px orange;
+    height: 80px;
+    width: 80px;
+    border: solid 2px orange;
 }
 
 .avatar_box .item {
@@ -5396,6 +5410,7 @@ a.status_fail:hover {
 
 .overview p {
     font-size: 25px;
+    color: #fff;
 }
 
 .overview h4.testcase_title {
@@ -5882,8 +5897,8 @@ input.inputMaterial:focus~label {
 .editpro_box .inputMaterial:focus~label,
 .inputMaterial:valid~label {
     top: -6px;
-    font-size: 14px;
-    color: white;
+    font-size: 11px;
+    color: #f89719;
 }
 
 .textarea-custom textarea {
@@ -6439,8 +6454,10 @@ span.up_no {
 }
 
 .testdrive_I_runbox .testd_box span.glyphicon-triangle-top {
-    font-size: 10px;
+    font-size: 12px;
     color: green;
+    position: absolute;
+    top: 9px;
 }
 
 span.big_text {
@@ -6524,11 +6541,6 @@ ul.streetrace_indicator li span {
 .testdrive_I_runbox h5.race_neme {
     text-transform: uppercase;
     margin-top: 3px !important;
-}
-
-li.select2-selection__choice {
-    margin-top: 5px;
-    margin-bottom: 5px;
 }
 
 .enddate_Section:first-child {

@@ -172,7 +172,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                     </div>
                     <MyProfileMiddleContainer eliteProfile={eliteProfile} currentTestDrives={currentTestDrives} />
                     <div className="row car_sliderbox">
-                        <div className="row profile_overviewbox">
+                        <div className="profile_overviewbox">
                             <div className="container">
                                 <div className="col-md-12 overview imp_points">
                                     <div className="col-md-4 text-center">

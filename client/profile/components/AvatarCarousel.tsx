@@ -35,7 +35,7 @@ class AvatarCarousel extends React.Component<AvatarCarouselProps> {
                     avatars.slice(i,i+8).map((avatar,index) => {
                         if(index%2==0)  
                         {                                            
-                            return <a href='javascript:void(0)' onClick={() => this.avatarSelected(avatar,baseUrl)}><img id={avatar.ID} src={ baseUrl + avatar.FileRef} /></a>
+                            return <div className="col-md-3"><a href='javascript:void(0)' onClick={() => this.avatarSelected(avatar,baseUrl)}><img id={avatar.ID} src={ baseUrl + avatar.FileRef} /></a></div>
                         }                        
                     })
                 }
@@ -44,7 +44,7 @@ class AvatarCarousel extends React.Component<AvatarCarouselProps> {
                     avatars.slice(i,i+8).map((avatar,index) => {
                         if(index%2!=0) 
                         {                             
-                            return <a href='javascript:void(0)' onClick={() => this.avatarSelected(avatar,baseUrl)}><img id={avatar.ID} src={ baseUrl + avatar.FileRef} /></a>
+                            return <div className="col-md-3"><a href='javascript:void(0)' onClick={() => this.avatarSelected(avatar,baseUrl)}><img id={avatar.ID} src={ baseUrl + avatar.FileRef} /></a></div>
                         }
                     })
                 }
