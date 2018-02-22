@@ -2,6 +2,8 @@ import * as React from 'react';
 import { TestDrive, IState, Question } from '../model';
 import SurveyForm from './SurveyForm';
 import {ColumnsValues} from '../../common/services/constants';
+import Services from '../../common/services/services';
+import ui from 'redux-ui';
 import {
     model,
     saveQuestion,
@@ -26,18 +28,23 @@ interface SurveysProps {
     questionIds: number[];   
     fieldDescriptions: any;
 };
-
+@ui({
+    state: {
+        helpText: ''
+    }
+})
 class Surveys extends React.Component<SurveysProps> {
     constructor(props, context) {
         super(props, context);
         this.onSubmit = this.onSubmit.bind(this);
+        this.getHelpText = this.getHelpText.bind(this);
         //  this.handleEdit = this.handleEdit.bind(this);
     }
 
     onSubmit(){
         var testDrive = this.props.testDrive;
         testDrive.status = ColumnsValues.SUBMIT;
-        this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id)
+        this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);
     }
 
     componentDidMount(){
@@ -45,6 +52,13 @@ class Surveys extends React.Component<SurveysProps> {
         if(!questions || questions.length == 0){
             this.props.loadQuestions(this.props.questionIds);
         }   
+        this.getHelpText();
+    }
+
+    getHelpText(){
+        Services.getApplicationConfigurations().then((appConfig: any) =>{
+            this.props.updateUI({helpText: appConfig.TestCaseHelpText});
+        })
     }
 
     render() {
@@ -65,9 +79,7 @@ class Surveys extends React.Component<SurveysProps> {
         return (
             <div className="test-case-container col-xs-12">
                 <div className="col-md-8 sample_text">
-                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high
-                        life accusamus terry richardson ad squid. 3 wolf moon
-                        officia aute, non cupidatat skateboard dolor brunch.</p>
+                    <p>{ui.helpText}</p>
                 </div>
                 <div className="add-button col-md-2 add_test pull-right text-right">
                     <a href="javascript:void(0);" onClick={addQuestion}> + ADD QUESTION </a>
@@ -98,7 +110,7 @@ class Surveys extends React.Component<SurveysProps> {
                         </div>
 
                         <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                        <input type="button" value="Done"
+                        <input type="button" value="Submit"
                         onClick={this.onSubmit} />
                         </div>
                 </div>

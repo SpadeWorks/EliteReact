@@ -13,6 +13,7 @@ import { validateControl, required, validateForm } from '../../common/components
 import { Messages } from '../../common/services/constants';
 import { ToastContainer, toast } from 'react-toastify';
 import Popup from 'react-popup';
+import { ColumnsValues } from '../../common/services/constants';
 import {
     model,
     saveTestDrive,
@@ -131,6 +132,9 @@ class ManageTestDrive extends React.Component<AppProps> {
         var testCases = this.props.testDrive.testCases;
         var questions = this.props.testDrive.questions;
         if (isFormValid) {
+            if(testDrive.testDrive.maxTestDrivers < 1){
+                Popup.alert('');
+            }
             if (testCases && testCases.length &&
                 this.checkForUnsavedItems(testCases, Messages.SAVE_UNSAVED_TEST_CASE)) {
                 this.switchTab('step-2');
@@ -139,6 +143,16 @@ class ManageTestDrive extends React.Component<AppProps> {
             if (questions && questions.length &&
                 this.checkForUnsavedItems(questions, Messages.SAVE_UNSAVED_QUESTION)) {
                 this.switchTab('step-3');
+                return false;
+            }
+
+            if (testDrive.status == ColumnsValues.SUBMIT && testCases.length == 0) {
+                Popup.alert(Messages.NO_TEST_CASE_ERROR);
+                return false;
+            }
+
+            if (testDrive.status == ColumnsValues.SUBMIT && questions.length == 0) {
+                Popup.alert(Messages.NO_QUESTION_ERROR);
                 return false;
             }
 
@@ -155,9 +169,12 @@ class ManageTestDrive extends React.Component<AppProps> {
     onSaveQuestion(question, formID) {
         var isFormValid = validateForm(formID);
         if (isFormValid) {
-            this.props.dispatch(saveQuestion(question));
-            toast.success("Question Saved Sucessfully!");
-
+            if (question.questionType = "Objective" && question.options.length < 2) {
+                Popup.alert(Messages.NO_OPTIONS_ERROR);
+            } else {
+                this.props.dispatch(saveQuestion(question));
+                toast.success("Question Saved Sucessfully!");
+            }
         } else {
             Popup.alert(Messages.QUESTION_ERROR);
         }

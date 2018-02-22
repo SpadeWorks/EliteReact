@@ -113,8 +113,11 @@ export class Messages {
     static Saving_question = 'Saving questions...';
     static SAVING = 'Saving...';
     static LOADING = 'Loading...';
-    static ERROR_IN_FORM = 'There are some errors in the form. Please correct them and Save again.';
+    static ERROR_IN_FORM = 'Please fill all the required fields and save again. Fields marked with * are mandetory.';
     static TEST_DRIVE_LOCATION_ERROR = 'This test drive is not available for your location.';
     static TEST_DRIVE_DEVICE_ERROR = 'You don\'t have the required device to participate in this test drive.';
     static TEST_DRIVE_OS_ERROR = 'You don\'t have the required os to participate in this test drive.';
+    static NO_TEST_CASE_ERROR = 'Please add atleast one test case before submiting for approval.';
+    static NO_QUESTION_ERROR = 'Please add atleast one question before submiting for approval.';
+    static NO_OPTIONS_ERROR = 'Please add more that one question responses';
 }
