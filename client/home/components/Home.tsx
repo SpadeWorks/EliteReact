@@ -98,7 +98,6 @@ class Home extends React.Component<HomeProps, HomeState> {
             this.props.dispatch(loadUserPoints(user.eliteProfileID));
             this.props.dispatch(loadVideo());
         }
-       
     }
 
     render() {
