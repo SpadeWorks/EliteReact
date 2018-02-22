@@ -28,14 +28,15 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                                     <div className="col-md-12">
                                         <div className="row test_drive">
                                             {
-                                                regionLeaders && regionLeaders.map((leaderBoard, index) => {
-                                                    return (<LeaderBoardUser
-                                                        rank={index + 1}
-                                                        key={index}
-                                                        avatar={leaderBoard.avatar}
-                                                        userName={leaderBoard.name}
-                                                        points={leaderBoard.totalPoints} userId={leaderBoard.id}></LeaderBoardUser>)
-                                                })
+                                                regionLeaders && regionLeaders.length ?
+                                                    regionLeaders.slice(0, 3).map((leaderBoard, index) => {
+                                                        return (<LeaderBoardUser
+                                                            rank={index + 1}
+                                                            key={index}
+                                                            avatar={leaderBoard.avatar}
+                                                            userName={leaderBoard.name}
+                                                            points={leaderBoard.totalPoints} userId={leaderBoard.id}></LeaderBoardUser>)
+                                                    }) : ''
                                             }
                                             {
                                                 (regionLeaders && regionLeaders.length >= 3) && <Link className="pull-right" to={"/leaderboard"}>
@@ -49,14 +50,14 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                                     <div className="col-md-12">
                                         <div className="row test_drive">
                                             {
-                                                leaders && leaders.map((leaderBoard, index) => {
+                                                (leaders && leaders.length) ? leaders.map((leaderBoard, index) => {
                                                     return (<LeaderBoardUser
                                                         rank={index + 1}
                                                         key={index}
                                                         avatar={leaderBoard.avatar}
                                                         userName={leaderBoard.name}
                                                         points={leaderBoard.totalPoints} userId={leaderBoard.id}></LeaderBoardUser>)
-                                                })
+                                                }) : ''
                                             }
                                             {
                                                 (leaders && leaders.length >= 3) && <Link className="pull-right" to={"/leaderboard"}>
@@ -66,7 +67,8 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                                         </div>
                                     </div>
                                 </div>
-                            </div></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

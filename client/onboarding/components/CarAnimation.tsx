@@ -17,19 +17,16 @@ class CarAnimation extends React.Component<CarAnimationProps> {
     componentDidMount() {
         setTimeout(() => {
             this.props.updateUI({ nextScreen: this.props.ui.nextScreen + 1 })
-            }, 1500);
+        }, 1500);
     }
 
     render() {
-        const {ui, updateUI } = this.props;
+        const { ui, updateUI } = this.props;
         return (
             <div className="header-title">
                 <h1 className="title"></h1>
                 <p className="first-text">GET SET</p>
                 <p className="next-text">GO_</p>
-
-
-                
             </div>)
     }
 }

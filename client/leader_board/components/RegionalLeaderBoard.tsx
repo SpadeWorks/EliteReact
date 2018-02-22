@@ -37,7 +37,7 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
         this.regionChange = this.regionChange.bind(this);
         this.handlePageChanged = this.handlePageChanged.bind(this);
         this.getVisibleItems = this.getVisibleItems.bind(this);
-        
+
     }
 
     regionChange = (value) => {
@@ -73,8 +73,8 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
                 options: options.slice(0, 5),
                 complete: options.length <= 6,
             };
-            if(ctx.props.ui.region == ''){
-                let defaultRegion = regions.filter(region =>{
+            if (ctx.props.ui.region == '') {
+                let defaultRegion = regions.filter(region => {
                     return region.Label == ctx.props.ui.userRegion;
                 })
                 ctx.props.updateUI({ region: defaultRegion[0] });
@@ -129,10 +129,11 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
                     />
                 }
 
-                <LeaderItem
-                    leader={currentUser} />
-
-            </div>)
+                {
+                    (currentUser.rank && currentUser.rank != -1) ? <LeaderItem
+                        leader={currentUser} /> : ''
+                }
+            </div >)
     }
 }
 

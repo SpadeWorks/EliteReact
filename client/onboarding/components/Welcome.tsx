@@ -3,7 +3,6 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import ui from 'redux-ui'
 import { Link } from "react-router-dom";
-
 import '../../js/bootstrap.min.js';
 import '../../js/animation.js';
 import '../../js/motion.js';
@@ -27,16 +26,13 @@ class Welcome extends React.Component<WelcomeProps> {
 
     }
     componentDidMount() {
-        setTimeout(
-            function mytext() {
-                $('#typewriteText').typewrite({
-                    actions: [
-                        { type: 'So, here is how this works...Equinix buys a ton of new software every year.But all this shiny, new stuff... it needs to fit just right into our workflow. Here is where you come in. You test drive these new applications, give your feedback and you earn points.Do this through the year and you could win some amazing prizes.That is all there is to it.' }
-
-                        /*{type: 'Do you have it in you?'}*/
-                    ]
-                });
-            }, 5000);
+        Services.getApplicationConfigurations().then((appConfig: any) => {
+            $('#typewriteText').typewrite({
+                actions: [
+                    { type: appConfig.WelcomeText }
+                ]
+            });
+        })
     }
     render() {
         const { totalUsers, currentUser, createEliteUserProfile } = this.props;

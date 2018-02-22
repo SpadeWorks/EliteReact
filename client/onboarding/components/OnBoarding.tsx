@@ -56,7 +56,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
             <section>
                 <div className="container top_bar" style={{ height: "50px", background: "black" }}>
                     <div className="logo">
-                        <img src="images/logo.png" alt="Equnixlogo" />
+                        <img src="/sites/elite/Style%20Library/Elite/images/logo.png" alt="Equnixlogo" />
                     </div>
                 </div>
             </section>
