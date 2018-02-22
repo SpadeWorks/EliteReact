@@ -104,6 +104,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                         <span className="highlight "></span>
                                         <span className="bar "></span>
                                         <label className="disc_lable ">Description</label>
+                             
                                     </div>
                                 }
                                 {

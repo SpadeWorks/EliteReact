@@ -17,7 +17,7 @@
 }
 
 body.starts {
-    font: 1em "HemiHeadRg-BoldItalic", Monospace;
+    font-family: HemiHeadRg-BoldItalic;
     color: #fff;
     height: 100vh;
     -webkit-transform: opacity 0.3s linear;
@@ -33,7 +33,7 @@ body.starts {
 }
 
 .img-bg {
-    font: 1em "HemiHeadRg-BoldItalic", Monospace;
+    font-family: HemiHeadRg-BoldItalic;
     /*background: black url(./images/back.jpg) repeat 0 0;*/
     background: #212030;
     color: #fff;
@@ -53,7 +53,7 @@ body.starts {
 }
 
 .black-bg {
-    font: 1em "HemiHeadRg-BoldItalic", Monospace;
+    font-family: HemiHeadRg-BoldItalic;
     /*background: black url(./images/back.jpg) repeat 0 0;*/
     background: #181821;
     color: #fff;
