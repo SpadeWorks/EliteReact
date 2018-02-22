@@ -1,19 +1,19 @@
 @font-face {
     font-family: "HemiHeadRg-BoldItalic";
-    src: url("/sites/elite/Style Library/Elite/fonts/hemi_head_bd_it.eot?") format("eot"), url("/sites/elite/Style Library/Elite/fonts/hemi_head_bd_it.woff") format("woff"), url("/sites/elite/Style Library/Elite/fonts/hemi_head_bd_it.ttf") format("truetype"), url("/sites/elite/Style Library/Elite/fonts/hemi_head_bd_it.svg#HemiHeadRg-BoldItalic") format("svg");
+    src: url("/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.eot?") format("eot"), url("/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.woff") format("woff"), url("/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.ttf") format("truetype"), url("/sites/elite-dev-akash/Style Library/Elite/fonts/hemi_head_bd_it.svg#HemiHeadRg-BoldItalic") format("svg");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: titanium;
-    src: url("/sites/elite/Style Library/Elite/fonts/TitilliumWeb-Regular.ttf");
+    src: url("/sites/elite-dev-akash/Style Library/Elite/fonts/TitilliumWeb-Regular.ttf");
 }
 
 @font-face {
     font-family: 'Glyphicons Halflings';
-    src: url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.eot');
-    src: url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/sites/elite/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+    src: url('/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot');
+    src: url('/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/sites/elite-dev-akash/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/sites/elite-dev-akash/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
 body.starts {
@@ -22,7 +22,7 @@ body.starts {
     height: 100vh;
     -webkit-transform: opacity 0.3s linear;
     transform: opacity 0.3s linear;
-    background: url('/sites/elite/Style%20Library/Elite/images/bg-stars.gif');
+    background: url('/sites/elite-dev-akash/Style%20Library/Elite/images/bg-stars.gif');
     width: 30%;
     height: auto;
     /* width: 100%; */
@@ -41,7 +41,7 @@ body.starts {
     height: 100vh;
     -webkit-transform: opacity 0.3s linear;
     transform: opacity 0.3s linear;
-    background: url('/sites/elite/Style%20Library/Elite/images/dash_back.jpg') no-repeat !important;
+    background: url('/sites/elite-dev-akash/Style%20Library/Elite/images/dash_back.jpg') no-repeat !important;
     width: 100%;
     height: auto;
     width: 100%;
@@ -3056,7 +3056,7 @@ span.select2-selection__choice__remove {
 
 /*.line_box {
 height: 200px;
-background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/line.png) no-repeat;
 width: 100%;
 background-size: contain;
 margin-top: -90px;
@@ -3395,12 +3395,12 @@ span.l_count {
 
 
 /*.therm.outer-therm.vertical {
-background: url(/sites/elite/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
+background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
 border-radius: 0;
 }
 
 .therm.inner-therm.vertical {
-background: url(/sites/elite/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
+background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
 border-radius: 0;
 width: 28px !important;
 }*/
@@ -4093,19 +4093,19 @@ ul.task_circle li p.inactive_task {
 
 .line_box {
     height: 200px;
-    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+    background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/line.png) no-repeat;
     width: 100%;
     background-size: contain;
     margin-top: -90px;
 }
 
 .therm.outer-therm.vertical {
-    background: url(/sites/elite/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
+    background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
     border-radius: 0;
 }
 
 .therm.inner-therm.vertical {
-    background: url(/sites/elite/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
+    background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
     border-radius: 0;
     width: 28px !important;
 }
@@ -4425,14 +4425,14 @@ div#s4-ribbonrow {
 }
 
 span.teams {
-    background: url("/sites/elite/Style%20Library/Elite/images/teams1.png") no-repeat;
+    background: url("/sites/elite-dev-akash/Style%20Library/Elite/images/teams1.png") no-repeat;
     height: 23px;
     width: 23px;
     float: left;
 }
 
 span.teams:hover {
-    background: url("/sites/elite/Style%20Library/Elite/images/teams2.png") no-repeat;
+    background: url("/sites/elite-dev-akash/Style%20Library/Elite/images/teams2.png") no-repeat;
     height: 23px;
     width: 23px;
     float: left;
@@ -4819,14 +4819,14 @@ ul.task_circle li p.inactive_task {
 }
 
 span.teams {
-    background: url(/sites/elite/Style%20Library/Elite/images/teams1.png) no-repeat;
+    background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/teams1.png) no-repeat;
     height: 23px;
     width: 23px;
     float: left;
 }
 
 span.teams:hover {
-    background: url(/sites/elite/Style%20Library/Elite/images/teams2.png) no-repeat;
+    background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/teams2.png) no-repeat;
     height: 23px;
     width: 23px;
     float: left;
@@ -6337,11 +6337,11 @@ button {
 }
 
 #jqmeter-horizontal {
-    background: url(/sites/elite/Style%20Library/Elite/images/guage_1.png) no-repeat !important;
+    background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/guage_1.png) no-repeat !important;
 }
 
 .therm .inner-therm {
-    background: url(/sites/elite/Style%20Library/Elite/images/guage_2.png)no-repeat !important;
+    background: url(/sites/elite-dev-akash/Style%20Library/Elite/images/guage_2.png)no-repeat !important;
 }
 
 .progress_drivebox {
