@@ -159,7 +159,7 @@ class ManageTestDrive extends React.Component<AppProps> {
             toast.success("Question Saved Sucessfully!");
 
         } else {
-            alert(Messages.QUESTION_ERROR);
+            Popup.alert(Messages.QUESTION_ERROR);
         }
     }
 
@@ -169,7 +169,7 @@ class ManageTestDrive extends React.Component<AppProps> {
             this.props.dispatch(saveTestCase(testCase));
             toast.success("Test Case Saved Sucessfully!");
         } else {
-            alert(Messages.TEST_CASE_ERROR);
+            Popup.alert(Messages.TEST_CASE_ERROR);
         }
     }
 
@@ -179,7 +179,7 @@ class ManageTestDrive extends React.Component<AppProps> {
         });
 
         if (unsaveTestCase.length) {
-            alert(message);
+            Popup.alert(message);
             return true;
         } else {
             return false;

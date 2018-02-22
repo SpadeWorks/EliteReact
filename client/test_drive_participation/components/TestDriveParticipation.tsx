@@ -10,6 +10,8 @@ import TestDriveInfo from './TestDriveInfo';
 import * as $ from 'jquery';
 import * as Constants from '../../common/services/constants';
 import ui from 'redux-ui';
+import Popup from 'react-popup';
+import { ToastContainer, toast } from 'react-toastify';
 interface TestDriveParticipationProps {
     testDriveInstance: TestDriveInstance;
     saveTestCaseResponse: (testCase: TestCaseInstance, testDrive: TestDriveInstance) => any;
@@ -148,6 +150,8 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                     </div>
                 </div>
             </div>
+            <Popup />
+            <ToastContainer />
             <Overview testDriveInstance={testDriveInstance} ui={ui} updateUI={updateUI} />
         </div>)
     }

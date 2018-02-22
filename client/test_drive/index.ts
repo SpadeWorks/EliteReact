@@ -10,7 +10,6 @@ export { default as MyTestDrivesInProgressItem} from './components/MyTestDrivesI
 export { default as TestDriveCardItem} from './components/TestDriveCardItem';
 export { default as ApprovalPendingContainer} from './components/ApprovalPendingContainer';
 export { default as ApprovalPendingItem} from './components/ApprovalPendingItem';
-export { default as ActiveTestdrivesContainer} from './components/ActiveTestdrivesContainer';
 export { default as UpCommingTestdrivesContainer} from './components/UpCommingTestdrivesContainer';
 
 export * from './actions';

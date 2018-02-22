@@ -8,6 +8,8 @@ import * as $ from 'jquery';
 import { validateControl, required, validateForm } from '../../common/components/Validations';
 import Files from 'react-files';
 import Loader from 'react-loader-advanced';
+import Popup from 'react-popup';
+import { ToastContainer, toast } from 'react-toastify';
 interface TestCaseFormProps {
     testDriveInstance: TestDriveInstance
     testCase: TestCaseInstance;
@@ -44,6 +46,40 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         this.removeAttachment = this.removeAttachment.bind(this);
     }
 
+    componentDidMount() {
+        /** Prompt plugin */
+        Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
+            let promptValue = null;
+            let promptChange = function (value) {
+                promptValue = value;
+            };
+
+            this.create({
+                title: 'Sucess',
+                content: 'Test Drive Submitted Sucessfully!',
+                buttons: {
+                    left: [{
+                        text: 'Take Survey',
+                        action: function () {
+
+                            Popup.close();
+                            $('[href="#Servay_q"]').trigger('click');
+                        }
+                    }],
+                    right: [{
+                        text: 'Go to Dashboard',
+                        action: function () {
+                            window.location.href = "#";
+                            Popup.close();
+                        }
+                    }]
+                }
+            });
+        });
+
+        /** Call the plugin */
+    }
+
     onFilesChange(files) {
         var duplicateFiles = [];
         var oldFiles = this.props.testCase.files;
@@ -55,7 +91,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         })
 
         if (duplicateFiles.length) {
-            alert("Files with following names are alredy attached:" + '\n' + duplicateFiles.join(', '));
+            Popup.alert("Files with following names are alredy attached:" + '\n' + duplicateFiles.join(', '));
         } else {
             this.props.updateUI({
                 files: files
@@ -89,23 +125,25 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         if (isFormValid) {
             testCase = {
                 ...testCase,
-                responseStatus: testCase.responseStatus == Constants.ColumnsValues.INPROGRESS ? 
+                responseStatus: testCase.responseStatus == Constants.ColumnsValues.INPROGRESS ?
                     Constants.ColumnsValues.DRAFT : testCase.responseStatus,
                 testCaseResponse: this.props.ui.testCaseResponse,
                 selectedResponse: this.props.ui.selectedResponse,
                 files: this.props.ui.files
             }
             this.props.saveTestCaseResponse(testCase, this.props.testDriveInstance);
+            toast.success("Test Case Response Saved Sucessfully!");
         } else {
-            alert(Constants.Messages.ERROR_IN_FORM);
+            Popup.alert(Constants.Messages.ERROR_IN_FORM);
         }
 
     }
 
     submitTestCaseResponse(testCase: TestCaseInstance, index) {
         this.props.submitTestDriveInstance(this.props.testDriveInstance);
-        this.props.updateUI({showSurveyPopUp: true})
-        $('#test-drive-completion-btn').trigger('click');
+        Popup.plugins().prompt('', 'What do you want to do?');
+        // this.props.updateUI({ showSurveyPopUp: true })
+        // $('#test-drive-completion-btn').trigger('click');
     }
 
 
@@ -124,7 +162,6 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
     render() {
         const { testCase, active, saveTestCaseResponse, ui, updateUI, index, testDriveInstance, isLast } = this.props;
         return (
-
             <div className={"item " + (active ? 'active' : '')} id={'test-case-form' + index}>
                 <div className="row">
                     <Loader show={testDriveInstance.testCaseSaveInProgress || false} message={'Loading...'}>
@@ -234,7 +271,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                                     <input type="button" value="Save" onClick={() => this.saveTestCaseResponse(testCase, index)} />
                                                 </div>
                                             </div>
-                                      
+
                                             {isLast && <div className="col-md-12 participation_actionbox">
                                                 <div className="button type1 nextBtn btn-lg pull-right animated_button">
                                                     <input type="button" value="Submit test cases" onClick={() => this.submitTestCaseResponse(testCase, index)} />
