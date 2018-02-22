@@ -42,7 +42,7 @@ class Welcome extends React.Component<WelcomeProps> {
             <p className="next-text">{currentUser.firstName || currentUser.displayName}</p>
             <div id="typewriteText" style={{ animationDelay: "10s" }}></div>
             <div className="col-md-12 intro_actionbox testdrive_actionbox">
-                <div className="button type1 pull-right animated_button">
+                <div className="button type1 pull-right animated_button letsgo">
                     <input value="Let's Go" type="button" onClick={() => createEliteUserProfile(currentUser)} />
                 </div>
             </div>

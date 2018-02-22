@@ -6902,12 +6902,12 @@ img.car_bigview {
     margin: 20px 0px 10px 0px;
     color: red;
     right: 170px;
-    margin-left: 50px;
+    margin-left: 80px;
 }
 
 .intro_actionbox.testdrive_actionbox {
     position: fixed;
-    bottom: 0px;
+    bottom: 40px;
     left: 0px;
     background: none!important;
 }
@@ -6966,7 +6966,7 @@ button {
 .ride_image img {
     position: relative;
     left: 116px;
-    bottom: 25px;
+    bottom: 34px;
 }
 
 @-webkit-keyframes rotate {
@@ -6995,21 +6995,34 @@ button {
 
 .ride_track {
     width: 800px;
-    /* background: red; */
-    position: absolute;
+    background: red;
+    /* position: absolute; */
     border-bottom: solid;
-    margin-top: 300px;
+    margin-top: 319px;
     margin-left: 133px;
+    background: url(http://intranet.spdev.equinix.com/sites/elite/Style%20Library/Elite/images/track.png) no-repeat;
+    border: none;
+
 }
 
+p.get_Set{width:40%;float:left;}
+
+p.go{width:10%;float:left;}
+
 .ride_track img {
-    position: relative;
+       position: relative;
     left: 0px;
+    bottom: -1px;
+    height: 91px;
 }
 
 .shoping_cartbox {
-    position: absolute;
-    top: 280px;
+        position: absolute;
+    top: 220px;
+}
+
+.shoping_cartbox img {
+    height: 111px;
 }
 
 .count_box.current_ridename {
@@ -7017,14 +7030,32 @@ button {
     margin-left: 208px;
     margin-top: -7px;
 }
-
+.col-md-12.intro_actionbox.testdrive_actionbox.new_ride{position: fixed;
+    bottom: 17px;
+    left: -57px;
+    background: none!important;}
 
 /*my ride styles ends here*/
 
 
+
+
+
+
+
+
 /* Css for pop up */
 
+.letsgo {
+    position: absolute !important;
+    right: 380px !important;
+    bottom: 50px;
+}
 .mm-popup {
+    display: none;
+}
+
+h1.title:after,h1.title:before {
     display: none;
 }
 

@@ -40,7 +40,7 @@ class Intro extends React.Component<IntroProps> {
                         <input onClick={this.backToReferrer} type="button" value="Take me home!" />
                     </div>
                     <div className="button type1 pull-right animated_button">
-                        <input onClick={() => updateUI({ nextScreen: ui.nextScreen + 1 })} type="button" value="Hell Yeah!" />
+                        <input onClick={() => updateUI({ nextScreen: ui.nextScreen + 1 })} type="button" value="Heck Yeah!" />
                     </div>
                 </div>
             </div>)

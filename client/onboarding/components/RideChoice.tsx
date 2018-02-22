@@ -37,7 +37,7 @@ class RideChoice extends React.Component<RideChoiceProps> {
             <div className="header-title">
                 <h1 className="title"></h1>
                 <p className="first-text">YOU GOA A</p>
-                <p className="next-text">CHOICE, BUD_</p>
+                <p className="next-text">CHOICE, BUD</p>
                 <div id="typewriteText"></div>
 
 
