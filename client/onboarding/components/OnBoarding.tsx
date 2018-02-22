@@ -1,3 +1,6 @@
+import * as $ from 'jquery';
+import '../../js/animation.js';
+import '../../js/motion.js';
 import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
@@ -8,8 +11,10 @@ import CarAnimation from './CarAnimation';
 import CurrentRide from './CurrentRide';
 import RideChoice from './RideChoice';
 import Intro from './Intro';
-import '../../js/animation.js';
 import ui from 'redux-ui';
+import UI from '../../js/custommAnimations';
+
+
 interface OnBoardingProps {
     dispatch: Dispatch<{}>;
     totalUsers: number;
@@ -40,6 +45,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
     componentDidMount() {
         document.body.className = "starts";
         this.props.dispatch(loadOnBoardingDetails());
+        UI.animate();
     }
 
     createUser() {
@@ -168,11 +174,11 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                         <img src="/sites/elite/Style%20Library/Elite/images/loader2.png" />
                                         <div className="ride_ring">
                                             <img src="/sites/elite/Style%20Library/Elite/images/loader1.png" />
-                                                  <div className="count_box current_ridename">
-      
-<p> <span className="white">YOUR CURRENT</span> <span className="red">RIDE</span></p>
+                                            <div className="count_box current_ridename">
 
-    </div>
+                                                <p> <span className="white">YOUR CURRENT</span> <span className="red">RIDE</span></p>
+
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="ride_image">
@@ -190,19 +196,19 @@ class OnBoarding extends React.Component<OnBoardingProps> {
 
                             {ui.nextScreen == 4 && <div className="red_box red-box-container">
                                 <div className="outer_ride">
-                                        <img src="/sites/elite/Style%20Library/Elite/images/loader2.png" />
-                                        <div className="ride_ring">
-                                            <img src="/sites/elite/Style%20Library/Elite/images/loader1.png" />
-                                                  <div className="count_box current_ridename">
-      
-<p> <span className="white">YOUR CURRENT</span> <span className="red">RIDE</span></p>
+                                    <img src="/sites/elite/Style%20Library/Elite/images/loader2.png" />
+                                    <div className="ride_ring">
+                                        <img src="/sites/elite/Style%20Library/Elite/images/loader1.png" />
+                                        <div className="count_box current_ridename">
 
-    </div>
-      </div>
-    </div>
-<div className="ride_image">
-                                        <img src="/sites/elite/Style%20Library/Elite/images/stroller-2.png" />
+                                            <p> <span className="white">YOUR CURRENT</span> <span className="red">RIDE</span></p>
+
+                                        </div>
                                     </div>
+                                </div>
+                                <div className="ride_image">
+                                    <img src="/sites/elite/Style%20Library/Elite/images/stroller-2.png" />
+                                </div>
 
 
 
