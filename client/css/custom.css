@@ -16,6 +16,9 @@
     src: url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/sites/elite/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
+body{
+    font-family: HemiHeadRg-BoldItalic !important;
+}
 body.starts {
     font: 1em "HemiHeadRg-BoldItalic", Monospace;
     color: #fff;
@@ -69,6 +72,10 @@ body.starts {
     left: 0px;
     top: 0px;
     background-attachment: fixed;
+}
+
+body.plane_back {
+    background: #100f1b;
 }
 
 h1 {
@@ -5190,10 +5197,6 @@ select {
 
 .editpro_box .close {
     opacity: 1;
-}
-
-body.plane_back {
-    background: #100f1b;
 }
 
 

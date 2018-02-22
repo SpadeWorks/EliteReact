@@ -80,9 +80,6 @@ export class Columns {
     static ACCOUNT_NAME = "AccountName";
     static RESPONSE_ATTACHMENTS = "ResponseAttachments";
     static LevelNumber = "LevelNumber";
-
-
-
 }
 
 export class ColumnsValues {
