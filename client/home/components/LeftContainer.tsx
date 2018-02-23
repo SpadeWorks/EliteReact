@@ -65,8 +65,8 @@ class MyTestDrives extends React.Component<LeftContainer> {
                             </span>
                         </h4>
                     </a>
-                    <p><span className="end_date">END DATE :</span>{Service.formatDate(testDrive.endDate)}</p>
-                    <p><span className="participants">PARTICIPANTS :</span> {participants}</p>
+                    <p><span className="end_date">END DATE : </span>{Service.formatDate(testDrive.endDate)}</p>
+                    <p><span className="participants">PARTICIPANTS : </span> {participants}</p>
                 </div>
                 <div className="col-md-2 pull-right">
                     <div className="lc_container">

@@ -51,21 +51,22 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                     <div className="col-md-6 earned_pointbox">
                         <div className="row">
                             <div className="col-md-12 earn_box">
-                                <span className="orange"><i>POINTS :</i></span>
+                                <span className="orange"><i>DRIVE COMPLETION :</i></span>
+                                <canvas id={driveProgressID} width="150" height="150"></canvas>
+                                <h3 className="earn_boxcount">{percentComplete.toFixed(0)} %</h3>
+                                <span className="small">
+                                    {completedTestCases} of {totalTestCases} tasks done
+                                    </span>
+                            </div>
+                            <div className="col-md-12 drive_completionbox">
+                                <span className="orange"><i>POINTS EARNED :</i></span>
                                 <canvas id={pointsProgressID} width="150" height="150"></canvas>
                                 <h3 className="completionboxcount">{testDriveResponse.currentPoint}</h3>
                                 <span className="small">{testDriveResponse.currentPoint} of {testDrive.maxPoints} points earned</span>
 
                             </div>
-                            <div className="col-md-12 drive_completionbox">
-                                <span className="orange"><i>DRIVE COMPLETION</i></span>
-                                <canvas id={driveProgressID} width="150" height="150"></canvas>
-                                <h3 className="earn_boxcount">{percentComplete.toFixed(2)} %</h3>
-                                <span className="small">
-                                    {completedTestCases}
-                                    of {totalTestCases}  tasks done
-                                    </span>
-                            </div>
+
+
                         </div>
                     </div>
                     <div className="col-md-6 drive_info">
@@ -74,13 +75,13 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                                 <div className="row">
                                     <div className="col-md-12 owner">
                                         <span className="orange">
-                                            <i>DRIVE OWNER</i>
+                                            <i>DRIVE OWNER :</i>
                                         </span>
                                         <h4>{testDrive.owner}</h4>
                                     </div>
                                     <div className="col-md-12 end_date">
                                         <span className="orange">
-                                            <i>End Date</i>
+                                            <i>End Date :</i>
                                         </span>
                                         <h4>{Service.formatDate(testDrive.endDate)}</h4>
                                     </div>
@@ -90,13 +91,13 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                                 <div className="row">
                                     <div className="col-md-12 owner">
                                         <span className="orange">
-                                            <i>PARTICIPANTS</i>
+                                            <i>PARTICIPANTS :</i>
                                         </span>
                                         <h4>{participants}</h4>
                                     </div>
                                     <div className="col-md-12 end_date">
                                         <span className="orange">
-                                            <i>DEFICULTY LEVEL</i>
+                                            <i>DEFICULTY LEVEL :</i>
                                         </span>
                                         <h4>{testDrive.level}</h4>
                                     </div>
@@ -106,7 +107,7 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                     </div>
                 </div>
                 <div className="col-md-12 popup_buttonbox">
-                    <Link className="button type1" to={"/participation/" + testDrive.id}> Drive Through </Link>
+                    <Link className="button type1" to={"/participation/" + testDrive.id}> Drive through </Link>
                 </div>
             </div>
         </div>)

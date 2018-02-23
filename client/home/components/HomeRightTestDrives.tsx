@@ -31,13 +31,13 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
             <div className="row">
                 <div className="well">
                     <ul className="nav nav-tabs">
-                        <li className="active"><a href="#up_drives" data-toggle="tab">UPCOMING TEST DRIVES</a></li>
-                        <li className="pull-right"><a href="#active_drives" data-toggle="tab">ACTIVE TEST DRIVES</a></li>
+                        <li className=""><a href="#up_drives" data-toggle="tab">UPCOMING TEST DRIVES</a></li>
+                        <li className="pull-right active"><a href="#active_drives" data-toggle="tab">ACTIVE TEST DRIVES</a></li>
                     </ul>
 
                     <div id="myTabContent" className="tab-content">
 
-                        <div className="tab-pane active in" id="up_drives">
+                        <div className="tab-pane fade" id="up_drives">
                             <Loader show={upcomingTestDriveLoading} message={'Loading test drives...'}>
                                 <div className="col-md-12">
                                     {
@@ -61,7 +61,7 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                 </div>
                             </Loader>
                         </div>
-                        <div className="tab-pane fade" id="active_drives">
+                        <div className="tab-pane active in" id="active_drives">
                             <Loader show={activeTestDriveLoading} message={'Loading test drives...'}>
                                 <div className="col-md-12">
                                     {

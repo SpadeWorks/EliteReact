@@ -36,19 +36,19 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                         <div className="row">
                             <div className="col-md-12 owner">
                                 <span className="orange">
-                                    <i>POSSIBLE POINTS:</i>
+                                    <i>POSSIBLE POINTS :</i>
                                 </span>
                                 <h4>{testDrive.maxPoints}</h4>
                             </div>
                             <div className="col-md-12 end_date">
                                 <span className="orange">
-                                    <i>NO. OF TEST CASES:</i>
+                                    <i>NO. OF TEST CASES :</i>
                                 </span>
                                 <h4>{testDrive && testDrive.testCaseIDs && testDrive.testCaseIDs.length}</h4>
                             </div>
                             <div className="col-md-12 end_date">
                                 <span className="orange">
-                                    <i>DEVICES REQUIRED:</i>
+                                    <i>DEVICES REQUIRED :</i>
                                 </span>
                                 <div className="col-md-12 para">
                                     <div className="row">
@@ -64,10 +64,8 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                 </div>
                                 <div className="col-md-12 end_date">
                                     <div className="row">
-
-
                                         <span className="orange">
-                                            <i>OS REQUIRED:</i>
+                                            <i>OS REQUIRED :</i>
                                         </span>
                                         <div className="col-md-12 para">
                                             <div className="row">
@@ -92,31 +90,31 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                 <div className="row">
                                     <div className="col-md-12 owner">
                                         <span className="orange">
-                                            <i>DRIVE OWNER:</i>
+                                            <i>DRIVE OWNER :</i>
                                         </span>
                                         <h4>{testDrive.owner}</h4>
                                     </div>
                                     <div className="col-md-12 end_date">
                                         <span className="orange">
-                                            <i>START DATE:</i>
+                                            <i>START DATE :</i>
                                         </span>
                                         <h4>{Service.formatDate(testDrive.startDate)}</h4>
                                     </div>
                                     <div className="col-md-12 end_date">
                                         <span className="orange">
-                                            <i>End Date:</i>
+                                            <i>End Date :</i>
                                         </span>
                                         <h4>{Service.formatDate(testDrive.endDate)}</h4>
                                     </div>
                                     <div className="col-md-12 end_date">
                                         <span className="orange">
-                                            <i>PARTICIPANTS:</i>
+                                            <i>PARTICIPANTS :</i>
                                         </span>
                                         <h4>{participants}</h4>
                                     </div>
                                     <div className="col-md-12 end_date">
                                         <span className="orange">
-                                            <i>DIFFICULTY LEVEL:</i>
+                                            <i>DIFFICULTY LEVEL :</i>
                                         </span>
                                         <h4>{testDrive.level}</h4>
                                     </div>

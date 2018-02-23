@@ -6,13 +6,13 @@ import Services from '../../common/services/services';
 import { EliteProfile } from '../../home/model';
 import { Messages } from '../../common/services/constants';
 import ui from 'redux-ui';
+import Popup from 'react-popup';
 interface TestDriveDetailsProps {
     testDriveInstance: TestDriveInstance;
     createTestDriveInstance: (testDriveInstance: TestDriveInstance) => any;
     updateUI: (any) => any;
     ui: any;
 };
-
 @ui({
     state: {
         showPopUp: false,
@@ -77,9 +77,9 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                 ctx.props.createTestDriveInstance(this.props.testDriveInstance)
             } else {
                 ctx.props.updateUI({
-                    showPopUp: true,
                     message: data.message
                 });
+                Popup.plugins().prompt('', 'What do you want to do?');
             }
         })
 
@@ -91,15 +91,56 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         var pointsEarned = testDriveInstance.currentPoint / (testDriveInstance.maxPoints || 1)
         Services.loadProgressBar("completed-test-cases-canvas", testCaseCompletion, 150);
         Services.loadProgressBar("test-drive-points-canvas", pointsEarned, 150);
+
+        /** Prompt plugin */
+        Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
+            let promptValue = null;
+            let promptChange = function (value) {
+                promptValue = value;
+            };
+
+            this.create({
+                title: 'Hit the brakes!',
+                content: 'You can\'t participate in this Test Drive as you may from a different location or may not possess the required devices. You can update your devices and Os on your profile page.',
+                buttons: {
+                    left: [{
+                        text: 'Test drive details',
+                        action: function () {
+                            Popup.close();
+                        }
+                    }],
+                    center: [],
+
+                    right: [{
+                        text: 'Test drive central',
+                        action: function () {
+                            window.location.hash = "/testdrives";
+                            Popup.close();
+                        }
+                    },{
+                        text: 'Edit profile',
+                        action: function () {
+                            window.location.hash = "/profile";
+                            Popup.close();
+                        }
+                    }]
+                }
+            });
+        });
+
+        /** Call the plugin */
+
     }
 
     render() {
         const { testDriveInstance, createTestDriveInstance, ui, updateUI } = this.props;
         var testCaseCompletion = (testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 1) * 100;
-        var pointsEarned = testDriveInstance.currentPoint / (testDriveInstance.maxPoints || 1) * 100
+        var pointsEarned = testDriveInstance.currentPoint
 
         return (<div className="col-md-12 detailed_box">
+            
             <div className="row">
+            <Popup />
                 <div className="container header_part">
 
                     <Link to={"/"}>
@@ -137,10 +178,10 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                         </div>
                         <div className="col-md-12 testdrivedetails_box">
                             <span className="orange">
-                                <i>POINTS EARNED:</i>
+                                <i>POINTS EARNED :</i>
                             </span>
                             <span className="orange">
-                                <i>DRIVE COMPLETION:</i>
+                                <i>DRIVE COMPLETION :</i>
                             </span>
                             <div className="col-md-12 earn_box">
                                 <div className="col-md-4">
@@ -160,7 +201,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             </div>
                         </div>
                         <div className="col-md-12 para">
-                            <span className="orange">TEST DRIVE PITCH:</span>
+                            <span className="orange">TEST DRIVE PITCH :</span>
                             <p>{testDriveInstance.description}</p>
                         </div>
                         <div className="col-md-12">
@@ -168,7 +209,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                 <div className="row inforow">
                                     <div className="col-md-4">
                                         <div className="row">
-                                            <span className="orange">TEST DRIVE OWNER:</span>
+                                            <span className="orange">TEST DRIVE OWNER :</span>
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -180,7 +221,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                         <div className="row">
                                             <div className="col-md-5">
                                                 <div className="row">
-                                                    <span className="orange">START DATE:</span>
+                                                    <span className="orange">START DATE :</span>
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
@@ -192,7 +233,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                         <div className="row">
                                             <div className="col-md-5">
                                                 <div className="row">
-                                                    <span className="orange">END DATE:</span>
+                                                    <span className="orange">END DATE :</span>
                                                 </div>
                                             </div>
                                             <div className="col-md-7">
@@ -204,7 +245,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                 <div className="row inforow">
                                     <div className="col-md-4">
                                         <div className="row">
-                                            <span className="orange">DIFICULTY LEVEL:</span>
+                                            <span className="orange">DIFICULTY LEVEL :</span>
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -214,7 +255,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                 <div className="row inforow">
                                     <div className="col-md-4">
                                         <div className="row">
-                                            <span className="orange">PARTICIPAINTS:</span>
+                                            <span className="orange">PARTICIPAINTS :</span>
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -224,11 +265,11 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             </div>
                         </div>
                         <div className="col-md-12 para">
-                            <span className="orange">EXPERIANCE BUSINESS VALUE: </span>
+                            <span className="orange">EXPERIANCE BUSINESS VALUE : </span>
                             <p>{testDriveInstance.expectedBusinessValue}</p>
                         </div>
                         <div className="col-md-12 para">
-                            <span className="orange">ELIGIBLE DRIVER REGION: </span>
+                            <span className="orange">ELIGIBLE DRIVER REGION : </span>
                             <div className="row">
                                 <ul className="select2-selection__rendered">
                                     {
@@ -243,7 +284,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             </div>
                         </div>
                         <div className="col-md-12 para">
-                            <span className="orange">ELIGIBLE DRIVER LOCATION</span>
+                            <span className="orange">ELIGIBLE DRIVER LOCATION :</span>
                             <div className="row">
                                 <ul className="select2-selection__rendered">
                                     {
@@ -257,7 +298,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             </div>
                         </div>
                         <div className="col-md-12 para">
-                            <span className="orange">DEVICES REQUIRED</span>
+                            <span className="orange">DEVICES REQUIRED :</span>
                             <div className="row">
                                 <ul className="select2-selection__rendered">
                                     {
@@ -270,7 +311,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             </div>
                         </div>
                         <div className="col-md-12 para">
-                            <span className="orange">OS REQUIRED</span>
+                            <span className="orange">OS REQUIRED :</span>
                             <div className="row">
                                 <ul className="select2-selection__rendered">
                                     {
@@ -299,7 +340,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             <input
                                 onClick={() => { updateUI({ showPopUp: false }) }}
                                 type="button" className="close" data-dismiss="modal" value="X" />
-                            <h4 className="modal-title">Modal Header</h4>
+                            <h4 className="modal-title">ERROR :</h4>
                         </div>
                         <div className="modal-body error">
                             <p>{ui.message}</p>

@@ -95,7 +95,6 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                     question.questionType != ColumnsValues.QUESTION_TYPE_OBJECTIVE &&
 
                                     <div className="col-md-12 comment_box ">
-                                       <i className="material-icons pull-right">attachment</i>
                                         <textarea className="inputMaterial form-control"
                                             onChange={(e) => this.onChange(e)}
                                             name="questionResponse"
