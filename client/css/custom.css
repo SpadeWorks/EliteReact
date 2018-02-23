@@ -2318,7 +2318,7 @@ h1 {
 
 .intro_actionbox.testdrive_actionbox.letsgo {
     position: fixed;
-    bottom: 31px;
+    bottom: -152px;
     left: -184px;
     background: none!important;
 }
@@ -6923,7 +6923,7 @@ button {
 
 .bar {
     fill: #0091ff;
-    width: 5px;
+    width: 9px;
     animation: equalize 1.25s steps(25, end) 3s infinite;
 }
 
@@ -6931,24 +6931,33 @@ button {
 /*my ride styeles starts here*/
 
 .outer_ride img {
-    position: absolute;
-    left: 72px;
+       position: absolute;
+    left: 123px;
     top: -21px;
     -webkit-animation: rotate 30s infinite;
     animation-play-state: running;
 }
 
 .ride_ring img {
-    position: absolute;
-    left: 87px;
+      position: absolute;
+    left: 138px;
     top: -9px;
     -webkit-animation: rotate 5s infinite;
     animation-direction: reverse;
 }
 
+
+p.next-text.go_text {
+    position: absolute;
+    top: -47px !important;
+    left: 438px;
+}
+
+
+
 .ride_image img {
     position: relative;
-    left: 116px;
+    left: 168px;
     bottom: 34px;
 }
 
@@ -6981,11 +6990,10 @@ button {
     background: red;
     /* position: absolute; */
     border-bottom: solid;
-    margin-top: 319px;
-    margin-left: 133px;
+    margin-top: 200px;
+    margin-left: 73px;
     background: url(http://intranet.spdev.equinix.com/sites/elite/Style%20Library/Elite/images/track.png) no-repeat;
     border: none;
-
 }
 
 p.get_Set{width:40%;float:left;}
@@ -7000,27 +7008,47 @@ p.go{width:10%;float:left;}
 }
 
 .shoping_cartbox {
-        position: absolute;
+    position: absolute;
     top: 220px;
+    left: 224px;
 }
 
 .shoping_cartbox img {
-    height: 111px;
+    height: 150px;
 }
 
 .count_box.current_ridename {
     width: 500px;
-    margin-left: 208px;
+    margin-left: 250px;
     margin-top: -7px;
 }
 .col-md-12.intro_actionbox.testdrive_actionbox.new_ride{position: fixed;
-    bottom: 17px;
+    bottom: -123px;
     left: -57px;
     background: none!important;}
 
 a{
     cursor: pointer !important;
 }    
+.col-md-12.intro_actionbox.testdrive_actionbox.betterride_box{position: fixed;
+    bottom: -123px;
+    left: 0px;
+    background: none!important;}
+
+.stroller_ridebox {
+    position: absolute;
+    top: 222px;
+    left: 223px;
+}
+.stroller_ridebox img{height:250px;}
+.red_text{color:red !important;} 
+
+
+.currentride_text {
+    position: absolute;
+    top: 80px !important;
+}
+/*my ride styles ends here*/
 
 /*my ride styles ends here*/
 
@@ -7029,7 +7057,7 @@ a{
 .letsgo {
     position: absolute !important;
     right: 380px !important;
-    bottom: 50px;
+   bottom: -152px;
 }
 .mm-popup {
     display: none;

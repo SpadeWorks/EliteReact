@@ -30,8 +30,9 @@ class CurrentRide extends React.Component<CurrentRideProps> {
         return (
             <div className="header-title">
                 <h1 className="title"></h1>
-                <p className="next-text">SHINY!</p>
-                <div id="typewriteText" style={{ animationDelay: "10s" }}></div>
+                <p className="first-text red_text">SHINY!</p>
+
+                <div id="typewriteText" className="currentride_text" style={{ animationDelay: "10s" }}></div>
                 <div className="shoping_cartbox">
                     <img src="/sites/elite/Style%20Library/Elite/images/shoppingcart.png" />
                 </div>

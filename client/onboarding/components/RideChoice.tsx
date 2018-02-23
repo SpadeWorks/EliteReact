@@ -23,7 +23,7 @@ class RideChoice extends React.Component<RideChoiceProps> {
     }
 
     getBetterRide() {
-        $(".ride_track img").css({ "position": "relative", "left": "690px", "transition": "all 3s", "opacity": "0.1" });
+       
         this.props.updateUI({ nextScreen: this.props.ui.nextScreen + 1 })
     }
 
@@ -36,18 +36,20 @@ class RideChoice extends React.Component<RideChoiceProps> {
         return (
             <div className="header-title">
                 <h1 className="title"></h1>
-                <p className="first-text">YOU GOA A</p>
+                <p className="first-text">YOU GOT A</p>
                 <p className="next-text">CHOICE, BUD</p>
                 <div id="typewriteText"></div>
 
-
-                <div className="col-md-12 intro_actionbox testdrive_actionbox">
-                    <div className="button type1 pull-right">
-                        <input onClick={() => this.getBetterRide()} type="button" value="Get a better ride" className="better_ride" />
+                <div className="stroller_ridebox">
+                     <img src="/sites/elite/Style%20Library/Elite/images/stroller.png" />
+                </div>
+                <div className="col-md-12 intro_actionbox testdrive_actionbox betterride_box">
+                   <div className="button type1 pull-right">
+                        <input onClick={() => this.goToDashboard()} type="button" value="Go to dashboard" className="better_ride" />
                     </div>
-
-                    <div className="button type1 pull-right">
-                        <input onClick={() => this.goToDashboard()} type="button" value="Goto Dashboard" className="better_ride" />
+                   
+                     <div className="button type1 pull-right">
+                        <input onClick={() => this.getBetterRide()} type="button" value="Get a better ride" className="better_ride" />
                     </div>
                 </div>
             </div>)
