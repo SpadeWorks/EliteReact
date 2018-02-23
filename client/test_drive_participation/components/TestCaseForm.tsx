@@ -133,6 +133,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
             }
             this.props.saveTestCaseResponse(testCase, this.props.testDriveInstance);
             toast.success("Test Case Response Saved Sucessfully!");
+            $('#carousel-example-vertical').carousel('next');
         } else {
             Popup.alert(Constants.Messages.ERROR_IN_FORM);
         }

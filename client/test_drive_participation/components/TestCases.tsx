@@ -17,6 +17,7 @@ interface TestCasesProps {
 @ui({
     state: {
         showSurveyPopUp: true,
+        activeItemID: 0
     }
 })
 class TestCases extends React.Component<TestCasesProps> {
@@ -24,7 +25,6 @@ class TestCases extends React.Component<TestCasesProps> {
         super(props, context);
         this.isTestDriveCompleted = this.isTestDriveCompleted.bind(this);
         this.props.ui.showSurveyPopUp = this.isTestDriveCompleted();
-        this.openSurvey = this.openSurvey.bind(this);
     }
 
     isTestDriveCompleted() {
@@ -42,39 +42,35 @@ class TestCases extends React.Component<TestCasesProps> {
             else {
                 $(this).carousel('prev');
             }
-        });
+        }); 
     }
 
-    openSurvey(){
-        this.props.updateUI({ showSurveyPopUp: false })
-        $('#close-survey-popup').trigger('click');
-        $('#Servay_q').trigger('click');
-
-    }
     render() {
         const { testCases, saveTestCaseResponse, submitTestDriveInstance, ui, updateUI, testDriveInstance } = this.props;
         return (
 
             <div className="col-md-12">
-                <div className="testcase_no " id="test_Cases">
-                    <ul className="task_circle ">
-                        {
-                            testDriveInstance.testCases && testDriveInstance.testCases.length &&
-                            testDriveInstance.testCases.map((testCase, index) => {
-                                return (<li key={index} data-target="#carousel-example-vertical " data-slide-to={index} className="active">
-                                    <p> {index + 1}. {testCase.responseStatus == Constants.ColumnsValues.INPROGRESS &&
-                                        <img src={Constants.Globals.IMAGE_BASE_URL + "/empty.png"} className="img-responsive" />}
-                                        {testCase.responseStatus == Constants.ColumnsValues.DRAFT &&
-                                        <img src={Constants.Globals.IMAGE_BASE_URL + "/half.png"} className="img-responsive" />}
-                                        {testCase.responseStatus == Constants.ColumnsValues.COMPLETE_STATUS &&
-                                            <img src={Constants.Globals.IMAGE_BASE_URL + "/done.png"} className="img-responsive" />}
-                                    </p>
-                                </li>)
-                            })
-                        }
-                    </ul>
-                </div>
+
                 <div id="carousel-example-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
+                    <div className="testcase_no " id="test_Cases">
+                        <ul className="task_circle ">
+                            {
+                                testDriveInstance.testCases && testDriveInstance.testCases.length &&
+                                testDriveInstance.testCases.map((testCase, index) => {
+                                    return (<li key={index} data-target="#carousel-example-vertical"
+                                        data-slide-to={index} className={index == 0 ? 'active' : ''}>
+                                        <p> {index + 1}. {testCase.responseStatus == Constants.ColumnsValues.INPROGRESS &&
+                                            <img src={Constants.Globals.IMAGE_BASE_URL + "/empty.png"} className="img-responsive" />}
+                                            {testCase.responseStatus == Constants.ColumnsValues.DRAFT &&
+                                                <img src={Constants.Globals.IMAGE_BASE_URL + "/half.png"} className="img-responsive" />}
+                                            {testCase.responseStatus == Constants.ColumnsValues.COMPLETE_STATUS &&
+                                                <img src={Constants.Globals.IMAGE_BASE_URL + "/done.png"} className="img-responsive" />}
+                                        </p>
+                                    </li>)
+                                })
+                            }
+                        </ul>
+                    </div>
                     <div className="carousel-inner " role="listbox ">
                         {
                             testCases &&
@@ -100,37 +96,10 @@ class TestCases extends React.Component<TestCasesProps> {
                         }
                     </div>
                     <input id="test-drive-completion-btn" style={{ display: 'none' }}
-                        type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#test-drive-completion" />
-
-                    <div id="test-drive-completion" className={"modal fade"}
-                        role="dialog">
-                        <div className="modal-dialog">
-                            <div className="modal-content" style={{ height: '200px' }}>
-                                <div className="modal-header">
-                                    <input id="close-survey-popup"
-                                        onClick={() => { updateUI({ showPopUp: false }) }}
-                                        type="button" className="close" data-dismiss="modal" value="X" />
-                                    <h4 className="modal-title">Test cases completed</h4>
-                                </div>
-                                <div className="modal-body error">
-                                    <p>You have completed all the test cases. You can take the survey or go back and edit the response.</p>
-                                    <div className="col-md-12 participation_actionbox">
-                                        <div className="">
-                                            <input type="button" value="Take the Survey" onClick={this.openSurvey} />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12 participation_actionbox">
-                                        <div className="">
-                                            <input
-                                                onClick={() => { updateUI({ showSurveyPopUp: false }) }}
-                                                type="button" className="close" data-dismiss="modal" value="Go Back and Edit" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                        type="button"
+                        className="btn btn-info btn-lg"
+                        data-toggle="modal"
+                        data-target="#test-drive-completion" />
                 </div>
             </div>
 
