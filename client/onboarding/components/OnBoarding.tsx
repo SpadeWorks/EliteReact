@@ -142,19 +142,18 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                         <g>
                                             <title>Audio Equilizer</title>
                                             <rect className="bar" transform="translate(0,0)" y="15"></rect>
-                                            <rect className="bar" transform="translate(82,0)" y="15"></rect>
-                                            <rect className="bar" transform="translate(20,0)" y="15"></rect>
-                                            <rect className="bar" transform="translate(95,0)" y="15"></rect>
-                                            <rect className="bar" transform="translate(10,0)" y="15"></rect>
-                                            <rect className="bar" transform="translate(35,0)" y="15"></rect>
-                                            <rect className="bar" transform="translate(50,0)" y="15"></rect>
-                                            <rect className="bar" transform="translate(110,0)" y="15"></rect>
-                                            <rect className="bar" transform="translate(35,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(130,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(13,0)" y="15"></rect>
+
+                                            <rect className="bar" transform="translate(52,0)" y="15"></rect>
+
+                                            <rect className="bar" transform="translate(117,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(26,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(91,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(104,0)" y="15"></rect>
                                             <rect className="bar" transform="translate(65,0)" y="15"></rect>
-                                            <rect className="bar" transform="translate(125,0)" y="15"></rect>
-                                            <rect className="bar" transform="translate(20,0)" y="15"></rect>
-                                            <rect className="bar" transform="translate(95,0)" y="15"></rect>
-                                            <rect className="bar" transform="translate(50,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(39,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(78,0)" y="15"></rect>
                                         </g>
                                     </svg>
                                 </div>
@@ -168,7 +167,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                             </div>
 
                             }
-                            {(ui.nextScreen == 2 || ui.nextScreen == 3) ?
+                            {ui.nextScreen == 2 ?
                                 <div className="red_box red-box-container">
                                     <div className="outer_ride">
                                         <img src="/sites/elite/Style%20Library/Elite/images/loader2.png" />
@@ -188,11 +187,34 @@ class OnBoarding extends React.Component<OnBoardingProps> {
 
                                     <div id="typewriteText2" style={{ animationDelay: "10s" }}></div>
 
-                                    <div className="ride_track">
-                                        <img src="/sites/elite/Style%20Library/Elite/images/stroller-1.png" />
-                                    </div>
+
                                 </div> : ''
                             }
+
+                            {ui.nextScreen == 3 ?
+                                <div className="red_box red-box-container">
+                                    <div className="outer_ride">
+                                        <img src="/sites/elite/Style%20Library/Elite/images/loader2.png" />
+                                        <div className="ride_ring">
+                                            <img src="/sites/elite/Style%20Library/Elite/images/loader1.png" />
+                                            <div className="count_box current_ridename">
+
+                                                <p> <span className="white">READY PLAYER</span> <span className="red">ONE</span></p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="ride_image">
+                                        <img src="/sites/elite/Style%20Library/Elite/images/stroller-2.png" />
+                                    </div>
+
+
+                                    <div id="typewriteText2" style={{ animationDelay: "10s" }}></div>
+
+
+                                </div> : ''
+                            }
+
 
                             {ui.nextScreen == 4 && <div className="red_box red-box-container">
                                 <div className="outer_ride">
@@ -207,7 +229,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                     </div>
                                 </div>
                                 <div className="ride_image">
-                                    <img src="/sites/elite/Style%20Library/Elite/images/stroller-2.png" />
+                                    <img src="/sites/elite/Style%20Library/Elite/images/shoppingcart_Small.png" />
                                 </div>
 
 
