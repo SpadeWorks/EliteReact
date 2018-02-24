@@ -121,9 +121,7 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-12 text-center" style={{ paddingTop: "5px", background: "#000", height: "50px" }}>
-                            <input type="button" value="View Details" />
-                        </div>
+                        <Link className="button type1" to={"/participation/" + testDrive.id}> Drive Through </Link>
                     </div>
                 </div>
             </div>
