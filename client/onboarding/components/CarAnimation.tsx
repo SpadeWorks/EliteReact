@@ -32,9 +32,7 @@ $(".ride_track img").css({ "position": "relative", "left": "690px", "transition"
 
     }
 
-
-
-    render() {
+ render() {
         const { ui, updateUI } = this.props;
         return (
             <div className="header-title">

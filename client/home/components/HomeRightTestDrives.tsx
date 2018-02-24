@@ -54,7 +54,7 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                     }
                                     {(!upcomingTestDriveLoading) && upcomingTestDrive.length == 0 && <p>There are no upcomming test drives.</p>}
                                     {
-                                        upcomingTestDrive && upcomingTestDrive.length >= 3 && <Link className="pull-right" to={"/testdrives/upTestDrive"}>
+                                        upcomingTestDrive && upcomingTestDrive.length >= 3 && <Link className="pull-right more" to={"/testdrives/upTestDrive"}>
                                             MORE >>
                                         </Link>
                                     }
@@ -77,7 +77,7 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                     }
                                     {(!activeTestDriveLoading) && activeTestDrive.length == 0 && <p>There are no active test drives.</p>}
                                     {
-                                        activeTestDrive && activeTestDrive.length >= 3 && <Link className="pull-right" to={"/testdrives/activeTestDrive"}>
+                                        activeTestDrive && activeTestDrive.length >= 3 && <Link className="pull-right more" to={"/testdrives/activeTestDrive"}>
                                             MORE >>
                                     </Link>
                                     }

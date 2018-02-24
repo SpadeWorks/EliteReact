@@ -39,7 +39,7 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                                                     }) : ''
                                             }
                                             {
-                                                (regionLeaders && regionLeaders.length >= 3) && <Link className="pull-right" to={"/leaderboard"}>
+                                                (regionLeaders && regionLeaders.length >= 3) && <Link className="pull-right more" to={"/leaderboard"}>
                                                     MORE >>
                                             </Link>
                                             }
