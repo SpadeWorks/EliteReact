@@ -36,6 +36,29 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         });
     }
 
+    componentDidMount(){
+         Popup.registerPlugin('sucess', function (defaultValue, placeholder, callback) {
+            let promptValue = null;
+            let promptChange = function (value) {
+                promptValue = value;
+            };
+
+            this.create({
+                title: 'Sucess',
+                content: Messages.SURVEY_SUBMITTED,
+                buttons: {
+                    right: [{
+                        text: 'Go to Dashboard',
+                        action: function () {
+                            window.location.href = "#";
+                            Popup.close();
+                        }
+                    }]
+                }
+            });
+        });
+    }
+
     onChange(e) {
         this.props.updateUI({ [e.target.name]: e.target.value });
     }
@@ -64,7 +87,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
 
     submitSurvey(question) {
         this.submitQuestionResponse(question);
-        Popup.alert(Messages.SURVEY_SUBMITTED);
+        Popup.plugins().sucess('', 'What do you want to do?');
     }
 
     render() {

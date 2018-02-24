@@ -20,7 +20,6 @@ interface TestCaseFormProps {
     ui: any;
     index: number;
     isLast: boolean;
-    isTestDriveCompleted: () => (boolean);
 };
 
 @ui({
@@ -47,37 +46,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
     }
 
     componentDidMount() {
-        /** Prompt plugin */
-        Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
-            let promptValue = null;
-            let promptChange = function (value) {
-                promptValue = value;
-            };
-
-            this.create({
-                title: 'Sucess',
-                content: 'Test Drive Submitted Sucessfully!',
-                buttons: {
-                    left: [{
-                        text: 'Take Survey',
-                        action: function () {
-
-                            Popup.close();
-                            $('[href="#Servay_q"]').trigger('click');
-                        }
-                    }],
-                    right: [{
-                        text: 'Go to Dashboard',
-                        action: function () {
-                            window.location.href = "#";
-                            Popup.close();
-                        }
-                    }]
-                }
-            });
-        });
-
-        /** Call the plugin */
+       
     }
 
     onFilesChange(files) {
@@ -142,7 +111,6 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
 
     submitTestCaseResponse(testCase: TestCaseInstance, index) {
         this.props.submitTestDriveInstance(this.props.testDriveInstance);
-        Popup.plugins().prompt('', 'What do you want to do?');
         // this.props.updateUI({ showSurveyPopUp: true })
         // $('#test-drive-completion-btn').trigger('click');
     }
@@ -159,6 +127,8 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         $("#test-case-details" + id)
             .css({ "position": "fixed", "right": "0px", "height": "100%", "transition": "0.5s" });
     }
+
+
 
     render() {
         const { testCase, active, saveTestCaseResponse, ui, updateUI, index, testDriveInstance, isLast } = this.props;
