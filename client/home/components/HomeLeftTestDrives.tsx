@@ -53,7 +53,7 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                     }
                                     {(!myTestDriveLoading) && mytestDrive.length == 0 && <p>You have not participated in any test dirve yet.</p>}
                                     {
-                                        mytestDrive && mytestDrive.length >= 3 && <Link className="read_morelink" to={"/testdrives/mytestDrive"}>
+                                        mytestDrive && mytestDrive.length >= 3 && <Link className="read_morelink more" to={"/testdrives/mytestDrive"}>
                                             MORE >>
                                         </Link>
                                     }
@@ -76,7 +76,7 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                     }
                                     {(!testDriveThatIRunLoading) && testDriveThatIRun.length == 0 && <p>You have not created any test dive yet.</p>}
                                     {
-                                        testDriveThatIRun && testDriveThatIRun.length >= 3 && <Link className="pull-right" to={"/testdrives/testDriveThatIRun"}>
+                                        testDriveThatIRun && testDriveThatIRun.length >= 3 && <Link className="more" to={"/testdrives/testDriveThatIRun"}>
                                             MORE >>
                                     </Link>
                                     }

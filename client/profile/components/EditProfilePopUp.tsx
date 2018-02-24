@@ -247,11 +247,18 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                                 </span>
                             </div>
                         </div>
-                        <div className="modal-footer">
-                            <div className="col-md-5 col-md-offset-3 popup_buttonbox">
-                                <input type="button" value="All Set" className="button type1"
-                                    onClick={() => { this.onSave() }} />
-                            </div>
+                        <div className="modal-footer testdrive_actionbox">
+                          <div className="button type1 nextBtn btn-lg pull-right animated_button" >
+                                <input type="button" value="All Set"
+                                    onClick={() => { this.onSave() }} data-dismiss="modal"/>
+                         </div>
+
+
+
+                       
+
+
+
                             </div>
                         </div>
                     </div>
