@@ -113,13 +113,14 @@ class MyProfile extends React.Component<MyProfileProps> {
 
         return (eliteProfile && <div className="col-md-12">
             <div className="row">
-                <div className="container">
-                    <Link to={"/"} >
-                        <h2>
+                <div className="container header_part">
+                   
+                        <h2> <Link to={"/"} >
                             <span className="glyphicon glyphicon-menu-left" aria-hidden="true">
                             </span> My Profile
+                             </Link>
                         </h2>
-                    </Link>
+                   
                 </div>
                 <div className="col-md-12" style={{ overflow: "auto" }}>
                     <div className="wrapper">

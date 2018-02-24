@@ -3691,6 +3691,7 @@ a#link1 {
     text-decoration: none;
     transition: all 0.5s;
     z-index: 50;
+    font-weight: bold;
 }
 
 a#link2 {
@@ -3702,6 +3703,7 @@ a#link2 {
     text-decoration: none;
     transition: all 0.5s;
     z-index: 50;
+    font-weight: bold;
 }
 
 a#link3 {
@@ -3713,6 +3715,7 @@ a#link3 {
     text-decoration: none;
     z-index: 50;
     transition: all 0.5s;
+    font-weight: bold;
 }
 
 a#link4 {
@@ -3725,6 +3728,7 @@ a#link4 {
     z-index: 50;
     display: none;
     transition: all 0.5s;
+    font-weight: bold;
 }
 
 a#link5 {
@@ -3736,6 +3740,7 @@ a#link5 {
     text-decoration: none;
     z-index: 50;
     transition: all 0.5s;
+    font-weight: bold;
 }
 
 a#link6 {
@@ -3747,6 +3752,7 @@ a#link6 {
     text-decoration: none;
     z-index: 50;
     transition: all 0.5s;
+    font-weight: bold;
 }
 
 a#link1 span,
@@ -3759,11 +3765,12 @@ a#link6 span {
     padding: 2px;
     /* position: absolute; */
     z-index: 2;
-    font-size: 14px;
+    font-size: 12px;
     margin-left: 19px;
     padding-left: 25px;
     padding-right: 18px;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 
@@ -4477,6 +4484,7 @@ span.teams:hover {
     min-height: 250px;
     border-bottom: solid 1px #333;
     padding-top: 20px;
+    text-align: center;
 }
 
 .drive_completionbox {
@@ -4492,14 +4500,6 @@ span.teams:hover {
     left: 20px;
 }
 
-.earn_box span.small,
-.drive_completionbox span.small {
-    position: absolute;
-    bottom: 12px;
-    left: 48px;
-    font-family: titanium;
-    font-size: 11px;
-}
 
 .popup_ownerbox {
     min-height: 250px;
@@ -4870,14 +4870,7 @@ span.teams:hover {
     left: 20px;
 }
 
-.earn_box span.small,
-.drive_completionbox span.small {
-    position: absolute;
-    bottom: 12px;
-    left: 48px;
-    font-family: titanium;
-    font-size: 11px;
-}
+
 
 .popup_ownerbox h4 {
     font-family: titanium !important;
@@ -5283,25 +5276,13 @@ h1#dialogTitleSpan {
 
 .testdrivedetails_box .earn_box h3,
 .drive_completionbox h3 {
-    margin-top: 10px;
-    position: absolute;
-    top: 110px;
-    left: 55px;
-    text-transform: uppercase !important;
+  margin-top: -90px;
 }
 
 .testdrivedetails_box .earn_box {
     border: none;
 }
 
-.earn_box span.small,
-.drive_completionbox span.small {
-    position: absolute;
-    left: 31px;
-    font-family: titanium;
-    font-size: 15px;
-    float: left;
-}
 
 .detailed_box span.orange {
     font-size: 14px;
@@ -5928,19 +5909,12 @@ input.inputMaterial:focus~label {
 }
 
 .earn_box h3 {
-    margin-top: 10px;
-    position: absolute;
-    top: 99px !important;
-    left: 55px !important;
-    text-transform: uppercase !important;
+  text-align: center;
+  margin-top:-90px;
 }
 
 .drive_completionbox h3 {
-    margin-top: 10px;
-    position: absolute;
-    top: 102px !important;
-    left: 65px !important;
-    text-transform: uppercase !important;
+   margin-top:-90px;
 }
 
 .textarea-custom {
@@ -6170,26 +6144,29 @@ h1.testcase_name {
 
 /* file uploader ends here */
 
-.testdrive-detail_first-time .earn_box h3 {
-    margin-top: 10px;
-    position: absolute;
-    top: 69px !important;
-    left: 52px !important;
-    text-transform: uppercase !important;
-}
+
 
 .testdrive-detail_first-time .earn_box span.small,
 .testdrive-detail_first-time .drive_completionbox span.small {
-    position: absolute;
-    left: 12px;
-    font-family: titanium;
-    font-size: 15px;
-    float: left;
-    bottom: -35px;
+position: relative;
+    position: relative;
+    top: 60px;
 }
+
+.col-md-12.earn_box span.small,.drive_completionbox span.small {
+    position: relative;
+    top: 50px;
+}
+
+
 
 .header_part {
     margin-bottom: 50px;
+}
+.header_part h2 a{color:#fff; font-size: 21px;}
+.header_part h2 a span {
+    font-size: 16px;
+    margin-right: 16px;
 }
 
 .testdrive_actionbox .button {
@@ -6285,17 +6262,6 @@ button {
     top: 68px !important;
     left: 55px !important;
     text-transform: uppercase !important;
-}
-
-.pariciation_time_details .earn_box span.small,
-.pariciation_time_details .drive_completionbox span.small {
-    position: absolute;
-    left: 31px;
-    font-family: titanium;
-    font-size: 15px;
-    float: left;
-    left: 14px;
-    bottom: -30px;
 }
 
 
@@ -7106,7 +7072,42 @@ a#link6 {
 
 img.map_image{width: 954px;}
 
+.letest_driveboxclick {
+    position: absolute;
+    left: 462px;
+    display: block;
+    transition: 0.5s;
+    width: 450px;
+    opacity: 1;
+    z-index: 111;
+    top: -300px;
+    display: block;
+    float: left;
+}
+.white_circle {
+    float: left;
+    height: 10px;
+    width: 10px;
+    background: none;
+    border: solid 1px #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 12px;
+    right: 51px;
+    transition: all 0.5s;
+}
 
+.letest_driveboxclick_right {
+    position: absolute;
+    right: 479px;
+    display: block;
+    transition: 0.5s;
+    width: 450px;
+    opacity: 1;
+    z-index: 111;
+    top: -300px;
+    display: block;
+}
   
 }
 

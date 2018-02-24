@@ -35,10 +35,12 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
     return (<div className="col-md-12">
       <div className="row">
         <div className="container header_part">
-          <Link to={"/"} >
-            <h2 className="header_prevlink">
-             <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Leaderboard</h2>
-          </Link>
+         <h2> <Link to={"/"} >
+            
+             <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Leaderboard
+                 </Link>
+             </h2>
+      
         </div>
         <div className="col-md-12" style={{ overflow: "auto" }}>
           <div className="col-md-12" style={{ height: "900px"}}>
