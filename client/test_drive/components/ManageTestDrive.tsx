@@ -131,9 +131,11 @@ class ManageTestDrive extends React.Component<AppProps> {
         var isFormValid = validateForm(formID);
         var testCases = this.props.testDrive.testCases;
         var questions = this.props.testDrive.questions;
+        var maxTestDrivers = parseInt(testDrive.maxTestDrivers) || 0;
         if (isFormValid) {
-            if(testDrive.testDrive.maxTestDrivers < 1){
-                Popup.alert('');
+            if(maxTestDrivers < 1){
+                Popup.alert('Max Test Drivers value should be greater than 1.');
+                return false;
             }
             if (testCases && testCases.length &&
                 this.checkForUnsavedItems(testCases, Messages.SAVE_UNSAVED_TEST_CASE)) {
@@ -169,7 +171,7 @@ class ManageTestDrive extends React.Component<AppProps> {
     onSaveQuestion(question, formID) {
         var isFormValid = validateForm(formID);
         if (isFormValid) {
-            if (question.questionType = "Objective" && question.options.length < 2) {
+            if (question.questionType == "Objective" && question.options.length < 2) {
                 Popup.alert(Messages.NO_OPTIONS_ERROR);
             } else {
                 this.props.dispatch(saveQuestion(question));

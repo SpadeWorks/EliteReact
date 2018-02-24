@@ -6,6 +6,8 @@ import { ColumnsValues } from '../../common/services/constants';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import * as $ from 'jquery';
+import Popup from 'react-popup';
+import { Messages } from '../../common/services/constants';
 interface QuestionFormProps {
     showSurvey: boolean;
     question: QuestionInstance;
@@ -62,7 +64,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
 
     submitSurvey(question) {
         this.submitQuestionResponse(question);
-        window.location.hash = "/";
+        Popup.alert(Messages.SURVEY_SUBMITTED);
     }
 
     render() {

@@ -267,7 +267,7 @@ export default handleActions<IState, any>({
             ...state,
             loading: false,
             isTestDriveSaveComplet: true,
-            errorSaveMessage: action.payload.message 
+            errorSaveMessage: action.payload.message
         }
     },
 
@@ -462,7 +462,14 @@ export default handleActions<IState, any>({
             testDrive: {
                 ...testDrive, questions: testDrive.questions.map(question => {
                     return question.id === action.payload.id ?
-                        { ...action.payload, isInEditMode: false } : question;
+                        <Question>{
+                            isInEditMode: false,
+                            questionType: action.payload.questionType,
+                            id: action.payload.id,
+                            newItem: action.payload.newItem,
+                            options: action.payload.options,
+                            title: action.payload.title,
+                        } : question;
                 })
             }
         }
@@ -533,11 +540,11 @@ export default handleActions<IState, any>({
     [SAVE_TestDriveApproval_FULFILLED]: (state: IState, action: Action<any>): IState => {
         const readyForLaunch = ColumnsValues.READY_FOR_LAUNCH;
         const approvedTestDrives = state.testDrivesWaitingForApproval.filter(testdrive => {
-            if(testdrive.id == action.payload.id &&
-                action.payload.TestDriveStatus == readyForLaunch){
-                    testdrive.status = action.payload.TestDriveStatus;
-                    return testdrive
-                }
+            if (testdrive.id == action.payload.id &&
+                action.payload.TestDriveStatus == readyForLaunch) {
+                testdrive.status = action.payload.TestDriveStatus;
+                return testdrive
+            }
         })
         return {
             ...state,

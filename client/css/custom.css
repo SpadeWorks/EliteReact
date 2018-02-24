@@ -2733,17 +2733,17 @@ textarea.inputMaterial {
 
 label {
     color: #000;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: normal;
     position: absolute;
     pointer-events: none;
     left: 11px;
-    top: 15px;
+    top: -15px;
     transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
     font-family: titanium;
-    color: #fff;
+    color: #f89719;
 }
 
 
@@ -4093,7 +4093,7 @@ ul.task_circle li p {
 ul.task_circle li img {
     float: right;
     padding-left: 10px;
-    padding-top: 3px;
+    padding-top: 10px;
 }
 
 ul.task_circle li p.inactive_task {
@@ -4799,12 +4799,6 @@ ul.task_circle li p {
     width: 80px;
 }
 
-ul.task_circle li img {
-    float: right;
-    padding-left: 10px;
-    padding-top: 8px;
-}
-
 ul.task_circle li p.inactive_task {
     color: #333;
 }
@@ -4931,7 +4925,6 @@ span.teams:hover {
 .profile_box img {
     float: left;
     margin-right: 15px;
-    width:100%;
 }
 
 .profile_box h2 {
@@ -5448,12 +5441,6 @@ ul.task_circle li p {
     float: left;
     font-size: 27px;
     width: 80px;
-}
-
-ul.task_circle li img {
-    float: right;
-    padding-left: 10px;
-    padding-top: 3px;
 }
 
 ul.task_circle li p.inactive_task {
@@ -5973,10 +5960,6 @@ h1.testcase_name {
     color: red;
     font-size: 18px;
     font-family: titanium;
-}
-
-.testcase_box span img {
-    padding-top: 5px;
 }
 
 .testcase_box .inputMaterial:valid~label {
@@ -7044,6 +7027,7 @@ p.go{width:10%;float:left;}
     left: -57px;
     background: none!important;}
 
+
 .col-md-12.intro_actionbox.testdrive_actionbox.betterride_box{position: fixed;
     bottom: -123px;
     left: 0px;
@@ -7074,6 +7058,12 @@ p.go{width:10%;float:left;}
 
 
 
+a{
+    cursor: pointer !important;
+}    
+
+
+/*my ride styles ends here*/
 
 /* Css for pop up */
 
@@ -7287,6 +7277,4 @@ h1.title:after,h1.title:before {
         margin-top: 10px;
     }
 }
-
-
 /* Pop up css ends here */
