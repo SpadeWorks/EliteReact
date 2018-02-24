@@ -22,14 +22,15 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
         return (<div className="col-md-12 detailed_box">
             <div className="row">
                 <div className="col-md-12" style={{ overflow: "auto" }}>
+                    <div className="row">
                     <div className="col-md-12">
                         <div className="row">
-                            <div className="col-md-4">
-                                <div className="row">
+                            <div className="col-md-2">
+                                
                                     <span className="orange">
                                         <i>DESCRIPTION</i>
                                     </span>
-                                </div>
+                             
                             </div>
                             <div className="col-md-4 pull-right">
                                 <div className="col-md-12 social_box">
@@ -57,7 +58,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                         </span>
                         <div className="col-md-12 earn_box">
 
-                            <div className="col-md-4">
+                            <div className="col-md-2">
                                 <div className="row">
                                     <canvas id="participation-time-completed-tcases" width="140" height="140"></canvas>
                                     <h3>{testCaseCompletion.toFixed(2)} %</h3>
@@ -73,6 +74,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                 </div>
 
                             </div>
+                        </div>
                         </div>
                     </div>
                     <div className="col-md-12 para">
@@ -160,7 +162,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                     </div>
                     <div className="col-md-12 para">
                         <span className="orange">ELIGIBLE DRIVER LOCATION</span>
-                        <div className="row">
+                       
                             <ul className="select2-selection__rendered">
                                 {
                                     testDriveInstance.location && testDriveInstance.location.map((location: any, index) => {
@@ -170,11 +172,11 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                     })
                                 }
                             </ul>
-                        </div>
+                        
                     </div>
                     <div className="col-md-12 para">
                         <span className="orange">DEVICES REQUIRED</span>
-                        <div className="row">
+                       
                             <ul className="select2-selection__rendered">
                                 {
                                     testDriveInstance.requiredDevices && testDriveInstance.requiredDevices.map((device: any, index) => {
@@ -183,11 +185,11 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                         </li>)
                                     })}
                             </ul>
-                        </div>
+                       
                     </div>
                     <div className="col-md-12 para">
                         <span className="orange">OS REQUIRED</span>
-                        <div className="row">
+                        
                             <ul className="select2-selection__rendered">
                                 {
                                     testDriveInstance.requiredOs && testDriveInstance.requiredOs.map((os: any, index) => {
@@ -197,7 +199,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                     })
                                 }
                             </ul>
-                        </div>
+                    
                     </div>
                 </div>
             </div>

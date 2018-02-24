@@ -68,6 +68,8 @@ export type TestDriveInstance = {
     loadingMessage: string;
     testCaseSaveInProgress?: boolean;
     questionSaveInProgress?: boolean;
+    isTestDriveSubmissionCompleted?: boolean;
+    isSumbitInProgress: boolean;
 };
 
 export type Configurations = {

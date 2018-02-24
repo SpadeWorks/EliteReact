@@ -3611,7 +3611,7 @@ width: 28px !important;
     opacity: 0;
     transition: all 0.9s;
     /* height: 500px; */
-    background: #1c1c27;
+    background: #060611;
     position: absolute;
     top: -300px;
     width: 400px;
@@ -4047,7 +4047,7 @@ a.status_fail {
     margin-top: 0px;
     padding-bottom: 30px;
     padding-top: 30px;
-    background: #333;
+    background: #1f1f28;
 }
 
 .overview p {
@@ -4753,7 +4753,7 @@ h4.testcase_title {
     margin-top: 0px;
     padding-bottom: 20px;
     padding-top: 20px;
-    background: #333;
+   background: #1f1f28;
 }
 
 .overview p {
@@ -5389,7 +5389,7 @@ a.status_fail:hover {
     margin-top: 0px;
     padding-bottom: 40px;
     padding-top: 40px;
-    background: #333;
+    background: #1f1f28;
 }
 
 .overview p {
@@ -5929,6 +5929,12 @@ input.inputMaterial:focus~label {
     font-size: 37px;
 }
 
+.navigation_box a span {
+    font-size: 36px;
+}
+
+.navigation_box{margin-top:5px;}
+
 h1.testcase_name {
     margin-top: 15px;
 }
@@ -6256,13 +6262,6 @@ button {
     border: none;
 }
 
-.pariciation_time_details .earn_box h3 {
-    margin-top: 10px;
-    position: absolute;
-    top: 68px !important;
-    left: 55px !important;
-    text-transform: uppercase !important;
-}
 
 
 /*testdrive central style starts here*/
@@ -7004,6 +7003,12 @@ p.go{width:10%;float:left;}
     background: none!important;}
 
 
+
+
+a{
+    cursor: pointer !important;
+}    
+
 .col-md-12.intro_actionbox.testdrive_actionbox.betterride_box{position: fixed;
     bottom: -123px;
     left: 0px;
@@ -7022,6 +7027,7 @@ p.go{width:10%;float:left;}
     position: absolute;
     top: 80px !important;
 }
+
 
 
 
@@ -7118,7 +7124,6 @@ img.map_image{width: 954px;}
 a{
     cursor: pointer !important;
 }    
-
 
 /*my ride styles ends here*/
 

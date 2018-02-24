@@ -56,7 +56,8 @@ const initialState: IState = {
         loading: false,
         loadingMessage: 'Loading...',
         questionSaveInProgress: false,
-        testCaseSaveInProgress: false
+        testCaseSaveInProgress: false,
+        isSumbitInProgress: false
 
     },
     loading: true,
@@ -212,7 +213,9 @@ export default handleActions<IState, any>({
             ...state,
             testDriveInstance: {
                 ...state.testDriveInstance,
-                testCaseSaveInProgress: true
+                isTestDriveSubmissionCompleted: false,
+                isSumbitInProgress: true
+                
             }
         }
     },
@@ -223,8 +226,9 @@ export default handleActions<IState, any>({
                 ...state.testDriveInstance,
                 currentPoint: action.payload.currentPoint,
                 numberOfTestCasesCompleted: action.payload.numberOfTestCasesCompleted,
-                testCaseSaveInProgress: false,
-                status: action.payload.status
+                isTestDriveSubmissionCompleted: true,
+                status: action.payload.status,
+                isSumbitInProgress: false
             },
             loading: false
         }
@@ -235,7 +239,8 @@ export default handleActions<IState, any>({
             ...state,
             testDriveInstance: {
                 ...state.testDriveInstance,
-                testCaseSaveInProgress: false
+                isTestDriveSubmissionCompleted: false,
+                isSumbitInProgress: false
             }
         }
     },
