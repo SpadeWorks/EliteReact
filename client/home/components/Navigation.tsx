@@ -26,7 +26,7 @@ class Navigation extends React.Component<NavigationProps> {
         return (<div className="col-md-8 location_box">
             <div className="map_container">
                 <object>
-                    <img src="/sites/elite/Style%20Library/Elite/images/track.svg" className="map_image"/>
+                    <img src="/sites/elite/Style%20Library/Elite/images/track.svg" className="map_photo"/>
                     <Link className="maplinks" to={"/testdrives"} id="link1">
                         <img src="/sites/elite/Style%20Library/Elite/images/testdrivecenter.png" />
                         <span>test drieves central</span>
