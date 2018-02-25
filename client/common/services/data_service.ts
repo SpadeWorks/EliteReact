@@ -2065,7 +2065,7 @@ export class Services {
         var d = new Date();
         var userRegion = Services.getUserProfileProperties().region || '';
         var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-        var filter = "TestDriveStatus eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'"
+        var filter = "TestDriveStatus eq '" + Constants.ColumnsValues.ACTIVE + "'"
         " and TestDriveStartDate le datetime'" + todayDate + "T00:00:00.000Z'" +
             " and TestDriveEndDate ge datetime'" + todayDate + "T00:00:00.000Z'";
         return new Promise((resolve, reject) => {

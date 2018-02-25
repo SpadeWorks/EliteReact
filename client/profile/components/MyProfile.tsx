@@ -6,6 +6,7 @@ import MyProfileLeftContainer from "./MyProfileLeftContainer"
 import MyProfileRightContainer from "./MyProfileRightContainer"
 import MyProfileMiddleContainer from "./MyProfileMiddleContainer"
 import { EliteProfile } from '../../home/model';
+import Loader from 'react-loader-advanced';
 import * as $ from 'jquery';
 // import '../../js/jssor.slider-27.0.2.min.js';
 import ui from 'redux-ui';
@@ -47,6 +48,7 @@ interface MyProfileProps {
     avatars: string[];
     cars: any[];
     totalTestDrives: number;
+    loading: boolean;
 };
 
 @ui({
@@ -107,93 +109,95 @@ class MyProfile extends React.Component<MyProfileProps> {
         const { eliteProfile, rank, totalPoints,
             currentTestDrives, dispatch,
             eliteProfileFields, updateUI, ui,
-            totalTestDrives
-            , avatars, cars } = this.props;
+            totalTestDrives, loading, avatars, cars } = this.props;
         let baseUrl = location.protocol + "//" + location.hostname;
 
-        return (eliteProfile && <div className="col-md-12">
-            <div className="row">
-                <div className="container">
-                    <Link to={"/"} >
-                        <h2>
-                            <span className="glyphicon glyphicon-menu-left" aria-hidden="true">
-                            </span> My Profile
+        return (<div className="col-md-12">
+            <Loader show={loading} message={'Loading...'}>
+                {
+                    eliteProfile &&
+                    <div className="row">
+                        <div className="container">
+                            <Link to={"/"} >
+                                <h2>
+                                    <span className="glyphicon glyphicon-menu-left" aria-hidden="true">
+                                    </span> My Profile
                         </h2>
-                    </Link>
-                </div>
-                <div className="col-md-12" style={{ overflow: "auto" }}>
-                    <div className="wrapper">
-                        <div className="col-md-12 profile_box">
-                            <div className="row">
-                                <div className="col-md-2">
-                                    <img src={eliteProfile.avatarImage} className="img-responsive" />
-                                </div>
-                                <div className="col-md-10">
-
-                                    <div className="col-md-12">
-                                        <div className="col-md-5 pull-left">
-                                            <div className="row">
-                                                <h2>{eliteProfile.displayName}</h2>
-                                            </div>
+                            </Link>
+                        </div>
+                        <div className="col-md-12" style={{ overflow: "auto" }}>
+                            <div className="wrapper">
+                                <div className="col-md-12 profile_box">
+                                    <div className="row">
+                                        <div className="col-md-2">
+                                            <img src={eliteProfile.avatarImage} className="img-responsive" />
                                         </div>
-                                        {
-                                            (!this.props.id && this.props.id != -1) &&
-                                            <div className="col-md-1 edit_profile pull-right">
-                                                <a data-toggle="modal" onClick={() => dispatch(setEditMode())} data-target="#edit_pro">
-                                                    <i className="material-icons">mode_edit</i>
-                                                </a>
-                                            </div>
+                                        <div className="col-md-10">
 
-                                        }
-                                    </div>
-                                    {/* Edit profile modal starts here */}
-                                    {
-                                        (!this.props.id && this.props.id != -1) &&
-                                        <div id="edit_pro" className="modal fade" role="dialog">
-                                            {eliteProfile.isInEditMode &&
-                                                <EditProfilePopUp eliteProfile={eliteProfile}
-                                                    dispatch={dispatch}
-                                                    updateUI={updateUI}
-                                                    ui={ui}
-                                                    avatars={avatars}
-                                                    saveEliteProfile={(t) => dispatch(saveEliteProfile(t))}
-                                                    updateMultiSelect={(value, control, eliteProfile) => dispatch(updateMultiSelect(value, control, eliteProfile))}
-                                                    fieldDescriptions={eliteProfileFields}
-                                                />}
-                                        </div>
-                                    }
-                                    }
+                                            <div className="col-md-12">
+                                                <div className="col-md-5 pull-left">
+                                                    <div className="row">
+                                                        <h2>{eliteProfile.displayName}</h2>
+                                                    </div>
+                                                </div>
+                                                {
+                                                    (!this.props.id && this.props.id != -1) &&
+                                                    <div className="col-md-1 edit_profile pull-right">
+                                                        <a data-toggle="modal" onClick={() => dispatch(setEditMode())} data-target="#edit_pro">
+                                                            <i className="material-icons">mode_edit</i>
+                                                        </a>
+                                                    </div>
+
+                                                }
+                                            </div>
+                                            {/* Edit profile modal starts here */}
+                                            {
+                                                (!this.props.id && this.props.id != -1) &&
+                                                <div id="edit_pro" className="modal fade" role="dialog">
+                                                    {eliteProfile.isInEditMode &&
+                                                        <EditProfilePopUp eliteProfile={eliteProfile}
+                                                            dispatch={dispatch}
+                                                            updateUI={updateUI}
+                                                            ui={ui}
+                                                            avatars={avatars}
+                                                            saveEliteProfile={(t) => dispatch(saveEliteProfile(t))}
+                                                            updateMultiSelect={(value, control, eliteProfile) => dispatch(updateMultiSelect(value, control, eliteProfile))}
+                                                            fieldDescriptions={eliteProfileFields}
+                                                        />}
+                                                </div>
+                                            }
+                                            }
                                     {/* <!-- Edit profile modal starts here--> */}
-                                    <MyProfileLeftContainer eliteProfile={eliteProfile} />
-                                    <MyProfileRightContainer eliteProfile={eliteProfile} />
+                                            <MyProfileLeftContainer eliteProfile={eliteProfile} />
+                                            <MyProfileRightContainer eliteProfile={eliteProfile} />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <MyProfileMiddleContainer eliteProfile={eliteProfile} currentTestDrives={currentTestDrives} />
-                    <div className="row car_sliderbox">
-                        <div className="profile_overviewbox">
-                            <div className="container">
-                                <div className="col-md-12 overview imp_points">
-                                    <div className="col-md-4 text-center">
-                                        <div className="row">
-                                            <div className="col-md-12">
-                                                <div className="testd_box">
-                                                    <p>
-                                                        <span className="testd_count">
-                                                            {rank}
-                                                        </span>
-                                                        <span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span> of
+                            <MyProfileMiddleContainer eliteProfile={eliteProfile} currentTestDrives={currentTestDrives} />
+                            <div className="row car_sliderbox">
+                                <div className="profile_overviewbox">
+                                    <div className="container">
+                                        <div className="col-md-12 overview imp_points">
+                                            <div className="col-md-4 text-center">
+                                                <div className="row">
+                                                    <div className="col-md-12">
+                                                        <div className="testd_box">
+                                                            <p>
+                                                                <span className="testd_count">
+                                                                    {rank}
+                                                                </span>
+                                                                <span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span> of
                                                         {totalTestDrives}
-                                                    </p>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <h4 className="testcase_title">Your current position</h4>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className="col-md-12">
-                                                <h4 className="testcase_title">Your current position</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {/* <div className="col-md-4 text-center">
+                                            {/* <div className="col-md-4 text-center">
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <h4>Level 5</h4>
@@ -206,24 +210,24 @@ class MyProfile extends React.Component<MyProfileProps> {
                                             </div>
                                         </div>
                                     </div>*/}
-                                    <div className="col-md-4 text-center pull-right">
-                                        <div className="row">
-                                            <div className="col-md-12">
-                                                <p>
-                                                    <span className="orange">
-                                                        <i>{totalPoints}</i>
-                                                    </span>
-                                                </p>
-                                            </div>
-                                            <div className="col-md-12">
-                                                <h4 className="testcase_title">Total Points Earned</h4>
+                                            <div className="col-md-4 text-center pull-right">
+                                                <div className="row">
+                                                    <div className="col-md-12">
+                                                        <p>
+                                                            <span className="orange">
+                                                                <i>{totalPoints}</i>
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <h4 className="testcase_title">Total Points Earned</h4>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        {/* <div className="col-md-12">
+                                {/* <div className="col-md-12">
                             {
                                 (!this.props.id && this.props.id != -1) &&
 
@@ -352,12 +356,15 @@ class MyProfile extends React.Component<MyProfileProps> {
                                 </div>
                             }
                         </div> */}
+                            </div>
+                        </div>
+                        <div className="col-md-12 footer" style={{ height: "50px", background: "#000" }}>
+                            <p className="text-right">&copy; 2018 Equinix inc. All rights reserved.</p>
+                        </div>
                     </div>
-                </div>
-                <div className="col-md-12 footer" style={{ height: "50px", background: "#000" }}>
-                    <p className="text-right">&copy; 2018 Equinix inc. All rights reserved.</p>
-                </div>
-            </div>
+                }
+
+            </Loader>
         </div>)
     }
 }
@@ -372,7 +379,8 @@ const mapStateToProps = (state, ownProps) => {
         totalTestDrives: state.profileState.totalTestDrives,
         currentTestDrives: state.profileState.currentTestDrives,
         avatars: state.profileState.avatars,
-        cars: state.profileState.cars
+        cars: state.profileState.cars,
+        loading: state.profileState.loading,
     }
 };
 
