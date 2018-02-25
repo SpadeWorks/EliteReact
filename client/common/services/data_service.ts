@@ -1601,59 +1601,57 @@ export class Services {
 
     }
 
-    static removeDuplicates(list, filter) {
-        return new Promise((resolve, reject) => {
-            list.items.filter(filter).get().then(items => {
-                if (items.length > 0) {
-                    var promises = [];
-                    items.map((item, index) => {
-                        promises.push(list.items.getById(item.Id).delete());
-                    })
-                    Promise.all(promises).then(results => {
-                        resolve(true);
-                    })
-                } else {
-                    resolve(false);
-                }
-            })
-        })
-    }
+    // static removeDuplicates(list, filter) {
+    //     return new Promise((resolve, reject) => {
+    //         list.items.filter(filter).get().then(items => {
+    //             if (items.length > 0) {
+    //                 var promises = [];
+    //                 items.map((item, index) => {
+    //                     promises.push(list.items.getById(item.Id).delete());
+    //                 })
+    //                 Promise.all(promises).then(results => {
+    //                     resolve(true);
+    //                 })
+    //             } else {
+    //                 resolve(false);
+    //             }
+    //         })
+    //     })
+    // }
 
     static createEliteUserProfile(user: User) {
         return new Promise((resolve, reject) => {
             var userInfoList = pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION);
             var filter = "AccountName eq '" + encodeURIComponent(user.accountName) + "'";
-            Services.removeDuplicates(userInfoList, filter).then(t => {
-                let promises = [this.getDefaultCarDetails(), this.getDefaultAvatarDetails()];
-                let baseUrl = location.protocol + "//" + location.hostname;
-                Promise.all(promises).then(results => {
-                    let carDetails = <any>results[0];
-                    let avatarDetails = <any>results[1];
-                    this.createOrUpdateListItemsInBatch(Constants.Lists.USER_INFORMATION, [{
-                        ID: -1,
-                        AccountName: user.accountName,
-                        DateJoined: new Date().toISOString(),
-                        UserLocation: user.location,
-                        ReferrerID_id: Services.getReferrerID(),
-                        UserRegionText: user.region,
-                        CarImage: baseUrl + carDetails.FileRef,
-                        CarName: carDetails.CarName,
-                        CarID_id: carDetails.ID,
-                        AvatarName: avatarDetails.AvatarName,
-                        AvatarImage: baseUrl + avatarDetails.FileRef,
-                        AvatarID_id: avatarDetails.ID,
-                        UserDepartment: user.department,
-                        UserInfoName: user.displayName,
-                    }])
-                        .then((users: any) => {
-                            let user = users[0];
-                            let newUser = { ...user, eliteProfileID: user.id }
-                        }, err => {
-                            Utils.clientLog(err);
-                        })
+            let promises = [this.getDefaultCarDetails(), this.getDefaultAvatarDetails()];
+            let baseUrl = location.protocol + "//" + location.hostname;
+            Promise.all(promises).then(results => {
+                let carDetails = <any>results[0];
+                let avatarDetails = <any>results[1];
+                this.createOrUpdateListItemsInBatch(Constants.Lists.USER_INFORMATION, [{
+                    ID: -1,
+                    AccountName: user.accountName,
+                    DateJoined: new Date().toISOString(),
+                    UserLocation: user.location,
+                    ReferrerID_id: Services.getReferrerID(),
+                    UserRegionText: user.region,
+                    CarImage: baseUrl + carDetails.FileRef,
+                    CarName: carDetails.CarName,
+                    CarID_id: carDetails.ID,
+                    AvatarName: avatarDetails.AvatarName,
+                    AvatarImage: baseUrl + avatarDetails.FileRef,
+                    AvatarID_id: avatarDetails.ID,
+                    UserDepartment: user.department,
+                    UserInfoName: user.displayName,
+                }])
+                    .then((users: any) => {
+                        let user = users[0];
+                        let newUser = { ...user, eliteProfileID: user.id }
+                    }, err => {
+                        Utils.clientLog(err);
+                    })
 
-                });
-            })
+            });
         });
     }
 
@@ -2073,17 +2071,17 @@ export class Services {
             var filter = Constants.Columns.USER_ID + ' eq ' + Services.getCurrentUserID();
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
                 .select(
-                    Constants.Columns.ID,
-                    Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID
+                Constants.Columns.ID,
+                Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID
                 )
                 .filter(filter).expand(Constants.Columns.TEST_DRIVE_ID)
                 .skip(skip)
                 .top(top)
                 .get().then(myTestDrives => {
-                   var ids = [];
-                   myTestDrives && myTestDrives.length && myTestDrives.map(myTestDrive =>{
-                       ids.push(myTestDrive[Constants.Columns.TEST_DRIVE_ID][Constants.Columns.ID]);
-                   })
+                    var ids = [];
+                    myTestDrives && myTestDrives.length && myTestDrives.map(myTestDrive => {
+                        ids.push(myTestDrive[Constants.Columns.TEST_DRIVE_ID][Constants.Columns.ID]);
+                    })
                     resolve(ids);
                 }, err => reject(err))
         });
@@ -2103,10 +2101,10 @@ export class Services {
                         var activeTestDriveArr: HomeTestDrive[] = [];
                         var testDrivesIDs = [];
                         testDriveInstances = testDriveInstances.filter((testDriveInstance, index) => {
-                            if($.inArray(testDriveInstance.id, mytestDrivs) == -1){
+                            if ($.inArray(testDriveInstance.id, mytestDrivs) == -1) {
                                 testDrivesIDs.push(testDriveInstance.id);
                                 return true;
-                            } else{
+                            } else {
                                 return false;
                             }
                         });

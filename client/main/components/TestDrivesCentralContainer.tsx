@@ -256,7 +256,7 @@ const mapStateToProps = (state, ownProps) => {
     testDrivesWaitingForApproval,
     testDrivesWaitingForApprovalLoading,
     saveTestDriveApprovalLoading,
-    activeTab: activeTab || 0
+    activeTab: activeTab || 'mytestdrive'
   }
 };
 
