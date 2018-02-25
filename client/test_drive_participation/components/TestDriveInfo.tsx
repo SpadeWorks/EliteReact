@@ -19,7 +19,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
     render() {
         const { testDriveInstance } = this.props;
         var testCaseCompletion = (testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 1) * 100;
-        var pointsEarned = testDriveInstance.currentPoint / (testDriveInstance.maxPoints || 1) * 100
+        var pointsEarned = testDriveInstance.currentPoint;
 
         return (<div className="col-md-12 detailed_box">
             <div className="row">
