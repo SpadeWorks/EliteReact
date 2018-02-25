@@ -2346,8 +2346,8 @@ export class Utils {
             value: value,
             size: size,
             startAngle: -Math.PI,
-            startColor: 'red',
-            endColor: 'red',
+            startColor: '#ec1c24',
+            endColor: '#ec1c24',
             animation: {
                 duration: 1200,
                 easing: 'circleProgressEase'
@@ -2363,7 +2363,7 @@ export class Utils {
         var s = options.size, // square size
             v = options.value, // current value: from 0.0 to 1.0
             r = s / 2, // radius
-            t = s / 14; // thickness
+            t = s / 30; // thickness
 
         // Prepare canvas
         var canvas = $('#' + canvasID)[0];
@@ -2374,7 +2374,7 @@ export class Utils {
         var lg = ctx.createLinearGradient(0, 0, s, 0);
         lg.addColorStop(0, options.startColor);
         lg.addColorStop(1, options.endColor);
-        ctx.fillStyle = "rgba(0, 0, 0, .1)";
+        ctx.fillStyle = "rgba(0, 0, 0, .8)";
 
         // Draw circle
         if (options.animation)
