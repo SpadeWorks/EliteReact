@@ -22,6 +22,9 @@ class RideChoice extends React.Component<RideChoiceProps> {
         });
     }
 
+
+    
+
     getBetterRide() {
        
         this.props.updateUI({ nextScreen: this.props.ui.nextScreen + 1 })

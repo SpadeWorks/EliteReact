@@ -234,10 +234,13 @@ class ManageTestDrive extends React.Component<AppProps> {
         return (
             <div className="container header_part">
                 <Popup />
-                <Link to={"/"} >
+                
                     <h2 className="header_prevlink">
-                        <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Create Test Drive</h2>
-                </Link>
+                        <Link to={"/"} >
+                        <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Create Test Drive
+                        </Link>
+                        </h2>
+
 
                 <h4 className="cancel-btn"><Link to={"/testdrives"}>Cancel</Link></h4>
                 <div className="col-md-12">

@@ -2734,7 +2734,7 @@ textarea.inputMaterial {
 
 label {
     color: #000;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: normal;
     position: absolute;
     pointer-events: none;
@@ -2744,12 +2744,12 @@ label {
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
     font-family: titanium;
-    color: #f89719;
+    color: #fff;
 }
 
 
 /* active state */
-
+/*
 .inputMaterial:focus~label,
 .inputMaterial:valid~label {
     top: -21px;
@@ -2761,11 +2761,11 @@ textarea.inputMaterial:focus {
     padding-top: 20px;
     height: auto !important;
     overflow: inherit !important;
-}
+}*/
 
-textarea.inputMaterial:focus~label {
+/*textarea.inputMaterial:focus~label {
     top: -21px;
-}
+}*/
 
 .disc_lable {
     position: absolute;
@@ -3173,10 +3173,7 @@ border: solid 1px#fff;
     border: none;
 }
 
-.nav-tabs {
-    border-top: 1px solid #afafaf;
-    border-bottom: none;
-}
+
 
 .black_box span.glyphicon {
     font-size: 12px;
@@ -3809,10 +3806,11 @@ span.testd_count {
 }
 
 .count_box {
-    margin-top: 30px;
-    margin-top: -42px;
-    margin-left: 84px;
+
+ 
 }
+
+.well .nav-tabs{border:none;}
 
 .profile_box.count_box:nth-child(4) {
     border-bottom: solid 2px #fff;
@@ -3864,9 +3862,10 @@ span.testd_count {
 }
 
 .col-md-12.currtestdrive_list {
-    background: #ffffff12;
-    padding: 10px;
+padding: 10px;
     margin-bottom: 10px;
+    background: #0f0f17;
+    border: solid 1px #333;
 }
 
 
@@ -4606,9 +4605,10 @@ span.testd_count {
 }
 
 .col-md-12.currtestdrive_list {
-    background: #ffffff12;
-    padding: 10px;
+padding: 10px;
     margin-bottom: 10px;
+    background: #0f0f17;
+    border: solid 1px #333;
 }
 
 
@@ -5171,18 +5171,13 @@ li.active-thumbnail {
     width: 100%;
 }
 
-.editpro_box .inputMaterial:focus~label,
-.inputMaterial:valid~label {
+
+/*.inputMaterial:valid~label {
     top: -3px;
     font-size: 14px;
     color: red;
-}
+}*/
 
-input.inputMaterial:focus~label {
-    top: 3px;
-    font-size: 14px;
-    color: red;
-}
 
 .editpro_box .inputMaterial {
     font-size: 18px;
@@ -5867,18 +5862,7 @@ a:hover {
     top: 8px !important;
 }
 
-input.inputMaterial:focus~label {
-    top: -5px;
-    font-size: 14px;
-    color: red;
-}
 
-.editpro_box .inputMaterial:focus~label,
-.inputMaterial:valid~label {
-    top: -6px;
-    font-size: 11px;
-    color: #f89719;
-}
 
 .textarea-custom textarea {
     height: 85px;
@@ -6286,6 +6270,7 @@ button {
 .partcipant_Section img {
     height: 20px;
     width: 20px;
+    margin-left: 10px;
 }
 
 .enddate_Section span.orange {
@@ -6324,7 +6309,17 @@ button {
 .progress_drivebox {
     background: #0a0a10;
     border: solid 1px #333;
+    padding-bottom:40px;
 }
+
+.progress_drivebox .button {
+
+    position: relative;
+    top: 14px;
+    left: 60px;
+}
+
+
 
 .progress_drivebox h4 {
     color: #ff8d00;
@@ -6391,8 +6386,9 @@ ul.dragrace_indicator li span {
 .testdrive_I_runbox .inforow h5 {
     font-family: titanium;
     font-size: 12px;
-    padding-top: 0px !important;
+    padding-top: 3px !important;
     margin-top: 0px !important;
+    text-transform: uppercase;
 }
 
 .testdrive_I_runbox span.orange {
@@ -6420,7 +6416,7 @@ span.up_no {
 }
 
 span.big_text {
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .outofbox {
@@ -6442,6 +6438,7 @@ span.big_text {
 
 .testdrive_I_runbox .social_box a:first-child {
     margin-left: 0px;
+    margin-right: 10px;
 }
 
 .testdrive_I_runbox .social_box a i:hover {
@@ -6509,8 +6506,9 @@ ul.streetrace_indicator li span {
 .col-md-6 .partcipant_Section {
     border: solid 1px #333 !important;
 }
+.enddate_line{margin-top: 13px;}
 
-
+.centralbox_button a{color:red}
 /*testdrive central style ends here*/
 
 
@@ -7046,84 +7044,191 @@ a.more {
 }
 
 /*my ride styles ends here*/
+@media screen and (min-width: 1920px){
+    body.img-bg {
+        font-family: HemiHeadRg-BoldItalic;
+        /*background: black url(./images/back.jpg) repeat 0 0;*/
+        background: #212030;
+        color: #fff;
+        overflow-x: hidden;
+        height: 100vh;
+        -webkit-transform: opacity 0.3s linear;
+        transform: opacity 0.3s linear;
+        background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
+        width: 100%;
+        height: auto;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        left: 0px;
+        top: 0px;
+        background-attachment: fixed;
+    }
 
-@media (min-width: 1281px) {
-body.img-bg {
-    font-family: HemiHeadRg-BoldItalic;
-    /*background: black url(./images/back.jpg) repeat 0 0;*/
-    background: #212030;
-    color: #fff;
-    overflow-x: hidden;
-    height: 100vh;
-    -webkit-transform: opacity 0.3s linear;
-    transform: opacity 0.3s linear;
-    background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
-    width: 100%;
-    height: auto;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    left: 0px;
-    top: 0px;
-    background-attachment: fixed;
-}
-
-a#link6 {
-    position: absolute;
-    top: 22%;
-    left: 14%;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-}
+    a#link6 {
+        position: absolute;
+        top: 22%;
+        left: 14%;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+    }
 
 
-img.map_image{width: 954px;}
+    img.map_image{width: 954px;}
 
-.letest_driveboxclick {
-    position: absolute;
-    left: 462px;
-    display: block;
-    transition: 0.5s;
-    width: 450px;
-    opacity: 1;
-    z-index: 111;
-    top: -300px;
-    display: block;
-    float: left;
-}
-.white_circle {
-    float: left;
-    height: 10px;
-    width: 10px;
-    background: none;
-    border: solid 1px #fff;
-    border-radius: 50%;
-    position: absolute;
-    top: 12px;
-    right: 51px;
-    transition: all 0.5s;
-}
+    .letest_driveboxclick {
+        position: absolute;
+        left: 462px;
+        display: block;
+        transition: 0.5s;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
+        float: left;
+    }
+    .white_circle {
+        float: left;
+        height: 10px;
+        width: 10px;
+        background: none;
+        border: solid 1px #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 12px;
+        right: 51px;
+        transition: all 0.5s;
+    }
 
-.letest_driveboxclick_right {
-    position: absolute;
-    right: 479px;
-    display: block;
-    transition: 0.5s;
-    width: 450px;
-    opacity: 1;
-    z-index: 111;
-    top: -300px;
-    display: block;
-}
+    .letest_driveboxclick_right {
+        position: absolute;
+        right: 479px;
+        display: block;
+        transition: 0.5s;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
+    }
   
 }
 
-a {
+
+
+@media screen and (min-width: 1440px){
+    body.img-bg {
+        font-family: HemiHeadRg-BoldItalic;
+        /*background: black url(./images/back.jpg) repeat 0 0;*/
+        background: #212030;
+        color: #fff;
+        overflow-x: hidden;
+        height: 100vh;
+        -webkit-transform: opacity 0.3s linear;
+        transform: opacity 0.3s linear;
+        background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
+        width: 100%;
+        height: auto;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        left: 0px;
+        top: 0px;
+        background-attachment: fixed;
+    }
+
+    a#link6 {
+        position: absolute;
+        top: 22%;
+        left: 14%;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+    }
+
+
+    img.map_image{width: 752px;}
+
+    .letest_driveboxclick {
+        position: absolute;
+        left: 462px;
+        display: block;
+        transition: 0.5s;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
+        float: left;
+    }
+    .white_circle {
+        float: left;
+        height: 10px;
+        width: 10px;
+        background: none;
+        border: solid 1px #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 12px;
+        right: 51px;
+        transition: all 0.5s;
+    }
+
+    .letest_driveboxclick_right {
+        position: absolute;
+        right: 479px;
+        display: block;
+        transition: 0.5s;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
+    }
+  
+}
+
+
+
+
+
+a{
     cursor: pointer !important;
 }
+
+
+/*testdrive central styling starts here*/
+.testDrives .nav-tabs{border:none !important;}
+
+.testDrives  .nav-tabs>li{margin-right: 10px;}
+.testDrives  .nav-tabs>li>a {
+    color: #505050;
+    border: none;
+    font-size: 17px;
+}
+
+.testDrives .nav-tabs>li.active>a{background: none;
+    border: none;
+    color: #ff8d00;
+    font-weight: bold;
+    font-size: 17px;}
+
+.col-md-12.total_testdrivebox {
+    margin-top: 50px;
+}
+
+
+.total_testdrivebox .nav-tabs>li {
+    margin-right: 35px;
+}
+
+    /*testdrive central styling ends here*/
 
 /*my ride styles ends here*/
 
@@ -7194,7 +7299,7 @@ h1.title:before {
 }
 
 .mm-popup__btn {
-    border-radius: 3px;
+    border-radius: 3px; */
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -7202,12 +7307,12 @@ h1.title:before {
     margin: 0;
     line-height: 32px;
     height: 32px;
-    border: 1px solid #666;
+    border: 1px solid #666 !important;
     text-align: center;
     display: inline-block;
     font-size: 12px;
     font-weight: 400;
-    color: #333;
+    color: #fff;
     background: transparent;
     outline: none;
     text-decoration: none;
@@ -7228,14 +7333,14 @@ h1.title:before {
 }
 
 .mm-popup__box {
-    width: 350px;
+       width: 400px;
     position: fixed;
-    top: 10%;
+    top: 25%;
     left: 50%;
     margin-left: -175px;
-    background: #fff;
+    background: #000;
     box-shadow: 0px 5px 20px 0px rgba(126, 137, 140, 0.20);
-    border-radius: 5px;
+    /* border-radius: 5px; */
     border: 1px solid #B8C8CC;
     overflow: hidden;
     z-index: 1001;
@@ -7257,9 +7362,9 @@ h1.title:before {
 .mm-popup__box__body {
     padding: 20px;
     line-height: 1.4;
-    font-size: 14px;
-    color: #454B4D;
-    background: #fff;
+    font-size: 19px;
+    /* color: #454B4D; */
+    background: #000;
     position: relative;
     z-index: 2;
 }
@@ -7344,3 +7449,59 @@ h1.title:before {
 
 
 /* Pop up css ends here */
+
+
+
+
+
+/*attachment feature style in creation of testdrive starts here */
+
+.rdw-link-modal{background:#000;}
+.rdw-link-modal-input {
+    margin-top: 5px;
+    border-radius: 2px;
+    border: 1px solid #f89f19;
+    height: 25px;
+    margin-bottom: 15px;
+    padding: 0 5px;
+}
+
+
+.rdw-link-modal-label {
+    /* font-size: 15px; */
+    /* margin-top: 16px; */
+    margin-left: 10px;
+    margin-top: 26px;
+    width: 100%;
+}
+
+/*attachment feature style in creation of testdrive ends here */
+
+
+
+.black_box_left .nav-tabs,.black_box_right .nav-tabs,.location_box .nav-tabs{
+    border-top: 1px solid #afafaf;
+    border-bottom: none;
+}
+
+
+.testdrive_I_runbox .testdrive_actionbox {bottom: 18px;
+    left: 128px;
+    position: relative;
+    float: left;
+    background: none;
+    
+    }
+
+    .testdrive_I_runbox .testdrive_actionbox .button{position: relative;
+    padding: 2px 7px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    font: 18px "HemiHeadRg-BoldItalic", "Arial", Helvetica, sans-serif;
+    margin: 20px 0px 10px 0px;
+    color: red;
+    right: 170px;
+    margin-left: 50px;
+    width: 103px;}

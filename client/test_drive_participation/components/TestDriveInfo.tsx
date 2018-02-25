@@ -24,7 +24,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
         return (<div className="col-md-12 detailed_box">
             <div className="row">
                 <div className="col-md-12" style={{ overflow: "auto" }}>
-                    <div className="row">
+                  
                         <div className="col-md-12">
                             <div className="row">
                                 <div className="col-md-2">
@@ -59,22 +59,24 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                 <i>POINTS :</i>
                             </span>
                             <div className="col-md-12 earn_box">
-                                <div className="col-md-4">
+                                <div className="row">
+                                <div className="col-md-3">
                                     <div className="row">
                                         <canvas id="participation-time-total-points" width="140" height="140"></canvas>
                                         <h3>{pointsEarned}</h3>
                                         <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
                                     </div>
                                 </div>
-                                <div className="col-md-2">
+                                <div className="col-md-3">
                                     <div className="row">
                                         <canvas id="participation-time-completed-tcases" width="140" height="140"></canvas>
                                         <h3>{testCaseCompletion.toFixed(0)} %</h3>
                                         <span className="small">{testDriveInstance.numberOfTestCasesCompleted} of {testDriveInstance.testCaseIDs.length} tasks done</span>
                                     </div>
                                 </div>
+                                </div>
                             </div>
-                        </div>
+                
                     </div>
                     <div className="col-md-12 para">
                         <span className="orange">TEST DRIVE PITCH</span>

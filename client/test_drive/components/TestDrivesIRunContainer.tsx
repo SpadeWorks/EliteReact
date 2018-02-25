@@ -82,10 +82,11 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
 
         return (
             <div>
-                <div className="add-button col-md-2 add_test pull-right text-right">
-                    <Link to={"/testdrive"} >+ Create Test Drive</Link>
+                <div className="centralbox_button">
+               <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                    <Link to={"/testdrive"} >Create Test Drive</Link>
                 </div>
-
+                </div>
                 <Tabs selected={0}>
                     <Pane label="UPCOMMING TEST DRIVES">
                         <div>
