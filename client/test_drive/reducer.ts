@@ -652,6 +652,30 @@ export default handleActions<IState, any>({
         }
     },
 
+    [LOAD_UpcommingTestDrivesIRun_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
+        return {
+            ...state,
+            upcommingTestDrivesIRunLoading: true
+        }
+    },
+
+    [LOAD_UpcommingTestDrivesIRun_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            upcommingTestDrivesIRun: action.payload,
+            upcommingTestDrivesIRunLoading: false
+        }
+    },
+
+    [LOAD_UpcommingTestDrivesIRun_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            upcommingTestDrivesIRunLoading: false
+        }
+    },
+
+
+
 
     [LOAD_InProgressTestDrivesIRun_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
         return {

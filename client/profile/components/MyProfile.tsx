@@ -151,7 +151,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                             </div>
                                             {/* Edit profile modal starts here */}
                                             {
-                                                (!this.props.id && this.props.id != -1) &&
+                                                (!this.props.id && this.props.id != -1) ?
                                                 <div id="edit_pro" className="modal fade" role="dialog">
                                                     {eliteProfile.isInEditMode &&
                                                         <EditProfilePopUp eliteProfile={eliteProfile}
@@ -163,9 +163,9 @@ class MyProfile extends React.Component<MyProfileProps> {
                                                             updateMultiSelect={(value, control, eliteProfile) => dispatch(updateMultiSelect(value, control, eliteProfile))}
                                                             fieldDescriptions={eliteProfileFields}
                                                         />}
-                                                </div>
+                                                </div> : ''
                                             }
-                                            }
+                                            
                                     {/* <!-- Edit profile modal starts here--> */}
                                             <MyProfileLeftContainer eliteProfile={eliteProfile} />
                                             <MyProfileRightContainer eliteProfile={eliteProfile} />

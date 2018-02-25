@@ -124,12 +124,21 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                       myInprogressTestDrives={myInprogressTestDrives}
                       myInprogressTestDrivesLoading={myInprogressTestDrivesLoading}
                       loadMyCompletedTestDrives={(skip, top) => dispatch(loadMyCompletedTestDrives(skip, top))}
-                      loadMyInprogressTestDrives={(skip, top) => dispatch(loadMyInprogressTestDrives(skip, top))} 
+                      loadMyInprogressTestDrives={(skip, top) => dispatch(loadMyInprogressTestDrives(skip, top))}
                       ui={ui}
-                      updateUI={updateUI}/>
+                      updateUI={updateUI} />
                   </Pane>
                   <Pane label="TEST DRIEVES I RUN">
-                    <TestDrivesIRunContainer testDriveIRun={testDriveIRun} />
+                    <TestDrivesIRunContainer
+                      draftedTestDrivesIRun={draftedTestDrivesIRun}
+                      draftedTestDrivesIRunLoading={draftedTestDrivesIRunLoading}
+                      upcommingTestDrivesIRun={upcommingTestDrivesIRun}
+                      upcommingTestDrivesIRunLoading={upcommingTestDrivesIRunLoading}
+                      loadUpcommingTestDrivesIRun={(skip, top) => dispatch(loadUpcommingTestDrivesIRun(skip, top))}
+                      loadDraftedTestDrivesIRun={(skip, top) => dispatch(loadDraftedTestDrivesIRun(skip, top))}
+                      ui={ui}
+                      updateUI={updateUI}
+                    />
                   </Pane>
                   <Pane label="Active Test Drive">
                     <ActiveTestDrivesContainer
@@ -143,7 +152,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                     <UpCommingTestdrivesContainer
                       upCommingTestDrives={upCommingTestDrives}
                       upCommingTestDrivesLoading={upCommingTestDrivesLoading}
-                      loadUpCommingTestDrives={(skip, top) => dispatch(loadUpCommingTestDrives(skip, top))} 
+                      loadUpCommingTestDrives={(skip, top) => dispatch(loadUpCommingTestDrives(skip, top))}
                       ui={ui}
                       updateUI={updateUI} />
                   </Pane>
