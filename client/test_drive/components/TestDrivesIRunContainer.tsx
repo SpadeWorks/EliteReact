@@ -2,22 +2,84 @@ import * as React from 'react';
 import { Link } from "react-router-dom";
 import { Tabs, Pane } from '../../common/components/Tabs';
 import Loader from 'react-loader-advanced';
+import ui from 'redux-ui';
+import { TestDrive } from '../model';
+import Pager from 'react-pager';
 import {
     model,
     TestDriveIRunItem,
     editTestDrive,
     deleteTestDrive
 } from '../index';
+import TestDrivesIRunUpcommingItem from './TestDrivesIRunUpcommingItem';
 
 interface TestDrivesIRunContainerProps {
-    testDriveIRun: any;
+    upcommingTestDrivesIRun: TestDrive[]
+    upcommingTestDrivesIRunLoading: boolean;
+    draftedTestDrivesIRun: TestDrive[];
+    draftedTestDrivesIRunLoading: boolean;
+    loadUpcommingTestDrivesIRun: (skip: number, top: number) => any;
+    loadDraftedTestDrivesIRun: (skip: number, top: number) => any;
+    updateUI: (any) => any;
+    ui: any;
 };
+
+@ui({
+    state: {
+        itemsPerPage: 5,
+        total: 11,
+        draftedItemCurrent: 0,
+        upcommingItemCurrent: 0,
+        draftedItems: [],
+        upcommingItems: [],
+        visiblePages: 4,
+        visibleItems: []
+    }
+})
 class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerProps> {
     constructor(props, context) {
         super(props, context);
     }
+
+    componentDidMount() {
+        this.props.loadUpcommingTestDrivesIRun(0, 100);
+        this.props.loadDraftedTestDrivesIRun(0, 100);
+    }
+
+    getVisibleItems(newPage: number, array: any[], visibleItems: string, currentPage: string) {
+        let skip = newPage * this.props.ui.itemsPerPage;
+        this.props.updateUI({
+            [currentPage]: newPage,
+            [visibleItems]: array.slice(skip, skip + this.props.ui.itemsPerPage)
+        });
+    }
+
     render() {
-        const { testDriveIRun } = this.props
+        const {
+            ui, updateUI,
+            upcommingTestDrivesIRun,
+            upcommingTestDrivesIRunLoading,
+            draftedTestDrivesIRun,
+            draftedTestDrivesIRunLoading
+        } = this.props;
+
+        if (!upcommingTestDrivesIRunLoading && upcommingTestDrivesIRun && upcommingTestDrivesIRun.length && !ui.upcommingItems.length) {
+            var currentPage = ui.upcommingItemCurrent;
+            if(ui.upcommingItems.length < ui.upcommingItemCurrent * ui.itemsPerPage ){
+                currentPage = currentPage - 1;      
+            }
+            this.getVisibleItems(currentPage, upcommingTestDrivesIRun, 'upcommingItems', 'upcommingItemCurrent');
+        }
+        if (!draftedTestDrivesIRunLoading && draftedTestDrivesIRun && draftedTestDrivesIRun.length && !ui.draftedItems.length) {
+            var currentPage = ui.draftedItemCurrent;
+            if(ui.draftedItems.length < ui.draftedItemCurrent * ui.itemsPerPage ){
+                currentPage = currentPage - 1;      
+            }
+            this.getVisibleItems(currentPage, draftedTestDrivesIRun, 'draftedItems', 'draftedItemCurrent');
+        }
+        
+
+
         return (
             <div>
                 <div className="add-button col-md-2 add_test pull-right text-right">
@@ -25,30 +87,56 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                 </div>
 
                 <Tabs selected={0}>
-                    <Pane label="TEST DRIVE IN PROGRESS">
-                        <h1>TEST DRIVE IN PROGRESS</h1>
-                    </Pane>
                     <Pane label="UPCOMMING TEST DRIVES">
-                        <Loader show={false} message={'Loading...'}>
-                            <div className="col-md-12 currtestdrive_list testdrive_I_runbox">
+                        <div>
+                            <Loader show={upcommingTestDrivesIRunLoading} message={'Loading...'}>
                                 {
-                                    (testDriveIRun && testDriveIRun.length) ? testDriveIRun.map((testDriveObj: any) => {
-                                        return testDriveObj.testDrive && <TestDriveIRunItem
-                                            key={testDriveObj.testDrive.id}
-                                            indexKey={testDriveObj.testDrive.id}
-                                            testDrive={testDriveObj.testDrive}
-                                            editTestDrive={editTestDrive}
-                                            deleteTestDrive={deleteTestDrive} />
-                                    }) : ''
+                                    (ui.upcommingItems && ui.upcommingItems.length) ?
+                                        ui.upcommingItems.map((testDriveObj, index) => {
+                                            return (<TestDrivesIRunUpcommingItem
+                                                key={index}
+                                                testDrive={testDriveObj.testDrive}/>)
+                                        }) : (!upcommingTestDrivesIRunLoading && 'There are no items waiting for approval.')
                                 }
-                            </div>
-                        </Loader>
-                    </Pane>
-                    <Pane label="COMPLETED TEST DRIVES">
-                        <h1>Active Test Drive</h1>
+                                {
+                                    ui.upcommingItems && ui.upcommingItems.length > 0 &&
+                                    <Pager
+                                        total={Math.ceil(upcommingTestDrivesIRun.length / ui.itemsPerPage)}
+                                        current={ui.upcommingItemCurrent}
+                                        visiblePages={ui.visiblePages}
+                                        titles={{ first: '<', last: '>' }}
+                                        className="pagination-sm pull-right"
+                                        onPageChanged={(newPage) => this.getVisibleItems(newPage, upcommingTestDrivesIRun, 'upcommingItems', 'upcommingItemCurrent')}
+                                    />
+                                }
+
+                            </Loader>
+                        </div>
                     </Pane>
                     <Pane label="DRAFTED TEST DRIVES">
-                        <h1>Upcomming Test Drive</h1>
+                        <div>
+                            <Loader show={draftedTestDrivesIRunLoading} message={'Loading...'}>
+                                {
+                                    (ui.draftedItems && ui.draftedItems.length) ?
+                                        ui.draftedItems.map((testDriveObj, index) => {
+                                            return (<TestDrivesIRunUpcommingItem
+                                                key={index}
+                                                testDrive={testDriveObj.testDrive}/>)
+                                        }) : (!draftedTestDrivesIRunLoading && 'There are no items in this view.')
+                                }
+                                {
+                                    ui.draftedItems && ui.draftedItems.length > 0 &&
+                                    <Pager
+                                        total={Math.ceil(draftedTestDrivesIRun.length / ui.itemsPerPage)}
+                                        current={ui.draftedItemCurrent}
+                                        visiblePages={ui.visiblePages}
+                                        titles={{ first: '<', last: '>' }}
+                                        className="pagination-sm pull-right"
+                                        onPageChanged={(newPage) => this.getVisibleItems(newPage, draftedTestDrivesIRun, 'draftedItems', 'draftedItemCurrent')}
+                                    />
+                                }
+                            </Loader>
+                        </div>
                     </Pane>
                 </Tabs>
             </div>

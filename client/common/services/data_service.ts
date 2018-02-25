@@ -888,8 +888,10 @@ export class Services {
         });
     }
 
-    static getTestDrivesByFilter(filter: string, skip = 0, top = 3) {
+    static getTestDrivesByFilter(filter: string, skip = 0, top = 3, orderBy?, ascending?) {
         return new Promise((resolve, reject) => {
+            orderBy = orderBy || 'Modified';
+            ascending = ascending || false;
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items
                 .select(
                 Constants.Columns.ID,
@@ -914,7 +916,7 @@ export class Services {
                 ).skip(skip).top(top)
                 .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID, Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
                 .filter(filter)
-                .orderBy('Modified', false)
+                .orderBy(orderBy, ascending)
                 .get().then(testDrives => {
                     let testDriveObj: TestDrive;
                     let results = testDrives.map((testDrive) => {
@@ -975,8 +977,9 @@ export class Services {
         });
     }
 
-    static getDraftedTestDrivesIRun(ownerID: number, skip = 0, top = 3) {
+    static getDraftedTestDrivesIRun(skip = 0, top = 3) {
         return new Promise((resolve, reject) => {
+            var ownerID = Services.getCurrentUserID();
             var d = new Date();
             var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             var filter = "TestDriveOwner eq " + ownerID +
@@ -1004,8 +1007,9 @@ export class Services {
         });
     }
 
-    static getSubmitedTestDrivesIRun(ownerID: number, skip = 0, top = 3) {
+    static getSubmitedTestDrivesIRun(skip = 0, top = 3) {
         return new Promise((resolve, reject) => {
+            var ownerID = Services.getCurrentUserID();
             var d = new Date();
             var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             var filter = "TestDriveOwner eq " + ownerID +
@@ -1034,8 +1038,9 @@ export class Services {
     }
 
 
-    static getInProgressTestDrivesIRun(ownerID: number, skip = 0, top = 3) {
+    static getInProgressTestDrivesIRun(skip = 0, top = 3) {
         return new Promise((resolve, reject) => {
+            var ownerID = Services.getCurrentUserID();
             var d = new Date();
             var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             var filter = "TestDriveOwner eq " + ownerID +
@@ -1065,8 +1070,9 @@ export class Services {
         });
     }
 
-    static getCompletedTestDriveIRun(ownerID: number, skip = 0, top = 3) {
+    static getCompletedTestDriveIRun(number, skip = 0, top = 3) {
         return new Promise((resolve, reject) => {
+            var ownerID = Services.getCurrentUserID();
             var d = new Date();
             var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             var filter = "TestDriveOwner eq " + ownerID +
@@ -1095,8 +1101,9 @@ export class Services {
         });
     }
 
-    static getUpCommingTestDriveIRun(ownerID: number, skip = 0, top = 3) {
+    static getUpCommingTestDriveIRun(skip = 0, top = 3) {
         return new Promise((resolve, reject) => {
+            var ownerID = Services.getCurrentUserID();
             var d = new Date();
             var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             var filter = "TestDriveOwner eq " + ownerID +
