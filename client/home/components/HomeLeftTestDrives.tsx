@@ -40,7 +40,7 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                             <Loader show={myTestDriveLoading} message={'Loading test drives...'}>
                                 <div className="col-md-12">
                                     {
-                                        mytestDrive && mytestDrive.map((testDrive, index) => {
+                                        (mytestDrive && mytestDrive.length) ? mytestDrive.map((testDrive, index) => {
                                             return (testDrive && <LeftContainer
                                                 key={index}
                                                 participants={testDrive.participants}
@@ -49,13 +49,13 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                                 testDriveResponse={testDrive.testDriveResponse}
                                                 index={index + 1}
                                             />)
-                                        })
+                                        }) : ''
                                     }
-                                    {(!myTestDriveLoading) && mytestDrive.length == 0 && <p>You have not participated in any test dirve yet.</p>}
+                                    {(!myTestDriveLoading && mytestDrive.length == 0) ? <p>You have not participated in any test dirve yet.</p> : ''}
                                     {
-                                        mytestDrive && mytestDrive.length >= 3 && <Link className="read_morelink more" to={"/testdrives/mytestDrive"}>
+                                        (mytestDrive && mytestDrive.length >= 3) ? <Link className="read_morelink more" to={"/testdrives/mytestDrive"}>
                                             MORE >>
-                                        </Link>
+                                        </Link> : ''
                                     }
                                 </div>
                             </Loader>
@@ -64,7 +64,7 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                             <Loader show={testDriveThatIRunLoading} message={'Loading test drives...'}>
                                 <div className="col-md-12">
                                     {
-                                        testDriveThatIRun && testDriveThatIRun.map((testDrive, index) => {
+                                        (testDriveThatIRun && testDriveThatIRun.length) ? testDriveThatIRun.map((testDrive, index) => {
                                             return (testDrive && <LeftContainer
                                                 key={index}
                                                 participants={testDrive.participants}
@@ -72,13 +72,19 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                                 testDrive={testDrive.testDrive}
                                                 testDriveResponse={undefined}
                                                 index={index + 1} />)
-                                        })
+                                        }) : ''
                                     }
-                                    {(!testDriveThatIRunLoading) && testDriveThatIRun.length == 0 && <p>You have not created any test dive yet.</p>}
+                                    {(!testDriveThatIRunLoading && !testDriveThatIRun.length) ? <div>
+                                        <p>You have not created any test dive yet.</p>
+                                        <div className="col-md-12 popup_buttonbox">
+                                            <Link className="button type1" to={"/testdrive"}> +Create Test Drive </Link>
+                                        </div>
+                                    </div> : ''}
                                     {
-                                        testDriveThatIRun && testDriveThatIRun.length >= 3 && <Link className="more" to={"/testdrives/testDriveThatIRun"}>
+                                        (testDriveThatIRun && testDriveThatIRun.length >= 3) ?
+                                         <Link className="more" to={"/testdrives/testDriveThatIRun"}>
                                             MORE >>
-                                    </Link>
+                                        </Link> : ''
                                     }
                                 </div>
                             </Loader>

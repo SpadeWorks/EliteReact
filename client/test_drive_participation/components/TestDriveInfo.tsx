@@ -9,10 +9,12 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
         super(props, context);
     }
     componentDidMount() {
-        Services.loadProgressBar("participation-time-completed-tcases", 0.4, 150);
-        Services.loadProgressBar("participation-time-total-points", 0.5, 150);
+        const { testDriveInstance } = this.props;
+        var testCaseCompletion = (testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 1);
+        var pointsEarned = testDriveInstance.currentPoint / (testDriveInstance.maxPoints || 1);
+        Services.loadProgressBar("participation-time-completed-tcases", testCaseCompletion, 150);
+        Services.loadProgressBar("participation-time-total-points", pointsEarned, 150);
     }
-
 
     render() {
         const { testDriveInstance } = this.props;
@@ -23,58 +25,55 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
             <div className="row">
                 <div className="col-md-12" style={{ overflow: "auto" }}>
                     <div className="row">
-                    <div className="col-md-12">
-                        <div className="row">
-                            <div className="col-md-2">
-                                
+                        <div className="col-md-12">
+                            <div className="row">
+                                <div className="col-md-2">
+
                                     <span className="orange">
                                         <i>DESCRIPTION</i>
                                     </span>
-                             
-                            </div>
-                            <div className="col-md-4 pull-right">
-                                <div className="col-md-12 social_box">
-                                    <div className="row">
-                                        <a href="#">
-                                            <i className="material-icons">info</i>
-                                        </a>
-                                        <a href="#">
-                                            <i className="material-icons">email</i>
-                                        </a>
-                                        <a href="#">
-                                            <span className="teams"></span>
-                                        </a>
-                                        <a href="#">
-                                            <i className="material-icons">share</i>
-                                        </a>
+
+                                </div>
+                                <div className="col-md-4 pull-right">
+                                    <div className="col-md-12 social_box">
+                                        <div className="row">
+                                            <a href="#">
+                                                <i className="material-icons">info</i>
+                                            </a>
+                                            <a href="#">
+                                                <i className="material-icons">email</i>
+                                            </a>
+                                            <a href="#">
+                                                <span className="teams"></span>
+                                            </a>
+                                            <a href="#">
+                                                <i className="material-icons">share</i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="col-md-12 TestDriveInfo_box pariciation_time_details">
-                        <span className="orange">
-                            <i>POINTS :</i>
-                        </span>
-                        <div className="col-md-12 earn_box">
-
-                            <div className="col-md-2">
-                                <div className="row">
-                                    <canvas id="participation-time-completed-tcases" width="140" height="140"></canvas>
-                                    <h3>{testCaseCompletion.toFixed(2)} %</h3>
-                                    <span className="small">{testDriveInstance.numberOfTestCasesCompleted} of {testDriveInstance.testCaseIDs.length} tasks done</span>
+                        <div className="col-md-12 TestDriveInfo_box pariciation_time_details">
+                            <span className="orange">
+                                <i>POINTS :</i>
+                            </span>
+                            <div className="col-md-12 earn_box">
+                                <div className="col-md-4">
+                                    <div className="row">
+                                        <canvas id="participation-time-total-points" width="140" height="140"></canvas>
+                                        <h3>{pointsEarned}</h3>
+                                        <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
+                                    </div>
+                                </div>
+                                <div className="col-md-2">
+                                    <div className="row">
+                                        <canvas id="participation-time-completed-tcases" width="140" height="140"></canvas>
+                                        <h3>{testCaseCompletion.toFixed(0)} %</h3>
+                                        <span className="small">{testDriveInstance.numberOfTestCasesCompleted} of {testDriveInstance.testCaseIDs.length} tasks done</span>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div className="col-md-4">
-                                <div className="row">
-                                    <canvas id="participation-time-total-points" width="140" height="140"></canvas>
-                                    <h3>{pointsEarned.toFixed(2)} %</h3>
-                                    <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
-                                </div>
-
-                            </div>
-                        </div>
                         </div>
                     </div>
                     <div className="col-md-12 para">
@@ -162,44 +161,44 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                     </div>
                     <div className="col-md-12 para">
                         <span className="orange">ELIGIBLE DRIVER LOCATION</span>
-                       
-                            <ul className="select2-selection__rendered">
-                                {
-                                    testDriveInstance.location && testDriveInstance.location.map((location: any, index) => {
-                                        return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                            {location.Label}
-                                        </li>)
-                                    })
-                                }
-                            </ul>
-                        
+
+                        <ul className="select2-selection__rendered">
+                            {
+                                testDriveInstance.location && testDriveInstance.location.map((location: any, index) => {
+                                    return (<li key={index} className="select2-selection__choice" title="iwatch">
+                                        {location.Label}
+                                    </li>)
+                                })
+                            }
+                        </ul>
+
                     </div>
                     <div className="col-md-12 para">
                         <span className="orange">DEVICES REQUIRED</span>
-                       
-                            <ul className="select2-selection__rendered">
-                                {
-                                    testDriveInstance.requiredDevices && testDriveInstance.requiredDevices.map((device: any, index) => {
-                                        return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                            {device.Label}
-                                        </li>)
-                                    })}
-                            </ul>
-                       
+
+                        <ul className="select2-selection__rendered">
+                            {
+                                testDriveInstance.requiredDevices && testDriveInstance.requiredDevices.map((device: any, index) => {
+                                    return (<li key={index} className="select2-selection__choice" title="iwatch">
+                                        {device.Label}
+                                    </li>)
+                                })}
+                        </ul>
+
                     </div>
                     <div className="col-md-12 para">
                         <span className="orange">OS REQUIRED</span>
-                        
-                            <ul className="select2-selection__rendered">
-                                {
-                                    testDriveInstance.requiredOs && testDriveInstance.requiredOs.map((os: any, index) => {
-                                        return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                            {os.Label}
-                                        </li>)
-                                    })
-                                }
-                            </ul>
-                    
+
+                        <ul className="select2-selection__rendered">
+                            {
+                                testDriveInstance.requiredOs && testDriveInstance.requiredOs.map((os: any, index) => {
+                                    return (<li key={index} className="select2-selection__choice" title="iwatch">
+                                        {os.Label}
+                                    </li>)
+                                })
+                            }
+                        </ul>
+
                     </div>
                 </div>
             </div>
