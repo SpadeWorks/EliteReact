@@ -148,12 +148,12 @@ class ManageTestDrive extends React.Component<AppProps> {
                 return false;
             }
 
-            if (testDrive.status == ColumnsValues.SUBMIT && testCases.length == 0) {
+            if (testDrive.status == ColumnsValues.SUBMIT && testCases && testCases.length == 0) {
                 Popup.alert(Messages.NO_TEST_CASE_ERROR);
                 return false;
             }
 
-            if (testDrive.status == ColumnsValues.SUBMIT && questions.length == 0) {
+            if (testDrive.status == ColumnsValues.SUBMIT && questions && questions.length == 0) {
                 Popup.alert(Messages.NO_QUESTION_ERROR);
                 return false;
             }
