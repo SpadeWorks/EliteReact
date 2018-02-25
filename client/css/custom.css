@@ -16,9 +16,10 @@
     src: url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/sites/elite/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/sites/elite/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
-body{
+body {
     font-family: HemiHeadRg-BoldItalic !important;
 }
+
 body.starts {
     font-family: HemiHeadRg-BoldItalic;
     color: #fff;
@@ -3425,12 +3426,9 @@ width: 28px !important;
 #outer {
     height: 100px;
     width: 100px;
-     background: url('/sites/elite/Style%20Library/Elite/images/dash-loader-out.png');
+    background: url('/sites/elite/Style%20Library/Elite/images/dash-loader-out.png');
     -webkit-animation: rotation 30s infinite;
     animation-play-state: running;
-    
-    
-
 }
 
 #inner {
@@ -3443,7 +3441,6 @@ width: 28px !important;
     top: 9px;
     left: 11px;
     border-radius: 50%;
-   
 }
 
 .tdrivecount {
@@ -4550,7 +4547,6 @@ span.testd_count {
     color: green;
 }
 
-
 .orange {
     font-size: 14px;
     color: #f8971d;
@@ -5090,15 +5086,20 @@ li.active-thumbnail {
     float: left;
 }
 
-.editpro_box .carousel-inner{padding:30px;}
+.editpro_box .carousel-inner {
+    padding: 30px;
+}
 
-.editpro_box .modal-title{
+.editpro_box .modal-title {
     margin: 0;
     line-height: 1.42857143;
-    color: #fff !important;}
+    color: #fff !important;
+}
 
+.editpro_box .wrapper {
+    margin-top: 30px;
+}
 
-.editpro_box .wrapper{margin-top:30px;}
 .editpro_box .modal-header {
     border: none;
 }
@@ -5106,9 +5107,9 @@ li.active-thumbnail {
 .editpro_box .testdrive_actionbox {
     bottom: 0px;
     left: 0px;
-   position: relative;
+    position: relative;
     float: left;
-    background:none;
+    background: none;
 }
 
 .modal-dialog {
@@ -6906,7 +6907,7 @@ button {
 /*my ride styeles starts here*/
 
 .outer_ride img {
-       position: absolute;
+    position: absolute;
     left: 123px;
     top: -21px;
     -webkit-animation: rotate 30s infinite;
@@ -6914,21 +6915,18 @@ button {
 }
 
 .ride_ring img {
-      position: absolute;
+    position: absolute;
     left: 138px;
     top: -9px;
     -webkit-animation: rotate 5s infinite;
     animation-direction: reverse;
 }
 
-
 p.next-text.go_text {
     position: absolute;
     top: -47px !important;
     left: 438px;
 }
-
-
 
 .ride_image img {
     position: relative;
@@ -6971,12 +6969,18 @@ p.next-text.go_text {
     border: none;
 }
 
-p.get_Set{width:40%;float:left;}
+p.get_Set {
+    width: 40%;
+    float: left;
+}
 
-p.go{width:10%;float:left;}
+p.go {
+    width: 10%;
+    float: left;
+}
 
 .ride_track img {
-       position: relative;
+    position: relative;
     left: 0px;
     bottom: -1px;
     height: 91px;
@@ -6997,13 +7001,13 @@ p.go{width:10%;float:left;}
     margin-left: 250px;
     margin-top: -7px;
 }
-.col-md-12.intro_actionbox.testdrive_actionbox.new_ride{position: fixed;
+
+.col-md-12.intro_actionbox.testdrive_actionbox.new_ride {
+    position: fixed;
     bottom: -123px;
     left: -57px;
-    background: none!important;}
-
-
-
+    background: none!important;
+}
 
 a{
     cursor: pointer !important;
@@ -7012,38 +7016,43 @@ a{
 .col-md-12.intro_actionbox.testdrive_actionbox.betterride_box{position: fixed;
     bottom: -123px;
     left: 0px;
-    background: none!important;}
+    background: none!important;
+}
 
 .stroller_ridebox {
     position: absolute;
     top: 222px;
     left: 223px;
 }
-.stroller_ridebox img{height:250px;}
-.red_text{color:red !important;} 
 
+.stroller_ridebox img {
+    height: 250px;
+}
+
+.red_text {
+    color: red !important;
+}
 
 .currentride_text {
     position: absolute;
     top: 80px !important;
 }
 
-
-
-
 a.more {
- font-size: 10px !important;
+    font-size: 10px !important;
     padding-top: 0px;
     color: #ff0000;
     margin-top: 0px;
-    
 }
-
 
 /*my ride styles ends here*/
 
+<<<<<<< HEAD
 
  @media screen and (min-width: 1920px){
+=======
+@media (min-width: 1281px) {
+>>>>>>> c83c28a73715c424b124bcd9e81458ed7db9abe6
 body.img-bg {
     font-family: HemiHeadRg-BoldItalic;
     /*background: black url(./images/back.jpg) repeat 0 0;*/
@@ -7117,6 +7126,7 @@ img.map_image{width: 954px;}
   
 }
 
+<<<<<<< HEAD
 
 
 
@@ -7175,8 +7185,11 @@ img.map_image{width: 742px !important;}
 
 
 a{
+=======
+a {
+>>>>>>> c83c28a73715c424b124bcd9e81458ed7db9abe6
     cursor: pointer !important;
-}    
+}
 
 /*my ride styles ends here*/
 
@@ -7185,13 +7198,15 @@ a{
 .letsgo {
     position: absolute !important;
     right: 380px !important;
-   bottom: -152px;
+    bottom: -152px;
 }
+
 .mm-popup {
     display: none;
 }
 
-h1.title:after,h1.title:before {
+h1.title:after,
+h1.title:before {
     display: none;
 }
 
@@ -7392,4 +7407,6 @@ h1.title:after,h1.title:before {
         margin-top: 10px;
     }
 }
+
+
 /* Pop up css ends here */

@@ -6,13 +6,14 @@ import Services from '../../common/services/services';
 interface TestDriveCardItemProps {
     testDrive: TestDrive;
     participants: number;
+    isActive: boolean;
 };
 class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
     constructor(props, context) {
         super(props, context);
     }
     render() {
-        const { testDrive, participants} = this.props;
+        const { testDrive, participants, isActive } = this.props;
         return (<div className="col-md-4">
             <div className="col-md-12 progress_drivebox">
                 <h4>{testDrive.title}</h4>
@@ -169,8 +170,10 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                             </div>
                         </div>
                     </div>
+                    <Link className="button type1" to={"/participation/" + testDrive.id}> { isActive ? 'Drive Through' : 'View Details'} </Link>
                 </div>
             </div>
+
         </div>)
     }
 }

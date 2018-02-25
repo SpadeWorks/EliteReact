@@ -79,6 +79,7 @@ export default handleActions<IState, any>({
     [LOAD_EliteProfile_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
+            eliteProfile: state.eliteProfile,
             loading: true
         }
     },
@@ -99,7 +100,7 @@ export default handleActions<IState, any>({
     [RESET_EliteProfile]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            eliteProfile: null
+            eliteProfile: undefined
         }
     },
 

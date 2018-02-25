@@ -64,7 +64,8 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
                             return (<TestDriveCardItem
                                 key={index}
                                 participants={testDriveObj.participents}
-                                testDrive={testDriveObj.testDrive} />)
+                                testDrive={testDriveObj.testDrive}
+                                isActive={true} />)
                         }) : (!activeTestDrivesLoading && 'There are no active test drives.')
                 }
                 {

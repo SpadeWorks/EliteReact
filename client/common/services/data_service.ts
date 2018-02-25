@@ -109,7 +109,6 @@ export class Services {
                     id: item.id,
                     files: files
                 });
-                Utils.clientLog(files);
             }, error => {
                 reject(error);
             });
@@ -326,7 +325,6 @@ export class Services {
                         [Constants.Columns.RESPONSE_ATTACHMENTS]: JSON.stringify(testCasesInstance.files)
                     }).then(result => {
                         resolve(testCasesInstance.files);
-                        Utils.clientLog(result);
                     }, error => {
                         reject(error);
                         Utils.clientLog(error);
@@ -915,7 +913,9 @@ export class Services {
                 Constants.Columns.EXPECTED_BUSINESS_VALUE
                 ).skip(skip).top(top)
                 .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID, Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
-                .filter(filter).get().then(testDrives => {
+                .filter(filter)
+                .orderBy('Modified', false)
+                .get().then(testDrives => {
                     let testDriveObj: TestDrive;
                     let results = testDrives.map((testDrive) => {
                         return {
@@ -1562,7 +1562,6 @@ export class Services {
                 .filter("IsDefault eq 1 and CarLevel eq 1")
                 .get().then(car => {
                     resolve(car[0]);
-                    Utils.clientLog(car);
                 })
         });
     }
@@ -1579,7 +1578,6 @@ export class Services {
                 .filter("IsDefault eq 1 and CarLevel eq 1")
                 .get().then(car => {
                     resolve(car[0]);
-                    Utils.clientLog(car);
                 })
         });
     }
@@ -1591,7 +1589,6 @@ export class Services {
                 .filter("IsDefault eq 1")
                 .get().then(avatar => {
                     resolve(avatar[0]);
-                    Utils.clientLog(avatar[0]);
                 })
         })
 
@@ -1924,10 +1921,9 @@ export class Services {
                 .filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z'")
                 .skip(skip).top(count)
                 .get().then(leaders => {
-                    Utils.clientLog(leaders);
                     leaders.map((leader, index) => {
                         globalLeaders.push({
-                            id: leader.ID,
+                            id: leader[Constants.Columns.USER_ID][Constants.Columns.ID],
                             name: leader.UserID.UserInfoName,
                             totalPoints: leader.Points,
                             avatar: leader.UserID.AvatarImage,
@@ -1966,10 +1962,9 @@ export class Services {
                 .filter("PointsEarnedOnDate gt datetime'" +
                 lastYear + "T23:59:59.000Z' and " + Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION + " eq '" + region + "'")
                 .get().then(leaders => {
-                    Utils.clientLog(leaders);
                     leaders.map((leader, index) => {
                         regionalLeaders.push({
-                            id: leader.ID,
+                            id: leader[Constants.Columns.USER_ID][Constants.Columns.ID],
                             name: leader.UserID.UserInfoName,
                             totalPoints: leader.Points,
                             avatar: leader.UserID.AvatarImage,
@@ -2070,7 +2065,7 @@ export class Services {
         var d = new Date();
         var userRegion = Services.getUserProfileProperties().region || '';
         var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-        var filter = "TestDriveStatus eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'"
+        var filter = "TestDriveStatus eq '" + Constants.ColumnsValues.ACTIVE + "'"
         " and TestDriveStartDate le datetime'" + todayDate + "T00:00:00.000Z'" +
             " and TestDriveEndDate ge datetime'" + todayDate + "T00:00:00.000Z'";
         return new Promise((resolve, reject) => {
@@ -2190,6 +2185,7 @@ export class Services {
                 .expand(Constants.Columns.TEST_DRIVE_ID, Constants.Columns.USER_ID)
                 .skip(skip)
                 .top(top)
+                .orderBy('Modified', false)
                 .get().then(testDriveInstances => {
                     resolve(testDriveInstances);
                 }, err => reject(err))
@@ -2199,6 +2195,17 @@ export class Services {
     static getMyTestDrives(skip = 0, top = 3) {
         return new Promise((resolve, reject) => {
             var filter = Constants.Columns.USER_ID + ' eq ' + Services.getCurrentUserID();
+            Services.getMyTestDrivesByFilter(filter, skip, top).then(testDrives => {
+                resolve(testDrives);
+            }, error => {
+                reject(error);
+            })
+        })
+    }
+    static getMyInProgressTestDrives(skip = 0, top = 3) {
+        return new Promise((resolve, reject) => {
+            var filter = Constants.Columns.USER_ID + ' eq ' + Services.getCurrentUserID() + ' and ' +
+            Constants.Columns.STATUS + " eq '" + Constants.ColumnsValues.DRAFT + "'";
             Services.getMyTestDrivesByFilter(filter, skip, top).then(testDrives => {
                 resolve(testDrives);
             }, error => {
@@ -2289,7 +2296,6 @@ export class Services {
                                 if (testDrivesCount - 1 == index) {
                                     resolve(resultArr);
                                 }
-                                Utils.clientLog("JSOM : " + testDrive.get_count());
                             });
                         }),
                         Function.createDelegate(null, function () {
@@ -2311,7 +2317,6 @@ export class Services {
                 props.forEach((prop, index) => {
                     propValue += prop.Key + " - " + prop.Value + "<br/>";
                 });
-                Utils.clientLog(propValue);
             }).catch(function (err) {
                 Utils.clientLog("Error: " + err);
             });
@@ -2586,7 +2591,6 @@ export class TermStore {
                     console.log(terms);
                     resolve(terms);
                 }, (sender, args) => {
-                    Utils.clientLog(args);
                     reject(args);
                 });
             } catch (e) {

@@ -66,7 +66,8 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
                             return (<TestDriveCardItem
                                 key={index}
                                 participants={testDriveObj.participents}
-                                testDrive={testDriveObj.testDrive} />)
+                                testDrive={testDriveObj.testDrive} 
+                                isActive={false}/>)
                         }) : (!upCommingTestDrivesLoading && 'There are no up comming items.')
                 }
                 {
