@@ -3173,10 +3173,7 @@ border: solid 1px#fff;
     border: none;
 }
 
-.nav-tabs {
-    border-top: 1px solid #afafaf;
-    border-bottom: none;
-}
+
 
 .black_box span.glyphicon {
     font-size: 12px;
@@ -3864,9 +3861,10 @@ span.testd_count {
 }
 
 .col-md-12.currtestdrive_list {
-    background: #ffffff12;
-    padding: 10px;
+padding: 10px;
     margin-bottom: 10px;
+    background: #0f0f17;
+    border: solid 1px #333;
 }
 
 
@@ -4606,9 +4604,10 @@ span.testd_count {
 }
 
 .col-md-12.currtestdrive_list {
-    background: #ffffff12;
-    padding: 10px;
+padding: 10px;
     margin-bottom: 10px;
+    background: #0f0f17;
+    border: solid 1px #333;
 }
 
 
@@ -6270,6 +6269,7 @@ button {
 .partcipant_Section img {
     height: 20px;
     width: 20px;
+    margin-left: 10px;
 }
 
 .enddate_Section span.orange {
@@ -6308,7 +6308,17 @@ button {
 .progress_drivebox {
     background: #0a0a10;
     border: solid 1px #333;
+    padding-bottom:40px;
 }
+
+.progress_drivebox .button {
+
+    position: relative;
+    top: 14px;
+    left: 60px;
+}
+
+
 
 .progress_drivebox h4 {
     color: #ff8d00;
@@ -6375,8 +6385,9 @@ ul.dragrace_indicator li span {
 .testdrive_I_runbox .inforow h5 {
     font-family: titanium;
     font-size: 12px;
-    padding-top: 0px !important;
+    padding-top: 3px !important;
     margin-top: 0px !important;
+    text-transform: uppercase;
 }
 
 .testdrive_I_runbox span.orange {
@@ -6404,7 +6415,7 @@ span.up_no {
 }
 
 span.big_text {
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .outofbox {
@@ -6426,6 +6437,7 @@ span.big_text {
 
 .testdrive_I_runbox .social_box a:first-child {
     margin-left: 0px;
+    margin-right: 10px;
 }
 
 .testdrive_I_runbox .social_box a i:hover {
@@ -6493,8 +6505,9 @@ ul.streetrace_indicator li span {
 .col-md-6 .partcipant_Section {
     border: solid 1px #333 !important;
 }
+.enddate_line{margin-top: 13px;}
 
-
+.centralbox_button a{color:red}
 /*testdrive central style ends here*/
 
 
@@ -7188,6 +7201,34 @@ a{
     cursor: pointer !important;
 }
 
+
+/*testdrive central styling starts here*/
+.testDrives .nav-tabs{border:none !important;}
+
+.testDrives  .nav-tabs>li{margin-right: 10px;}
+.testDrives  .nav-tabs>li>a {
+    color: #505050;
+    border: none;
+    font-size: 17px;
+}
+
+.testDrives .nav-tabs>li.active>a{background: none;
+    border: none;
+    color: #ff8d00;
+    font-weight: bold;
+    font-size: 17px;}
+
+.col-md-12.total_testdrivebox {
+    margin-top: 50px;
+}
+
+
+.total_testdrivebox .nav-tabs>li {
+    margin-right: 35px;
+}
+
+    /*testdrive central styling ends here*/
+
 /*my ride styles ends here*/
 
 /* Css for pop up */
@@ -7434,3 +7475,32 @@ h1.title:before {
 }
 
 /*attachment feature style in creation of testdrive ends here */
+
+
+
+.black_box_left .nav-tabs,.black_box_right .nav-tabs,.location_box .nav-tabs{
+    border-top: 1px solid #afafaf;
+    border-bottom: none;
+}
+
+
+.testdrive_I_runbox .testdrive_actionbox {bottom: 18px;
+    left: 128px;
+    position: relative;
+    float: left;
+    background: none;
+    
+    }
+
+    .testdrive_I_runbox .testdrive_actionbox .button{position: relative;
+    padding: 2px 7px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    font: 18px "HemiHeadRg-BoldItalic", "Arial", Helvetica, sans-serif;
+    margin: 20px 0px 10px 0px;
+    color: red;
+    right: 170px;
+    margin-left: 50px;
+    width: 103px;}

@@ -113,7 +113,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
           <h2 className="page-heading">Create Test Drive</h2>
           <h4 className="cancel-btn"><Link to={"/home"}>Cancel</Link></h4>
           <div className="clearBoth"></div>
-          <div className="col-md-12">
+          <div className="col-md-12 total_testdrivebox">
             <div className="row">
               <div className="well">
                 <Tabs selected={0}>

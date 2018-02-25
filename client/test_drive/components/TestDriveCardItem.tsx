@@ -65,10 +65,15 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                 <div className="col-md-6 partcipant_Section">
                                     <div className="row">
                                         <div className="col-md-12">
-                                            <div className="row">
-                                                <span className="orange"><i>PARTICIPANTS</i>
-                                                    <img src="/sites/elite/Style%20Library/Elite/images/helmet.png" /></span>
-                                            </div>
+                                          
+                                                <span className="orange">
+                                                      <div className="row">
+                                                    <i>PARTICIPANTS</i>
+                                                   
+                                                    <img src="/sites/elite/Style%20Library/Elite/images/helmet.png" />
+                                                     </div>
+                                                     </span>
+                                          
                                         </div>
                                         <div className="col-md-12">
                                             <div className="row">
@@ -106,7 +111,12 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                         <div className="col-md-12">
                                             <div className="row">
                                                 <div className="col-md-12 para">
-                                                    <span className="orange">DEVICE REQUIRED</span>
+                                                    <span className="orange">
+                                                        <div className="row">
+                                                        DEVICE REQUIRED
+                                                        </div>
+                                                        </span>
+                                                        
                                                     <div className="row">
                                                         <ul className="select2-selection__rendered">
                                                             {(testDrive.requiredDevices && testDrive.requiredDevices.length) ?
@@ -126,7 +136,10 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                         <div className="col-md-12">
                                             <div className="row">
                                                 <div className="col-md-12 para">
-                                                    <span className="orange">OS REQUIRED</span>
+                                                    <span className="orange">
+                                                        <div className="row">OS REQUIRED
+                                                            </div>
+                                                        </span>
                                                     <div className="row">
                                                         <ul className="select2-selection__rendered">
                                                             {(testDrive.requiredOs && testDrive.requiredOs.length) ?
