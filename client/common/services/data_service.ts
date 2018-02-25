@@ -1607,9 +1607,9 @@ export class Services {
                 if (items.length > 0) {
                     var promises = [];
                     items.map((item, index) => {
-                        promises.push(list.items.getById(item.Id).delete()); 
+                        promises.push(list.items.getById(item.Id).delete());
                     })
-                    Promise.all(promises).then(results =>{
+                    Promise.all(promises).then(results => {
                         resolve(true);
                     })
                 } else {
@@ -2068,6 +2068,27 @@ export class Services {
         });
     }
 
+    static getMyTestDriveIDs(skip: number, top: number) {
+        return new Promise((resolve, reject) => {
+            var filter = Constants.Columns.USER_ID + ' eq ' + Services.getCurrentUserID();
+            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
+                .select(
+                    Constants.Columns.ID,
+                    Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID
+                )
+                .filter(filter).expand(Constants.Columns.TEST_DRIVE_ID)
+                .skip(skip)
+                .top(top)
+                .get().then(myTestDrives => {
+                   var ids = [];
+                   myTestDrives && myTestDrives.length && myTestDrives.map(myTestDrive =>{
+                       ids.push(myTestDrive[Constants.Columns.TEST_DRIVE_ID][Constants.Columns.ID]);
+                   })
+                    resolve(ids);
+                }, err => reject(err))
+        });
+    }
+
     static getActiveTestDrives(skip = 0, top = 3) {
         var d = new Date();
         var userRegion = Services.getUserProfileProperties().region || '';
@@ -2076,28 +2097,37 @@ export class Services {
         " and TestDriveStartDate le datetime'" + todayDate + "T00:00:00.000Z'" +
             " and TestDriveEndDate ge datetime'" + todayDate + "T00:00:00.000Z'";
         return new Promise((resolve, reject) => {
-            Services.getTestDrivesByFilter(filter, skip, top).then((testDriveInstances: TestDrive[]) => {
-                if (testDriveInstances && testDriveInstances.length > 0) {
-                    let activeTestDriveArr: HomeTestDrive[] = [];
-                    let testDrivesIDs = [];
-                    testDriveInstances.map((value, index) => {
-                        testDrivesIDs.push(testDriveInstances[index].id);
-                    });
-                    Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
-                        testDriveInstances.map((testDrive, index) => {
-                            activeTestDriveArr.push({
-                                id: testDrive.id,
-                                title: testDrive.title,
-                                enddate: testDrive.endDate,
-                                participants: parseInt(participants[index]),
-                                testDrive: testDrive
-                            });
+            Services.getTestDrivesByFilter(filter, skip, 1000).then((testDriveInstances: TestDrive[]) => {
+                Services.getMyTestDriveIDs(0, 1000).then(mytestDrivs => {
+                    if (testDriveInstances && testDriveInstances.length > 0) {
+                        var activeTestDriveArr: HomeTestDrive[] = [];
+                        var testDrivesIDs = [];
+                        testDriveInstances = testDriveInstances.filter((testDriveInstance, index) => {
+                            if($.inArray(testDriveInstance.id, mytestDrivs) == -1){
+                                testDrivesIDs.push(testDriveInstance.id);
+                                return true;
+                            } else{
+                                return false;
+                            }
                         });
-                        resolve(activeTestDriveArr);
-                    }, err => reject(err))
-                } else {
-                    resolve(testDriveInstances);
-                }
+                        testDriveInstances = testDriveInstances.slice(0, top);
+                        Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
+                            testDriveInstances.map((testDrive, index) => {
+                                activeTestDriveArr.push({
+                                    id: testDrive.id,
+                                    title: testDrive.title,
+                                    enddate: testDrive.endDate,
+                                    participants: parseInt(participants[index]),
+                                    testDrive: testDrive
+                                });
+                            });
+                            resolve(activeTestDriveArr);
+                        }, err => reject(err))
+                    } else {
+                        resolve(testDriveInstances);
+                    }
+                })
+
             })
         });
     }
@@ -2212,7 +2242,7 @@ export class Services {
     static getMyInProgressTestDrives(skip = 0, top = 3) {
         return new Promise((resolve, reject) => {
             var filter = Constants.Columns.USER_ID + ' eq ' + Services.getCurrentUserID() + ' and ' +
-            Constants.Columns.STATUS + " eq '" + Constants.ColumnsValues.DRAFT + "'";
+                Constants.Columns.STATUS + " eq '" + Constants.ColumnsValues.DRAFT + "'";
             Services.getMyTestDrivesByFilter(filter, skip, top).then(testDrives => {
                 resolve(testDrives);
             }, error => {
