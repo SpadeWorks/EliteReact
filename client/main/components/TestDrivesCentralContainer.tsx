@@ -63,13 +63,14 @@ interface AppProps {
   testDrivesWaitingForApproval: TestDrive[];
   testDrivesWaitingForApprovalLoading: boolean;
   saveTestDriveApprovalLoading: boolean;
+  activeTab: string;
   updateUI: (any) => any;
   ui: any;
 }
-
 @ui({
-  // Save all state within the 'testDrives' key of the UI reducer
-  key: "testDrives"
+  state: {
+    activeTab : 0
+  }
 })
 
 class TestDrivesCentralContainer extends React.Component<AppProps> {
@@ -77,6 +78,21 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
   componentDidMount() {
     document.body.className = "black-bg";
     this.props.dispatch(loadTestDrives(services.getCurrentUserID()));
+
+    
+  }
+
+  getSelectedTab(){
+    switch (this.props.activeTab.toLowerCase()) {
+      case 'mytestdrive':
+        return 0;
+      case 'testdrivethatirun':
+        return 1;
+      case 'activetestdrive':
+        return 2;
+      case 'uptestdrive':
+        return 3;
+    }
   }
 
   render() {
@@ -116,7 +132,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
           <div className="col-md-12 total_testdrivebox">
             <div className="row">
               <div className="well">
-                <Tabs selected={0}>
+                <Tabs selected={this.getSelectedTab()}>
                   <Pane label="MY TEST DRIVES">
                     <MyTestDrivesContainer
                       myCompletedTestDrives={myCompletedTestDrives}
@@ -181,7 +197,8 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  let activeTab = ownProps.match.params.activeTab;
   state.testDriveState.loading = state.testDriveState.loading ||
     state.asyncInitialState.loading;
 
@@ -238,7 +255,8 @@ const mapStateToProps = state => {
     approvedTestDrivesLoading,
     testDrivesWaitingForApproval,
     testDrivesWaitingForApprovalLoading,
-    saveTestDriveApprovalLoading
+    saveTestDriveApprovalLoading,
+    activeTab: activeTab || 'mytestdrive'
   }
 };
 
