@@ -2734,7 +2734,7 @@ textarea.inputMaterial {
 
 label {
     color: #000;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: normal;
     position: absolute;
     pointer-events: none;
@@ -2744,12 +2744,12 @@ label {
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
     font-family: titanium;
-    color: #f89719;
+    color: #fff;
 }
 
 
 /* active state */
-
+/*
 .inputMaterial:focus~label,
 .inputMaterial:valid~label {
     top: -21px;
@@ -2761,11 +2761,11 @@ textarea.inputMaterial:focus {
     padding-top: 20px;
     height: auto !important;
     overflow: inherit !important;
-}
+}*/
 
-textarea.inputMaterial:focus~label {
+/*textarea.inputMaterial:focus~label {
     top: -21px;
-}
+}*/
 
 .disc_lable {
     position: absolute;
@@ -5171,18 +5171,13 @@ li.active-thumbnail {
     width: 100%;
 }
 
-.editpro_box .inputMaterial:focus~label,
-.inputMaterial:valid~label {
+
+/*.inputMaterial:valid~label {
     top: -3px;
     font-size: 14px;
     color: red;
-}
+}*/
 
-input.inputMaterial:focus~label {
-    top: 3px;
-    font-size: 14px;
-    color: red;
-}
 
 .editpro_box .inputMaterial {
     font-size: 18px;
@@ -5867,18 +5862,7 @@ a:hover {
     top: 8px !important;
 }
 
-input.inputMaterial:focus~label {
-    top: -5px;
-    font-size: 14px;
-    color: red;
-}
 
-.editpro_box .inputMaterial:focus~label,
-.inputMaterial:valid~label {
-    top: -6px;
-    font-size: 11px;
-    color: #f89719;
-}
 
 .textarea-custom textarea {
     height: 85px;
@@ -7273,7 +7257,7 @@ h1.title:before {
 }
 
 .mm-popup__btn {
-    border-radius: 3px;
+    border-radius: 3px; */
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -7281,12 +7265,12 @@ h1.title:before {
     margin: 0;
     line-height: 32px;
     height: 32px;
-    border: 1px solid #666;
+    border: 1px solid #666 !important;
     text-align: center;
     display: inline-block;
     font-size: 12px;
     font-weight: 400;
-    color: #333;
+    color: #fff;
     background: transparent;
     outline: none;
     text-decoration: none;
@@ -7307,14 +7291,14 @@ h1.title:before {
 }
 
 .mm-popup__box {
-    width: 350px;
+       width: 400px;
     position: fixed;
-    top: 10%;
+    top: 25%;
     left: 50%;
     margin-left: -175px;
-    background: #fff;
+    background: #000;
     box-shadow: 0px 5px 20px 0px rgba(126, 137, 140, 0.20);
-    border-radius: 5px;
+    /* border-radius: 5px; */
     border: 1px solid #B8C8CC;
     overflow: hidden;
     z-index: 1001;
