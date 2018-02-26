@@ -28,7 +28,7 @@ export class CacheKeys {
 export class Columns {
     static TITLE = 'Title';
     static USER_REGION = 'UserRegion';
-    static USER_REGION_TEXT = 'UserRegion';
+    static USER_REGION_TEXT = 'UserRegionText';
     static ID = 'ID';
     static TEST_DRIVE_NAME = 'TestDriveName';
     static ELITE_DESCRIPTION = 'EliteDescription';
@@ -57,7 +57,7 @@ export class Columns {
     static COMPLETED_TEST_DRIVES = 'CompletedTestDrives';
     static COMPLETED_TEST_CASES = 'CompletedTestCases';
     static DATE_JOINED = 'DateJoined';
-    static USER_ROLE = 'UserInfoRole';
+    static USER_ROLE = 'UserRole';
     static POINTS = 'Points';
     static TYPE = 'Type';
     static SCENARIO = 'Scenario';

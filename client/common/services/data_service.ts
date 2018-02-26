@@ -554,7 +554,11 @@ export class Services {
                     Constants.Columns.AVATAR_IMAGE,
                     Constants.Columns.AVATAR_NAME,
                     Constants.Columns.Car_ID + '/' + Constants.Columns.CAR_LEVEL
+<<<<<<< HEAD
                 )
+=======
+                    )
+>>>>>>> e1a340d5db0df296a13dfeeeccff96db9cafa8ba
                     .expand(Constants.Columns.Car_ID)
                     .get().then(profile => {
                         let eliteProfle = <EliteProfile>{
@@ -592,6 +596,7 @@ export class Services {
             pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION).items
                 .getById(id)
                 .select(
+<<<<<<< HEAD
                     Constants.Columns.CAR_IMAGE,
                     Constants.Columns.CAR_NAME,
                     Constants.Columns.Car_ID + '/' + Constants.Columns.ID,
@@ -608,6 +613,25 @@ export class Services {
                     Constants.Columns.ACCOUNT_NAME,
                     Constants.Columns.USER_LOCATION,
                     Constants.Columns.USER_REGION,
+=======
+                Constants.Columns.CAR_IMAGE,
+                Constants.Columns.CAR_NAME,
+                Constants.Columns.Car_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.AVATAR_IMAGE,
+                Constants.Columns.AVATAR_NAME,
+                Constants.Columns.COMPLETED_TEST_DRIVES,
+                Constants.Columns.COMPLETED_TEST_CASES,
+                Constants.Columns.DATE_JOINED,
+                Constants.Columns.USER_ROLE,
+                Constants.Columns.AVAILABLE_OS,
+                Constants.Columns.AVAILABLE_DEVICES,
+                Constants.Columns.ID,
+                Constants.Columns.USER_INFO_NAME,
+                Constants.Columns.ACCOUNT_NAME,
+                Constants.Columns.USER_LOCATION,
+                Constants.Columns.USER_REGION_TEXT,
+                Constants.Columns.Car_ID + '/' + Constants.Columns.CAR_LEVEL,
+>>>>>>> e1a340d5db0df296a13dfeeeccff96db9cafa8ba
             )
                 .expand(Constants.Columns.Car_ID)
                 .get().then(profile => {
@@ -624,15 +648,16 @@ export class Services {
                         completedTestDrives: profile.completedTestDrives == null ? 0 : profile.CompletedTestDrives,
                         completedTestCases: profile.completedTestCases == null ? 0 : profile.CompletedTestCases,
                         dateJoined: this.formatDate(profile.DateJoined),
-                        role: profile.UserInfoRole,
+                        role: profile.UserRole,
                         availableOS: profile.AvailableOS.results,
-                        availableDevices: profile.AvailableDevices.results
+                        availableDevices: profile.AvailableDevices.results,
+                        levelName: profile.CarID.CarLevel
                     });
                 }, err => {
                     Utils.clientLog(err);
                 });
         });
-    }    
+    }
 
     static getUserRank(userID: number) { //TODO Update logic for more that 5000 users.
         return new Promise((resolve, reject) => {
@@ -1831,7 +1856,7 @@ export class Services {
     }
 
     static formatDate(date: string) {
-        let dateFormat = require('dateformat');        
+        let dateFormat = require('dateformat');
         let today = date && date.toLowerCase() !== "today" ? new Date(date) : new Date();
         let dd = today.getDate();
         let mm = today.getMonth() + 1;
