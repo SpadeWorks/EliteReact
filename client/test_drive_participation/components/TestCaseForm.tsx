@@ -132,7 +132,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                         <div className="container ">
                             <div className="col-md-12 ">
                                 <div className="row testcase_box ">
-                                    <span className="orange">{"Test Caes " + (index + 1)}</span>
+                                    <span className="orange">{"Test Case " + (index + 1)}</span>
                                     <h1 className="testcase_name">{testCase.title}</h1>
                                     <p>{testCase.description}</p>
 

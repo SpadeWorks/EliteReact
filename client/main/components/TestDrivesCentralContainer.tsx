@@ -157,7 +157,7 @@ render() {
                 </Pane>
 
                 {
-                  isTestDriveIRunVisible ? <Pane label="TEST DRIEVES I RUN">
+                  isTestDriveIRunVisible ? <Pane label="TEST DRIVES I RUN">
                     <TestDrivesIRunContainer
                       draftedTestDrivesIRun={draftedTestDrivesIRun}
                       draftedTestDrivesIRunLoading={draftedTestDrivesIRunLoading}
@@ -179,7 +179,7 @@ render() {
                     ui={ui}
                     updateUI={updateUI} />
                 </Pane>
-                <Pane label="Upcomming Test Drive">
+                <Pane label="Upcoming Test Drive">
                   <UpCommingTestdrivesContainer
                     upCommingTestDrives={upCommingTestDrives}
                     upCommingTestDrivesLoading={upCommingTestDrivesLoading}
