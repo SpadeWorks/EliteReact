@@ -37,6 +37,13 @@ class TestCases extends React.Component<TestCasesProps> {
             else {
                 $(this).carousel('prev');
             }
+
+            
+         
+
+
+
+
         });
 
         /** Prompt plugin */
@@ -69,6 +76,20 @@ class TestCases extends React.Component<TestCasesProps> {
             });
         });
         /** Call the plugin */
+
+
+         $( "ul.task_circle  li" ).each(function() {
+             
+             $(this).click(function(){
+                $( "ul.task_circle  li" ).removeClass( "active" )
+                $( this ).addClass( "active" );
+
+             });    
+            
+        });
+
+
+
 
     }
 
