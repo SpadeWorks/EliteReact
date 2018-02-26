@@ -1,16 +1,16 @@
 import { handleActions, Action } from 'redux-actions';
 import { IState, EliteProfile } from '../home/model';
-import {      
+import {
     LOAD_EliteProfile_PENDING,
     LOAD_EliteProfile_FULFILLED,
     LOAD_EliteProfile_REJECTED,
     LOAD_Userrank_PENDING,
     LOAD_Userrank_FULFILLED,
     LOAD_Userrank_REJECTED,
-    LOAD_UserPoints_FULFILLED,  
+    LOAD_UserPoints_FULFILLED,
     LOAD_UserPoints_PENDING,
     LOAD_CurrentTestDrives_PENDING,
-    LOAD_CurrentTestDrives_FULFILLED,    
+    LOAD_CurrentTestDrives_FULFILLED,
     UPDATE_EliteProfile,
     SAVE_EliteProfile_PENDING,
     SAVE_EliteProfile_FULFILLED,
@@ -24,6 +24,11 @@ import {
     LOAD_Cars_REJECTED,
     RESET_EliteProfile
 } from './constants/ActionTypes';
+
+import {    
+    LOAD_TotalUserCount_FULFILLED,
+    LOAD_TotalUserCount_PENDING    
+} from '../home/constants/ActionTypes';
 import { access, stat } from 'fs';
 import { totalmem } from 'os';
 import { loadEliteProfile } from './index';
@@ -62,20 +67,21 @@ const initialState: IState = {
         avatarID: -1,
         role: "",
         dateJoined: "",
-        completedTestCases: 0,        
-        completedTestDrives: 0,        
+        completedTestCases: 0,
+        completedTestDrives: 0,
         availableOS: [],
-        availableDevices: [] ,
-        isInEditMode: false       
+        availableDevices: [],
+        isInEditMode: false,
+        levelName: ""
     },
     currentUser: {},
     rank: -1,
     currentTestDrives: 0,
     avatars: [],
-    cars:[]
+    cars: []
 };
 
-export default handleActions<IState, any>({  
+export default handleActions<IState, any>({
     [LOAD_EliteProfile_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
@@ -135,8 +141,20 @@ export default handleActions<IState, any>({
             ...state,
             userPoints: action.payload,
         }
-    },  
-    
+    },
+
+    [LOAD_TotalUserCount_PENDING]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+        }
+    },
+    [LOAD_TotalUserCount_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            totalCount: action.payload,
+        }
+    },
+
     [LOAD_CurrentTestDrives_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
@@ -166,7 +184,7 @@ export default handleActions<IState, any>({
     [LOAD_Avatars_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            avatars:  action.payload,
+            avatars: action.payload,
             loading: false
         }
     },
@@ -188,7 +206,7 @@ export default handleActions<IState, any>({
     [LOAD_Cars_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            cars:  action.payload,
+            cars: action.payload,
             loading: false
         }
     },
@@ -206,8 +224,8 @@ export default handleActions<IState, any>({
             eliteProfile: {
                 ...state.eliteProfile,
                 isInEditMode: true
-            }            
+            }
         }
     },
-    
+
 }, initialState);

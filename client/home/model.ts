@@ -85,6 +85,7 @@ export type EliteProfile = {
     availableOS: string[];
     availableDevices: string[];
     isInEditMode: boolean;
+    levelName: string;
 }
 export type TestDrive = {
     id: number;

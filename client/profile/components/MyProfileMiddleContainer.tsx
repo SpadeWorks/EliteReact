@@ -46,12 +46,12 @@ class MyProfileMiddleContainer extends React.Component<MyProfileMiddleContainerP
                             <div className="col-md-12">
                                 <p>
                                     <span className="orange">
-                                        <i>{eliteProfile.carName}</i>
+                                        <i>{eliteProfile.levelName}</i>
                                     </span>
                                 </p>
                             </div>
                             <div className="col-md-12">
-                                <h4 className="testcase_title">Current level name</h4>
+                                <h4 className="testcase_title">Current level</h4>
                             </div>
                         </div>
                     </div>
