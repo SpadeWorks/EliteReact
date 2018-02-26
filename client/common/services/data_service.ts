@@ -736,13 +736,14 @@ export class Services {
             }
             var userProfile = Utils.tryParseJSON(data);
             switch (userProfile.EliteUserRole) {
-                case Constants.Columns.SITE_OWNER:
-                    userProfile.role = Constants.Columns.SITE_OWNER_DISPLAY_NAME;
+                case Constants.ColumnsValues.SITE_OWNER:
+                    userProfile.role = Constants.ColumnsValues.SITE_OWNER_DISPLAY_NAME;
                     break;
-                case Constants.Columns.TESTDRIVE_OWNER:
-                    userProfile.role = Constants.Columns.TEST_DRIVE_OWNER_DISPLAY_NAME;
+                case Constants.ColumnsValues.TEST_DRIVE_OWNER:
+                    userProfile.role = Constants.ColumnsValues.TEST_DRIVE_OWNER_DISPLAY_NAME;
+                    break;
                 default:
-                    userProfile.role = Constants.Columns.TEST_DRIVER_DISPLAY_NAME;
+                    userProfile.role = Constants.ColumnsValues.TEST_DRIVER_DISPLAY_NAME;
                     break;
             }
             userProfile.location = userProfile.location || 'Location1'; //TODO: remove loaction1.

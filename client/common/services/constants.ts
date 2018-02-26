@@ -80,12 +80,7 @@ export class Columns {
     static ACCOUNT_NAME = "AccountName";
     static RESPONSE_ATTACHMENTS = "ResponseAttachments";
     static LevelNumber = "LevelNumber";
-    static SITE_OWNER = "Elite Site Owner"
-    static TEST_DRIVER = "Elite Test Drives";
-    static TEST_DRIVE_OWNER = "Elite Test Drive Owner";
-    static SITE_OWNER_DISPLAY_NAME = "Site Owner"
-    static TEST_DRIVER_DISPLAY_NAME = "Test Driver";
-    static TEST_DRIVE_OWNER_DISPLAY_NAME = "Test Drive Owner";
+
 }
 
 export class ColumnsValues {
@@ -97,6 +92,12 @@ export class ColumnsValues {
     static SUBMIT = "Submit";
     static TEST_CASE_COMPLETION = 'Test Case Bonus';
     static QUESTION_TYPE_OBJECTIVE = "Objective";
+    static SITE_OWNER = "Elite Site Owner"
+    static TEST_DRIVER = "Elite Test Drives";
+    static TEST_DRIVE_OWNER = "Elite Test Drive Owner";
+    static SITE_OWNER_DISPLAY_NAME = "Site Owner"
+    static TEST_DRIVER_DISPLAY_NAME = "Test Driver";
+    static TEST_DRIVE_OWNER_DISPLAY_NAME = "Test Drive Owner";
 
 }
 
