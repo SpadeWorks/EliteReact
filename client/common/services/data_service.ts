@@ -554,11 +554,7 @@ export class Services {
                     Constants.Columns.AVATAR_IMAGE,
                     Constants.Columns.AVATAR_NAME,
                     Constants.Columns.Car_ID + '/' + Constants.Columns.CAR_LEVEL
-<<<<<<< HEAD
-                )
-=======
                     )
->>>>>>> e1a340d5db0df296a13dfeeeccff96db9cafa8ba
                     .expand(Constants.Columns.Car_ID)
                     .get().then(profile => {
                         let eliteProfle = <EliteProfile>{
@@ -596,24 +592,6 @@ export class Services {
             pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION).items
                 .getById(id)
                 .select(
-<<<<<<< HEAD
-                    Constants.Columns.CAR_IMAGE,
-                    Constants.Columns.CAR_NAME,
-                    Constants.Columns.Car_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.AVATAR_IMAGE,
-                    Constants.Columns.AVATAR_NAME,
-                    Constants.Columns.COMPLETED_TEST_DRIVES,
-                    Constants.Columns.COMPLETED_TEST_CASES,
-                    Constants.Columns.DATE_JOINED,
-                    Constants.Columns.USER_ROLE,
-                    Constants.Columns.AVAILABLE_OS,
-                    Constants.Columns.AVAILABLE_DEVICES,
-                    Constants.Columns.ID,
-                    Constants.Columns.USER_INFO_NAME,
-                    Constants.Columns.ACCOUNT_NAME,
-                    Constants.Columns.USER_LOCATION,
-                    Constants.Columns.USER_REGION,
-=======
                 Constants.Columns.CAR_IMAGE,
                 Constants.Columns.CAR_NAME,
                 Constants.Columns.Car_ID + '/' + Constants.Columns.ID,
@@ -631,7 +609,6 @@ export class Services {
                 Constants.Columns.USER_LOCATION,
                 Constants.Columns.USER_REGION_TEXT,
                 Constants.Columns.Car_ID + '/' + Constants.Columns.CAR_LEVEL,
->>>>>>> e1a340d5db0df296a13dfeeeccff96db9cafa8ba
             )
                 .expand(Constants.Columns.Car_ID)
                 .get().then(profile => {
