@@ -6509,6 +6509,8 @@ ul.streetrace_indicator li span {
 .enddate_line{margin-top: 13px;}
 
 .centralbox_button a{color:red}
+
+.centralbox_button a{position:relative; z-index:100;}
 /*testdrive central style ends here*/
 
 
