@@ -547,12 +547,14 @@ export class Services {
                 pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION).items
                     .getById(user.eliteProfileID)
                     .select(
-                        Constants.Columns.COMPLETED_TEST_DRIVES,
-                        Constants.Columns.CAR_IMAGE,
-                        Constants.Columns.CAR_NAME,
-                        Constants.Columns.Car_ID + '/' + Constants.Columns.ID,
-                        Constants.Columns.AVATAR_IMAGE,
-                        Constants.Columns.AVATAR_NAME)
+                    Constants.Columns.COMPLETED_TEST_DRIVES,
+                    Constants.Columns.CAR_IMAGE,
+                    Constants.Columns.CAR_NAME,
+                    Constants.Columns.Car_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.AVATAR_IMAGE,
+                    Constants.Columns.AVATAR_NAME,
+                    Constants.Columns.Car_ID + '/' + Constants.Columns.CAR_LEVEL
+                )
                     .expand(Constants.Columns.Car_ID)
                     .get().then(profile => {
                         let eliteProfle = <EliteProfile>{
@@ -571,7 +573,8 @@ export class Services {
                             carName: profile.CarName,
                             avatarName: profile.AvatarName,
                             avatarImage: profile.AvatarImage,
-                            completedTestDrives: profile[Constants.Columns.COMPLETED_TEST_DRIVES]
+                            completedTestDrives: profile[Constants.Columns.COMPLETED_TEST_DRIVES],
+                            levelName: profile.CarID.CarLevel 
                         };
                         Cache.setCache(Constants.CacheKeys.ELITE_PROFILE, eliteProfle)
                         resolve(eliteProfle);
@@ -629,8 +632,7 @@ export class Services {
                     Utils.clientLog(err);
                 });
         });
-    }
-
+    }    
 
     static getUserRank(userID: number) { //TODO Update logic for more that 5000 users.
         return new Promise((resolve, reject) => {
@@ -695,6 +697,7 @@ export class Services {
             }, err => reject(err))
         })
     }
+
     static getTotalUserCount() {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION)
@@ -1828,11 +1831,12 @@ export class Services {
     }
 
     static formatDate(date: string) {
+        let dateFormat = require('dateformat');        
         let today = date && date.toLowerCase() !== "today" ? new Date(date) : new Date();
         let dd = today.getDate();
         let mm = today.getMonth() + 1;
         let yyyy = today.getFullYear();
-        return dd + '-' + mm + '-' + yyyy;
+        return dateFormat(today, "mmm dd, yyyy");
     }
 
     static getTermSetAsOptions(termSetName, termSetID) {
@@ -2503,7 +2507,7 @@ export class Utils {
             return;
         }
         if (arguments.length > 0) {
-            console.log(arguments);
+            Utils.clientLog(arguments);
         }
     }
 
@@ -2631,16 +2635,13 @@ export class TermStore {
                 var terms = termSet.getAllTerms();
 
                 ctx.load(terms);
-                console.log(terms);
-
                 ctx.executeQueryAsync(() => {
-                    console.log(terms);
                     resolve(terms);
                 }, (sender, args) => {
                     reject(args);
                 });
             } catch (e) {
-                console.log(e);
+                Utils.clientLog(e);
             }
 
         });

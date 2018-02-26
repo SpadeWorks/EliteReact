@@ -49,6 +49,7 @@ export class Columns {
     static EXPECTED_BUSINESS_VALUE = 'ExpectedBusinessValue';
     static CAR_IMAGE = 'CarImage';
     static CAR_NAME = 'CarName';
+    static CAR_LEVEL = 'CarLevel';
     static Car_ID = 'CarID';
     static AVATAR_IMAGE = 'AvatarImage';
     static AVATAR_NAME = 'AvatarName';
