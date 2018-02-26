@@ -33,7 +33,7 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                 <div className="well">
                     <ul className="nav nav-tabs">
                         <li className="active"><a href="#home" data-toggle="tab">MY TEST DRIVES</a></li>
-                        <li className="pull-right"><a href="#profile" data-toggle="tab">TEST DRIEVES I RUN</a></li>
+                        <li className="pull-right"><a href="#profile" data-toggle="tab">TEST DRIVES I RUN</a></li>
                     </ul>
                     <div id="myTabContent" className="tab-content">
                         <div className="tab-pane active in" id="home">

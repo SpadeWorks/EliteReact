@@ -130,6 +130,9 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
           <h4 className="cancel-btn"><Link to={"/home"}>Cancel</Link></h4>
           <div className="clearBoth"></div>
           <div className="col-md-12 total_testdrivebox">
+            <div className="car_box">
+              <img src="/sites/elite/Style%20Library/Elite/images/car.png" />
+            </div>
             <div className="row">
               <div className="well">
                 <Tabs selected={this.getSelectedTab()}>
