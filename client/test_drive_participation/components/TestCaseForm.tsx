@@ -76,7 +76,6 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
     }
 
     onFilesError(error, file) {
-        console.log('error code ' + error.code + ': ' + error.message)
     }
 
     onChange(e) {
