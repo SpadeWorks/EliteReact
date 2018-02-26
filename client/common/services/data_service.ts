@@ -783,10 +783,10 @@ export class Services {
 
     static getConfigurations() {
         return new Promise((resolve, reject) => {
-            let cachedConfig = Cache.getCache(Constants.CacheKeys.CONFIGURATIONS);
-            if (cachedConfig) {
-                resolve(cachedConfig);
-            } else {
+            // let cachedConfig = Cache.getCache(Constants.CacheKeys.CONFIGURATIONS);
+            // if (cachedConfig) {
+            //     resolve(cachedConfig);
+            // } else {
                 let testDriveFields = Services.getFieldMetadata(Constants.Lists.TEST_DRIVES, [
                     Constants.Columns.ID,
                     Constants.Columns.TEST_DRIVE_NAME,
@@ -854,7 +854,7 @@ export class Services {
                     Cache.setCache(Constants.CacheKeys.CONFIGURATIONS, configObj);
                     resolve(configObj);
                 });
-            }
+            // }
         });
     }
 

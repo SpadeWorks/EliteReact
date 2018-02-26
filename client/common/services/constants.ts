@@ -28,6 +28,7 @@ export class CacheKeys {
 export class Columns {
     static TITLE = 'Title';
     static USER_REGION = 'UserRegion';
+    static USER_REGION_TEXT = 'UserRegion';
     static ID = 'ID';
     static TEST_DRIVE_NAME = 'TestDriveName';
     static ELITE_DESCRIPTION = 'EliteDescription';

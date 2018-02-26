@@ -1,3 +1,6 @@
+import 'core-js/es6/map';
+import 'core-js/es6/set';
+import 'raf/polyfill';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { applyMiddleware, Store, createStore, compose } from 'redux';
@@ -12,7 +15,6 @@ import ManageTestDrive from './test_drive/components/ManageTestDrive';
 import Home from './home/components/Home';
 import rootReducer from './main/reducer';
 import TestDrivesCentralContainer from './main/components/TestDrivesCentralContainer';
-import logger from 'redux-logger';
 import Prizes from './home/components/Prizes';
 import Video from './home/components/Video';
 import LeaderBoardContainer from './leader_board/components/LeaderBoardContainer';
@@ -44,8 +46,7 @@ const store: Store<any> = createStore(rootReducer,
   compose(applyMiddleware(
     // asyncInitialState.middleware(loadStore),
     thunkMiddleware,
-    promiseMiddleware(),
-    logger
+    promiseMiddleware()
   )));
 
 let user = Services.getUserProfileProperties();
