@@ -167,7 +167,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                       ui={ui}
                       updateUI={updateUI} />
                   </Pane>
-                  <Pane label="Upcomming Test Drive">
+                  <Pane label="Upcoming Test Drive">
                     <UpCommingTestdrivesContainer
                       upCommingTestDrives={upCommingTestDrives}
                       upCommingTestDrivesLoading={upCommingTestDrivesLoading}

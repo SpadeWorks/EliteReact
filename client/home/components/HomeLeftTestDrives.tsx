@@ -37,7 +37,10 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                     </ul>
                     <div id="myTabContent" className="tab-content">
                         <div className="tab-pane active in" id="home">
-                            <Loader show={myTestDriveLoading} message={'Loading test drives...'}>
+                      
+                               <Loader show={myTestDriveLoading} message={'Loading test drives...'}>
+                                    </Loader>
+                                   
                                 <div className="col-md-12">
                                     {
                                         (mytestDrive && mytestDrive.length) ? mytestDrive.map((testDrive, index) => {
@@ -58,7 +61,10 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                         </Link> : ''
                                     }
                                 </div>
-                            </Loader>
+                           
+
+                           
+                         
                         </div>
                         <div className="tab-pane fade" id="profile">
                             <Loader show={testDriveThatIRunLoading} message={'Loading test drives...'}>
