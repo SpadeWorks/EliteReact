@@ -20,11 +20,11 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                     <div className="well">
                         <div>
                             <ul className="nav nav-tabs">
-                                <li className="active"><a href="#regional" data-toggle="tab">REGIONAL LEADERBOARD</a></li>
-                                <li className="pull-right"><a href="#global" data-toggle="tab">GLOBAL LEADERBOARD</a></li>
+                                <li className=""><a href="#regional" data-toggle="tab">REGIONAL LEADERBOARD</a></li>
+                                <li className="active pull-right"><a href="#global" data-toggle="tab">GLOBAL LEADERBOARD</a></li>
                             </ul>
                             <div id="myTabContent" className="tab-content">
-                                <div className="tab-pane active in" id="regional">
+                                <div className="tab-pane fade" id="regional">
                                     <div className="col-md-12">
                                         <div className="row test_drive">
                                             {
@@ -39,14 +39,14 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                                                     }) : ''
                                             }
                                             {
-                                                (regionLeaders && regionLeaders.length >= 3) && <Link className="pull-right more" to={"/leaderboard"}>
+                                                (regionLeaders && regionLeaders.length >= 3) && <Link className="pull-right more" to={"/leaderboard/regional"}>
                                                     MORE >>
                                             </Link>
                                             }
                                         </div>
                                     </div>
                                 </div>
-                                <div className="tab-pane fade" id="global">
+                                <div className="tab-pane active in" id="global">
                                     <div className="col-md-12">
                                         <div className="row test_drive">
                                             {
@@ -60,7 +60,7 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                                                 }) : ''
                                             }
                                             {
-                                                (leaders && leaders.length >= 3) && <Link className="pull-right" to={"/leaderboard"}>
+                                                (leaders && leaders.length >= 3) && <Link className="pull-right" to={"/leaderboard/global"}>
                                                     MORE >>
                                             </Link>
                                             }

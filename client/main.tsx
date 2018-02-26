@@ -59,7 +59,8 @@ if (user.eliteProfileID) {
           <Route exact path="/testdrive/:id" component={ManageTestDrive} />
           <Route exact path="/testdrives" component={TestDrivesCentralContainer} />
           <Route exact path="/testdrives/:activeTab" component={TestDrivesCentralContainer} />
-          <Route exact path="/leaderboard" component={LeaderBoardContainer} />
+          <Route exact path="/leaderboard/" component={LeaderBoardContainer} />
+          <Route exact path="/leaderboard/:activeTab" component={LeaderBoardContainer} />
           <Route exact path="/video" component={Video} />
           <Route exact path="/prizes" component={Prizes} />
           <Route exact path="/profile/:id" component={MyProfile} />

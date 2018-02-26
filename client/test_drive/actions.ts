@@ -273,31 +273,31 @@ const loadUpCommingTestDrives = createAction<any, number, number>(
 const loadInProgressTestDrivesIRun = createAction<any, number, number, number>(
   LOAD_InProgressTestDrivesIRun,
   (ownerID: number, skip: number, top: number) => 
-    Services.getInProgressTestDrivesIRun(ownerID, skip, top)
+    Services.getInProgressTestDrivesIRun(skip, top)
 );
 
 const loadCompletedTestDrivesIRun = createAction<any, number, number, number>(
   LOAD_CompletedTestDrivesIRun,
   (ownerID: number, skip: number, top: number) => 
-    Services.getCompletedTestDriveIRun(ownerID, skip, top)
+    Services.getCompletedTestDriveIRun(skip, top)
 );
 
-const loadUpcommingTestDrivesIRun = createAction<any, number, number, number>(
+const loadUpcommingTestDrivesIRun = createAction<any, number, number>(
   LOAD_UpcommingTestDrivesIRun,
-  (ownerID: number, skip: number, top: number) => 
-    Services.getUpCommingTestDriveIRun(ownerID, skip, top)
+  (skip: number, top: number) => 
+    Services.getUpCommingTestDriveIRun(skip, top)
 );
 
-const loadDraftedTestDrivesIRun = createAction<any, number, number, number>(
+const loadDraftedTestDrivesIRun = createAction<any, number, number>(
   LOAD_DraftedTestDrivesIRun,
-  (ownerID: number, skip: number, top: number) => 
-    Services.getDraftedTestDrivesIRun(ownerID, skip, top)
+  (skip: number, top: number) => 
+    Services.getDraftedTestDrivesIRun(skip, top)
 );
 
 const loadSubmittedTestDrivesIRun = createAction<any, number, number, number>(
   LOAD_SubmittedTestDrivesIRun,
   (ownerID: number, skip: number, top: number) => 
-    Services.getDraftedTestDrivesIRun(ownerID, skip, top)
+    Services.getDraftedTestDrivesIRun(skip, top)
 );
 
 // Active Test drives related action ends here//
@@ -313,7 +313,7 @@ const loadMyCompletedTestDrives = createAction<any, number, number>(
 const loadMyInprogressTestDrives = createAction<any, number, number>(
   LOAD_MyInprogressTestDrives,
   (skip: number, top: number) => 
-    Services.getMyTestDrives(skip, top)
+    Services.getMyInProgressTestDrives(skip, top)
 );
 
 // My Test Drives related action ends here//

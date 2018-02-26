@@ -7,6 +7,7 @@ import * as $ from 'jquery';
 import Loader from 'react-loader-advanced';
 import * as Constants from '../../common/services/constants';
 import Popup from 'react-popup';
+import { Messages } from '../../common/services/constants';
 interface TestCasesProps {
     testDriveInstance: TestDriveInstance;
     testCases: TestCaseInstance[];
@@ -67,8 +68,6 @@ class TestCases extends React.Component<TestCasesProps> {
                 }
             });
         });
-
-
         /** Call the plugin */
 
     }

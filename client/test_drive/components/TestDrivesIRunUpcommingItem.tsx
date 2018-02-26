@@ -1,18 +1,22 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
+import { TestDrive } from '../model';
+import { ColumnsValues } from '../../common/services/constants';
+import Services from '../../common/services/services';
 
-interface TestDrivesIRunUpcommingItemsProps {
-
+interface ApprovalPendingItemProps {
+    testDrive: TestDrive;
 };
-class TestDrivesIRunUpcommingItems extends React.Component<TestDrivesIRunUpcommingItemsProps> {
+class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
     constructor(props, context) {
         super(props, context);
     }
     render() {
-        return (
+        const { testDrive} = this.props;
+        return (<div className="col-md-12 currtestdrive_list testdrive_I_runbox">
             <div className="row">
                 <div className="col-md-12">
-                    <h4>Skype for Bussiness</h4>
+                    <h4>{testDrive.title}</h4>
                 </div>
                 <div className="col-md-12">
                     <div className="row">
@@ -28,7 +32,7 @@ class TestDrivesIRunUpcommingItems extends React.Component<TestDrivesIRunUpcommi
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="row">
-                                                    <h5 style={{ marginTop: "0px" }}>Mar13, 2018</h5>
+                                                    <h5 style={{ marginTop: "0px" }}>{Services.formatDate(testDrive.startDate)}</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -42,7 +46,7 @@ class TestDrivesIRunUpcommingItems extends React.Component<TestDrivesIRunUpcommi
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="row">
-                                                    <h5> Mar18, 2018</h5>
+                                                    <h5>{Services.formatDate(testDrive.endDate)}</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -68,14 +72,14 @@ class TestDrivesIRunUpcommingItems extends React.Component<TestDrivesIRunUpcommi
                                                 <div className="row">
                                                     <div className="col-md-12">
                                                         <div className="row">
-                                                            <ul className="dragrace_indicator">
+                                                            <ul className={Services.getLevelNameClass(testDrive.levelNumber)}>
                                                                 <li><span></span></li>
                                                                 <li><span></span></li>
                                                                 <li><span></span></li>
                                                             </ul>
                                                         </div>
                                                         <div className="row">
-                                                            <h5 className="race_neme">Drag Race</h5>
+                                                            <h5 className="race_neme">{testDrive.level}</h5>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -102,8 +106,8 @@ class TestDrivesIRunUpcommingItems extends React.Component<TestDrivesIRunUpcommi
                                             <div className="col-md-12">
                                                 <div className="row">
                                                     <span className="big_text">
-                                                        2000
-                     </span>
+                                                        {testDrive.maxPoints}
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -128,8 +132,8 @@ class TestDrivesIRunUpcommingItems extends React.Component<TestDrivesIRunUpcommi
                                             <div className="col-md-12">
                                                 <div className="row">
                                                     <span className="big_text">
-                                                        30
-                     </span>
+                                                        {testDrive.testCaseIDs.length}
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -153,7 +157,7 @@ class TestDrivesIRunUpcommingItems extends React.Component<TestDrivesIRunUpcommi
                                         <div className="row inforow">
                                             <div className="col-md-12">
                                                 <div className="row">
-                                                    <h5>Aprooval Pending</h5>
+                                                    <h5>{testDrive.status}</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -164,16 +168,20 @@ class TestDrivesIRunUpcommingItems extends React.Component<TestDrivesIRunUpcommi
                         <div className="col-md-2">
                             <div className="col-md-12 social_box">
                                 <div className="row">
-                                    <a href="#"><i className="material-icons">mode_edit</i></a>
-                                    <a href="#"><i className="material-icons">remove_red_eye</i></a>
+                                    <Link to={"/testdrive/" + testDrive.id}>
+                                        <i className="material-icons">mode_edit</i>
+                                    </Link>
+                                    <Link to={"/testdrive/" + testDrive.id}>
+                                        <i className="material-icons">remove_red_eye</i>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        )
+        </div>)
     }
 }
 
-export default TestDrivesIRunUpcommingItems;
+export default ApprovalPendingItem;
