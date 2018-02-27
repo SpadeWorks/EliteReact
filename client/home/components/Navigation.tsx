@@ -29,7 +29,7 @@ class Navigation extends React.Component<NavigationProps> {
                     <img src="/sites/elite/Style%20Library/Elite/images/track.svg" className="map_image"/>
                     <Link className="maplinks" to={"/testdrives"} id="link1">
                         <img src="/sites/elite/Style%20Library/Elite/images/testdrivecenter.png" />
-                        <span>test drieves central</span>
+                        <span>test drives central</span>
                     </Link>
 
                     <a className="maplinks" id="link2" href="javascript:;" onClick={this.openPopUp}>

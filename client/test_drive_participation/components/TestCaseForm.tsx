@@ -45,14 +45,10 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         this.removeAttachment = this.removeAttachment.bind(this);
     }
 
-    componentDidMount() {
-       
-    }
-
     onFilesChange(files) {
         var duplicateFiles = [];
         var oldFiles = this.props.testCase.files;
-        oldFiles.length && oldFiles.map(oldFile => {
+        oldFiles && oldFiles.length && oldFiles.map(oldFile => {
             var machedElement = files && files.length && files.filter(newFile => {
                 return oldFile.FileName == newFile.name
             });
@@ -66,8 +62,6 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                 files: files
             });
         }
-
-
     }
 
     filesRemoveOne = (removedFile) => {
@@ -82,7 +76,6 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
     }
 
     onFilesError(error, file) {
-        console.log('error code ' + error.code + ': ' + error.message)
     }
 
     onChange(e) {
@@ -139,7 +132,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                         <div className="container ">
                             <div className="col-md-12 ">
                                 <div className="row testcase_box ">
-                                    <span className="orange">{"Test Caes " + (index + 1)}</span>
+                                    <span className="orange">{"Test Case " + (index + 1)}</span>
                                     <h1 className="testcase_name">{testCase.title}</h1>
                                     <p>{testCase.description}</p>
 

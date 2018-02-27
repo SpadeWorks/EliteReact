@@ -86,11 +86,12 @@ class MyProfile extends React.Component<MyProfileProps> {
     componentDidMount() {
         document.body.className = "plane_back";
         let user = Services.getUserProfileProperties();
-        if (user.eliteProfileID) {
-            this.props.dispatch(loadEliteProfile(this.props.id || user.eliteProfileID));
-            this.props.dispatch(loadUserRank(user.eliteProfileID));
-            this.props.dispatch(loadUserPoints(user.eliteProfileID));
-            this.props.dispatch(loadCurrentTestDrives(user.eliteProfileID));
+        let userID = this.props.id || user.eliteProfileID; 
+        if (userID) {
+            this.props.dispatch(loadEliteProfile(userID));
+            this.props.dispatch(loadUserRank(userID));
+            this.props.dispatch(loadUserPoints(userID));
+            this.props.dispatch(loadCurrentTestDrives(userID));
             this.props.dispatch(loadTotalUserCount());
         }
         if (!this.props.configurationLoaded) {
