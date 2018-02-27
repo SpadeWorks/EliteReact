@@ -552,7 +552,9 @@ export class Services {
                     Constants.Columns.CAR_NAME,
                     Constants.Columns.Car_ID + '/' + Constants.Columns.ID,
                     Constants.Columns.AVATAR_IMAGE,
-                    Constants.Columns.AVATAR_NAME)
+                    Constants.Columns.AVATAR_NAME,
+                    Constants.Columns.Car_ID + '/' + Constants.Columns.CAR_LEVEL
+                    )
                     .expand(Constants.Columns.Car_ID)
                     .get().then(profile => {
                         let eliteProfle = <EliteProfile>{
@@ -571,7 +573,8 @@ export class Services {
                             carName: profile.CarName,
                             avatarName: profile.AvatarName,
                             avatarImage: profile.AvatarImage,
-                            completedTestDrives: profile[Constants.Columns.COMPLETED_TEST_DRIVES]
+                            completedTestDrives: profile[Constants.Columns.COMPLETED_TEST_DRIVES],
+                            levelName: profile.CarID.CarLevel
                         };
                         Cache.setCache(Constants.CacheKeys.ELITE_PROFILE, eliteProfle)
                         resolve(eliteProfle);
@@ -604,7 +607,8 @@ export class Services {
                 Constants.Columns.USER_INFO_NAME,
                 Constants.Columns.ACCOUNT_NAME,
                 Constants.Columns.USER_LOCATION,
-                Constants.Columns.USER_REGION,
+                Constants.Columns.USER_REGION_TEXT,
+                Constants.Columns.Car_ID + '/' + Constants.Columns.CAR_LEVEL,
             )
                 .expand(Constants.Columns.Car_ID)
                 .get().then(profile => {
@@ -621,16 +625,16 @@ export class Services {
                         completedTestDrives: profile.completedTestDrives == null ? 0 : profile.CompletedTestDrives,
                         completedTestCases: profile.completedTestCases == null ? 0 : profile.CompletedTestCases,
                         dateJoined: this.formatDate(profile.DateJoined),
-                        role: profile.UserInfoRole,
+                        role: profile.UserRole,
                         availableOS: profile.AvailableOS.results,
-                        availableDevices: profile.AvailableDevices.results
+                        availableDevices: profile.AvailableDevices.results,
+                        levelName: profile.CarID.CarLevel
                     });
                 }, err => {
                     Utils.clientLog(err);
                 });
         });
     }
-
 
     static getUserRank(userID: number) { //TODO Update logic for more that 5000 users.
         return new Promise((resolve, reject) => {
@@ -695,6 +699,7 @@ export class Services {
             }, err => reject(err))
         })
     }
+
     static getTotalUserCount() {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION)
@@ -1817,11 +1822,12 @@ export class Services {
     }
 
     static formatDate(date: string) {
+        let dateFormat = require('dateformat');
         let today = date && date.toLowerCase() !== "today" ? new Date(date) : new Date();
         let dd = today.getDate();
         let mm = today.getMonth() + 1;
         let yyyy = today.getFullYear();
-        return dd + '-' + mm + '-' + yyyy;
+        return dateFormat(today, "mmm dd, yyyy");
     }
 
     static getTermSetAsOptions(termSetName, termSetID) {

@@ -12,9 +12,10 @@ import {
   LOAD_Avatars,
   LOAD_SetEditMode,
   LOAD_Cars,
-  RESET_EliteProfile
+  RESET_EliteProfile  
 } from './constants/ActionTypes';
 import { EliteProfile } from '../home/model';
+import {LOAD_TotalUserCount} from  '../home/constants/ActionTypes';
 
 // My Profile action creators.
 const loadEliteProfile = createAction<any, number>(
@@ -30,6 +31,11 @@ const loadUserRank = createAction<any, number>(
 const loadUserPoints = createAction<any, number>(
   LOAD_UserPoints, 
   (id: number) => Services.getUserPoints(id)  
+)
+
+const loadTotalUserCount = createAction<any>(
+  LOAD_TotalUserCount, 
+  () => Services.getListItemCount(GlobalConstants.Lists.USER_INFORMATION)  
 )
 
 const loadCurrentTestDrives = createAction<any, number>(
@@ -86,5 +92,6 @@ export {
   loadAvatars,
   loadCars,
   setEditMode,
-  resetEliteProfile
+  resetEliteProfile,
+  loadTotalUserCount
 }
