@@ -84,9 +84,12 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                 ui.inprogressItems.map((testDriveObj: any, index) => {
                                     return (<MyTestDrivesCompletedItem
                                         key={index}
-                                        testDrive={testDriveObj}
+                                        testDrive={testDriveObj.testDrive}
                                         participants={testDriveObj.participants}
+                                        testDriveResponse={testDriveObj.testDriveResponse}
+                                        checkPortion={'inProgressTestDrive'}
                                         index={index}
+                                        isCompleted={false}
                                     />)
                                 }) : (!myInprogressTestDrivesLoading && 'There are no items in this view.')
                         }
@@ -113,9 +116,12 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                 ui.completedItems.map((testDriveObj, index) => {
                                     return (<MyTestDrivesCompletedItem
                                         key={index}
-                                        testDrive={testDriveObj}
+                                        testDrive={testDriveObj.testDrive}
                                         participants={testDriveObj.participants}
+                                        testDriveResponse={testDriveObj.testDriveResponse}
+                                        checkPortion={'completedTestDrive'}
                                         index={index}
+                                        isCompleted={true}
                                     />)
                                 }) : (!myCompletedTestDrivesLoading && 'There are no items in this view.')
                         }
