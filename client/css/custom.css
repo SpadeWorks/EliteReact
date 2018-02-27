@@ -7286,7 +7286,7 @@ img.map_image {
 
     .letest_driveboxclick_right {
         position: absolute;
-        right: 392  px !important;
+        right: 392px !important;
         display: block;
         transition: 0.5s;
         width: 450px;
@@ -7920,7 +7920,7 @@ span.increase_or_decreased {
 
 
 
-    img.map_image{width: 954px !important;}
+    img.map_image{width: 800px !important;}
 
     .letest_driveboxclick {
         position: absolute;
