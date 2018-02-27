@@ -7188,11 +7188,11 @@ a#link5 {
 }
 
 .line_box {
-    height: 165px !important;
+    height: 146px !important;
     background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
     width: 100%;
     background-size: cover;
-    margin-top: -132px;
+    margin-top: -107px !important;
 }
 .overall_box {
     margin-top: 48px;
@@ -7280,7 +7280,7 @@ img.map_image {
     border-radius: 50%;
     position: absolute;
     top: 12px;
-    right: 42px;
+    right: 36px !important;
     transition: all 0.5s;
 }
 
