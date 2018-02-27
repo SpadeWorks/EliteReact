@@ -4073,7 +4073,7 @@ a.prev_task i:hover {
     height: 300px;
     width: 100px;
     position: absolute;
-    left: -150px;
+    left: -117px;
     top: 30%;
 }
 
@@ -4090,9 +4090,17 @@ ul.task_circle li {
 }
 
 ul.task_circle li p {
-    float: left;
+   float: left;
     font-size: 27px;
     width: 80px;
+    opacity: 0.2;
+}
+
+ul.task_circle li.active p {
+   float: left;
+    font-size: 27px;
+    width: 80px;
+    opacity: 1;
 }
 
 ul.task_circle li img {
@@ -5140,6 +5148,17 @@ li.active-thumbnail {
     height: 80px;
     width: 80px;
     border: solid 2px orange;
+    MARGIN-LEFT: -10PX;
+    margin-top: -10px;
+}
+
+.carousel-inner.avatar_box a:focus img{
+
+    height: 80px;
+    width: 80px;
+    border: solid 2px orange;
+    MARGIN-LEFT: -10PX;
+    margin-top: -10px;
 }
 
 .avatar_box .item {
@@ -5323,6 +5342,11 @@ h1#dialogTitleSpan {
 
 
 /*test drive participation starts here*/
+
+.participation_container .wrapper {
+    margin-top: 0px;
+}
+
 
 .row.testcase_box {
     margin-top: 30px;
@@ -6509,6 +6533,8 @@ ul.streetrace_indicator li span {
 .enddate_line{margin-top: 13px;}
 
 .centralbox_button a{color:red}
+
+.centralbox_button a{position:relative; z-index:100;}
 /*testdrive central style ends here*/
 
 
@@ -7211,13 +7237,25 @@ a{
     color: #505050;
     border: none;
     font-size: 17px;
+    text-transform: uppercase;
 }
 
 .testDrives .nav-tabs>li.active>a{background: none;
     border: none;
     color: #ff8d00;
     font-weight: bold;
-    font-size: 17px;}
+    font-size: 18px;
+    text-transform: uppercase;}
+
+
+.total_testdrivebox .tab-pane ul{margin-left: 50px; margin-top: 30px;}
+
+    .total_testdrivebox .tab-pane ul.nav-tabs li a {
+    font-size: 14px !important;
+}
+
+
+
 
 .col-md-12.total_testdrivebox {
     margin-top: 50px;
@@ -7225,7 +7263,7 @@ a{
 
 
 .total_testdrivebox .nav-tabs>li {
-    margin-right: 35px;
+    margin-right: 30px;
 }
 
     /*testdrive central styling ends here*/

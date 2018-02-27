@@ -49,7 +49,7 @@ class OverallPointsDashboard extends React.Component<OverallPointsDashboardProps
                     <div className="c_ride">
                         <div className="col-md-3">
                             <div className="col-md-12 text-center">
-                                <h4>TEST DRIEVES COMPLETED</h4>
+                                <h4>TEST DRIVES COMPLETED</h4>
                             </div>
                             <div className="col-md-12 text-center">
                                 <h2>{this.props.testDrivesCompleted}</h2>

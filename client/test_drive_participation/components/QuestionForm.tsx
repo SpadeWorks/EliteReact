@@ -37,7 +37,8 @@ class QuestionForm extends React.Component<QuestionFormProps> {
     }
 
     componentDidMount(){
-         
+
+       
     }
 
     onChange(e) {

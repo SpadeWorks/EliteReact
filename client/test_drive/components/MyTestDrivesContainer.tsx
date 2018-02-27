@@ -75,27 +75,24 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
         }
 
         return (<Tabs selected={0}>
+            
             <Pane label="TEST DRIVES IN PROGRESS">
                 <div>
                     <Loader show={myCompletedTestDrivesLoading} message={'Loading...'}>
-
-
-                        <div className="row">{
-                            (ui.inprogressItems && ui.inprogressItems.length) ? ui.inprogressItems.map((testDriveObj: any, index) => {
-                                return (<MyTestDrivesCompletedItem
-                                    key={index}
-                                    testDrive={testDriveObj.testDrive}
-                                    testDriveResponse={testDriveObj.testDriveResponse}
-                                    participants={testDriveObj.participants}
-                                    index={index}
-                                    checkPortion="inProgressTestDrive"
-                                    isCompleted={false}
-                                />)
-                            }) : (!myInprogressTestDrivesLoading && 'There are no items in this view.')
+                        {
+                            (ui.inprogressItems && ui.inprogressItems.length) ?
+                                ui.inprogressItems.map((testDriveObj: any, index) => {
+                                    return (<MyTestDrivesCompletedItem
+                                        key={index}
+                                        testDrive={testDriveObj.testDrive}
+                                        participants={testDriveObj.participants}
+                                        testDriveResponse={testDriveObj.testDriveResponse}
+                                        checkPortion={'inProgressTestDrive'}
+                                        index={index}
+                                        isCompleted={false}
+                                    />)
+                                }) : (!myInprogressTestDrivesLoading && 'There are no items in this view.')
                         }
-                        </div>
-
-
                         {
                             ui.inprogressItems && ui.inprogressItems.length > 0 ?
                                 <div className="row">
@@ -123,10 +120,10 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                     return (<MyTestDrivesCompletedItem
                                         key={index}
                                         testDrive={testDriveObj.testDrive}
-                                        testDriveResponse={testDriveObj.testDriveResponse}
                                         participants={testDriveObj.participants}
+                                        testDriveResponse={testDriveObj.testDriveResponse}
+                                        checkPortion={'completedTestDrive'}
                                         index={index}
-                                        checkPortion="completedTestDrive"
                                         isCompleted={true}
                                     />)
                                 }) : (!myCompletedTestDrivesLoading && 'There are no items in this view.')
@@ -145,7 +142,6 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                 </div> : ''
 
                         }
-
                     </Loader>
                 </div>
             </Pane>

@@ -29,7 +29,8 @@ import {
     saveEliteProfile,
     setEditMode,
     loadCars,
-    resetEliteProfile
+    resetEliteProfile,
+    loadTotalUserCount
 } from '../';
 import Services from '../../common/services/services';
 import { Dispatch } from 'redux';
@@ -49,6 +50,7 @@ interface MyProfileProps {
     cars: any[];
     totalTestDrives: number;
     loading: boolean;
+    totalCount: number;
 };
 
 @ui({
@@ -84,11 +86,13 @@ class MyProfile extends React.Component<MyProfileProps> {
     componentDidMount() {
         document.body.className = "plane_back";
         let user = Services.getUserProfileProperties();
-        if (user.eliteProfileID) {
-            this.props.dispatch(loadEliteProfile(this.props.id || user.eliteProfileID));
-            this.props.dispatch(loadUserRank(user.eliteProfileID));
-            this.props.dispatch(loadUserPoints(user.eliteProfileID));
-            this.props.dispatch(loadCurrentTestDrives(user.eliteProfileID));
+        let userID = this.props.id || user.eliteProfileID; 
+        if (userID) {
+            this.props.dispatch(loadEliteProfile(userID));
+            this.props.dispatch(loadUserRank(userID));
+            this.props.dispatch(loadUserPoints(userID));
+            this.props.dispatch(loadCurrentTestDrives(userID));
+            this.props.dispatch(loadTotalUserCount());
         }
         if (!this.props.configurationLoaded) {
             this.props.dispatch(loadConfigurations());
@@ -109,7 +113,7 @@ class MyProfile extends React.Component<MyProfileProps> {
         const { eliteProfile, rank, totalPoints,
             currentTestDrives, dispatch,
             eliteProfileFields, updateUI, ui,
-            totalTestDrives, loading, avatars, cars } = this.props;
+            totalTestDrives, loading, avatars, cars, totalCount } = this.props;
         let baseUrl = location.protocol + "//" + location.hostname;
 
         return (<div className="col-md-12">
@@ -187,7 +191,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                                                     {rank}
                                                                 </span>
                                                                 <span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span> of
-                                                        {totalTestDrives}
+                                                                {totalCount}
                                                             </p>
                                                         </div>
                                                     </div>
@@ -380,6 +384,7 @@ const mapStateToProps = (state, ownProps) => {
         avatars: state.profileState.avatars,
         cars: state.profileState.cars,
         loading: state.profileState.loading,
+        totalCount: state.homeState.totalCount,
     }
 };
 

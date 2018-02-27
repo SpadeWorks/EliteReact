@@ -15,7 +15,7 @@ class MyProfileLeftContainer extends React.Component<MyProfileLeftContainerProps
             <div className="col-md-5  profileinfo_box" style={{ borderRight: "solid 1px #3c3c3c"}}>
                 <div className="row inforow">
                     <div className="col-md-5">
-                        <span className="orange">Role:</span>
+                        <span className="orange">Role :</span>
                     </div>
                     <div className="col-md-6">
                         <h5>{eliteProfile.role}</h5>
@@ -23,7 +23,7 @@ class MyProfileLeftContainer extends React.Component<MyProfileLeftContainerProps
                 </div>
                 <div className="row inforow">
                     <div className="col-md-5">
-                        <span className="orange">Region:</span>
+                        <span className="orange">Region :</span>
                     </div>
                     <div className="col-md-6">
                         <h5>{eliteProfile.region}</h5>
@@ -31,7 +31,7 @@ class MyProfileLeftContainer extends React.Component<MyProfileLeftContainerProps
                 </div>
                 <div className="row inforow">
                     <div className="col-md-5">
-                        <span className="orange">Location:</span>
+                        <span className="orange">Location :</span>
                     </div>
                     <div className="col-md-6">
                         <h5>{eliteProfile.location}</h5>
@@ -39,7 +39,7 @@ class MyProfileLeftContainer extends React.Component<MyProfileLeftContainerProps
                 </div>
                 <div className="row inforow">
                     <div className="col-md-5">
-                        <span className="orange">Date Joined:</span>
+                        <span className="orange">Joined Date :</span>
                     </div>
                     <div className="col-md-6">
                         <h5>{eliteProfile.dateJoined}</h5>

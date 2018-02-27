@@ -41,7 +41,7 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
         <li key={index} className={activeClass}>
           <a href="#"
             onClick={this.handleClick.bind(this, index)}>
-            {child.props.label}
+            {child && child.props && child.props.label}
           </a>
         </li>
       );
