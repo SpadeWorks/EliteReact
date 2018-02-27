@@ -128,9 +128,9 @@ render() {
   } = this.props;
 
   const role = Service.getUserProfileProperties().role;
-  const isTestDriveIRunVisible = (role == Constants.ColumnsValues.TEST_DRIVE_OWNER_DISPLAY_NAME ||
-    role == Constants.ColumnsValues.SITE_OWNER_DISPLAY_NAME);
-  const isApprover = (role == Constants.ColumnsValues.SITE_OWNER_DISPLAY_NAME)
+  const isTestDriveIRunVisible = (role == "Test Drive Owner" ||
+    role == "Site Owner");
+  const isApprover = (role == "Site Owner")
   return (
     <div className="testDrives container">
       <div>

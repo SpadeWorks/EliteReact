@@ -30,8 +30,8 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
         } = this.props;
 
         const role = Service.getUserProfileProperties().role;
-        const isTestDriveIRunVisible = (role == ColumnsValues.TEST_DRIVE_OWNER_DISPLAY_NAME ||
-            role == ColumnsValues.TEST_DRIVE_OWNER_DISPLAY_NAME)
+        const isTestDriveIRunVisible = (role == "Site Owner" ||
+            role == "Test Drive Owner")
 
         return (<div className="col-md-3 black_box black_box_left pull-left">
             <div className="row">
