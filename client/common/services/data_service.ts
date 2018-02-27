@@ -1657,7 +1657,7 @@ export class Services {
                     AvatarName: avatarDetails.AvatarName,
                     AvatarImage: baseUrl + avatarDetails.FileRef,
                     AvatarID_id: avatarDetails.ID,
-                    UserDepartment: user.department,
+                    Elite_UserDepartment: user.department,
                     UserInfoName: user.displayName,
                 }])
                     .then((users: any) => {
