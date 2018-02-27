@@ -19,7 +19,7 @@ module.exports = require('./webpack.shared.config')({
   entry: {
     // webpack: 'webpack-hot-middleware/client',
     // index: path.join(process.cwd(), 'client/services.js'),
-    styles: path.join(process.cwd(), 'client/styles.js'),
+    styles: ["babel-polyfill" , path.join(process.cwd(), 'client/styles.js')],
     index: path.join(process.cwd(), 'client/index.js'),
   },
 

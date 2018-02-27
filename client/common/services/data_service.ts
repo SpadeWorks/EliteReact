@@ -53,7 +53,7 @@ export class Services {
     static getLevelNameClass(levelNumber) {
         switch (levelNumber) {
             case 1:
-                return 'streetrace_indicator soapbox_indicator';
+                return 'soapbox_indicator';
             case 2:
                 return 'streetrace_indicator'
             case 3:
