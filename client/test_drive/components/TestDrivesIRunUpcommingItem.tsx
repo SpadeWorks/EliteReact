@@ -20,12 +20,12 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                 </div>
                 <div className="col-md-12">
                     <div className="row">
-                        <div className="col-md-2">
+                        <div className="col-md-3">
                             <div className="col-md-12">
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="row inforow">
-                                            <div className="col-md-7">
+                                            <div className="col-md-5">
                                                 <div className="row">
                                                     <span className="orange">Start Date :</span>
                                                 </div>
@@ -39,7 +39,7 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                     </div>
                                     <div className="col-md-12 enddate_line">
                                         <div className="row inforow">
-                                            <div className="col-md-6">
+                                            <div className="col-md-4">
                                                 <div className="row">
                                                     <span className="orange">End date : </span>
                                                 </div>
@@ -73,9 +73,9 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                                     <div className="col-md-12">
                                                         <div className="row">
                                                             <ul className={Services.getLevelNameClass(testDrive.levelNumber)}>
-                                                                <li><span></span></li>
-                                                                <li><span></span></li>
-                                                                <li><span></span></li>
+                                                                <li></li>
+                                                                <li></li>
+                                                                <li></li>
                                                             </ul>
                                                         </div>
                                                         <div className="row">
@@ -165,17 +165,21 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-2">
-                            <div className="col-md-12 social_box">
-                                <div className="row">
+                        <div className="col-md-1">
+                         
+                                <div className="row social_box">
+                                <div className="col-md-6">
                                     <Link to={"/testdrive/" + testDrive.id}>
                                         <i className="material-icons">mode_edit</i>
                                     </Link>
+                                    </div>
+                                    <div className="col-md-6">
                                     <Link to={"/testdrive/" + testDrive.id}>
                                         <i className="material-icons">remove_red_eye</i>
                                     </Link>
+                                    </div>
                                 </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

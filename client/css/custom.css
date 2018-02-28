@@ -5327,6 +5327,8 @@ h1#dialogTitleSpan {
 
 .para {
     margin-bottom: 20px;
+    height:80px !important;
+
 }
 
 .para p {
@@ -5681,7 +5683,6 @@ animation-delay: 10s;
     max-width: 36px;
     max-height: 50px;
     border-radius: 50%;
-    border: solid 1px #bdbdbd;
 }
 
 .leader_car img {
@@ -6320,6 +6321,7 @@ button {
 .enddate_Section h5 {
     font-family: titanium;
     color: #fff;
+    font-size: 18px;
 }
 
 .partcipant_Section h5 {
@@ -6352,8 +6354,8 @@ button {
 
 .progress_drivebox .button {
     position: relative;
-    top: 14px;
-    left: 60px;
+    top: 21px;
+    left: 48px;
 }
 
 .progress_drivebox h4 {
@@ -6384,8 +6386,8 @@ ul.dragrace_indicator li span {
 
 .partcipant_Section span.orange {
     font-size: 12px;
-   
-    text-transform: uppercase;
+   text-transform: uppercase;
+   float:left; 
  
 }
 
@@ -6425,8 +6427,12 @@ ul.dragrace_indicator li span {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
+    width: 60% !important;
+    margin-left: 0px;
 }
+
+
+
 
 .testdrive_I_runbox .inforow h5 {
     font-family: titanium;
@@ -6474,6 +6480,8 @@ span.big_text {
 
 .testdrive_I_runbox .social_box {
     margin-top: 0px;
+    position: relative;
+    right: 48px;
 }
 
 .testdrive_I_runbox .social_box a {
@@ -7121,6 +7129,17 @@ a.more {
 .point_board h3{margin-bottom:5px;}
 
 .progress_drivebox span.small{letter-spacing: 2px;}
+
+p.my_allpoints{  text-align: center;
+    margin-top: 30px;}
+
+    span.orange.big {
+        font-size: 30px;
+    }
+    .testdrive_I_runbox ul {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
 
 /*my ride styles ends here*/
 
@@ -8304,7 +8323,7 @@ a.more {
     a#link2 {
         position: absolute;
         top: 22%;
-        left: 79% !important;
+        left: 76% !important;
         color: red;
         font-family: titanium;
         text-decoration: none;
@@ -8315,7 +8334,7 @@ a.more {
     a#link3 {
         position: absolute;
         top: 56%;
-        left: 84% !important;
+        left: 81% !important;
         color: red;
         font-family: titanium;
         text-decoration: none;
@@ -8358,12 +8377,12 @@ a.more {
         background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
         width: 100%;
         background-size: cover;
-        margin-top: -94px;
+        margin-top: -154px;
     }
     .overall_box {
         margin-top: 50px;
         position: relative!important;
-        top: 72px !important;
+        top: 12px !important;
     }
     .player_box {
         width: 30%;
@@ -8372,7 +8391,7 @@ a.more {
     }
     .skills_heading {
         position: absolute;
-        top: 70px !important;
+        top: 20px !important;
         font-size: 35px;
         left: 261px!important;
     }
@@ -8431,7 +8450,7 @@ a.more {
         left: 103px;
     }
     img.map_image {
-        width: 954px !important;
+        width: 916px !important;
     }
     .letest_driveboxclick {
         position: absolute;
@@ -8468,6 +8487,9 @@ a.more {
         top: -300px;
         display: block;
     }
+
+
+
 }
 
 a {
