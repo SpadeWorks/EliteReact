@@ -3776,22 +3776,13 @@ a#link6 span {
 
 span.testd_count {
     background: red;
-    padding: 8px;
-    margin-right: 12px;
+    padding: 5px;
+    margin-right: 7px;
     /* border-radius: 5px; */
     padding-right: 8px;
     font-size: 19px;
     color: #fff;
-    width: 37%;
-    float: left;
-    height: 33px;
-    background: #ed1b24;
-    transform: skewX(-20deg);
-    position: relative;
-    left: 10px;
-    z-index: 99;}
-
-
+}
 
 .testd_box span.glyphicon-triangle-top {
     font-size: 12px;
@@ -4496,7 +4487,7 @@ span.teams:hover {
 .earn_box {
     min-height: 250px;
     border-bottom: solid 1px #333;
-    padding-top: 10px;
+    padding-top: 20px;
     text-align: center;
 }
 
@@ -4556,19 +4547,11 @@ span.testd_count {
     padding-right: 8px;
     font-size: 19px;
     color: #fff;
-    padding-left: 9px;
 }
-
-span.increase_or_decreased {
-    margin-left: 15px;
-}
-
-
 
 .testd_box span.glyphicon-triangle-top {
     font-size: 12px;
     color: green;
-    left:64px;
 }
 
 .orange {
@@ -4876,7 +4859,7 @@ span.teams:hover {
 .earn_box {
     min-height: 250px;
     border-bottom: solid 1px #333;
-    padding-top: 10px;
+    padding-top: 20px;
 }
 
 .drive_completionbox {
@@ -6028,8 +6011,6 @@ h1.testcase_name {
 }
 
 
-
-
 /* file uploader */
 
 
@@ -6390,7 +6371,6 @@ ul.dragrace_indicator li span {
     font-size: 12px;
     padding-left: 10px;
     text-transform: uppercase;
-    float:left;
 }
 
 .enddate_Section span.orange {
@@ -7089,16 +7069,8 @@ a.more {
     margin-top: 0px;
 }
 
-
-
-
-
-
 /*my ride styles ends here*/
-
-
-
-@media screen and (min-width: 1280px){
+@media screen and (min-width: 1920px){
     body.img-bg {
         font-family: HemiHeadRg-BoldItalic;
         /*background: black url(./images/back.jpg) repeat 0 0;*/
@@ -7119,31 +7091,17 @@ a.more {
         background-attachment: fixed;
     }
 
-
-a#link1 {
-    position: absolute;
-    top: 9% !important;
-    left: 50%!important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    transition: all 0.5s;
-    z-index: 50;
-    font-weight: bold;
-}
-
-
-    a#link2{
-    position: absolute;
-    top: 24%;
-    left: 75% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    transition: all 0.5s;
-    z-index: 50;
-    font-weight: bold;
+    a#link6 {
+        position: absolute;
+        top: 22%;
+        left: 14%;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
     }
+
 
 
     a#link3 {
@@ -7259,18 +7217,34 @@ img.map_image {
     width: 616px !important;
 }
 
+    img.map_image{width: 954px;}
+
+
     .letest_driveboxclick {
-    position: absolute;
-    left: 372px !important;
-    display: block;
-    transition: 0.5s;
-    width: 450px;
-    opacity: 1;
-    z-index: 111;
-    top: -300px;
-    display: block;
-    float: left;
+        position: absolute;
+        left: 462px;
+        display: block;
+        transition: 0.5s;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
+        float: left;
     }
+    .white_circle {
+        float: left;
+        height: 10px;
+        width: 10px;
+        background: none;
+        border: solid 1px #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 12px;
+        right: 51px;
+        transition: all 0.5s;
+    }
+
    .white_circle {
     float: left;
     height: 10px;
@@ -7287,6 +7261,12 @@ img.map_image {
     .letest_driveboxclick_right {
         position: absolute;
         right: 392px !important;
+    }
+
+    .letest_driveboxclick_right {
+        position: absolute;
+        right: 479px;
+
         display: block;
         transition: 0.5s;
         width: 450px;
@@ -7295,32 +7275,12 @@ img.map_image {
         top: -300px;
         display: block;
     }
-
-    .test_drive {
-    margin-bottom: 5px;
-}
-  .black_box.black_box_left.pull-left {
-    height: 283px!important;
-    z-index: 1;
-}
-
-  .black_box.black_box_right.pull-right {
-   height: 283px !important;
-    z-index: 1;
-}
-
-.footer{display:none !important;}
-
-
-
+  
 }
 
 
 
-
-
-
-@media screen and (min-width: 1366px){
+@media screen and (min-width: 1440px){
     body.img-bg {
         font-family: HemiHeadRg-BoldItalic;
         /*background: black url(./images/back.jpg) repeat 0 0;*/
@@ -7341,43 +7301,57 @@ img.map_image {
         background-attachment: fixed;
     }
 
-
-a#link1 {
-    position: absolute;
-    top: 9% !important;
-    left: 55%!important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    transition: all 0.5s;
-    z-index: 50;
-    font-weight: bold;
-}
-
-
-    a#link2{
-    position: absolute;
-    top: 24%;
-    left: 78% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    transition: all 0.5s;
-    z-index: 50;
-    font-weight: bold;
+    a#link6 {
+        position: absolute;
+        top: 22%;
+        left: 14%;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
     }
 
 
-    a#link3 {
-    position: absolute;
-    top: 56%;
-    left: 84% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-    font-weight: bold;
+    img.map_image{width: 752px;}
+
+    .letest_driveboxclick {
+        position: absolute;
+        left: 462px;
+        display: block;
+        transition: 0.5s;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
+        float: left;
+    }
+    .white_circle {
+        float: left;
+        height: 10px;
+        width: 10px;
+        background: none;
+        border: solid 1px #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 12px;
+        right: 51px;
+        transition: all 0.5s;
+    }
+
+    .letest_driveboxclick_right {
+        position: absolute;
+        right: 479px;
+        display: block;
+        transition: 0.5s;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
+    }
+  
 }
 
 a#link5 {

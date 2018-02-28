@@ -27,7 +27,7 @@ export class CacheKeys {
 
 export class Columns {
     static TITLE = 'Title';
-    static USER_REGION = 'UserRegion';
+    static USER_REGION = 'Elite_UserRegion';
     static USER_REGION_TEXT = 'UserRegionText';
     static ID = 'ID';
     static TEST_DRIVE_NAME = 'TestDriveName';
@@ -104,7 +104,7 @@ export class ColumnsValues {
 }
 
 export class Globals {
-    static IMAGE_BASE_URL = _spPageContextInfo.siteAbsoluteUrl + '/Style%20Library/Elite/images/';
+    static IMAGE_BASE_URL = '/sites/elite/Style%20Library/Elite/images';
     static TEST_DRIVE_THAT_I_RUN = "testDriveThatIRun";
     static UPCOMMING_Test_Drive = "upTestDrive";
 }
