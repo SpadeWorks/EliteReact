@@ -2996,6 +2996,8 @@ li.select2-selection__choice {
     padding-right: 10px;
     margin-right: 10px;
     color: #fff;
+    margin-top: 5px;
+    margin-left: 2px;
 }
 
 ul.select2-results__options {
@@ -5679,6 +5681,7 @@ animation-delay: 10s;
     max-width: 36px;
     max-height: 50px;
     border-radius: 50%;
+    border: solid 1px #bdbdbd;
 }
 
 .leader_car img {
@@ -6418,6 +6421,11 @@ ul.dragrace_indicator li span {
 .testdrive_I_runbox h4 {
     margin-bottom: 20px;
     font-size: 24px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
 }
 
 .testdrive_I_runbox .inforow h5 {
@@ -7197,16 +7205,16 @@ a.more {
         margin-top: 42px;
     }
     .line_box {
-        height: 165px !important;
         background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
         width: 100%;
         background-size: cover;
         margin-top: -132px;
+        height: 145px !important;
     }
     .overall_box {
         margin-top: 48px;
         position: relative!important;
-        top: -21px !important;
+        top: -35px !important;
     }
     .player_box {
         width: 30%;
@@ -7309,11 +7317,11 @@ a.more {
         margin-bottom: 5px;
     }
     .black_box.black_box_left.pull-left {
-        height: 283px!important;
+ 
         z-index: 1;
     }
     .black_box.black_box_right.pull-right {
-        height: 283px !important;
+      
         z-index: 1;
     }
     .footer {
@@ -7323,6 +7331,33 @@ a.more {
     .meter img {
         margin-left: 56px !important;
     }
+
+
+    .container.big_leaderbox .leader_listbox .leader_name {
+        width: 94% !important;
+    }
+    .container.big_leaderbox .leader_listbox .leader_rank {
+        width: 6% !important;
+    }
+    .container.big_leaderbox .leader_listbox .leader_rank.my_rank {
+        background: #004b8d;
+    }
+    .container.big_leaderbox .leader_listbox .leader_rank span {
+        -webkit-transform: skewX(25deg) !important;
+        color: white;
+        position: absolute;
+        box-sizing: border-box;
+        -moz-transform: skewX(45deg);
+        -ms-transform: skewX(45deg);
+        -webkit-transform: skewX(45deg);
+        left: 6px;
+        font-size: 23px;
+        padding-left: 16px !important;
+        top: 17px;
+    }
+
+
+
 }
 
 @media screen and (min-width: 1366px) {
@@ -7410,7 +7445,7 @@ a.more {
         background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
         width: 100%;
         background-size: cover;
-        margin-top: -132px;
+        
     }
     .overall_box {
         margin-top: 48px;
@@ -7502,11 +7537,11 @@ a.more {
         margin-bottom: 5px;
     }
     .black_box.black_box_left.pull-left {
-        height: 283px!important;
+    
         z-index: 1;
     }
     .black_box.black_box_right.pull-right {
-        height: 283px !important;
+  
         z-index: 1;
     }
     .footer {
@@ -7698,11 +7733,11 @@ a.more {
         margin-bottom: 5px;
     }
     .black_box.black_box_left.pull-left {
-        height: 283px!important;
+     
         z-index: 1;
     }
     .black_box.black_box_right.pull-right {
-        height: 283px !important;
+ 
         z-index: 1;
     }
     .footer {
@@ -7948,8 +7983,8 @@ a.more {
         height: 50px;
     }
     .total_testdrivebox .tab-pane ul {
-        margin-top: 30px;
-        margin-bottom: 45px;
+        margin-top: 8px;
+        margin-bottom: 30px;
     }
     .skills_heading {
         position: absolute;
@@ -8031,11 +8066,11 @@ a.more {
         margin-bottom: 5px;
     }
     .black_box.black_box_left.pull-left {
-        height: 283px!important;
+     
         z-index: 1;
     }
     .black_box.black_box_right.pull-right {
-        height: 283px !important;
+  
         z-index: 1;
     }
     .footer {
@@ -8220,11 +8255,11 @@ a.more {
         margin-bottom: 5px;
     }
     .black_box.black_box_left.pull-left {
-        height: 283px!important;
+  
         z-index: 1;
     }
     .black_box.black_box_right.pull-right {
-        height: 283px !important;
+    
         z-index: 1;
     }
     .footer {
@@ -8467,8 +8502,8 @@ a {
 }
 
 .total_testdrivebox .tab-pane ul {
-    margin-top: 30px;
-    margin-bottom: 45px;
+    margin-top: 8px;
+    margin-bottom: 30px;
 }
 
 .total_testdrivebox .tab-pane ul.nav-tabs li a {
