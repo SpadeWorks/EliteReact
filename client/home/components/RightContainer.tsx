@@ -68,8 +68,8 @@ class UpcomingTestDrives extends React.Component<UpcomingTestDrivesProps> {
                         </span>
                     </h4>
                     </a>
-                    <p><span className="end_date">END DATE : </span> {Service.formatDate(testDrive.endDate)}</p>
-                    <p><span className="participants">PARTICIPANTS : </span> {participants}</p>
+                    <p><span className="end_date">START DATE : </span> {Service.formatDate(testDrive.startDate)}</p>
+                    <p><span className="participants">POSSIBLE POINTS : </span> {testDrive.maxPoints}</p>
                 </div>
                 <div className="letest_drivebox2">
                     <TestDriveHoverPanel
