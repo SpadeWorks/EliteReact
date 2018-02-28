@@ -48,7 +48,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                         <div className="col-md-12">
                                             <div className="row">
                                                 <span className="orange"><i>END DATE</i>
-                                                    <img src="/sites/elite/Style%20Library/Elite/images/flag.png" /></span>
+                                                    <img src="/Style%20Library/Elite/images/flag.png" /></span>
                                             </div>
                                         </div>
                                         <div className="col-md-12">
@@ -70,7 +70,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                                       <div className="row">
                                                     <i>PARTICIPANTS</i>
                                                    
-                                                    <img src="/sites/elite/Style%20Library/Elite/images/helmet.png" />
+                                                    <img src="/Style%20Library/Elite/images/helmet.png" />
                                                      </div>
                                                      </span>
                                           
