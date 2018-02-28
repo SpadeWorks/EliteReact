@@ -466,12 +466,13 @@ export class Services {
             let testDrive = Services.getTestDriveWithTestCases(testDriveID);
             let testCaseResponses = Services.getTestCaseResponses(testDriveID, userID);
             let testDriveResponse = Services.getTestDriveResponse(testDriveID, userID);
-
+            let getParticipatCount = Services.getTestDrivesParticipantCount([testDriveID]);
             let response;
-            Promise.all([testDrive, testCaseResponses, testDriveResponse]).then(results => {
+            Promise.all([testDrive, testCaseResponses, testDriveResponse, getParticipatCount]).then(results => {
                 let testDrive = <any>results[0];
                 let testCaseResponses = <any>results[1];
                 let testDriveInstance: any = results[2];
+                var participants: number = <number>results[3][0];
                 let testCasesInstances = testDrive.testCases.map((t, index) => {
                     response = testCaseResponses.filter(response => {
                         return t.id == response.testCaseId;
@@ -495,7 +496,7 @@ export class Services {
                         responseStatus: response ? response.responseStatus : Constants.ColumnsValues.INPROGRESS,
                         selectedResponse: response ? response.selectedResponse : '',
                         testCaseResponse: response ? response.testCaseResponse : '',
-                        files: response ? (response.files && response.files.files) : []
+                        files: response ? (response.files && response.files.files) : [],
                     });
                 })
 
@@ -523,7 +524,8 @@ export class Services {
                     testCaseIDs: testDrive.testCaseIDs,
                     questionIDs: testDrive.questionIDs,
                     expectedBusinessValue: testDrive.expectedBusinessValue,
-                    region: testDrive.region
+                    region: testDrive.region,
+                    participants: participants                    
                 };
 
                 resolve(instance)
@@ -1123,8 +1125,8 @@ export class Services {
             var d = new Date();
             var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             var filter = "TestDriveOwner eq " + ownerID +
-                " and TestDriveStatus eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'" +
-                " and TestDriveStartDate gt datetime'" + todayDate + "T00:00:00.000Z'";
+                " and (TestDriveStatus eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'" +
+                " or TestDriveStatus eq '" + Constants.ColumnsValues.SUBMIT + "')";
             Services.getTestDrivesByFilter(filter, skip, top)
                 .then((testDrives: any) => {
                     var testDrivesIDs = [];
@@ -1382,7 +1384,7 @@ export class Services {
                     'ID',
                     'TotalPoints'
                 )
-                .filter("ActivityName eq '" + Constants.ColumnsValues.TEST_CASE_COMPLETION + "'")
+                .filter("ActivityName eq '" +  + "'")
                 .get().then(item => {
                     resolve(item[0].TotalPoints);
                 }, err => {
@@ -1977,12 +1979,12 @@ export class Services {
                     Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_NAME,
                     Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_NAME,
                     Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_IMAGE,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION,
+                    Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION_TEXT,
             )
                 .expand("UserID").top(top).skip(skip)
                 .orderBy('Points', false)
                 .filter("PointsEarnedOnDate gt datetime'" +
-                    lastYear + "T23:59:59.000Z' and " + Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION + " eq '" + region + "'")
+                    lastYear + "T23:59:59.000Z' and " + Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION_TEXT + " eq '" + region + "'")
                 .get().then(leaders => {
                     leaders.map((leader, index) => {
                         regionalLeaders.push({
