@@ -7892,6 +7892,27 @@ a#link5 {
     background: #0000008a;
 }
 
+.container.big_leaderbox .leader_listbox .leader_name {
+    width: 94% !important;
+}
+.container.big_leaderbox .leader_listbox .leader_rank{
+    width: 6% !important;
+}
+.container.big_leaderbox .leader_listbox .leader_rank.my_rank{background:#004b8d;}
+
+.container.big_leaderbox .leader_listbox .leader_rank span{    -webkit-transform: skewX(25deg) !important;
+    color: white;
+    position: absolute;
+    box-sizing: border-box;
+    -moz-transform: skewX(45deg);
+    -ms-transform: skewX(45deg);
+    -webkit-transform: skewX(45deg);
+    left: 6px;
+    font-size: 23px;
+    padding-left: 16px !important;
+    top: 17px;}
+
+
 .leader_rank {
     width: 9% !important;
     float: left;
@@ -7920,7 +7941,7 @@ span.increase_or_decreased {
 
 
 
-    img.map_image{width: 800px !important;}
+    img.map_image{width: 954px !important;}
 
     .letest_driveboxclick {
         position: absolute;
@@ -7943,7 +7964,7 @@ span.increase_or_decreased {
         border-radius: 50%;
         position: absolute;
         top: 12px;
-        right: 51px;
+        right: 62px !important;
         transition: all 0.5s;
     }
 
@@ -7993,7 +8014,7 @@ a{
     text-transform: uppercase;}
 
 
-.total_testdrivebox .tab-pane ul{margin-left: 50px; margin-top: 30px;}
+.total_testdrivebox .tab-pane ul{ margin-top: 30px;}
 
     .total_testdrivebox .tab-pane ul.nav-tabs li a {
     font-size: 14px !important;
