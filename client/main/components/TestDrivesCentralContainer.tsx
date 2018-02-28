@@ -78,142 +78,147 @@ interface AppProps {
 class TestDrivesCentralContainer extends React.Component<AppProps> {
   constructor(props, context) {
     super(props, context);
-}
-
-componentDidMount() {
-  document.body.className = "black-bg";
-  this.props.dispatch(loadTestDrives(services.getCurrentUserID()));
-}
-
-getSelectedTab() {
-  switch (this.props.activeTab.toLowerCase()) {
-    case 'mytestdrive':
-      return 0;
-    case 'testdrivethatirun':
-      return 1;
-    case 'activetestdrive':
-      return 2;
-    case 'uptestdrive':
-      return 3;
   }
-}
 
-render() {
-  const { testDriveState, testDriveIRun, dispatch,
-    myCompletedTestDrives,
-    myCompletedTestDrivesLoading,
-    myInprogressTestDrives,
-    myInprogressTestDrivesLoading,
-    inProgressTestDrivesIRun,
-    inProgressTestDrivesIRunLoading,
-    upcommingTestDrivesIRun,
-    upcommingTestDrivesIRunLoading,
-    completedTestDrivesIRun,
-    completedTestDrivesIRunLoading,
-    draftedTestDrivesIRun,
-    draftedTestDrivesIRunLoading,
-    submittedTestDrivesIRun,
-    submittedTestDrivesIRunLoading,
-    activeTestDrives,
-    activeTestDrivesLoading,
-    upCommingTestDrives,
-    upCommingTestDrivesLoading,
-    approvedTestDrives,
-    approvedTestDrivesLoading,
-    testDrivesWaitingForApproval,
-    testDrivesWaitingForApprovalLoading,
-    saveTestDriveApprovalLoading,
-    updateUI,
-    ui
-  } = this.props;
+  componentDidMount() {
+    document.body.className = "black-bg";
+    this.props.dispatch(loadTestDrives(services.getCurrentUserID()));
+  }
 
-  const role = Service.getUserProfileProperties().role;
-  const isTestDriveIRunVisible = (role == "Test Drive Owner" ||
-    role == "Site Owner");
-  const isApprover = (role == "Site Owner")
-  return (
-    <div className="testDrives container">
-      <div>
-        <h2 className="page-heading"><span className="glyphicon glyphicon-menu-left" aria-hidden="true">
-          </span> Test Drives</h2>
-        <h4 className="cancel-btn"><Link to={"/home"}>Cancel</Link></h4>
-        <div className="clearBoth"></div>
-        <div className="col-md-12 total_testdrivebox">
-          <div className="car_box">
-            <img src="/sites/elite/Style%20Library/Elite/images/car.png" />
+  getSelectedTab() {
+    switch (this.props.activeTab.toLowerCase()) {
+      case 'mytestdrive':
+        return 0;
+      case 'testdrivethatirun':
+        return 1;
+      case 'activetestdrive':
+        return 2;
+      case 'uptestdrive':
+        return 3;
+    }
+  }
+
+  render() {
+    const { testDriveState, testDriveIRun, dispatch,
+      myCompletedTestDrives,
+      myCompletedTestDrivesLoading,
+      myInprogressTestDrives,
+      myInprogressTestDrivesLoading,
+      inProgressTestDrivesIRun,
+      inProgressTestDrivesIRunLoading,
+      upcommingTestDrivesIRun,
+      upcommingTestDrivesIRunLoading,
+      completedTestDrivesIRun,
+      completedTestDrivesIRunLoading,
+      draftedTestDrivesIRun,
+      draftedTestDrivesIRunLoading,
+      submittedTestDrivesIRun,
+      submittedTestDrivesIRunLoading,
+      activeTestDrives,
+      activeTestDrivesLoading,
+      upCommingTestDrives,
+      upCommingTestDrivesLoading,
+      approvedTestDrives,
+      approvedTestDrivesLoading,
+      testDrivesWaitingForApproval,
+      testDrivesWaitingForApprovalLoading,
+      saveTestDriveApprovalLoading,
+      updateUI,
+      ui
+    } = this.props;
+
+    const role = Service.getUserProfileProperties().role;
+    const isTestDriveIRunVisible = (role == "Test Drive Owner" ||
+      role == "Site Owner");
+    const isApprover = (role == "Site Owner")
+    return (
+      <div className="testDrives container">
+        <div>
+
+          <div className="container header_part">
+            <h2> <Link to={"/"} >
+              <span className="glyphicon glyphicon-menu-left" aria-hidden="true">
+              </span> Test Drives</Link>
+            </h2>
           </div>
-          <div className="row">
-            <div className="well">
-              <Tabs selected={this.getSelectedTab()}>
-                <Pane label="MY TEST DRIVES">
-                  <MyTestDrivesContainer
-                    myCompletedTestDrives={myCompletedTestDrives}
-                    myCompletedTestDrivesLoading={myCompletedTestDrivesLoading}
-                    myInprogressTestDrives={myInprogressTestDrives}
-                    myInprogressTestDrivesLoading={myInprogressTestDrivesLoading}
-                    loadMyCompletedTestDrives={(skip, top) => dispatch(loadMyCompletedTestDrives(skip, top))}
-                    loadMyInprogressTestDrives={(skip, top) => dispatch(loadMyInprogressTestDrives(skip, top))}
-                    ui={ui}
-                    updateUI={updateUI} />
-                </Pane>
 
-                {
-                  isTestDriveIRunVisible ? <Pane label="TEST DRIVES I RUN">
-                    <TestDrivesIRunContainer
-                      draftedTestDrivesIRun={draftedTestDrivesIRun}
-                      draftedTestDrivesIRunLoading={draftedTestDrivesIRunLoading}
-                      upcommingTestDrivesIRun={upcommingTestDrivesIRun}
-                      upcommingTestDrivesIRunLoading={upcommingTestDrivesIRunLoading}
-                      loadUpcommingTestDrivesIRun={(skip, top) => dispatch(loadUpcommingTestDrivesIRun(skip, top))}
-                      loadDraftedTestDrivesIRun={(skip, top) => dispatch(loadDraftedTestDrivesIRun(skip, top))}
+          <div className="clearBoth"></div>
+          <div className="col-md-12 total_testdrivebox">
+            <div className="car_box">
+              <img src="/sites/elite/Style%20Library/Elite/images/car.png" />
+            </div>
+            <div className="row">
+              <div className="well">
+                <Tabs selected={this.getSelectedTab()}>
+                  <Pane label="MY TEST DRIVES">
+                    <MyTestDrivesContainer
+                      myCompletedTestDrives={myCompletedTestDrives}
+                      myCompletedTestDrivesLoading={myCompletedTestDrivesLoading}
+                      myInprogressTestDrives={myInprogressTestDrives}
+                      myInprogressTestDrivesLoading={myInprogressTestDrivesLoading}
+                      loadMyCompletedTestDrives={(skip, top) => dispatch(loadMyCompletedTestDrives(skip, top))}
+                      loadMyInprogressTestDrives={(skip, top) => dispatch(loadMyInprogressTestDrives(skip, top))}
                       ui={ui}
-                      updateUI={updateUI}
-                    />
-                  </Pane> : ''
-                }
+                      updateUI={updateUI} />
+                  </Pane>
 
-                <Pane label="Active Test Drive">
-                  <ActiveTestDrivesContainer
-                    activeTestDrives={activeTestDrives}
-                    activeTestDrivesLoading={activeTestDrivesLoading}
-                    loadActiveTestDrives={(skip, top) => dispatch(loadActiveTestDrives(skip, top))}
-                    ui={ui}
-                    updateUI={updateUI} />
-                </Pane>
-                <Pane label="Upcoming Test Drive">
-                  <UpCommingTestdrivesContainer
-                    upCommingTestDrives={upCommingTestDrives}
-                    upCommingTestDrivesLoading={upCommingTestDrivesLoading}
-                    loadUpCommingTestDrives={(skip, top) => dispatch(loadUpCommingTestDrives(skip, top))}
-                    ui={ui}
-                    updateUI={updateUI} />
-                </Pane>
+                  {
+                    isTestDriveIRunVisible ? <Pane label="TEST DRIVES I RUN">
+                      <TestDrivesIRunContainer
+                        draftedTestDrivesIRun={draftedTestDrivesIRun}
+                        draftedTestDrivesIRunLoading={draftedTestDrivesIRunLoading}
+                        upcommingTestDrivesIRun={upcommingTestDrivesIRun}
+                        upcommingTestDrivesIRunLoading={upcommingTestDrivesIRunLoading}
+                        loadUpcommingTestDrivesIRun={(skip, top) => dispatch(loadUpcommingTestDrivesIRun(skip, top))}
+                        loadDraftedTestDrivesIRun={(skip, top) => dispatch(loadDraftedTestDrivesIRun(skip, top))}
+                        ui={ui}
+                        updateUI={updateUI}
+                      />
+                    </Pane> : ''
+                  }
 
-                {
-                  isApprover ? <Pane label="PENDING APPROVALS">
-                    <ApprovalPendingContainer
-                      approvedTestDrives={approvedTestDrives}
-                      approvedTestDrivesLoading={approvedTestDrivesLoading}
-                      testDrivesWaitingForApproval={testDrivesWaitingForApproval}
-                      testDrivesWaitingForApprovalLoading={testDrivesWaitingForApprovalLoading}
-                      loadApprovedTestDrives={(skip, top) => dispatch(loadApprovedTestDrives(skip, top))}
-                      loadTestDrivesWaitingFormApproval={(skip, top) => dispatch(loadTestDrivesWaitingForApproval(skip, top))}
-                      saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
-                      approveTestDrive={(id) => dispatch(approveTestDrive(id))}
+                  <Pane label="Active Test Drive">
+                    <ActiveTestDrivesContainer
+                      activeTestDrives={activeTestDrives}
+                      activeTestDrivesLoading={activeTestDrivesLoading}
+                      loadActiveTestDrives={(skip, top) => dispatch(loadActiveTestDrives(skip, top))}
                       ui={ui}
-                      updateUI={updateUI}
-                    />
-                  </Pane> : ''
-                }
-              </Tabs>
+                      updateUI={updateUI} />
+                  </Pane>
+                  <Pane label="Upcoming Test Drive">
+                    <UpCommingTestdrivesContainer
+                      upCommingTestDrives={upCommingTestDrives}
+                      upCommingTestDrivesLoading={upCommingTestDrivesLoading}
+                      loadUpCommingTestDrives={(skip, top) => dispatch(loadUpCommingTestDrives(skip, top))}
+                      ui={ui}
+                      updateUI={updateUI} />
+                  </Pane>
+
+                  {
+                    isApprover ? <Pane label="PENDING APPROVALS">
+                      <ApprovalPendingContainer
+                        approvedTestDrives={approvedTestDrives}
+                        approvedTestDrivesLoading={approvedTestDrivesLoading}
+                        testDrivesWaitingForApproval={testDrivesWaitingForApproval}
+                        testDrivesWaitingForApprovalLoading={testDrivesWaitingForApprovalLoading}
+                        loadApprovedTestDrives={(skip, top) => dispatch(loadApprovedTestDrives(skip, top))}
+                        loadTestDrivesWaitingFormApproval={(skip, top) => dispatch(loadTestDrivesWaitingForApproval(skip, top))}
+                        saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
+                        approveTestDrive={(id) => dispatch(approveTestDrive(id))}
+                        ui={ui}
+                        updateUI={updateUI}
+                      />
+                    </Pane> : ''
+                  }
+                </Tabs>
+              </div>
             </div>
           </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
-  );
-}
+    );
+  }
 }
 
 const mapStateToProps = (state, ownProps) => {

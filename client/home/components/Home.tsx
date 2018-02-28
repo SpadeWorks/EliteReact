@@ -91,7 +91,7 @@ class Home extends React.Component<HomeProps, HomeState> {
             this.props.dispatch(loadRegionLeaderBoard(user.region, 0, 3));
             this.props.dispatch(getUserRank(user.eliteProfileID));
             this.props.dispatch(loadMyTestDrive());
-            this.props.dispatch(loadTestDriveThatIRun(user.eliteProfileID, 0, 3));
+            this.props.dispatch(loadTestDriveThatIRun(0, 3));
             this.props.dispatch(loadUpcomingTestDrive());
             this.props.dispatch(loadActiveTestDrive());
             this.props.dispatch(loadTotalUserCount());

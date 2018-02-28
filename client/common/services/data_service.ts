@@ -995,6 +995,36 @@ export class Services {
         });
     }
 
+    static getActiveTestDrivesIRun(skip = 0, top = 3) {
+        return new Promise((resolve, reject) => {
+            var ownerID = Services.getCurrentUserID();
+            var d = new Date();
+            var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            var filter = "TestDriveOwner eq " + ownerID +
+                " and TestDriveStatus eq '" + Constants.ColumnsValues.ACTIVE + "'";
+            Services.getTestDrivesByFilter(filter, skip, top)
+                .then((testDrives: any) => {
+                    var testDrivesIDs = [];
+                    testDrives.map((testDrive, index) => {
+                        testDrivesIDs.push(testDrive.id);
+                    });
+                    Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
+                        var testDrivesResults = [];
+                        testDrives.map((testDrive, index) => {
+                            testDrivesResults.push({
+                                participants: participants[index],
+                                testDrive: testDrive
+                            })
+                        })
+                        resolve(testDrivesResults);
+                    })
+
+                }, error => {
+                    Utils.clientLog(error);
+                });
+        });
+    }
+
     static getDraftedTestDrivesIRun(skip = 0, top = 3) {
         return new Promise((resolve, reject) => {
             var ownerID = Services.getCurrentUserID();
