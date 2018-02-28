@@ -85,7 +85,7 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                             }) : ''
                                         }
                                         {(!testDriveThatIRunLoading && !testDriveThatIRun.length) ? <div>
-                                            <p>You have not created any test dive yet.</p>
+                                            <p>You have not created any test drive yet.</p>
                                             <div className="col-md-12 popup_buttonbox">
                                                 <Link className="button type1" to={"/testdrive"}> +Create Test Drive </Link>
                                             </div>

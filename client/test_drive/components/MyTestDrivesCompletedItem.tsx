@@ -140,8 +140,8 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                             </div>
                         </div>
                         {isCompleted ?
-                            <Link className="button type1" to={"/participation/" + testDrive.id}> Drive Through </Link> : 
-                            <Link className="button type1" to={"/participation/" + testDrive.id}> Re Test </Link>}        
+                            <Link className="button type1" to={"/participation/" + testDrive.id}> View Details </Link> : 
+                            <Link className="button type1" to={"/participation/" + testDrive.id}> Complete the drive </Link>}        
                     </div>
                 </div>
             </div>
