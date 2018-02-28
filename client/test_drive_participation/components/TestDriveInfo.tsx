@@ -123,7 +123,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                             <div className="row inforow">
                                 <div className="col-md-4">
                                     <div className="row">
-                                        <span className="orange">DIFICULTY LEVEL:</span>
+                                        <span className="orange">DIFFICULTY LEVEL:</span>
                                     </div>
                                 </div>
                                 <div className="col-md-6">

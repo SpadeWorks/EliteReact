@@ -82,6 +82,9 @@ class Home extends React.Component<HomeProps, HomeState> {
         Services.loadProgressBar("total-task-canvas");
 
         let user = Services.getUserProfileProperties();
+        Services.getApplicationConfigurations().then(function(data:any){
+            $("#homeMiddleText").html(data.HomePageMiddleText);
+        });
         if (user.eliteProfileID) {
             this.props.dispatch(loadEliteProfile(user.eliteProfileID));
             this.props.dispatch(loadLeaderBoard(0, 3));
@@ -129,7 +132,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                             />
 
                             <div className="col-md-4">
-                                <h2 className="text-center skills_heading">Skills.Speed.Smarts. Brind it all.</h2>
+                                <h2 className="text-center skills_heading" id="homeMiddleText"></h2>
                             </div>
                             <HomeRightTestDrives
                                 ui={ui}

@@ -68,7 +68,7 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
                                 participants={testDriveObj.participents}
                                 testDrive={testDriveObj.testDrive} 
                                 isActive={false}/>)
-                        }) : (!upCommingTestDrivesLoading && 'There are no up comming items.')
+                        }) : (!upCommingTestDrivesLoading && 'There are no upcoming items.')
                 }
                 {
                     ui.visibleItems && ui.visibleItems.length > 0 &&

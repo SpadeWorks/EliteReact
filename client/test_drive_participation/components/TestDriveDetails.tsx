@@ -250,7 +250,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                 <div className="row inforow">
                                     <div className="col-md-4">
                                         <div className="row">
-                                            <span className="orange">DIFICULTY LEVEL :</span>
+                                            <span className="orange">DIFFICULTY LEVEL :</span>
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -270,7 +270,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             </div>
                         </div>
                         <div className="col-md-12 para">
-                            <span className="orange">EXPERIANCE BUSINESS VALUE : </span>
+                            <span className="orange">EXPECTED BUSINESS VALUE : </span>
                             <p>{testDriveInstance.expectedBusinessValue}</p>
                         </div>
                         <div className="col-md-12 para">

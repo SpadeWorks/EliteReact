@@ -59,7 +59,7 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                             />)
                                         }) : ''
                                     }
-                                    {(!myTestDriveLoading && mytestDrive.length == 0) ? <p>You have not participated in any test dirve yet.</p> : ''}
+                                    {(!myTestDriveLoading && mytestDrive.length == 0) ? <p>You have not participated in any test drive yet.</p> : ''}
                                     {
                                         (mytestDrive && mytestDrive.length >= 3) ? <Link className="read_morelink more" to={"/testdrives/mytestDrive"}>
                                             MORE >>
