@@ -3776,13 +3776,22 @@ a#link6 span {
 
 span.testd_count {
     background: red;
-    padding: 5px;
-    margin-right: 7px;
+    padding: 8px;
+    margin-right: 12px;
     /* border-radius: 5px; */
     padding-right: 8px;
     font-size: 19px;
     color: #fff;
-}
+    width: 37%;
+    float: left;
+    height: 33px;
+    background: #ed1b24;
+    transform: skewX(-20deg);
+    position: relative;
+    left: 10px;
+    z-index: 99;}
+
+
 
 .testd_box span.glyphicon-triangle-top {
     font-size: 12px;
@@ -4487,7 +4496,7 @@ span.teams:hover {
 .earn_box {
     min-height: 250px;
     border-bottom: solid 1px #333;
-    padding-top: 20px;
+    padding-top: 10px;
     text-align: center;
 }
 
@@ -4547,11 +4556,19 @@ span.testd_count {
     padding-right: 8px;
     font-size: 19px;
     color: #fff;
+    padding-left: 9px;
 }
+
+span.increase_or_decreased {
+    margin-left: 15px;
+}
+
+
 
 .testd_box span.glyphicon-triangle-top {
     font-size: 12px;
     color: green;
+    left:64px;
 }
 
 .orange {
@@ -4859,7 +4876,7 @@ span.teams:hover {
 .earn_box {
     min-height: 250px;
     border-bottom: solid 1px #333;
-    padding-top: 20px;
+    padding-top: 10px;
 }
 
 .drive_completionbox {
@@ -6011,6 +6028,8 @@ h1.testcase_name {
 }
 
 
+
+
 /* file uploader */
 
 
@@ -6371,6 +6390,7 @@ ul.dragrace_indicator li span {
     font-size: 12px;
     padding-left: 10px;
     text-transform: uppercase;
+    float:left;
 }
 
 .enddate_Section span.orange {
@@ -6502,7 +6522,12 @@ ul.streetrace_indicator {
 }
 
 ul.streetrace_indicator li {
+    height: 20px;
+    width: 20px;
+    background: #f8971d;
+    border-radius: 50%;
     float: left;
+    margin-left: 5px;
 }
 
 ul.streetrace_indicator li span {
@@ -7069,8 +7094,16 @@ a.more {
     margin-top: 0px;
 }
 
+
+
+
+
+
 /*my ride styles ends here*/
-@media screen and (min-width: 1920px){
+
+
+
+@media screen and (min-width: 1280px){
     body.img-bg {
         font-family: HemiHeadRg-BoldItalic;
         /*background: black url(./images/back.jpg) repeat 0 0;*/
@@ -7091,48 +7124,174 @@ a.more {
         background-attachment: fixed;
     }
 
-    a#link6 {
-        position: absolute;
-        top: 22%;
-        left: 14%;
-        color: red;
-        font-family: titanium;
-        text-decoration: none;
-        z-index: 50;
-        transition: all 0.5s;
+
+a#link1 {
+    position: absolute;
+    top: 9% !important;
+    left: 50%!important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    transition: all 0.5s;
+    z-index: 50;
+    font-weight: bold;
+}
+
+
+    a#link2{
+    position: absolute;
+    top: 24%;
+    left: 75% !important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    transition: all 0.5s;
+    z-index: 50;
+    font-weight: bold;
     }
 
 
-    img.map_image{width: 954px;}
+    a#link3 {
+    position: absolute;
+    top: 56%;
+    left: 81% !important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    z-index: 50;
+    transition: all 0.5s;
+    font-weight: bold;
+}
+
+a#link5 {
+    position: absolute;
+    top: 47% !important;
+    left: 45% !important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    z-index: 50;
+    transition: all 0.5s;
+    font-weight: bold;
+}
+
+  a#link6 {
+    position: absolute;
+    top: 21% !important;
+    left: 20% !important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    z-index: 50;
+    transition: all 0.5s;
+}
+.map_container {
+    width: auto;
+    float: left;
+   margin-left: 154px !important;
+    margin-top: 42px;
+}
+
+.line_box {
+    height: 165px !important;
+    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+    width: 100%;
+    background-size: cover;
+    margin-top: -132px;
+}
+.overall_box {
+    margin-top: 48px;
+    position: relative!important;
+    top: -21px !important;
+}
+
+.player_box {
+    width: 30%;
+    margin: 0 auto;
+    height: 50px;
+
+}
+
+.skills_heading {
+    position: absolute;
+    top: 70px !important;
+    font-size: 35px;
+    left: 160px!important;
+}
+
+
+.leader_name {
+   height: 50px;
+    background: none;
+    float: right !important;
+    width: 88% !important;
+    border: solid 1px #fff;
+    transform: skewX(-27deg);
+    height: 60px;
+    background: none;
+    border: solid 1px #fff;
+    background: #0000008a;
+}
+
+.leader_rank {
+  width: 12% !important;
+    float: left;
+    height: 43px;
+    background: #ed1b24;
+    transform: skewX(-20deg);
+    position: relative;
+    left: 15px;
+    z-index: 99;
+}
+
+span.increase_or_decreased {
+    position: absolute;
+    left: 85px;
+    font-size: 25px;
+}
+
+
+.testd_box span.glyphicon-triangle-top {
+  font-size: 22px;
+    color: green;
+    left: 73px;
+}
+
+
+
+
+img.map_image {
+    width: 616px !important;
+}
 
     .letest_driveboxclick {
-        position: absolute;
-        left: 462px;
-        display: block;
-        transition: 0.5s;
-        width: 450px;
-        opacity: 1;
-        z-index: 111;
-        top: -300px;
-        display: block;
-        float: left;
+    position: absolute;
+    left: 372px !important;
+    display: block;
+    transition: 0.5s;
+    width: 450px;
+    opacity: 1;
+    z-index: 111;
+    top: -300px;
+    display: block;
+    float: left;
     }
-    .white_circle {
-        float: left;
-        height: 10px;
-        width: 10px;
-        background: none;
-        border: solid 1px #fff;
-        border-radius: 50%;
-        position: absolute;
-        top: 12px;
-        right: 51px;
-        transition: all 0.5s;
-    }
+   .white_circle {
+    float: left;
+    height: 10px;
+    width: 10px;
+    background: none;
+    border: solid 1px #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 12px;
+    right: 42px;
+    transition: all 0.5s;
+}
 
     .letest_driveboxclick_right {
         position: absolute;
-        right: 479px;
+        right: 392  px !important;
         display: block;
         transition: 0.5s;
         width: 450px;
@@ -7141,8 +7300,249 @@ a.more {
         top: -300px;
         display: block;
     }
-  
+
+    .test_drive {
+    margin-bottom: 5px;
 }
+  .black_box.black_box_left.pull-left {
+    height: 283px!important;
+    z-index: 1;
+}
+
+  .black_box.black_box_right.pull-right {
+   height: 283px !important;
+    z-index: 1;
+}
+
+.footer{display:none !important;}
+
+
+
+}
+
+
+
+
+
+
+@media screen and (min-width: 1366px){
+    body.img-bg {
+        font-family: HemiHeadRg-BoldItalic;
+        /*background: black url(./images/back.jpg) repeat 0 0;*/
+        background: #212030;
+        color: #fff;
+        overflow-x: hidden;
+        height: 100vh;
+        -webkit-transform: opacity 0.3s linear;
+        transform: opacity 0.3s linear;
+        background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
+        width: 100%;
+        height: auto;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        left: 0px;
+        top: 0px;
+        background-attachment: fixed;
+    }
+
+
+a#link1 {
+    position: absolute;
+    top: 9% !important;
+    left: 55%!important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    transition: all 0.5s;
+    z-index: 50;
+    font-weight: bold;
+}
+
+
+    a#link2{
+    position: absolute;
+    top: 24%;
+    left: 78% !important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    transition: all 0.5s;
+    z-index: 50;
+    font-weight: bold;
+    }
+
+
+    a#link3 {
+    position: absolute;
+    top: 56%;
+    left: 84% !important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    z-index: 50;
+    transition: all 0.5s;
+    font-weight: bold;
+}
+
+a#link5 {
+    position: absolute;
+    top: 45%;
+    left: 45% !important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    z-index: 50;
+    transition: all 0.5s;
+    font-weight: bold;
+}
+
+  a#link6 {
+    position: absolute;
+    top: 21% !important;
+    left: 27% !important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    z-index: 50;
+    transition: all 0.5s;
+}
+.map_container {
+    width: auto;
+    float: left;
+    margin-left: 225px !important;
+    margin-top: 42px;
+}
+
+.line_box {
+    height: 165px !important;
+    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+    width: 100%;
+    background-size: cover;
+    margin-top: -132px;
+}
+.overall_box {
+    margin-top: 48px;
+    position: relative!important;
+    top: -21px !important;
+}
+
+.player_box {
+    width: 30%;
+    margin: 0 auto;
+    height: 50px;
+
+}
+
+.skills_heading {
+    position: absolute;
+    top: 70px !important;
+    font-size: 35px;
+    left: 160px!important;
+}
+
+
+.leader_name {
+   height: 50px;
+    background: none;
+    float: right !important;
+    width: 88% !important;
+    border: solid 1px #fff;
+    transform: skewX(-27deg);
+    height: 60px;
+    background: none;
+    border: solid 1px #fff;
+    background: #0000008a;
+}
+
+.leader_rank {
+  width: 12% !important;
+    float: left;
+    height: 43px;
+    background: #ed1b24;
+    transform: skewX(-20deg);
+    position: relative;
+    left: 15px;
+    z-index: 99;
+}
+
+span.increase_or_decreased {
+    position: absolute;
+    left: 85px;
+    font-size: 25px;
+}
+
+
+.testd_box span.glyphicon-triangle-top {
+  font-size: 22px;
+    color: green;
+    left: 73px;
+}
+
+
+
+
+img.map_image {
+    width: 616px !important;
+}
+
+    .letest_driveboxclick {
+    position: absolute;
+    left: 392px !important;
+    display: block;
+    transition: 0.5s;
+    width: 450px;
+    opacity: 1;
+    z-index: 111;
+    top: -300px;
+    display: block;
+    float: left;
+    }
+   .white_circle {
+    float: left;
+    height: 10px;
+    width: 10px;
+    background: none;
+    border: solid 1px #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 12px;
+    right: 42px;
+    transition: all 0.5s;
+}
+
+    .letest_driveboxclick_right {
+        position: absolute;
+        right: 409px !important;
+        display: block;
+        transition: 0.5s;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
+    }
+
+    .test_drive {
+    margin-bottom: 5px;
+}
+  .black_box.black_box_left.pull-left {
+    height: 283px!important;
+    z-index: 1;
+}
+
+  .black_box.black_box_right.pull-right {
+   height: 283px !important;
+    z-index: 1;
+}
+
+.footer{display:none !important;}
+
+
+
+}
+
+
 
 
 
@@ -7167,23 +7567,390 @@ a.more {
         background-attachment: fixed;
     }
 
-    a#link6 {
-        position: absolute;
-        top: 22%;
-        left: 14%;
-        color: red;
-        font-family: titanium;
-        text-decoration: none;
-        z-index: 50;
-        transition: all 0.5s;
+
+a#link1 {
+    position: absolute;
+    top: 8% !important;
+    left: 57%!important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    transition: all 0.5s;
+    z-index: 50;
+    font-weight: bold;
+}
+
+
+    a#link2{
+    position: absolute;
+    top: 24%;
+    left: 79% !important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    transition: all 0.5s;
+    z-index: 50;
+    font-weight: bold;
     }
 
 
-    img.map_image{width: 752px;}
+    a#link3 {
+    position: absolute;
+    top: 56%;
+    left: 84% !important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    z-index: 50;
+    transition: all 0.5s;
+    font-weight: bold;
+}
+
+a#link5 {
+    position: absolute;
+    top: 45%;
+    left: 45% !important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    z-index: 50;
+    transition: all 0.5s;
+    font-weight: bold;
+}
+
+  a#link6 {
+    position: absolute;
+    top: 21% !important;
+    left: 31% !important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    z-index: 50;
+    transition: all 0.5s;
+}
+.map_container {
+    width: auto;
+    float: left;
+    margin-left: 271px !important;
+    margin-top: 42px;
+}
+
+.line_box {
+    height: 165px !important;
+    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+    width: 100%;
+    background-size: cover;
+    margin-top: -132px;
+}
+.overall_box {
+    margin-top: 48px;
+    position: relative!important;
+    top: -21px !important;
+}
+
+.player_box {
+    width: 30%;
+    margin: 0 auto;
+    height: 50px;
+
+}
+
+.skills_heading {
+    position: absolute;
+    top: 70px !important;
+    font-size: 35px;
+    left: 160px!important;
+}
+
+
+.leader_name {
+   height: 50px;
+    background: none;
+    float: right !important;
+    width: 88% !important;
+    border: solid 1px #fff;
+    transform: skewX(-27deg);
+    height: 60px;
+    background: none;
+    border: solid 1px #fff;
+    background: #0000008a;
+}
+
+.leader_rank {
+  width: 12% !important;
+    float: left;
+    height: 43px;
+    background: #ed1b24;
+    transform: skewX(-20deg);
+    position: relative;
+    left: 15px;
+    z-index: 99;
+}
+
+span.increase_or_decreased {
+    position: absolute;
+    left: 85px;
+    font-size: 25px;
+}
+
+
+.testd_box span.glyphicon-triangle-top {
+  font-size: 22px;
+    color: green;
+    left: 73px;
+}
+
+
+
+
+img.map_image {
+    width: 616px !important;
+}
+
+    .letest_driveboxclick {
+    position: absolute;
+    left: 406px;
+    display: block;
+    transition: 0.5s;
+    width: 450px;
+    opacity: 1;
+    z-index: 111;
+    top: -300px;
+    display: block;
+    float: left;
+    }
+   .white_circle {
+    float: left;
+    height: 10px;
+    width: 10px;
+    background: none;
+    border: solid 1px #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 12px;
+    right: 42px;
+    transition: all 0.5s;
+}
+
+    .letest_driveboxclick_right {
+        position: absolute;
+        right: 427px !important;
+        display: block;
+        transition: 0.5s;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
+    }
+
+    .test_drive {
+    margin-bottom: 5px;
+}
+  .black_box.black_box_left.pull-left {
+    height: 283px!important;
+    z-index: 1;
+}
+
+  .black_box.black_box_right.pull-right {
+   height: 283px !important;
+    z-index: 1;
+}
+
+.footer{display:none;}
+
+
+
+}
+
+
+/*my ride styles ends here*/
+@media screen and (min-width: 1920px){
+    body.img-bg {
+        font-family: HemiHeadRg-BoldItalic;
+        /*background: black url(./images/back.jpg) repeat 0 0;*/
+        background: #212030;
+        color: #fff;
+        overflow-x: hidden;
+        height: 100vh;
+        -webkit-transform: opacity 0.3s linear;
+        transform: opacity 0.3s linear;
+        background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
+        width: 100%;
+        height: auto;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        left: 0px;
+        top: 0px;
+        background-attachment: fixed;
+    }
+
+
+a#link1 {
+    position: absolute;
+    top: 8% !important;
+    left: 50%!important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    transition: all 0.5s;
+    z-index: 50;
+    font-weight: bold;
+}
+
+
+    a#link2{
+    position: absolute;
+    top: 22%;
+    left: 79% !important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    transition: all 0.5s;
+    z-index: 50;
+    font-weight: bold;
+    }
+
+
+    a#link3 {
+    position: absolute;
+    top: 56%;
+    left: 84% !important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    z-index: 50;
+    transition: all 0.5s;
+    font-weight: bold;
+}
+
+a#link5 {
+    position: absolute;
+    top: 45%;
+    left: 45% !important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    z-index: 50;
+    transition: all 0.5s;
+    font-weight: bold;
+}
+
+  a#link6 {
+    position: absolute;
+    top: 21% !important;
+    left: 23% !important;
+    color: red;
+    font-family: titanium;
+    text-decoration: none;
+    z-index: 50;
+    transition: all 0.5s;
+}
+.map_container {
+    width: auto;
+    float: left;
+    margin-left: 271px !important;
+    margin-top: 42px;
+}
+.black_box{margin-top: -230px;}
+
+.line_box {
+  height: 220px !important;
+    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+    width: 100%;
+    background-size: cover;
+    margin-top: -94px;
+}
+
+.overall_box {
+    margin-top: 50px;
+    position: relative!important;
+    top: 72px !important;
+}
+
+.player_box {
+    width: 30%;
+    margin: 0 auto;
+    height: 50px;
+
+}
+
+.skills_heading {
+    position: absolute;
+    top: 70px !important;
+    font-size: 35px;
+    left: 261px!important;
+}
+
+
+.leader_name {
+    height: 50px;
+    background: none;
+    float: right !important;
+    width: 84% !important;
+    border: solid 1px #fff;
+    transform: skewX(-27deg);
+    height: 60px;
+    background: none;
+    border: solid 1px #fff;
+    background: #0000008a;
+}
+
+.container.big_leaderbox .leader_listbox .leader_name {
+    width: 94% !important;
+}
+.container.big_leaderbox .leader_listbox .leader_rank{
+    width: 6% !important;
+}
+.container.big_leaderbox .leader_listbox .leader_rank.my_rank{background:#004b8d;}
+
+.container.big_leaderbox .leader_listbox .leader_rank span{    -webkit-transform: skewX(25deg) !important;
+    color: white;
+    position: absolute;
+    box-sizing: border-box;
+    -moz-transform: skewX(45deg);
+    -ms-transform: skewX(45deg);
+    -webkit-transform: skewX(45deg);
+    left: 6px;
+    font-size: 23px;
+    padding-left: 16px !important;
+    top: 17px;}
+
+
+.leader_rank {
+    width: 9% !important;
+    float: left;
+    height: 43px;
+    background: #ed1b24;
+    transform: skewX(-20deg);
+    position: relative;
+    left: 48px;
+    z-index: 99;
+}
+
+span.increase_or_decreased {
+    position: absolute;
+    left: 134px;
+    font-size: 25px;
+}
+
+
+.testd_box span.glyphicon-triangle-top {
+    font-size: 22px;
+    color: green;
+    left: 103px;
+}
+
+
+
+
+
+    img.map_image{width: 954px !important;}
 
     .letest_driveboxclick {
         position: absolute;
-        left: 462px;
+        left: 510px !important;
         display: block;
         transition: 0.5s;
         width: 450px;
@@ -7202,23 +7969,27 @@ a.more {
         border-radius: 50%;
         position: absolute;
         top: 12px;
-        right: 51px;
+        right: 62px !important;
         transition: all 0.5s;
     }
 
+
     .letest_driveboxclick_right {
-        position: absolute;
-        right: 479px;
-        display: block;
-        transition: 0.5s;
-        width: 450px;
-        opacity: 1;
-        z-index: 111;
-        top: -300px;
-        display: block;
-    }
+    position: absolute;
+    right: 530px !important;
+    display: block;
+    transition: 0.5s;
+    width: 450px;
+    opacity: 1;
+    z-index: 111;
+    top: -300px;
+    display: block;
+}
   
 }
+
+
+
 
 
 
@@ -7248,7 +8019,7 @@ a{
     text-transform: uppercase;}
 
 
-.total_testdrivebox .tab-pane ul{margin-left: 50px; margin-top: 30px;}
+.total_testdrivebox .tab-pane ul{ margin-top: 30px;margin-bottom:45px;}
 
     .total_testdrivebox .tab-pane ul.nav-tabs li a {
     font-size: 14px !important;
@@ -7337,7 +8108,7 @@ h1.title:before {
 }
 
 .mm-popup__btn {
-    border-radius: 3px; */
+    border-radius: 3px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
