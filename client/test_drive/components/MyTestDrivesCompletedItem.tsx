@@ -102,7 +102,9 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                                     <span className="orange">Points Earned</span>
                                                 </div>
                                                 <div className="col-md-12">
+                                                <div className="row text-center">
                                                     <canvas id={pointsProgressID} width="140" height="140"></canvas>
+                                                </div>
                                                 </div>
                                                 <div className="col-md-12 text-center point_board">
                                                     <h3 className="text-center">{testDriveResponse.currentPoint}</h3>
@@ -122,18 +124,18 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                     </div>
                                     <div className="row race_type">
                                         <div className="col-md-12">
-                                            <div className="row">
+                                          
                                                 <ul className={Services.getLevelNameClass(testDrive.levelNumber)}>
                                                     <li><span></span></li>
                                                     <li><span></span></li>
                                                     <li><span></span></li>
                                                 </ul>
-                                            </div>
+                                          
                                         </div>
                                         <div className="col-md-12">
-                                            <div className="row">
+                                          
                                                 <h5>{testDrive.level}</h5>
-                                            </div>
+                                           
                                         </div>
                                     </div>
                                 </div>

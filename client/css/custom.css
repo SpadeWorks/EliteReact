@@ -2749,6 +2749,8 @@ label {
 
 
 /* active state */
+
+
 /*
 .inputMaterial:focus~label,
 .inputMaterial:valid~label {
@@ -2762,6 +2764,7 @@ textarea.inputMaterial:focus {
     height: auto !important;
     overflow: inherit !important;
 }*/
+
 
 /*textarea.inputMaterial:focus~label {
     top: -21px;
@@ -3172,8 +3175,6 @@ border: solid 1px#fff;
     background: none;
     border: none;
 }
-
-
 
 .black_box span.glyphicon {
     font-size: 12px;
@@ -3789,9 +3790,8 @@ span.testd_count {
     transform: skewX(-20deg);
     position: relative;
     left: 10px;
-    z-index: 99;}
-
-
+    z-index: 99;
+}
 
 .testd_box span.glyphicon-triangle-top {
     font-size: 12px;
@@ -3814,12 +3814,11 @@ span.testd_count {
     width: 20%;
 }
 
-.count_box {
+.count_box {}
 
- 
+.well .nav-tabs {
+    border: none;
 }
-
-.well .nav-tabs{border:none;}
 
 .profile_box.count_box:nth-child(4) {
     border-bottom: solid 2px #fff;
@@ -3871,7 +3870,7 @@ span.testd_count {
 }
 
 .col-md-12.currtestdrive_list {
-padding: 10px;
+    padding: 10px;
     margin-bottom: 10px;
     background: #0f0f17;
     border: solid 1px #333;
@@ -4099,14 +4098,14 @@ ul.task_circle li {
 }
 
 ul.task_circle li p {
-   float: left;
+    float: left;
     font-size: 27px;
     width: 80px;
     opacity: 0.2;
 }
 
 ul.task_circle li.active p {
-   float: left;
+    float: left;
     font-size: 27px;
     width: 80px;
     opacity: 1;
@@ -4513,7 +4512,6 @@ span.teams:hover {
     left: 20px;
 }
 
-
 .popup_ownerbox {
     min-height: 250px;
     padding-top: 0px;
@@ -4563,12 +4561,10 @@ span.increase_or_decreased {
     margin-left: 15px;
 }
 
-
-
 .testd_box span.glyphicon-triangle-top {
     font-size: 12px;
     color: green;
-    left:64px;
+    left: 64px;
 }
 
 .orange {
@@ -4630,7 +4626,7 @@ span.increase_or_decreased {
 }
 
 .col-md-12.currtestdrive_list {
-padding: 10px;
+    padding: 10px;
     margin-bottom: 10px;
     background: #0f0f17;
     border: solid 1px #333;
@@ -4774,7 +4770,7 @@ h4.testcase_title {
     margin-top: 0px;
     padding-bottom: 20px;
     padding-top: 20px;
-   background: #1f1f28;
+    background: #1f1f28;
 }
 
 .overview p {
@@ -4890,8 +4886,6 @@ span.teams:hover {
     top: 60px;
     left: 20px;
 }
-
-
 
 .popup_ownerbox h4 {
     font-family: titanium !important;
@@ -5169,8 +5163,7 @@ li.active-thumbnail {
     margin-top: -10px;
 }
 
-.carousel-inner.avatar_box a:focus img{
-
+.carousel-inner.avatar_box a:focus img {
     height: 80px;
     width: 80px;
     border: solid 2px orange;
@@ -5213,7 +5206,6 @@ li.active-thumbnail {
     font-size: 14px;
     color: red;
 }*/
-
 
 .editpro_box .inputMaterial {
     font-size: 18px;
@@ -5308,13 +5300,12 @@ h1#dialogTitleSpan {
 
 .testdrivedetails_box .earn_box h3,
 .drive_completionbox h3 {
-  margin-top: -90px;
+    margin-top: -90px;
 }
 
 .testdrivedetails_box .earn_box {
     border: none;
 }
-
 
 .detailed_box span.orange {
     font-size: 14px;
@@ -5363,7 +5354,6 @@ h1#dialogTitleSpan {
 .participation_container .wrapper {
     margin-top: 0px;
 }
-
 
 .row.testcase_box {
     margin-top: 30px;
@@ -5903,8 +5893,6 @@ a:hover {
     top: 8px !important;
 }
 
-
-
 .textarea-custom textarea {
     height: 85px;
 }
@@ -5935,12 +5923,12 @@ a:hover {
 }
 
 .earn_box h3 {
-  text-align: center;
-  margin-top:-90px;
+    text-align: center;
+    margin-top: -90px;
 }
 
 .drive_completionbox h3 {
-   margin-top:-90px;
+    margin-top: -90px;
 }
 
 .textarea-custom {
@@ -5959,7 +5947,9 @@ a:hover {
     font-size: 36px;
 }
 
-.navigation_box{margin-top:5px;}
+.navigation_box {
+    margin-top: 5px;
+}
 
 h1.testcase_name {
     margin-top: 15px;
@@ -6026,8 +6016,6 @@ h1.testcase_name {
     overflow: auto;
     height: 100%;
 }
-
-
 
 
 /* file uploader */
@@ -6178,26 +6166,28 @@ h1.testcase_name {
 
 /* file uploader ends here */
 
-
-
 .testdrive-detail_first-time .earn_box span.small,
 .testdrive-detail_first-time .drive_completionbox span.small {
-position: relative;
+    position: relative;
     position: relative;
     top: 60px;
 }
 
-.col-md-12.earn_box span.small,.drive_completionbox span.small {
+.col-md-12.earn_box span.small,
+.drive_completionbox span.small {
     position: relative;
     top: 50px;
 }
 
-
-
 .header_part {
     margin-bottom: 50px;
 }
-.header_part h2 a{color:#fff; font-size: 21px;}
+
+.header_part h2 a {
+    color: #fff;
+    font-size: 21px;
+}
+
 .header_part h2 a span {
     font-size: 16px;
     margin-right: 16px;
@@ -6291,7 +6281,6 @@ button {
 }
 
 
-
 /*testdrive central style starts here*/
 
 .tdrive_center_box .carousel-control.left {
@@ -6334,6 +6323,7 @@ button {
     font-family: titanium;
     color: #fff;
     padding-left: 10px;
+    font-size: 20px;
 }
 
 .testcase_completionbox {
@@ -6351,21 +6341,24 @@ button {
 
 .progress_drivebox {
     background: #0a0a10;
-    border: solid 1px #333;
-    padding-bottom:40px;
+    border: solid 2px #818181;
+    padding-bottom: 40px;
 }
 
-.progress_drivebox .button {
+.progress_drivebox canvas{height:110px; width:110px;}
 
+.progress_drivebox .button {
     position: relative;
     top: 14px;
     left: 60px;
 }
 
-
-
 .progress_drivebox h4 {
     color: #ff8d00;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 ul.dragrace_indicator {
@@ -6388,9 +6381,9 @@ ul.dragrace_indicator li span {
 
 .partcipant_Section span.orange {
     font-size: 12px;
-    padding-left: 10px;
+   
     text-transform: uppercase;
-    float:left;
+ 
 }
 
 .enddate_Section span.orange {
@@ -6407,7 +6400,7 @@ ul.dragrace_indicator li span {
 }
 
 .point_board {
-    margin-top: -100px;
+    margin-top: -108px;
 }
 
 .carousel-control.right {
@@ -6555,11 +6548,21 @@ ul.streetrace_indicator li span {
 .col-md-6 .partcipant_Section {
     border: solid 1px #333 !important;
 }
-.enddate_line{margin-top: 13px;}
 
-.centralbox_button a{color:red}
+.enddate_line {
+    margin-top: 13px;
+}
 
-.centralbox_button a{position:relative; z-index:100;}
+.centralbox_button a {
+    color: red
+}
+
+.centralbox_button a {
+    position: relative;
+    z-index: 100;
+}
+
+
 /*testdrive central style ends here*/
 
 
@@ -7058,11 +7061,12 @@ p.go {
     background: none!important;
 }
 
-a{
+a {
     cursor: pointer !important;
-}    
+}
 
-.col-md-12.intro_actionbox.testdrive_actionbox.betterride_box{position: fixed;
+.col-md-12.intro_actionbox.testdrive_actionbox.betterride_box {
+    position: fixed;
     bottom: -123px;
     left: 0px;
     background: none!important;
@@ -7095,15 +7099,13 @@ a.more {
 }
 
 
+.point_board h3{margin-bottom:5px;}
 
-
-
+.progress_drivebox span.small{letter-spacing: 2px;}
 
 /*my ride styles ends here*/
 
-
-
-@media screen and (min-width: 1280px){
+@media screen and (min-width: 1280px) {
     body.img-bg {
         font-family: HemiHeadRg-BoldItalic;
         /*background: black url(./images/back.jpg) repeat 0 0;*/
@@ -7123,194 +7125,167 @@ a.more {
         top: 0px;
         background-attachment: fixed;
     }
-
-
-a#link1 {
-    position: absolute;
-    top: 9% !important;
-    left: 50%!important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    transition: all 0.5s;
-    z-index: 50;
-    font-weight: bold;
-}
-
-
-    a#link2{
-    position: absolute;
-    top: 24%;
-    left: 75% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    transition: all 0.5s;
-    z-index: 50;
-    font-weight: bold;
+    a#link1 {
+        position: absolute;
+        top: 9% !important;
+        left: 50%!important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        transition: all 0.5s;
+        z-index: 50;
+        font-weight: bold;
     }
-
-
+    a#link2 {
+        position: absolute;
+        top: 24%;
+        left: 75% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        transition: all 0.5s;
+        z-index: 50;
+        font-weight: bold;
+    }
     a#link3 {
-    position: absolute;
-    top: 56%;
-    left: 81% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-    font-weight: bold;
-}
-
-a#link5 {
-    position: absolute;
-    top: 47% !important;
-    left: 45% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-    font-weight: bold;
-}
-
-  a#link6 {
-    position: absolute;
-    top: 21% !important;
-    left: 20% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-}
-.map_container {
-    width: auto;
-    float: left;
-   margin-left: 154px !important;
-    margin-top: 42px;
-}
-
-.line_box {
-    height: 165px !important;
-    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
-    width: 100%;
-    background-size: cover;
-    margin-top: -132px;
-}
-.overall_box {
-    margin-top: 48px;
-    position: relative!important;
-    top: -21px !important;
-}
-
-.player_box {
-    width: 30%;
-    margin: 0 auto;
-    height: 50px;
-
-}
-
-.skills_heading {
-    position: absolute;
-    top: 70px !important;
-    font-size: 35px;
-    left: 160px!important;
-}
-
-
-.leader_name {
-   height: 50px;
-    background: none;
-    float: right !important;
-    width: 88% !important;
-    border: solid 1px #fff;
-    transform: skewX(-27deg);
-    height: 60px;
-    background: none;
-    border: solid 1px #fff;
-    background: #0000008a;
-}
-
-.leader_rank {
-  width: 12% !important;
-    float: left;
-    height: 43px;
-    background: #ed1b24;
-    transform: skewX(-20deg);
-    position: relative;
-    left: 15px;
-    z-index: 99;
-}
-
-span.increase_or_decreased {
-    position: absolute;
-    left: 85px;
-    font-size: 25px;
-}
-
-
-.testd_box span.glyphicon-triangle-top {
-  font-size: 22px;
-    color: green;
-    left: 73px;
-}
-
-
-
-
-img.map_image {
-    width: 616px !important;
-}
-
-
-    .letest_driveboxclick {
-    position: absolute;
-    left: 372px !important;
-    display: block;
-    transition: 0.5s;
-    width: 450px;
-    opacity: 1;
-    z-index: 111;
-    top: -300px;
-    display: block;
-    float: left;
+        position: absolute;
+        top: 56%;
+        left: 81% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+        font-weight: bold;
     }
-   .white_circle {
-    float: left;
-    height: 10px;
-    width: 10px;
-    background: none;
-    border: solid 1px #fff;
-    border-radius: 50%;
-    position: absolute;
-    top: 12px;
-    right: 42px;
-    transition: all 0.5s;
-}
-
-   .white_circle {
-    float: left;
-    height: 10px;
-    width: 10px;
-    background: none;
-    border: solid 1px #fff;
-    border-radius: 50%;
-    position: absolute;
-    top: 12px;
-    right: 36px !important;
-    transition: all 0.5s;
-}
-
+    a#link5 {
+        position: absolute;
+        top: 47% !important;
+        left: 45% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+        font-weight: bold;
+    }
+    a#link6 {
+        position: absolute;
+        top: 21% !important;
+        left: 20% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+    }
+    .map_container {
+        width: auto;
+        float: left;
+        margin-left: 154px !important;
+        margin-top: 42px;
+    }
+    .line_box {
+        height: 165px !important;
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+        width: 100%;
+        background-size: cover;
+        margin-top: -132px;
+    }
+    .overall_box {
+        margin-top: 48px;
+        position: relative!important;
+        top: -21px !important;
+    }
+    .player_box {
+        width: 30%;
+        margin: 0 auto;
+        height: 50px;
+    }
+    .skills_heading {
+        position: absolute;
+        top: 70px !important;
+        font-size: 35px;
+        left: 160px!important;
+    }
+    .leader_name {
+        height: 50px;
+        background: none;
+        float: right !important;
+        width: 88% !important;
+        border: solid 1px #fff;
+        transform: skewX(-27deg);
+        height: 60px;
+        background: none;
+        border: solid 1px #fff;
+        background: #0000008a;
+    }
+    .leader_rank {
+        width: 12% !important;
+        float: left;
+        height: 43px;
+        background: #ed1b24;
+        transform: skewX(-20deg);
+        position: relative;
+        left: 15px;
+        z-index: 99;
+    }
+    span.increase_or_decreased {
+        position: absolute;
+        left: 85px;
+        font-size: 25px;
+    }
+    .testd_box span.glyphicon-triangle-top {
+        font-size: 22px;
+        color: green;
+        left: 73px;
+    }
+    img.map_image {
+        width: 616px !important;
+    }
+    .letest_driveboxclick {
+        position: absolute;
+        left: 372px !important;
+        display: block;
+        transition: 0.5s;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
+        float: left;
+    }
+    .white_circle {
+        float: left;
+        height: 10px;
+        width: 10px;
+        background: none;
+        border: solid 1px #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 12px;
+        right: 42px;
+        transition: all 0.5s;
+    }
+    .white_circle {
+        float: left;
+        height: 10px;
+        width: 10px;
+        background: none;
+        border: solid 1px #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 12px;
+        right: 36px !important;
+        transition: all 0.5s;
+    }
     .letest_driveboxclick_right {
         position: absolute;
         right: 392px !important;
     }
-
     .letest_driveboxclick_right {
         position: absolute;
-        right: 392  px !important;
+        right: 392 px !important;
         display: block;
         transition: 0.5s;
         width: 450px;
@@ -7319,32 +7294,23 @@ img.map_image {
         top: -300px;
         display: block;
     }
-
     .test_drive {
-    margin-bottom: 5px;
-}
-  .black_box.black_box_left.pull-left {
-    height: 283px!important;
-    z-index: 1;
-}
-
-  .black_box.black_box_right.pull-right {
-   height: 283px !important;
-    z-index: 1;
-}
-
-.footer{display:none !important;}
-
-
-
+        margin-bottom: 5px;
+    }
+    .black_box.black_box_left.pull-left {
+        height: 283px!important;
+        z-index: 1;
+    }
+    .black_box.black_box_right.pull-right {
+        height: 283px !important;
+        z-index: 1;
+    }
+    .footer {
+        display: none !important;
+    }
 }
 
-
-
-
-
-
-@media screen and (min-width: 1366px){
+@media screen and (min-width: 1366px) {
     body.img-bg {
         font-family: HemiHeadRg-BoldItalic;
         /*background: black url(./images/back.jpg) repeat 0 0;*/
@@ -7364,172 +7330,148 @@ img.map_image {
         top: 0px;
         background-attachment: fixed;
     }
-
-
-a#link1 {
-    position: absolute;
-    top: 9% !important;
-    left: 55%!important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    transition: all 0.5s;
-    z-index: 50;
-    font-weight: bold;
-}
-
-
-    a#link2{
-    position: absolute;
-    top: 24%;
-    left: 78% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    transition: all 0.5s;
-    z-index: 50;
-    font-weight: bold;
+    a#link1 {
+        position: absolute;
+        top: 9% !important;
+        left: 55%!important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        transition: all 0.5s;
+        z-index: 50;
+        font-weight: bold;
     }
-
-
+    a#link2 {
+        position: absolute;
+        top: 24%;
+        left: 78% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        transition: all 0.5s;
+        z-index: 50;
+        font-weight: bold;
+    }
     a#link3 {
-    position: absolute;
-    top: 56%;
-    left: 84% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-    font-weight: bold;
-}
-
-a#link5 {
-    position: absolute;
-    top: 45%;
-    left: 45% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-    font-weight: bold;
-}
-
-  a#link6 {
-    position: absolute;
-    top: 21% !important;
-    left: 27% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-}
-.map_container {
-    width: auto;
-    float: left;
-    margin-left: 225px !important;
-    margin-top: 42px;
-}
-
-.line_box {
-    height: 165px !important;
-    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
-    width: 100%;
-    background-size: cover;
-    margin-top: -132px;
-}
-.overall_box {
-    margin-top: 48px;
-    position: relative!important;
-    top: -21px !important;
-}
-
-.player_box {
-    width: 30%;
-    margin: 0 auto;
-    height: 50px;
-
-}
-
-.skills_heading {
-    position: absolute;
-    top: 70px !important;
-    font-size: 35px;
-    left: 160px!important;
-}
-
-
-.leader_name {
-   height: 50px;
-    background: none;
-    float: right !important;
-    width: 88% !important;
-    border: solid 1px #fff;
-    transform: skewX(-27deg);
-    height: 60px;
-    background: none;
-    border: solid 1px #fff;
-    background: #0000008a;
-}
-
-.leader_rank {
-  width: 12% !important;
-    float: left;
-    height: 43px;
-    background: #ed1b24;
-    transform: skewX(-20deg);
-    position: relative;
-    left: 15px;
-    z-index: 99;
-}
-
-span.increase_or_decreased {
-    position: absolute;
-    left: 85px;
-    font-size: 25px;
-}
-
-
-.testd_box span.glyphicon-triangle-top {
-  font-size: 22px;
-    color: green;
-    left: 73px;
-}
-
-
-
-
-img.map_image {
-    width: 616px !important;
-}
-
-    .letest_driveboxclick {
-    position: absolute;
-    left: 392px !important;
-    display: block;
-    transition: 0.5s;
-    width: 450px;
-    opacity: 1;
-    z-index: 111;
-    top: -300px;
-    display: block;
-    float: left;
+        position: absolute;
+        top: 56%;
+        left: 84% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+        font-weight: bold;
     }
-   .white_circle {
-    float: left;
-    height: 10px;
-    width: 10px;
-    background: none;
-    border: solid 1px #fff;
-    border-radius: 50%;
-    position: absolute;
-    top: 12px;
-    right: 42px;
-    transition: all 0.5s;
-}
-
+    a#link5 {
+        position: absolute;
+        top: 45%;
+        left: 45% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+        font-weight: bold;
+    }
+    a#link6 {
+        position: absolute;
+        top: 21% !important;
+        left: 27% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+    }
+    .map_container {
+        width: auto;
+        float: left;
+        margin-left: 225px !important;
+        margin-top: 42px;
+    }
+    .line_box {
+        height: 165px !important;
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+        width: 100%;
+        background-size: cover;
+        margin-top: -132px;
+    }
+    .overall_box {
+        margin-top: 48px;
+        position: relative!important;
+        top: -21px !important;
+    }
+    .player_box {
+        width: 30%;
+        margin: 0 auto;
+        height: 50px;
+    }
+    .skills_heading {
+        position: absolute;
+        top: 70px !important;
+        font-size: 35px;
+        left: 160px!important;
+    }
+    .leader_name {
+        height: 50px;
+        background: none;
+        float: right !important;
+        width: 88% !important;
+        border: solid 1px #fff;
+        transform: skewX(-27deg);
+        height: 60px;
+        background: none;
+        border: solid 1px #fff;
+        background: #0000008a;
+    }
+    .leader_rank {
+        width: 12% !important;
+        float: left;
+        height: 43px;
+        background: #ed1b24;
+        transform: skewX(-20deg);
+        position: relative;
+        left: 15px;
+        z-index: 99;
+    }
+    span.increase_or_decreased {
+        position: absolute;
+        left: 85px;
+        font-size: 25px;
+    }
+    .testd_box span.glyphicon-triangle-top {
+        font-size: 22px;
+        color: green;
+        left: 73px;
+    }
+    img.map_image {
+        width: 616px !important;
+    }
+    .letest_driveboxclick {
+        position: absolute;
+        left: 392px !important;
+        display: block;
+        transition: 0.5s;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
+        float: left;
+    }
+    .white_circle {
+        float: left;
+        height: 10px;
+        width: 10px;
+        background: none;
+        border: solid 1px #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 12px;
+        right: 42px;
+        transition: all 0.5s;
+    }
     .letest_driveboxclick_right {
         position: absolute;
         right: 409px !important;
@@ -7541,31 +7483,23 @@ img.map_image {
         top: -300px;
         display: block;
     }
-
     .test_drive {
-    margin-bottom: 5px;
-}
-  .black_box.black_box_left.pull-left {
-    height: 283px!important;
-    z-index: 1;
-}
-
-  .black_box.black_box_right.pull-right {
-   height: 283px !important;
-    z-index: 1;
-}
-
-.footer{display:none !important;}
-
-
-
+        margin-bottom: 5px;
+    }
+    .black_box.black_box_left.pull-left {
+        height: 283px!important;
+        z-index: 1;
+    }
+    .black_box.black_box_right.pull-right {
+        height: 283px !important;
+        z-index: 1;
+    }
+    .footer {
+        display: none !important;
+    }
 }
 
-
-
-
-
-@media screen and (min-width: 1440px){
+@media screen and (min-width: 1440px) {
     body.img-bg {
         font-family: HemiHeadRg-BoldItalic;
         /*background: black url(./images/back.jpg) repeat 0 0;*/
@@ -7585,172 +7519,148 @@ img.map_image {
         top: 0px;
         background-attachment: fixed;
     }
-
-
-a#link1 {
-    position: absolute;
-    top: 8% !important;
-    left: 57%!important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    transition: all 0.5s;
-    z-index: 50;
-    font-weight: bold;
-}
-
-
-    a#link2{
-    position: absolute;
-    top: 24%;
-    left: 79% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    transition: all 0.5s;
-    z-index: 50;
-    font-weight: bold;
+    a#link1 {
+        position: absolute;
+        top: 8% !important;
+        left: 57%!important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        transition: all 0.5s;
+        z-index: 50;
+        font-weight: bold;
     }
-
-
+    a#link2 {
+        position: absolute;
+        top: 24%;
+        left: 79% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        transition: all 0.5s;
+        z-index: 50;
+        font-weight: bold;
+    }
     a#link3 {
-    position: absolute;
-    top: 56%;
-    left: 84% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-    font-weight: bold;
-}
-
-a#link5 {
-    position: absolute;
-    top: 45%;
-    left: 45% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-    font-weight: bold;
-}
-
-  a#link6 {
-    position: absolute;
-    top: 21% !important;
-    left: 31% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-}
-.map_container {
-    width: auto;
-    float: left;
-    margin-left: 271px !important;
-    margin-top: 42px;
-}
-
-.line_box {
-    height: 165px !important;
-    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
-    width: 100%;
-    background-size: cover;
-    margin-top: -132px;
-}
-.overall_box {
-    margin-top: 48px;
-    position: relative!important;
-    top: -21px !important;
-}
-
-.player_box {
-    width: 30%;
-    margin: 0 auto;
-    height: 50px;
-
-}
-
-.skills_heading {
-    position: absolute;
-    top: 70px !important;
-    font-size: 35px;
-    left: 160px!important;
-}
-
-
-.leader_name {
-   height: 50px;
-    background: none;
-    float: right !important;
-    width: 88% !important;
-    border: solid 1px #fff;
-    transform: skewX(-27deg);
-    height: 60px;
-    background: none;
-    border: solid 1px #fff;
-    background: #0000008a;
-}
-
-.leader_rank {
-  width: 12% !important;
-    float: left;
-    height: 43px;
-    background: #ed1b24;
-    transform: skewX(-20deg);
-    position: relative;
-    left: 15px;
-    z-index: 99;
-}
-
-span.increase_or_decreased {
-    position: absolute;
-    left: 85px;
-    font-size: 25px;
-}
-
-
-.testd_box span.glyphicon-triangle-top {
-  font-size: 22px;
-    color: green;
-    left: 73px;
-}
-
-
-
-
-img.map_image {
-    width: 616px !important;
-}
-
-    .letest_driveboxclick {
-    position: absolute;
-    left: 406px;
-    display: block;
-    transition: 0.5s;
-    width: 450px;
-    opacity: 1;
-    z-index: 111;
-    top: -300px;
-    display: block;
-    float: left;
+        position: absolute;
+        top: 56%;
+        left: 84% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+        font-weight: bold;
     }
-   .white_circle {
-    float: left;
-    height: 10px;
-    width: 10px;
-    background: none;
-    border: solid 1px #fff;
-    border-radius: 50%;
-    position: absolute;
-    top: 12px;
-    right: 42px;
-    transition: all 0.5s;
-}
-
+    a#link5 {
+        position: absolute;
+        top: 45%;
+        left: 45% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+        font-weight: bold;
+    }
+    a#link6 {
+        position: absolute;
+        top: 21% !important;
+        left: 31% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+    }
+    .map_container {
+        width: auto;
+        float: left;
+        margin-left: 271px !important;
+        margin-top: 42px;
+    }
+    .line_box {
+        height: 165px !important;
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+        width: 100%;
+        background-size: cover;
+        margin-top: -132px;
+    }
+    .overall_box {
+        margin-top: 48px;
+        position: relative!important;
+        top: -21px !important;
+    }
+    .player_box {
+        width: 30%;
+        margin: 0 auto;
+        height: 50px;
+    }
+    .skills_heading {
+        position: absolute;
+        top: 70px !important;
+        font-size: 35px;
+        left: 160px!important;
+    }
+    .leader_name {
+        height: 50px;
+        background: none;
+        float: right !important;
+        width: 88% !important;
+        border: solid 1px #fff;
+        transform: skewX(-27deg);
+        height: 60px;
+        background: none;
+        border: solid 1px #fff;
+        background: #0000008a;
+    }
+    .leader_rank {
+        width: 12% !important;
+        float: left;
+        height: 43px;
+        background: #ed1b24;
+        transform: skewX(-20deg);
+        position: relative;
+        left: 15px;
+        z-index: 99;
+    }
+    span.increase_or_decreased {
+        position: absolute;
+        left: 85px;
+        font-size: 25px;
+    }
+    .testd_box span.glyphicon-triangle-top {
+        font-size: 22px;
+        color: green;
+        left: 73px;
+    }
+    img.map_image {
+        width: 616px !important;
+    }
+    .letest_driveboxclick {
+        position: absolute;
+        left: 406px;
+        display: block;
+        transition: 0.5s;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
+        float: left;
+    }
+    .white_circle {
+        float: left;
+        height: 10px;
+        width: 10px;
+        background: none;
+        border: solid 1px #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 12px;
+        right: 42px;
+        transition: all 0.5s;
+    }
     .letest_driveboxclick_right {
         position: absolute;
         right: 427px !important;
@@ -7762,29 +7672,26 @@ img.map_image {
         top: -300px;
         display: block;
     }
-
     .test_drive {
-    margin-bottom: 5px;
-}
-  .black_box.black_box_left.pull-left {
-    height: 283px!important;
-    z-index: 1;
-}
-
-  .black_box.black_box_right.pull-right {
-   height: 283px !important;
-    z-index: 1;
-}
-
-.footer{display:none;}
-
-
-
+        margin-bottom: 5px;
+    }
+    .black_box.black_box_left.pull-left {
+        height: 283px!important;
+        z-index: 1;
+    }
+    .black_box.black_box_right.pull-right {
+        height: 283px !important;
+        z-index: 1;
+    }
+    .footer {
+        display: none;
+    }
 }
 
 
 /*my ride styles ends here*/
-@media screen and (min-width: 1920px){
+
+@media screen and (min-width: 1920px) {
     body.img-bg {
         font-family: HemiHeadRg-BoldItalic;
         /*background: black url(./images/back.jpg) repeat 0 0;*/
@@ -7804,169 +7711,149 @@ img.map_image {
         top: 0px;
         background-attachment: fixed;
     }
-
-
-a#link1 {
-    position: absolute;
-    top: 8% !important;
-    left: 50%!important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    transition: all 0.5s;
-    z-index: 50;
-    font-weight: bold;
-}
-
-
-    a#link2{
-    position: absolute;
-    top: 22%;
-    left: 79% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    transition: all 0.5s;
-    z-index: 50;
-    font-weight: bold;
+    a#link1 {
+        position: absolute;
+        top: 8% !important;
+        left: 50%!important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        transition: all 0.5s;
+        z-index: 50;
+        font-weight: bold;
     }
-
-
+    a#link2 {
+        position: absolute;
+        top: 22%;
+        left: 79% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        transition: all 0.5s;
+        z-index: 50;
+        font-weight: bold;
+    }
     a#link3 {
-    position: absolute;
-    top: 56%;
-    left: 84% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-    font-weight: bold;
-}
-
-a#link5 {
-    position: absolute;
-    top: 45%;
-    left: 45% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-    font-weight: bold;
-}
-
-  a#link6 {
-    position: absolute;
-    top: 21% !important;
-    left: 23% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-}
-.map_container {
-    width: auto;
-    float: left;
-    margin-left: 271px !important;
-    margin-top: 42px;
-}
-.black_box{margin-top: -230px;}
-
-.line_box {
-  height: 220px !important;
-    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
-    width: 100%;
-    background-size: cover;
-    margin-top: -94px;
-}
-
-.overall_box {
-    margin-top: 50px;
-    position: relative!important;
-    top: 72px !important;
-}
-
-.player_box {
-    width: 30%;
-    margin: 0 auto;
-    height: 50px;
-
-}
-
-.skills_heading {
-    position: absolute;
-    top: 70px !important;
-    font-size: 35px;
-    left: 261px!important;
-}
-
-
-.leader_name {
-    height: 50px;
-    background: none;
-    float: right !important;
-    width: 84% !important;
-    border: solid 1px #fff;
-    transform: skewX(-27deg);
-    height: 60px;
-    background: none;
-    border: solid 1px #fff;
-    background: #0000008a;
-}
-
-.container.big_leaderbox .leader_listbox .leader_name {
-    width: 94% !important;
-}
-.container.big_leaderbox .leader_listbox .leader_rank{
-    width: 6% !important;
-}
-.container.big_leaderbox .leader_listbox .leader_rank.my_rank{background:#004b8d;}
-
-.container.big_leaderbox .leader_listbox .leader_rank span{    -webkit-transform: skewX(25deg) !important;
-    color: white;
-    position: absolute;
-    box-sizing: border-box;
-    -moz-transform: skewX(45deg);
-    -ms-transform: skewX(45deg);
-    -webkit-transform: skewX(45deg);
-    left: 6px;
-    font-size: 23px;
-    padding-left: 16px !important;
-    top: 17px;}
-
-
-.leader_rank {
-    width: 9% !important;
-    float: left;
-    height: 43px;
-    background: #ed1b24;
-    transform: skewX(-20deg);
-    position: relative;
-    left: 48px;
-    z-index: 99;
-}
-
-span.increase_or_decreased {
-    position: absolute;
-    left: 134px;
-    font-size: 25px;
-}
-
-
-.testd_box span.glyphicon-triangle-top {
-    font-size: 22px;
-    color: green;
-    left: 103px;
-}
-
-
-
-
-
-    img.map_image{width: 954px !important;}
-
+        position: absolute;
+        top: 56%;
+        left: 84% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+        font-weight: bold;
+    }
+    a#link5 {
+        position: absolute;
+        top: 45%;
+        left: 45% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+        font-weight: bold;
+    }
+    a#link6 {
+        position: absolute;
+        top: 21% !important;
+        left: 23% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+    }
+    .map_container {
+        width: auto;
+        float: left;
+        margin-left: 271px !important;
+        margin-top: 42px;
+    }
+    .black_box {
+        margin-top: -230px;
+    }
+    .line_box {
+        height: 220px !important;
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+        width: 100%;
+        background-size: cover;
+        margin-top: -94px;
+    }
+    .overall_box {
+        margin-top: 50px;
+        position: relative!important;
+        top: 72px !important;
+    }
+    .player_box {
+        width: 30%;
+        margin: 0 auto;
+        height: 50px;
+    }
+    .skills_heading {
+        position: absolute;
+        top: 70px !important;
+        font-size: 35px;
+        left: 261px!important;
+    }
+    .leader_name {
+        height: 50px;
+        background: none;
+        float: right !important;
+        width: 84% !important;
+        border: solid 1px #fff;
+        transform: skewX(-27deg);
+        height: 60px;
+        background: none;
+        border: solid 1px #fff;
+        background: #0000008a;
+    }
+    .container.big_leaderbox .leader_listbox .leader_name {
+        width: 94% !important;
+    }
+    .container.big_leaderbox .leader_listbox .leader_rank {
+        width: 6% !important;
+    }
+    .container.big_leaderbox .leader_listbox .leader_rank.my_rank {
+        background: #004b8d;
+    }
+    .container.big_leaderbox .leader_listbox .leader_rank span {
+        -webkit-transform: skewX(25deg) !important;
+        color: white;
+        position: absolute;
+        box-sizing: border-box;
+        -moz-transform: skewX(45deg);
+        -ms-transform: skewX(45deg);
+        -webkit-transform: skewX(45deg);
+        left: 6px;
+        font-size: 23px;
+        padding-left: 16px !important;
+        top: 17px;
+    }
+    .leader_rank {
+        width: 9% !important;
+        float: left;
+        height: 43px;
+        background: #ed1b24;
+        transform: skewX(-20deg);
+        position: relative;
+        left: 48px;
+        z-index: 99;
+    }
+    span.increase_or_decreased {
+        position: absolute;
+        left: 134px;
+        font-size: 25px;
+    }
+    .testd_box span.glyphicon-triangle-top {
+        font-size: 22px;
+        color: green;
+        left: 103px;
+    }
+    img.map_image {
+        width: 954px !important;
+    }
     .letest_driveboxclick {
         position: absolute;
         left: 510px !important;
@@ -7991,147 +7878,122 @@ span.increase_or_decreased {
         right: 62px !important;
         transition: all 0.5s;
     }
-
-
     .letest_driveboxclick_right {
-    position: absolute;
-    right: 530px !important;
-    display: block;
-    transition: 0.5s;
-    width: 450px;
-    opacity: 1;
-    z-index: 111;
-    top: -300px;
-    display: block;
-}
-  
-}
-
-
-
-
-
-
-
-
-a{
-    cursor: pointer !important;
-}
-
-  a#link6 {
-    position: absolute;
-    top: 21% !important;
-    left: 27% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-}
-.map_container {
-    width: auto;
-    float: left;
-    margin-left: 225px !important;
-    margin-top: 42px;
-}
-
-.line_box {
-    height: 165px !important;
-    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
-    width: 100%;
-    background-size: cover;
-    margin-top: -132px;
-}
-.overall_box {
-    margin-top: 48px;
-    position: relative!important;
-    top: -21px !important;
-}
-
-.player_box {
-    width: 30%;
-    margin: 0 auto;
-    height: 50px;
-}
-.total_testdrivebox .tab-pane ul{ margin-top: 30px;margin-bottom:45px;}
-
-.skills_heading {
-    position: absolute;
-    top: 70px !important;
-    font-size: 35px;
-    left: 160px!important;
-}
-
-
-.leader_name {
-   height: 50px;
-    background: none;
-    float: right !important;
-    width: 88% !important;
-    border: solid 1px #fff;
-    transform: skewX(-27deg);
-    height: 60px;
-    background: none;
-    border: solid 1px #fff;
-    background: #0000008a;
-}
-
-.leader_rank {
-  width: 12% !important;
-    float: left;
-    height: 43px;
-    background: #ed1b24;
-    transform: skewX(-20deg);
-    position: relative;
-    left: 15px;
-    z-index: 99;
-}
-
-span.increase_or_decreased {
-    position: absolute;
-    left: 85px;
-    font-size: 25px;
-}
-
-
-.testd_box span.glyphicon-triangle-top {
-  font-size: 22px;
-    color: green;
-    left: 73px;
-}
-
-
-
-
-img.map_image {
-    width: 616px !important;
-}
-
-    .letest_driveboxclick {
-    position: absolute;
-    left: 392px !important;
-    display: block;
-    transition: 0.5s;
-    width: 450px;
-    opacity: 1;
-    z-index: 111;
-    top: -300px;
-    display: block;
-    float: left;
+        position: absolute;
+        right: 530px !important;
+        display: block;
+        transition: 0.5s;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
     }
-   .white_circle {
-    float: left;
-    height: 10px;
-    width: 10px;
-    background: none;
-    border: solid 1px #fff;
-    border-radius: 50%;
-    position: absolute;
-    top: 12px;
-    right: 42px;
-    transition: all 0.5s;
-}
-
+    a {
+        cursor: pointer !important;
+    }
+    a#link6 {
+        position: absolute;
+        top: 21% !important;
+        left: 27% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+    }
+    .map_container {
+        width: auto;
+        float: left;
+        margin-left: 225px !important;
+        margin-top: 42px;
+    }
+    .line_box {
+        height: 165px !important;
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+        width: 100%;
+        background-size: cover;
+        margin-top: -132px;
+    }
+    .overall_box {
+        margin-top: 48px;
+        position: relative!important;
+        top: -21px !important;
+    }
+    .player_box {
+        width: 30%;
+        margin: 0 auto;
+        height: 50px;
+    }
+    .total_testdrivebox .tab-pane ul {
+        margin-top: 30px;
+        margin-bottom: 45px;
+    }
+    .skills_heading {
+        position: absolute;
+        top: 70px !important;
+        font-size: 35px;
+        left: 160px!important;
+    }
+    .leader_name {
+        height: 50px;
+        background: none;
+        float: right !important;
+        width: 88% !important;
+        border: solid 1px #fff;
+        transform: skewX(-27deg);
+        height: 60px;
+        background: none;
+        border: solid 1px #fff;
+        background: #0000008a;
+    }
+    .leader_rank {
+        width: 12% !important;
+        float: left;
+        height: 43px;
+        background: #ed1b24;
+        transform: skewX(-20deg);
+        position: relative;
+        left: 15px;
+        z-index: 99;
+    }
+    span.increase_or_decreased {
+        position: absolute;
+        left: 85px;
+        font-size: 25px;
+    }
+    .testd_box span.glyphicon-triangle-top {
+        font-size: 22px;
+        color: green;
+        left: 73px;
+    }
+    img.map_image {
+        width: 616px !important;
+    }
+    .letest_driveboxclick {
+        position: absolute;
+        left: 392px !important;
+        display: block;
+        transition: 0.5s;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
+        float: left;
+    }
+    .white_circle {
+        float: left;
+        height: 10px;
+        width: 10px;
+        background: none;
+        border: solid 1px #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 12px;
+        right: 42px;
+        transition: all 0.5s;
+    }
     .letest_driveboxclick_right {
         position: absolute;
         right: 409px !important;
@@ -8143,25 +8005,23 @@ img.map_image {
         top: -300px;
         display: block;
     }
-
     .test_drive {
-    margin-bottom: 5px;
-}
-  .black_box.black_box_left.pull-left {
-    height: 283px!important;
-    z-index: 1;
+        margin-bottom: 5px;
+    }
+    .black_box.black_box_left.pull-left {
+        height: 283px!important;
+        z-index: 1;
+    }
+    .black_box.black_box_right.pull-right {
+        height: 283px !important;
+        z-index: 1;
+    }
+    .footer {
+        display: none !important;
+    }
 }
 
-  .black_box.black_box_right.pull-right {
-   height: 283px !important;
-    z-index: 1;
-}
-
-.footer{display:none !important;}
-
-}
-
-@media screen and (min-width: 1440px){
+@media screen and (min-width: 1440px) {
     body.img-bg {
         font-family: HemiHeadRg-BoldItalic;
         /*background: black url(./images/back.jpg) repeat 0 0;*/
@@ -8181,172 +8041,148 @@ img.map_image {
         top: 0px;
         background-attachment: fixed;
     }
-
-
-a#link1 {
-    position: absolute;
-    top: 8% !important;
-    left: 57%!important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    transition: all 0.5s;
-    z-index: 50;
-    font-weight: bold;
-}
-
-
-    a#link2{
-    position: absolute;
-    top: 24%;
-    left: 79% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    transition: all 0.5s;
-    z-index: 50;
-    font-weight: bold;
+    a#link1 {
+        position: absolute;
+        top: 8% !important;
+        left: 57%!important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        transition: all 0.5s;
+        z-index: 50;
+        font-weight: bold;
     }
-
-
+    a#link2 {
+        position: absolute;
+        top: 24%;
+        left: 79% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        transition: all 0.5s;
+        z-index: 50;
+        font-weight: bold;
+    }
     a#link3 {
-    position: absolute;
-    top: 56%;
-    left: 84% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-    font-weight: bold;
-}
-
-a#link5 {
-    position: absolute;
-    top: 45%;
-    left: 45% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-    font-weight: bold;
-}
-
-  a#link6 {
-    position: absolute;
-    top: 21% !important;
-    left: 31% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-}
-.map_container {
-    width: auto;
-    float: left;
-    margin-left: 271px !important;
-    margin-top: 42px;
-}
-
-.line_box {
-    height: 165px !important;
-    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
-    width: 100%;
-    background-size: cover;
-    margin-top: -132px;
-}
-.overall_box {
-    margin-top: 48px;
-    position: relative!important;
-    top: -21px !important;
-}
-
-.player_box {
-    width: 30%;
-    margin: 0 auto;
-    height: 50px;
-
-}
-
-.skills_heading {
-    position: absolute;
-    top: 70px !important;
-    font-size: 35px;
-    left: 160px!important;
-}
-
-
-.leader_name {
-   height: 50px;
-    background: none;
-    float: right !important;
-    width: 88% !important;
-    border: solid 1px #fff;
-    transform: skewX(-27deg);
-    height: 60px;
-    background: none;
-    border: solid 1px #fff;
-    background: #0000008a;
-}
-
-.leader_rank {
-  width: 12% !important;
-    float: left;
-    height: 43px;
-    background: #ed1b24;
-    transform: skewX(-20deg);
-    position: relative;
-    left: 15px;
-    z-index: 99;
-}
-
-span.increase_or_decreased {
-    position: absolute;
-    left: 85px;
-    font-size: 25px;
-}
-
-
-.testd_box span.glyphicon-triangle-top {
-  font-size: 22px;
-    color: green;
-    left: 73px;
-}
-
-
-
-
-img.map_image {
-    width: 616px !important;
-}
-
-    .letest_driveboxclick {
-    position: absolute;
-    left: 406px;
-    display: block;
-    transition: 0.5s;
-    width: 450px;
-    opacity: 1;
-    z-index: 111;
-    top: -300px;
-    display: block;
-    float: left;
+        position: absolute;
+        top: 56%;
+        left: 84% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+        font-weight: bold;
     }
-   .white_circle {
-    float: left;
-    height: 10px;
-    width: 10px;
-    background: none;
-    border: solid 1px #fff;
-    border-radius: 50%;
-    position: absolute;
-    top: 12px;
-    right: 42px;
-    transition: all 0.5s;
-}
-
+    a#link5 {
+        position: absolute;
+        top: 45%;
+        left: 45% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+        font-weight: bold;
+    }
+    a#link6 {
+        position: absolute;
+        top: 21% !important;
+        left: 31% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+    }
+    .map_container {
+        width: auto;
+        float: left;
+        margin-left: 271px !important;
+        margin-top: 42px;
+    }
+    .line_box {
+        height: 165px !important;
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+        width: 100%;
+        background-size: cover;
+        margin-top: -132px;
+    }
+    .overall_box {
+        margin-top: 48px;
+        position: relative!important;
+        top: -21px !important;
+    }
+    .player_box {
+        width: 30%;
+        margin: 0 auto;
+        height: 50px;
+    }
+    .skills_heading {
+        position: absolute;
+        top: 70px !important;
+        font-size: 35px;
+        left: 160px!important;
+    }
+    .leader_name {
+        height: 50px;
+        background: none;
+        float: right !important;
+        width: 88% !important;
+        border: solid 1px #fff;
+        transform: skewX(-27deg);
+        height: 60px;
+        background: none;
+        border: solid 1px #fff;
+        background: #0000008a;
+    }
+    .leader_rank {
+        width: 12% !important;
+        float: left;
+        height: 43px;
+        background: #ed1b24;
+        transform: skewX(-20deg);
+        position: relative;
+        left: 15px;
+        z-index: 99;
+    }
+    span.increase_or_decreased {
+        position: absolute;
+        left: 85px;
+        font-size: 25px;
+    }
+    .testd_box span.glyphicon-triangle-top {
+        font-size: 22px;
+        color: green;
+        left: 73px;
+    }
+    img.map_image {
+        width: 616px !important;
+    }
+    .letest_driveboxclick {
+        position: absolute;
+        left: 406px;
+        display: block;
+        transition: 0.5s;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
+        float: left;
+    }
+    .white_circle {
+        float: left;
+        height: 10px;
+        width: 10px;
+        background: none;
+        border: solid 1px #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 12px;
+        right: 42px;
+        transition: all 0.5s;
+    }
     .letest_driveboxclick_right {
         position: absolute;
         right: 427px !important;
@@ -8358,29 +8194,26 @@ img.map_image {
         top: -300px;
         display: block;
     }
-
     .test_drive {
-    margin-bottom: 5px;
-}
-  .black_box.black_box_left.pull-left {
-    height: 283px!important;
-    z-index: 1;
-}
-
-  .black_box.black_box_right.pull-right {
-   height: 283px !important;
-    z-index: 1;
-}
-
-.footer{display:none;}
-
-
-
+        margin-bottom: 5px;
+    }
+    .black_box.black_box_left.pull-left {
+        height: 283px!important;
+        z-index: 1;
+    }
+    .black_box.black_box_right.pull-right {
+        height: 283px !important;
+        z-index: 1;
+    }
+    .footer {
+        display: none;
+    }
 }
 
 
 /*my ride styles ends here*/
-@media screen and (min-width: 1920px){
+
+@media screen and (min-width: 1920px) {
     body.img-bg {
         font-family: HemiHeadRg-BoldItalic;
         /*background: black url(./images/back.jpg) repeat 0 0;*/
@@ -8400,169 +8233,149 @@ img.map_image {
         top: 0px;
         background-attachment: fixed;
     }
-
-
-a#link1 {
-    position: absolute;
-    top: 8% !important;
-    left: 50%!important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    transition: all 0.5s;
-    z-index: 50;
-    font-weight: bold;
-}
-
-
-    a#link2{
-    position: absolute;
-    top: 22%;
-    left: 79% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    transition: all 0.5s;
-    z-index: 50;
-    font-weight: bold;
+    a#link1 {
+        position: absolute;
+        top: 8% !important;
+        left: 50%!important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        transition: all 0.5s;
+        z-index: 50;
+        font-weight: bold;
     }
-
-
+    a#link2 {
+        position: absolute;
+        top: 22%;
+        left: 79% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        transition: all 0.5s;
+        z-index: 50;
+        font-weight: bold;
+    }
     a#link3 {
-    position: absolute;
-    top: 56%;
-    left: 84% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-    font-weight: bold;
-}
-
-a#link5 {
-    position: absolute;
-    top: 45%;
-    left: 45% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-    font-weight: bold;
-}
-
-  a#link6 {
-    position: absolute;
-    top: 21% !important;
-    left: 23% !important;
-    color: red;
-    font-family: titanium;
-    text-decoration: none;
-    z-index: 50;
-    transition: all 0.5s;
-}
-.map_container {
-    width: auto;
-    float: left;
-    margin-left: 271px !important;
-    margin-top: 42px;
-}
-.black_box{margin-top: -230px;}
-
-.line_box {
-  height: 220px !important;
-    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
-    width: 100%;
-    background-size: cover;
-    margin-top: -94px;
-}
-
-.overall_box {
-    margin-top: 50px;
-    position: relative!important;
-    top: 72px !important;
-}
-
-.player_box {
-    width: 30%;
-    margin: 0 auto;
-    height: 50px;
-
-}
-
-.skills_heading {
-    position: absolute;
-    top: 70px !important;
-    font-size: 35px;
-    left: 261px!important;
-}
-
-
-.leader_name {
-    height: 50px;
-    background: none;
-    float: right !important;
-    width: 84% !important;
-    border: solid 1px #fff;
-    transform: skewX(-27deg);
-    height: 60px;
-    background: none;
-    border: solid 1px #fff;
-    background: #0000008a;
-}
-
-.container.big_leaderbox .leader_listbox .leader_name {
-    width: 94% !important;
-}
-.container.big_leaderbox .leader_listbox .leader_rank{
-    width: 6% !important;
-}
-.container.big_leaderbox .leader_listbox .leader_rank.my_rank{background:#004b8d;}
-
-.container.big_leaderbox .leader_listbox .leader_rank span{    -webkit-transform: skewX(25deg) !important;
-    color: white;
-    position: absolute;
-    box-sizing: border-box;
-    -moz-transform: skewX(45deg);
-    -ms-transform: skewX(45deg);
-    -webkit-transform: skewX(45deg);
-    left: 6px;
-    font-size: 23px;
-    padding-left: 16px !important;
-    top: 17px;}
-
-
-.leader_rank {
-    width: 9% !important;
-    float: left;
-    height: 43px;
-    background: #ed1b24;
-    transform: skewX(-20deg);
-    position: relative;
-    left: 48px;
-    z-index: 99;
-}
-
-span.increase_or_decreased {
-    position: absolute;
-    left: 134px;
-    font-size: 25px;
-}
-
-
-.testd_box span.glyphicon-triangle-top {
-    font-size: 22px;
-    color: green;
-    left: 103px;
-}
-
-
-
-
-
-    img.map_image{width: 954px !important;}
-
+        position: absolute;
+        top: 56%;
+        left: 84% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+        font-weight: bold;
+    }
+    a#link5 {
+        position: absolute;
+        top: 45%;
+        left: 45% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+        font-weight: bold;
+    }
+    a#link6 {
+        position: absolute;
+        top: 21% !important;
+        left: 23% !important;
+        color: red;
+        font-family: titanium;
+        text-decoration: none;
+        z-index: 50;
+        transition: all 0.5s;
+    }
+    .map_container {
+        width: auto;
+        float: left;
+        margin-left: 271px !important;
+        margin-top: 42px;
+    }
+    .black_box {
+        margin-top: -230px;
+    }
+    .line_box {
+        height: 220px !important;
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+        width: 100%;
+        background-size: cover;
+        margin-top: -94px;
+    }
+    .overall_box {
+        margin-top: 50px;
+        position: relative!important;
+        top: 72px !important;
+    }
+    .player_box {
+        width: 30%;
+        margin: 0 auto;
+        height: 50px;
+    }
+    .skills_heading {
+        position: absolute;
+        top: 70px !important;
+        font-size: 35px;
+        left: 261px!important;
+    }
+    .leader_name {
+        height: 50px;
+        background: none;
+        float: right !important;
+        width: 84% !important;
+        border: solid 1px #fff;
+        transform: skewX(-27deg);
+        height: 60px;
+        background: none;
+        border: solid 1px #fff;
+        background: #0000008a;
+    }
+    .container.big_leaderbox .leader_listbox .leader_name {
+        width: 94% !important;
+    }
+    .container.big_leaderbox .leader_listbox .leader_rank {
+        width: 6% !important;
+    }
+    .container.big_leaderbox .leader_listbox .leader_rank.my_rank {
+        background: #004b8d;
+    }
+    .container.big_leaderbox .leader_listbox .leader_rank span {
+        -webkit-transform: skewX(25deg) !important;
+        color: white;
+        position: absolute;
+        box-sizing: border-box;
+        -moz-transform: skewX(45deg);
+        -ms-transform: skewX(45deg);
+        -webkit-transform: skewX(45deg);
+        left: 6px;
+        font-size: 23px;
+        padding-left: 16px !important;
+        top: 17px;
+    }
+    .leader_rank {
+        width: 9% !important;
+        float: left;
+        height: 43px;
+        background: #ed1b24;
+        transform: skewX(-20deg);
+        position: relative;
+        left: 48px;
+        z-index: 99;
+    }
+    span.increase_or_decreased {
+        position: absolute;
+        left: 134px;
+        font-size: 25px;
+    }
+    .testd_box span.glyphicon-triangle-top {
+        font-size: 22px;
+        color: green;
+        left: 103px;
+    }
+    img.map_image {
+        width: 954px !important;
+    }
     .letest_driveboxclick {
         position: absolute;
         left: 510px !important;
@@ -8587,74 +8400,71 @@ span.increase_or_decreased {
         right: 62px !important;
         transition: all 0.5s;
     }
-
-
     .letest_driveboxclick_right {
-    position: absolute;
-    right: 530px !important;
-    display: block;
-    transition: 0.5s;
-    width: 450px;
-    opacity: 1;
-    z-index: 111;
-    top: -300px;
-    display: block;
+        position: absolute;
+        right: 530px !important;
+        display: block;
+        transition: 0.5s;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
+    }
 }
-  
-}
 
-
-
-
-
-
-
-
-a{
+a {
     cursor: pointer !important;
 }
 
 
 /*testdrive central styling starts here*/
-.testDrives .nav-tabs{border:none !important;}
 
-.testDrives  .nav-tabs>li{margin-right: 10px;}
-.testDrives  .nav-tabs>li>a {
+.testDrives .nav-tabs {
+    border: none !important;
+}
+
+.testDrives .nav-tabs>li {
+    margin-right: 10px;
+}
+
+.testDrives .nav-tabs>li>a {
     color: #505050;
     border: none;
     font-size: 17px;
     text-transform: uppercase;
 }
 
-.testDrives .nav-tabs>li.active>a{background: none;
+.testDrives .nav-tabs>li.active>a {
+    background: none;
     border: none;
     color: #ff8d00;
     font-weight: bold;
     font-size: 18px;
-    text-transform: uppercase;}
+    text-transform: uppercase;
+}
 
+.total_testdrivebox .tab-pane ul {
+    margin-top: 30px;
+    margin-bottom: 45px;
+}
 
-.total_testdrivebox .tab-pane ul{ margin-top: 30px;margin-bottom:45px;}
-
-    .total_testdrivebox .tab-pane ul.nav-tabs li a {
+.total_testdrivebox .tab-pane ul.nav-tabs li a {
     font-size: 14px !important;
 }
 
-
-
-
-.col-md-12.total_testdrivebox {
-    margin-top: 50px;
-}
 
 
 .total_testdrivebox .nav-tabs>li {
     margin-right: 30px;
 }
 
-    /*testdrive central styling ends here*/
+
+/*testdrive central styling ends here*/
+
 
 /*my ride styles ends here*/
+
 
 /* Css for pop up */
 
@@ -8757,7 +8567,7 @@ h1.title:before {
 }
 
 .mm-popup__box {
-       width: 400px;
+    width: 400px;
     position: fixed;
     top: 25%;
     left: 50%;
@@ -8875,12 +8685,12 @@ h1.title:before {
 /* Pop up css ends here */
 
 
-
-
-
 /*attachment feature style in creation of testdrive starts here */
 
-.rdw-link-modal{background:#000;}
+.rdw-link-modal {
+    background: #000;
+}
+
 .rdw-link-modal-input {
     margin-top: 5px;
     border-radius: 2px;
@@ -8890,7 +8700,6 @@ h1.title:before {
     padding: 0 5px;
 }
 
-
 .rdw-link-modal-label {
     /* font-size: 15px; */
     /* margin-top: 16px; */
@@ -8899,25 +8708,26 @@ h1.title:before {
     width: 100%;
 }
 
+
 /*attachment feature style in creation of testdrive ends here */
 
-
-
-.black_box_left .nav-tabs,.black_box_right .nav-tabs,.location_box .nav-tabs{
+.black_box_left .nav-tabs,
+.black_box_right .nav-tabs,
+.location_box .nav-tabs {
     border-top: 1px solid #afafaf;
     border-bottom: none;
 }
 
-
-.testdrive_I_runbox .testdrive_actionbox {bottom: 18px;
+.testdrive_I_runbox .testdrive_actionbox {
+    bottom: 18px;
     left: 128px;
     position: relative;
     float: left;
     background: none;
-    
-    }
+}
 
-    .testdrive_I_runbox .testdrive_actionbox .button{position: relative;
+.testdrive_I_runbox .testdrive_actionbox .button {
+    position: relative;
     padding: 2px 7px;
     border: none;
     background-color: transparent;
@@ -8928,4 +8738,5 @@ h1.title:before {
     color: red;
     right: 170px;
     margin-left: 50px;
-    width: 103px;}
+    width: 103px;
+}
