@@ -6502,7 +6502,12 @@ ul.streetrace_indicator {
 }
 
 ul.streetrace_indicator li {
+    height: 20px;
+    width: 20px;
+    background: #f8971d;
+    border-radius: 50%;
     float: left;
+    margin-left: 5px;
 }
 
 ul.streetrace_indicator li span {
@@ -7352,7 +7357,7 @@ img.map_image {
         display: block;
     }
   
-}
+
 
 a#link5 {
     position: absolute;
@@ -7507,13 +7512,7 @@ img.map_image {
 
 .footer{display:none !important;}
 
-
-
 }
-
-
-
-
 
 @media screen and (min-width: 1440px){
     body.img-bg {
@@ -7988,7 +7987,7 @@ a{
     text-transform: uppercase;}
 
 
-.total_testdrivebox .tab-pane ul{ margin-top: 30px;}
+.total_testdrivebox .tab-pane ul{ margin-top: 30px;margin-bottom:45px;}
 
     .total_testdrivebox .tab-pane ul.nav-tabs li a {
     font-size: 14px !important;
