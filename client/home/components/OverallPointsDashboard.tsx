@@ -42,7 +42,7 @@ class OverallPointsDashboard extends React.Component<OverallPointsDashboardProps
                             <h2>{this.props.totalUsers}</h2></div>
                     </div>
                 </div>
-                <div className="col-md-1 text-center">
+                <div className="col-md-1 meter text-center">
                     {/* <div id="jqmeter-vertical2"></div> */}
 
                     <img src="/sites/elite/Style%20Library/Elite/images/meter.png" />

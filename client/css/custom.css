@@ -7308,6 +7308,10 @@ a.more {
     .footer {
         display: none !important;
     }
+
+    .meter img {
+        margin-left: 56px !important;
+    }
 }
 
 @media screen and (min-width: 1366px) {
@@ -7497,6 +7501,13 @@ a.more {
     .footer {
         display: none !important;
     }
+
+    .meter img {
+        margin-left: 56px !important;
+    }
+
+
+    
 }
 
 @media screen and (min-width: 1440px) {
