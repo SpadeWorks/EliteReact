@@ -54,8 +54,8 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
 
         </div>
         <div className="col-md-12" style={{ overflow: "auto" }}>
-          <div className="col-md-12" style={{ height: "900px" }}>
-            <div className="col-md-12 profile_box" style={{ height: "500px" }}>
+          <div className="container big_leaderbox">
+            <div className="col-md-12 profile_box">
               <div className="well count_box">
                 <Tabs selected={this.getSelectedTab()}>
                   <Pane label="Global Leaderboard">

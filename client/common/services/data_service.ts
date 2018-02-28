@@ -2458,7 +2458,7 @@ export class Utils {
         var lg = ctx.createLinearGradient(0, 0, s, 0);
         lg.addColorStop(0, options.startColor);
         lg.addColorStop(1, options.endColor);
-        ctx.fillStyle = "rgba(0, 0, 0, .8)";
+        ctx.fillStyle = "rgba(32, 32, 32, 1)";
 
         // Draw circle
         if (options.animation)
