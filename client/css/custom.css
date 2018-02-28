@@ -7151,10 +7151,6 @@ a#link1 {
     }
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 00884521f783e2a2a3b6cf5f588eb31536f4825a
     a#link3 {
     position: absolute;
     top: 56%;
@@ -7197,19 +7193,11 @@ a#link5 {
 }
 
 .line_box {
-<<<<<<< HEAD
-    height: 146px !important;
-    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
-    width: 100%;
-    background-size: cover;
-    margin-top: -107px !important;
-=======
     height: 165px !important;
     background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
     width: 100%;
     background-size: cover;
     margin-top: -132px;
->>>>>>> 00884521f783e2a2a3b6cf5f588eb31536f4825a
 }
 .overall_box {
     margin-top: 48px;
@@ -7275,11 +7263,6 @@ span.increase_or_decreased {
 img.map_image {
     width: 616px !important;
 }
-<<<<<<< HEAD
-
-    img.map_image{width: 954px;}
-=======
->>>>>>> 00884521f783e2a2a3b6cf5f588eb31536f4825a
 
 
     .letest_driveboxclick {
@@ -7327,12 +7310,7 @@ img.map_image {
 
     .letest_driveboxclick_right {
         position: absolute;
-<<<<<<< HEAD
-        right: 479px;
-
-=======
         right: 392  px !important;
->>>>>>> 00884521f783e2a2a3b6cf5f588eb31536f4825a
         display: block;
         transition: 0.5s;
         width: 450px;
