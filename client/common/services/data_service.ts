@@ -1384,7 +1384,7 @@ export class Services {
                     'ID',
                     'TotalPoints'
                 )
-                .filter("ActivityName eq '" +  + "'")
+                .filter("ActivityName eq '" + Constants.ColumnsValues.TEST_CASE_COMPLETION + "'")
                 .get().then(item => {
                     resolve(item[0].TotalPoints);
                 }, err => {
