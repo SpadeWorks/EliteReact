@@ -1,19 +1,19 @@
 @font-face {
     font-family: "HemiHeadRg-BoldItalic";
-    src: url("/Style Library/Elite/fonts/hemi_head_bd_it.eot?") format("eot"), url("/Style Library/Elite/fonts/hemi_head_bd_it.woff") format("woff"), url("/Style Library/Elite/fonts/hemi_head_bd_it.ttf") format("truetype"), url("/Style Library/Elite/fonts/hemi_head_bd_it.svg#HemiHeadRg-BoldItalic") format("svg");
+    src: url("/sites/elite/Style%20Library/Elite/fonts/hemi_head_bd_it.eot?") format("eot"), url("/sites/elite/Style%20Library/Elite/fonts/hemi_head_bd_it.woff") format("woff"), url("/sites/elite/Style%20Library/Elite/fonts/hemi_head_bd_it.ttf") format("truetype"), url("/sites/elite/Style%20Library/Elite/fonts/hemi_head_bd_it.svg#HemiHeadRg-BoldItalic") format("svg");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: titanium;
-    src: url("/Style Library/Elite/fonts/TitilliumWeb-Regular.ttf");
+    src: url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.ttf");
 }
 
 @font-face {
     font-family: 'Glyphicons Halflings';
-    src: url('/Style Library/Elite/fonts/glyphicons-halflings-regular.eot');
-    src: url('/Style Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/Style Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/Style Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/Style Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/Style Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+    src: url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.eot');
+    src: url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/sites/elite/Style%20Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
 body {
@@ -26,7 +26,7 @@ body.starts {
     height: 100vh;
     -webkit-transform: opacity 0.3s linear;
     transform: opacity 0.3s linear;
-    background: url('/Style%20Library/Elite/images/bg-stars.gif');
+    background: url('/sites/elite/Style%20Library/Elite/images/bg-stars.gif');
     width: 30%;
     height: auto;
     /* width: 100%; */
@@ -45,7 +45,7 @@ body.starts {
     height: 100vh;
     -webkit-transform: opacity 0.3s linear;
     transform: opacity 0.3s linear;
-    background: url('/Style%20Library/Elite/images/dash_back.jpg') no-repeat !important;
+    background: url('/sites/elite/Style%20Library/Elite/images/dash_back.jpg') no-repeat !important;
     width: 100%;
     height: auto;
     width: 100%;
@@ -3067,7 +3067,7 @@ span.select2-selection__choice__remove {
 
 /*.line_box {
 height: 200px;
-background: url(/Style%20Library/Elite/images/line.png) no-repeat;
+background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
 width: 100%;
 background-size: contain;
 margin-top: -90px;
@@ -3402,12 +3402,12 @@ span.l_count {
 
 
 /*.therm.outer-therm.vertical {
-background: url(/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
+background: url(/sites/elite/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
 border-radius: 0;
 }
 
 .therm.inner-therm.vertical {
-background: url(/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
+background: url(/sites/elite/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
 border-radius: 0;
 width: 28px !important;
 }*/
@@ -3424,7 +3424,7 @@ width: 28px !important;
 #outer {
     height: 100px;
     width: 100px;
-    background: url('/Style%20Library/Elite/images/dash-loader-out.png');
+    background: url('/sites/elite/Style%20Library/Elite/images/dash-loader-out.png');
     -webkit-animation: rotation 30s infinite;
     animation-play-state: running;
 }
@@ -3432,7 +3432,7 @@ width: 28px !important;
 #inner {
     height: 80px;
     width: 80px;
-    background: url(/Style%20Library/Elite/images/dash-loader-in.png);
+    background: url(/sites/elite/Style%20Library/Elite/images/dash-loader-in.png);
     -webkit-animation: rotation 50s infinite;
     /* margin-top: 11px; */
     position: absolute;
@@ -4123,19 +4123,19 @@ ul.task_circle li p.inactive_task {
 
 .line_box {
     height: 200px;
-    background: url(/Style%20Library/Elite/images/line.png) no-repeat;
+    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
     width: 100%;
     background-size: contain;
     margin-top: -90px;
 }
 
 .therm.outer-therm.vertical {
-    background: url(/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
+    background: url(/sites/elite/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
     border-radius: 0;
 }
 
 .therm.inner-therm.vertical {
-    background: url(/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
+    background: url(/sites/elite/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
     border-radius: 0;
     width: 28px !important;
 }
@@ -4455,14 +4455,14 @@ div#s4-ribbonrow {
 }
 
 span.teams {
-    background: url("/Style%20Library/Elite/images/teams1.png") no-repeat;
+    background: url("/sites/elite/Style%20Library/Elite/images/teams1.png") no-repeat;
     height: 23px;
     width: 23px;
     float: left;
 }
 
 span.teams:hover {
-    background: url("/Style%20Library/Elite/images/teams2.png") no-repeat;
+    background: url("/sites/elite/Style%20Library/Elite/images/teams2.png") no-repeat;
     height: 23px;
     width: 23px;
     float: left;
@@ -4838,14 +4838,14 @@ ul.task_circle li p.inactive_task {
 }
 
 span.teams {
-    background: url(/Style%20Library/Elite/images/teams1.png) no-repeat;
+    background: url(/sites/elite/Style%20Library/Elite/images/teams1.png) no-repeat;
     height: 23px;
     width: 23px;
     float: left;
 }
 
 span.teams:hover {
-    background: url(/Style%20Library/Elite/images/teams2.png) no-repeat;
+    background: url(/sites/elite/Style%20Library/Elite/images/teams2.png) no-repeat;
     height: 23px;
     width: 23px;
     float: left;
@@ -6332,11 +6332,11 @@ button {
 }
 
 #jqmeter-horizontal {
-    background: url(/Style%20Library/Elite/images/guage_1.png) no-repeat !important;
+    background: url(/sites/elite/Style%20Library/Elite/images/guage_1.png) no-repeat !important;
 }
 
 .therm .inner-therm {
-    background: url(/Style%20Library/Elite/images/guage_2.png)no-repeat !important;
+    background: url(/sites/elite/Style%20Library/Elite/images/guage_2.png)no-repeat !important;
 }
 
 .progress_drivebox {
@@ -7028,7 +7028,7 @@ p.next-text.go_text {
     border-bottom: solid;
     margin-top: 200px;
     margin-left: 73px;
-    background: url(http://intranet.spdev.equinix.com/Style%20Library/Elite/images/track.png) no-repeat;
+    background: url(http://intranet.spdev.equinix.com/sites/elite/Style%20Library/Elite/images/track.png) no-repeat;
     border: none;
 }
 
@@ -7126,7 +7126,7 @@ a.more {
         height: 100vh;
         -webkit-transform: opacity 0.3s linear;
         transform: opacity 0.3s linear;
-        background: url('/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
+        background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
         width: 100%;
         height: auto;
         width: 100%;
@@ -7198,7 +7198,7 @@ a.more {
     }
     .line_box {
         height: 165px !important;
-        background: url(/Style%20Library/Elite/images/line.png) no-repeat;
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
         width: 100%;
         background-size: cover;
         margin-top: -132px;
@@ -7335,7 +7335,7 @@ a.more {
         height: 100vh;
         -webkit-transform: opacity 0.3s linear;
         transform: opacity 0.3s linear;
-        background: url('/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
+        background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
         width: 100%;
         height: auto;
         width: 100%;
@@ -7407,7 +7407,7 @@ a.more {
     }
     .line_box {
         height: 165px !important;
-        background: url(/Style%20Library/Elite/images/line.png) no-repeat;
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
         width: 100%;
         background-size: cover;
         margin-top: -132px;
@@ -7531,7 +7531,7 @@ a.more {
         height: 100vh;
         -webkit-transform: opacity 0.3s linear;
         transform: opacity 0.3s linear;
-        background: url('/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
+        background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
         width: 100%;
         height: auto;
         width: 100%;
@@ -7603,7 +7603,7 @@ a.more {
     }
     .line_box {
         height: 165px !important;
-        background: url(/Style%20Library/Elite/images/line.png) no-repeat;
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
         width: 100%;
         background-size: cover;
         margin-top: -132px;
@@ -7723,7 +7723,7 @@ a.more {
         height: 100vh;
         -webkit-transform: opacity 0.3s linear;
         transform: opacity 0.3s linear;
-        background: url('/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
+        background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
         width: 100%;
         height: auto;
         width: 100%;
@@ -7798,7 +7798,7 @@ a.more {
     }
     .line_box {
         height: 220px !important;
-        background: url(/Style%20Library/Elite/images/line.png) no-repeat;
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
         width: 100%;
         background-size: cover;
         margin-top: -94px;
@@ -7932,7 +7932,7 @@ a.more {
     }
     .line_box {
         height: 165px !important;
-        background: url(/Style%20Library/Elite/images/line.png) no-repeat;
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
         width: 100%;
         background-size: cover;
         margin-top: -132px;
@@ -8053,7 +8053,7 @@ a.more {
         height: 100vh;
         -webkit-transform: opacity 0.3s linear;
         transform: opacity 0.3s linear;
-        background: url('/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
+        background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
         width: 100%;
         height: auto;
         width: 100%;
@@ -8125,7 +8125,7 @@ a.more {
     }
     .line_box {
         height: 165px !important;
-        background: url(/Style%20Library/Elite/images/line.png) no-repeat;
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
         width: 100%;
         background-size: cover;
         margin-top: -132px;
@@ -8245,7 +8245,7 @@ a.more {
         height: 100vh;
         -webkit-transform: opacity 0.3s linear;
         transform: opacity 0.3s linear;
-        background: url('/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
+        background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
         width: 100%;
         height: auto;
         width: 100%;
@@ -8320,7 +8320,7 @@ a.more {
     }
     .line_box {
         height: 220px !important;
-        background: url(/Style%20Library/Elite/images/line.png) no-repeat;
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
         width: 100%;
         background-size: cover;
         margin-top: -94px;

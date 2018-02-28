@@ -34,7 +34,7 @@ class CurrentRide extends React.Component<CurrentRideProps> {
 
                 <div id="typewriteText" className="currentride_text" style={{ animationDelay: "10s" }}></div>
                 <div className="shoping_cartbox">
-                    <img src="/Style%20Library/Elite/images/shoppingcart.png" />
+                    <img src="/sites/elite/Style%20Library/Elite/images/shoppingcart.png" />
                 </div>
                 <div className="col-md-12 intro_actionbox testdrive_actionbox new_ride">
                     <div className="button type1 pull-right">

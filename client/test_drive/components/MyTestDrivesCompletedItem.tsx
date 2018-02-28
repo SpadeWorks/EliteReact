@@ -56,7 +56,7 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                         <div className="col-md-12">
                                             <div className="row">
                                                 <span className="orange"><i>End Date</i>
-                                                    <img src="/Style%20Library/Elite/images/flag.png" /></span>
+                                                    <img src="/sites/elite/Style%20Library/Elite/images/flag.png" /></span>
                                             </div>
                                         </div>
                                         <div className="col-md-12">
@@ -71,7 +71,7 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                         <div className="col-md-12">
                                             <div className="row">
                                                 <span className="orange"><i>Participants</i>
-                                                    <img src="/Style%20Library/Elite/images/helmet.png" /></span>
+                                                    <img src="/sites/elite/Style%20Library/Elite/images/helmet.png" /></span>
                                             </div>
                                         </div>
                                         <div className="col-md-12">

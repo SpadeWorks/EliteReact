@@ -23,7 +23,7 @@ class TabCar extends React.Component<TabCarProps>{
             <div className="col-md-12">
                 {/*<div className="car_box">
                     <div className="car">
-                        <img src="/Style%20Library/Elite/images/car.png" className="img-responsive" />
+                        <img src="/sites/elite/Style%20Library/Elite/images/car.png" className="img-responsive" />
                     </div>
                 </div>*/}
                 <div className="stepwizard">

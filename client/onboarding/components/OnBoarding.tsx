@@ -62,7 +62,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
             <section>
                 <div className="container top_bar" style={{ height: "50px", background: "black" }}>
                     <div className="logo">
-                        <img src="/Style%20Library/Elite/images/logo.png" alt="Equnixlogo" />
+                        <img src="/sites/elite/Style%20Library/Elite/images/logo.png" alt="Equnixlogo" />
                     </div>
                 </div>
             </section>
@@ -170,9 +170,9 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                             {ui.nextScreen == 2 ?
                                 <div className="red_box red-box-container">
                                     <div className="outer_ride">
-                                        <img src="/Style%20Library/Elite/images/loader2.png" />
+                                        <img src="/sites/elite/Style%20Library/Elite/images/loader2.png" />
                                         <div className="ride_ring">
-                                            <img src="/Style%20Library/Elite/images/loader1.png" />
+                                            <img src="/sites/elite/Style%20Library/Elite/images/loader1.png" />
                                             <div className="count_box current_ridename">
 
                                                 <p> <span className="white">YOUR CURRENT</span> <span className="red">RIDE</span></p>
@@ -181,7 +181,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                         </div>
                                     </div>
                                     <div className="ride_image">
-                                        <img src="/Style%20Library/Elite/images/stroller-2.png" />
+                                        <img src="/sites/elite/Style%20Library/Elite/images/stroller-2.png" />
                                     </div>
 
 
@@ -194,9 +194,9 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                             {ui.nextScreen == 3 ?
                                 <div className="red_box red-box-container">
                                     <div className="outer_ride">
-                                        <img src="/Style%20Library/Elite/images/loader2.png" />
+                                        <img src="/sites/elite/Style%20Library/Elite/images/loader2.png" />
                                         <div className="ride_ring">
-                                            <img src="/Style%20Library/Elite/images/loader1.png" />
+                                            <img src="/sites/elite/Style%20Library/Elite/images/loader1.png" />
                                             <div className="count_box current_ridename">
 
                                                 <p> <span className="white">READY PLAYER</span> <span className="red">ONE</span></p>
@@ -205,7 +205,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                         </div>
                                     </div>
                                     <div className="ride_image">
-                                        <img src="/Style%20Library/Elite/images/stroller-2.png" />
+                                        <img src="/sites/elite/Style%20Library/Elite/images/stroller-2.png" />
                                     </div>
 
 
@@ -218,9 +218,9 @@ class OnBoarding extends React.Component<OnBoardingProps> {
 
                             {ui.nextScreen == 4 && <div className="red_box red-box-container">
                                 <div className="outer_ride">
-                                    <img src="/Style%20Library/Elite/images/loader2.png" />
+                                    <img src="/sites/elite/Style%20Library/Elite/images/loader2.png" />
                                     <div className="ride_ring">
-                                        <img src="/Style%20Library/Elite/images/loader1.png" />
+                                        <img src="/sites/elite/Style%20Library/Elite/images/loader1.png" />
                                         <div className="count_box current_ridename">
 
                                             <p> <span className="white">YOUR CURRENT</span> <span className="red">RIDE</span></p>
@@ -229,7 +229,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                     </div>
                                 </div>
                                 <div className="ride_image">
-                                    <img src="/Style%20Library/Elite/images/shoppingcart_Small.png" />
+                                    <img src="/sites/elite/Style%20Library/Elite/images/shoppingcart_Small.png" />
                                 </div>
 
 
