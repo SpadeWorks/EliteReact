@@ -57,7 +57,8 @@ const initialState: IState = {
         loadingMessage: 'Loading...',
         questionSaveInProgress: false,
         testCaseSaveInProgress: false,
-        isSumbitInProgress: false
+        isSumbitInProgress: false,
+        participants: 0
 
     },
     loading: true,
