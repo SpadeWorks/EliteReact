@@ -11,7 +11,7 @@ class Navigation extends React.Component<NavigationProps> {
 
     openPopUp() {
         var options = {
-            url: '/Pages/referral.aspx',
+            url: 'referral.aspx',
             title: 'User Referral',
             width: 600,
             height: 600,
