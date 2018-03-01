@@ -8,7 +8,6 @@ interface MyTestDrivesCompletedItemProps {
     participants: number;
     index: number;
     checkPortion: string;
-    testDriveResponse: any;
     isCompleted: boolean;
 };
 class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedItemProps> {
