@@ -40,7 +40,7 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
             <h3>{testDrive.title}</h3>
             <div className="col-md-12 social_box">
                 <div className="row">
-                    <a href="#"><i className="material-icons">info</i></a>
+                    <a href="#"><span className="report"></span></a>
                     <a href="#"><i className="material-icons">email</i></a>
                     <a href="#"><span className="teams"></span></a>
                     <a href="#"><i className="material-icons">share</i></a>
