@@ -24,17 +24,17 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                 </div>
                 <div className="col-md-12">
                     <div className="row">
-                        <div className="col-md-2">
+                        <div className="col-md-3">
                             <div className="col-md-12">
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="row inforow">
-                                            <div className="col-md-7">
+                                            <div className="col-md-5">
                                                 <div className="row">
                                                     <span className="orange">Start Date :</span>
                                                 </div>
                                             </div>
-                                            <div className="col-md-5">
+                                            <div className="col-md-7">
                                                 <div className="row">
                                                     <h5 style={{ marginTop: "0px" }}>{Services.formatDate(testDrive.startDate)}</h5>
                                                 </div>
@@ -43,7 +43,7 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                     </div>
                                     <div className="col-md-12 enddate_line">
                                         <div className="row inforow">
-                                            <div className="col-md-6">
+                                            <div className="col-md-4">
                                                 <div className="row">
                                                     <span className="orange">End date : </span>
                                                 </div>
@@ -58,14 +58,14 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-2">
+                        <div className="col-md-2" style={{marginLeft: "-55px" }}>
                             <div className="col-md-12">
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="row inforow">
                                             <div className="col-md-12">
                                                 <div className="row">
-                                                    <span className="orange">Dificulty Level:</span>
+                                                    <span className="orange">Difficulty Level:</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -100,7 +100,7 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                         <div className="row inforow">
                                             <div className="col-md-12">
                                                 <div className="row">
-                                                    <span className="orange">Possibe Points:</span>
+                                                    <span className="orange">Possible Points:</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -169,8 +169,8 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-3">
-                            <div className="col-md-6">
+                        <div className="col-md-1">
+                            <div className="col-md-12">
                                 <div className="row">
                                     {testDrive.status == ColumnsValues.SUBMIT ?
                                         <div className="testdrive_actionbox">
@@ -184,7 +184,13 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                 </div>
                             </div>
 
-                            <div className="col-md-6  social_box">
+                          
+                        </div>
+
+
+                        <div className="col-md-1" style={{marginLeft:"55px;"}}>
+                        
+                        <div className="row social_box" style={{position:"relative",right:"-60px"}}>
 <Link to={"/testdrive/" + testDrive.id}>
                                         <i className="material-icons">mode_edit</i>
                                     </Link>

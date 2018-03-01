@@ -106,6 +106,7 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
                     ui.visibleItems && ui.visibleItems.map((leader, index) => {
                         return (<LeaderItem
                             key={index}
+                            isCurrentUser={leader.id == currentUser.id}
                             leader={leader} />)
                     })
                 }
@@ -114,6 +115,7 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
                     ui.visibleItems.length == 0 && leaders && leaders.slice(0, ui.itemsPerPage).map((leader, index) => {
                         return (<LeaderItem
                             key={index}
+                            isCurrentUser={leader.id == currentUser.id}
                             leader={leader} />)
                     })
                 }
@@ -131,6 +133,7 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
 
                 {
                     (currentUser.rank && currentUser.rank != -1) ? <LeaderItem
+                        isCurrentUser={true}
                         leader={currentUser} /> : ''
                 }
             </div >)

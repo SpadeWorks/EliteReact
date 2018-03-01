@@ -4,18 +4,19 @@ import { Leader } from '../model';
 
 interface LeaderItemProps {
     leader: Leader;
+    isCurrentUser: boolean;
 };
 class LeaderItem extends React.Component<LeaderItemProps> {
     constructor(props, context) {
         super(props, context);
     }
     render() {
-        const { leader } = this.props;
+        const { leader, isCurrentUser } = this.props;
         return (
             <Link to={"/profile/" + leader.id}>
                 <div className="row test_drive leader_listbox">
                     <div className="col-md-12 leader_box">
-                        <div className="leader_rank">
+                        <div className={"leader_rank" +  (isCurrentUser ? ' my_rank' : '')}>
                             <span>{leader.rank}</span>
                         </div>
                         <div className="col-md-11 leader_name">

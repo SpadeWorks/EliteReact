@@ -102,7 +102,7 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                     </div>
                                     <div className="col-md-12 end_date">
                                         <span className="orange">
-                                            <i>End Date :</i>
+                                            <i>END DATE :</i>
                                         </span>
                                         <h4>{Service.formatDate(testDrive.endDate)}</h4>
                                     </div>

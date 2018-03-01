@@ -320,15 +320,17 @@ export default handleActions<IState, any>({
     [UPDATE_MaxPoints]: (state: IState, action: Action<any>): IState => {
         let poinstForLevle = state.configurations.testDriveLevelsConfig[state.testDrive.level] ?
             state.configurations.testDriveLevelsConfig[state.testDrive.level].points : 0;
+            
         let numberOfTestCases = state.testDrive.testCases && state.testDrive.testCases.length;
         numberOfTestCases = numberOfTestCases == undefined ?
             state.testDrive.testCaseIDs && state.testDrive.testCaseIDs.length : numberOfTestCases;
         let pointsForTestCase = state.configurations.testCasePoints || 10;
+
         return {
             ...state,
             testDrive: {
                 ...state.testDrive,
-                maxPoints: poinstForLevle + numberOfTestCases * pointsForTestCase
+                maxPoints: poinstForLevle + numberOfTestCases * pointsForTestCase + 100
             },
             loading: false
         }

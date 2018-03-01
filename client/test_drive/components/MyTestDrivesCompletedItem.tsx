@@ -71,7 +71,7 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <span className="orange"><i>participants</i>
+                                                <span className="orange"><i>Participants</i>
                                                     <img src="/sites/elite/Style%20Library/Elite/images/helmet.png" /></span>
                                             </div>
                                         </div>
@@ -90,8 +90,10 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                 <span><h3 className="text-center">{testDriveResponse.numberOfTestCasesCompleted}</h3></span>
                                 <span className="small">of {testDrive.testCaseIDs.length}</span>
                                 <div className="col-md-12">
-                                    <div id="jqmeter-horizontal"></div>
-                                    {completedTestCases} of {totalTestCases}
+                                    {/* <div id="jqmeter-horizontal"></div> */}
+                                    {/* {completedTestCases} of {totalTestCases} */}
+
+                                    <p className="my_allpoints text-center"><span className="orange big"><i>7</i></span> of 8</p>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +107,9 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                                     <span className="orange">Points Earned</span>
                                                 </div>
                                                 <div className="col-md-12">
+                                                <div className="row text-center">
                                                     <canvas id={pointsProgressID} width="140" height="140"></canvas>
+                                                </div>
                                                 </div>
                                                 <div className="col-md-12 text-center point_board">
                                                     <h3 className="text-center">{testDriveResponse.currentPoint}</h3>
@@ -119,32 +123,32 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <span className="orange">Dificulty Level</span>
+                                                <span className="orange">Difficulty Level</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="row race_type">
                                         <div className="col-md-12">
-                                            <div className="row">
+                                          
                                                 <ul className={Services.getLevelNameClass(testDrive.levelNumber)}>
                                                     <li><span></span></li>
                                                     <li><span></span></li>
                                                     <li><span></span></li>
                                                 </ul>
-                                            </div>
+                                          
                                         </div>
                                         <div className="col-md-12">
-                                            <div className="row">
+                                          
                                                 <h5>{testDrive.level}</h5>
-                                            </div>
+                                           
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         {isCompleted ?
-                            <Link className="button type1" to={"/participation/" + testDrive.id}> Drive Through </Link> : 
-                            <Link className="button type1" to={"/participation/" + testDrive.id}> Re Test </Link>}        
+                            <Link className="button type1" to={"/participation/" + testDrive.id}> View Details </Link> : 
+                            <Link className="button type1" to={"/participation/" + testDrive.id}> Complete the drive </Link>}        
                     </div>
                 </div>
             </div>

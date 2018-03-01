@@ -49,7 +49,7 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
             <div className="col-md-12 popup_infocontainer">
                 <div className="row">
                     <div className="col-md-6 earned_pointbox">
-                        <div className="row">
+                        <div className="row">                            
                             <div className="col-md-12 earn_box">
                                 <span className="orange"><i>DRIVE COMPLETION :</i></span>
                                 <canvas id={driveProgressID} width="150" height="150"></canvas>
@@ -65,8 +65,6 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                                 <span className="small">{testDriveResponse.currentPoint} of {testDrive.maxPoints} points earned</span>
 
                             </div>
-
-
                         </div>
                     </div>
                     <div className="col-md-6 drive_info">
@@ -97,7 +95,7 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                                     </div>
                                     <div className="col-md-12 end_date">
                                         <span className="orange">
-                                            <i>DEFICULTY LEVEL :</i>
+                                            <i>DIFFICULTY LEVEL :</i>
                                         </span>
                                         <h4>{testDrive.level}</h4>
                                     </div>

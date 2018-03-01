@@ -82,13 +82,16 @@ class Home extends React.Component<HomeProps, HomeState> {
         Services.loadProgressBar("total-task-canvas");
 
         let user = Services.getUserProfileProperties();
+        Services.getApplicationConfigurations().then(function(data:any){
+            $("#homeMiddleText").html(data.HomePageMiddleText);
+        });
         if (user.eliteProfileID) {
             this.props.dispatch(loadEliteProfile(user.eliteProfileID));
             this.props.dispatch(loadLeaderBoard(0, 3));
             this.props.dispatch(loadRegionLeaderBoard(user.region, 0, 3));
             this.props.dispatch(getUserRank(user.eliteProfileID));
             this.props.dispatch(loadMyTestDrive());
-            this.props.dispatch(loadTestDriveThatIRun(user.eliteProfileID, 0, 3));
+            this.props.dispatch(loadTestDriveThatIRun(0, 3));
             this.props.dispatch(loadUpcomingTestDrive());
             this.props.dispatch(loadActiveTestDrive());
             this.props.dispatch(loadTotalUserCount());
@@ -108,7 +111,7 @@ class Home extends React.Component<HomeProps, HomeState> {
         return (
             <div className="col-md-12">
                 <div className="row">
-                    <div className="container">
+                    <div className="col-md-12">
                         <h2><img src="/sites/elite/Style%20Library/Elite/images/logo.png" className="img-responsive" /> </h2>
                     </div>
                     <div className="col-md-12">
@@ -128,8 +131,8 @@ class Home extends React.Component<HomeProps, HomeState> {
                                 testDriveThatIRunLoading={testDriveThatIRunLoading}
                             />
 
-                            <div className="col-md-4">
-                                <h2 className="text-center skills_heading">Skills.Speed.Smarts. Brind it all.</h2>
+                            <div className="col-md-5">
+                                <h2 className="text-center skills_heading" id="homeMiddleText"></h2>
                             </div>
                             <HomeRightTestDrives
                                 ui={ui}

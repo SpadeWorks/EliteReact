@@ -94,7 +94,7 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <span className="orange">Dificulty Level</span>
+                                                <span className="orange">Difficulty Level</span>
                                             </div>
                                         </div>
                                         <div className="col-md-12">

@@ -52,7 +52,7 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                                 ></RightContainer>)
                                         })
                                     }
-                                    {(!upcomingTestDriveLoading) && upcomingTestDrive.length == 0 && <p>There are no upcomming test drives.</p>}
+                                    {(!upcomingTestDriveLoading) && upcomingTestDrive.length == 0 && <p>There are no upcoming test drives.</p>}
                                     {
                                         upcomingTestDrive && upcomingTestDrive.length >= 3 && <Link className="pull-right more" to={"/testdrives/upTestDrive"}>
                                             MORE >>

@@ -58,6 +58,7 @@ class GlobalLeaderBoard extends React.Component<GlobalLeaderBoardProps> {
                     ui.visibleItems && ui.visibleItems.map((leader, index) => {
                         return (<LeaderItem
                             key={index}
+                            isCurrentUser={leader.id == currentUser.id}
                             leader={leader} />)
                     })
                 }
@@ -67,6 +68,7 @@ class GlobalLeaderBoard extends React.Component<GlobalLeaderBoardProps> {
                     leaders.slice(0, ui.itemsPerPage).map((leader, index) => {
                         return (<LeaderItem
                             key={index}
+                            isCurrentUser={leader.id == currentUser.id}
                             leader={leader} />)
                     })
                 }
@@ -84,6 +86,7 @@ class GlobalLeaderBoard extends React.Component<GlobalLeaderBoardProps> {
 
 
                 {(currentUser.rank && currentUser.rank != -1) ? <LeaderItem
+                    isCurrentUser={true}
                     leader={currentUser} /> : ''}
             </div>)
     }
