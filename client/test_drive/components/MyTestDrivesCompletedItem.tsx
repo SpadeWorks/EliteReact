@@ -87,8 +87,10 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                             <div className="row">
                                 <span className="orange"><i>Test Case Completion</i></span>
                                 <div className="col-md-12">
-                                    <div id="jqmeter-horizontal"></div>
-                                    {completedTestCases} of {totalTestCases}
+                                    {/* <div id="jqmeter-horizontal"></div> */}
+                                    {/* {completedTestCases} of {totalTestCases} */}
+
+                                    <p className="my_allpoints text-center"><span className="orange big"><i>7</i></span> of 8</p>
                                 </div>
                             </div>
                         </div>
