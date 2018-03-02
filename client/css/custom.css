@@ -3194,9 +3194,7 @@ span.participants {
     margin-bottom: 0px !important;
 }
 
-.test_drive {
-    margin-bottom: 15px;
-}
+
 
 .modal-backdrop {
     position: fixed;
@@ -3445,7 +3443,7 @@ width: 28px !important;
     height: 100px;
     border-right: solid 2px #fff;
     opacity: 0;
-    margin-top: -32px;
+    margin-top: -54px;
     transition: all 0.5s;
 }
 
@@ -3462,7 +3460,7 @@ width: 28px !important;
     height: 100px;
     border-left: solid 2px #fff;
     opacity: 0;
-    margin-top: -32px;
+    margin-top: -41px;
 }
 
 .white_circle2 {
@@ -3566,13 +3564,14 @@ width: 28px !important;
 
 .lc_containerclick {
     display: block;
-    width: 310%;
+    width: 241%;
     transition: 0.5s;
     opacity: 1;
     height: 100px;
     border-right: solid 2px #fff;
-    margin-top: -32px;
+    margin-top: -54px;
     transition: all 0.5s;
+    position: absolute;
 }
 
 .letest_drivebox {
@@ -3628,7 +3627,7 @@ width: 28px !important;
     right: 0px;
     height: 100px;
     border-left: solid 2px #fff;
-    margin-top: -32px;
+    margin-top: -41px;
     transition: all 0.5s;
 }
 
@@ -4692,7 +4691,7 @@ span.increase_or_decreased {
 
 h4.testcase_title {
     font-family: titanium !important;
-    font-size: 13px;
+    font-size: 18px;
     color: #868686;
     margin-top: 30px;
 }
@@ -4954,7 +4953,7 @@ a.edit_profile {
 }
 
 .profile_overviewbox img {
-    max-height: 63px;
+    max-height: 55px;
 }
 
 .profile_overviewbox h4.testcase_title {
@@ -5010,6 +5009,7 @@ ul.thumbnails-carousel li {
     color: #ff8d00;
     font-size: 38px;
     padding-right: 0px;
+    transform: none;
 }
 
 .profile_overviewbox .imp_points h4 {
@@ -7297,7 +7297,7 @@ p.my_allpoints{  text-align: center;
    
     .letest_driveboxclick {
         position: absolute;
-        left: 120% !important;
+        left: 130% !important;
         display: block;
         transition: 0.5s;
         width: 450px;
@@ -7314,10 +7314,11 @@ p.my_allpoints{  text-align: center;
         background: none;
         border: solid 1px #fff;
         border-radius: 50%;
-        position: absolute;
-        top: 12px;
-        right: 61px;
+        position: relative;
+        top: 55px;
+        /* right: 61px; */
         transition: all 0.5s;
+        left: -10px;
     }
 
     .letest_driveboxclick_right {
@@ -7333,6 +7334,7 @@ p.my_allpoints{  text-align: center;
   
     .test_drive {
         margin-bottom: 5px;
+        height: 76px;
     }
     .black_box.black_box_left.pull-left {
  
@@ -7389,10 +7391,65 @@ p.my_allpoints{  text-align: center;
     font-size: 14px;}
 
 
+    /* extra added */
+
+    span.increase_num{position: absolute;
+        left: 59px;
+        font-size: 15px;
+        top: 5px;
+        color: green;}
+
+        .outof_count {
+            position: absolute;
+            left: 55px;
+            top: 18px;
+        }
+
+        .profile_overviewbox .testd_box{      position: relative;
+            height: 65px;
+            left: -15px;
+            bottom: 5px;}
+
+            .profile_overviewbox .testd_box span.glyphicon-triangle-top {
+                font-size: 9px;
+                color: green;
+                left: 49px;
+                position: absolute;
+                top: 11px;
+            }
+
+            .testdrive_actionbox .back_btn{position: relative;
+                left: 154px;}
+
+                .rdw-image-modal-upload-option {
+                    width: 100%;
+                    color: gray;
+                    cursor: pointer;
+                    display: flex;
+                    border: none;
+                    font-size: 15px;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: #f1f1f1;
+                    outline: 2px dashed gray;
+                    outline-offset: -10px;
+                    margin: 10px 0;
+                    padding: 9px 0;
+                    word-wrap: break-word;
+                    word-break: break-all;
+                    padding: 20px 11px 10px 1px !important;
+                
+                }
+
+
+     .popup_infocontainer li.select2-selection__choice{margin-bottom:10px;}           
+
+     .editpro_box h5{font-family: titanium; color:#fff;}
 }
 
-
-
+span.s4-clust {
+    margin-left: -20px!important;
+}
 
 
 a {
