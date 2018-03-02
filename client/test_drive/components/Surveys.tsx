@@ -57,7 +57,7 @@ class Surveys extends React.Component<SurveysProps> {
 
     getHelpText(){
         Services.getApplicationConfigurations().then((appConfig: any) =>{
-            this.props.updateUI({helpText: appConfig.TestCaseHelpText});
+            this.props.updateUI({helpText: appConfig.QuestionHelpText});
         })
     }
 
