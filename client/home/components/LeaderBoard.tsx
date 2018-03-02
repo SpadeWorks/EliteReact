@@ -14,8 +14,8 @@ interface LeaderBoardProps {
 class LeaderBoard extends React.Component<LeaderBoardProps> {
     render() {
         const { updateUI, ui, leaders, regionLeaders } = this.props;
-        return (<div className="col-md-4 location_box">
-            <div className="col-md-12">
+        return (<div className="col-md-3 pull-right location_box small_leaderbox">
+         
                 <div className="row">
                     <div className="well">
                         <div>
@@ -71,7 +71,7 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                         </div>
                     </div>
                 </div>
-            </div>
+            
         </div>);
     }
 }

@@ -137,7 +137,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         var testCaseCompletion = (testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 1) * 100;
         var pointsEarned = testDriveInstance.currentPoint
 
-        return (<div className="col-md-12 detailed_box">
+        return (<div className="container detailed_box">
 
             <div className="row">
                 <Popup />
@@ -145,23 +145,23 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                     <h2>
                         <Link to={"/"}><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>{testDriveInstance.title}  </Link></h2>
                 </div>
-                <div className="col-md-12 testdrive-detail_first-time" style={{ overflow: "auto" }}>
+                <div className="container-fluid testdrive-detail_first-time" style={{ overflow: "auto" }}>
                     <div className="wrapper">
                         <div className="col-md-12">
                             <div className="row">
                                 <div className="col-md-4">
-
+                                
                                     <span className="orange">
                                         <i>DESCRIPTION :</i>
                                     </span>
 
                                 </div>
                                 <div className="col-md-3 pull-right">
-                                    <div className="col-md-12 social_box">
-                                        <div className="row">
-                                            <a href="#">
-                                                <i className="material-icons">info</i>
-                                            </a>
+                                    
+                                        <div className="row social_box">
+                                        <a href="#">
+                                        <span className="report"></span>
+                                        </a>
                                             <a href="#">
                                                 <i className="material-icons">email</i>
                                             </a>
@@ -172,7 +172,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                                 <i className="material-icons">share</i>
                                             </a>
                                         </div>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -181,26 +181,36 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             <div className="row">
                                 <div className="earn_box">
                                     <div className="row">
+                                    <div className="col-md-12">
                                         <div className="col-md-2">
+                                     
                                             <span className="orange">
                                                 <i>POINTS EARNED :</i>
                                             </span>
                                             <div className="row">
                                                 <canvas id="test-drive-points-canvas" width="140" height="140"></canvas>
                                                 <h3>{pointsEarned}</h3>
+                                                <div className="col-md-12">
                                                 <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
                                             </div>
+                                            </div>
+                                         
                                         </div>
-                                        <div className="col-md-2 col-md-offset-2">
+                                        <div className="col-md-3 col-md-offset-1">
+                                       
                                             <span className="orange">
                                                 <i>DRIVE COMPLETION :</i>
                                             </span>
                                             <div className="row">
                                                 <canvas id="completed-test-cases-canvas" width="140" height="140"></canvas>
                                                 <h3>{testCaseCompletion.toFixed(0)} %</h3>
+                                                <div className="col-md-12">
                                                 <span className="small">{testDriveInstance.numberOfTestCasesCompleted} of {testDriveInstance.testCaseIDs.length} tasks done</span>
                                             </div>
+                                            </div>
+                                        
                                         </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -230,7 +240,9 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
+                                            <div className="row">
                                                 <h5>{Services.formatDate(testDriveInstance.startDate)}</h5>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -242,7 +254,9 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                                 </div>
                                             </div>
                                             <div className="col-md-7">
+                                            <div className="row">
                                                 <h5>{Services.formatDate(testDriveInstance.endDate)}</h5>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -254,17 +268,21 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                         </div>
                                     </div>
                                     <div className="col-md-6">
+                                    <div className="row">
                                         <h5>{testDriveInstance.level}</h5>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="row inforow">
-                                    <div className="col-md-4">
+                                    <div className="col-md-3">
                                         <div className="row">
                                             <span className="orange">PARTICIPAINTS :</span>
                                         </div>
                                     </div>
                                     <div className="col-md-6">
+                                    <div className="row">
                                         <h5>{testDriveInstance.participants || "0"}</h5>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -290,7 +308,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                         </div>
                         <div className="col-md-12 para">
                             <span className="orange">ELIGIBLE DRIVER LOCATION :</span>
-                            <div className="row">
+                            
                                 <ul className="select2-selection__rendered">
                                     {
                                         testDriveInstance.location && testDriveInstance.location.map((location: any, index) => {
@@ -300,11 +318,11 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                         })
                                     }
                                 </ul>
-                            </div>
+                           
                         </div>
                         <div className="col-md-12 para">
                             <span className="orange">DEVICES REQUIRED :</span>
-                            <div className="row">
+                            
                                 <ul className="select2-selection__rendered">
                                     {
                                         testDriveInstance.requiredDevices && testDriveInstance.requiredDevices.map((device: any, index) => {
@@ -313,11 +331,11 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                             </li>)
                                         })}
                                 </ul>
-                            </div>
+                            
                         </div>
                         <div className="col-md-12 para">
                             <span className="orange">OS REQUIRED :</span>
-                            <div className="row">
+                            
                                 <ul className="select2-selection__rendered">
                                     {
                                         testDriveInstance.requiredOs && testDriveInstance.requiredOs.map((os: any, index) => {
@@ -327,7 +345,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                         })
                                     }
                                 </ul>
-                            </div>
+                            
                         </div>
 
                         <div className="col-md-12 participation_actionbox">
