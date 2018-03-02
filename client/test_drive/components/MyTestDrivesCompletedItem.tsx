@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link } from "react-router-dom";
 import { TestDrive, } from '../model';
 import Services from '../../common/services/services';
+import '../../js/jqmeter';
 interface MyTestDrivesCompletedItemProps {
     testDrive: TestDrive;
     testDriveResponse: any;
@@ -23,9 +24,12 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
         const percentComplete = (completedTestCases / totalTestCases);
         const pointEarned = (testDriveResponse.currentPoint / testDrive.maxPoints);
         var pointsProgressID = 'point-canvas' + checkPortion + index;
-        var driveProgressID = 'drive-canvas' + checkPortion + index;
+        var driveProgressID = 'jqmeter-horizontal' + checkPortion + index;
         Services.loadProgressBar(pointsProgressID, pointEarned, 140);
+        Services.loadHorizontalProgressBar(driveProgressID, completedTestCases, totalTestCases);
+
         // Service.loadProgressBar(driveProgressID, percentComplete, 140);
+
     }
     render() {
         const { participants, checkPortion, testDrive, testDriveResponse, index, isCompleted } = this.props;
@@ -34,7 +38,8 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
         const percentComplete = (completedTestCases / totalTestCases);
         const pointEarned = (testDriveResponse.currentPoint / testDrive.maxPoints);
         var pointsProgressID = 'point-canvas' + checkPortion + index;
-        var driveProgressID = 'drive-canvas' + checkPortion + index;
+        var driveProgressID = 'jqmeter-horizontal' + checkPortion + index;
+
 
         return (<div className="col-md-4">
             <div className="col-md-12 progress_drivebox">
@@ -86,13 +91,9 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                         <div className="col-md-12 enddate_Section testcase_completionbox">
                             <div className="row">
                                 <span className="orange"><i>Test Case Completion</i></span>
-                                <span><h3 className="text-center">{completedTestCases}</h3></span>
-                                <span className="small">of {totalTestCases}</span>
                                 <div className="col-md-12">
-                                    {/* <div id="jqmeter-horizontal"></div> */}
-                                    {/* {completedTestCases} of {totalTestCases} */}
-
-                                    <p className="my_allpoints text-center"><span className="orange big"><i>7</i></span> of 8</p>
+                                    <div id={driveProgressID}></div>
+                                    <p className="my_allpoints text-center"><span className="orange big"><i>{completedTestCases}</i></span> of {totalTestCases}</p>
                                 </div>
                             </div>
                         </div>

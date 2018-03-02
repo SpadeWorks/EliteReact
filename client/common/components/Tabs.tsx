@@ -18,7 +18,6 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
     this._renderContent = this._renderContent.bind(this);
     this._renderTitles = this._renderTitles.bind(this);
     this._renderContent = this._renderContent.bind(this);
-
     this.state = this.getInitialState();
   }
   getInitialState() {
@@ -32,6 +31,13 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
     this.setState({
       selected: index
     });
+  }
+
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.selected !== nextProps.selected) {
+      this.setState({ selected: nextProps.selected });
+    }
   }
 
   _renderTitles() {

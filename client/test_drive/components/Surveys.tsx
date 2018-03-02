@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { TestDrive, IState, Question } from '../model';
 import SurveyForm from './SurveyForm';
-import {ColumnsValues} from '../../common/services/constants';
+import { ColumnsValues } from '../../common/services/constants';
 import Services from '../../common/services/services';
 import ui from 'redux-ui';
 import {
@@ -25,7 +25,7 @@ interface SurveysProps {
     updateUI: (any) => any;
     ui: any;
     loadQuestions: (questionIds: number[]) => any
-    questionIds: number[];   
+    questionIds: number[];
     fieldDescriptions: any;
 };
 @ui({
@@ -41,28 +41,28 @@ class Surveys extends React.Component<SurveysProps> {
         //  this.handleEdit = this.handleEdit.bind(this);
     }
 
-    onSubmit(){
+    onSubmit() {
         var testDrive = this.props.testDrive;
         testDrive.status = ColumnsValues.SUBMIT;
         this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const questions = this.props.questions;
-        if(!questions || questions.length == 0){
+        if (!questions || questions.length == 0) {
             this.props.loadQuestions(this.props.questionIds);
-        }   
+        }
         this.getHelpText();
     }
 
-    getHelpText(){
-        Services.getApplicationConfigurations().then((appConfig: any) =>{
-            this.props.updateUI({helpText: appConfig.QuestionHelpText});
+    getHelpText() {
+        Services.getApplicationConfigurations().then((appConfig: any) => {
+            this.props.updateUI({ helpText: appConfig.QuestionHelpText });
         })
     }
 
     render() {
-        const { 
+        const {
             testDrive,
             questions,
             saveQuestion,
@@ -88,7 +88,7 @@ class Surveys extends React.Component<SurveysProps> {
                     {
                         questions && questions.map(question => {
                             return <SurveyForm
-                                question={(question && question.isInEditMode) ? 
+                                question={(question && question.isInEditMode) ?
                                     { ...newQuestion, isInEditMode: true } : question}
                                 saveQuestion={saveQuestion}
                                 editQuestion={editQuestion}
@@ -102,17 +102,20 @@ class Surveys extends React.Component<SurveysProps> {
                         })
                     }
                 </div>
-                
+
                 <div className="col-md-12 testdrive_actionbox">
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                    <input type="button" value="Save as a draft"
-                        onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id)}} />
-                        </div>
+                        <input type="button" value="Back" onClick={() => updateUI({ activeTab: ui.activeTab - 1 })} />
+                    </div>
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <input type="button" value="Save as a draft"
+                            onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
+                    </div>
 
-                        <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <input type="button" value="Submit"
-                        onClick={this.onSubmit} />
-                        </div>
+                            onClick={this.onSubmit} />
+                    </div>
                 </div>
             </div>
         );

@@ -6,7 +6,7 @@ import ui from 'redux-ui';
 import { validateControl, required, validateForm } from '../../common/components/Validations';
 import { ToastContainer, toast } from 'react-toastify';
 import Popup from 'react-popup';
-import {ColumnsValues} from '../../common/services/constants';
+import { ColumnsValues } from '../../common/services/constants';
 import { Messages } from '../../common/services/constants';
 import {
     model,
@@ -43,15 +43,15 @@ interface TestCasesProps {
 class TestCases extends React.Component<TestCasesProps> {
     constructor(props, context) {
         super(props, context);
-        this.onMoveNext = this.onMoveNext.bind(this);
+        this.switchTab = this.switchTab.bind(this);
         this.getHelpText = this.getHelpText.bind(this);
     }
 
-    onMoveNext() {
+    switchTab(direction) {
         // this.props.saveTestDrive(this.props.testDrive, "test-drive-form" + this.props.testDrive.id);
         var isFormValid = validateForm("test-drive-form" + this.props.testDrive.id);
         if (isFormValid) {
-            this.props.switchTab('step-3');
+            this.props.updateUI({ activeTab: this.props.ui.activeTab + direction });
         } else {
             Popup.alert(Messages.TEST_DRIVE_ERROR);
         }
@@ -116,7 +116,10 @@ class TestCases extends React.Component<TestCasesProps> {
 
                 <div className="col-md-12 testdrive_actionbox">
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                        <input type="button" value="Next" onClick={this.onMoveNext} />
+                        <input type="button" value="Back" onClick={() => this.switchTab(-1)} />
+                    </div>
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <input type="button" value="Next" onClick={() => this.switchTab(1)} />
                     </div>
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <input type="button" value="Save as a draft" onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />

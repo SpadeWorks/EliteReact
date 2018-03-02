@@ -9,7 +9,7 @@ import * as $ from 'jquery';
 import { validateControl, required, validateForm } from '../../common/components/Validations';
 import { updateDate } from '../index';
 import { ToastContainer, toast } from 'react-toastify';
-import { css } from 'glamor';
+import { css, active } from 'glamor';
 import {Messages} from '../../common/services/constants';
 import Popup from 'react-popup';
 
@@ -45,7 +45,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         super(props, state);
         this.onChange = this.onChange.bind(this);
         this.selectControlChange = this.selectControlChange.bind(this);
-        this.onMoveNext = this.onMoveNext.bind(this);
+        this.onSwitchTab = this.onSwitchTab.bind(this);
     }
 
     onChange = (e) => {
@@ -132,10 +132,10 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         });
     }
 
-    onMoveNext() {
+    onSwitchTab(direction) {
         var isFormValid = validateForm("test-drive-form" + this.props.testDrive.id);
         if (isFormValid) {
-            this.props.switchTab('step-2');
+            this.props.updateUI({activeTab: this.props.ui.activeTab + direction});
         } else{
             Popup.alert(Messages.TEST_DRIVE_ERROR);
         }
@@ -403,7 +403,7 @@ render() {
                     <div style={butttonGroup}>
                         <div className="button type1 nextBtn btn-lg pull-right animated_button">
                             <input type="button" value="Next"
-                                onClick={this.onMoveNext} />
+                                onClick={() => this.onSwitchTab(1)} />
                         </div>
                         <div className="button type1 nextBtn btn-lg pull-right animated_button">
                             <input type="button" value="Save as a draft"

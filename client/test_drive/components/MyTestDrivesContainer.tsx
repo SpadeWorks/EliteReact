@@ -38,6 +38,7 @@ interface MyTestDrivesContainerProps {
 class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> {
     constructor(props, context) {
         super(props, context);
+        this.initialize();
     }
 
     componentDidMount() {
@@ -54,7 +55,11 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
         });
     }
 
-    render() {
+    componentWillUpdate(){
+        this.initialize();
+    }
+
+    initialize(){
         const { myCompletedTestDrives, myCompletedTestDrivesLoading, myInprogressTestDrives,
             myInprogressTestDrivesLoading, ui, updateUI,
             loadMyInprogressTestDrives, loadMyCompletedTestDrives } = this.props;
@@ -73,9 +78,13 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
             }
             this.getVisibleItems(currentPage, this.props.myInprogressTestDrives, 'inprogressItems', 'inprogressItemCurrent');
         }
+    }
 
+    render() {
+        const { myCompletedTestDrives, myCompletedTestDrivesLoading, myInprogressTestDrives,
+            myInprogressTestDrivesLoading, ui, updateUI,
+            loadMyInprogressTestDrives, loadMyCompletedTestDrives } = this.props;
         return (<Tabs selected={0}>
-            
             <Pane label="TEST DRIVES IN PROGRESS">
                 <div>
                     <Loader show={myCompletedTestDrivesLoading} message={'Loading...'}>
