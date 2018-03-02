@@ -1,3 +1,20 @@
+
+require('es6-promise').polyfill();
+import 'core-js/es6/symbol';
+import 'core-js/es6/object';
+import 'core-js/es6/function';
+import 'core-js/es6/parse-int';
+import 'core-js/es6/parse-float';
+import 'core-js/es6/number';
+import 'core-js/es6/math';
+import 'core-js/es6/string';
+import 'core-js/es6/date';
+import 'core-js/es6/array';
+import 'core-js/es6/regexp';
+import 'core-js/es6/map';
+import 'core-js/es6/set';
+
+
 import Promise from "ts-promise";
 import * as Constants from './constants';
 import pnp, { config } from 'sp-pnp-js';
@@ -17,6 +34,8 @@ import { TestDriveInstance, QuestionInstance, TestCaseInstance } from '../../tes
 import { File, ListItem } from "@microsoft/microsoft-graph-types";
 import { error } from "util";
 import { Lists } from "sp-pnp-js/lib/sharepoint/lists";
+
+
 
 const delay = 100;
 declare var SP: any;
@@ -1953,6 +1972,7 @@ export class Services {
     // }
 
     static getGlobalLeaders(skip = 0, count = 3) {
+        
         var d = new Date();
         var lastYear = d.getFullYear() - 1 + "-12-31";
         return new Promise((resolve, reject) => {
@@ -2857,6 +2877,5 @@ export class Cache {
             _spPageContextInfo.userId.toString().replace(/\W/g, '') + key).toLowerCase();
     }
 };
-
 export default Services;
 
