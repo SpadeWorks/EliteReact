@@ -10,7 +10,10 @@ import Services from '../../common/services/services';
 import Surveys from './Surveys';
 import { Link } from "react-router-dom";
 import { validateControl, required, validateForm } from '../../common/components/Validations';
-import {Messages} from '../../common/services/constants';
+import { Messages } from '../../common/services/constants';
+import { ToastContainer, toast } from 'react-toastify';
+import Popup from 'react-popup';
+import { ColumnsValues } from '../../common/services/constants';
 import {
     model,
     saveTestDrive,
@@ -92,13 +95,48 @@ class ManageTestDrive extends React.Component<AppProps> {
             this.props.dispatch(loadConfigurations());
         }
         this.props.dispatch(loadTestDrive(this.props.id || -1));
+
+        /** Prompt plugin */
+        Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
+            let promptValue = null;
+            let promptChange = function (value) {
+                promptValue = value;
+            };
+
+            this.create({
+                title: 'Success',
+                content: 'Data Saved Successfully!',
+                buttons: {
+                    left: [{
+                        text: 'Go Back and Edit',
+                        action: function () {
+                            Popup.close();
+                        }
+                    }],
+                    right: [{
+                        text: 'Go to Dashboard',
+                        action: function () {
+                            window.location.href = "#";
+                            Popup.close();
+                        }
+                    }]
+                }
+            });
+        });
+
+        /** Call the plugin */
     }
 
     onTestDriveSave(testDrive, formID) {
         var isFormValid = validateForm(formID);
         var testCases = this.props.testDrive.testCases;
         var questions = this.props.testDrive.questions;
+        var maxTestDrivers = parseInt(testDrive.maxTestDrivers) || 0;
         if (isFormValid) {
+            if(maxTestDrivers < 1){
+                Popup.alert('Max Test Drivers value should be greater than 1.');
+                return false;
+            }
             if (testCases && testCases.length &&
                 this.checkForUnsavedItems(testCases, Messages.SAVE_UNSAVED_TEST_CASE)) {
                 this.switchTab('step-2');
@@ -110,20 +148,37 @@ class ManageTestDrive extends React.Component<AppProps> {
                 return false;
             }
 
+            if (testDrive.status == ColumnsValues.SUBMIT && testCases && testCases.length == 0) {
+                Popup.alert(Messages.NO_TEST_CASE_ERROR);
+                return false;
+            }
+
+            if (testDrive.status == ColumnsValues.SUBMIT && questions && questions.length == 0) {
+                Popup.alert(Messages.NO_QUESTION_ERROR);
+                return false;
+            }
+
             this.props.dispatch(saveTestDrive(testDrive));
+            Popup.plugins().prompt('', 'What do you want to do?');
+            toast.success("Test Drive Saved Successfully!");
         }
         else {
             this.switchTab('step-1');
-            alert(Messages.TEST_DRIVE_ERROR);
+            Popup.alert(Messages.TEST_DRIVE_ERROR);
         }
     }
 
     onSaveQuestion(question, formID) {
         var isFormValid = validateForm(formID);
         if (isFormValid) {
-            this.props.dispatch(saveQuestion(question));
+            if (question.questionType == "Objective" && question.options.length < 2) {
+                Popup.alert(Messages.NO_OPTIONS_ERROR);
+            } else {
+                this.props.dispatch(saveQuestion(question));
+                toast.success("Question Saved Successfully!");
+            }
         } else {
-            alert(Messages.QUESTION_ERROR);
+            Popup.alert(Messages.QUESTION_ERROR);
         }
     }
 
@@ -131,8 +186,9 @@ class ManageTestDrive extends React.Component<AppProps> {
         var isFormValid = validateForm(formID);
         if (isFormValid) {
             this.props.dispatch(saveTestCase(testCase));
+            toast.success("Test Case Saved Successfully!");
         } else {
-            alert(Messages.TEST_CASE_ERROR);
+            Popup.alert(Messages.TEST_CASE_ERROR);
         }
     }
 
@@ -142,7 +198,7 @@ class ManageTestDrive extends React.Component<AppProps> {
         });
 
         if (unsaveTestCase.length) {
-            alert(message);
+            Popup.alert(message);
             return true;
         } else {
             return false;
@@ -177,11 +233,15 @@ class ManageTestDrive extends React.Component<AppProps> {
             testCaseFields, surveyFields, testDriveFields } = this.props;
         return (
             <div className="container header_part">
-                <Link to={"/"} >
-                <h2 className="header_prevlink">
-             <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Create Test Drive</h2>
-                </Link>
-            
+                <Popup />
+                
+                    <h2 className="header_prevlink">
+                        <Link to={"/"} >
+                        <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Create Test Drive
+                        </Link>
+                        </h2>
+
+
                 <h4 className="cancel-btn"><Link to={"/testdrives"}>Cancel</Link></h4>
                 <div className="col-md-12">
                     <div className="wrapper">
@@ -251,6 +311,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                         </Loader>
                     </div>
                 </div>
+                <ToastContainer />
             </div>
         );
     }

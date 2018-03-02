@@ -1,5 +1,7 @@
 import * as React from 'react';
 import ui from 'redux-ui';
+import * as $ from 'jquery';
+import '../../js/jqmeter.js';
 
 interface OverallPointsDashboardProps {
     totalUsers: number;
@@ -15,6 +17,18 @@ interface OverallPointsDashboardState {
 
 class OverallPointsDashboard extends React.Component<OverallPointsDashboardProps> {
 
+    componentDidUpdate() {
+        /*var jqmeter = $("#jqmeter-vertical2");
+            if (jqmeter.length) {
+        $('#jqmeter-vertical2').jQMeter({
+            goal: '$1,000',
+            raised: '$200',
+            meterOrientation: 'vertical',
+            width: '50px',
+            height: '200px'
+        });    
+    }*/
+    }
 
     render() {
         return (<div>{
@@ -28,14 +42,16 @@ class OverallPointsDashboard extends React.Component<OverallPointsDashboardProps
                             <h2>{this.props.totalUsers}</h2></div>
                     </div>
                 </div>
-                <div className="col-md-1">
-                    <div id="jqmeter-vertical2"></div>
+                <div className="col-md-1 meter text-center">
+                    {/* <div id="jqmeter-vertical2"></div> */}
+
+                    <img src="/sites/elite/Style%20Library/Elite/images/meter.png" />
                 </div>
                 <div className="col-md-6">
                     <div className="c_ride">
                         <div className="col-md-3">
                             <div className="col-md-12 text-center">
-                                <h4>TEST DRIEVES COMPLETED</h4>
+                                <h4>TEST DRIVES COMPLETED</h4>
                             </div>
                             <div className="col-md-12 text-center">
                                 <h2>{this.props.testDrivesCompleted}</h2>

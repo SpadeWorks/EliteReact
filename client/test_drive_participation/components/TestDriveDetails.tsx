@@ -6,14 +6,13 @@ import Services from '../../common/services/services';
 import { EliteProfile } from '../../home/model';
 import { Messages } from '../../common/services/constants';
 import ui from 'redux-ui';
-
+import Popup from 'react-popup';
 interface TestDriveDetailsProps {
     testDriveInstance: TestDriveInstance;
     createTestDriveInstance: (testDriveInstance: TestDriveInstance) => any;
     updateUI: (any) => any;
     ui: any;
 };
-
 @ui({
     state: {
         showPopUp: false,
@@ -45,7 +44,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
             Services.getEliteProfileByID().then((user: EliteProfile) => {
                 var message = '';
                 var isUserEligible: boolean = true;
-                var matchedLocation = ctx.props.testDriveInstance.location.filter((location:any) => {
+                var matchedLocation = ctx.props.testDriveInstance.location.filter((location: any) => {
                     return location.Label == user.location;
                 });
 
@@ -78,90 +77,136 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                 ctx.props.createTestDriveInstance(this.props.testDriveInstance)
             } else {
                 ctx.props.updateUI({
-                    showPopUp: true,
                     message: data.message
                 });
+                Popup.plugins().prompt('', 'What do you want to do?');
             }
         })
 
     }
 
-    componentDidMount(){
-        const {testDriveInstance} = this.props;
+    componentDidMount() {
+        const { testDriveInstance } = this.props;
         var testCaseCompletion = (testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 1);
         var pointsEarned = testDriveInstance.currentPoint / (testDriveInstance.maxPoints || 1)
         Services.loadProgressBar("completed-test-cases-canvas", testCaseCompletion, 150);
-        Services.loadProgressBar("test-drive-points-canvas",pointsEarned,150);
+        Services.loadProgressBar("test-drive-points-canvas", pointsEarned, 150);
+
+        /** Prompt plugin */
+        Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
+            let promptValue = null;
+            let promptChange = function (value) {
+                promptValue = value;
+            };
+
+            this.create({
+                title: 'Hit the brakes!',
+                content: 'You can\'t participate in this Test Drive as you may from a different location or may not possess the required devices. You can update your devices and Os on your profile page.',
+                buttons: {
+                    left: [{
+                        text: 'Test drive details',
+                        action: function () {
+                            Popup.close();
+                        }
+                    }],
+                    center: [],
+
+                    right: [{
+                        text: 'Test drive central',
+                        action: function () {
+                            window.location.hash = "/testdrives";
+                            Popup.close();
+                        }
+                    }, {
+                        text: 'Edit profile',
+                        action: function () {
+                            window.location.hash = "/profile";
+                            Popup.close();
+                        }
+                    }]
+                }
+            });
+        });
+
+        /** Call the plugin */
+
     }
 
     render() {
         const { testDriveInstance, createTestDriveInstance, ui, updateUI } = this.props;
         var testCaseCompletion = (testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 1) * 100;
-        var pointsEarned = testDriveInstance.currentPoint / (testDriveInstance.maxPoints || 1) * 100
+        var pointsEarned = testDriveInstance.currentPoint
 
         return (<div className="col-md-12 detailed_box">
-            <div className="row">
-                <div className="container header_part">
 
-                    <Link to={"/"}>
-                        <h2><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>{testDriveInstance.title}</h2>
-                    </Link>
+            <div className="row">
+                <Popup />
+                <div className="container header_part">
+                    <h2>
+                        <Link to={"/"}><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>{testDriveInstance.title}  </Link></h2>
                 </div>
                 <div className="col-md-12 testdrive-detail_first-time" style={{ overflow: "auto" }}>
                     <div className="wrapper">
                         <div className="col-md-12">
-                            <div className="col-md-4">
-                                <div className="row">
+                            <div className="row">
+                                <div className="col-md-4">
+
                                     <span className="orange">
-                                        <i>DESCRIPTION</i>
+                                        <i>DESCRIPTION :</i>
                                     </span>
+
                                 </div>
-                            </div>
-                            <div className="col-md-3 pull-right">
-                                <div className="col-md-12 social_box">
-                                    <div className="row">
-                                        <a href="#">
-                                            <i className="material-icons">info</i>
-                                        </a>
-                                        <a href="#">
-                                            <i className="material-icons">email</i>
-                                        </a>
-                                        <a href="#">
-                                            <span className="teams"></span>
-                                        </a>
-                                        <a href="#">
-                                            <i className="material-icons">share</i>
-                                        </a>
+                                <div className="col-md-3 pull-right">
+                                    <div className="col-md-12 social_box">
+                                        <div className="row">
+                                            <a href="#">
+                                                <i className="material-icons">info</i>
+                                            </a>
+                                            <a href="#">
+                                                <i className="material-icons">email</i>
+                                            </a>
+                                            <a href="#">
+                                                <span className="teams"></span>
+                                            </a>
+                                            <a href="#">
+                                                <i className="material-icons">share</i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-12 testdrivedetails_box">
-                            <span className="orange">
-                                <i>POINTS :</i>
-                            </span>
-                            <div className="col-md-12 earn_box">
 
-                                <div className="col-md-4">
+                            <div className="row">
+                                <div className="earn_box">
                                     <div className="row">
-                                        <canvas id="completed-test-cases-canvas" width="140" height="140"></canvas>
-                                         <h3>{testCaseCompletion}</h3> 
-                                        <span className="small">{testDriveInstance.numberOfTestCasesCompleted } of {testDriveInstance.testCaseIDs.length} tasks done</span>
+                                        <div className="col-md-2">
+                                            <span className="orange">
+                                                <i>POINTS EARNED :</i>
+                                            </span>
+                                            <div className="row">
+                                                <canvas id="test-drive-points-canvas" width="140" height="140"></canvas>
+                                                <h3>{pointsEarned}</h3>
+                                                <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-2 col-md-offset-2">
+                                            <span className="orange">
+                                                <i>DRIVE COMPLETION :</i>
+                                            </span>
+                                            <div className="row">
+                                                <canvas id="completed-test-cases-canvas" width="140" height="140"></canvas>
+                                                <h3>{testCaseCompletion.toFixed(0)} %</h3>
+                                                <span className="small">{testDriveInstance.numberOfTestCasesCompleted} of {testDriveInstance.testCaseIDs.length} tasks done</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div className="col-md-4">
-                                    <div className="row">
-                                        <canvas id="test-drive-points-canvas" width="140" height="140"></canvas>
-                                        <h3>{pointsEarned}</h3>
-                                        <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-12 para">
-                            <span className="orange">TEST DRIVE PITCH</span>
+                            <span className="orange">TEST DRIVE PITCH :</span>
                             <p>{testDriveInstance.description}</p>
                         </div>
                         <div className="col-md-12">
@@ -169,7 +214,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                 <div className="row inforow">
                                     <div className="col-md-4">
                                         <div className="row">
-                                            <span className="orange">TEST DRIVE OWNER:</span>
+                                            <span className="orange">TEST DRIVE OWNER :</span>
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -181,7 +226,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                         <div className="row">
                                             <div className="col-md-5">
                                                 <div className="row">
-                                                    <span className="orange">START DATE:</span>
+                                                    <span className="orange">START DATE :</span>
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
@@ -193,7 +238,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                         <div className="row">
                                             <div className="col-md-5">
                                                 <div className="row">
-                                                    <span className="orange">END DATE:</span>
+                                                    <span className="orange">END DATE :</span>
                                                 </div>
                                             </div>
                                             <div className="col-md-7">
@@ -205,7 +250,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                 <div className="row inforow">
                                     <div className="col-md-4">
                                         <div className="row">
-                                            <span className="orange">DIFICULTY LEVEL:</span>
+                                            <span className="orange">DIFFICULTY LEVEL :</span>
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -215,21 +260,21 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                 <div className="row inforow">
                                     <div className="col-md-4">
                                         <div className="row">
-                                            <span className="orange">PARTICIPAINTS:</span>
+                                            <span className="orange">PARTICIPAINTS :</span>
                                         </div>
                                     </div>
                                     <div className="col-md-6">
-                                        <h5>800</h5>
+                                        <h5>{testDriveInstance.participants || "0"}</h5>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-12 para">
-                            <span className="orange">EXPERIANCE BUSINESS VALUE: </span>
+                            <span className="orange">EXPECTED BUSINESS VALUE :</span>
                             <p>{testDriveInstance.expectedBusinessValue}</p>
                         </div>
                         <div className="col-md-12 para">
-                            <span className="orange">ELIGIBLE DRIVER REGION: </span>
+                            <span className="orange">ELIGIBLE DRIVER REGION :</span>
                             <div className="row">
                                 <ul className="select2-selection__rendered">
                                     {
@@ -244,7 +289,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             </div>
                         </div>
                         <div className="col-md-12 para">
-                            <span className="orange">ELIGIBLE DRIVER LOCATION</span>
+                            <span className="orange">ELIGIBLE DRIVER LOCATION :</span>
                             <div className="row">
                                 <ul className="select2-selection__rendered">
                                     {
@@ -258,7 +303,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             </div>
                         </div>
                         <div className="col-md-12 para">
-                            <span className="orange">DEVICES REQUIRED</span>
+                            <span className="orange">DEVICES REQUIRED :</span>
                             <div className="row">
                                 <ul className="select2-selection__rendered">
                                     {
@@ -271,7 +316,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             </div>
                         </div>
                         <div className="col-md-12 para">
-                            <span className="orange">OS REQUIRED</span>
+                            <span className="orange">OS REQUIRED :</span>
                             <div className="row">
                                 <ul className="select2-selection__rendered">
                                     {
@@ -285,9 +330,11 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             </div>
                         </div>
 
-                        <div className="col-md-12 popup_buttonbox">
-                            <input onClick={this.participate} className="button type1" type="button" value="Go For Drive" />
-                            <button id="participationButton" style={{display: 'none'}} type="participationError" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                        <div className="col-md-12 participation_actionbox">
+                            <div className="button type1 nextBtn btn-lg pull-left animated_button">
+                                <input onClick={this.participate} type="button" value="Go For Drive" />
+                            </div>
+                            <button id="participationButton" style={{ display: 'none' }} type="participationError" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
                         </div>
                     </div>
                 </div>
@@ -297,10 +344,10 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <input 
-                                onClick={() => {updateUI({showPopUp: false})}}
-                            type="button" className="close" data-dismiss="modal" value="X"/>
-                            <h4 className="modal-title">Modal Header</h4>
+                            <input
+                                onClick={() => { updateUI({ showPopUp: false }) }}
+                                type="button" className="close" data-dismiss="modal" value="X" />
+                            <h4 className="modal-title">ERROR :</h4>
                         </div>
                         <div className="modal-body error">
                             <p>{ui.message}</p>

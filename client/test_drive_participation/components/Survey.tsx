@@ -28,10 +28,7 @@ class Survey extends React.Component<SurveyProps> {
         let question = this.props.testDriveInstance.questions;
         let testDrive = this.props.testDriveInstance;
         let userID = Services.getCurrentUserID();
-        if (this.isTestDriveCompleted() && !testDrive.questionLoaded) {
-            this.props.loadQuestions(testDrive.testDriveID, testDrive.questionIDs, userID);
-        }
-
+        this.props.loadQuestions(testDrive.testDriveID, testDrive.questionIDs, userID);
         $('#carousel-question-vertical').bind('mousewheel', function (e) {
             if (e.originalEvent.wheelDelta / 120 > 0) {
                 $(this).carousel('prev');
@@ -43,21 +40,24 @@ class Survey extends React.Component<SurveyProps> {
                 $(this).carousel('next');
             }
         });
+
+     
+
+
+        
     }
     render() {
         const { questions, saveQuestionResponse, ui, updateUI } = this.props;
         return (
             <div className="col-md-12">
-
-
                 {this.isTestDriveCompleted() && <div>
                     <div className="testcase_no " id="test_Cases">
-                        <ul className="task_circle ">
+                        <ul className="task_circle">
                             {
                                 questions &&
                                 questions.length &&
                                 questions.map((question, index) => {
-                                    return (<li key={index} data-target="#carousel-question-vertical" data-slide-to={index} className="active">
+                                    return (<li key={index} data-target="#carousel-question-vertical" data-slide-to={index}>
                                         <p> {index + 1}. {question.responseStatus == Constants.ColumnsValues.DRAFT &&
                                             <img src={Constants.Globals.IMAGE_BASE_URL + "/empty.png"} className="img-responsive" />}
                                             {question.responseStatus == Constants.ColumnsValues.COMPLETE_STATUS &&

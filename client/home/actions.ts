@@ -33,9 +33,9 @@ const loadVideo = createAction(
 )
 
 
-const loadTestDriveThatIRun = createAction<any, number, number, number>(
+const loadTestDriveThatIRun = createAction<any, number, number>(
   LOAD_TestDriveIRun, 
-  (owernID: number, skip: number, top: number) => Services.getTestDrivesByOwerneID(owernID, skip, top)
+  (skip: number, top: number) => Services.getActiveTestDrivesIRun(skip, top)
 )
 
 const loadUpcomingTestDrive = createAction<any>(

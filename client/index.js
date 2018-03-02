@@ -1,4 +1,4 @@
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import '../client/css/custom.css';
-// import '../client/css/icon.css';
+
+import 'core-js/es6/map';
+import 'core-js/es6/set';
 import './main';

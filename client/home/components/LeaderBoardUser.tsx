@@ -1,5 +1,6 @@
 import * as React from 'react';
 import ui from 'redux-ui';
+import { Link } from "react-router-dom";
 
 interface LeaderBoardUserProps {
   userName: string;
@@ -17,7 +18,7 @@ class LeaderBoardUser extends React.Component<LeaderBoardUserProps> {
   render() {
       const {points, avatar, userId, userName, rank} = this.props;
     return (<div>{
-          <a href="#">
+        <Link to={"/profile/"+userId}>
           <div className="col-md-12 leader_box">
               <div className="leader_rank"><span>{rank}</span></div>
               <div className="col-md-12 leader_name">
@@ -37,7 +38,7 @@ class LeaderBoardUser extends React.Component<LeaderBoardUserProps> {
                   </div>
               </div>
           </div>
-      </a> 
+      </Link>
       }</div>);
   }
 }

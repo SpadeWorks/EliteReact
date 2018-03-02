@@ -6,7 +6,11 @@ import {
     LOAD_OnBoardingDetails_FULFILLED,
     LOAD_OnBoardingDetails_PENDING,
     LOAD_OnBoardingDetails_REJECTED,
-    CompleteIntro
+
+    CREATE_EliteProfile_PENDING,
+    CREATE_EliteProfile_FULFILLED,
+    CREATE_EliteProfile_REJECTED
+
 } from './constants/ActionTypes';
 
 const initialState: IState = {
@@ -56,11 +60,27 @@ export default handleActions<IState, any>({
         }
     },
 
-    [CompleteIntro]: (state: IState, action: Action<any>): IState => {
+    [CREATE_EliteProfile_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            introComplete: true
+            loading: true,
+            isUserCreated: false,
         }
-    }
+    },
+
+    [CREATE_EliteProfile_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            isUserCreated: true,
+            loading: false
+        }
+    },
+
+    [CREATE_EliteProfile_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            loading: false
+        }
+    },
 
 }, initialState);

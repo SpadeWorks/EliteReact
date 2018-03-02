@@ -7,7 +7,7 @@ module.exports = require('./webpack.shared.config')({
   entry: {
     styles: path.join(process.cwd(), 'client/styles.js'),
     // 'styles.min': path.join(process.cwd(), 'client/styles.js'),
-    index: path.join(process.cwd(), 'client/index.js'),
+    index: ["babel-polyfill", path.join(process.cwd(), 'client/index.js')],
     // 'index.min': path.join(process.cwd(), 'client/index.js'),
   },
 
@@ -27,6 +27,10 @@ module.exports = require('./webpack.shared.config')({
       minChunks: 2,
       async: true,
     }),
+    new webpack.ProvidePlugin({
+      'Promise': 'es6-promise', // Thanks Aaron (https://gist.github.com/Couto/b29676dd1ab8714a818f#gistcomment-1584602)
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+    }),
 
     // new HtmlWebpackPlugin({
     //   template: 'client/index.html',
@@ -44,8 +48,18 @@ module.exports = require('./webpack.shared.config')({
     //   },
     //   inject: true,
     // }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      }
+    })
 
-    new UglifyJsPlugin()
+    // new UglifyJsPlugin()
     // new BundleAnalyzerPlugin()
   ]
 });

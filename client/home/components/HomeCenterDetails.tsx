@@ -27,7 +27,7 @@ class HomeCenterDetails extends React.Component<HomeCenterDetailsProps> {
                 <div className="c_ride">
                     <div className="col-md-3">
                         <div className="col-md-12 text-center">
-                            <h4>TEST DRIEVES COMPLETED</h4>
+                            <h4>TEST DRIVES COMPLETED</h4>
                         </div>
                         <div className="col-md-12 text-center">
                             <h2>1547</h2>

@@ -144,9 +144,10 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                 <div className="modal-dialog edit_profile">
                     {/* <!-- Modal content--> */}
                     <div className="modal-content editpro_box">
+                        <div className="wrapper">
                         <div className="modal-header">
                             <button type="button" className="close" data-dismiss="modal">
-                                <i className="material-icons">close</i>
+                                <i className="material-icons pull-right">close</i>
                             </button>
                             <h4 className="modal-title">Profile Details</h4>
                         </div>
@@ -246,10 +247,18 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                                 </span>
                             </div>
                         </div>
-                        <div className="modal-footer">
-                            <div className="col-md-5 col-md-offset-3 popup_buttonbox">
-                                <input type="button" value="All Set" className="button type1"
-                                    onClick={() => { this.onSave() }} />
+                        <div className="modal-footer testdrive_actionbox">
+                          <div className="button type1 nextBtn btn-lg pull-right animated_button" >
+                                <input type="button" value="All Set"
+                                    onClick={() => { this.onSave() }} data-dismiss="modal"/>
+                         </div>
+
+
+
+                       
+
+
+
                             </div>
                         </div>
                     </div>

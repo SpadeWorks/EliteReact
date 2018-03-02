@@ -58,19 +58,22 @@ class GlobalLeaderBoard extends React.Component<GlobalLeaderBoardProps> {
                     ui.visibleItems && ui.visibleItems.map((leader, index) => {
                         return (<LeaderItem
                             key={index}
+                            isCurrentUser={leader.id == currentUser.id}
                             leader={leader} />)
                     })
                 }
 
                 {
-                    ui.visibleItems.length == 0 && leaders && leaders.slice(0, ui.itemsPerPage).map((leader, index) => {
+                    ui.visibleItems.length == 0 && leaders && 
+                    leaders.slice(0, ui.itemsPerPage).map((leader, index) => {
                         return (<LeaderItem
                             key={index}
+                            isCurrentUser={leader.id == currentUser.id}
                             leader={leader} />)
                     })
                 }
                 {
-                    leaders.length > 0 &&
+                    leaders.length > 0 ?
                     <Pager
                         total={Math.ceil(leaders.length / ui.itemsPerPage)}
                         current={ui.current}
@@ -78,12 +81,13 @@ class GlobalLeaderBoard extends React.Component<GlobalLeaderBoardProps> {
                         titles={{ first: '<', last: '>' }}
                         className="pagination-sm pull-right"
                         onPageChanged={this.handlePageChanged}
-                    />
+                    /> : ''
                 }
 
 
-                {currentUser.rank && currentUser.rank != -1 && <LeaderItem
-                    leader={currentUser} />}
+                {(currentUser.rank && currentUser.rank != -1) ? <LeaderItem
+                    isCurrentUser={true}
+                    leader={currentUser} /> : ''}
             </div>)
     }
 }

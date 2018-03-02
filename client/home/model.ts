@@ -18,6 +18,7 @@ export type IState = {
     avatars: string[];
     cars: string[];
     videoUrl?: string;
+    profileState?: any;
 }
 
 export type HomeTestDriveObj = {
@@ -84,6 +85,7 @@ export type EliteProfile = {
     availableOS: string[];
     availableDevices: string[];
     isInEditMode: boolean;
+    levelName: string;
 }
 export type TestDrive = {
     id: number;

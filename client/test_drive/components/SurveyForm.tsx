@@ -81,7 +81,6 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                             {question.title || "Question " + question.id}
 
                         </a>
-
                         <div className="pull-right">
                             <a href="javascript:void(0);"><i className="material-icons"
                                 onClick={() => deleteQuestion(question.id)}>delete</i></a>
@@ -102,11 +101,11 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                     className={question.isInEditMode ? "collapse in" : "collapse"}
                     aria-labelledby="headingOne" data-parent="#accordion">
                     <div className="card-body">
-                        
+
 
                         <form id={"question-form" + question.id}>
                             <div className="col-md-12 register_input">
-                                <input className="inputMaterial" 
+                                <input className="inputMaterial"
                                     type="text"
                                     onChange={this.onChange}
                                     name="title"
@@ -152,7 +151,7 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                                             value={question.options}
                                         />
                                     </div>
-                                    <label className="disc_lable">Responses</label>
+                                    <label className="disc_lable">Response</label>
                                     <span className="help-text">
                                         {fieldDescriptions && fieldDescriptions[Constants.Columns.RESPONSES]}
                                     </span>

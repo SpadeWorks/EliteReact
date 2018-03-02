@@ -85,7 +85,8 @@ const initialState: IState = {
         completedTestDrives: 0,
         availableOS: [],
         availableDevices: [],
-        isInEditMode: false
+        isInEditMode: false,
+        levelName: ""
     },
     currentUser: {},
     rank: -1,

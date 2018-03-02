@@ -46,3 +46,72 @@ export const EDIT_Question = 'EDITQuestion';
 export const SAVE_Question = 'SAVEQuestion';
 export const SUBMIT_Question = 'SUBMITQuestion';
 export const UPDATE_Question = 'UPDATE_Question';
+
+
+//Approval related actions
+
+export const LOAD_TestDrivesWaitingFormApproval = 'LOAD_TestDrivesWaitingFormApproval';
+export const LOAD_TestDrivesWaitingFormApproval_PENDING = 'LOAD_TestDrivesWaitingFormApproval_PENDING';
+export const LOAD_TestDrivesWaitingFormApproval_FULFILLED = 'LOAD_TestDrivesWaitingFormApproval_FULFILLED';
+export const LOAD_TestDrivesWaitingFormApproval_REJECTED = 'LOAD_TestDrivesWaitingFormApproval_REJECTED';
+
+export const LOAD_ApprovedTestDrives = 'LOAD_ApprovedTestDrives';
+export const LOAD_ApprovedTestDrives_PENDING = 'LOAD_ApprovedTestDrives_PENDING';
+export const LOAD_ApprovedTestDrives_FULFILLED = 'LOAD_ApprovedTestDrives_FULFILLED';
+export const LOAD_ApprovedTestDrives_REJECTED = 'LOAD_ApprovedTestDrives_REJECTED';
+
+export const SAVE_TestDriveApproval = 'SAVE_TestDriveApproval';
+export const SAVE_TestDriveApproval_PENDING = 'SAVE_TestDriveApproval_PENDING';
+export const SAVE_TestDriveApproval_FULFILLED = 'SAVE_TestDriveApproval_FULFILLED';
+export const SAVE_TestDriveApproval_REJECTED = 'SAVE_TestDriveApproval_REJECTED';
+
+
+// Active test drive actions.
+export const LOAD_ActiveTestDrives = 'LOAD_ActiveTestDrives';
+export const LOAD_ActiveTestDrives_PENDING = 'LOAD_ActiveTestDrives_PENDING';
+export const LOAD_ActiveTestDrives_FULFILLED = 'LOAD_ActiveTestDrives_FULFILLED';
+export const LOAD_ActiveTestDrives_REJECTED = 'LOAD_ActiveTestDrives_REJECTED';
+
+// Upcomming test drives.
+export const LOAD_UpCommingTestDrives = 'LOAD_UpCommingTestDrives';
+export const LOAD_UpCommingTestDrives_PENDING = 'LOAD_UpCommingTestDrives_PENDING';
+export const LOAD_UpCommingTestDrives_FULFILLED = 'LOAD_UpCommingTestDrives_FULFILLED';
+export const LOAD_UpCommingTestDrives_REJECTED = 'LOAD_UpCommingTestDrives_REJECTED';
+
+// Test drive I run related action.
+
+export const LOAD_CompletedTestDrivesIRun = 'LOAD_CompletedTestDrivesIRun';
+export const LOAD_CompletedTestDrivesIRun_PENDING = 'LOAD_CompletedTestDrivesIRun_PENDING';
+export const LOAD_CompletedTestDrivesIRun_FULFILLED = 'LOAD_CompletedTestDrivesIRun_FULFILLED';
+export const LOAD_CompletedTestDrivesIRun_REJECTED = 'LOAD_CompletedTestDrivesIRun_REJECTED';
+
+export const LOAD_UpcommingTestDrivesIRun = 'LOAD_UpcommingTestDrivesIRun';
+export const LOAD_UpcommingTestDrivesIRun_PENDING = 'LOAD_UpcommingTestDrivesIRun_PENDING';
+export const LOAD_UpcommingTestDrivesIRun_FULFILLED = 'LOAD_UpcommingTestDrivesIRun_FULFILLED';
+export const LOAD_UpcommingTestDrivesIRun_REJECTED = 'LOAD_UpcommingTestDrivesIRun_REJECTED';
+
+export const LOAD_InProgressTestDrivesIRun = 'LOAD_InProgressTestDrivesIRun';
+export const LOAD_InProgressTestDrivesIRun_PENDING = 'LOAD_InProgressTestDrivesIRun_PENDING';
+export const LOAD_InProgressTestDrivesIRun_FULFILLED = 'LOAD_InProgressTestDrivesIRun_FULFILLED';
+export const LOAD_InProgressTestDrivesIRun_REJECTED = 'LOAD_InProgressTestDrivesIRun_REJECTED';
+
+export const LOAD_DraftedTestDrivesIRun = 'LOAD_DraftedTestDrivesIRun';
+export const LOAD_DraftedTestDrivesIRun_PENDING = 'LOAD_DraftedTestDrivesIRun_PENDING';
+export const LOAD_DraftedTestDrivesIRun_FULFILLED = 'LOAD_DraftedTestDrivesIRun_FULFILLED';
+export const LOAD_DraftedTestDrivesIRun_REJECTED = 'LOAD_DraftedTestDrivesIRun_REJECTED';
+
+export const LOAD_SubmittedTestDrivesIRun = 'LOAD_SubmittedTestDrivesIRun';
+export const LOAD_SubmittedTestDrivesIRun_PENDING = 'LOAD_SubmittedTestDrivesIRun_PENDING';
+export const LOAD_SubmittedTestDrivesIRun_FULFILLED = 'LOAD_SubmittedTestDrivesIRun_FULFILLED';
+export const LOAD_SubmittedTestDrivesIRun_REJECTED = 'LOAD_SubmittedTestDrivesIRun_REJECTED';
+
+// My test drives related actions.
+export const LOAD_MyInprogressTestDrives = 'LOAD_MyInprogressTestDrives';
+export const LOAD_MyInprogressTestDrives_PENDING = 'LOAD_MyInprogressTestDrives_PENDING';
+export const LOAD_MyInprogressTestDrives_FULFILLED = 'LOAD_MyInprogressTestDrives_FULFILLED';
+export const LOAD_MyInprogressTestDrives_REJECTED = 'LOAD_MyInprogressTestDrives_REJECTED';
+
+export const LOAD_MyCompletedTestDrives = 'LOAD_MyCompletedTestDrives';
+export const LOAD_MyCompletedTestDrives_PENDING = 'LOAD_MyCompletedTestDrives_PENDING';
+export const LOAD_MyCompletedTestDrives_FULFILLED = 'LOAD_MyCompletedTestDrives_FULFILLED';
+export const LOAD_MyCompletedTestDrives_REJECTED = 'LOAD_MyCompletedTestDrives_REJECTED';
