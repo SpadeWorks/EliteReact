@@ -152,7 +152,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                 <div className="col-md-4">
                                 
                                     <span className="orange">
-                                        <i>DESCRIPTION</i>
+                                        <i>DESCRIPTION :</i>
                                     </span>
 
                                 </div>
@@ -288,11 +288,11 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             </div>
                         </div>
                         <div className="col-md-12 para">
-                            <span className="orange">EXPECTED BUSINESS VALUE : </span>
+                            <span className="orange">EXPECTED BUSINESS VALUE :</span>
                             <p>{testDriveInstance.expectedBusinessValue}</p>
                         </div>
                         <div className="col-md-12 para">
-                            <span className="orange">ELIGIBLE DRIVER REGION : </span>
+                            <span className="orange">ELIGIBLE DRIVER REGION :</span>
                             <div className="row">
                                 <ul className="select2-selection__rendered">
                                     {

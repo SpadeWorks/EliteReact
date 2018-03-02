@@ -77,7 +77,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
             };
 
             this.create({
-                title: 'success',
+                title: 'Success',
                 content: 'Survey Submitted Successfully!',
                 buttons: {
                     right: [{

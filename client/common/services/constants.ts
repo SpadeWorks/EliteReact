@@ -129,5 +129,5 @@ export class Messages {
     static NO_TEST_CASE_ERROR = 'Please add atleast one test case before submiting for approval.';
     static NO_QUESTION_ERROR = 'Please add atleast one question before submiting for approval.';
     static NO_OPTIONS_ERROR = 'Please add more that one question responses';
-    static SURVEY_SUBMITTED = 'Survey submitted sucessfully.';
+    static SURVEY_SUBMITTED = 'Survey submitted successfully.';
 }

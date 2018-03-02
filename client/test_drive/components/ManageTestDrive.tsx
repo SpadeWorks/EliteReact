@@ -104,8 +104,8 @@ class ManageTestDrive extends React.Component<AppProps> {
             };
 
             this.create({
-                title: 'Sucess',
-                content: 'Data Saved Sucessfully!',
+                title: 'Success',
+                content: 'Data Saved Successfully!',
                 buttons: {
                     left: [{
                         text: 'Go Back and Edit',
@@ -160,7 +160,7 @@ class ManageTestDrive extends React.Component<AppProps> {
 
             this.props.dispatch(saveTestDrive(testDrive));
             Popup.plugins().prompt('', 'What do you want to do?');
-            toast.success("Test Drive Saved Sucessfully!");
+            toast.success("Test Drive Saved Successfully!");
         }
         else {
             this.switchTab('step-1');
@@ -175,7 +175,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                 Popup.alert(Messages.NO_OPTIONS_ERROR);
             } else {
                 this.props.dispatch(saveQuestion(question));
-                toast.success("Question Saved Sucessfully!");
+                toast.success("Question Saved Successfully!");
             }
         } else {
             Popup.alert(Messages.QUESTION_ERROR);
@@ -186,7 +186,7 @@ class ManageTestDrive extends React.Component<AppProps> {
         var isFormValid = validateForm(formID);
         if (isFormValid) {
             this.props.dispatch(saveTestCase(testCase));
-            toast.success("Test Case Saved Sucessfully!");
+            toast.success("Test Case Saved Successfully!");
         } else {
             Popup.alert(Messages.TEST_CASE_ERROR);
         }

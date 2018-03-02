@@ -1270,7 +1270,7 @@ export class Services {
                             requiredOs: testDrive.AvailableOS.results,
                             maxTestDrivers: testDrive.MaxTestDrivers,
                             id: testDrive.ID,
-                            level: testDrive.LevelID.ID,
+                            level: testDrive.LevelID.LevelName,
                             owner: testDrive.TestDriveOwner.UserInfoName,
                             testCases: null,
                             questions: null,

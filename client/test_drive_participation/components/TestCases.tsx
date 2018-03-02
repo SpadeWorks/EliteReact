@@ -54,8 +54,8 @@ class TestCases extends React.Component<TestCasesProps> {
             };
 
             this.create({
-                title: 'Sucess',
-                content: 'Test Drive Submitted Sucessfully!',
+                title: 'Success',
+                content: 'Test Drive Submitted Successfully!',
                 buttons: {
                     left: [{
                         text: 'Take Survey',
