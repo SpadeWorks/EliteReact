@@ -7,7 +7,7 @@ module.exports = require('./webpack.shared.config')({
   entry: {
     styles: path.join(process.cwd(), 'client/styles.js'),
     // 'styles.min': path.join(process.cwd(), 'client/styles.js'),
-    index: ["babel-polyfill", path.join(process.cwd(), 'client/index.js')],
+    index: [path.join(process.cwd(), "client/polyfill.ts"), path.join(process.cwd(), 'client/index.js')],
     // 'index.min': path.join(process.cwd(), 'client/index.js'),
   },
 

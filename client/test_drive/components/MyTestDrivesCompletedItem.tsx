@@ -19,7 +19,7 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
     componentDidMount() {
         const { participants, checkPortion, testDrive, testDriveResponse, index } = this.props;
         const completedTestCases = testDriveResponse ? testDriveResponse.numberOfTestCasesCompleted : 0;
-        const totalTestCases = testDrive ? testDrive.testCaseIDs.length : 1;
+        const totalTestCases = (testDrive && testDrive.testCaseIDs)? testDrive.testCaseIDs.length : 1;
         const percentComplete = (completedTestCases / totalTestCases);
         const pointEarned = (testDriveResponse.currentPoint / testDrive.maxPoints);
         var pointsProgressID = 'point-canvas' + checkPortion + index;
@@ -30,7 +30,7 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
     render() {
         const { participants, checkPortion, testDrive, testDriveResponse, index, isCompleted } = this.props;
         const completedTestCases = testDriveResponse ? testDriveResponse.numberOfTestCasesCompleted : 0;
-        const totalTestCases = testDrive ? testDrive.testCaseIDs.length : 1;
+        const totalTestCases = (testDrive && testDrive.testCaseIDs)? testDrive.testCaseIDs.length : 1;
         const percentComplete = (completedTestCases / totalTestCases);
         const pointEarned = (testDriveResponse.currentPoint / testDrive.maxPoints);
         var pointsProgressID = 'point-canvas' + checkPortion + index;
@@ -86,8 +86,8 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                         <div className="col-md-12 enddate_Section testcase_completionbox">
                             <div className="row">
                                 <span className="orange"><i>Test Case Completion</i></span>
-                                <span><h3 className="text-center">{testDriveResponse.numberOfTestCasesCompleted}</h3></span>
-                                <span className="small">of {testDrive.testCaseIDs.length}</span>
+                                <span><h3 className="text-center">{completedTestCases}</h3></span>
+                                <span className="small">of {totalTestCases}</span>
                                 <div className="col-md-12">
                                     {/* <div id="jqmeter-horizontal"></div> */}
                                     {/* {completedTestCases} of {totalTestCases} */}

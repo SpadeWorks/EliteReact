@@ -1,23 +1,6 @@
-
-require('es6-promise').polyfill();
-import 'core-js/es6/symbol';
-import 'core-js/es6/object';
-import 'core-js/es6/function';
-import 'core-js/es6/parse-int';
-import 'core-js/es6/parse-float';
-import 'core-js/es6/number';
-import 'core-js/es6/math';
-import 'core-js/es6/string';
-import 'core-js/es6/date';
-import 'core-js/es6/array';
-import 'core-js/es6/regexp';
-import 'core-js/es6/map';
-import 'core-js/es6/set';
-
-
 import Promise from "ts-promise";
 import * as Constants from './constants';
-import pnp, { config } from 'sp-pnp-js';
+import * as pnp from '../../../node_modules/sp-pnp-js/dist/pnp.min';
 import { TestDrive, Question, TestCase } from '../../test_drive/model';
 import * as $ from 'jquery';
 import * as moment from 'moment';
