@@ -116,7 +116,7 @@ class MyProfile extends React.Component<MyProfileProps> {
             totalTestDrives, loading, avatars, cars, totalCount } = this.props;
         let baseUrl = location.protocol + "//" + location.hostname;
 
-        return (<div className="col-md-12">
+        return (<div className="container">
             <Loader show={loading} message={'Loading...'}>
                 {
                     eliteProfile &&

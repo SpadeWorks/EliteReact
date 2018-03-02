@@ -68,10 +68,10 @@ class OverallPointsDashboard extends React.Component<OverallPointsDashboardProps
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <div className="col-md-12 text-center">
+                            <div className="col-md-12 text-right">
                                 <h4>POINTS EARNED</h4>
                             </div>
-                            <div className="col-md-12">
+                            <div className="col-md-12 text-right">
                                 <h2>{this.props.pointsEarned}</h2>
                             </div>
                         </div>
