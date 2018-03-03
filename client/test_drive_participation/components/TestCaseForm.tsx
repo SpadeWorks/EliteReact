@@ -8,6 +8,8 @@ import * as $ from 'jquery';
 import { validateControl, required, validateForm } from '../../common/components/Validations';
 import Files from 'react-files';
 import Loader from 'react-loader-advanced';
+import Popup from 'react-popup';
+import { ToastContainer, toast } from 'react-toastify';
 interface TestCaseFormProps {
     testDriveInstance: TestDriveInstance
     testCase: TestCaseInstance;
@@ -18,7 +20,6 @@ interface TestCaseFormProps {
     ui: any;
     index: number;
     isLast: boolean;
-    isTestDriveCompleted: () => (boolean);
 };
 
 @ui({
@@ -47,7 +48,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
     onFilesChange(files) {
         var duplicateFiles = [];
         var oldFiles = this.props.testCase.files;
-        oldFiles.length && oldFiles.map(oldFile => {
+        oldFiles && oldFiles.length && oldFiles.map(oldFile => {
             var machedElement = files && files.length && files.filter(newFile => {
                 return oldFile.FileName == newFile.name
             });
@@ -55,14 +56,12 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         })
 
         if (duplicateFiles.length) {
-            alert("Files with following names are alredy attached:" + '\n' + duplicateFiles.join(', '));
+            Popup.alert("Files with following names are alredy attached:" + '\n' + duplicateFiles.join(', '));
         } else {
             this.props.updateUI({
                 files: files
             });
         }
-
-
     }
 
     filesRemoveOne = (removedFile) => {
@@ -77,7 +76,6 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
     }
 
     onFilesError(error, file) {
-        console.log('error code ' + error.code + ': ' + error.message)
     }
 
     onChange(e) {
@@ -89,23 +87,25 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         if (isFormValid) {
             testCase = {
                 ...testCase,
-                responseStatus: testCase.responseStatus == Constants.ColumnsValues.INPROGRESS ? 
+                responseStatus: testCase.responseStatus == Constants.ColumnsValues.INPROGRESS ?
                     Constants.ColumnsValues.DRAFT : testCase.responseStatus,
                 testCaseResponse: this.props.ui.testCaseResponse,
                 selectedResponse: this.props.ui.selectedResponse,
                 files: this.props.ui.files
             }
             this.props.saveTestCaseResponse(testCase, this.props.testDriveInstance);
+            toast.success("Test Case Response Saved Successfully!");
+            $('#carousel-example-vertical').carousel('next');
         } else {
-            alert(Constants.Messages.ERROR_IN_FORM);
+            Popup.alert(Constants.Messages.ERROR_IN_FORM);
         }
 
     }
 
     submitTestCaseResponse(testCase: TestCaseInstance, index) {
         this.props.submitTestDriveInstance(this.props.testDriveInstance);
-        this.props.updateUI({showSurveyPopUp: true})
-        $('#test-drive-completion-btn').trigger('click');
+        // this.props.updateUI({ showSurveyPopUp: true })
+        // $('#test-drive-completion-btn').trigger('click');
     }
 
 
@@ -121,20 +121,25 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
             .css({ "position": "fixed", "right": "0px", "height": "100%", "transition": "0.5s" });
     }
 
+
+
     render() {
         const { testCase, active, saveTestCaseResponse, ui, updateUI, index, testDriveInstance, isLast } = this.props;
         return (
-
             <div className={"item " + (active ? 'active' : '')} id={'test-case-form' + index}>
                 <div className="row">
                     <Loader show={testDriveInstance.testCaseSaveInProgress || false} message={'Loading...'}>
                         <div className="container ">
                             <div className="col-md-12 ">
                                 <div className="row testcase_box ">
-                                    <span className="orange">{"Test Caes " + (index + 1)}</span>
+                                    <span className="orange">{"Test Case " + (index + 1)}</span>
                                     <h1 className="testcase_name">{testCase.title}</h1>
-                                    <p>{testCase.description}</p>
-
+                                    <p>{testCase.description && testCase.description.length > 200 ?
+                                        testCase.description.slice(0, 200) + '...   ' : testCase.description}
+                                        {testCase.description && testCase.description.length > 200 ?
+                                            <a href="javascript:void(0);" onClick={() => this.openPopUp(index)}>
+                                                <span className="read-more">Read more</span>
+                                        </a> : ''}</p>
                                     <a href="javascript:void(0);" onClick={() => this.openPopUp(index)}> <span className="red">
                                         <img src="/sites/elite/Style%20Library/Elite/images//i.png" />
                                         Guide me to solve this test case</span>
@@ -179,7 +184,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                                     maxFileSize={10000000}
                                                     minFileSize={0}
                                                     clickable
-                                                ><i className="material-icons pull-right ">camera_enhance</i>
+                                                ><i className="material-icons pull-right">attachment</i>
                                                 </Files>
 
                                                 <textarea className="inputMaterial form-control"
@@ -230,7 +235,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
 
                                             </div>
                                             <div className="col-md-12 participation_actionbox">
-                                                <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                                <div className="button type1 nextBtn btn-lg pull-left animated_button">
                                                     <input type="button" value="Save" onClick={() => this.saveTestCaseResponse(testCase, index)} />
                                                 </div>
                                             </div>

@@ -82,13 +82,16 @@ class Home extends React.Component<HomeProps, HomeState> {
         Services.loadProgressBar("total-task-canvas");
 
         let user = Services.getUserProfileProperties();
+        Services.getApplicationConfigurations().then(function(data:any){
+            $("#homeMiddleText").html(data.HomePageMiddleText);
+        });
         if (user.eliteProfileID) {
             this.props.dispatch(loadEliteProfile(user.eliteProfileID));
             this.props.dispatch(loadLeaderBoard(0, 3));
             this.props.dispatch(loadRegionLeaderBoard(user.region, 0, 3));
             this.props.dispatch(getUserRank(user.eliteProfileID));
             this.props.dispatch(loadMyTestDrive());
-            this.props.dispatch(loadTestDriveThatIRun(user.eliteProfileID, 0, 3));
+            this.props.dispatch(loadTestDriveThatIRun(0, 3));
             this.props.dispatch(loadUpcomingTestDrive());
             this.props.dispatch(loadActiveTestDrive());
             this.props.dispatch(loadTotalUserCount());
@@ -98,12 +101,6 @@ class Home extends React.Component<HomeProps, HomeState> {
             this.props.dispatch(loadUserPoints(user.eliteProfileID));
             this.props.dispatch(loadVideo());
         }
-        $("a#link1").show(4200);
-        $("a#link2").show(4200);
-        $("a#link3").show(4200);
-        $("a#link4").show(4200);
-        $("a#link5").show(4200);
-        $("a#link6").show(4200);
     }
 
     render() {
@@ -114,7 +111,7 @@ class Home extends React.Component<HomeProps, HomeState> {
         return (
             <div className="col-md-12">
                 <div className="row">
-                    <div className="container">
+                    <div className="col-md-12">
                         <h2><img src="/sites/elite/Style%20Library/Elite/images/logo.png" className="img-responsive" /> </h2>
                     </div>
                     <div className="col-md-12">
@@ -131,11 +128,11 @@ class Home extends React.Component<HomeProps, HomeState> {
                                 mytestDrive={mytestDrive}
                                 myTestDriveLoading={myTestDriveLoading}
                                 testDriveThatIRun={testDriveThatIRun}
-                                testDriveThatIRunLoading={testDriveThatIRunLoading}                                
+                                testDriveThatIRunLoading={testDriveThatIRunLoading}
                             />
 
-                            <div className="col-md-4">
-                                <h2 className="text-center skills_heading">Skills.Speed.Smarts. Brind it all.</h2>
+                            <div className="col-md-6">
+                                <h2 className="text-center skills_heading" id="homeMiddleText"></h2>
                             </div>
                             <HomeRightTestDrives
                                 ui={ui}
@@ -152,7 +149,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                             </OverallPointsDashboard>
                         </div>
                         <UserRank userName={eliteProfile.displayName} userRank={userRank} />
-                        <Video videoUrl={videoUrl}/>
+                        <Video videoUrl={videoUrl} />
                         <Footer />
                     </div>
                 </div>

@@ -6,6 +6,8 @@ import { ColumnsValues } from '../../common/services/constants';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import * as $ from 'jquery';
+import Popup from 'react-popup';
+import { Messages } from '../../common/services/constants';
 interface QuestionFormProps {
     showSurvey: boolean;
     question: QuestionInstance;
@@ -32,6 +34,11 @@ class QuestionForm extends React.Component<QuestionFormProps> {
             questionResponse: this.props.question.questionResponse,
             selectedResponse: this.props.question.selectedResponse
         });
+    }
+
+    componentDidMount(){
+
+       
     }
 
     onChange(e) {
@@ -62,7 +69,28 @@ class QuestionForm extends React.Component<QuestionFormProps> {
 
     submitSurvey(question) {
         this.submitQuestionResponse(question);
-        window.location.hash = "/";
+        var popUpMessage = Messages.SURVEY_SUBMITTED;
+        Popup.registerPlugin('success', function (defaultValue, placeholder, callback) {
+            let promptValue = null;
+            let promptChange = function (value) {
+                promptValue = value;
+            };
+
+            this.create({
+                title: 'Success',
+                content: 'Survey Submitted Successfully!',
+                buttons: {
+                    right: [{
+                        text: 'Go to Dashboard',
+                        action: function () {
+                            window.location.href = "#";
+                            Popup.close();
+                        }
+                    }]
+                }
+            });
+        });
+        Popup.plugins().success('', 'What do you want to do?');
     }
 
     render() {
@@ -95,7 +123,6 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                     question.questionType != ColumnsValues.QUESTION_TYPE_OBJECTIVE &&
 
                                     <div className="col-md-12 comment_box ">
-                                        <i className="material-icons pull-right ">camera_enhance</i>
                                         <textarea className="inputMaterial form-control"
                                             onChange={(e) => this.onChange(e)}
                                             name="questionResponse"
@@ -104,6 +131,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                         <span className="highlight "></span>
                                         <span className="bar "></span>
                                         <label className="disc_lable ">Description</label>
+                             
                                     </div>
                                 }
                                 {

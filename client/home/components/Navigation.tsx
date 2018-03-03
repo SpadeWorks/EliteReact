@@ -11,25 +11,25 @@ class Navigation extends React.Component<NavigationProps> {
 
     openPopUp() {
         var options = {
-            url: '/sites/elite/Pages/referral.aspx',
+            url: 'referral.aspx',
             title: 'User Referral',
-            width: 500,
-            height: 300,
+            width: 600,
+            height: 600,
         };
         SP.UI.ModalDialog.showModalDialog(options);
-        let dialog = SP.UI.ModalDialog.showWaitScreenWithNoClose('Operation in progress...', 'Please wait...', 350, 550);
-        setTimeout(() => {
-            dialog.close(SP.UI.DialogResult.OK);
-        }, 4000)
+        // let dialog = SP.UI.ModalDialog.showWaitScreenWithNoClose('Operation in progress...', 'Please wait...', 350, 550);
+        // setTimeout(() => {
+        //     dialog.close(SP.UI.DialogResult.OK);
+        // }, 4000)
     }
     render() {
         return (<div className="col-md-8 location_box">
             <div className="map_container">
                 <object>
-                    <img src="/sites/elite/Style%20Library/Elite/images/track.svg" />
+                    <img src="/sites/elite/Style%20Library/Elite/images/track.svg" className="map_image"/>
                     <Link className="maplinks" to={"/testdrives"} id="link1">
                         <img src="/sites/elite/Style%20Library/Elite/images/testdrivecenter.png" />
-                        <span>test drieves central</span>
+                        <span>test drives central</span>
                     </Link>
 
                     <a className="maplinks" id="link2" href="javascript:;" onClick={this.openPopUp}>
@@ -37,7 +37,7 @@ class Navigation extends React.Component<NavigationProps> {
                         <span>Refer a friend</span>
                     </a>
 
-                    <Link className="maplinks" to={"/myprofile"} id="link3">
+                    <Link className="maplinks" to={"/profile/"} id="link3">
                         <img src="/sites/elite/Style%20Library/Elite/images/refer.png" />
                         <span>My Profile</span>
                     </Link>

@@ -1,8 +1,13 @@
 import * as React from 'react';
 import { TestDrive, IState, TestCase } from '../model';
 import TestCaseForm from './TestCaseForm';
-
-
+import Services from '../../common/services/services';
+import ui from 'redux-ui';
+import { validateControl, required, validateForm } from '../../common/components/Validations';
+import { ToastContainer, toast } from 'react-toastify';
+import Popup from 'react-popup';
+import { ColumnsValues } from '../../common/services/constants';
+import { Messages } from '../../common/services/constants';
 import {
     model,
     saveTestCase,
@@ -30,15 +35,27 @@ interface TestCasesProps {
     ui: any;
 };
 
+@ui({
+    state: {
+        helpText: ''
+    }
+})
 class TestCases extends React.Component<TestCasesProps> {
     constructor(props, context) {
         super(props, context);
-        this.onMoveNext = this.onMoveNext.bind(this);
+        this.switchTab = this.switchTab.bind(this);
+        this.getHelpText = this.getHelpText.bind(this);
     }
 
-    onMoveNext() {
-        this.props.saveTestDrive(this.props.testDrive, "test-drive-form" + this.props.testDrive.id);
-        this.props.switchTab('step-3');
+    switchTab(direction) {
+        // this.props.saveTestDrive(this.props.testDrive, "test-drive-form" + this.props.testDrive.id);
+        var isFormValid = validateForm("test-drive-form" + this.props.testDrive.id);
+        if (isFormValid) {
+            this.props.updateUI({ activeTab: this.props.ui.activeTab + direction });
+        } else {
+            Popup.alert(Messages.TEST_DRIVE_ERROR);
+        }
+
     }
 
     componentDidMount() {
@@ -46,6 +63,12 @@ class TestCases extends React.Component<TestCasesProps> {
         if (!testCase || testCase.length == 0) {
             this.props.loadTestCases(this.props.testCaseIds);
         }
+        this.getHelpText();
+    }
+    getHelpText() {
+        Services.getApplicationConfigurations().then((appConfig: any) => {
+            this.props.updateUI({ helpText: appConfig.TestCaseHelpText });
+        })
     }
 
     render() {
@@ -67,12 +90,10 @@ class TestCases extends React.Component<TestCasesProps> {
         return (
             <div className="test-case-container col-xs-12">
                 <div className="col-md-8 sample_text">
-                   <p>Anim pariatur cliche reprehenderit, enim eiusmod high
-                        life accusamus terry richardson ad squid. 3 wolf moon
-                        officia aute, non cupidatat skateboard dolor brunch.</p>
+                    <p>{ui.helpText}</p>
                 </div>
                 <div className="add-button col-md-2 add_test pull-right text-right">
-                    <a href="javascript:void(0);" onClick={addTestCase}> + add test case </a>
+                    <a href="javascript:void(0);" onClick={addTestCase}> + ADD TEST CASE </a>
                 </div>
                 <div className="col-md-12">
                     {
@@ -94,11 +115,14 @@ class TestCases extends React.Component<TestCasesProps> {
                 </div>
 
                 <div className="col-md-12 testdrive_actionbox">
-                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                            <input type="button" value="Next" onClick={this.onMoveNext } />
-                     </div>
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button back_btn">
+                        <input type="button" value="Back" onClick={() => this.switchTab(-1)} />
+                    </div>
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                    <input type="button" value="Save as a draft" onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
+                        <input type="button" value="Next" onClick={() => this.switchTab(1)} />
+                    </div>
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <input type="button" value="Save as a draft" onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
                     </div>
                 </div>
             </div>

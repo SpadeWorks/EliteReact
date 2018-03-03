@@ -8,7 +8,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "strictNullChecks": false,
-    "outDir": "dist"
+    "outDir": "dist",
+    "allowJs": true
   },
   "exclude": [
     "dist",

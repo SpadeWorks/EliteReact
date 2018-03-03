@@ -9,13 +9,16 @@ module.exports = (options) => ({
   }, options.output),
   module: {
     loaders: [{
-      test: /\.js$/,
+      test: /\.jsx$/,
       loader: 'babel-loader',
       exclude: /node_modules/,
-      query: options.babelQuery,
-    }, {
+      query: {
+        presets: ['es2015']
+      }
+    }, 
+    {
       test: /\.tsx?$/,
-      loader: 'awesome-typescript-loader'
+      loader: ['babel-loader', 'awesome-typescript-loader']
     }, {
       test: /\.css$/,
       exclude: /node_modules/,
