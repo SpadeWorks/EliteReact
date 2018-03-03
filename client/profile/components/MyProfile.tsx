@@ -98,7 +98,6 @@ class MyProfile extends React.Component<MyProfileProps> {
             this.props.dispatch(loadConfigurations());
         }
         this.props.dispatch(loadCars());
-
     }
 
     // componentDidUpdate() {
@@ -124,7 +123,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                         <div className="container header_part">
                             <h2> <Link to={"/"} >
                                 <span className="glyphicon glyphicon-menu-left" aria-hidden="true">
-                                </span> My Profile
+                                </span> {(!this.props.id && this.props.id != -1) ? "My Profile" : "Profile"}
                                  </Link>
                             </h2>
                         </div>

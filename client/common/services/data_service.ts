@@ -630,7 +630,7 @@ export class Services {
                         role: profile.UserRole,
                         availableOS: profile.AvailableOS.results,
                         availableDevices: profile.AvailableDevices.results,
-                        levelName: profile.CarID.CarLevel
+                        levelName: profile.CarID.CarLevel == null ? 0 : profile.CarID.CarLevel
                     });
                 }, err => {
                     Utils.clientLog(err);
