@@ -50,6 +50,22 @@ pnp.setup({
 
 export class Services {
 
+    static reportAbug(email: string, testDriveTitle: string) {
+        Services.mailto(email, 'A Bug from your Test Driver "' + testDriveTitle + '"', '');
+    }
+
+    static emailOwner(email: string, testDriveTitle: string) {
+        Services.mailto(email, 'A Question from your Test Driver "' + testDriveTitle + '"', '');
+    }
+
+    static shareTestDrive(email: string, testDriveTitle: string) {
+        Services.mailto('', 'Check out this cool test drive "' + testDriveTitle + '"', '');
+    }
+
+    static mailto(to, subject, body) {
+        window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
+    }
+
     static getLevelNameClass(levelNumber) {
         switch (levelNumber) {
             case 1:
@@ -525,7 +541,9 @@ export class Services {
                     questionIDs: testDrive.questionIDs,
                     expectedBusinessValue: testDrive.expectedBusinessValue,
                     region: testDrive.region,
-                    participants: participants
+                    participants: participants,
+                    ownerEmail: testDrive.ownerEmail
+
                 };
 
                 resolve(instance)
@@ -723,11 +741,12 @@ export class Services {
                         department: user.department,
                         displayName: user.displayName,
                         eliteProfileID: user.eliteProfileID,
-                        firstName: user.fileName,
+                        firstName: user.firstName,
                         languages: user.languages,
                         lastName: user.lastName,
                         location: user.location,
-                        region: user.region
+                        region: user.region,
+                        workEmail: user.workEmail
                     }
                 });
             })
@@ -930,7 +949,8 @@ export class Services {
                 Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
                 Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
                 Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
-                Constants.Columns.EXPECTED_BUSINESS_VALUE
+                Constants.Columns.EXPECTED_BUSINESS_VALUE,
+                Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_EMAIL
                 ).skip(skip).top(top)
                 .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID, Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
                 .filter(filter)
@@ -959,7 +979,8 @@ export class Services {
                             expectedBusinessValue: '',
                             testCases: null,
                             questions: null,
-                            levelNumber: testDrive.LevelID[Constants.Columns.LevelNumber]
+                            levelNumber: testDrive.LevelID[Constants.Columns.LevelNumber],
+                            ownerEmail: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_EMAIL]
                         };
                     });
                     resolve(results);
@@ -1223,6 +1244,7 @@ export class Services {
                     Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LEVEL_NAME,
                     Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.ID,
                     Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
+                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_EMAIL,
                     Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
                     Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
                     Constants.Columns.EXPECTED_BUSINESS_VALUE
@@ -1257,7 +1279,8 @@ export class Services {
                             questions: null,
                             testCaseIDs: testCases,
                             questionIDs: questions,
-                            expectedBusinessValue: testDrive.ExpectedBusinessValue
+                            expectedBusinessValue: testDrive.ExpectedBusinessValue,
+                            ownerEmail: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_EMAIL]
                         };
                         resolve(testDriveObj);
 
@@ -1649,56 +1672,54 @@ export class Services {
 
     }
 
-    // static removeDuplicates(list, filter) {
-    //     return new Promise((resolve, reject) => {
-    //         list.items.filter(filter).get().then(items => {
-    //             if (items.length > 0) {
-    //                 var promises = [];
-    //                 items.map((item, index) => {
-    //                     promises.push(list.items.getById(item.Id).delete());
-    //                 })
-    //                 Promise.all(promises).then(results => {
-    //                     resolve(true);
-    //                 })
-    //             } else {
-    //                 resolve(false);
-    //             }
-    //         })
-    //     })
-    // }
+    static checkIfUserExists(userInfoList, filter) {
+        return new Promise((resolve, reject) => {
+            userInfoList.items.filter(filter).get().then(items => {
+                if (items.length > 0) {
+                    resolve(items[0].Id);
+                } else {
+                    resolve(-1);
+                }
+            })
+        })
+    }
 
     static createEliteUserProfile(user: User) {
+
         return new Promise((resolve, reject) => {
             var userInfoList = pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION);
             var filter = "AccountName eq '" + encodeURIComponent(user.accountName) + "'";
             let promises = [this.getDefaultCarDetails(), this.getDefaultAvatarDetails()];
             let baseUrl = location.protocol + "//" + location.hostname;
-            Promise.all(promises).then(results => {
-                let carDetails = <any>results[0];
-                let avatarDetails = <any>results[1];
-                this.createOrUpdateListItemsInBatch(Constants.Lists.USER_INFORMATION, [{
-                    ID: -1,
-                    AccountName: user.accountName,
-                    DateJoined: new Date().toISOString(),
-                    UserLocation: user.location,
-                    ReferrerID_id: Services.getReferrerID(),
-                    UserRegionText: user.region,
-                    CarImage: baseUrl + carDetails.FileRef,
-                    CarName: carDetails.CarName,
-                    CarID_id: carDetails.ID,
-                    AvatarName: avatarDetails.AvatarName,
-                    AvatarImage: baseUrl + avatarDetails.FileRef,
-                    AvatarID_id: avatarDetails.ID,
-                    Elite_UserDepartment: user.department,
-                    UserInfoName: user.displayName,
-                }])
-                    .then((users: any) => {
-                        let user = users[0];
-                        let newUser = { ...user, eliteProfileID: user.id }
-                    }, err => {
-                        Utils.clientLog(err);
-                    })
 
+            Services.checkIfUserExists(userInfoList, filter).then(userID => {
+                Promise.all(promises).then(results => {
+                    let carDetails = <any>results[0];
+                    let avatarDetails = <any>results[1];
+                    this.createOrUpdateListItemsInBatch(Constants.Lists.USER_INFORMATION, [{
+                        ID: userID || -1,
+                        AccountName: user.accountName,
+                        DateJoined: new Date().toISOString(),
+                        UserLocation: user.location,
+                        ReferrerID_id: Services.getReferrerID(),
+                        UserRegionText: user.region,
+                        CarImage: baseUrl + carDetails.FileRef,
+                        CarName: carDetails.CarName,
+                        CarID_id: carDetails.ID,
+                        AvatarName: avatarDetails.AvatarName,
+                        AvatarImage: baseUrl + avatarDetails.FileRef,
+                        AvatarID_id: avatarDetails.ID,
+                        Elite_UserDepartment: user.department,
+                        UserInfoName: user.displayName,
+                        [Constants.Columns.USER_EMAIL]: user.workEmail
+                    }])
+                        .then((users: any) => {
+                            let user = users[0];
+                            let newUser = { ...user, eliteProfileID: user.id }
+                        }, err => {
+                            Utils.clientLog(err);
+                        })
+                });
             });
         });
     }
@@ -2438,11 +2459,11 @@ export class Utils {
 
     public static loadProgressBar(canvasID, value, size) {
         var startColor = 'red';
-        if (value <= 1/3) {
+        if (value <= 1 / 3) {
             startColor = 'red';
-        } else if (value <= 2 / 3){
+        } else if (value <= 2 / 3) {
             startColor = '#f8971d';
-        } else{
+        } else {
             startColor = 'green';
         }
         var options = {

@@ -21,10 +21,21 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                     <div className="row">
                         <div className="col-md-12 social_box">
                             <div className="row">
-                                <a href="#"><i className="material-icons">bug_report</i></a>
-                                <a href="#"><i className="material-icons">email</i></a>
-                                <a href="#"><span className="teams"></span></a>
-                                <a href="#"><i className="material-icons">share</i></a>
+                                <a href="javascript:void(0);"
+                                    onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)}>
+                                    <span className="report"></span>
+                                </a>
+                                <a href="javascript:void(0);"
+                                    onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
+                                    <i className="material-icons">email</i>
+                                </a>
+                                {/* <a href="#">
+                                    <span className="teams"></span>
+                                </a> */}
+                                <a href="javascript:void(0);"
+                                    onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
+                                    <i className="material-icons">share</i>
+                                </a>
                             </div>
                         </div>
                         <div className="col-md-12 partcipant_enddate">
@@ -65,15 +76,15 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                 <div className="col-md-6 partcipant_Section">
                                     <div className="row">
                                         <div className="col-md-12">
-                                          
-                                                <span className="orange">
-                                                      <div className="row">
+
+                                            <span className="orange">
+                                                <div className="row">
                                                     <i>PARTICIPANTS</i>
-                                                   
+
                                                     <img src="/sites/elite/Style%20Library/Elite/images/helmet.png" />
-                                                     </div>
-                                                     </span>
-                                          
+                                                </div>
+                                            </span>
+
                                         </div>
                                         <div className="col-md-12">
                                             <div className="row">
@@ -113,10 +124,10 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                                 <div className="col-md-12 para">
                                                     <span className="orange">
                                                         <div className="row">
-                                                        DEVICE REQUIRED
+                                                            DEVICE REQUIRED
                                                         </div>
-                                                        </span>
-                                                        
+                                                    </span>
+
                                                     <div className="row">
                                                         <ul className="select2-selection__rendered">
                                                             {(testDrive.requiredDevices && testDrive.requiredDevices.length) ?
@@ -139,7 +150,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                                     <span className="orange">
                                                         <div className="row">OS REQUIRED
                                                             </div>
-                                                        </span>
+                                                    </span>
                                                     <div className="row">
                                                         <ul className="select2-selection__rendered">
                                                             {(testDrive.requiredOs && testDrive.requiredOs.length) ?
@@ -183,7 +194,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                             </div>
                         </div>
                     </div>
-                    <Link className="button type1" to={"/participation/" + testDrive.id}> { isActive ? 'Drive Through' : 'View Details'} </Link>
+                    <Link className="button type1" to={"/participation/" + testDrive.id}> {isActive ? 'Drive Through' : 'View Details'} </Link>
                 </div>
             </div>
 

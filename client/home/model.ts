@@ -109,4 +109,5 @@ export type TestDrive = {
     level: string;
     owner?: string;
     newItem?: boolean;
+    ownerEmail?: string;
 };

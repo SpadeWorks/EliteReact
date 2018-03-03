@@ -3194,8 +3194,6 @@ span.participants {
     margin-bottom: 0px !important;
 }
 
-
-
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -3218,8 +3216,6 @@ a.drive_name h4 {
     text-overflow: ellipsis;
     margin: 0px;
 }
-
-
 
 .leader_rank span {
     -webkit-transform: skewX(25deg) !important;
@@ -3336,7 +3332,6 @@ span.l_count {
 .count p {
     float: left;
     font-size: 15px;
-
 }
 
 .digits {
@@ -3447,8 +3442,6 @@ width: 28px !important;
     transition: all 0.5s;
 }
 
-
-
 .black_box_right {
     background: #ffffff0a;
     margin-top: -100px;
@@ -3516,7 +3509,6 @@ width: 28px !important;
     top: -300px;
     display: block;
 }
-
 
 .footer {
     height: 50px;
@@ -3748,8 +3740,6 @@ a#link6 span {
 .user_name h2 {
     margin-top: 0px;
 }
-
-
 
 .testd_box span.glyphicon-triangle-top {
     font-size: 22px;
@@ -4375,8 +4365,6 @@ div#s4-ribbonrow {
     margin-top: -100px;
 }
 
-
-
 .overall_box {
     margin-top: 50px;
 }
@@ -4421,7 +4409,6 @@ span.teams:hover {
     float: left;
 }
 
-
 span.report {
     background: url("/sites/elite/Style%20Library/Elite/images/bug.png") no-repeat;
     height: 23px;
@@ -4435,7 +4422,6 @@ span.report:hover {
     width: 23px;
     float: left;
 }
-
 
 .social_box a i {
     color: #828282;
@@ -4514,7 +4500,6 @@ span.report:hover {
 .user_name h2 {
     margin-top: 0px;
 }
-
 
 span.increase_or_decreased {
     margin-left: 15px;
@@ -5091,7 +5076,6 @@ li.active-thumbnail {
     background: none;
 }
 
-
 .modal-dialog.edit_profile {
     width: 550px;
 }
@@ -5280,14 +5264,13 @@ h1#dialogTitleSpan {
 
 .para {
     margin-bottom: 20px;
-    height:80px !important;
-
+    height: 80px !important;
 }
 
 .para p {
     font-family: titanium !important;
     font-size: 16px;
-    margin-top:10px;
+    margin-top: 10px;
 }
 
 .testdrivedetails_box .profileinfo_box span.orange {
@@ -5918,7 +5901,7 @@ h1.testcase_name {
     font-size: 14px;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-bottom:30px;
+    margin-bottom: 30px;
 }
 
 .testcase_box span.red {
@@ -6130,8 +6113,8 @@ h1.testcase_name {
     position: relative;
     position: relative;
     top: 60px;
-    font-family:titanium;
-    font-size:14px;
+    font-family: titanium;
+    font-size: 14px;
 }
 
 .col-md-12.earn_box span.small,
@@ -6309,7 +6292,10 @@ button {
     padding-bottom: 40px;
 }
 
-.progress_drivebox canvas{height:110px; width:110px;}
+.progress_drivebox canvas {
+    height: 110px;
+    width: 110px;
+}
 
 .progress_drivebox .button {
     position: relative;
@@ -6346,9 +6332,8 @@ ul.dragrace_indicator li span {
 
 .partcipant_Section span.orange {
     font-size: 12px;
-   text-transform: uppercase;
-   float:left; 
- 
+    text-transform: uppercase;
+    float: left;
 }
 
 .enddate_Section span.orange {
@@ -6390,9 +6375,6 @@ ul.dragrace_indicator li span {
     width: 60% !important;
     margin-left: 0px;
 }
-
-
-
 
 .testdrive_I_runbox .inforow h5 {
     font-family: titanium;
@@ -6490,7 +6472,6 @@ ul.streetrace_indicator {
     /* margin-left: 5px; */
 }
 
-
 ul.streetrace_indicator li {
     height: 20px;
     width: 20px;
@@ -6500,15 +6481,19 @@ ul.streetrace_indicator li {
     margin-left: 5px;
 }
 
-ul.soapbox_indicator{padding-left:0px; 
-    list-style-type:none;}
+ul.soapbox_indicator {
+    padding-left: 0px;
+    list-style-type: none;
+}
 
-ul.soapbox_indicator li{height: 20px;
+ul.soapbox_indicator li {
+    height: 20px;
     width: 20px;
     background: green;
     border-radius: 50%;
     float: left;
-    margin-left: 5px;}
+    margin-left: 5px;
+}
 
 ul.streetrace_indicator li span {
     margin-left: 5px;
@@ -7085,21 +7070,28 @@ a.more {
     margin-top: 0px;
 }
 
+.point_board h3 {
+    margin-bottom: 5px;
+}
 
-.point_board h3{margin-bottom:5px;}
+.progress_drivebox span.small {
+    letter-spacing: 2px;
+}
 
-.progress_drivebox span.small{letter-spacing: 2px;}
+p.my_allpoints {
+    text-align: center;
+    margin-top: 30px;
+}
 
-p.my_allpoints{  text-align: center;
-    margin-top: 30px;}
+span.orange.big {
+    font-size: 30px;
+}
 
-    span.orange.big {
-        font-size: 30px;
-    }
-    .testdrive_I_runbox ul {
-        margin-top: 0px !important;
-        margin-bottom: 0px !important;
-    }
+.testdrive_I_runbox ul {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
 
 /*my ride styles ends here*/
 
@@ -7183,19 +7175,17 @@ p.my_allpoints{  text-align: center;
         /* margin-left: 154px !important;
         margin-top: 42px; */
         position: relative;
-        left:10%;
+        left: 10%;
     }
-
     img.map_image {
         width: 86%;
     }
     .line_box {
-            background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
-            width: 100%;
-            background-size: contain;
-            margin-top: -135px;
-            /* height: 145px !important; */
-        
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+        width: 100%;
+        background-size: contain;
+        margin-top: -135px;
+        /* height: 145px !important; */
     }
     .overall_box {
         margin-top: 48px;
@@ -7207,18 +7197,15 @@ p.my_allpoints{  text-align: center;
         margin: 0 auto;
         height: 50px;
         position: relative;
-        text-align:center;
+        text-align: center;
         word-break: break-word;
-
-
-        
     }
     .skills_heading {
         position: relative;
         font-size: 35px;
         top: 103px;
         width: 70%;
-       }
+    }
     .leader_name {
         height: 50px;
         background: none;
@@ -7248,12 +7235,9 @@ p.my_allpoints{  text-align: center;
         left: 51px;
         font-size: 25px;
     }
-
     .testd_box {
         position: relative;
     }
-
-
     .testd_box span.glyphicon-triangle-top {
         font-size: 16px;
         color: green;
@@ -7261,9 +7245,6 @@ p.my_allpoints{  text-align: center;
         position: absolute;
         top: 11px;
     }
-
-
-
     span.testd_count {
         background: red;
         padding: 5px;
@@ -7274,7 +7255,6 @@ p.my_allpoints{  text-align: center;
         color: #fff;
         padding-left: 9px;
     }
-
     span.testd_count {
         background: red;
         padding: 5px;
@@ -7292,9 +7272,6 @@ p.my_allpoints{  text-align: center;
         left: 9px;
         z-index: 99;
     }
-
-
-   
     .letest_driveboxclick {
         position: absolute;
         left: 130% !important;
@@ -7320,39 +7297,32 @@ p.my_allpoints{  text-align: center;
         transition: all 0.5s;
         left: -10px;
     }
-
     .letest_driveboxclick_right {
         position: absolute;
         right: 118% !important;
         transition: 0.5s;
-    width: 450px;
-    opacity: 1;
-    z-index: 111;
-    top: -300px;
-    display: block;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
     }
-  
     .test_drive {
         margin-bottom: 5px;
         height: 76px;
     }
     .black_box.black_box_left.pull-left {
- 
         z-index: 1;
     }
     .black_box.black_box_right.pull-right {
-      
         z-index: 1;
     }
     .footer {
         display: none !important;
     }
-
     .meter img {
         margin-left: 56px !important;
     }
-
-
     .container.big_leaderbox .leader_listbox .leader_name {
         width: 94% !important;
     }
@@ -7375,82 +7345,82 @@ p.my_allpoints{  text-align: center;
         padding-left: 16px !important;
         top: 17px;
     }
-
-
     .location_box {
         height: 386px;
         z-index: 1;
     }
-
-    
-.small_leaderbox .leader_name img{border:solid 1px #afafaf;}
-
-.detailed_box canvas{height:120px; width:120px; margin:10px 0 10px 0;}
-
-.testdrive-detail span.small{font-family: titanium;
-    font-size: 14px;}
-
-
+    .small_leaderbox .leader_name img {
+        border: solid 1px #afafaf;
+    }
+    .detailed_box canvas {
+        height: 120px;
+        width: 120px;
+        margin: 10px 0 10px 0;
+    }
+    .testdrive-detail span.small {
+        font-family: titanium;
+        font-size: 14px;
+    }
     /* extra added */
-
-    span.increase_num{position: absolute;
+    span.increase_num {
+        position: absolute;
         left: 59px;
         font-size: 15px;
         top: 5px;
-        color: green;}
-
-        .outof_count {
-            position: absolute;
-            left: 55px;
-            top: 18px;
-        }
-
-        .profile_overviewbox .testd_box{      position: relative;
-            height: 65px;
-            left: -15px;
-            bottom: 5px;}
-
-            .profile_overviewbox .testd_box span.glyphicon-triangle-top {
-                font-size: 9px;
-                color: green;
-                left: 49px;
-                position: absolute;
-                top: 11px;
-            }
-
-            .testdrive_actionbox .back_btn{position: relative;
-                left: 154px;}
-
-                .rdw-image-modal-upload-option {
-                    width: 100%;
-                    color: gray;
-                    cursor: pointer;
-                    display: flex;
-                    border: none;
-                    font-size: 15px;
-                    align-items: center;
-                    justify-content: center;
-                    background-color: #f1f1f1;
-                    outline: 2px dashed gray;
-                    outline-offset: -10px;
-                    margin: 10px 0;
-                    padding: 9px 0;
-                    word-wrap: break-word;
-                    word-break: break-all;
-                    padding: 20px 11px 10px 1px !important;
-                
-                }
-
-
-     .popup_infocontainer li.select2-selection__choice{margin-bottom:10px;}           
-
-     .editpro_box h5{font-family: titanium; color:#fff;}
+        color: green;
+    }
+    .outof_count {
+        position: absolute;
+        left: 55px;
+        top: 18px;
+    }
+    .profile_overviewbox .testd_box {
+        position: relative;
+        height: 65px;
+        left: -15px;
+        bottom: 5px;
+    }
+    .profile_overviewbox .testd_box span.glyphicon-triangle-top {
+        font-size: 9px;
+        color: green;
+        left: 49px;
+        position: absolute;
+        top: 11px;
+    }
+    .testdrive_actionbox .back_btn {
+        position: relative;
+        left: 154px;
+    }
+    .rdw-image-modal-upload-option {
+        width: 100%;
+        color: gray;
+        cursor: pointer;
+        display: flex;
+        border: none;
+        font-size: 15px;
+        align-items: center;
+        justify-content: center;
+        background-color: #f1f1f1;
+        outline: 2px dashed gray;
+        outline-offset: -10px;
+        margin: 10px 0;
+        padding: 9px 0;
+        word-wrap: break-word;
+        word-break: break-all;
+        padding: 20px 11px 10px 1px !important;
+    }
+    .popup_infocontainer li.select2-selection__choice {
+        margin-bottom: 10px;
+    }
+    .editpro_box h5 {
+        font-family: titanium;
+        color: #fff;
+    }
 }
 
 span.s4-clust {
     margin-left: -20px!important;
 }
-
 
 a {
     cursor: pointer !important;
@@ -7491,8 +7461,6 @@ a {
 .total_testdrivebox .tab-pane ul.nav-tabs li a {
     font-size: 14px !important;
 }
-
-
 
 .total_testdrivebox .nav-tabs>li {
     margin-right: 30px;
@@ -7778,4 +7746,50 @@ h1.title:before {
     right: 170px;
     margin-left: 50px;
     width: 103px;
+}
+
+
+/* 
+#carousel-example-vertical .carousel-indicators{
+    background: none;
+    border: none;
+}
+
+#carousel-example-vertical .carousel-indicators li{
+    background: none;
+    border: none;
+} */
+
+.carousel.vertical.slide .carousel-indicators li {
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin: 0px;
+    text-indent: 0px;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.carousel.vertical.slide .carousel-indicators li.active {
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin: 0px;
+    text-indent: 0px;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.carousel.vertical.slide .carousel-indicators {
+    position: relative;
+    bottom: 10px;
+    left: 30px;
+    z-index: 15;
+    width: 60%;
+    padding-left: 0;
+    margin-left: -30%;
+    text-align: center;
+    list-style: none;
 }

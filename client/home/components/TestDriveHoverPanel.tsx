@@ -4,6 +4,7 @@ import Service from '../../common/services/services';
 import { TestDrive } from '../../home/model';
 import { Globals } from '../../common/services/constants';
 import * as $ from 'jquery';
+import Services from '../../common/services/services';
 interface TestDriveHoverPanelProps {
     participants: number;
     checkPortion: string;
@@ -24,10 +25,21 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
             <h3>{testDrive.title}</h3>
             <div className="col-md-12 social_box">
                 <div className="row">
-                    <a href="#"><i className="material-icons">info</i></a>
-                    <a href="#"><i className="material-icons">email</i></a>
-                    <a href="#"><span className="teams"></span></a>
-                    <a href="#"><i className="material-icons">share</i></a>
+                    <a href="javascript:void(0);"
+                        onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)}>
+                        <span className="report"></span>
+                    </a>
+                    <a href="javascript:void(0);"
+                        onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
+                        <i className="material-icons">email</i>
+                    </a>
+                    {/* <a href="#">
+                        <span className="teams"></span>
+                    </a> */}
+                    <a href="javascript:void(0);"
+                        onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
+                        <i className="material-icons">share</i>
+                    </a>
                 </div>
             </div>
             <div className="col-md-12 popup_infocontainer">

@@ -42,26 +42,28 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         return new Promise((resolve, reject) => {
             var ctx = this;
             Services.getEliteProfileByID().then((user: EliteProfile) => {
-                var message = '';
+                var message = Messages.TEST_DRIVE_PARTICIPATION_ERROR;
                 var isUserEligible: boolean = true;
                 var matchedLocation = ctx.props.testDriveInstance.location.filter((location: any) => {
                     return location.Label == user.location;
                 });
 
-                if (!matchedLocation || !matchedLocation.length) {
+                if (ctx.props.testDriveInstance.location && !matchedLocation || !matchedLocation.length) {
                     message += Messages.TEST_DRIVE_LOCATION_ERROR + '\n';
                     isUserEligible = false;
                 }
                 var matchedDevices = [];
                 var matchedDevice;
 
-                if (!ctx.checkForElements(ctx.props.testDriveInstance.requiredDevices, user.availableDevices)) {
+                if (ctx.props.testDriveInstance.requiredDevices && ctx.props.testDriveInstance.requiredDevices.length
+                         &&  !ctx.checkForElements(ctx.props.testDriveInstance.requiredDevices, user.availableDevices)) {
                     message += Messages.TEST_DRIVE_DEVICE_ERROR + '\n';
                     isUserEligible = false;
                 }
 
-                if (!ctx.checkForElements(ctx.props.testDriveInstance.requiredOs, user.availableOS)) {
-                    message += Messages.TEST_DRIVE_DEVICE_ERROR + '\n';
+                if (ctx.props.testDriveInstance.requiredOs && ctx.props.testDriveInstance.requiredOs.length
+                         && !ctx.checkForElements(ctx.props.testDriveInstance.requiredOs, user.availableOS)) {
+                    message += Messages.TEST_DRIVE_OS_ERROR + '\n';
                     isUserEligible = false;
                 }
 
@@ -72,17 +74,18 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
 
     participate() {
         var ctx = this;
-        this.isUserEligible().then((data: any) => {
-            if (data.isUserEligible) {
-                ctx.props.createTestDriveInstance(this.props.testDriveInstance)
-            } else {
-                ctx.props.updateUI({
-                    message: data.message
-                });
-                Popup.plugins().prompt('', 'What do you want to do?');
-            }
-        })
-
+        const { maxTestDrivers, participants } = this.props.testDriveInstance;
+        if (maxTestDrivers < participants + 1) {
+            Popup.alert(Messages.MAX_TEST_DRIVER_LIMIT_REACHED);
+        } else {
+            this.isUserEligible().then((data: any) => {
+                if (data.isUserEligible) {
+                    ctx.props.createTestDriveInstance(this.props.testDriveInstance)
+                } else {
+                    Popup.plugins().prompt('Hit the brakes!', data.message);
+                }
+            })
+        }
     }
 
     componentDidMount() {
@@ -93,15 +96,15 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         Services.loadProgressBar("test-drive-points-canvas", pointsEarned, 150);
 
         /** Prompt plugin */
-        Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
+        Popup.registerPlugin('prompt', function (title, content, callback) {
             let promptValue = null;
             let promptChange = function (value) {
                 promptValue = value;
             };
 
             this.create({
-                title: 'Hit the brakes!',
-                content: 'You can\'t participate in this Test Drive as you may from a different location or may not possess the required devices. You can update your devices and Os on your profile page.',
+                title: title,
+                content: content,
                 buttons: {
                     left: [{
                         text: 'Test drive details',
@@ -129,7 +132,6 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         });
 
         /** Call the plugin */
-
     }
 
     render() {
@@ -150,29 +152,32 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                         <div className="col-md-12">
                             <div className="row">
                                 <div className="col-md-4">
-                                
+
                                     <span className="orange">
                                         <i>DESCRIPTION :</i>
                                     </span>
 
                                 </div>
                                 <div className="col-md-3 pull-right">
-                                    
-                                        <div className="row social_box">
-                                        <a href="#">
-                                        <span className="report"></span>
+
+                                    <div className="row social_box">
+                                        <a href="javascript:void(0);" 
+                                            onClick={()=> Services.reportAbug(testDriveInstance.ownerEmail, testDriveInstance.title)}>
+                                            <span className="report"></span>
                                         </a>
-                                            <a href="#">
-                                                <i className="material-icons">email</i>
-                                            </a>
-                                            <a href="#">
-                                                <span className="teams"></span>
-                                            </a>
-                                            <a href="#">
-                                                <i className="material-icons">share</i>
-                                            </a>
-                                        </div>
-                                   
+                                        <a href="javascript:void(0);"
+                                            onClick={()=> Services.emailOwner(testDriveInstance.ownerEmail, testDriveInstance.title)}>
+                                            <i className="material-icons">email</i>
+                                        </a>
+                                        {/* <a href="#">
+                                            <span className="teams"></span>
+                                        </a> */}
+                                        <a href="javascript:void(0);"
+                                            onClick={()=> Services.shareTestDrive(testDriveInstance.ownerEmail, testDriveInstance.title)}>
+                                            <i className="material-icons">share</i>
+                                        </a>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -181,36 +186,36 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             <div className="row">
                                 <div className="earn_box">
                                     <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="col-md-2">
-                                     
-                                            <span className="orange">
-                                                <i>POINTS EARNED :</i>
-                                            </span>
-                                            <div className="row">
-                                                <canvas id="test-drive-points-canvas" width="140" height="140"></canvas>
-                                                <h3>{pointsEarned}</h3>
-                                                <div className="col-md-12">
-                                                <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
+                                        <div className="col-md-12">
+                                            <div className="col-md-2">
+
+                                                <span className="orange">
+                                                    <i>POINTS EARNED :</i>
+                                                </span>
+                                                <div className="row">
+                                                    <canvas id="test-drive-points-canvas" width="140" height="140"></canvas>
+                                                    <h3>{pointsEarned}</h3>
+                                                    <div className="col-md-12">
+                                                        <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
+                                                    </div>
+                                                </div>
+
                                             </div>
+                                            <div className="col-md-3 col-md-offset-1">
+
+                                                <span className="orange">
+                                                    <i>DRIVE COMPLETION :</i>
+                                                </span>
+                                                <div className="row">
+                                                    <canvas id="completed-test-cases-canvas" width="140" height="140"></canvas>
+                                                    <h3>{testCaseCompletion.toFixed(0)} %</h3>
+                                                    <div className="col-md-12">
+                                                        <span className="small">{testDriveInstance.numberOfTestCasesCompleted} of {testDriveInstance.testCaseIDs.length} tasks done</span>
+                                                    </div>
+                                                </div>
+
                                             </div>
-                                         
                                         </div>
-                                        <div className="col-md-3 col-md-offset-1">
-                                       
-                                            <span className="orange">
-                                                <i>DRIVE COMPLETION :</i>
-                                            </span>
-                                            <div className="row">
-                                                <canvas id="completed-test-cases-canvas" width="140" height="140"></canvas>
-                                                <h3>{testCaseCompletion.toFixed(0)} %</h3>
-                                                <div className="col-md-12">
-                                                <span className="small">{testDriveInstance.numberOfTestCasesCompleted} of {testDriveInstance.testCaseIDs.length} tasks done</span>
-                                            </div>
-                                            </div>
-                                        
-                                        </div>
-                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -240,8 +245,8 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
-                                            <div className="row">
-                                                <h5>{Services.formatDate(testDriveInstance.startDate)}</h5>
+                                                <div className="row">
+                                                    <h5>{Services.formatDate(testDriveInstance.startDate)}</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -254,8 +259,8 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                                 </div>
                                             </div>
                                             <div className="col-md-7">
-                                            <div className="row">
-                                                <h5>{Services.formatDate(testDriveInstance.endDate)}</h5>
+                                                <div className="row">
+                                                    <h5>{Services.formatDate(testDriveInstance.endDate)}</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -268,8 +273,8 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                         </div>
                                     </div>
                                     <div className="col-md-6">
-                                    <div className="row">
-                                        <h5>{testDriveInstance.level}</h5>
+                                        <div className="row">
+                                            <h5>{testDriveInstance.level}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -280,8 +285,8 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                         </div>
                                     </div>
                                     <div className="col-md-6">
-                                    <div className="row">
-                                        <h5>{testDriveInstance.participants || "0"}</h5>
+                                        <div className="row">
+                                            <h5>{testDriveInstance.participants || "0"}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -308,44 +313,44 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                         </div>
                         <div className="col-md-12 para">
                             <span className="orange">ELIGIBLE DRIVER LOCATION :</span>
-                            
-                                <ul className="select2-selection__rendered">
-                                    {
-                                        testDriveInstance.location && testDriveInstance.location.map((location: any, index) => {
-                                            return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                                {location.Label}
-                                            </li>)
-                                        })
-                                    }
-                                </ul>
-                           
+
+                            <ul className="select2-selection__rendered">
+                                {
+                                    testDriveInstance.location && testDriveInstance.location.map((location: any, index) => {
+                                        return (<li key={index} className="select2-selection__choice" title="iwatch">
+                                            {location.Label}
+                                        </li>)
+                                    })
+                                }
+                            </ul>
+
                         </div>
                         <div className="col-md-12 para">
                             <span className="orange">DEVICES REQUIRED :</span>
-                            
-                                <ul className="select2-selection__rendered">
-                                    {
-                                        testDriveInstance.requiredDevices && testDriveInstance.requiredDevices.map((device: any, index) => {
-                                            return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                                {device.Label}
-                                            </li>)
-                                        })}
-                                </ul>
-                            
+
+                            <ul className="select2-selection__rendered">
+                                {
+                                    testDriveInstance.requiredDevices && testDriveInstance.requiredDevices.map((device: any, index) => {
+                                        return (<li key={index} className="select2-selection__choice" title="iwatch">
+                                            {device.Label}
+                                        </li>)
+                                    })}
+                            </ul>
+
                         </div>
                         <div className="col-md-12 para">
                             <span className="orange">OS REQUIRED :</span>
-                            
-                                <ul className="select2-selection__rendered">
-                                    {
-                                        testDriveInstance.requiredOs && testDriveInstance.requiredOs.map((os: any, index) => {
-                                            return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                                {os.Label}
-                                            </li>)
-                                        })
-                                    }
-                                </ul>
-                            
+
+                            <ul className="select2-selection__rendered">
+                                {
+                                    testDriveInstance.requiredOs && testDriveInstance.requiredOs.map((os: any, index) => {
+                                        return (<li key={index} className="select2-selection__choice" title="iwatch">
+                                            {os.Label}
+                                        </li>)
+                                    })
+                                }
+                            </ul>
+
                         </div>
 
                         <div className="col-md-12 participation_actionbox">

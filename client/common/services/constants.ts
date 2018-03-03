@@ -82,6 +82,7 @@ export class Columns {
     static ACCOUNT_NAME = "AccountName";
     static RESPONSE_ATTACHMENTS = "ResponseAttachments";
     static LevelNumber = "LevelNumber";
+    static USER_EMAIL = "UserEMail";
 
 }
 
@@ -123,6 +124,7 @@ export class Messages {
     static SAVING = 'Saving...';
     static LOADING = 'Loading...';
     static ERROR_IN_FORM = 'Please fill all the required fields and save again. Fields marked with * are mandetory.';
+    static TEST_DRIVE_PARTICIPATION_ERROR = 'You can\'t participate in this test drive as : ';
     static TEST_DRIVE_LOCATION_ERROR = 'This test drive is not available for your location.';
     static TEST_DRIVE_DEVICE_ERROR = 'You don\'t have the required device to participate in this test drive.';
     static TEST_DRIVE_OS_ERROR = 'You don\'t have the required os to participate in this test drive.';
@@ -130,4 +132,5 @@ export class Messages {
     static NO_QUESTION_ERROR = 'Please add atleast one question before submiting for approval.';
     static NO_OPTIONS_ERROR = 'Please add more that one question responses';
     static SURVEY_SUBMITTED = 'Survey submitted successfully.';
+    static MAX_TEST_DRIVER_LIMIT_REACHED = 'You can’t participate in this test drive as maximum test drivers limit for this test drive is reached';
 }

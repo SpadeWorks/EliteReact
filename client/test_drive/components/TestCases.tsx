@@ -115,7 +115,7 @@ class TestCases extends React.Component<TestCasesProps> {
                 </div>
 
                 <div className="col-md-12 testdrive_actionbox">
-                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button back_btn">
                         <input type="button" value="Back" onClick={() => this.switchTab(-1)} />
                     </div>
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
