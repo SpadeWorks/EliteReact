@@ -241,7 +241,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                         </Link>
                 </h2>
                 <h4 className="cancel-btn"><Link to={"/testdrives"}>Cancel</Link></h4>
-                <div className="col-md-12">
+                <div className="col-md-12 testdrive_createbox">
                     <div className="wrapper">
                         <Loader show={loading} message={'Loading...'}>
                             <Tabs selected={this.getSelectedTab() || 0}>

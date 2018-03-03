@@ -104,7 +104,7 @@ class Surveys extends React.Component<SurveysProps> {
                 </div>
 
                 <div className="col-md-12 testdrive_actionbox">
-                    <div className="button type1 nextBtn btn-lg pull-right animated_button back_btn">
+                    <div className="button type1 nextBtn btn-lg animated_button pull-left left_mnone">
                         <input type="button" value="Back" onClick={() => updateUI({ activeTab: ui.activeTab - 1 })} />
                     </div>
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
