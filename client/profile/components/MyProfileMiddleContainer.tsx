@@ -46,7 +46,7 @@ class MyProfileMiddleContainer extends React.Component<MyProfileMiddleContainerP
                             <div className="col-md-12">
                                 <p>
                                     <span className="orange">
-                                        <i>{eliteProfile.levelName}</i>
+                                        <i>{(eliteProfile.levelName) ? (eliteProfile.levelName) : "0"}</i>
                                     </span>
                                 </p>
                             </div>
