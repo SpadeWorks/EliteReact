@@ -400,6 +400,13 @@ render() {
                     </span>
                 </div>
                 <div className="col-md-12 testdrive_actionbox">
+
+                 <div className="button type1 nextBtn btn-lg pull-left animated_button back_btn">
+                            <input type="button" value="Back"
+                                onClick={this.onMoveNext} />
+                        </div>
+
+
                     <div style={butttonGroup}>
                         <div className="button type1 nextBtn btn-lg pull-right animated_button">
                             <input type="button" value="Next"
