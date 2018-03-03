@@ -41,3 +41,11 @@ To run tests, use:
 ```
 npm test
 ```
+
+
+//Sharepint configuration
+
+
+Add application configuration entires
+Add master page and page layouts
+Add Referal page.

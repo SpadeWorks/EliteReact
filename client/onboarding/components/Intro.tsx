@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
-
+import * as $ from 'jquery';
+import Services from '../../common/services/services';
 interface IntroProps {
-    completeIntro: () => any;
+    updateUI: (any) => any;
+    ui: any;
 };
 class Intro extends React.Component<IntroProps> {
     constructor(props, context) {
@@ -10,20 +12,36 @@ class Intro extends React.Component<IntroProps> {
         this.backToReferrer = this.backToReferrer.bind(this);
 
     }
-    backToReferrer(){
-        location.href = window.location.href;
+    backToReferrer() {
+        location.href = document.referrer;
     }
+
+    componentDidMount() {
+
+        Services.getApplicationConfigurations().then((appConfig: any) => {
+            $('#typewriteText').typewrite({
+                actions: [
+                    { type: appConfig.IntroductionText }
+                ]
+            });
+        });
+    }
+
     render() {
-        const {completeIntro} = this.props;
+        const { ui, updateUI } = this.props;
         return (
             <div className="header-title">
                 <h1 className="title"></h1>
                 <p className="first-text">CREW</p>
                 <p className="next-text">WANTED</p>
                 <div id="typewriteText"></div>
-                <div className="btn-group">
-                    <input onClick={completeIntro} type="button" value="Hell Yeah!" className="button type1" />
-                    <input onClick={this.backToReferrer} type="button" value="Take me home!" className="button type1" />
+                <div className="col-md-12 intro_actionbox testdrive_actionbox">
+                    <div className="button type1 pull-right animated_button">
+                        <input onClick={this.backToReferrer} type="button" value="Take me home!" />
+                    </div>
+                    <div className="button type1 pull-right animated_button">
+                        <input onClick={() => updateUI({ nextScreen: ui.nextScreen + 1 })} type="button" value="Heck Yeah!" />
+                    </div>
                 </div>
             </div>)
     }

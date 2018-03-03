@@ -21,7 +21,10 @@ class OverView extends React.Component<OverViewProps> {
         var completedQuestions = question && question.length && question.filter(question => {
             return question.responseStatus == Constants.ColumnsValues.COMPLETE_STATUS;
         });
-        return completedQuestions.length;
+        if(completedQuestions)
+            return completedQuestions.length;
+        else
+            return 0;
     }
     render() {
         const { testDriveInstance, ui, updateUI } = this.props;

@@ -14,22 +14,7 @@ interface AvatarCarouselProps {
 class AvatarCarousel extends React.Component<AvatarCarouselProps> {
     constructor(props, context) {
         super(props, context);
-    }
-
-    getAvatarLI() {
-        var stringLI = "";
-        var index = 0;
-        for (var i = 0; i < this.props.avatars.length; i = i + 8) {
-            if (i == 0) {
-                stringLI += "<li data-target='#myCarousel' data-slide-to=" + index + " className='active'></li>";
-            }
-            else {
-                stringLI += "<li data-target='#myCarousel' data-slide-to=" + index + "></li>"
-            }
-            index++;
-        }
-        return stringLI;
-    }
+    }   
 
     avatarSelected(avatar,baseUrl)
     {
@@ -50,7 +35,7 @@ class AvatarCarousel extends React.Component<AvatarCarouselProps> {
                     avatars.slice(i,i+8).map((avatar,index) => {
                         if(index%2==0)  
                         {                                            
-                            return <a href='javascript:void(0)' onClick={() => this.avatarSelected(avatar,baseUrl)}><img id={avatar.ID} src={ baseUrl + avatar.FileRef} /></a>
+                            return <div className="col-md-3"><a href='javascript:void(0)' onClick={() => this.avatarSelected(avatar,baseUrl)}><img id={avatar.ID} src={ baseUrl + avatar.FileRef} /></a></div>
                         }                        
                     })
                 }
@@ -59,7 +44,7 @@ class AvatarCarousel extends React.Component<AvatarCarouselProps> {
                     avatars.slice(i,i+8).map((avatar,index) => {
                         if(index%2!=0) 
                         {                             
-                            return <a href='javascript:void(0)' onClick={() => this.avatarSelected(avatar,baseUrl)}><img id={avatar.ID} src={ baseUrl + avatar.FileRef} /></a>
+                            return <div className="col-md-3"><a href='javascript:void(0)' onClick={() => this.avatarSelected(avatar,baseUrl)}><img id={avatar.ID} src={ baseUrl + avatar.FileRef} /></a></div>
                         }
                     })
                 }

@@ -12,27 +12,13 @@ class MyProfileRightContainer extends React.Component<MyProfileRightContainerPro
     render() {
         const { eliteProfile } = this.props;
         return (
-            <div className="col-md-6 col-md-offset-1 device_box">
+            <div className="col-md-5 col-md-offset-1 device_box">
+
                 <div className="row devicelist">
-                    <div className="col-md-3">
-                        <span className="orange">os :</span>
-                    </div>
-                    <div className="col-md-9">
-                        <ul className="select2-selection__rendered">
-                        {
-                            eliteProfile.availableOS && eliteProfile.availableOS.map((OS:any, index) => {
-                               return(<li key={index} className="select2-selection__choice" title="iwatch">
-                                   {OS.Label}
-                                </li>)
-                            })}
-                        </ul>
-                    </div>
-                </div>
-                <div className="row devicelist">
-                    <div className="col-md-3">
+                    <div className="col-md-4">
                         <span className="orange">Devices :</span>
                     </div>
-                    <div className="col-md-9">
+                    <div className="col-md-8">
                         <ul className="select2-selection__rendered">
                             {
                                 eliteProfile.availableDevices && eliteProfile.availableDevices.map((devices:any, index) => {
@@ -43,6 +29,24 @@ class MyProfileRightContainer extends React.Component<MyProfileRightContainerPro
                         </ul>
                     </div>
                 </div>
+
+                
+                <div className="row devicelist">
+                    <div className="col-md-4">
+                        <span className="orange">os :</span>
+                    </div>
+                    <div className="col-md-8">
+                        <ul className="select2-selection__rendered">
+                        {
+                            eliteProfile.availableOS && eliteProfile.availableOS.map((OS:any, index) => {
+                               return(<li key={index} className="select2-selection__choice" title="iwatch">
+                                   {OS.Label}
+                                </li>)
+                            })}
+                        </ul>
+                    </div>
+                </div>
+                
             </div>
         )
     }

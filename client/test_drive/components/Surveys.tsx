@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { TestDrive, IState, Question } from '../model';
 import SurveyForm from './SurveyForm';
-import {ColumnsValues} from '../../common/services/constants';
+import { ColumnsValues } from '../../common/services/constants';
+import Services from '../../common/services/services';
+import ui from 'redux-ui';
 import {
     model,
     saveQuestion,
@@ -23,32 +25,44 @@ interface SurveysProps {
     updateUI: (any) => any;
     ui: any;
     loadQuestions: (questionIds: number[]) => any
-    questionIds: number[];   
+    questionIds: number[];
     fieldDescriptions: any;
 };
-
+@ui({
+    state: {
+        helpText: ''
+    }
+})
 class Surveys extends React.Component<SurveysProps> {
     constructor(props, context) {
         super(props, context);
         this.onSubmit = this.onSubmit.bind(this);
+        this.getHelpText = this.getHelpText.bind(this);
         //  this.handleEdit = this.handleEdit.bind(this);
     }
 
-    onSubmit(){
+    onSubmit() {
         var testDrive = this.props.testDrive;
         testDrive.status = ColumnsValues.SUBMIT;
-        this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id)
+        this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const questions = this.props.questions;
-        if(!questions || questions.length == 0){
+        if (!questions || questions.length == 0) {
             this.props.loadQuestions(this.props.questionIds);
-        }   
+        }
+        this.getHelpText();
+    }
+
+    getHelpText() {
+        Services.getApplicationConfigurations().then((appConfig: any) => {
+            this.props.updateUI({ helpText: appConfig.QuestionHelpText });
+        })
     }
 
     render() {
-        const { 
+        const {
             testDrive,
             questions,
             saveQuestion,
@@ -65,18 +79,16 @@ class Surveys extends React.Component<SurveysProps> {
         return (
             <div className="test-case-container col-xs-12">
                 <div className="col-md-8 sample_text">
-                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high
-                        life accusamus terry richardson ad squid. 3 wolf moon
-                        officia aute, non cupidatat skateboard dolor brunch.</p>
+                    <p>{ui.helpText}</p>
                 </div>
                 <div className="add-button col-md-2 add_test pull-right text-right">
-                    <a href="javascript:void(0);" onClick={addQuestion}> + add Question </a>
+                    <a href="javascript:void(0);" onClick={addQuestion}> + ADD QUESTION </a>
                 </div>
                 <div className="col-md-12">
                     {
                         questions && questions.map(question => {
                             return <SurveyForm
-                                question={(question && question.isInEditMode) ? 
+                                question={(question && question.isInEditMode) ?
                                     { ...newQuestion, isInEditMode: true } : question}
                                 saveQuestion={saveQuestion}
                                 editQuestion={editQuestion}
@@ -90,17 +102,20 @@ class Surveys extends React.Component<SurveysProps> {
                         })
                     }
                 </div>
-                
-                <div className="col-md-12 testdrive_actionbox">
-                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                    <input type="button" value="Save as a draft"
-                        onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id)}} />
-                        </div>
 
-                        <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                        <input type="button" value="Done"
-                        onClick={this.onSubmit} />
-                        </div>
+                <div className="col-md-12 testdrive_actionbox">
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button back_btn">
+                        <input type="button" value="Back" onClick={() => updateUI({ activeTab: ui.activeTab - 1 })} />
+                    </div>
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <input type="button" value="Save as a draft"
+                            onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
+                    </div>
+
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <input type="button" value="Submit"
+                            onClick={this.onSubmit} />
+                    </div>
                 </div>
             </div>
         );

@@ -1,42 +1,68 @@
+import * as $ from 'jquery';
+import '../../js/animation.js';
+import '../../js/motion.js';
 import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Services from '../../common/services/services';
 import { User } from '../model';
 import Welcome from './Welcome';
+import CarAnimation from './CarAnimation';
+import CurrentRide from './CurrentRide';
+import RideChoice from './RideChoice';
 import Intro from './Intro';
+import ui from 'redux-ui';
+import UI from '../../js/custommAnimations';
+
+
 interface OnBoardingProps {
     dispatch: Dispatch<{}>;
     totalUsers: number;
     currentUser: User;
     introComplete: boolean;
     isUserCreated: boolean;
+    updateUI: (any) => any;
+    ui: any;
 };
 
 import {
     loadOnBoardingDetails,
     createEliteUserProfile,
-    completeIntro
+    completeIntro,
 } from '../../onboarding';
 
+
+@ui({
+    state: {
+        nextScreen: '0',
+    }
+})
 class OnBoarding extends React.Component<OnBoardingProps> {
     constructor(props, context) {
         super(props, context);
     }
 
     componentDidMount() {
+        document.body.className = "starts";
         this.props.dispatch(loadOnBoardingDetails());
+        UI.animate();
+    }
+
+    createUser() {
+        this.props.updateUI({
+            nextScreen: 2
+        });
+        this.props.dispatch(createEliteUserProfile(this.props.currentUser));
     }
 
     render() {
-
-        const { totalUsers, currentUser, dispatch, introComplete, isUserCreated} = this.props;
+        const { totalUsers, currentUser, dispatch, introComplete, isUserCreated, ui, updateUI } = this.props;
         // return <h1>Onboarding</h1>
         return (<div id="onboarding">
             <section>
                 <div className="container top_bar" style={{ height: "50px", background: "black" }}>
                     <div className="logo">
-                        <img src="images/logo.png" alt="Equnixlogo" />
+                        <img src="/sites/elite/Style%20Library/Elite/images/logo.png" alt="Equnixlogo" />
                     </div>
                 </div>
             </section>
@@ -110,34 +136,110 @@ class OnBoarding extends React.Component<OnBoardingProps> {
 
                     <div id="header">
                         <div className="hud-box">
-                            <div className="red_box red-box-container">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="equilizer" viewBox="0 0 296 128">
-                                    <g>
-                                        <title>Audio Equilizer</title>
-                                        <rect className="bar" transform="translate(0,0)" y="15"></rect>
-                                        <rect className="bar" transform="translate(82,0)" y="15"></rect>
-                                        <rect className="bar" transform="translate(20,0)" y="15"></rect>
-                                        <rect className="bar" transform="translate(95,0)" y="15"></rect>
-                                        <rect className="bar" transform="translate(10,0)" y="15"></rect>
-                                        <rect className="bar" transform="translate(35,0)" y="15"></rect>
-                                        <rect className="bar" transform="translate(50,0)" y="15"></rect>
-                                        <rect className="bar" transform="translate(110,0)" y="15"></rect>
-                                        <rect className="bar" transform="translate(35,0)" y="15"></rect>
-                                        <rect className="bar" transform="translate(65,0)" y="15"></rect>
-                                        <rect className="bar" transform="translate(125,0)" y="15"></rect>
-                                        <rect className="bar" transform="translate(20,0)" y="15"></rect>
-                                        <rect className="bar" transform="translate(95,0)" y="15"></rect>
-                                        <rect className="bar" transform="translate(50,0)" y="15"></rect>
-                                    </g>
-                                </svg>
+                            {ui.nextScreen == 1 && <div>
+                                <div className="red_box red-box-container">
+                                    <svg className="equilizer" viewBox="0 0 296 128">
+                                        <g>
+                                            <title>Audio Equilizer</title>
+                                            <rect className="bar" transform="translate(0,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(130,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(13,0)" y="15"></rect>
+
+                                            <rect className="bar" transform="translate(52,0)" y="15"></rect>
+
+                                            <rect className="bar" transform="translate(117,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(26,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(91,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(104,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(65,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(39,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(78,0)" y="15"></rect>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div className="count_box count-box-container" >
+                                    <p>
+                                        <span className="counter">{totalUsers}</span>
+                                        <span className="white">ACTIVE </span>
+                                        <span className="red">USERS</span>
+                                    </p>
+                                </div>
                             </div>
-                            <div className="count_box count-box-container" >
-                                <p>
-                                    <span className="counter">{totalUsers}</span>
-                                    <span className="white">ACTIVE </span>
-                                    <span className="red">USERS</span>
-                                </p>
+
+                            }
+                            {ui.nextScreen == 2 ?
+                                <div className="red_box red-box-container">
+                                    <div className="outer_ride">
+                                        <img src="/sites/elite/Style%20Library/Elite/images/loader2.png" />
+                                        <div className="ride_ring">
+                                            <img src="/sites/elite/Style%20Library/Elite/images/loader1.png" />
+                                            <div className="count_box current_ridename">
+
+                                                <p> <span className="white">YOUR CURRENT</span> <span className="red">RIDE</span></p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="ride_image">
+                                        <img src="/sites/elite/Style%20Library/Elite/images/stroller-2.png" />
+                                    </div>
+
+
+                                    <div id="typewriteText2" style={{ animationDelay: "10s" }}></div>
+
+
+                                </div> : ''
+                            }
+
+                            {ui.nextScreen == 3 ?
+                                <div className="red_box red-box-container">
+                                    <div className="outer_ride">
+                                        <img src="/sites/elite/Style%20Library/Elite/images/loader2.png" />
+                                        <div className="ride_ring">
+                                            <img src="/sites/elite/Style%20Library/Elite/images/loader1.png" />
+                                            <div className="count_box current_ridename">
+
+                                                <p> <span className="white">READY PLAYER</span> <span className="red">ONE</span></p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="ride_image">
+                                        <img src="/sites/elite/Style%20Library/Elite/images/stroller-2.png" />
+                                    </div>
+
+
+                                    <div id="typewriteText2" style={{ animationDelay: "10s" }}></div>
+
+
+                                </div> : ''
+                            }
+
+
+                            {ui.nextScreen == 4 && <div className="red_box red-box-container">
+                                <div className="outer_ride">
+                                    <img src="/sites/elite/Style%20Library/Elite/images/loader2.png" />
+                                    <div className="ride_ring">
+                                        <img src="/sites/elite/Style%20Library/Elite/images/loader1.png" />
+                                        <div className="count_box current_ridename">
+
+                                            <p> <span className="white">YOUR CURRENT</span> <span className="red">RIDE</span></p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="ride_image">
+                                    <img src="/sites/elite/Style%20Library/Elite/images/shoppingcart_Small.png" />
+                                </div>
+
+
+
                             </div>
+
+                            }
+
+
+
                             <div className="hud-box-border"></div>
                             <div className="tics t">
                                 <div className="tic"></div>
@@ -287,14 +389,30 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                             <div className="border l"></div>
                             <div className="border r"></div>
 
-                            {introComplete && <Welcome
+                            {
+                                ui.nextScreen == 0 &&
+                                <Intro ui={ui} updateUI={updateUI} />
+                            }
+
+                            {ui.nextScreen == 1 && <Welcome
                                 totalUsers={totalUsers}
                                 currentUser={currentUser}
                                 isUserCreated={isUserCreated}
-                                createEliteUserProfile={() => dispatch(createEliteUserProfile(currentUser))} />
+                                createEliteUserProfile={() => this.createUser()} />
                             }
-                            {!introComplete && 
-                                <Intro completeIntro = {()=>dispatch(completeIntro({}))}/>}
+                            {
+                                ui.nextScreen == 2 &&
+                                <RideChoice ui={ui} updateUI={updateUI} />
+                            }
+                            {
+                                ui.nextScreen == 3 &&
+                                <CarAnimation ui={ui} updateUI={updateUI} />
+                            }
+                            {
+                                ui.nextScreen == 4 &&
+                                <CurrentRide ui={ui} updateUI={updateUI} />
+                            }
+
                         </div >
                         <a className="ui-button small" href="#">
                             <div className="frame"></div>

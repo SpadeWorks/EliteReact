@@ -10,9 +10,12 @@ import TestDriveInfo from './TestDriveInfo';
 import * as $ from 'jquery';
 import * as Constants from '../../common/services/constants';
 import ui from 'redux-ui';
+import Popup from 'react-popup';
+import { ToastContainer, toast } from 'react-toastify';
 interface TestDriveParticipationProps {
     testDriveInstance: TestDriveInstance;
     saveTestCaseResponse: (testCase: TestCaseInstance, testDrive: TestDriveInstance) => any;
+    submitTestDriveInstance: (testDriveInstance: TestDriveInstance) => any;
     saveQuestionResponse: (question: QuestionInstance) => any;
     loadQuestions: (testDriveID: number, questions: number[], userID: number) => any;
     updateUI: (any) => any;
@@ -49,7 +52,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
 
     }
     render() {
-        const { testDriveInstance, saveTestCaseResponse, loadQuestions, saveQuestionResponse, ui, updateUI } = this.props;
+        const { testDriveInstance, saveTestCaseResponse, submitTestDriveInstance, loadQuestions, saveQuestionResponse, ui, updateUI } = this.props;
         return (<div className="col-md-12">
             <div className="row">
                 <div className="container header_part">
@@ -60,19 +63,19 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
 
                     </h2>
                 </div>
-                <div className="col-md-12" style={{ overflow: "auto" }}>
+                <div className="container participation_container" style={{ overflow: "auto" }}>
                     <div className="wrapper" style={{ height: "544px" }}>
-                        <div className="col-md-10 profile_box col-md-offset-1">
+                        <div className="col-md-11 profile_box">
                             <div className="well count_box">
                                 <ul className="nav nav-tabs">
                                     <li className="active">
-                                        <a href="#test_Cases" data-toggle="tab" onClick={() => updateUI({activeTab: 'test_Cases'})}>Test Cases</a>
+                                        <a href="#test_Cases" data-toggle="tab" onClick={() => updateUI({ activeTab: 'test_Cases' })}>Test Cases</a>
                                     </li>
                                     <li>
-                                        <a href="#Servay_q" data-toggle="tab" onClick={() => updateUI({activeTab: 'Servay_q'})}>Survey</a>
+                                        <a href="#Servay_q" data-toggle="tab" onClick={() => updateUI({ activeTab: 'Servay_q' })}>Survey</a>
                                     </li>
                                     <li>
-                                        <a href="#Description" data-toggle="tab" onClick={() => updateUI({activeTab: 'Description'})}>Description</a>
+                                        <a href="#Description" data-toggle="tab" onClick={() => updateUI({ activeTab: 'Description' })}>Description</a>
                                     </li>
                                 </ul>
                                 <div id="myTabContent" className="tab-content">
@@ -82,6 +85,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                             testCases={testDriveInstance.testCases}
                                             saveTestCaseResponse={(testCase, testDrive) =>
                                                 saveTestCaseResponse(testCase, testDrive)}
+                                            submitTestDriveInstance={(t) => submitTestDriveInstance(t)}
                                             updateUI={updateUI}
                                             ui={ui}
                                         />
@@ -106,11 +110,35 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                         {
                             testDriveInstance.testCases && testDriveInstance.testCases.length &&
                             testDriveInstance.testCases.map((testCase, index) => {
-                                return (<div className="col-md-8 write_testdrivebox" id={"test-case-details" + index}>
+                                return (<div className="col-md-8 write_testdrivebox" id={"test-case-details" + index} key={index}>
                                     <div className="col-md-12">
-                                        <i onClick={() => this.closePopUp(index)} 
-                                            className="material-icons pull-right" 
+                                        <i onClick={() => this.closePopUp(index)}
+                                            className="material-icons pull-right"
                                             id={"close_discription" + index}>close</i>
+                                    </div>
+                                    <div className="col-md-12 testdrive_completionbox">
+                                        <div className="col-md-11 pull-left"><h3>Description</h3></div>
+                                        <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.description }}>
+                                        </div>
+
+                                        <div className="col-md-11 pull-left"><h3>Scenario</h3></div>
+                                        <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.scenario }}>
+                                        </div>
+                                        <div className="col-md-11 pull-left"><h3>Expected Outcome</h3></div>
+                                        <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.expectedOutcome }}>
+                                        </div>
+                                    </div>
+                                </div>)
+                            })
+                        }
+                    </div>
+                    <div>
+                        {
+                            testDriveInstance.testCases && testDriveInstance.testCases.length &&
+                            testDriveInstance.testCases.map((testCase, index) => {
+                                return (<div className="col-md-8 write_testdrivebox" id={"test-case-details" + testCase.responseID}>
+                                    <div className="col-md-12">
+                                        <i onClick={() => this.closePopUp(testCase.responseID)} className="material-icons pull-right" id={"close_discription" + testCase.responseID}>close</i>
                                     </div>
                                     <div className="col-md-12 testdrive_completionbox">
                                         <div className="col-md-11 pull-left"><h3>Scenario</h3></div>
@@ -126,6 +154,8 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                     </div>
                 </div>
             </div>
+            <Popup />
+            <ToastContainer />
             <Overview testDriveInstance={testDriveInstance} ui={ui} updateUI={updateUI} />
         </div>)
     }

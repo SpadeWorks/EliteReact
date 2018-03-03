@@ -1,4 +1,5 @@
 import { TestDriveInstance } from "../test_drive_participation/model";
+import { SAVE_TestDriveApproval_PENDING } from "./constants/ActionTypes";
 
 export type TestCase = {
     id: number;
@@ -46,6 +47,56 @@ export type TestDrive = {
     level: string;
     owner?: string;
     newItem?: boolean;
+    levelNumber?: number;
+    ownerEmail?: string;
+};
+
+export type TestDriveIRun = {
+    id: number;
+    title: string;
+    description?: string;
+    maxPoints?: number;
+    startDate: string;
+    endDate: string;
+    expectedBusinessValue: string;
+    department?: string;
+    region: string[];
+    location: string[];
+    requiredDevices: string[];
+    requiredOs: string[];
+    maxTestDrivers: number;
+    testCases: TestCase[];
+    testCaseIDs?: number[];
+    questions: Question[];
+    questionIDs?: number[];
+    status: string;
+    level: string;
+    owner?: string;
+    newItem?: boolean;
+};
+
+export type MyTestDrive = {
+    id: number;
+    title: string;
+    description?: string;
+    maxPoints?: number;
+    startDate: string;
+    endDate: string;
+    expectedBusinessValue: string;
+    department?: string;
+    region: string[];
+    location: string[];
+    requiredDevices: string[];
+    requiredOs: string[];
+    maxTestDrivers: number;
+    testCases: TestCase[];
+    testCaseIDs?: number[];
+    questions: Question[];
+    questionIDs?: number[];
+    status: string;
+    level: string;
+    owner?: string;
+    newItem?: boolean;
 };
 
 export type Configurations = {
@@ -63,5 +114,31 @@ export type IState = {
     activeTab: string,
     configurations: Configurations;
     configurationLoaded: boolean;
+    myCompletedTestDrives?: MyTestDrive[],
+    myCompletedTestDrivesLoading?: boolean;
+    myInprogressTestDrives?: MyTestDrive[],
+    myInprogressTestDrivesLoading?: boolean,
+    inProgressTestDrivesIRun?: TestDriveIRun[],
+    inProgressTestDrivesIRunLoading?: boolean,
+    upcommingTestDrivesIRun?: TestDrive[]
+    upcommingTestDrivesIRunLoading?: boolean,
+    completedTestDrivesIRun?: TestDriveIRun[],
+    completedTestDrivesIRunLoading?: boolean,
+    draftedTestDrivesIRun?: TestDrive[],
+    draftedTestDrivesIRunLoading?: boolean,
+    submittedTestDrivesIRun?: TestDrive[],
+    submittedTestDrivesIRunLoading?: boolean,
+    activeTestDrives?: TestDrive[],
+    activeTestDrivesLoading?: boolean,
+    upCommingTestDrives?: TestDrive[],
+    upCommingTestDrivesLoading?: boolean,
+    approvedTestDrives?: TestDrive[],
+    approvedTestDrivesLoading?: boolean,
+    testDrivesWaitingForApproval?: TestDrive[],
+    testDrivesWaitingForApprovalLoading?: boolean,
+    saveTestDriveApprovalLoading?: boolean;
+    isTestDriveSaveComplet?: boolean; 
+    errorWhileSaving?: boolean;
+    errorSaveMessage?: boolean;
 }
 

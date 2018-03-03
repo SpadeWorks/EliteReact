@@ -18,10 +18,10 @@ class UserRank extends React.Component<UserRankProps> {
                         <div className="line_box">
                         </div>
                         <div className="player_box">
-                            <div className="col-md-4 testd_box">
-                                <p><span className="testd_count">{userRank} </span> <span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span> +1</p>
+                            <div className="col-md-3 testd_box">
+                                <p><span className="testd_count">{userRank} </span> <span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span><span className="increase_or_decreased"> +1 </span></p>
                             </div>
-                            <div className="col-md-8 player_name">
+                            <div className="col-md-8 player_name text-left">
                                 <h2>{userName}</h2>
                             </div>
                         </div>

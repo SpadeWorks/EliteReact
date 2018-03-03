@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { applyMiddleware, Store, createStore, compose } from 'redux';
@@ -11,8 +12,7 @@ import Promise from "ts-promise";
 import ManageTestDrive from './test_drive/components/ManageTestDrive';
 import Home from './home/components/Home';
 import rootReducer from './main/reducer';
-import TestDriveContainer from './main/components/TestDriveContainer';
-import logger from 'redux-logger';
+import TestDrivesCentralContainer from './main/components/TestDrivesCentralContainer';
 import Prizes from './home/components/Prizes';
 import Video from './home/components/Video';
 import LeaderBoardContainer from './leader_board/components/LeaderBoardContainer';
@@ -25,27 +25,26 @@ import TestDriveParticipation from './test_drive_participation/components/TestDr
 import TestDriveParticipationContainer from './main/components/TestDriveParticipationContainer';
 const initialState = {};
 
-// const loadStore = (currentState) => {
-//   return new Promise(resolve => {
-//     testDriveApi.getTestDrives().then((data) => {
-//       resolve({
-//         ...currentState,
-//         testDriveState: {
-//           ...currentState.testDriveState,
-//           testDrives: data,
-//           loading: false
-//         }
-//       });
-//     });
-//   });
-// }
+const loadStore = (currentState) => {
+  return new Promise(resolve => {
+    Services.getApplicationConfigurations().then((data) => {
+      resolve({
+        ...currentState,
+        testDriveState: {
+          ...currentState.testDriveState,
+          appConfig: data,
+          loading: false
+        }
+      });
+    });
+  });
+}
 
 const store: Store<any> = createStore(rootReducer,
   compose(applyMiddleware(
     // asyncInitialState.middleware(loadStore),
     thunkMiddleware,
-    promiseMiddleware(),
-    logger
+    promiseMiddleware()
   )));
 
 let user = Services.getUserProfileProperties();
@@ -56,14 +55,15 @@ if (user.eliteProfileID) {
       <div>
         <Switch>
           <Route exact path="/testdrive" component={ManageTestDrive} />
-          <Route exact path="/testdrives/activeTab" component={ManageTestDrive} />          
-          <Route exact path="/testdrives" component={TestDriveContainer} />
           <Route exact path="/testdrive/:id" component={ManageTestDrive} />
-          <Route exact path="/leaderboard" component={LeaderBoardContainer} />
+          <Route exact path="/testdrives" component={TestDrivesCentralContainer} />
+          <Route exact path="/testdrives/:activeTab" component={TestDrivesCentralContainer} />
+          <Route exact path="/leaderboard/" component={LeaderBoardContainer} />
+          <Route exact path="/leaderboard/:activeTab" component={LeaderBoardContainer} />
           <Route exact path="/video" component={Video} />
           <Route exact path="/prizes" component={Prizes} />
-          <Route exact path="/profile/:id" component={Profile} />
-          <Route exact path="/myprofile" component={MyProfile} />
+          <Route exact path="/profile/:id" component={MyProfile} />
+          <Route exact path="/profile" component={MyProfile} />
           <Route exact path="/participation/:id" component={TestDriveParticipationContainer} />
           <Route exact path="/testDriveDetails/:id/:instanceID" component={TestDriveParticipationContainer} />
           <Route path="/" component={Home} />

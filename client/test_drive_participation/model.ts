@@ -18,6 +18,7 @@ export type TestCaseInstance = {
     responseStatus: string;   
     files?: any[];
     saveInProgress?: boolean;
+    participants: number;
 }
 
 export type QuestionInstance = {
@@ -68,6 +69,10 @@ export type TestDriveInstance = {
     loadingMessage: string;
     testCaseSaveInProgress?: boolean;
     questionSaveInProgress?: boolean;
+    isTestDriveSubmissionCompleted?: boolean;
+    isSumbitInProgress: boolean;
+    participants: number;
+    ownerEmail: string;
 };
 
 export type Configurations = {
