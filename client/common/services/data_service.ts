@@ -534,6 +534,7 @@ export class Services {
                     requiredOs: testDrive.requiredOs,
                     maxTestDrivers: testDrive.maxTestDrivers,
                     level: testDrive.level,
+                    levelName: testDrive.levelName,
                     owner: testDrive.owner,
                     testCases: testCasesInstances,
                     questions: null,
@@ -746,7 +747,8 @@ export class Services {
                         lastName: user.lastName,
                         location: user.location,
                         region: user.region,
-                        workEmail: user.workEmail
+                        workEmail: user.workEmail,
+                        role: user.EliteUserRole
                     }
                 });
             })
@@ -972,7 +974,8 @@ export class Services {
                             requiredOs: testDrive.AvailableOS.results,
                             maxTestDrivers: testDrive.MaxTestDrivers,
                             id: testDrive.ID,
-                            level: testDrive.LevelID.LevelName,
+                            levelName: testDrive.LevelID.LevelName,
+                            level: testDrive.LevelID.ID,
                             owner: testDrive.TestDriveOwner.UserInfoName,
                             testCaseIDs: testDrive[Constants.Columns.TESTCASE_ID].results,
                             questionIDs: testDrive[Constants.Columns.QUESTION_ID].results,
@@ -1273,7 +1276,8 @@ export class Services {
                             requiredOs: testDrive.AvailableOS.results,
                             maxTestDrivers: testDrive.MaxTestDrivers,
                             id: testDrive.ID,
-                            level: testDrive.LevelID.LevelName,
+                            level: testDrive.LevelID.ID,
+                            levelName: testDrive.LevelID.LevelName,
                             owner: testDrive.TestDriveOwner.UserInfoName,
                             testCases: null,
                             questions: null,
@@ -1446,10 +1450,13 @@ export class Services {
         });
     }
 
-    static getReferrerID() {
-        let referrer = Utils.getUrlParameters(window.location.href, "referrerID");
+    static getReferrerID(referrer) {
         if (referrer) {
-            return parseInt(referrer);
+            try{
+                return parseInt(referrer);
+            } catch(e){
+                return '';
+            }    
         }
         else {
             return '';
@@ -1684,7 +1691,7 @@ export class Services {
         })
     }
 
-    static createEliteUserProfile(user: User) {
+    static createEliteUserProfile(user: User, referrerID: string) {
 
         return new Promise((resolve, reject) => {
             var userInfoList = pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION);
@@ -1701,7 +1708,7 @@ export class Services {
                         AccountName: user.accountName,
                         DateJoined: new Date().toISOString(),
                         UserLocation: user.location,
-                        ReferrerID_id: Services.getReferrerID(),
+                        ReferrerID_id: Services.getReferrerID(referrerID),
                         UserRegionText: user.region,
                         CarImage: baseUrl + carDetails.FileRef,
                         CarName: carDetails.CarName,
@@ -1711,6 +1718,7 @@ export class Services {
                         AvatarID_id: avatarDetails.ID,
                         Elite_UserDepartment: user.department,
                         UserInfoName: user.displayName,
+                        UserInfoRole: user.role,
                         [Constants.Columns.USER_EMAIL]: user.workEmail
                     }])
                         .then((users: any) => {

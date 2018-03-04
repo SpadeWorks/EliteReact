@@ -111,11 +111,12 @@ export class Globals {
 }
 
 export class Messages {
-    static SAVE_UNSAVED_QUESTION = 'Please save the unsaved question and then try saving test drive again.';
-    static SAVE_UNSAVED_TEST_CASE = 'Please save the unsaved test case and then try saving test drive again.';
-    static TEST_CASE_ERROR = 'There are some errors in the form. Please correct them and Save again.';
-    static TEST_DRIVE_ERROR = 'There are some errors in the form. Please correct them and Save again.';
-    static QUESTION_ERROR = 'There are some errors in the form. Please correct them and Save again.';
+    static SAVE_UNSAVED_QUESTION = 'Please save the unsaved question(Click on green check mark) and then try saving test drive again.';
+    static SAVE_UNSAVED_TEST_CASE = 'Please save the unsaved test case(Click on green check mark) and then try saving test drive again.';
+    static TEST_CASE_ERROR = 'Please fill all the required fields and save again.';
+    static TEST_DRIVE_ERROR = 'Please fill all the required fields and save again.';
+    static TEST_DRIVE_SAME_NAME_ERROR = 'Test drive with same name is already exists. Please try different test drive name.';
+    static QUESTION_ERROR = 'Please fill all the required fields and save again.';
     static LOADING_QUESTIONS = 'Loading questions...';
     static LOADING_TSETCASES = 'Loading test cases...';
     static LOADING_TESTDRIVE = 'Loading test drive...';

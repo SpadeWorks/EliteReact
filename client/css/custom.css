@@ -46,7 +46,7 @@ body.starts {
     height: 100vh;
     -webkit-transform: opacity 0.3s linear;
     transform: opacity 0.3s linear;
-    background: url('/sites/elite/Style%20Library/Elite/images/dash_back.jpg') no-repeat !important;
+    background: url('/sites/elite/Style%20Library/Elite/images/dash_back.jpg') center bottom no-repeat !important;
     width: 100%;
     height: auto;
     width: 100%;
@@ -3158,7 +3158,8 @@ border: solid 1px#fff;
 .nav-tabs>li>a {
     color: #fff;
     border: none;
-    font-size: 10px;
+    font-size: 68%;
+    letter-spacing:1px;
 }
 
 .nav-tabs>li.active>a,
@@ -3168,7 +3169,8 @@ border: solid 1px#fff;
     border: none;
     color: #ff8d00;
     font-weight: bold;
-    font-size: 75%;
+    font-size: 68%;
+    letter-spacing:1px;
 }
 
 .nav-tabs>li>a:hover {
@@ -7043,14 +7045,14 @@ a {
 .col-md-12.intro_actionbox.testdrive_actionbox.betterride_box {
     position: fixed;
     bottom: -123px;
-    left: 0px;
+    left: 17px;
     background: none!important;
 }
 
 .stroller_ridebox {
     position: absolute;
     top: 222px;
-    left: 223px;
+    left: 230px;
 }
 
 .stroller_ridebox img {
@@ -7115,7 +7117,7 @@ span.orange.big {
         height: 100vh;
         -webkit-transform: opacity 0.3s linear;
         transform: opacity 0.3s linear;
-        background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
+        background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') bottom center no-repeat !important;
         width: 100%;
         height: auto;
         width: 100%;
@@ -7447,14 +7449,32 @@ span.orange.big {
 
     .inner-therm span{display:none;}
 
-    a.drive_name h4:hover::after,a.drive_name h4:focus::after{
-        font-family: 'Material Icons';
-        content: "\E037";
-        color: white;
-    margin-left: 10px; 
-position:relative;
-top:3px;}
+  
 
+    a.drive_name h4:hover::after,a.drive_name h4:focus::after,a.drive_name h4:visited::after{
+        font-family: 'Glyphicons Halflings';
+        content: "\e250";
+        color: white;
+        font-size: 15px;
+        margin-left:12px;}
+
+
+        .black_box_right a.drive_name h4:hover::after{display:none;}
+        .small_leaderbox .nav>li>a {
+            padding: 7px 10px !important;
+        }
+
+        .black_box_right a.drive_name h4:hover::before,.black_box_right a.drive_name h4:focus::before,.black_box_right a.drive_name h4:visited::before{
+            font-family: 'Glyphicons Halflings';
+            content: "\e251";
+            color: white;
+            font-size: 15px;
+            margin-left:12px;
+        direction:}
+    
+            .small_leaderbox .nav>li>a {
+                padding: 7px 10px !important;
+            }
 
 }
 
@@ -7506,7 +7526,7 @@ ul.dragrace_indicator {
 }
 
 .total_testdrivebox .nav-tabs>li {
-    margin-right: 30px;
+    margin-right: 17px;
 }
 
 
@@ -7835,4 +7855,8 @@ h1.title:before {
     margin-left: -30%;
     text-align: center;
     list-style: none;
+}
+
+span.clsRemainingLength {
+    float: right;
 }

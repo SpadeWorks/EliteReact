@@ -12,6 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { css, active } from 'glamor';
 import { Messages } from '../../common/services/constants';
 import Popup from 'react-popup';
+import { Services } from '../../common/services/data_service';
 
 interface TestDriveFormProps {
     testDrive: TestDrive,
@@ -46,6 +47,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         this.onChange = this.onChange.bind(this);
         this.selectControlChange = this.selectControlChange.bind(this);
         this.onSwitchTab = this.onSwitchTab.bind(this);
+        this.saveValidate = this.saveValidate.bind(this);
     }
 
     onChange = (e) => {
@@ -141,6 +143,13 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         }
     }
 
+    saveValidate(testDrive) {
+        Services.getTestDrivesByFilter("TestDriveName eq '" + testDrive.title + "'").then((testDriveData: any) => {
+            testDriveData && testDriveData.length > 1 ? Popup.alert(Messages.TEST_DRIVE_SAME_NAME_ERROR) :
+                this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);
+        });
+    }
+
     componentDidMount() {
         document.body.className = "black-bg";
         $(document).mouseup((e) => {
@@ -171,6 +180,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
             float: 'right'
         }
         const format = 'dddd, D MMMM YYYY';
+        const maxLimit = 100;
         return (
             <form className="registration_form" id={"test-drive-form" + testDrive.id}>
                 <div className="col-xs-12 testdrive_creationbox form_box ">
@@ -183,6 +193,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 value={testDrive.title || ""}
                                 id={"testDrive-title" + testDrive.id}
                                 data-validations={[required]}
+                                maxLength={maxLimit}
                             />
                             <span className="highlight"></span>
                             <span className="bar"></span>
@@ -190,7 +201,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             <span className="help-text">
                                 {fieldDescriptions && fieldDescriptions.TestDriveName}
                             </span>
+                            <span className="clsRemainingLength">Remaining: { maxLimit - testDrive.title.length}</span>
                         </div>
+                        
                     </div>
                     <div className="col-md-12 register_input textarea-custom">
                         <div className="group">
@@ -407,7 +420,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             </div>
                             <div className="button type1 nextBtn btn-lg pull-right animated_button">
                                 <input type="button" value="Save as a draft"
-                                    onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
+                                    onClick={() => { this.saveValidate(testDrive) }} />
                             </div>
                         </div>
                     </div>

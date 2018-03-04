@@ -26,7 +26,8 @@ const initialState: IState = {
             location: "",
             sipAddress: "",
             workEmail: '',
-            region: ''
+            region: '',
+            role: ''
         },
         totalUsers: 0,
     },
