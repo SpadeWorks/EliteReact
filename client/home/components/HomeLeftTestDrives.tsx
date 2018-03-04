@@ -45,8 +45,8 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                     </ul>
                     <div id="myTabContent" className="tab-content">
                         <div className="tab-pane active in" id="home">
-                            <Loader show={myTestDriveLoading} message={'Loading test drives...'}>
-                                <div className="col-md-12">
+                            <div className="col-md-12">
+                                <Loader show={myTestDriveLoading} message={'Loading test drives...'}>
                                     {
                                         (mytestDrive && mytestDrive.length) ? mytestDrive.map((testDrive, index) => {
                                             return (testDrive && <LeftContainer
@@ -65,14 +65,14 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                             MORE >>
                                         </Link> : ''
                                     }
-                                </div>
-                            </Loader>
+                                </Loader>
+                            </div>
                         </div>
 
                         {
                             isTestDriveIRunVisible ? <div className="tab-pane fade" id="profile">
-                                <Loader show={testDriveThatIRunLoading} message={'Loading test drives...'}>
-                                    <div className="col-md-12">
+                                <div className="col-md-12">
+                                    <Loader show={testDriveThatIRunLoading} message={'Loading test drives...'}>
                                         {
                                             (testDriveThatIRun && testDriveThatIRun.length) ? testDriveThatIRun.map((testDrive, index) => {
                                                 return (testDrive && <LeftContainer
@@ -86,8 +86,8 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                         }
                                         {(!testDriveThatIRunLoading && !testDriveThatIRun.length) ? <div>
                                             <p>You have not created any test drive yet.</p>
-                                            <div className="col-md-12 popup_buttonbox">
-                                                <Link className="button type1" to={"/testdrive"}> +Create Test Drive </Link>
+                                            <div className="col-md-12 text-center create_new">
+                                                <Link className="button type1" to={"/testdrive"}>Create Test Drive </Link>
                                             </div>
                                         </div> : ''}
                                         {
@@ -96,11 +96,10 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                                     MORE >>
                                         </Link> : ''
                                         }
-                                    </div>
-                                </Loader>
+                                    </Loader>
+                                </div>
                             </div> : ''
                         }
-
                     </div>
                 </div>
             </div>

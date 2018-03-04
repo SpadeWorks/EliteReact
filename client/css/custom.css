@@ -7447,6 +7447,11 @@ span.orange.big {
 
     .inner-therm span{display:none;}
 
+    .create_new {
+        position: relative;
+        top: 80px;
+    }
+
 }
 
 span.s4-clust {
@@ -7829,4 +7834,13 @@ h1.title:before {
 
 span.clsRemainingLength {
     float: right;
+}
+
+
+.l_count_box .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* width: 154px; */
+    display: inline;
+    white-space: nowrap;
 }

@@ -38,8 +38,8 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                     <div id="myTabContent" className="tab-content">
 
                         <div className="tab-pane fade" id="up_drives">
-                            <Loader show={upcomingTestDriveLoading} message={'Loading test drives...'}>
-                                <div className="col-md-12">
+                            <div className="col-md-12">
+                                <Loader show={upcomingTestDriveLoading} message={'Loading test drives...'}>
                                     {
                                         upcomingTestDrive && upcomingTestDrive.map((testDrive, index) => {
                                             return (testDrive &&
@@ -58,12 +58,12 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                             MORE >>
                                         </Link>
                                     }
-                                </div>
-                            </Loader>
+                                </Loader>
+                            </div>
                         </div>
                         <div className="tab-pane active in" id="active_drives">
-                            <Loader show={activeTestDriveLoading} message={'Loading test drives...'}>
-                                <div className="col-md-12">
+                            <div className="col-md-12">
+                                <Loader show={activeTestDriveLoading} message={'Loading test drives...'}>
                                     {
                                         activeTestDrive && activeTestDrive.map((testDrive, index) => {
                                             return (testDrive &&
@@ -81,8 +81,8 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                             MORE >>
                                     </Link>
                                     }
-                                </div>
-                            </Loader>
+                                </Loader>
+                            </div>
                         </div>
                     </div>
                 </div>
