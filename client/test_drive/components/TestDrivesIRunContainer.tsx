@@ -98,7 +98,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                                             return (<TestDrivesIRunUpcommingItem
                                                 key={index}
                                                 testDrive={testDriveObj.testDrive}/>)
-                                        }) : (!upcommingTestDrivesIRunLoading && Messages.TEST_DRIVE_UPCOMING_MSG)
+                                        }) : (!upcommingTestDrivesIRunLoading && <div className="no-data-message">{Messages.TEST_DRIVE_UPCOMING_MSG}</div>)
                                 }
                                 {
                                     ui.upcommingItems && ui.upcommingItems.length > 0 &&
@@ -124,7 +124,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                                             return (<TestDrivesIRunUpcommingItem
                                                 key={index}
                                                 testDrive={testDriveObj.testDrive}/>)
-                                        }) : (!draftedTestDrivesIRunLoading && <div className="no-data-message">Messages.TEST_DRIVE_DRAFTED_MSG</div>)
+                                        }) : (!draftedTestDrivesIRunLoading && <div className="no-data-message">{Messages.TEST_DRIVE_DRAFTED_MSG}</div>)
                                 }
                                 {
                                     ui.draftedItems && ui.draftedItems.length > 0 &&

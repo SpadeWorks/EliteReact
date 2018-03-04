@@ -67,7 +67,7 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
                                 participants={testDriveObj.participents}
                                 testDrive={testDriveObj.testDrive}
                                 isActive={false} />)
-                        }) : (!activeTestDrivesLoading && <div className="no-data-message">Messages.TEST_DRIVE_ACTIVE_MSG</div>)
+                        }) : (!activeTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_ACTIVE_MSG}</div>)
                 }
                 {
                     ui.visibleItems && ui.visibleItems.length > 0 &&
