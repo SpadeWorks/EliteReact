@@ -157,7 +157,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                         </g>
                                     </svg>
                                 </div>
-                                <div className="count_box count-box-container" >
+                                <div className="count_box count-box-container activeuser_box" >
                                     <p>
                                         <span className="counter">{totalUsers}</span>
                                         <span className="white">ACTIVE </span>
