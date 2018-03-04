@@ -41,16 +41,17 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                             <div className="col-md-12">
                                 <Loader show={upcomingTestDriveLoading} message={'Loading test drives...'}>
                                     {
-                                        upcomingTestDrive && upcomingTestDrive.map((testDrive, index) => {
-                                            return (testDrive &&
-                                                <RightContainer
-                                                    key={index}
-                                                    participants={testDrive.participants}
-                                                    checkPortion={Globals.UPCOMMING_Test_Drive}
-                                                    testDrive={testDrive.testDrive}
-                                                    index={index + 1}
-                                                ></RightContainer>)
-                                        })
+                                        (!upcomingTestDriveLoading && upcomingTestDrive && upcomingTestDrive.length) ?
+                                            upcomingTestDrive.map((testDrive, index) => {
+                                                return (testDrive &&
+                                                    <RightContainer
+                                                        key={index}
+                                                        participants={testDrive.participants}
+                                                        checkPortion={Globals.UPCOMMING_Test_Drive}
+                                                        testDrive={testDrive.testDrive}
+                                                        index={index + 1}
+                                                    ></RightContainer>)
+                                            }) : ''
                                     }
                                     {(!upcomingTestDriveLoading) && upcomingTestDrive.length == 0 && <p>There are no upcoming test drives.</p>}
                                     {
@@ -65,7 +66,8 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                             <div className="col-md-12">
                                 <Loader show={activeTestDriveLoading} message={'Loading test drives...'}>
                                     {
-                                        activeTestDrive && activeTestDrive.map((testDrive, index) => {
+                                        (!activeTestDriveLoading && activeTestDrive && activeTestDrive.length) ? 
+                                            activeTestDrive.map((testDrive, index) => {
                                             return (testDrive &&
                                                 <RightContainer
                                                     key={index}
@@ -73,7 +75,7 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                                     checkPortion={"activeTestDrive"}
                                                     testDrive={testDrive.testDrive}
                                                     index={index + 1}></RightContainer>)
-                                        })
+                                        }) : ''
                                     }
                                     {(!activeTestDriveLoading) && activeTestDrive.length == 0 && <p>There are no active test drives.</p>}
                                     {
