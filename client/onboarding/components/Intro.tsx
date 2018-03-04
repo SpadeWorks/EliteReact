@@ -32,7 +32,7 @@ class Intro extends React.Component<IntroProps> {
         return (
             <div className="header-title">
                 <h1 className="title"></h1>
-                <p className="first-text">CREW</p>
+                <p className="first-text">DRIVERS</p>
                 <p className="next-text">WANTED</p>
                 <div id="typewriteText"></div>
                 <div className="col-md-12 intro_actionbox testdrive_actionbox">

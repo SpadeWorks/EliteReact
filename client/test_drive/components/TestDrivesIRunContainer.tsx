@@ -97,7 +97,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                                             return (<TestDrivesIRunUpcommingItem
                                                 key={index}
                                                 testDrive={testDriveObj.testDrive}/>)
-                                        }) : (!upcommingTestDrivesIRunLoading && 'There are no items waiting for approval.')
+                                        }) : (!upcommingTestDrivesIRunLoading && 'There are no upcoming test drives.')
                                 }
                                 {
                                     ui.upcommingItems && ui.upcommingItems.length > 0 &&
