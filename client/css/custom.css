@@ -7848,3 +7848,8 @@ span.clsRemainingLength {
 .close-btn{
     cursor: pointer;
 }
+
+.no-data-message{
+    text-align: center;
+    font-size: 20px;
+}

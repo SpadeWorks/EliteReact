@@ -136,7 +136,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                         index={index}
                                         isCompleted={true}
                                     />)
-                                }) : (!myCompletedTestDrivesLoading && <div>{Messages.TEST_DRIVE_COMPLETED_MSG}</div>)
+                                }) : (!myCompletedTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_COMPLETED_MSG}</div>)
                         } </div>
                         {
                             ui.completedItems && ui.completedItems.length > 0 ?
