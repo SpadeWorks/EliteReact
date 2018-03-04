@@ -280,6 +280,7 @@ h1 {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    opacity:0.4;
 }
 
 .tics .tic {
@@ -2031,7 +2032,7 @@ h1 {
     max-width: 1280px;
     margin: auto;
     padding: 0 5%;
-    height: 54%;
+    height: 70%;
 }
 
 #header .hud-box .hud-box-border {
@@ -7022,8 +7023,10 @@ p.go {
 
 .count_box.current_ridename {
     width: 500px;
-    margin-left: 101px;
-    margin-top: 78px;
+    position: absolute;
+    left: 255px;
+    top: 36px;
+    letter-spacing: 2px;
 }
 
 .col-md-12.intro_actionbox.testdrive_actionbox.new_ride {
@@ -7051,10 +7054,9 @@ a {
 }
 
 .stroller_ridebox img {
-    height: 186px;
+    height: 238px;
     position: absolute;
-    left: 20px;
-    top: -19px;
+    top: -30px;
 }
 
 .red_text {
@@ -7432,6 +7434,15 @@ span.orange.big {
         font-size: 18px;
         color: #505050;
     }
+    .count_box.count-box-container.activeuser_box {
+        position: absolute;
+        top: -41px;
+        left: 123px;
+    }
+
+
+
+
 }
 
 span.s4-clust {
