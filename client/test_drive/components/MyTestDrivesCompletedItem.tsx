@@ -138,28 +138,24 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                     </div>
                                     <div className="row race_type">
                                         <div className="col-md-12">
-
                                             <ul className={Services.getLevelNameClass(testDrive.levelNumber)}>
                                                 <li><span></span></li>
                                                 <li><span></span></li>
                                                 <li><span></span></li>
                                             </ul>
-
                                         </div>
                                         <div className="col-md-12">
-
-                                            <h5>{testDrive.level}</h5>
-
+                                            <h5>{testDrive.levelName}</h5>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-12 text-center">
-                        {isCompleted ?
-                            <Link className="button type1" to={"/participation/" + testDrive.id}> View Details </Link> :
-                            <Link className="button type1" to={"/participation/" + testDrive.id}> Complete the drive </Link>}
-                            </div>
+                            {isCompleted ?
+                                <Link className="button type1" to={"/participation/" + testDrive.id}> View Details </Link> :
+                                <Link className="button type1" to={"/participation/" + testDrive.id}> Complete the drive </Link>}
+                        </div>
                     </div>
                 </div>
             </div>
