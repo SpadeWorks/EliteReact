@@ -1908,7 +1908,7 @@ h1 {
 }
 
 #header .header-title {
-    margin: 10vw 0;
+    margin: 100px 0;
     padding: 0;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -2031,6 +2031,7 @@ h1 {
     max-width: 1280px;
     margin: auto;
     padding: 0 5%;
+    height: 54%;
 }
 
 #header .hud-box .hud-box-border {
@@ -2039,7 +2040,8 @@ h1 {
     right: 0;
     bottom: 0;
     left: 0;
-    border: 1px solid #3886c6
+    border: 1px solid #3886c6;
+    height: 100%;
 }
 
 #header .hud-box .cap {
@@ -2318,7 +2320,6 @@ h1 {
 }
 
 .intro_actionbox.testdrive_actionbox.letsgo {
-    position: fixed;
     bottom: -152px;
     left: -184px;
     background: none!important;
@@ -3194,10 +3195,6 @@ span.participants {
     margin-bottom: 0px !important;
 }
 
-.test_drive {
-    margin-bottom: 15px;
-}
-
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -3220,8 +3217,6 @@ a.drive_name h4 {
     text-overflow: ellipsis;
     margin: 0px;
 }
-
-
 
 .leader_rank span {
     -webkit-transform: skewX(25deg) !important;
@@ -3338,7 +3333,6 @@ span.l_count {
 .count p {
     float: left;
     font-size: 15px;
-
 }
 
 .digits {
@@ -3436,8 +3430,8 @@ width: 28px !important;
 .tdrivecount {
     position: absolute;
     top: 48px;
-    left: 54px;
-    float: left;
+    text-align: center;
+    width: 100px;
 }
 
 .lc_container {
@@ -3445,11 +3439,9 @@ width: 28px !important;
     height: 100px;
     border-right: solid 2px #fff;
     opacity: 0;
-    margin-top: -32px;
+    margin-top: -54px;
     transition: all 0.5s;
 }
-
-
 
 .black_box_right {
     background: #ffffff0a;
@@ -3462,7 +3454,7 @@ width: 28px !important;
     height: 100px;
     border-left: solid 2px #fff;
     opacity: 0;
-    margin-top: -32px;
+    margin-top: -41px;
 }
 
 .white_circle2 {
@@ -3519,7 +3511,6 @@ width: 28px !important;
     display: block;
 }
 
-
 .footer {
     height: 50px;
     background: #000;
@@ -3561,18 +3552,20 @@ width: 28px !important;
 }
 
 .player_name h2 {
-    margin-top: 0px;
+    margin: 4px 0px;
+    float: left;
 }
 
 .lc_containerclick {
     display: block;
-    width: 310%;
+    width: 241%;
     transition: 0.5s;
     opacity: 1;
     height: 100px;
     border-right: solid 2px #fff;
-    margin-top: -32px;
+    margin-top: -54px;
     transition: all 0.5s;
+    position: absolute;
 }
 
 .letest_drivebox {
@@ -3628,7 +3621,7 @@ width: 28px !important;
     right: 0px;
     height: 100px;
     border-left: solid 2px #fff;
-    margin-top: -32px;
+    margin-top: -41px;
     transition: all 0.5s;
 }
 
@@ -3636,7 +3629,7 @@ width: 28px !important;
     width: auto;
     float: left;
     margin-left: 127px;
-    margin-top: 42px;
+    margin-top: 0px;
 }
 
 a#link1 img,
@@ -3749,8 +3742,6 @@ a#link6 span {
 .user_name h2 {
     margin-top: 0px;
 }
-
-
 
 .testd_box span.glyphicon-triangle-top {
     font-size: 22px;
@@ -4376,8 +4367,6 @@ div#s4-ribbonrow {
     margin-top: -100px;
 }
 
-
-
 .overall_box {
     margin-top: 50px;
 }
@@ -4422,7 +4411,6 @@ span.teams:hover {
     float: left;
 }
 
-
 span.report {
     background: url("/sites/elite/Style%20Library/Elite/images/bug.png") no-repeat;
     height: 23px;
@@ -4436,7 +4424,6 @@ span.report:hover {
     width: 23px;
     float: left;
 }
-
 
 .social_box a i {
     color: #828282;
@@ -4515,7 +4502,6 @@ span.report:hover {
 .user_name h2 {
     margin-top: 0px;
 }
-
 
 span.increase_or_decreased {
     margin-left: 15px;
@@ -4692,7 +4678,7 @@ span.increase_or_decreased {
 
 h4.testcase_title {
     font-family: titanium !important;
-    font-size: 13px;
+    font-size: 18px;
     color: #868686;
     margin-top: 30px;
 }
@@ -4954,7 +4940,7 @@ a.edit_profile {
 }
 
 .profile_overviewbox img {
-    max-height: 63px;
+    max-height: 55px;
 }
 
 .profile_overviewbox h4.testcase_title {
@@ -5010,6 +4996,7 @@ ul.thumbnails-carousel li {
     color: #ff8d00;
     font-size: 38px;
     padding-right: 0px;
+    transform: none;
 }
 
 .profile_overviewbox .imp_points h4 {
@@ -5090,7 +5077,6 @@ li.active-thumbnail {
     float: left;
     background: none;
 }
-
 
 .modal-dialog.edit_profile {
     width: 550px;
@@ -5280,14 +5266,13 @@ h1#dialogTitleSpan {
 
 .para {
     margin-bottom: 20px;
-    height:80px !important;
-
+    height: 80px !important;
 }
 
 .para p {
     font-family: titanium !important;
     font-size: 16px;
-    margin-top:10px;
+    margin-top: 10px;
 }
 
 .testdrivedetails_box .profileinfo_box span.orange {
@@ -5918,7 +5903,7 @@ h1.testcase_name {
     font-size: 14px;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-bottom:30px;
+    margin-bottom: 30px;
 }
 
 .testcase_box span.red {
@@ -6130,8 +6115,8 @@ h1.testcase_name {
     position: relative;
     position: relative;
     top: 60px;
-    font-family:titanium;
-    font-size:14px;
+    font-family: titanium;
+    font-size: 14px;
 }
 
 .col-md-12.earn_box span.small,
@@ -6166,12 +6151,10 @@ h1.testcase_name {
     font: 18px "HemiHeadRg-BoldItalic", "Arial", Helvetica, sans-serif;
     margin: 20px 0px 10px 0px;
     color: red;
-    right: 170px;
     margin-left: 50px;
 }
 
 .testdrive_actionbox {
-    position: fixed;
     bottom: 0px;
     left: 0px;
     background: #181821;
@@ -6309,7 +6292,10 @@ button {
     padding-bottom: 40px;
 }
 
-.progress_drivebox canvas{height:110px; width:110px;}
+.progress_drivebox canvas {
+    height: 110px;
+    width: 110px;
+}
 
 .progress_drivebox .button {
     position: relative;
@@ -6346,9 +6332,8 @@ ul.dragrace_indicator li span {
 
 .partcipant_Section span.orange {
     font-size: 12px;
-   text-transform: uppercase;
-   float:left; 
- 
+    text-transform: uppercase;
+    float: left;
 }
 
 .enddate_Section span.orange {
@@ -6390,9 +6375,6 @@ ul.dragrace_indicator li span {
     width: 60% !important;
     margin-left: 0px;
 }
-
-
-
 
 .testdrive_I_runbox .inforow h5 {
     font-family: titanium;
@@ -6490,7 +6472,6 @@ ul.streetrace_indicator {
     /* margin-left: 5px; */
 }
 
-
 ul.streetrace_indicator li {
     height: 20px;
     width: 20px;
@@ -6500,15 +6481,19 @@ ul.streetrace_indicator li {
     margin-left: 5px;
 }
 
-ul.soapbox_indicator{padding-left:0px; 
-    list-style-type:none;}
+ul.soapbox_indicator {
+    padding-left: 0px;
+    list-style-type: none;
+}
 
-ul.soapbox_indicator li{height: 20px;
+ul.soapbox_indicator li {
+    height: 20px;
     width: 20px;
     background: green;
     border-radius: 50%;
     float: left;
-    margin-left: 5px;}
+    margin-left: 5px;
+}
 
 ul.streetrace_indicator li span {
     margin-left: 5px;
@@ -6930,7 +6915,7 @@ button {
 
 .red_box.red-box-container {
     height: 50px !important;
-    margin-top: -33px!important;
+    margin-top: -75px!important;
     width: 25%!important;
     position: absolute!important;
     left: -72px!important;
@@ -6948,7 +6933,7 @@ button {
 .outer_ride img {
     position: absolute;
     left: 123px;
-    top: -21px;
+    top: 23px;
     -webkit-animation: rotate 30s infinite;
     animation-play-state: running;
 }
@@ -6956,7 +6941,7 @@ button {
 .ride_ring img {
     position: absolute;
     left: 138px;
-    top: -9px;
+    top: 36px;
     -webkit-animation: rotate 5s infinite;
     animation-direction: reverse;
 }
@@ -6970,7 +6955,7 @@ p.next-text.go_text {
 .ride_image img {
     position: relative;
     left: 168px;
-    bottom: 34px;
+    top: 58px;
 }
 
 @-webkit-keyframes rotate {
@@ -7037,8 +7022,8 @@ p.go {
 
 .count_box.current_ridename {
     width: 500px;
-    margin-left: 250px;
-    margin-top: -7px;
+    margin-left: 101px;
+    margin-top: 78px;
 }
 
 .col-md-12.intro_actionbox.testdrive_actionbox.new_ride {
@@ -7066,7 +7051,10 @@ a {
 }
 
 .stroller_ridebox img {
-    height: 250px;
+    height: 186px;
+    position: absolute;
+    left: 20px;
+    top: -19px;
 }
 
 .red_text {
@@ -7085,21 +7073,28 @@ a.more {
     margin-top: 0px;
 }
 
+.point_board h3 {
+    margin-bottom: 5px;
+}
 
-.point_board h3{margin-bottom:5px;}
+.progress_drivebox span.small {
+    letter-spacing: 2px;
+}
 
-.progress_drivebox span.small{letter-spacing: 2px;}
+p.my_allpoints {
+    text-align: center;
+    margin-top: 30px;
+}
 
-p.my_allpoints{  text-align: center;
-    margin-top: 30px;}
+span.orange.big {
+    font-size: 30px;
+}
 
-    span.orange.big {
-        font-size: 30px;
-    }
-    .testdrive_I_runbox ul {
-        margin-top: 0px !important;
-        margin-bottom: 0px !important;
-    }
+.testdrive_I_runbox ul {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
 
 /*my ride styles ends here*/
 
@@ -7180,45 +7175,35 @@ p.my_allpoints{  text-align: center;
     .map_container {
         width: 86%;
         float: left;
-        /* margin-left: 154px !important;
-        margin-top: 42px; */
+        /* margin-left: 154px !important;*/
+        margin-top: 0px;
         position: relative;
-        left:10%;
+        left: 10%;
     }
-
     img.map_image {
         width: 86%;
     }
     .line_box {
-            background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
-            width: 100%;
-            background-size: contain;
-            margin-top: -135px;
-            /* height: 145px !important; */
-        
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+        width: 100%;
+        background-size: 100% 190px;
+        margin-top: -135px;
+        /*height: 220px;*/
     }
     .overall_box {
         margin-top: 48px;
         position: relative!important;
-        top: -35px !important;
+        /*top: -20px !important;*/
     }
     .player_box {
-        width: 30%;
-        margin: 0 auto;
-        height: 50px;
-        position: relative;
-        text-align:center;
-        word-break: break-word;
-
-
-        
+        display: inline-block;
     }
     .skills_heading {
         position: relative;
         font-size: 35px;
         top: 103px;
         width: 70%;
-       }
+    }
     .leader_name {
         height: 50px;
         background: none;
@@ -7243,39 +7228,30 @@ p.my_allpoints{  text-align: center;
         z-index: 99;
         text-align: center;
     }
-    span.increase_or_decreased {
-        position: absolute;
-        left: 51px;
+    .increase_or_decreased {
+        /* position: absolute;
+        left: 51px; */
         font-size: 25px;
+        float: left;
     }
-
     .testd_box {
         position: relative;
+        display: block;
+        overflow: hidden;
+        text-align: center;
+        margin: 0 auto;
+        top: -10px;
     }
-
-
-    .testd_box span.glyphicon-triangle-top {
+    .testd_box div.glyphicon-triangle-top {
         font-size: 16px;
         color: green;
-        left: 46px;
+        /* left: 46px;
         position: absolute;
-        top: 11px;
+        top: 11px; */
+        float: left;
+        margin-top: 8px;
     }
-
-
-
-    span.testd_count {
-        background: red;
-        padding: 5px;
-        margin-right: 7px;
-        /* border-radius: 5px; */
-        padding-right: 8px;
-        font-size: 19px;
-        color: #fff;
-        padding-left: 9px;
-    }
-
-    span.testd_count {
+    .testd_count {
         background: red;
         padding: 5px;
         margin-right: 7px;
@@ -7284,20 +7260,16 @@ p.my_allpoints{  text-align: center;
         font-size: 19px;
         color: #fff;
         padding-left: 8px;
-        position: absolute;
         float: left;
         height: 33px;
         transform: skewX(-20deg);
-        position: absolute;
+        /* position: absolute;
         left: 9px;
-        z-index: 99;
+        z-index: 99; */
     }
-
-
-   
     .letest_driveboxclick {
         position: absolute;
-        left: 120% !important;
+        left: 130% !important;
         display: block;
         transition: 0.5s;
         width: 450px;
@@ -7314,43 +7286,38 @@ p.my_allpoints{  text-align: center;
         background: none;
         border: solid 1px #fff;
         border-radius: 50%;
-        position: absolute;
-        top: 12px;
-        right: 61px;
+        position: relative;
+        top: 55px;
+        /* right: 61px; */
         transition: all 0.5s;
+        left: -10px;
     }
-
     .letest_driveboxclick_right {
         position: absolute;
         right: 118% !important;
         transition: 0.5s;
-    width: 450px;
-    opacity: 1;
-    z-index: 111;
-    top: -300px;
-    display: block;
+        width: 450px;
+        opacity: 1;
+        z-index: 111;
+        top: -300px;
+        display: block;
     }
-  
     .test_drive {
         margin-bottom: 5px;
+        height: 76px;
     }
     .black_box.black_box_left.pull-left {
- 
         z-index: 1;
     }
     .black_box.black_box_right.pull-right {
-      
         z-index: 1;
     }
     .footer {
         display: none !important;
     }
-
     .meter img {
         margin-left: 56px !important;
     }
-
-
     .container.big_leaderbox .leader_listbox .leader_name {
         width: 94% !important;
     }
@@ -7373,27 +7340,103 @@ p.my_allpoints{  text-align: center;
         padding-left: 16px !important;
         top: 17px;
     }
-
-
     .location_box {
         height: 386px;
         z-index: 1;
     }
-
-    
-.small_leaderbox .leader_name img{border:solid 1px #afafaf;}
-
-.detailed_box canvas{height:120px; width:120px; margin:10px 0 10px 0;}
-
-.testdrive-detail span.small{font-family: titanium;
-    font-size: 14px;}
-
-
+    .small_leaderbox .leader_name img {
+        border: solid 1px #afafaf;
+    }
+    .detailed_box canvas {
+        height: 120px;
+        width: 120px;
+        margin: 10px 0 10px 0;
+    }
+    .testdrive-detail span.small {
+        font-family: titanium;
+        font-size: 14px;
+    }
+    /* extra added */
+    span.increase_num {
+        position: absolute;
+        left: 59px;
+        font-size: 15px;
+        top: 5px;
+        color: green;
+    }
+    .outof_count {
+        position: absolute;
+        left: 55px;
+        top: 18px;
+    }
+    .profile_overviewbox .testd_box {
+        position: relative;
+        height: 65px;
+        left: -0px;
+        bottom: 5px;
+    }
+    .profile_overviewbox .testd_box span.glyphicon-triangle-top {
+        font-size: 9px;
+        color: green;
+        left: 49px;
+        position: absolute;
+        top: 11px;
+    }
+    .testdrive_actionbox .back_btn {}
+    .rdw-image-modal-upload-option {
+        width: 100%;
+        color: gray;
+        cursor: pointer;
+        display: flex;
+        border: none;
+        font-size: 15px;
+        align-items: center;
+        justify-content: center;
+        background-color: #f1f1f1;
+        outline: 2px dashed gray;
+        outline-offset: -10px;
+        margin: 10px 0;
+        padding: 9px 0;
+        word-wrap: break-word;
+        word-break: break-all;
+        padding: 20px 11px 10px 1px !important;
+    }
+    .popup_infocontainer li.select2-selection__choice {
+        margin-bottom: 10px;
+    }
+    .editpro_box h5 {
+        font-family: titanium;
+        color: #fff;
+    }
+    .player_name {
+        display: inline-block;
+        margin-left: 20px;
+    }
+    .profile_overviewbox .testd_count {
+        padding-left: 15px;
+    }
+    .left_mnone {
+        margin-left: 0px !important;
+    }
+    .col-md-12.testdrive_createbox ul.nav-tabs {
+        border: none;
+        margin-bottom: 30px;
+    }
+    .col-md-12.testdrive_createbox ul.nav-tabs li {
+        margin-left: 15px;
+    }
+    .col-md-12.testdrive_createbox ul.nav-tabs li.active a {
+        color: #ff8d00;
+    }
+    .col-md-12.testdrive_createbox ul.nav-tabs li a {
+        font-size: 18px;
+        color: #505050;
+    }
 }
 
-
-
-
+span.s4-clust {
+    margin-left: -20px!important;
+}
 
 a {
     cursor: pointer !important;
@@ -7434,8 +7477,6 @@ a {
 .total_testdrivebox .tab-pane ul.nav-tabs li a {
     font-size: 14px !important;
 }
-
-
 
 .total_testdrivebox .nav-tabs>li {
     margin-right: 30px;
@@ -7721,4 +7762,50 @@ h1.title:before {
     right: 170px;
     margin-left: 50px;
     width: 103px;
+}
+
+
+/* 
+#carousel-example-vertical .carousel-indicators{
+    background: none;
+    border: none;
+}
+
+#carousel-example-vertical .carousel-indicators li{
+    background: none;
+    border: none;
+} */
+
+.carousel.vertical.slide .carousel-indicators li {
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin: 0px;
+    text-indent: 0px;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.carousel.vertical.slide .carousel-indicators li.active {
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin: 0px;
+    text-indent: 0px;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.carousel.vertical.slide .carousel-indicators {
+    position: relative;
+    bottom: 10px;
+    left: 30px;
+    z-index: 15;
+    width: 60%;
+    padding-left: 0;
+    margin-left: -30%;
+    text-align: center;
+    list-style: none;
 }

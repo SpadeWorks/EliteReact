@@ -41,34 +41,30 @@ class Survey extends React.Component<SurveyProps> {
             }
         });
 
-     
-
-
-        
     }
     render() {
         const { questions, saveQuestionResponse, ui, updateUI } = this.props;
         return (
             <div className="col-md-12">
                 {this.isTestDriveCompleted() && <div>
-                    <div className="testcase_no " id="test_Cases">
-                        <ul className="task_circle">
-                            {
-                                questions &&
-                                questions.length &&
-                                questions.map((question, index) => {
-                                    return (<li key={index} data-target="#carousel-question-vertical" data-slide-to={index}>
-                                        <p> {index + 1}. {question.responseStatus == Constants.ColumnsValues.DRAFT &&
-                                            <img src={Constants.Globals.IMAGE_BASE_URL + "/empty.png"} className="img-responsive" />}
-                                            {question.responseStatus == Constants.ColumnsValues.COMPLETE_STATUS &&
-                                                <img src={Constants.Globals.IMAGE_BASE_URL + "/done.png"} className="img-responsive" />}
-                                        </p>
-                                    </li>)
-                                })
-                            }
-                        </ul>
-                    </div>
                     <div id="carousel-question-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
+                        <div className="testcase_no " id="questions">
+                            <ul className="task_circle carousel-indicators">
+                                {
+                                    questions &&
+                                    questions.length &&
+                                    questions.map((question, index) => {
+                                        return (<li key={index} data-target="#carousel-question-vertical" data-slide-to={index} className={index == 0 ? 'active' : ''}>
+                                            <p> {index + 1}. {question.responseStatus == Constants.ColumnsValues.DRAFT &&
+                                                <img src={Constants.Globals.IMAGE_BASE_URL + "/empty.png"} className="img-responsive" />}
+                                                {question.responseStatus == Constants.ColumnsValues.COMPLETE_STATUS &&
+                                                    <img src={Constants.Globals.IMAGE_BASE_URL + "/done.png"} className="img-responsive" />}
+                                            </p>
+                                        </li>)
+                                    })
+                                }
+                            </ul>
+                        </div>
                         <div className="carousel-inner " role="listbox ">
                             {
                                 questions &&

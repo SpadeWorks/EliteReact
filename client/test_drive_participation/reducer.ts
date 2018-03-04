@@ -58,7 +58,8 @@ const initialState: IState = {
         questionSaveInProgress: false,
         testCaseSaveInProgress: false,
         isSumbitInProgress: false,
-        participants: 0
+        participants: 0,
+        ownerEmail: ''
 
     },
     loading: true,

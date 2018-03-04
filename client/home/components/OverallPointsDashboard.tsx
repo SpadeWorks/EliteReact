@@ -32,7 +32,7 @@ class OverallPointsDashboard extends React.Component<OverallPointsDashboardProps
 
     render() {
         return (<div>{
-            <div className="col-md-12 overall_box">
+            <div className="col-md-12 overall_box line_box">
                 <div className="col-md-2">
                     <div className="row tuser_count">
                         <div className="col-md-12 text-center">

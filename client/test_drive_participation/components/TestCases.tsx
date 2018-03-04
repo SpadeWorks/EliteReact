@@ -29,21 +29,16 @@ class TestCases extends React.Component<TestCasesProps> {
     componentDidMount() {
         $('#carousel-example-vertical').bind('mousewheel', function (e) {
             if (e.originalEvent.wheelDelta / 120 > 0) {
-                $(this).carousel('next');
-                $('#carousel-example-vertical').carousel({
-                    interval: 3000
-                });
-            }
-            else {
                 $(this).carousel('prev');
             }
+            else {
+                $(this).carousel('next'); 
+            }
+        });
 
-            
-         
-
-
-
-
+        $('#carousel-example-vertical').carousel({
+            interval: 5000,
+            wrap: false
         });
 
         /** Prompt plugin */
@@ -78,18 +73,6 @@ class TestCases extends React.Component<TestCasesProps> {
         /** Call the plugin */
 
 
-         $( "ul.task_circle  li" ).each(function() {
-             
-             $(this).click(function(){
-                $( "ul.task_circle  li" ).removeClass( "active" )
-                $( this ).addClass( "active" );
-
-             });    
-            
-        });
-
-
-
 
     }
 
@@ -110,7 +93,7 @@ class TestCases extends React.Component<TestCasesProps> {
                 <Loader show={testDriveInstance.isSumbitInProgress || false} message={'Loading...'}>
                     <div id="carousel-example-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
                         <div className="testcase_no " id="test_Cases">
-                            <ul className="task_circle ">
+                            <ul className="task_circle carousel-indicators">
                                 {
                                     testDriveInstance.testCases && testDriveInstance.testCases.length &&
                                     testDriveInstance.testCases.map((testCase, index) => {
@@ -158,7 +141,7 @@ class TestCases extends React.Component<TestCasesProps> {
                             data-target="#test-drive-completion" />
                     </div>
                 </Loader>
-            </div>
+            </div >
 
         )
     }

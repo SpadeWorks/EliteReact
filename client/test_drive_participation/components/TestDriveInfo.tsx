@@ -24,42 +24,45 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
         return (<div className="col-md-12 detailed_box">
             <div className="row">
                 <div className="col-md-12" style={{ overflow: "auto" }}>
-                  
-                        <div className="col-md-12">
-                            <div className="row">
-                                <div className="col-md-2">
 
-                                    <span className="orange">
-                                        <i>DESCRIPTION :</i>
-                                    </span>
+                    <div className="col-md-12">
+                        <div className="row">
+                            <div className="col-md-2">
 
-                                </div>
-                                <div className="col-md-4 pull-right">
-                                    <div className="col-md-12 social_box">
-                                        <div className="row">
-                                            <a href="#">
-                                                <i className="material-icons">info</i>
-                                            </a>
-                                            <a href="#">
-                                                <i className="material-icons">email</i>
-                                            </a>
-                                            <a href="#">
-                                                <span className="teams"></span>
-                                            </a>
-                                            <a href="#">
-                                                <i className="material-icons">share</i>
-                                            </a>
-                                        </div>
+                                <span className="orange">
+                                    <i>DESCRIPTION :</i>
+                                </span>
+
+                            </div>
+                            <div className="col-md-4 pull-right">
+                                <div className="col-md-12 social_box">
+                                    <div className="row">
+                                        <a href="javascript:void(0);"
+                                            onClick={() => Services.reportAbug(testDriveInstance.ownerEmail, testDriveInstance.title)}>
+                                            <span className="report"></span>
+                                        </a>
+                                        <a href="javascript:void(0);"
+                                            onClick={() => Services.emailOwner(testDriveInstance.ownerEmail, testDriveInstance.title)}>
+                                            <i className="material-icons">email</i>
+                                        </a>
+                                        {/* <a href="#">
+                                            <span className="teams"></span>
+                                        </a> */}
+                                        <a href="javascript:void(0);"
+                                            onClick={() => Services.shareTestDrive(testDriveInstance.ownerEmail, testDriveInstance.title)}>
+                                            <i className="material-icons">share</i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-12 TestDriveInfo_box pariciation_time_details">
-                            <span className="orange">
-                                <i>POINTS :</i>
-                            </span>
-                            <div className="col-md-12 earn_box">
-                                <div className="row">
+                    </div>
+                    <div className="col-md-12 TestDriveInfo_box pariciation_time_details">
+                        <span className="orange">
+                            <i>POINTS :</i>
+                        </span>
+                        <div className="col-md-12 earn_box">
+                            <div className="row">
                                 <div className="col-md-3">
                                     <div className="row">
                                         <canvas id="participation-time-total-points" width="140" height="140"></canvas>
@@ -74,9 +77,9 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                         <span className="small">{testDriveInstance.numberOfTestCasesCompleted} of {testDriveInstance.testCaseIDs.length} tasks done</span>
                                     </div>
                                 </div>
-                                </div>
                             </div>
-                
+                        </div>
+
                     </div>
                     <div className="col-md-12 para">
                         <span className="orange">TEST DRIVE PITCH :</span>
