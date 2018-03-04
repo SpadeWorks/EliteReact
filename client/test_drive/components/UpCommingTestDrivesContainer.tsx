@@ -69,7 +69,7 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
                                 participants={testDriveObj.participents}
                                 testDrive={testDriveObj.testDrive} 
                                 isActive={false}/>)
-                        }) : (!upCommingTestDrivesLoading && Messages.TEST_DRIVE_UPCOMING_MSG)
+                        }) : (!upCommingTestDrivesLoading && <div className="no-data-message">Messages.TEST_DRIVE_UPCOMING_MSG</div>)
                 }
                 {
                     ui.visibleItems && ui.visibleItems.length > 0 &&

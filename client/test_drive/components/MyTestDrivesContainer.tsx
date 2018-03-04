@@ -101,7 +101,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                         index={index}
                                         isCompleted={false}
                                     />)
-                                }) : (!myInprogressTestDrivesLoading && Messages.TEST_DRIVE_INPROGRESS_MSG)
+                                }) : (!myInprogressTestDrivesLoading && <div className="no-data-message">Messages.TEST_DRIVE_INPROGRESS_MSG</div>)
                         }
                         {
                             ui.inprogressItems && ui.inprogressItems.length > 0 ?
@@ -136,7 +136,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                         index={index}
                                         isCompleted={true}
                                     />)
-                                }) : (!myCompletedTestDrivesLoading && Messages.TEST_DRIVE_COMPLETED_MSG)
+                                }) : (!myCompletedTestDrivesLoading && <div>Messages.TEST_DRIVE_COMPLETED_MSG</div>)
                         } </div>
                         {
                             ui.completedItems && ui.completedItems.length > 0 ?

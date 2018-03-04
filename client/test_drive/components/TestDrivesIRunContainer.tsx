@@ -124,7 +124,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                                             return (<TestDrivesIRunUpcommingItem
                                                 key={index}
                                                 testDrive={testDriveObj.testDrive}/>)
-                                        }) : (!draftedTestDrivesIRunLoading && Messages.TEST_DRIVE_DRAFTED_MSG)
+                                        }) : (!draftedTestDrivesIRunLoading && <div className="no-data-message">Messages.TEST_DRIVE_DRAFTED_MSG</div>)
                                 }
                                 {
                                     ui.draftedItems && ui.draftedItems.length > 0 &&
