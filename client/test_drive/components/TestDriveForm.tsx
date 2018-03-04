@@ -341,7 +341,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         </span>
                     </div>
                     <div className="col-md-12 register_input">
-                        <div data-validations={[required]} className="custom-select" id={"testDrive-location" + testDrive.id}>
+                        <div className="custom-select" id={"testDrive-location" + testDrive.id}>
                             <Select.Async multi={true}
                                 value={testDrive.location}
                                 onChange={(value) =>
@@ -351,17 +351,17 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 loadOptions={this.getLocations}
                                 type="select-multiple"
                                 name="location"
-                                data-validations={[required]}
+                                //data-validations={[required]}
                             />
                         </div>
-                        <label className="disc_lable">Eligible drive location*</label>
+                        <label className="disc_lable">Eligible drive location</label>
 
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.TestDriveLocation}
                         </span>
                     </div>
                     <div className="col-md-12 register_input">
-                        <div data-validations={[required]} className="custom-select" id={"requiredDevices" + testDrive.id}>
+                        <div className="custom-select" id={"requiredDevices" + testDrive.id}>
                             <Select.Async multi={true}
                                 value={testDrive.requiredDevices}
                                 onChange={(value) => this.selectControlChange(value, "requiredDevices" + testDrive.id, "requiredDevices")}
@@ -372,13 +372,13 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 name="requiredDevices"
                             />
                         </div>
-                        <label className="disc_lable">Required devices*</label>
+                        <label className="disc_lable">Required devices</label>
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.AvailableDevices}
                         </span>
                     </div>
                     <div className="col-md-12 register_input">
-                        <div data-validations={[required]} className="custom-select" id={"requiredOs" + testDrive.id}>
+                        <div className="custom-select" id={"requiredOs" + testDrive.id}>
                             <Select.Async multi={true}
                                 value={testDrive.requiredOs}
                                 onChange={(value) => this.selectControlChange(value, "requiredOs" + testDrive.id, "requiredOs")}
@@ -389,7 +389,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 name="requiredOs"
                             />
                         </div>
-                        <label className="disc_lable">Required os*</label>
+                        <label className="disc_lable">Required os</label>
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.AvailableOS}
                         </span>
@@ -400,12 +400,12 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             onChange={this.onChange}
                             name="maxTestDrivers"
                             value={testDrive.maxTestDrivers || ""}
-                            data-validations={[required]}
+                            //data-validations={[required]}
                             id={"testDrive-maxTestDrivers" + testDrive.id.toString()}
                         />
                         <span className="highlight"></span>
                         <span className="bar"></span>
-                        <label>Max test drivers*</label>
+                        <label>Max test drivers</label>
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.MaxTestDrivers}
                         </span>

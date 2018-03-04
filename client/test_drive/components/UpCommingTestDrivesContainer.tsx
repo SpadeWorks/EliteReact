@@ -9,6 +9,7 @@ import {
     loadUpCommingTestDrives,
     model,
 } from '../../test_drive';
+import { Messages } from '../../common/services/constants';
 
 
 interface UpCommingTestDrivesContainerProps {
@@ -68,7 +69,7 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
                                 participants={testDriveObj.participents}
                                 testDrive={testDriveObj.testDrive} 
                                 isActive={false}/>)
-                        }) : (!upCommingTestDrivesLoading && 'There are no upcoming items.')
+                        }) : (!upCommingTestDrivesLoading && Messages.TEST_DRIVE_UPCOMING_MSG)
                 }
                 {
                     ui.visibleItems && ui.visibleItems.length > 0 &&

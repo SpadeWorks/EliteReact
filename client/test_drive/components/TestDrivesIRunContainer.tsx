@@ -12,6 +12,7 @@ import {
     deleteTestDrive
 } from '../index';
 import TestDrivesIRunUpcommingItem from './TestDrivesIRunUpcommingItem';
+import { Messages } from '../../common/services/constants';
 
 interface TestDrivesIRunContainerProps {
     upcommingTestDrivesIRun: TestDrive[]
@@ -97,7 +98,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                                             return (<TestDrivesIRunUpcommingItem
                                                 key={index}
                                                 testDrive={testDriveObj.testDrive}/>)
-                                        }) : (!upcommingTestDrivesIRunLoading && 'There are no items waiting for approval.')
+                                        }) : (!upcommingTestDrivesIRunLoading && Messages.TEST_DRIVE_UPCOMING_MSG)
                                 }
                                 {
                                     ui.upcommingItems && ui.upcommingItems.length > 0 &&
@@ -123,7 +124,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                                             return (<TestDrivesIRunUpcommingItem
                                                 key={index}
                                                 testDrive={testDriveObj.testDrive}/>)
-                                        }) : (!draftedTestDrivesIRunLoading && 'There are no items in this view.')
+                                        }) : (!draftedTestDrivesIRunLoading && Messages.TEST_DRIVE_DRAFTED_MSG)
                                 }
                                 {
                                     ui.draftedItems && ui.draftedItems.length > 0 &&

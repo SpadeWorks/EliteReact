@@ -12,11 +12,13 @@ class Navigation extends React.Component<NavigationProps> {
     openPopUp() {
         var options = {
             url: 'referral.aspx',
-            title: 'User Referral',
+            title: 'Refer friends, earn points',
             width: 600,
             height: 600,
         };
-        SP.UI.ModalDialog.showModalDialog(options);
+        SP.SOD.executeFunc("sp.js", "SP.ClientContext", () => {
+            SP.UI.ModalDialog.showModalDialog(options);
+        });
         // let dialog = SP.UI.ModalDialog.showWaitScreenWithNoClose('Operation in progress...', 'Please wait...', 350, 550);
         // setTimeout(() => {
         //     dialog.close(SP.UI.DialogResult.OK);

@@ -24,7 +24,7 @@ export const validateControl = (id: any, newValue?: any) => {
 
     value = value ? value.toString().trim() : '';
 
-    validators = validators ? validators.split(',') : [required];
+    validators = validators ? validators.split(',') : "";//[required];
     validators && validators.length && validators.map(validator => {
         if (validator == 'required') {
             if (value.length) {

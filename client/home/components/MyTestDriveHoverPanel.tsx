@@ -109,7 +109,7 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                                         <span className="orange">
                                             <i>DIFFICULTY LEVEL :</i>
                                         </span>
-                                        <h4>{testDrive.level}</h4>
+                                        <h4>{testDrive.levelName}</h4>
                                     </div>
                                 </div>
                             </div>

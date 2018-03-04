@@ -42,7 +42,7 @@ class MyTestDrives extends React.Component<LeftContainer> {
             $('#' + letest_driveboxID + ' ' + ".white_circle").addClass("white_circleclick");
             $('#' + letest_driveboxID + ' ' + ".lc_container").addClass("lc_containerclick");
             $('#' + letest_driveboxID + ' ' + ".letest_drivebox").addClass("letest_driveboxclick");
-            
+
             popUpContainer.addClass("box");
         } else {
             popUpContainer.removeClass("box");
@@ -54,7 +54,7 @@ class MyTestDrives extends React.Component<LeftContainer> {
     render() {
         const { checkPortion, participants, testDrive, testDriveResponse, index } = this.props
         const driveID = checkPortion + index;
-        
+
         return (<div>{
             <div className="row test_drive" id={driveID}>
                 <div className="modal-backdrop in hidden"></div>
@@ -91,7 +91,8 @@ class MyTestDrives extends React.Component<LeftContainer> {
                         <TestDriveHoverPanel
                             participants={participants}
                             checkPortion={checkPortion}
-                            testDrive={testDrive} />
+                            testDrive={testDrive}
+                            isActive={false} />
                     }
                 </div>
             </div>

@@ -9,7 +9,7 @@ interface UpcomingTestDrivesProps {
     participants: number;
     checkPortion: string;
     testDrive: TestDrive;
-    index:number;
+    index: number;
 };
 
 interface LeaderBoardUserState {
@@ -20,7 +20,7 @@ class UpcomingTestDrives extends React.Component<UpcomingTestDrivesProps> {
     openMyTestDriveDialog(letest_driveboxID) {
 
         var popUpContainer = $("#" + letest_driveboxID + ' ' + " .letest_drivebox2");
-        
+
         // $(".modal-backdrop").toggleClass("overlay");
 
         // var isOpen = $(".modal-backdrop").hasClass("overlay");
@@ -44,7 +44,7 @@ class UpcomingTestDrives extends React.Component<UpcomingTestDrivesProps> {
             $('#' + letest_driveboxID + ' ' + ".lc_container2").addClass("lc_containerclick2");
             $('#' + letest_driveboxID + ' ' + ".letest_drivebox2").addClass("letest_driveboxclick_right");
             popUpContainer.addClass("box");
-        } else{
+        } else {
             popUpContainer.removeClass("box");
         }
     }
@@ -75,7 +75,8 @@ class UpcomingTestDrives extends React.Component<UpcomingTestDrivesProps> {
                     <TestDriveHoverPanel
                         participants={participants}
                         checkPortion={checkPortion}
-                        testDrive={testDrive} />
+                        testDrive={testDrive}
+                        isActive={false} />
                 </div>
             </div>
         }</div>);

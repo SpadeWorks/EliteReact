@@ -136,10 +136,11 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
         <div>
 
           <div className="container header_part">
-            <h2> <Link to={"/"} >
+            <h2 className="header_prevlink"> <Link to={"/"} >
               <span className="glyphicon glyphicon-menu-left" aria-hidden="true">
               </span> Test Drives</Link>
             </h2>
+            <h4 className="cancel-btn"><Link to={"/"}>Cancel</Link></h4>
           </div>
 
           <div className="clearBoth"></div>

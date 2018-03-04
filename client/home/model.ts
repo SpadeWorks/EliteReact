@@ -107,6 +107,7 @@ export type TestDrive = {
     questionIDs?: number[];
     status: string;
     level: string;
+    levelName?: string;
     owner?: string;
     newItem?: boolean;
     ownerEmail?: string;

@@ -10,6 +10,7 @@ import {
     ApprovalPendingItem,
     model,
 } from '../../test_drive';
+import { Messages } from '../../common/services/constants';
 
 interface ApprovalPendingContainerProps {
     approvedTestDrives: model.TestDrive[];
@@ -102,7 +103,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                                         testDrive={testDrive}
                                         saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
                                         approveTestDrive={(id) => this.approveTestDrive(id)} />)
-                                }) : (!loading && 'There are no items waiting for approval.')
+                                }) : (!loading && Messages.TEST_DRIVE_PENDING_MSG)
                         }
                         {
                             ui.pendingItems && ui.pendingItems.length > 0 &&
@@ -130,7 +131,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                                         testDrive={testDrive}
                                         saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
                                         approveTestDrive={(id) => approveTestDrive(id)} />)
-                                }) : (!loading && 'There are no items waiting for approval.')
+                                }) : (!loading && Messages.TEST_DRIVE_APPROVED_MSG)
                         }
                         {
                             ui.approvedItems && ui.approvedItems.length > 0 &&

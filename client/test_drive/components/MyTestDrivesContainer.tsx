@@ -11,6 +11,7 @@ import {
     MyTestDrivesCompletedItem,
     MyTestDrivesInProgressItem
 } from '../../test_drive';
+import { Messages } from '../../common/services/constants';
 
 interface MyTestDrivesContainerProps {
     myCompletedTestDrives: model.MyTestDrive[]
@@ -100,7 +101,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                         index={index}
                                         isCompleted={false}
                                     />)
-                                }) : (!myInprogressTestDrivesLoading && 'There are no items in this view.')
+                                }) : (!myInprogressTestDrivesLoading && Messages.TEST_DRIVE_INPROGRESS_MSG)
                         }
                         {
                             ui.inprogressItems && ui.inprogressItems.length > 0 ?
@@ -135,7 +136,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                         index={index}
                                         isCompleted={true}
                                     />)
-                                }) : (!myCompletedTestDrivesLoading && 'There are no items in this view.')
+                                }) : (!myCompletedTestDrivesLoading && Messages.TEST_DRIVE_COMPLETED_MSG)
                         } </div>
                         {
                             ui.completedItems && ui.completedItems.length > 0 ?

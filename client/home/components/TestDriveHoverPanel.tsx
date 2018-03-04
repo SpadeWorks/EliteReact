@@ -9,6 +9,7 @@ interface TestDriveHoverPanelProps {
     participants: number;
     checkPortion: string;
     testDrive: TestDrive;
+    isActive: boolean;
 };
 class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
     constructor(props, context) {
@@ -20,7 +21,7 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
         $(".letest_drivebox2").hide();
     }
     render() {
-        const { testDrive, checkPortion, participants } = this.props;
+        const { testDrive, checkPortion, participants, isActive } = this.props;
         return (<div className="col-md-12">
             <h3>{testDrive.title}</h3>
             <div className="col-md-12 social_box">
@@ -128,7 +129,7 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                         <span className="orange">
                                             <i>DIFFICULTY LEVEL :</i>
                                         </span>
-                                        <h4>{testDrive.level}</h4>
+                                        <h4>{testDrive.levelName}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +140,7 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                     {
                         checkPortion != Globals.UPCOMMING_Test_Drive ? <Link className="button type1"
                             to={(checkPortion == Globals.TEST_DRIVE_THAT_I_RUN ? "/testdrive/" : "/participation/")
-                                + testDrive.id}> Drive Through </Link> : ''
+                                + testDrive.id}> {isActive ? 'Drive Through' : 'View Details'} </Link> : ''
                     }
                 </div>
             </div>

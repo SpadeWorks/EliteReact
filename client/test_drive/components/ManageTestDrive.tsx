@@ -60,7 +60,7 @@ interface AppProps {
 
 @ui({
     state: {
-        activeTab:  0,
+        activeTab: 0,
     }
 })
 class ManageTestDrive extends React.Component<AppProps> {
@@ -93,7 +93,7 @@ class ManageTestDrive extends React.Component<AppProps> {
         this.props.dispatch(loadTestDrive(this.props.id || -1));
 
         /** Prompt plugin */
-        Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
+        Popup.registerPlugin('prompt', function (defaultValue, placeholder, testDriveStatus) {
             let promptValue = null;
             let promptChange = function (value) {
                 promptValue = value;
@@ -101,14 +101,14 @@ class ManageTestDrive extends React.Component<AppProps> {
 
             this.create({
                 title: 'Success',
-                content: 'Data Saved Successfully!',
+                content: testDriveStatus,
                 buttons: {
-                    left: [{
+                    /*left: [{
                         text: 'Go Back and Edit',
                         action: function () {
                             Popup.close();
                         }
-                    }],
+                    }],*/
                     right: [{
                         text: 'Go to Dashboard',
                         action: function () {
@@ -129,10 +129,10 @@ class ManageTestDrive extends React.Component<AppProps> {
         var questions = this.props.testDrive.questions;
         var maxTestDrivers = parseInt(testDrive.maxTestDrivers) || 0;
         if (isFormValid) {
-            if (maxTestDrivers < 1) {
-                Popup.alert('Max Test Drivers value should be greater than 1.');
-                return false;
-            }
+            // if (maxTestDrivers < 1) {
+            //     Popup.alert('Max Test Drivers value should be greater than 1.');
+            //     return false;
+            // }
             if (testCases && testCases.length &&
                 this.checkForUnsavedItems(testCases, Messages.SAVE_UNSAVED_TEST_CASE)) {
                 this.switchTab(1);
@@ -153,10 +153,15 @@ class ManageTestDrive extends React.Component<AppProps> {
                 Popup.alert(Messages.NO_QUESTION_ERROR);
                 return false;
             }
-
+            if (testDrive.status == ColumnsValues.DRAFT) {
+                Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
+                toast.success(Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
+            }
+            else {
+                Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SUBMIT_MSG);
+                toast.success(Messages.TEST_DRIVE_SUBMIT_MSG);
+            }
             this.props.dispatch(saveTestDrive(testDrive));
-            Popup.plugins().prompt('', 'What do you want to do?');
-            toast.success("Test Drive Saved Successfully!");
         }
         else {
             this.switchTab(0);
@@ -224,7 +229,7 @@ class ManageTestDrive extends React.Component<AppProps> {
         }
     }
 
-    getSelectedTab(){
+    getSelectedTab() {
         return this.props.ui.activeTab;
     }
 

@@ -121,11 +121,12 @@ class MyProfile extends React.Component<MyProfileProps> {
                     eliteProfile &&
                     <div className="row">
                         <div className="container header_part">
-                            <h2> <Link to={"/"} >
+                            <h2 className="header_prevlink"> <Link to={"/"} >
                                 <span className="glyphicon glyphicon-menu-left" aria-hidden="true">
                                 </span> {(!this.props.id && this.props.id != -1) ? "My Profile" : "Profile"}
                                  </Link>
                             </h2>
+                            <h4 className="cancel-btn"><Link to={"/"}>Cancel</Link></h4>
                         </div>
                         <div className="col-md-12" style={{ overflow: "auto" }}>
                             <div className="wrapper">

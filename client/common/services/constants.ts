@@ -128,10 +128,19 @@ export class Messages {
     static TEST_DRIVE_PARTICIPATION_ERROR = 'You can\'t participate in this test drive as : ';
     static TEST_DRIVE_LOCATION_ERROR = 'This test drive is not available for your location.';
     static TEST_DRIVE_DEVICE_ERROR = 'You don\'t have the required device to participate in this test drive.';
-    static TEST_DRIVE_OS_ERROR = 'You don\'t have the required os to participate in this test drive.';
+    static TEST_DRIVE_OS_ERROR = 'You don\'t have the required OS to participate in this test drive.';
     static NO_TEST_CASE_ERROR = 'Please add atleast one test case before submiting for approval.';
     static NO_QUESTION_ERROR = 'Please add atleast one question before submiting for approval.';
-    static NO_OPTIONS_ERROR = 'Please add more that one question responses';
+    static NO_OPTIONS_ERROR = 'Please add more than one question responses';
     static SURVEY_SUBMITTED = 'Survey submitted successfully.';
     static MAX_TEST_DRIVER_LIMIT_REACHED = 'You can’t participate in this test drive as maximum test drivers limit for this test drive is reached';
+    static TEST_DRIVE_INPROGRESS_MSG = 'There are no test drives in progress.'
+    static TEST_DRIVE_COMPLETED_MSG = "There are no completed test drives.";
+    static TEST_DRIVE_UPCOMING_MSG = 'There are no upcoming test drives.';
+    static TEST_DRIVE_DRAFTED_MSG = 'There are no drafted test drives.';
+    static TEST_DRIVE_ACTIVE_MSG = 'There are no active test drives.';
+    static TEST_DRIVE_PENDING_MSG = 'There are no test drives waiting for approval.';
+    static TEST_DRIVE_APPROVED_MSG = 'There are no approved test drives.';
+    static TEST_DRIVE_SAVEDDRAFT_MSG = 'Test drive saved successfully.';
+    static TEST_DRIVE_SUBMIT_MSG = 'Test drive submitted successfully.';
 }

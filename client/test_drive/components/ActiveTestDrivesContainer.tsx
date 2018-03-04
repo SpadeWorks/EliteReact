@@ -8,6 +8,7 @@ import {
     TestDriveCardItem,
     model,
 } from '../../test_drive';
+import { Messages } from '../../common/services/constants';
 
 
 interface ActiveTestDrivesContainerProps {
@@ -65,8 +66,8 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
                                 key={index}
                                 participants={testDriveObj.participents}
                                 testDrive={testDriveObj.testDrive}
-                                isActive={true} />)
-                        }) : (!activeTestDrivesLoading && 'There are no active test drives.')
+                                isActive={false} />)
+                        }) : (!activeTestDrivesLoading && Messages.TEST_DRIVE_ACTIVE_MSG)
                 }
                 {
                     ui.visibleItems && ui.visibleItems.length > 0 &&
