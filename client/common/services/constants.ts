@@ -115,6 +115,7 @@ export class Messages {
     static SAVE_UNSAVED_TEST_CASE = 'Please save the unsaved test case and then try saving test drive again.';
     static TEST_CASE_ERROR = 'There are some errors in the form. Please correct them and Save again.';
     static TEST_DRIVE_ERROR = 'There are some errors in the form. Please correct them and Save again.';
+    static TEST_DRIVE_SAME_NAME_ERROR = 'Test drive with same name is already exists. Please try different test drive name.';
     static QUESTION_ERROR = 'There are some errors in the form. Please correct them and Save again.';
     static LOADING_QUESTIONS = 'Loading questions...';
     static LOADING_TSETCASES = 'Loading test cases...';

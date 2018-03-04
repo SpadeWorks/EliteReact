@@ -59,6 +59,7 @@ export type TestDriveInstance = {
     questionIDs?: number[];
     status: string;
     level: string;
+    levelName: string;
     owner?: string;
     newItem?: boolean;
     currentPoint: number;

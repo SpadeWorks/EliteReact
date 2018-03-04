@@ -274,7 +274,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                     </div>
                                     <div className="col-md-6">
                                         <div className="row">
-                                            <h5>{testDriveInstance.level}</h5>
+                                            <h5>{testDriveInstance.levelName}</h5>
                                         </div>
                                     </div>
                                 </div>
