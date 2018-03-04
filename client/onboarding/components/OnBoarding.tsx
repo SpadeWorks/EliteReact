@@ -60,7 +60,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
         // return <h1>Onboarding</h1>
         return (<div id="onboarding">
             <section>
-                <div className="container top_bar" style={{ height: "50px", background: "black" }}>
+                <div className="col-md-12 top_bar" style={{ height: "50px", background: "black" }}>
                     <div className="logo">
                         <img src="/sites/elite/Style%20Library/Elite/images/logo.png" alt="Equnixlogo" />
                     </div>

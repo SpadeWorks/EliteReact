@@ -7043,14 +7043,14 @@ a {
 .col-md-12.intro_actionbox.testdrive_actionbox.betterride_box {
     position: fixed;
     bottom: -123px;
-    left: 0px;
+    left: 17px;
     background: none!important;
 }
 
 .stroller_ridebox {
     position: absolute;
     top: 222px;
-    left: 223px;
+    left: 230px;
 }
 
 .stroller_ridebox img {
@@ -7440,7 +7440,9 @@ span.orange.big {
         left: 123px;
     }
 
-
+.welcome_but{position: absolute;
+    left: 36px;
+    bottom: -100px;}
 
 
 }
