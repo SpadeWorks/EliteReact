@@ -206,7 +206,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                                         </div>
                                                     </div>
                                                     <div className="col-md-12 text-left">
-                                                        <h4 className="testcase_title">Your current position</h4>
+                                                        <h4 className="testcase_title">Current position</h4>
                                                     </div>
                                                 </div>
                                             </div>
