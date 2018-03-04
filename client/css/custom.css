@@ -46,7 +46,7 @@ body.starts {
     height: 100vh;
     -webkit-transform: opacity 0.3s linear;
     transform: opacity 0.3s linear;
-    background: url('/sites/elite/Style%20Library/Elite/images/dash_back.jpg') no-repeat !important;
+    background: url('/sites/elite/Style%20Library/Elite/images/dash_back.jpg') center bottom no-repeat !important;
     width: 100%;
     height: auto;
     width: 100%;
@@ -7115,7 +7115,7 @@ span.orange.big {
         height: 100vh;
         -webkit-transform: opacity 0.3s linear;
         transform: opacity 0.3s linear;
-        background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
+        background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') bottom center no-repeat !important;
         width: 100%;
         height: auto;
         width: 100%;
