@@ -7822,3 +7822,7 @@ h1.title:before {
     text-align: center;
     list-style: none;
 }
+
+span.clsRemainingLength {
+    float: right;
+}
