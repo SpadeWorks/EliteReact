@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
-import { TestDrive } from '../model';
+import { TestDrive, } from '../model';
 import Services from '../../common/services/services';
+import '../../js/jqmeter';
 interface MyTestDrivesCompletedItemProps {
     testDrive: TestDrive;
+    testDriveResponse: any;
     participants: number;
     index: number;
     checkPortion: string;
-    testDriveResponse: any;
     isCompleted: boolean;
 };
 class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedItemProps> {
@@ -19,22 +20,26 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
     componentDidMount() {
         const { participants, checkPortion, testDrive, testDriveResponse, index } = this.props;
         const completedTestCases = testDriveResponse ? testDriveResponse.numberOfTestCasesCompleted : 0;
-        const totalTestCases = testDrive ? testDrive.testCaseIDs.length : 1;
+        const totalTestCases = (testDrive && testDrive.testCaseIDs) ? testDrive.testCaseIDs.length : 1;
         const percentComplete = (completedTestCases / totalTestCases);
         const pointEarned = (testDriveResponse.currentPoint / testDrive.maxPoints);
         var pointsProgressID = 'point-canvas' + checkPortion + index;
-        var driveProgressID = 'drive-canvas' + checkPortion + index;
+        var driveProgressID = 'jqmeter-horizontal' + checkPortion + index;
         Services.loadProgressBar(pointsProgressID, pointEarned, 140);
+        Services.loadHorizontalProgressBar(driveProgressID, completedTestCases, totalTestCases);
+
         // Service.loadProgressBar(driveProgressID, percentComplete, 140);
+
     }
     render() {
         const { participants, checkPortion, testDrive, testDriveResponse, index, isCompleted } = this.props;
         const completedTestCases = testDriveResponse ? testDriveResponse.numberOfTestCasesCompleted : 0;
-        const totalTestCases = testDrive ? testDrive.testCaseIDs.length : 1;
+        const totalTestCases = (testDrive && testDrive.testCaseIDs) ? testDrive.testCaseIDs.length : 1;
         const percentComplete = (completedTestCases / totalTestCases);
         const pointEarned = (testDriveResponse.currentPoint / testDrive.maxPoints);
         var pointsProgressID = 'point-canvas' + checkPortion + index;
-        var driveProgressID = 'drive-canvas' + checkPortion + index;
+        var driveProgressID = 'jqmeter-horizontal' + checkPortion + index;
+
 
         return (<div className="col-md-4">
             <div className="col-md-12 progress_drivebox">
@@ -43,10 +48,21 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                     <div className="row">
                         <div className="col-md-12 social_box">
                             <div className="row">
-                                <a href="#"><i className="material-icons">bug_report</i></a>
-                                <a href="#"><i className="material-icons">email</i></a>
-                                <a href="#"><span className="teams"></span></a>
-                                <a href="#"><i className="material-icons">share</i></a>
+                                <a href="javascript:void(0);"
+                                    onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)}>
+                                    <span className="report"></span>
+                                </a>
+                                <a href="javascript:void(0);"
+                                    onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
+                                    <i className="material-icons">email</i>
+                                </a>
+                                {/* <a href="#">
+                                    <span className="teams"></span>
+                                </a> */}
+                                <a href="javascript:void(0);"
+                                    onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
+                                    <i className="material-icons">share</i>
+                                </a>
                             </div>
                         </div>
                         <div className="col-md-12 partcipant_enddate">
@@ -87,10 +103,8 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                             <div className="row">
                                 <span className="orange"><i>Test Case Completion</i></span>
                                 <div className="col-md-12">
-                                    {/* <div id="jqmeter-horizontal"></div> */}
-                                    {/* {completedTestCases} of {totalTestCases} */}
-
-                                    <p className="my_allpoints text-center"><span className="orange big"><i>7</i></span> of 8</p>
+                                    <div id={driveProgressID}></div>
+                                    <p className="my_allpoints text-center"><span className="orange big"><i>{completedTestCases}</i></span> of {totalTestCases}</p>
                                 </div>
                             </div>
                         </div>
@@ -104,9 +118,9 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                                     <span className="orange">Points Earned</span>
                                                 </div>
                                                 <div className="col-md-12">
-                                                <div className="row text-center">
-                                                    <canvas id={pointsProgressID} width="140" height="140"></canvas>
-                                                </div>
+                                                    <div className="row text-center">
+                                                        <canvas id={pointsProgressID} width="140" height="140"></canvas>
+                                                    </div>
                                                 </div>
                                                 <div className="col-md-12 text-center point_board">
                                                     <h3 className="text-center">{testDriveResponse.currentPoint}</h3>
@@ -126,26 +140,26 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                     </div>
                                     <div className="row race_type">
                                         <div className="col-md-12">
-                                          
-                                                <ul className={Services.getLevelNameClass(testDrive.levelNumber)}>
-                                                    <li><span></span></li>
-                                                    <li><span></span></li>
-                                                    <li><span></span></li>
-                                                </ul>
-                                          
+
+                                            <ul className={Services.getLevelNameClass(testDrive.levelNumber)}>
+                                                <li><span></span></li>
+                                                <li><span></span></li>
+                                                <li><span></span></li>
+                                            </ul>
+
                                         </div>
                                         <div className="col-md-12">
-                                          
-                                                <h5>{testDrive.level}</h5>
-                                           
+
+                                            <h5>{testDrive.level}</h5>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         {isCompleted ?
-                            <Link className="button type1" to={"/participation/" + testDrive.id}> View Details </Link> : 
-                            <Link className="button type1" to={"/participation/" + testDrive.id}> Complete the drive </Link>}        
+                            <Link className="button type1" to={"/participation/" + testDrive.id}> View Details </Link> :
+                            <Link className="button type1" to={"/participation/" + testDrive.id}> Complete the drive </Link>}
                     </div>
                 </div>
             </div>

@@ -176,15 +176,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                       />
                     </Pane> : ''
                   }
-
-                  <Pane label="Active Test Drive">
-                    <ActiveTestDrivesContainer
-                      activeTestDrives={activeTestDrives}
-                      activeTestDrivesLoading={activeTestDrivesLoading}
-                      loadActiveTestDrives={(skip, top) => dispatch(loadActiveTestDrives(skip, top))}
-                      ui={ui}
-                      updateUI={updateUI} />
-                  </Pane>
+                  
                   <Pane label="Upcoming Test Drive">
                     <UpCommingTestdrivesContainer
                       upCommingTestDrives={upCommingTestDrives}
@@ -194,6 +186,15 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                       updateUI={updateUI} />
                   </Pane>
 
+                  <Pane label="Active Test Drive">
+                    <ActiveTestDrivesContainer
+                      activeTestDrives={activeTestDrives}
+                      activeTestDrivesLoading={activeTestDrivesLoading}
+                      loadActiveTestDrives={(skip, top) => dispatch(loadActiveTestDrives(skip, top))}
+                      ui={ui}
+                      updateUI={updateUI} />
+                  </Pane>
+                  
                   {
                     isApprover ? <Pane label="PENDING APPROVALS">
                       <ApprovalPendingContainer

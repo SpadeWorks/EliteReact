@@ -1,6 +1,6 @@
 import Promise from "ts-promise";
 import * as Constants from './constants';
-import pnp, { config } from 'sp-pnp-js';
+import * as pnp from '../../../node_modules/sp-pnp-js/dist/pnp.min';
 import { TestDrive, Question, TestCase } from '../../test_drive/model';
 import * as $ from 'jquery';
 import * as moment from 'moment';
@@ -49,6 +49,22 @@ pnp.setup({
 });
 
 export class Services {
+
+    static reportAbug(email: string, testDriveTitle: string) {
+        Services.mailto(email, 'A Bug from your Test Driver "' + testDriveTitle + '"', '');
+    }
+
+    static emailOwner(email: string, testDriveTitle: string) {
+        Services.mailto(email, 'A Question from your Test Driver "' + testDriveTitle + '"', '');
+    }
+
+    static shareTestDrive(email: string, testDriveTitle: string) {
+        Services.mailto('', 'Check out this cool test drive "' + testDriveTitle + '"', '');
+    }
+
+    static mailto(to, subject, body) {
+        window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
+    }
 
     static getLevelNameClass(levelNumber) {
         switch (levelNumber) {
@@ -342,16 +358,16 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
                 .select(
-                    Constants.Columns.ID,
-                    Constants.Columns.PERCENTAGE_COMPLETION,
-                    Constants.Columns.CURRENT_POINTS,
-                    Constants.Columns.STATUS,
-                    Constants.Columns.DATE_JOINED,
-                    Constants.Columns.TEST_CASE_COMPLETED,
-                    Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID
+                Constants.Columns.ID,
+                Constants.Columns.PERCENTAGE_COMPLETION,
+                Constants.Columns.CURRENT_POINTS,
+                Constants.Columns.STATUS,
+                Constants.Columns.DATE_JOINED,
+                Constants.Columns.TEST_CASE_COMPLETED,
+                Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID
                 )
                 .filter(Constants.Columns.USER_ID + ' eq ' + userId +
-                    ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
+                ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                 .expand(Constants.Columns.TEST_DRIVE_ID)
                 .get().then(testDriveInstances => {
                     const testDriveInstance = testDriveInstances.length ? testDriveInstances[0] : undefined;
@@ -377,18 +393,18 @@ export class Services {
         return new Promise((resolve, reject) => {
             var items = pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASE_RESPONSES).items
                 .select(
-                    Constants.Columns.ID,
-                    Constants.Columns.TEST_CASE_RESPONSE,
-                    Constants.Columns.TEST_CASE_RESPONSE_STATUS,
-                    Constants.Columns.RESPONSE_ATTACHMENTS,
-                    Constants.Columns.Selected_Response,
-                    Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.ID,
+                Constants.Columns.TEST_CASE_RESPONSE,
+                Constants.Columns.TEST_CASE_RESPONSE_STATUS,
+                Constants.Columns.RESPONSE_ATTACHMENTS,
+                Constants.Columns.Selected_Response,
+                Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
             )
                 .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                 .expand(Constants.Columns.USER_ID,
-                    Constants.Columns.TEST_DRIVE_ID, Constants.Columns.TESTCASE_ID);
+                Constants.Columns.TEST_DRIVE_ID, Constants.Columns.TESTCASE_ID);
             items.get().then(testCases => {
                 let testCaseArray = [];
                 testCases.map(t => {
@@ -414,13 +430,13 @@ export class Services {
             Services.getQuestonsByIds(questionIDs).then((questions: any) => {
                 pnp.sp.web.lists.getByTitle(Constants.Lists.SURVEY_RESPONSES).items
                     .select(
-                        Constants.Columns.ID,
-                        Constants.Columns.SURVEY_RESPONSE,
-                        Constants.Columns.Selected_Response,
-                        Constants.Columns.STATUS,
-                        Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
-                        Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
-                        Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.ID,
+                    Constants.Columns.SURVEY_RESPONSE,
+                    Constants.Columns.Selected_Response,
+                    Constants.Columns.STATUS,
+                    Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
                 )
                     .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                     .expand(Constants.Columns.USER_ID, Constants.Columns.TEST_DRIVE_ID, Constants.Columns.QUESTION_ID)
@@ -525,7 +541,9 @@ export class Services {
                     questionIDs: testDrive.questionIDs,
                     expectedBusinessValue: testDrive.expectedBusinessValue,
                     region: testDrive.region,
-                    participants: participants                    
+                    participants: participants,
+                    ownerEmail: testDrive.ownerEmail
+
                 };
 
                 resolve(instance)
@@ -576,7 +594,7 @@ export class Services {
                             avatarName: profile.AvatarName,
                             avatarImage: profile.AvatarImage,
                             completedTestDrives: profile[Constants.Columns.COMPLETED_TEST_DRIVES],
-                            levelName: profile.CarID.CarLevel 
+                            levelName: profile.CarID.CarLevel
                         };
                         Cache.setCache(Constants.CacheKeys.ELITE_PROFILE, eliteProfle)
                         resolve(eliteProfle);
@@ -630,7 +648,7 @@ export class Services {
                         role: profile.UserRole,
                         availableOS: profile.AvailableOS.results,
                         availableDevices: profile.AvailableDevices.results,
-                        levelName: profile.CarID.CarLevel
+                        levelName: profile.CarID.CarLevel == null ? 0 : profile.CarID.CarLevel
                     });
                 }, err => {
                     Utils.clientLog(err);
@@ -642,8 +660,8 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
                 .select(Constants.Columns.ID,
-                    Constants.Columns.POINTS,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID)
+                Constants.Columns.POINTS,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID)
                 .expand(Constants.Columns.USER_ID)
                 .orderBy(Constants.Columns.POINTS, false)
                 .get().then(results => {
@@ -665,7 +683,7 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
                 .select(Constants.Columns.ID,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID)
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID)
                 .expand(Constants.Columns.USER_ID)
                 .orderBy(Constants.Columns.POINTS, false)
                 .get().then(results => {
@@ -723,11 +741,12 @@ export class Services {
                         department: user.department,
                         displayName: user.displayName,
                         eliteProfileID: user.eliteProfileID,
-                        firstName: user.fileName,
+                        firstName: user.firstName,
                         languages: user.languages,
                         lastName: user.lastName,
                         location: user.location,
-                        region: user.region
+                        region: user.region,
+                        workEmail: user.workEmail
                     }
                 });
             })
@@ -791,73 +810,73 @@ export class Services {
             // if (cachedConfig) {
             //     resolve(cachedConfig);
             // } else {
-                let testDriveFields = Services.getFieldMetadata(Constants.Lists.TEST_DRIVES, [
-                    Constants.Columns.ID,
-                    Constants.Columns.TEST_DRIVE_NAME,
-                    Constants.Columns.ELITE_DESCRIPTION,
-                    Constants.Columns.TESTDRIVE_STATUS,
-                    Constants.Columns.TEST_DRIVE_START_DATE,
-                    Constants.Columns.TESTDRIVE_END_DATE,
-                    Constants.Columns.TOTAL_POINTS,
-                    Constants.Columns.TEST_DRIVE_DEPARTMENT,
-                    Constants.Columns.TEST_DRIVE_LOCATION,
-                    Constants.Columns.AVAILABLE_DEVICES,
-                    Constants.Columns.AVAILABLE_OS,
-                    Constants.Columns.MAX_TESTDRIVERS,
-                    Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LEVEL_NAME,
-                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.ID,
-                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
-                    Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.EXPECTED_BUSINESS_VALUE
-                ]);
+            let testDriveFields = Services.getFieldMetadata(Constants.Lists.TEST_DRIVES, [
+                Constants.Columns.ID,
+                Constants.Columns.TEST_DRIVE_NAME,
+                Constants.Columns.ELITE_DESCRIPTION,
+                Constants.Columns.TESTDRIVE_STATUS,
+                Constants.Columns.TEST_DRIVE_START_DATE,
+                Constants.Columns.TESTDRIVE_END_DATE,
+                Constants.Columns.TOTAL_POINTS,
+                Constants.Columns.TEST_DRIVE_DEPARTMENT,
+                Constants.Columns.TEST_DRIVE_LOCATION,
+                Constants.Columns.AVAILABLE_DEVICES,
+                Constants.Columns.AVAILABLE_OS,
+                Constants.Columns.MAX_TESTDRIVERS,
+                Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LEVEL_NAME,
+                Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.ID,
+                Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
+                Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.EXPECTED_BUSINESS_VALUE
+            ]);
 
-                let testCaseFields = Services.getFieldMetadata(Constants.Lists.TEST_CASES, [
-                    Constants.Columns.TITLE,
-                    Constants.Columns.ID,
-                    Constants.Columns.ELITE_DESCRIPTION,
-                    Constants.Columns.TYPE,
-                    Constants.Columns.SCENARIO,
-                    Constants.Columns.TEST_CASE_OUTCOME,
-                    Constants.Columns.TEST_CASE_PRIORITY,
-                    Constants.Columns.POINTS,
-                    Constants.Columns.RETEST
-                ]);
+            let testCaseFields = Services.getFieldMetadata(Constants.Lists.TEST_CASES, [
+                Constants.Columns.TITLE,
+                Constants.Columns.ID,
+                Constants.Columns.ELITE_DESCRIPTION,
+                Constants.Columns.TYPE,
+                Constants.Columns.SCENARIO,
+                Constants.Columns.TEST_CASE_OUTCOME,
+                Constants.Columns.TEST_CASE_PRIORITY,
+                Constants.Columns.POINTS,
+                Constants.Columns.RETEST
+            ]);
 
-                let questionFields = Services.getFieldMetadata(Constants.Lists.SURVEY_QUESTIONS, [
-                    Constants.Columns.TITLE,
-                    Constants.Columns.ID,
-                    Constants.Columns.QUESTION,
-                    Constants.Columns.RESPONSES,
-                    Constants.Columns.RESPONSETYPE
-                ]);
+            let questionFields = Services.getFieldMetadata(Constants.Lists.SURVEY_QUESTIONS, [
+                Constants.Columns.TITLE,
+                Constants.Columns.ID,
+                Constants.Columns.QUESTION,
+                Constants.Columns.RESPONSES,
+                Constants.Columns.RESPONSETYPE
+            ]);
 
-                let testDriveLevels = Services.getTestDriveLevels(Constants.Lists.RACE_LEVELS);
+            let testDriveLevels = Services.getTestDriveLevels(Constants.Lists.RACE_LEVELS);
 
-                let testCasePoints = Services.getTestPointConfiguration(Constants.Lists.POINTS_CONFIGURATIONS);
+            let testCasePoints = Services.getTestPointConfiguration(Constants.Lists.POINTS_CONFIGURATIONS);
 
-                let applicationConfigurations = Services.getApplicationConfigurations();
+            let applicationConfigurations = Services.getApplicationConfigurations();
 
-                Promise.all([testDriveFields,
-                    testCaseFields,
-                    questionFields,
-                    testDriveLevels,
-                    testCasePoints,
-                    applicationConfigurations
-                ]).then(results => {
-                    let configObj = {
-                        fieldDescription: {
-                            testDrives: results[0],
-                            testCases: results[1],
-                            survey: results[2]
-                        },
-                        testDriveLevelsConfig: results[3],
-                        testCasePoints: results[4],
-                        appConfig: results[5]
-                    }
-                    Cache.setCache(Constants.CacheKeys.CONFIGURATIONS, configObj);
-                    resolve(configObj);
-                });
+            Promise.all([testDriveFields,
+                testCaseFields,
+                questionFields,
+                testDriveLevels,
+                testCasePoints,
+                applicationConfigurations
+            ]).then(results => {
+                let configObj = {
+                    fieldDescription: {
+                        testDrives: results[0],
+                        testCases: results[1],
+                        survey: results[2]
+                    },
+                    testDriveLevelsConfig: results[3],
+                    testCasePoints: results[4],
+                    appConfig: results[5]
+                }
+                Cache.setCache(Constants.CacheKeys.CONFIGURATIONS, configObj);
+                resolve(configObj);
+            });
             // }
         });
     }
@@ -912,25 +931,26 @@ export class Services {
             ascending = ascending || false;
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items
                 .select(
-                    Constants.Columns.ID,
-                    Constants.Columns.TEST_DRIVE_NAME,
-                    Constants.Columns.ELITE_DESCRIPTION,
-                    Constants.Columns.TESTDRIVE_STATUS,
-                    Constants.Columns.TEST_DRIVE_START_DATE,
-                    Constants.Columns.TESTDRIVE_END_DATE,
-                    Constants.Columns.TOTAL_POINTS,
-                    Constants.Columns.TEST_DRIVE_DEPARTMENT,
-                    Constants.Columns.TEST_DRIVE_LOCATION,
-                    Constants.Columns.AVAILABLE_DEVICES,
-                    Constants.Columns.AVAILABLE_OS,
-                    Constants.Columns.MAX_TESTDRIVERS,
-                    Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LevelNumber,
-                    Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LEVEL_NAME,
-                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.ID,
-                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
-                    Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.EXPECTED_BUSINESS_VALUE
+                Constants.Columns.ID,
+                Constants.Columns.TEST_DRIVE_NAME,
+                Constants.Columns.ELITE_DESCRIPTION,
+                Constants.Columns.TESTDRIVE_STATUS,
+                Constants.Columns.TEST_DRIVE_START_DATE,
+                Constants.Columns.TESTDRIVE_END_DATE,
+                Constants.Columns.TOTAL_POINTS,
+                Constants.Columns.TEST_DRIVE_DEPARTMENT,
+                Constants.Columns.TEST_DRIVE_LOCATION,
+                Constants.Columns.AVAILABLE_DEVICES,
+                Constants.Columns.AVAILABLE_OS,
+                Constants.Columns.MAX_TESTDRIVERS,
+                Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LevelNumber,
+                Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LEVEL_NAME,
+                Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.ID,
+                Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
+                Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.EXPECTED_BUSINESS_VALUE,
+                Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_EMAIL
                 ).skip(skip).top(top)
                 .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID, Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
                 .filter(filter)
@@ -959,7 +979,8 @@ export class Services {
                             expectedBusinessValue: '',
                             testCases: null,
                             questions: null,
-                            levelNumber: testDrive.LevelID[Constants.Columns.LevelNumber]
+                            levelNumber: testDrive.LevelID[Constants.Columns.LevelNumber],
+                            ownerEmail: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_EMAIL]
                         };
                     });
                     resolve(results);
@@ -1207,28 +1228,29 @@ export class Services {
             } else {
                 pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items.getById(testDriveID)
                     .select(
-                        Constants.Columns.ID,
-                        Constants.Columns.TEST_DRIVE_NAME,
-                        Constants.Columns.ELITE_DESCRIPTION,
-                        Constants.Columns.TESTDRIVE_STATUS,
-                        Constants.Columns.TEST_DRIVE_START_DATE,
-                        Constants.Columns.TESTDRIVE_END_DATE,
-                        Constants.Columns.TOTAL_POINTS,
-                        Constants.Columns.TEST_DRIVE_DEPARTMENT,
-                        Constants.Columns.TEST_DRIVE_LOCATION,
-                        Constants.Columns.AVAILABLE_DEVICES,
-                        Constants.Columns.AVAILABLE_OS,
-                        Constants.Columns.MAX_TESTDRIVERS,
-                        Constants.Columns.LEVEL_ID + '/' + Constants.Columns.ID,
-                        Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LEVEL_NAME,
-                        Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.ID,
-                        Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
-                        Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
-                        Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
-                        Constants.Columns.EXPECTED_BUSINESS_VALUE
+                    Constants.Columns.ID,
+                    Constants.Columns.TEST_DRIVE_NAME,
+                    Constants.Columns.ELITE_DESCRIPTION,
+                    Constants.Columns.TESTDRIVE_STATUS,
+                    Constants.Columns.TEST_DRIVE_START_DATE,
+                    Constants.Columns.TESTDRIVE_END_DATE,
+                    Constants.Columns.TOTAL_POINTS,
+                    Constants.Columns.TEST_DRIVE_DEPARTMENT,
+                    Constants.Columns.TEST_DRIVE_LOCATION,
+                    Constants.Columns.AVAILABLE_DEVICES,
+                    Constants.Columns.AVAILABLE_OS,
+                    Constants.Columns.MAX_TESTDRIVERS,
+                    Constants.Columns.LEVEL_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LEVEL_NAME,
+                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.ID,
+                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
+                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_EMAIL,
+                    Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.EXPECTED_BUSINESS_VALUE
                     )
                     .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID,
-                        Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
+                    Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
                     .get().then(testDrive => {
                         let questions = testDrive.QuestionID.results.map((question) => {
                             return question.ID;
@@ -1251,13 +1273,14 @@ export class Services {
                             requiredOs: testDrive.AvailableOS.results,
                             maxTestDrivers: testDrive.MaxTestDrivers,
                             id: testDrive.ID,
-                            level: testDrive.LevelID.ID,
+                            level: testDrive.LevelID.LevelName,
                             owner: testDrive.TestDriveOwner.UserInfoName,
                             testCases: null,
                             questions: null,
                             testCaseIDs: testCases,
                             questionIDs: questions,
-                            expectedBusinessValue: testDrive.ExpectedBusinessValue
+                            expectedBusinessValue: testDrive.ExpectedBusinessValue,
+                            ownerEmail: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_EMAIL]
                         };
                         resolve(testDriveObj);
 
@@ -1297,15 +1320,15 @@ export class Services {
                 })
                 pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASES).items
                     .select(
-                        Constants.Columns.TITLE,
-                        Constants.Columns.ID,
-                        Constants.Columns.ELITE_DESCRIPTION,
-                        Constants.Columns.TYPE,
-                        Constants.Columns.SCENARIO,
-                        Constants.Columns.TEST_CASE_OUTCOME,
-                        Constants.Columns.TEST_CASE_PRIORITY,
-                        Constants.Columns.POINTS,
-                        Constants.Columns.RETEST
+                    Constants.Columns.TITLE,
+                    Constants.Columns.ID,
+                    Constants.Columns.ELITE_DESCRIPTION,
+                    Constants.Columns.TYPE,
+                    Constants.Columns.SCENARIO,
+                    Constants.Columns.TEST_CASE_OUTCOME,
+                    Constants.Columns.TEST_CASE_PRIORITY,
+                    Constants.Columns.POINTS,
+                    Constants.Columns.RETEST
                     )
                     .filter(filter)
                     .get().then(testCases => {
@@ -1343,11 +1366,11 @@ export class Services {
                 });
                 pnp.sp.web.lists.getByTitle(Constants.Lists.SURVEY_QUESTIONS).items
                     .select(
-                        Constants.Columns.TITLE,
-                        Constants.Columns.ID,
-                        Constants.Columns.QUESTION,
-                        Constants.Columns.RESPONSES,
-                        Constants.Columns.RESPONSETYPE
+                    Constants.Columns.TITLE,
+                    Constants.Columns.ID,
+                    Constants.Columns.QUESTION,
+                    Constants.Columns.RESPONSES,
+                    Constants.Columns.RESPONSETYPE
                     )
                     .filter(filter)
                     .get().then(questions => {
@@ -1410,9 +1433,9 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(listName).items
                 .select(
-                    'ActivityName',
-                    'ID',
-                    'TotalPoints'
+                'ActivityName',
+                'ID',
+                'TotalPoints'
                 )
                 .filter("ActivityName eq '" + Constants.ColumnsValues.TEST_CASE_COMPLETION + "'")
                 .get().then(item => {
@@ -1609,11 +1632,11 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
                 .select("FileRef/FileRef",
-                    "IsDefault",
-                    "LevelName",
-                    "CarName",
-                    "CarLevel",
-                    "ID")
+                "IsDefault",
+                "LevelName",
+                "CarName",
+                "CarLevel",
+                "ID")
                 .filter("IsDefault eq 1 and CarLevel eq 1")
                 .get().then(car => {
                     resolve(car[0]);
@@ -1625,11 +1648,11 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
                 .select("FileRef/FileRef",
-                    "IsDefault",
-                    "LevelName",
-                    "CarName",
-                    "CarLevel",
-                    "ID")
+                "IsDefault",
+                "LevelName",
+                "CarName",
+                "CarLevel",
+                "ID")
                 .filter("IsDefault eq 1 and CarLevel eq 1")
                 .get().then(car => {
                     resolve(car[0]);
@@ -1649,56 +1672,54 @@ export class Services {
 
     }
 
-    // static removeDuplicates(list, filter) {
-    //     return new Promise((resolve, reject) => {
-    //         list.items.filter(filter).get().then(items => {
-    //             if (items.length > 0) {
-    //                 var promises = [];
-    //                 items.map((item, index) => {
-    //                     promises.push(list.items.getById(item.Id).delete());
-    //                 })
-    //                 Promise.all(promises).then(results => {
-    //                     resolve(true);
-    //                 })
-    //             } else {
-    //                 resolve(false);
-    //             }
-    //         })
-    //     })
-    // }
+    static checkIfUserExists(userInfoList, filter) {
+        return new Promise((resolve, reject) => {
+            userInfoList.items.filter(filter).get().then(items => {
+                if (items.length > 0) {
+                    resolve(items[0].Id);
+                } else {
+                    resolve(-1);
+                }
+            })
+        })
+    }
 
     static createEliteUserProfile(user: User) {
+
         return new Promise((resolve, reject) => {
             var userInfoList = pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION);
             var filter = "AccountName eq '" + encodeURIComponent(user.accountName) + "'";
             let promises = [this.getDefaultCarDetails(), this.getDefaultAvatarDetails()];
             let baseUrl = location.protocol + "//" + location.hostname;
-            Promise.all(promises).then(results => {
-                let carDetails = <any>results[0];
-                let avatarDetails = <any>results[1];
-                this.createOrUpdateListItemsInBatch(Constants.Lists.USER_INFORMATION, [{
-                    ID: -1,
-                    AccountName: user.accountName,
-                    DateJoined: new Date().toISOString(),
-                    UserLocation: user.location,
-                    ReferrerID_id: Services.getReferrerID(),
-                    UserRegionText: user.region,
-                    CarImage: baseUrl + carDetails.FileRef,
-                    CarName: carDetails.CarName,
-                    CarID_id: carDetails.ID,
-                    AvatarName: avatarDetails.AvatarName,
-                    AvatarImage: baseUrl + avatarDetails.FileRef,
-                    AvatarID_id: avatarDetails.ID,
-                    Elite_UserDepartment: user.department,
-                    UserInfoName: user.displayName,
-                }])
-                    .then((users: any) => {
-                        let user = users[0];
-                        let newUser = { ...user, eliteProfileID: user.id }
-                    }, err => {
-                        Utils.clientLog(err);
-                    })
 
+            Services.checkIfUserExists(userInfoList, filter).then(userID => {
+                Promise.all(promises).then(results => {
+                    let carDetails = <any>results[0];
+                    let avatarDetails = <any>results[1];
+                    this.createOrUpdateListItemsInBatch(Constants.Lists.USER_INFORMATION, [{
+                        ID: userID || -1,
+                        AccountName: user.accountName,
+                        DateJoined: new Date().toISOString(),
+                        UserLocation: user.location,
+                        ReferrerID_id: Services.getReferrerID(),
+                        UserRegionText: user.region,
+                        CarImage: baseUrl + carDetails.FileRef,
+                        CarName: carDetails.CarName,
+                        CarID_id: carDetails.ID,
+                        AvatarName: avatarDetails.AvatarName,
+                        AvatarImage: baseUrl + avatarDetails.FileRef,
+                        AvatarID_id: avatarDetails.ID,
+                        Elite_UserDepartment: user.department,
+                        UserInfoName: user.displayName,
+                        [Constants.Columns.USER_EMAIL]: user.workEmail
+                    }])
+                        .then((users: any) => {
+                            let user = users[0];
+                            let newUser = { ...user, eliteProfileID: user.id }
+                        }, err => {
+                            Utils.clientLog(err);
+                        })
+                });
             });
         });
     }
@@ -1953,22 +1974,23 @@ export class Services {
     // }
 
     static getGlobalLeaders(skip = 0, count = 3) {
+
         var d = new Date();
         var lastYear = d.getFullYear() - 1 + "-12-31";
         return new Promise((resolve, reject) => {
             let globalLeaders: Leader[] = [];
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
                 .select(
-                    Constants.Columns.ID,
-                    Constants.Columns.POINTS,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.COMPLETED_TEST_DRIVES,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.COMPLETED_TEST_CASES,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.USER_NAME,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_IMAGE,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_NAME,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_NAME,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_IMAGE,
+                Constants.Columns.ID,
+                Constants.Columns.POINTS,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.COMPLETED_TEST_DRIVES,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.COMPLETED_TEST_CASES,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.USER_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_IMAGE,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_IMAGE,
             )
                 .expand("UserID").top(100)
                 .orderBy('Points', false)
@@ -1999,22 +2021,22 @@ export class Services {
             let regionalLeaders: Leader[] = [];
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
                 .select(
-                    Constants.Columns.ID,
-                    Constants.Columns.POINTS,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.COMPLETED_TEST_DRIVES,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.COMPLETED_TEST_CASES,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.USER_NAME,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_IMAGE,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_NAME,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_NAME,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_IMAGE,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION_TEXT,
+                Constants.Columns.ID,
+                Constants.Columns.POINTS,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.COMPLETED_TEST_DRIVES,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.COMPLETED_TEST_CASES,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.USER_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_IMAGE,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_NAME,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_IMAGE,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION_TEXT,
             )
                 .expand("UserID").top(top).skip(skip)
                 .orderBy('Points', false)
                 .filter("PointsEarnedOnDate gt datetime'" +
-                    lastYear + "T23:59:59.000Z' and " + Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION_TEXT + " eq '" + region + "'")
+                lastYear + "T23:59:59.000Z' and " + Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION_TEXT + " eq '" + region + "'")
                 .get().then(leaders => {
                     leaders.map((leader, index) => {
                         regionalLeaders.push({
@@ -2039,9 +2061,9 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
                 .select(
-                    Constants.Columns.POINTS,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.USER_NAME
+                Constants.Columns.POINTS,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.USER_NAME
                 )
                 .expand(Constants.Columns.USER_ID).orderBy(Constants.Columns.POINTS, false)
                 .filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z' and UserID eq " + userID)
@@ -2120,8 +2142,8 @@ export class Services {
             var filter = Constants.Columns.USER_ID + ' eq ' + Services.getCurrentUserID();
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
                 .select(
-                    Constants.Columns.ID,
-                    Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID
+                Constants.Columns.ID,
+                Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID
                 )
                 .filter(filter).expand(Constants.Columns.TEST_DRIVE_ID)
                 .skip(skip)
@@ -2134,7 +2156,7 @@ export class Services {
                     resolve(ids);
                 }, err => reject(err))
         });
-    }    
+    }
 
     static getActiveTestDrives(skip = 0, top = 3) {
         var d = new Date();
@@ -2256,14 +2278,14 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
                 .select(
-                    Constants.Columns.ID,
-                    Constants.Columns.PERCENTAGE_COMPLETION,
-                    Constants.Columns.CURRENT_POINTS,
-                    Constants.Columns.STATUS,
-                    Constants.Columns.DATE_JOINED,
-                    Constants.Columns.TEST_CASE_COMPLETED,
-                    Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID
+                Constants.Columns.ID,
+                Constants.Columns.PERCENTAGE_COMPLETION,
+                Constants.Columns.CURRENT_POINTS,
+                Constants.Columns.STATUS,
+                Constants.Columns.DATE_JOINED,
+                Constants.Columns.TEST_CASE_COMPLETED,
+                Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.ID
                 )
                 .filter(filter)
                 .expand(Constants.Columns.TEST_DRIVE_ID, Constants.Columns.USER_ID)
@@ -2410,6 +2432,16 @@ export class Services {
     static loadProgressBar(canvasID, value: any = 0.75, size = 60) {
         Utils.loadProgressBar(canvasID, value, size);
     }
+
+    public static loadHorizontalProgressBar(id: string, raised: number, gole: number, width = '200px', height = '50px') {
+        $('#' + id).jQMeter({
+            goal: '$' + gole,
+            raised: '$' + raised,
+            meterOrientation: 'horizontal',
+            width: width,
+            height: height
+        });
+    }
 }
 
 export class Utils {
@@ -2426,12 +2458,20 @@ export class Utils {
     }
 
     public static loadProgressBar(canvasID, value, size) {
+        var startColor = 'red';
+        if (value <= 1 / 3) {
+            startColor = 'red';
+        } else if (value <= 2 / 3) {
+            startColor = '#f8971d';
+        } else {
+            startColor = 'green';
+        }
         var options = {
             value: value,
             size: size,
             startAngle: -Math.PI,
-            startColor: '#ec1c24',
-            endColor: '#ec1c24',
+            startColor: startColor,
+            endColor: startColor,
             animation: {
                 duration: 1200,
                 easing: 'circleProgressEase'
@@ -2511,8 +2551,6 @@ export class Utils {
             valEl.text(parseInt(p))
         });
     }
-
-
 
     public static uploadFile(ctx: SP.ClientContext, folderName: string, fileName: any, file: any): any {
         return new Promise((resolve, reject) => {
@@ -2857,6 +2895,5 @@ export class Cache {
             _spPageContextInfo.userId.toString().replace(/\W/g, '') + key).toLowerCase();
     }
 };
-
 export default Services;
 

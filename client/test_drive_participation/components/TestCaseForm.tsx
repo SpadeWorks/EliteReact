@@ -94,7 +94,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                 files: this.props.ui.files
             }
             this.props.saveTestCaseResponse(testCase, this.props.testDriveInstance);
-            toast.success("Test Case Response Saved Sucessfully!");
+            toast.success("Test Case Response Saved Successfully!");
             $('#carousel-example-vertical').carousel('next');
         } else {
             Popup.alert(Constants.Messages.ERROR_IN_FORM);
@@ -134,8 +134,12 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                 <div className="row testcase_box ">
                                     <span className="orange">{"Test Case " + (index + 1)}</span>
                                     <h1 className="testcase_name">{testCase.title}</h1>
-                                    <p>{testCase.description}</p>
-
+                                    <p>{testCase.description && testCase.description.length > 200 ?
+                                        testCase.description.slice(0, 200) + '...   ' : testCase.description}
+                                        {testCase.description && testCase.description.length > 200 ?
+                                            <a href="javascript:void(0);" onClick={() => this.openPopUp(index)}>
+                                                <span className="read-more">Read more</span>
+                                        </a> : ''}</p>
                                     <a href="javascript:void(0);" onClick={() => this.openPopUp(index)}> <span className="red">
                                         <img src="/sites/elite/Style%20Library/Elite/images//i.png" />
                                         Guide me to solve this test case</span>

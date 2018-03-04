@@ -98,7 +98,6 @@ class MyProfile extends React.Component<MyProfileProps> {
             this.props.dispatch(loadConfigurations());
         }
         this.props.dispatch(loadCars());
-
     }
 
     // componentDidUpdate() {
@@ -116,7 +115,7 @@ class MyProfile extends React.Component<MyProfileProps> {
             totalTestDrives, loading, avatars, cars, totalCount } = this.props;
         let baseUrl = location.protocol + "//" + location.hostname;
 
-        return (<div className="col-md-12">
+        return (<div className="container">
             <Loader show={loading} message={'Loading...'}>
                 {
                     eliteProfile &&
@@ -124,7 +123,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                         <div className="container header_part">
                             <h2> <Link to={"/"} >
                                 <span className="glyphicon glyphicon-menu-left" aria-hidden="true">
-                                </span> My Profile
+                                </span> {(!this.props.id && this.props.id != -1) ? "My Profile" : "Profile"}
                                  </Link>
                             </h2>
                         </div>
@@ -186,16 +185,26 @@ class MyProfile extends React.Component<MyProfileProps> {
                                                 <div className="row">
                                                     <div className="col-md-12">
                                                         <div className="testd_box">
+                                                        <div className="row">
                                                             <p>
                                                                 <span className="testd_count">
                                                                     {rank}
                                                                 </span>
-                                                                <span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span> of
+                                                                <div className="toplevel">
+                                                                
+                                                                <span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                                                <span className="increase_num">+1</span>
+                                                                </div>
+
+                                                                <div className="outof_count">
+                                                                 <span className="of">of </span>
                                                                 {totalCount}
+                                                                </div>
                                                             </p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-12">
+                                                    <div className="col-md-12 text-left">
                                                         <h4 className="testcase_title">Your current position</h4>
                                                     </div>
                                                 </div>

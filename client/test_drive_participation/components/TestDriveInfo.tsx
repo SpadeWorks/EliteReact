@@ -24,42 +24,45 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
         return (<div className="col-md-12 detailed_box">
             <div className="row">
                 <div className="col-md-12" style={{ overflow: "auto" }}>
-                  
-                        <div className="col-md-12">
-                            <div className="row">
-                                <div className="col-md-2">
 
-                                    <span className="orange">
-                                        <i>DESCRIPTION</i>
-                                    </span>
+                    <div className="col-md-12">
+                        <div className="row">
+                            <div className="col-md-2">
 
-                                </div>
-                                <div className="col-md-4 pull-right">
-                                    <div className="col-md-12 social_box">
-                                        <div className="row">
-                                            <a href="#">
-                                                <i className="material-icons">info</i>
-                                            </a>
-                                            <a href="#">
-                                                <i className="material-icons">email</i>
-                                            </a>
-                                            <a href="#">
-                                                <span className="teams"></span>
-                                            </a>
-                                            <a href="#">
-                                                <i className="material-icons">share</i>
-                                            </a>
-                                        </div>
+                                <span className="orange">
+                                    <i>DESCRIPTION :</i>
+                                </span>
+
+                            </div>
+                            <div className="col-md-4 pull-right">
+                                <div className="col-md-12 social_box">
+                                    <div className="row">
+                                        <a href="javascript:void(0);"
+                                            onClick={() => Services.reportAbug(testDriveInstance.ownerEmail, testDriveInstance.title)}>
+                                            <span className="report"></span>
+                                        </a>
+                                        <a href="javascript:void(0);"
+                                            onClick={() => Services.emailOwner(testDriveInstance.ownerEmail, testDriveInstance.title)}>
+                                            <i className="material-icons">email</i>
+                                        </a>
+                                        {/* <a href="#">
+                                            <span className="teams"></span>
+                                        </a> */}
+                                        <a href="javascript:void(0);"
+                                            onClick={() => Services.shareTestDrive(testDriveInstance.ownerEmail, testDriveInstance.title)}>
+                                            <i className="material-icons">share</i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-12 TestDriveInfo_box pariciation_time_details">
-                            <span className="orange">
-                                <i>POINTS :</i>
-                            </span>
-                            <div className="col-md-12 earn_box">
-                                <div className="row">
+                    </div>
+                    <div className="col-md-12 TestDriveInfo_box pariciation_time_details">
+                        <span className="orange">
+                            <i>POINTS :</i>
+                        </span>
+                        <div className="col-md-12 earn_box">
+                            <div className="row">
                                 <div className="col-md-3">
                                     <div className="row">
                                         <canvas id="participation-time-total-points" width="140" height="140"></canvas>
@@ -74,12 +77,12 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                         <span className="small">{testDriveInstance.numberOfTestCasesCompleted} of {testDriveInstance.testCaseIDs.length} tasks done</span>
                                     </div>
                                 </div>
-                                </div>
                             </div>
-                
+                        </div>
+
                     </div>
                     <div className="col-md-12 para">
-                        <span className="orange">TEST DRIVE PITCH</span>
+                        <span className="orange">TEST DRIVE PITCH :</span>
                         <p>{testDriveInstance.description}</p>
                     </div>
                     <div className="col-md-12">
@@ -87,7 +90,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                             <div className="row inforow">
                                 <div className="col-md-4">
                                     <div className="row">
-                                        <span className="orange">TEST DRIVE OWNER:</span>
+                                        <span className="orange">TEST DRIVE OWNER :</span>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
@@ -99,7 +102,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                     <div className="row">
                                         <div className="col-md-5">
                                             <div className="row">
-                                                <span className="orange">START DATE:</span>
+                                                <span className="orange">START DATE :</span>
                                             </div>
                                         </div>
                                         <div className="col-md-6">
@@ -111,7 +114,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                     <div className="row">
                                         <div className="col-md-5">
                                             <div className="row">
-                                                <span className="orange">END DATE:</span>
+                                                <span className="orange">END DATE :</span>
                                             </div>
                                         </div>
                                         <div className="col-md-7">
@@ -123,7 +126,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                             <div className="row inforow">
                                 <div className="col-md-4">
                                     <div className="row">
-                                        <span className="orange">DIFFICULTY LEVEL:</span>
+                                        <span className="orange">DIFFICULTY LEVEL :</span>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
@@ -133,7 +136,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                             <div className="row inforow">
                                 <div className="col-md-4">
                                     <div className="row">
-                                        <span className="orange">PARTICIPAINTS:</span>
+                                        <span className="orange">PARTICIPAINTS :</span>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
@@ -143,11 +146,11 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                         </div>
                     </div>
                     <div className="col-md-12 para">
-                        <span className="orange">EXPECTED BUSINESS VALUE: </span>
+                        <span className="orange">EXPECTED BUSINESS VALUE :</span>
                         <p>{testDriveInstance.expectedBusinessValue}</p>
                     </div>
                     <div className="col-md-12 para">
-                        <span className="orange">ELIGIBLE DRIVER REGION: </span>
+                        <span className="orange">ELIGIBLE DRIVER REGION :</span>
                         <div className="row">
                             <ul className="select2-selection__rendered">
                                 {
@@ -162,7 +165,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                         </div>
                     </div>
                     <div className="col-md-12 para">
-                        <span className="orange">ELIGIBLE DRIVER LOCATION</span>
+                        <span className="orange">ELIGIBLE DRIVER LOCATION :</span>
 
                         <ul className="select2-selection__rendered">
                             {
@@ -176,7 +179,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
 
                     </div>
                     <div className="col-md-12 para">
-                        <span className="orange">DEVICES REQUIRED</span>
+                        <span className="orange">DEVICES REQUIRED :</span>
 
                         <ul className="select2-selection__rendered">
                             {
@@ -189,7 +192,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
 
                     </div>
                     <div className="col-md-12 para">
-                        <span className="orange">OS REQUIRED</span>
+                        <span className="orange">OS REQUIRED :</span>
 
                         <ul className="select2-selection__rendered">
                             {

@@ -70,14 +70,14 @@ class QuestionForm extends React.Component<QuestionFormProps> {
     submitSurvey(question) {
         this.submitQuestionResponse(question);
         var popUpMessage = Messages.SURVEY_SUBMITTED;
-        Popup.registerPlugin('sucess', function (defaultValue, placeholder, callback) {
+        Popup.registerPlugin('success', function (defaultValue, placeholder, callback) {
             let promptValue = null;
             let promptChange = function (value) {
                 promptValue = value;
             };
 
             this.create({
-                title: 'Sucess',
+                title: 'Success',
                 content: 'Survey Submitted Successfully!',
                 buttons: {
                     right: [{
@@ -90,7 +90,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                 }
             });
         });
-        Popup.plugins().sucess('', 'What do you want to do?');
+        Popup.plugins().success('', 'What do you want to do?');
     }
 
     render() {

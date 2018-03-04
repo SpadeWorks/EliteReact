@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Service from '../../common/services/services';
 import { TestDrive, TestDriveResponse } from '../../home/model';
 import * as $ from 'jquery';
+import Services from '../../common/services/services';
 interface MyTestDriveHoverPanelProps {
     participants: number;
     checkPortion: string;
@@ -40,16 +41,27 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
             <h3>{testDrive.title}</h3>
             <div className="col-md-12 social_box">
                 <div className="row">
-                    <a href="#"><i className="material-icons">info</i></a>
-                    <a href="#"><i className="material-icons">email</i></a>
-                    <a href="#"><span className="teams"></span></a>
-                    <a href="#"><i className="material-icons">share</i></a>
+                    <a href="javascript:void(0);"
+                        onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)}>
+                        <span className="report"></span>
+                    </a>
+                    <a href="javascript:void(0);"
+                        onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
+                        <i className="material-icons">email</i>
+                    </a>
+                    {/* <a href="#">
+                            <span className="teams"></span>
+                        </a> */}
+                    <a href="javascript:void(0);"
+                        onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
+                        <i className="material-icons">share</i>
+                    </a>
                 </div>
             </div>
             <div className="col-md-12 popup_infocontainer">
                 <div className="row">
                     <div className="col-md-6 earned_pointbox">
-                        <div className="row">                            
+                        <div className="row">
                             <div className="col-md-12 earn_box">
                                 <span className="orange"><i>DRIVE COMPLETION :</i></span>
                                 <canvas id={driveProgressID} width="150" height="150"></canvas>

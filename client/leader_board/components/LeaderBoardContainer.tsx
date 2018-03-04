@@ -53,7 +53,7 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
           </h2>
 
         </div>
-        <div className="col-md-12" style={{ overflow: "auto" }}>
+        <div className="col-md-12">
           <div className="container big_leaderbox">
             <div className="col-md-12 profile_box">
               <div className="well count_box">

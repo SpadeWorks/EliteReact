@@ -72,6 +72,7 @@ export type TestDriveInstance = {
     isTestDriveSubmissionCompleted?: boolean;
     isSumbitInProgress: boolean;
     participants: number;
+    ownerEmail: string;
 };
 
 export type Configurations = {

@@ -63,19 +63,19 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
 
                     </h2>
                 </div>
-                <div className="col-md-12 participation_container" style={{ overflow: "auto" }}>
+                <div className="container participation_container" style={{ overflow: "auto" }}>
                     <div className="wrapper" style={{ height: "544px" }}>
                         <div className="col-md-11 profile_box">
                             <div className="well count_box">
                                 <ul className="nav nav-tabs">
                                     <li className="active">
-                                        <a href="#test_Cases" data-toggle="tab" onClick={() => updateUI({activeTab: 'test_Cases'})}>Test Cases</a>
+                                        <a href="#test_Cases" data-toggle="tab" onClick={() => updateUI({ activeTab: 'test_Cases' })}>Test Cases</a>
                                     </li>
                                     <li>
-                                        <a href="#Servay_q" data-toggle="tab" onClick={() => updateUI({activeTab: 'Servay_q'})}>Survey</a>
+                                        <a href="#Servay_q" data-toggle="tab" onClick={() => updateUI({ activeTab: 'Servay_q' })}>Survey</a>
                                     </li>
                                     <li>
-                                        <a href="#Description" data-toggle="tab" onClick={() => updateUI({activeTab: 'Description'})}>Description</a>
+                                        <a href="#Description" data-toggle="tab" onClick={() => updateUI({ activeTab: 'Description' })}>Description</a>
                                     </li>
                                 </ul>
                                 <div id="myTabContent" className="tab-content">
@@ -112,11 +112,15 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                             testDriveInstance.testCases.map((testCase, index) => {
                                 return (<div className="col-md-8 write_testdrivebox" id={"test-case-details" + index} key={index}>
                                     <div className="col-md-12">
-                                        <i onClick={() => this.closePopUp(index)} 
-                                            className="material-icons pull-right" 
+                                        <i onClick={() => this.closePopUp(index)}
+                                            className="material-icons pull-right"
                                             id={"close_discription" + index}>close</i>
                                     </div>
                                     <div className="col-md-12 testdrive_completionbox">
+                                        <div className="col-md-11 pull-left"><h3>Description</h3></div>
+                                        <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.description }}>
+                                        </div>
+
                                         <div className="col-md-11 pull-left"><h3>Scenario</h3></div>
                                         <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.scenario }}>
                                         </div>
