@@ -46,6 +46,7 @@ const initialState: IState = {
         questions: [],
         status: Constants.ColumnsValues.INPROGRESS,
         level: 'Level1',
+        levelName: 'Level1',
         currentPoint: 0,
         dateJoined: "",
         department: "",
