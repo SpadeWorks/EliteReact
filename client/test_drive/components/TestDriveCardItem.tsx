@@ -73,7 +73,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                         </div>
                         <div className="col-md-12 partcipant_enddate">
                             <div className="row">
-                                <div className="col-md-6 partcipant_Section">
+                                <div className="col-md-6 enddate_Section">
                                     <div className="row">
                                         <div className="col-md-12">
 
@@ -95,11 +95,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                 </div>
                                 <div className="col-md-6 partcipant_Section">
                                     <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="row">
-                                                <span className="orange">Difficulty Level</span>
-                                            </div>
-                                        </div>
+                                        <span className="orange">Difficulty Level</span>
                                     </div>
                                     <div className="row race_type">
                                         <div className="col-md-12">
@@ -119,13 +115,12 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                             <div className="row">
                                 <div className="col-md-6 enddate_Section">
                                     <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="row">
-                                                <div className="col-md-12 para">
+                                        
+                                                <div className="para">
                                                     <span className="orange">
-                                                        <div className="row">
+                                                        
                                                             DEVICE REQUIRED
-                                                        </div>
+                                                        
                                                     </span>
 
                                                     <div className="row">
@@ -140,16 +135,17 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                                         </ul>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
+                                            
+                                        
                                     </div>
-                                    <div className="row">
-                                        <div className="col-md-12">
+                                    <div className="col-md-12 partcipant_enddate">
+                                        <div className="row">
+                                            
                                             <div className="row">
-                                                <div className="col-md-12 para">
+                                                <div className="para">
                                                     <span className="orange">
-                                                        <div className="row">OS REQUIRED
-                                                            </div>
+                                                        OS REQUIRED
+                                                           
                                                     </span>
                                                     <div className="row">
                                                         <ul className="select2-selection__rendered">
@@ -163,6 +159,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                                         </ul>
                                                     </div>
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -194,7 +191,9 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                             </div>
                         </div>
                     </div>
+                    <div className="col-md-12 text-center">
                     <Link className="button type1" to={"/participation/" + testDrive.id}> {isActive ? 'Drive Through' : 'View Details'} </Link>
+                    </div>
                 </div>
             </div>
 

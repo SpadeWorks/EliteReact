@@ -3,6 +3,7 @@
     src: url("/sites/elite/Style%20Library/Elite/fonts/hemi_head_bd_it.eot?") format("eot"), url("/sites/elite/Style%20Library/Elite/fonts/hemi_head_bd_it.woff") format("woff"), url("/sites/elite/Style%20Library/Elite/fonts/hemi_head_bd_it.ttf") format("truetype"), url("/sites/elite/Style%20Library/Elite/fonts/hemi_head_bd_it.svg#HemiHeadRg-BoldItalic") format("svg");
     font-weight: normal;
     font-style: normal;
+    letter-spacing: 1px;
 }
 
 @font-face {
@@ -2956,8 +2957,8 @@ margin-top: 130px;
 
 ul.select2-selection__rendered {
     list-style-type: none;
-    margin-left: 0px;
     padding-left: 0px;
+    margin:0 0 0 15px;
 }
 
 span.select2-container.select2-container--default.select2-container--open {
@@ -2987,19 +2988,14 @@ li.select2-selection__choice {
     position: relative;
     top: 0px;
     background: #27272f;
-    padding-left: 10px;
     border-radius: 50px;
     float: left;
-    padding-top: 5px;
     font-family: titanium !important;
-    font-size: 15px;
-    padding-bottom: 4px;
-    margin-left: 0px;
-    padding-right: 10px;
-    margin-right: 10px;
+    font-size: 14px;
     color: #fff;
-    margin-top: 0px;
-    margin-left: 2px;
+    margin:0 6px 0 0;
+    padding:4px 6px;
+    margin-bottom:10px;
 }
 
 ul.select2-results__options {
@@ -3366,7 +3362,7 @@ span.l_count {
 
 .c_ride {
     float: left;
-    background: #50505054;
+    background: #5050501a;
     border: solid 1px #fff;
     border-radius: 43px;
     padding: 10px;
@@ -6279,12 +6275,16 @@ button {
     min-height: 105px;
 }
 
-#jqmeter-horizontal {
-    background: url(/sites/elite/Style%20Library/Elite/images/guage_1.png) no-repeat !important;
+.therm .inner-therm {
+    background: url(/sites/elite/Style%20Library/Elite/images/guage_2.png) no-repeat !important;
 }
 
-.therm .inner-therm {
-    background: url(/sites/elite/Style%20Library/Elite/images/guage_2.png)no-repeat !important;
+
+
+.before_fill{height: 50px;
+    width: 100%;
+    background: url(/sites/elite/Style%20Library/Elite/images/guage_1.png) no-repeat !important;
+    margin-left:40px;
 }
 
 .progress_drivebox {
@@ -6301,7 +6301,7 @@ button {
 .progress_drivebox .button {
     position: relative;
     top: 21px;
-    left: 48px;
+ 
 }
 
 .progress_drivebox h4 {
@@ -7059,6 +7059,7 @@ a {
     top: -30px;
 }
 
+
 .red_text {
     color: red !important;
 }
@@ -7085,8 +7086,12 @@ a.more {
 
 p.my_allpoints {
     text-align: center;
-    margin-top: 30px;
+  
+
+ 
 }
+
+.therm.inner-therm span{display:none !important;}
 
 span.orange.big {
     font-size: 30px;
@@ -7440,10 +7445,7 @@ span.orange.big {
         left: 123px;
     }
 
-.welcome_but{position: absolute;
-    left: 36px;
-    bottom: -100px;}
-
+    .inner-therm span{display:none;}
 
 }
 
@@ -7486,7 +7488,9 @@ a {
     margin-top: 8px;
     margin-bottom: 30px;
 }
-
+ul.dragrace_indicator {
+    margin:0 0 0 5px;
+}
 .total_testdrivebox .tab-pane ul.nav-tabs li a {
     font-size: 14px !important;
 }
