@@ -44,12 +44,18 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                 $(this).carousel('next');
             }
         });
+
+        $(document).mouseup(function (e) {
+            var container = $(".write_testdrivebox");
+            if (!container.is(e.target) && container.has(e.target).length === 0){
+                container.css({ "position": "fixed", "right": "-700px", "transition": "0.5s" });
+            }
+        });
     }
 
     closePopUp(id) {
         $("#test-case-details" + id)
             .css({ "position": "fixed", "right": "-700px", "transition": "0.5s" });
-
     }
     render() {
         const { testDriveInstance, saveTestCaseResponse, submitTestDriveInstance, loadQuestions, saveQuestionResponse, ui, updateUI } = this.props;
@@ -113,7 +119,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                 return (<div className="col-md-8 write_testdrivebox" id={"test-case-details" + index} key={index}>
                                     <div className="col-md-12">
                                         <i onClick={() => this.closePopUp(index)}
-                                            className="material-icons pull-right"
+                                            className="material-icons pull-right close-btn"
                                             id={"close_discription" + index}>close</i>
                                     </div>
                                     <div className="col-md-12 testdrive_completionbox">
@@ -121,26 +127,6 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                         <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.description }}>
                                         </div>
 
-                                        <div className="col-md-11 pull-left"><h3>Scenario</h3></div>
-                                        <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.scenario }}>
-                                        </div>
-                                        <div className="col-md-11 pull-left"><h3>Expected Outcome</h3></div>
-                                        <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.expectedOutcome }}>
-                                        </div>
-                                    </div>
-                                </div>)
-                            })
-                        }
-                    </div>
-                    <div>
-                        {
-                            testDriveInstance.testCases && testDriveInstance.testCases.length &&
-                            testDriveInstance.testCases.map((testCase, index) => {
-                                return (<div className="col-md-8 write_testdrivebox" id={"test-case-details" + testCase.responseID}>
-                                    <div className="col-md-12">
-                                        <i onClick={() => this.closePopUp(testCase.responseID)} className="material-icons pull-right" id={"close_discription" + testCase.responseID}>close</i>
-                                    </div>
-                                    <div className="col-md-12 testdrive_completionbox">
                                         <div className="col-md-11 pull-left"><h3>Scenario</h3></div>
                                         <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.scenario }}>
                                         </div>
