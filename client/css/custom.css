@@ -7858,3 +7858,16 @@ h1.title:before {
 span.clsRemainingLength {
     float: right;
 }
+
+
+.l_count_box .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* width: 154px; */
+    display: inline;
+    white-space: nowrap;
+}
+
+.close-btn{
+    cursor: pointer;
+}
