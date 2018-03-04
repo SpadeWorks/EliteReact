@@ -22,6 +22,7 @@ interface OnBoardingProps {
     introComplete: boolean;
     isUserCreated: boolean;
     updateUI: (any) => any;
+    referrerID: string;
     ui: any;
 };
 
@@ -52,7 +53,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
         this.props.updateUI({
             nextScreen: 2
         });
-        this.props.dispatch(createEliteUserProfile(this.props.currentUser));
+        this.props.dispatch(createEliteUserProfile(this.props.currentUser, this.props.referrerID));
     }
 
     render() {
@@ -496,10 +497,12 @@ class OnBoarding extends React.Component<OnBoardingProps> {
 
 
 const mapStateToProps = (state, ownProps) => {
+    let referrerID = ownProps.match.params.referrerID;
     return {
         totalUsers: state.onBoardingState.OnBoardingDetails.totalUsers,
         currentUser: state.onBoardingState.OnBoardingDetails.currentUser,
-        introComplete: state.onBoardingState.introComplete
+        introComplete: state.onBoardingState.introComplete,
+        referrerID: referrerID
     }
 };
 

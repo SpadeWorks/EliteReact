@@ -746,7 +746,8 @@ export class Services {
                         lastName: user.lastName,
                         location: user.location,
                         region: user.region,
-                        workEmail: user.workEmail
+                        workEmail: user.workEmail,
+                        role: user.EliteUserRole
                     }
                 });
             })
@@ -1446,10 +1447,13 @@ export class Services {
         });
     }
 
-    static getReferrerID() {
-        let referrer = Utils.getUrlParameters(window.location.href, "referrerID");
+    static getReferrerID(referrer) {
         if (referrer) {
-            return parseInt(referrer);
+            try{
+                return parseInt(referrer);
+            } catch(e){
+                return '';
+            }    
         }
         else {
             return '';
@@ -1684,7 +1688,7 @@ export class Services {
         })
     }
 
-    static createEliteUserProfile(user: User) {
+    static createEliteUserProfile(user: User, referrerID: string) {
 
         return new Promise((resolve, reject) => {
             var userInfoList = pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION);
@@ -1701,7 +1705,7 @@ export class Services {
                         AccountName: user.accountName,
                         DateJoined: new Date().toISOString(),
                         UserLocation: user.location,
-                        ReferrerID_id: Services.getReferrerID(),
+                        ReferrerID_id: Services.getReferrerID(referrerID),
                         UserRegionText: user.region,
                         CarImage: baseUrl + carDetails.FileRef,
                         CarName: carDetails.CarName,
@@ -1711,6 +1715,7 @@ export class Services {
                         AvatarID_id: avatarDetails.ID,
                         Elite_UserDepartment: user.department,
                         UserInfoName: user.displayName,
+                        UserInfoRole: user.role,
                         [Constants.Columns.USER_EMAIL]: user.workEmail
                     }])
                         .then((users: any) => {

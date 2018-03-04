@@ -77,6 +77,7 @@ if (user.eliteProfileID) {
       <div>
         <Switch>
           <Route exact path="/" component={OnBoarding} />
+          <Route exact path="/:referrerID" component={OnBoarding} />
         </Switch>
       </div>
     </HashRouter>
