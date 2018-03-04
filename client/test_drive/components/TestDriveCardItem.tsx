@@ -106,6 +106,9 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                                     <li><span></span></li>
                                                 </ul>
                                             </div>
+                                            <div className="row">
+                                                <h5 className="race_neme">{testDrive.levelName}</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

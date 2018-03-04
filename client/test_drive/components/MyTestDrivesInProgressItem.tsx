@@ -115,7 +115,7 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
                                         </div>
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <h5>{testDrive.level}</h5>
+                                                <h5>{testDrive.levelName}</h5>
                                             </div>
                                         </div>
                                     </div>

@@ -79,7 +79,7 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                                             </ul>
                                                         </div>
                                                         <div className="row">
-                                                            <h5 className="race_neme">{testDrive.level}</h5>
+                                                            <h5 className="race_neme">{testDrive.levelName}</h5>
                                                         </div>
                                                     </div>
                                                 </div>
