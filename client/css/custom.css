@@ -7852,4 +7852,8 @@ span.clsRemainingLength {
 .no-data-message{
     text-align: center;
     font-size: 20px;
+    vertical-align: middle;
+    position: relative;
+    left: 0%;
+    top: 138px;
 }
