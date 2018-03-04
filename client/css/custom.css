@@ -3585,7 +3585,7 @@ width: 28px !important;
 
 .letest_driveboxclick {
     position: absolute;
-    left: 370px;
+    left: 130% !important;
     display: block;
     transition: 0.5s;
     width: 450px;
@@ -7274,7 +7274,7 @@ span.orange.big {
     }
     .letest_driveboxclick {
         position: absolute;
-        left: 141% !important;
+        left: 130% !important;
         display: block;
         transition: 0.5s;
         width: 450px;
