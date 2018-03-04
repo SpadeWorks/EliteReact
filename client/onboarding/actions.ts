@@ -15,9 +15,9 @@ const loadOnBoardingDetails = createAction<any>(
   () => Services.getOnboardingDetails()
 )
 
-const createEliteUserProfile = createAction<any, User>(
+const createEliteUserProfile = createAction<any, User, string>(
   CREATE_EliteProfile, 
-  (user: User) => Services.createEliteUserProfile(user)
+  (user: User, referrerID: string) => Services.createEliteUserProfile(user, referrerID)
 )
 
 const completeIntro = createAction<any>(

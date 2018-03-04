@@ -63,11 +63,9 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="row inforow">
-                                            <div className="col-md-12">
-                                                <div className="row">
-                                                    <span className="orange">Difficulty Level:</span>
-                                                </div>
-                                            </div>
+                                        
+                                        <span className="orange">Difficulty Level:</span>
+                                               
                                         </div>
                                     </div>
                                     <div className="col-md-12">

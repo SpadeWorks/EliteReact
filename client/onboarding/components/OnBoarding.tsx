@@ -22,6 +22,7 @@ interface OnBoardingProps {
     introComplete: boolean;
     isUserCreated: boolean;
     updateUI: (any) => any;
+    referrerID: string;
     ui: any;
 };
 
@@ -52,7 +53,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
         this.props.updateUI({
             nextScreen: 2
         });
-        this.props.dispatch(createEliteUserProfile(this.props.currentUser));
+        this.props.dispatch(createEliteUserProfile(this.props.currentUser, this.props.referrerID));
     }
 
     render() {
@@ -60,7 +61,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
         // return <h1>Onboarding</h1>
         return (<div id="onboarding">
             <section>
-                <div className="container top_bar" style={{ height: "50px", background: "black" }}>
+                <div className="col-md-12 top_bar" style={{ height: "50px", background: "black" }}>
                     <div className="logo">
                         <img src="/sites/elite/Style%20Library/Elite/images/logo.png" alt="Equnixlogo" />
                     </div>
@@ -157,7 +158,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                         </g>
                                     </svg>
                                 </div>
-                                <div className="count_box count-box-container" >
+                                <div className="count_box count-box-container activeuser_box" >
                                     <p>
                                         <span className="counter">{totalUsers}</span>
                                         <span className="white">ACTIVE </span>
@@ -496,10 +497,12 @@ class OnBoarding extends React.Component<OnBoardingProps> {
 
 
 const mapStateToProps = (state, ownProps) => {
+    let referrerID = ownProps.match.params.referrerID;
     return {
         totalUsers: state.onBoardingState.OnBoardingDetails.totalUsers,
         currentUser: state.onBoardingState.OnBoardingDetails.currentUser,
-        introComplete: state.onBoardingState.introComplete
+        introComplete: state.onBoardingState.introComplete,
+        referrerID: referrerID
     }
 };
 

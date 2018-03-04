@@ -180,6 +180,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
             float: 'right'
         }
         const format = 'dddd, D MMMM YYYY';
+        const maxLimit = 100;
         return (
             <form className="registration_form" id={"test-drive-form" + testDrive.id}>
                 <div className="col-xs-12 testdrive_creationbox form_box ">
@@ -192,7 +193,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 value={testDrive.title || ""}
                                 id={"testDrive-title" + testDrive.id}
                                 data-validations={[required]}
-                                maxLength={100}
+                                maxLength={maxLimit}
                             />
                             <span className="highlight"></span>
                             <span className="bar"></span>
@@ -200,8 +201,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             <span className="help-text">
                                 {fieldDescriptions && fieldDescriptions.TestDriveName}
                             </span>
+                            <span className="clsRemainingLength">Remaining: { maxLimit - testDrive.title.length}</span>
                         </div>
-                        <span className="clsRemainingLength">Remaining: {100 - testDrive.title.length}</span>
+                        
                     </div>
                     <div className="col-md-12 register_input textarea-custom">
                         <div className="group">

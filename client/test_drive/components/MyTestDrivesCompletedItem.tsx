@@ -103,7 +103,7 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                             <div className="row">
                                 <span className="orange"><i>Test Case Completion</i></span>
                                 <div className="col-md-12">
-                                    <div id={driveProgressID}></div>
+                                    <div id={driveProgressID} className="before_fill"></div>
                                     <p className="my_allpoints text-center"><span className="orange big"><i>{completedTestCases}</i></span> of {totalTestCases}</p>
                                 </div>
                             </div>
@@ -133,9 +133,7 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                 <div className="col-md-6 partcipant_Section">
                                     <div className="row">
                                         <div className="col-md-12">
-                                            <div className="row">
-                                                <span className="orange">Difficulty Level</span>
-                                            </div>
+                                            <span className="orange">Difficulty Level</span>
                                         </div>
                                     </div>
                                     <div className="row race_type">
@@ -157,9 +155,11 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                 </div>
                             </div>
                         </div>
+                        <div className="col-md-12 text-center">
                         {isCompleted ?
                             <Link className="button type1" to={"/participation/" + testDrive.id}> View Details </Link> :
                             <Link className="button type1" to={"/participation/" + testDrive.id}> Complete the drive </Link>}
+                            </div>
                     </div>
                 </div>
             </div>
