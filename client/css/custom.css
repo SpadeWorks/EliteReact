@@ -7447,9 +7447,17 @@ span.orange.big {
 
     .inner-therm span{display:none;}
 
+    a.drive_name h4:hover::after,a.drive_name h4:focus::after{
+        font-family: 'Material Icons';
+        content: "\E037";
+        color: white;
+    margin-left: 10px; 
+position:relative;
+top:3px;}
 
 
 }
+
 
 span.s4-clust {
     margin-left: -20px!important;
