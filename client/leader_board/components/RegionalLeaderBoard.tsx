@@ -99,6 +99,7 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
                     labelKey="Label"
                     loadOptions={this.getRegions}
                     type="select-multiple"
+                    clearable= {false}
                 />
                 <br></br>
 

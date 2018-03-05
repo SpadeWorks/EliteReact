@@ -131,7 +131,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                     </div>
                     <div className="col-md-12">
                         <div className="col-md-12">
-                            <Navigation />
+                            <Navigation currentUserImage= {eliteProfile.avatarImage}/>
                             <LeaderBoard updateUI={updateUI}
                                 ui={ui}
                                 leaders={leaders}

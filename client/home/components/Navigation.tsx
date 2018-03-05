@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from "react-router-dom";
 
 interface NavigationProps {
-
+    currentUserImage: string;
 };
 class Navigation extends React.Component<NavigationProps> {
     constructor(props, context) {
@@ -11,7 +11,7 @@ class Navigation extends React.Component<NavigationProps> {
 
     openPopUp() {
         var options = {
-            url: 'referral.aspx',
+            url: '/sites/elite/pages/referral.aspx',
             title: 'Refer friends, earn points',
             width: 600,
             height: 600,
@@ -41,7 +41,7 @@ class Navigation extends React.Component<NavigationProps> {
                     </a>
 
                     <Link className="maplinks" to={"/profile/"} id="link3">
-                        <img src="/sites/elite/Style%20Library/Elite/images/refer.png" />
+                        <img src={this.props.currentUserImage  || "/sites/elite/Style%20Library/Elite/images/refer.png"} />
                         <span>My Profile</span>
                     </Link>
                     <Link className="maplinks" to={"/prizes"} id="link4">

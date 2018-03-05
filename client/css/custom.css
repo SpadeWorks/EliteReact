@@ -2218,8 +2218,8 @@ h1 {
     right: 0;
     border-top-color: transparent;
     border-left-color: transparent;
-    border-bottom-color: #00f8bc;
-    border-right-color: #00f8bc;
+    border-bottom-color: #fff;
+    border-right-color: #fff;
 }
 
 .button.type1.type1::before {
@@ -2227,8 +2227,8 @@ h1 {
     left: 0;
     border-bottom-color: transparent;
     border-right-color: transparent;
-    border-top-color: #00f8bc;
-    border-left-color: #00f8bc;
+    border-top-color: #fff;
+    border-left-color: #fff;
 }
 
 .button.type1.type1:hover:after,
@@ -3414,23 +3414,27 @@ width: 28px !important;
     animation-play-state: running;
 }
 
-#inner {
+#inner img {
     height: 80px;
     width: 80px;
-    background: url(/sites/elite/Style%20Library/Elite/images/dash-loader-in.png);
     -webkit-animation: rotation 50s infinite;
-    /* margin-top: 11px; */
+    margin: 8px;
+    margin-left: 9px;
     position: absolute;
-    top: 9px;
-    left: 11px;
-    border-radius: 50%;
+    left: 1px;
+    top: 2px;
+    
 }
 
 .tdrivecount {
+    text-align:center;
+}
+
+.tdrivecount h3 {
+    margin-top: -64px;
+    font-size: 20px;
     position: absolute;
-    top: 48px;
-    text-align: center;
-    width: 100px;
+    left: 55px;
 }
 
 .lc_container {
@@ -3527,27 +3531,24 @@ width: 28px !important;
 .number {
     width: 100px;
     float: left;
-    position: absolute;
-    top: 38px;
-    left: 171px;
+   
 }
-
-.total_tasks h4 {
-    position: absolute;
-    top: 0px;
-    left: 160px;
+.total_tasks canvas{display:none;}
+.total_tasks img{
+    right: 39px;
+    -webkit-animation: rotation 30s infinite;
 }
 
 .t_testdrive h4 {
     /*width: 47%;*/
     font-size: 12px;
 }
-
 .number h3 {
     font-size: 12px;
-    position: absolute;
-    top: 5px;
-    left: 23px;
+    text-align: center;
+    margin-top: -40px;
+    margin-left: -38px;
+    /* position: absolute; */
 }
 
 .player_name h2 {
@@ -3560,7 +3561,7 @@ width: 28px !important;
     width: 241%;
     transition: 0.5s;
     opacity: 1;
-    height: 100px;
+    height: 124px;
     border-right: solid 2px #fff;
     margin-top: -54px;
     transition: all 0.5s;
@@ -3584,7 +3585,7 @@ width: 28px !important;
 }
 
 .letest_driveboxclick {
-    position: absolute;
+       position: absolute;
     left: 130% !important;
     display: block;
     transition: 0.5s;
@@ -3732,7 +3733,7 @@ a#link6 span {
     padding-left: 25px;
     padding-right: 18px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
 
 
@@ -3808,7 +3809,8 @@ a#link6 span {
     border-top: none !important;
     float: left;
 }
-
+.profile_box .nav>li.active>a{font-size: 14px;
+    text-transform: uppercase;}
 .profile_box .nav>li>a {
     font-size: 14px;
     text-transform: uppercase;
@@ -4226,10 +4228,6 @@ label.rdw-image-modal-upload-option-label {
     font-size: 12px !important;
     /* margin-bottom: 1px; */
     padding: 5px !important;
-}
-
-.Select-menu-outer {
-    border: 1px solid #575757 !important;
 }
 
 .rdr-MonthAndYear-button {
@@ -5878,13 +5876,14 @@ a:hover {
 }
 
 .overview .col-md-3.start_date p {
-    font-size: 32px;
+    font-size: 29px;
 }
 
 .overview .col-md-3.end_date p {
-    font-size: 32px;
+    font-size: 29px;
 }
 
+.testdrive_completionbox p{font-family:titanium;}
 .navigation_box a span {
     font-size: 36px;
 }
@@ -6364,6 +6363,7 @@ ul.dragrace_indicator li span {
 
 .testdrive_I_runbox .inforow {
     margin-bottom: 0px;
+   
 }
 
 .testdrive_I_runbox h4 {
@@ -6479,7 +6479,7 @@ ul.streetrace_indicator li {
     background: #f8971d;
     border-radius: 50%;
     float: left;
-    margin-left: 5px;
+    margin-right: 5px;
 }
 
 ul.soapbox_indicator {
@@ -6493,7 +6493,7 @@ ul.soapbox_indicator li {
     background: green;
     border-radius: 50%;
     float: left;
-    margin-left: 5px;
+    margin-right: 5px;
 }
 
 ul.streetrace_indicator li span {
@@ -7274,7 +7274,7 @@ span.orange.big {
     }
     .letest_driveboxclick {
         position: absolute;
-        left: 130% !important;
+        left: 136% !important;
         display: block;
         transition: 0.5s;
         width: 450px;
@@ -7299,7 +7299,7 @@ span.orange.big {
     }
     .letest_driveboxclick_right {
         position: absolute;
-        right: 118% !important;
+        right: 125% !important;
         transition: 0.5s;
         width: 450px;
         opacity: 1;
@@ -7473,11 +7473,34 @@ span.orange.big {
     .small_leaderbox .nav>li>a {
         padding: 7px 10px !important;
     }
+
+    .rdr-Calendar{    position: relative;
+        z-index: 999 !important;}
+    span.rdw-image-imagewrapper img {
+            width: 100% !important;
+            height: 1;
+            /* max-height: 400px; */
+        }
+
+        span.clsRemainingLength {
+            float: right;
+            font-family: titanium;
+            color: orange;
+            font-size: 12px;
+        }
+
+        .profile_box .nav-tabs>li.active>a:hover, .profile_box .nav-tabs>li.focus>a:hover {
+            font-size:14px;
+        }
+        
 }
+
 
 span.s4-clust {
     margin-left: -20px!important;
 }
+
+
 
 a {
     cursor: pointer !important;
@@ -7495,7 +7518,7 @@ a {
 }
 
 .testDrives .nav-tabs>li>a {
-    color: #505050;
+    color: #ffffff63;
     border: none;
     font-size: 17px;
     text-transform: uppercase;
@@ -7883,4 +7906,16 @@ span.clsRemainingLength {
 .ms-dlgLoadingTextDiv
 {
 display:none;
+}
+/* fix for leader board select control */
+
+.Select-menu-outer {
+    border: 1px solid #575757 !important;
+    z-index: 100 !important;
+}
+
+a#link3 img {
+    border: 1px solid red;
+    background: black;
+    border-radius: 50%;
 }
