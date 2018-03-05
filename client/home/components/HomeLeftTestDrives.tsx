@@ -48,7 +48,7 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                             <div className="col-md-12">
                                 <Loader show={myTestDriveLoading} message={'Loading test drives...'}>
                                     {
-                                        (mytestDrive && mytestDrive.length) ? mytestDrive.map((testDrive, index) => {
+                                        (!myTestDriveLoading && mytestDrive && mytestDrive.length) ? mytestDrive.map((testDrive, index) => {
                                             return (testDrive && <LeftContainer
                                                 key={index}
                                                 participants={testDrive.participants}
@@ -74,7 +74,7 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                 <div className="col-md-12">
                                     <Loader show={testDriveThatIRunLoading} message={'Loading test drives...'}>
                                         {
-                                            (testDriveThatIRun && testDriveThatIRun.length) ? testDriveThatIRun.map((testDrive, index) => {
+                                            ( !testDriveThatIRunLoading && testDriveThatIRun && testDriveThatIRun.length) ? testDriveThatIRun.map((testDrive, index) => {
                                                 return (testDrive && <LeftContainer
                                                     key={index}
                                                     participants={testDrive.participants}

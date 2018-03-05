@@ -103,7 +103,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                                         testDrive={testDrive}
                                         saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
                                         approveTestDrive={(id) => this.approveTestDrive(id)} />)
-                                }) : (!loading && Messages.TEST_DRIVE_PENDING_MSG)
+                                }) : (!loading && <div className="no-data-message">{Messages.TEST_DRIVE_PENDING_MSG}</div>)
                         }
                         {
                             ui.pendingItems && ui.pendingItems.length > 0 &&
@@ -131,7 +131,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                                         testDrive={testDrive}
                                         saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
                                         approveTestDrive={(id) => approveTestDrive(id)} />)
-                                }) : (!loading && Messages.TEST_DRIVE_APPROVED_MSG)
+                                }) : (!loading && <div className="no-data-message">{Messages.TEST_DRIVE_APPROVED_MSG}</div>)
                         }
                         {
                             ui.approvedItems && ui.approvedItems.length > 0 &&
