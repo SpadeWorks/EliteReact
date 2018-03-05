@@ -148,7 +148,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                         <Link to={"/"}><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>{testDriveInstance.title}  </Link></h2>
                     <h4 className="cancel-btn"><Link to={"/"}>CANCEL</Link></h4>
                 </div>
-                <div className="container-fluid testdrive-detail_first-time" style={{ overflow: "auto" }}>
+                <div className="container-fluid testdrive-detail_first-time">
                     <div className="wrapper">
                         <div className="col-md-12">
                             <div className="row">

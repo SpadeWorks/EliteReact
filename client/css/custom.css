@@ -3052,12 +3052,14 @@ span.select2-selection__choice__remove {
 
 .add_test a {
     font-size: 13px;
-    color: #acacac;
+    color: #fff;
 }
 
 .card-body .register_input {
     height: 100px;
     font-size: 14px;
+    position: relaive;
+    z-index: 100;
 }
 
 .card-body .register_input:first-child {
@@ -3423,11 +3425,10 @@ width: 28px !important;
     position: absolute;
     left: 1px;
     top: 2px;
-    
 }
 
 .tdrivecount {
-    text-align:center;
+    text-align: center;
 }
 
 .tdrivecount h3 {
@@ -3531,10 +3532,13 @@ width: 28px !important;
 .number {
     width: 100px;
     float: left;
-   
 }
-.total_tasks canvas{display:none;}
-.total_tasks img{
+
+.total_tasks canvas {
+    display: none;
+}
+
+.total_tasks img {
     right: 39px;
     -webkit-animation: rotation 30s infinite;
 }
@@ -3543,6 +3547,7 @@ width: 28px !important;
     /*width: 47%;*/
     font-size: 12px;
 }
+
 .number h3 {
     font-size: 12px;
     text-align: center;
@@ -3585,7 +3590,7 @@ width: 28px !important;
 }
 
 .letest_driveboxclick {
-       position: absolute;
+    position: absolute;
     left: 130% !important;
     display: block;
     transition: 0.5s;
@@ -3809,8 +3814,12 @@ a#link6 span {
     border-top: none !important;
     float: left;
 }
-.profile_box .nav>li.active>a{font-size: 14px;
-    text-transform: uppercase;}
+
+.profile_box .nav>li.active>a {
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
 .profile_box .nav>li>a {
     font-size: 14px;
     text-transform: uppercase;
@@ -5647,7 +5656,8 @@ animation-delay: 10s;
     margin-left: 5px;
     margin-right: 10px;
     font-weight: bold;
-    font-size: 11px;
+    font-size: 10px;
+    margin-top: 4px;
 }
 
 
@@ -5666,6 +5676,7 @@ canvas#myDriveCanvasDrive1 {
 
 .Select.Select--single.is-clearable.is-searchable.has-value {
     z-index: 1000;
+    position: relative;
 }
 
 .rdr-DateRange {
@@ -5883,7 +5894,10 @@ a:hover {
     font-size: 29px;
 }
 
-.testdrive_completionbox p{font-family:titanium;}
+.testdrive_completionbox p {
+    font-family: titanium;
+}
+
 .navigation_box a span {
     font-size: 36px;
 }
@@ -6186,7 +6200,7 @@ button {
 
 .sample_text {
     font-family: titanium;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .participation_actionbox .button {
@@ -6363,7 +6377,6 @@ ul.dragrace_indicator li span {
 
 .testdrive_I_runbox .inforow {
     margin-bottom: 0px;
-   
 }
 
 .testdrive_I_runbox h4 {
@@ -7468,39 +7481,48 @@ span.orange.big {
         color: white;
         font-size: 15px;
         margin-left: 12px;
-        direction:
     }
     .small_leaderbox .nav>li>a {
         padding: 7px 10px !important;
     }
-
-    .rdr-Calendar{    position: relative;
-        z-index: 999 !important;}
+    .rdr-Calendar {
+        position: relative;
+        z-index: 999 !important;
+    }
     span.rdw-image-imagewrapper img {
-            width: 100% !important;
-            height: 1;
-            /* max-height: 400px; */
-        }
-
-        span.clsRemainingLength {
-            float: right;
-            font-family: titanium;
-            color: orange;
-            font-size: 12px;
-        }
-
-        .profile_box .nav-tabs>li.active>a:hover, .profile_box .nav-tabs>li.focus>a:hover {
-            font-size:14px;
-        }
-        
+        width: 100% !important;
+        height: 1;
+        /* max-height: 400px; */
+    }
+    span.clsRemainingLength {
+        float: right;
+        font-family: titanium;
+        color: orange;
+        font-size: 12px;
+    }
+    .profile_box .nav-tabs>li.active>a:hover,
+    .profile_box .nav-tabs>li.focus>a:hover {
+        font-size: 14px;
+    }
+    .detailed_box .social_box {
+        position: relative;
+        top: 25px;
+    }
+    .big_leaderbox .leader_namenphoto h4 {
+        padding-top: 15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    button.rdw-image-modal-btn-section {
+        float: left;
+        background: #333;
+    }
 }
-
 
 span.s4-clust {
     margin-left: -20px!important;
 }
-
-
 
 a {
     cursor: pointer !important;
@@ -7882,7 +7904,6 @@ span.clsRemainingLength {
     float: right;
 }
 
-
 .l_count_box .name {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -7891,11 +7912,11 @@ span.clsRemainingLength {
     white-space: nowrap;
 }
 
-.close-btn{
+.close-btn {
     cursor: pointer;
 }
 
-.no-data-message{
+.no-data-message {
     text-align: center;
     font-size: 20px;
     vertical-align: middle;
@@ -7903,10 +7924,12 @@ span.clsRemainingLength {
     left: 0%;
     top: 138px;
 }
-.ms-dlgLoadingTextDiv
-{
-display:none;
+
+.ms-dlgLoadingTextDiv {
+    display: none;
 }
+
+
 /* fix for leader board select control */
 
 .Select-menu-outer {
