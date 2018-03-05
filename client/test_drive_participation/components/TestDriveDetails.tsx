@@ -75,7 +75,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
     participate() {
         var ctx = this;
         const { maxTestDrivers, participants } = this.props.testDriveInstance;
-        if (maxTestDrivers < participants + 1) {
+        if (maxTestDrivers && maxTestDrivers < participants + 1) {
             Popup.alert(Messages.MAX_TEST_DRIVER_LIMIT_REACHED);
         } else {
             this.isUserEligible().then((data: any) => {

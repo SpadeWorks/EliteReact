@@ -127,7 +127,7 @@ class Home extends React.Component<HomeProps, HomeState> {
             <div className="col-md-12">
                 <div className="row">
                     <div className="col-md-12">
-                        <h2><img src="/Style%20Library/Elite/images/logo.png" className="img-responsive" /> </h2>
+                        <h2><img src="/sites/elite/Style%20Library/Elite/images/logo.png" className="img-responsive" /> </h2>
                     </div>
                     <div className="col-md-12">
                         <div className="col-md-12">
