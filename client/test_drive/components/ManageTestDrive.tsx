@@ -245,7 +245,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                         <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Create test drive
                         </Link>
                 </h2>
-                <h4 className="cancel-btn"><Link to={"/testdrives"}>Cancel</Link></h4>
+                <h4 className="cancel-btn"><Link to={"/testdrives"}>CANCEL</Link></h4>
                 <div className="col-md-12 testdrive_createbox">
                     <div className="wrapper">
                         <Loader show={loading} message={'Loading...'}>

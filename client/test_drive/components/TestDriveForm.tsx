@@ -391,7 +391,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 name="requiredOs"
                             />
                         </div>
-                        <label className="disc_lable">Required os</label>
+                        <label className="disc_lable">Required OS</label>
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.AvailableOS}
                         </span>
