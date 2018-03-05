@@ -155,7 +155,7 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-12">
+                                    <div className="col-md-12  enddate_line">
                                         <div className="row inforow">
                                             <div className="col-md-12">
                                                 <div className="row">

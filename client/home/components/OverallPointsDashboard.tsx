@@ -77,22 +77,37 @@ class OverallPointsDashboard extends React.Component<OverallPointsDashboardProps
                         </div>
                     </div>
                 </div>
-                <div className="col-md-3 t_testdrive">
-                    <h4>TOTAL TEST DRIVES</h4>
+                <div className="col-md-2 t_testdrive">
+                <div className="row">
+                <div className="col-md-7">
+                <h4>TOTAL TEST DRIVES</h4>
                     <div id="outer">
                         <div id="inner">
+                        <img src="/sites/elite/Style%20Library/Elite/images/dash-loader-in.png" className="img-responsive" />
                         </div>
                     </div>
                     <div className="tdrivecount">
                         <h3>{this.props.totalTestDrives}</h3>
                     </div>
-                    <div className="total_tasks">
-                        <h4>TOTAL TASKS</h4>
+                </div>
+
+
+                <div className="col-md-4 text-center">
+                <div className="row">
+                <div className="total_tasks text-left">
+                        <h4 className="text-left">TOTAL TASKS</h4>
                         <div className="number">
                             <canvas id="total-task-canvas" width="100" height="100"></canvas>
+                            <img src="/sites/elite/Style%20Library/Elite/images/rotate.png" className="img-responsive" />
                             <h3>{this.props.totalTasks}</h3>
                         </div>
                     </div>
+                </div>
+                </div>
+                </div>
+                
+                    
+                    
                 </div>
             </div>
         }</div>);
