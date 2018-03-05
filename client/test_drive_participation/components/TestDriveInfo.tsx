@@ -23,7 +23,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
 
         return (<div className="col-md-12 detailed_box">
             <div className="row">
-                <div className="col-md-12" style={{ overflow: "auto" }}>
+                <div className="col-md-12">
 
                     <div className="col-md-12">
                         <div className="row">
@@ -61,20 +61,25 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                         </span>
                         <div className="col-md-12 earn_box">
                             <div className="row">
-                                <div className="col-md-3">
-                                    <div className="row">
-                                        <canvas id="participation-time-total-points" width="140" height="140"></canvas>
-                                        <h3>{pointsEarned}</h3>
-                                        <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
-                                    </div>
-                                </div>
-                                <div className="col-md-3">
+
+                            <div className="col-md-2 text-center">
                                     <div className="row">
                                         <canvas id="participation-time-completed-tcases" width="140" height="140"></canvas>
                                         <h3>{testCaseCompletion.toFixed(0)} %</h3>
                                         <span className="small">{testDriveInstance.numberOfTestCasesCompleted} of {testDriveInstance.testCaseIDs.length} tasks done</span>
                                     </div>
                                 </div>
+
+
+
+                                <div className="col-md-3 text-center  col-md-offset-2">
+                                    <div className="row">
+                                        <canvas id="participation-time-total-points" width="140" height="140"></canvas>
+                                        <h3>{pointsEarned}</h3>
+                                        <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
 
@@ -84,7 +89,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                         <p>{testDriveInstance.description}</p>
                     </div>
                     <div className="col-md-12">
-                        <div className="col-md-7  detailed_points profileinfo_box">
+                        <div className="col-md-10  detailed_points profileinfo_box">
                             <div className="row inforow">
                                 <div className="col-md-4">
                                     <div className="row">
@@ -92,11 +97,13 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                     </div>
                                 </div>
                                 <div className="col-md-6">
+                                <div className="row">
                                     <h5>{testDriveInstance.owner}</h5>
+                                    </div>
                                 </div>
                             </div>
                             <div className="row inforow">
-                                <div className="col-md-7">
+                                <div className="col-md-5">
                                     <div className="row">
                                         <div className="col-md-5">
                                             <div className="row">
@@ -104,41 +111,49 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                             </div>
                                         </div>
                                         <div className="col-md-6">
+                                        <div className="row">
                                             <h5>{Services.formatDate(testDriveInstance.startDate)}</h5>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-5">
                                     <div className="row">
-                                        <div className="col-md-5">
+                                        <div className="col-md-4">
                                             <div className="row">
                                                 <span className="orange">END DATE :</span>
                                             </div>
                                         </div>
-                                        <div className="col-md-7">
+                                        <div className="col-md-6">
+                                        <div className="row">
                                             <h5>{Services.formatDate(testDriveInstance.endDate)}</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="row inforow">
-                                <div className="col-md-4">
+                                <div className="col-md-3">
                                     <div className="row">
                                         <span className="orange">DIFFICULTY LEVEL :</span>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
+                                <div className="row">
                                     <h5>{testDriveInstance.levelName}</h5>
+                                 </div>
                                 </div>
                             </div>
                             <div className="row inforow">
-                                <div className="col-md-4">
+                                <div className="col-md-3">
                                     <div className="row">
                                         <span className="orange">PARTICIPAINTS :</span>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
+                                <div className="row">
                                     <h5>{testDriveInstance.participants || "0"}</h5>
+                                </div>
                                 </div>
                             </div>
                         </div>
