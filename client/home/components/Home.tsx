@@ -86,19 +86,19 @@ class Home extends React.Component<HomeProps, HomeState> {
             $("#homeMiddleText").html(data.HomePageMiddleText);
         });
 
-        // $(document).mouseup(function (e) {
-        //     var container = $(".letest_drivebox");
-        //     var container2 = $(".letest_drivebox2");
-        //     if (!container.is(e.target) && container.has(e.target).length === 0 && 
-        //         !container2.is(e.target) && container2.has(e.target).length === 0){
-        //         $(".lc_container").removeClass("lc_containerclick");
-        //         $(".letest_drivebox").removeClass("letest_driveboxclick");
-        //         $(".lc_container2").removeClass("lc_containerclick2");
-        //         $(".letest_drivebox2").removeClass("letest_driveboxclick_right");
-        //         $(".letest_drivebox").removeClass('box').hide();
-        //         $(".letest_drivebox2").removeClass('box').hide();
-        //     }
-        // });
+        $("#app").mouseup(function (e) {
+            var container = $(".letest_drivebox");
+            var container2 = $(".letest_drivebox2");
+            if (!container.is(e.target) && container.has(e.target).length === 0 && 
+                !container2.is(e.target) && container2.has(e.target).length === 0){
+                $(".lc_container").removeClass("lc_containerclick");
+                $(".letest_drivebox").removeClass("letest_driveboxclick");
+                $(".lc_container2").removeClass("lc_containerclick2");
+                $(".letest_drivebox2").removeClass("letest_driveboxclick_right");
+                $(".letest_drivebox").removeClass('box').hide();
+                $(".letest_drivebox2").removeClass('box').hide();
+            }
+        });
 
         if (user.eliteProfileID) {
             this.props.dispatch(loadEliteProfile(user.eliteProfileID));
