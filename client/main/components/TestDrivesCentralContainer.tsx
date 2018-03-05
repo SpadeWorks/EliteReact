@@ -92,9 +92,9 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
       case 'testdrivethatirun':
         return 1;
       case 'activetestdrive':
-        return 2;
-      case 'uptestdrive':
         return 3;
+      case 'uptestdrive':
+        return 2;
     }
   }
 

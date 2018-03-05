@@ -73,9 +73,9 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                                     <div className="col-md-12">
                                                         <div className="row">
                                                             <ul className={Services.getLevelNameClass(testDrive.levelNumber)}>
-                                                                <li></li>
-                                                                <li></li>
-                                                                <li></li>
+                                                                <li><span></span></li>
+                                                                <li><span></span></li>
+                                                                <li><span></span></li>
                                                             </ul>
                                                         </div>
                                                         <div className="row">

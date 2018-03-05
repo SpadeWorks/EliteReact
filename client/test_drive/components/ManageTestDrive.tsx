@@ -15,6 +15,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Popup from 'react-popup';
 import { ColumnsValues } from '../../common/services/constants';
 import { Tabs, Pane } from '../../common/components/Tabs';
+import * as $ from 'jquery';
 import {
     model,
     saveTestDrive,
@@ -87,10 +88,22 @@ class ManageTestDrive extends React.Component<AppProps> {
     }
 
     componentDidMount() {
+        var self = this;
         if (!this.props.configurationLoaded) {
             this.props.dispatch(loadConfigurations());
         }
         this.props.dispatch(loadTestDrive(this.props.id || -1));
+
+        $('.nav.nav-tabs li').click(function() {
+            var selectedIndex = $(this).attr('data-index');
+            try {
+                
+                selectedIndex = parseInt(selectedIndex)
+            } catch (err) {
+                selectedIndex = 0;
+            }
+            self.props.updateUI({ activeTab: selectedIndex });
+        });
 
         /** Prompt plugin */
         Popup.registerPlugin('prompt', function (defaultValue, placeholder, testDriveStatus) {
