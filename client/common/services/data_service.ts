@@ -1718,7 +1718,7 @@ export class Services {
                         AvatarID_id: avatarDetails.ID,
                         Elite_UserDepartment: user.department,
                         UserInfoName: user.displayName,
-                        UserInfoRole: user.role,
+                        UserRole: user.role,
                         [Constants.Columns.USER_EMAIL]: user.workEmail
                     }])
                         .then((users: any) => {
