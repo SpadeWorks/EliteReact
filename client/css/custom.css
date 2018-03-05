@@ -4229,10 +4229,6 @@ label.rdw-image-modal-upload-option-label {
     padding: 5px !important;
 }
 
-.Select-menu-outer {
-    border: 1px solid #575757 !important;
-}
-
 .rdr-MonthAndYear-button {
     min-width: 0px !important;
 }
@@ -7496,11 +7492,6 @@ span.orange.big {
             font-size:14px;
         }
         
-
-
-
-
-
 }
 
 
@@ -7910,4 +7901,17 @@ span.clsRemainingLength {
     position: relative;
     left: 0%;
     top: 138px;
+}
+
+/* fix for leader board select control */
+
+.Select-menu-outer {
+    border: 1px solid #575757 !important;
+    z-index: 100 !important;
+}
+
+a#link3 img {
+    border: 1px solid red;
+    background: black;
+    border-radius: 50%;
 }
