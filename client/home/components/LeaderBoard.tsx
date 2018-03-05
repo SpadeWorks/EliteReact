@@ -3,6 +3,7 @@ import ui from 'redux-ui';
 import { Leaders } from '../../home/model';
 import LeaderBoardUser from './LeaderBoardUser'
 import { Link } from "react-router-dom";
+import { Messages } from '../../common/services/constants';
 
 interface LeaderBoardProps {
     updateUI: (any) => any;
@@ -38,6 +39,9 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                                                             points={leaderBoard.totalPoints} userId={leaderBoard.id}></LeaderBoardUser>)
                                                     }) : ''
                                             }
+                                            {(!regionLeaders && !regionLeaders.length) ? <div>
+                                            <p>{Messages.LEADERBOARD_REGIONAL_MSG}</p>                                            
+                                            </div> : ''}
                                             {
                                                 (regionLeaders && regionLeaders.length >= 3) && <Link className="pull-right more" to={"/leaderboard/regional"}>
                                                     MORE >>
@@ -59,6 +63,9 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                                                         points={leaderBoard.totalPoints} userId={leaderBoard.id}></LeaderBoardUser>)
                                                 }) : ''
                                             }
+                                            {(!leaders && !leaders.length) ? <div>
+                                            <p>{Messages.LEADERBOARD_GLOBAL_MSG}</p>                                            
+                                            </div> : ''}
                                             {
                                                 (leaders && leaders.length >= 3) && <Link className="pull-right more" to={"/leaderboard/global"}>
                                                     MORE >>

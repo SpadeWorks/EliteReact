@@ -24,7 +24,6 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
         return (<div className="col-md-12 detailed_box">
             <div className="row">
                 <div className="col-md-12" style={{ overflow: "auto" }}>
-
                     <div className="col-md-12">
                         <div className="row">
                             {/* <div className="col-md-2">

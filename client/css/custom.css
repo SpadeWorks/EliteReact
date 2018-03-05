@@ -7880,3 +7880,7 @@ span.clsRemainingLength {
     left: 0%;
     top: 138px;
 }
+.ms-dlgLoadingTextDiv
+{
+display:none;
+}

@@ -144,20 +144,19 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
             <div className="row">
                 <Popup />
                 <div className="container header_part">
-                    <h2>
+                    <h2 className="header_prevlink">
                         <Link to={"/"}><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>{testDriveInstance.title}  </Link></h2>
+                    <h4 className="cancel-btn"><Link to={"/"}>CANCEL</Link></h4>
                 </div>
                 <div className="container-fluid testdrive-detail_first-time" style={{ overflow: "auto" }}>
                     <div className="wrapper">
                         <div className="col-md-12">
                             <div className="row">
-                                <div className="col-md-4">
-
+                                {/* <div className="col-md-4">
                                     <span className="orange">
                                         <i>DESCRIPTION :</i>
                                     </span>
-
-                                </div>
+                                </div> */}
                                 <div className="col-md-3 pull-right">
 
                                     <div className="row social_box">

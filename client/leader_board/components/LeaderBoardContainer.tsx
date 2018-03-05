@@ -46,12 +46,11 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
     return (<div className="col-md-12">
       <div className="row">
         <div className="container header_part">
-          <h2> <Link to={"/"} >
-
+          <h2 className="header_prevlink"> <Link to={"/"} >
             <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Leaderboard
                  </Link>
           </h2>
-
+          <h4 className="cancel-btn"><Link to={"/"}>CANCEL</Link></h4>
         </div>
         <div className="col-md-12">
           <div className="container big_leaderbox">

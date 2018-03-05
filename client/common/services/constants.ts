@@ -143,4 +143,6 @@ export class Messages {
     static TEST_DRIVE_APPROVED_MSG = 'There are no approved test drives.';
     static TEST_DRIVE_SAVEDDRAFT_MSG = 'Test drive saved successfully.';
     static TEST_DRIVE_SUBMIT_MSG = 'Test drive submitted successfully.';
+    static LEADERBOARD_GLOBAL_MSG = 'There are no global leaders to show here.';
+    static LEADERBOARD_REGIONAL_MSG = 'There are no regional leaders to show here.';
 }

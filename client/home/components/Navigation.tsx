@@ -18,10 +18,10 @@ class Navigation extends React.Component<NavigationProps> {
         };         
         SP.SOD.executeFunc("sp.js", "SP.ClientContext", () => {
             SP.UI.ModalDialog.showModalDialog(options);
-            let dialog = SP.UI.ModalDialog.showWaitScreenWithNoClose('Operation in progress...', 'Please wait...', 650, 600);
+            let dialog = SP.UI.ModalDialog.showWaitScreenWithNoClose('','Loading...', 650, 600);
                 setTimeout(() => {
                     dialog.close(SP.UI.DialogResult.OK);
-                }, 5000)
+                }, 6000)
         });   
              
     }
