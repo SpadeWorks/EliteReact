@@ -48,21 +48,23 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                     return location.Label == user.location;
                 });
 
-                if (ctx.props.testDriveInstance.location && !matchedLocation || !matchedLocation.length) {
+                if ((ctx.props.testDriveInstance.location && 
+                        ctx.props.testDriveInstance.location.length > 0) && (!matchedLocation || !matchedLocation.length)) {
                     message += Messages.TEST_DRIVE_LOCATION_ERROR + '\n';
                     isUserEligible = false;
                 }
                 var matchedDevices = [];
                 var matchedDevice;
 
-                if (ctx.props.testDriveInstance.requiredDevices && ctx.props.testDriveInstance.requiredDevices.length
-                         &&  !ctx.checkForElements(ctx.props.testDriveInstance.requiredDevices, user.availableDevices)) {
+                if ((ctx.props.testDriveInstance.requiredDevices && 
+                        ctx.props.testDriveInstance.requiredDevices.length > 0)
+                         &&  (!ctx.checkForElements(ctx.props.testDriveInstance.requiredDevices, user.availableDevices))) {
                     message += Messages.TEST_DRIVE_DEVICE_ERROR + '\n';
                     isUserEligible = false;
                 }
 
-                if (ctx.props.testDriveInstance.requiredOs && ctx.props.testDriveInstance.requiredOs.length
-                         && !ctx.checkForElements(ctx.props.testDriveInstance.requiredOs, user.availableOS)) {
+                if ((ctx.props.testDriveInstance.requiredOs && ctx.props.testDriveInstance.requiredOs.length > 0)
+                         && (!ctx.checkForElements(ctx.props.testDriveInstance.requiredOs, user.availableOS))) {
                     message += Messages.TEST_DRIVE_OS_ERROR + '\n';
                     isUserEligible = false;
                 }
