@@ -2218,8 +2218,8 @@ h1 {
     right: 0;
     border-top-color: transparent;
     border-left-color: transparent;
-    border-bottom-color: #00f8bc;
-    border-right-color: #00f8bc;
+    border-bottom-color: #fff;
+    border-right-color: #fff;
 }
 
 .button.type1.type1::before {
@@ -2227,8 +2227,8 @@ h1 {
     left: 0;
     border-bottom-color: transparent;
     border-right-color: transparent;
-    border-top-color: #00f8bc;
-    border-left-color: #00f8bc;
+    border-top-color: #fff;
+    border-left-color: #fff;
 }
 
 .button.type1.type1:hover:after,
@@ -3733,7 +3733,7 @@ a#link6 span {
     padding-left: 25px;
     padding-right: 18px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
 
 
@@ -3809,7 +3809,8 @@ a#link6 span {
     border-top: none !important;
     float: left;
 }
-
+.profile_box .nav>li.active>a{font-size: 14px;
+    text-transform: uppercase;}
 .profile_box .nav>li>a {
     font-size: 14px;
     text-transform: uppercase;
@@ -7526,7 +7527,7 @@ a {
 }
 
 .testDrives .nav-tabs>li>a {
-    color: #505050;
+    color: #ffffff63;
     border: none;
     font-size: 17px;
     text-transform: uppercase;
