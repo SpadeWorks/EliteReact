@@ -32,13 +32,17 @@ class Survey extends React.Component<SurveyProps> {
         $('#carousel-question-vertical').bind('mousewheel', function (e) {
             if (e.originalEvent.wheelDelta / 120 > 0) {
                 $(this).carousel('prev');
-                $('#carousel-question-vertical').carousel({
-                    interval: 3000
-                });
+                // $('#carousel-question-vertical').carousel({
+                //     interval: 3000
+                // });
             }
             else {
                 $(this).carousel('next');
             }
+        });
+
+        $('#carousel-question-vertical').carousel({
+            wrap: false
         });
 
     }

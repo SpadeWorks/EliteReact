@@ -44,7 +44,7 @@ class RideChoice extends React.Component<RideChoiceProps> {
                 <div id="typewriteText"></div>
 
                 <div className="stroller_ridebox">
-                     <img src="/sites/elite/Style%20Library/Elite/images/stroller.png" />
+                     <img src="/Style%20Library/Elite/images/stroller.png" />
                 </div>
                 <div className="col-md-12 intro_actionbox testdrive_actionbox betterride_box">
                    <div className="button type1 pull-right">

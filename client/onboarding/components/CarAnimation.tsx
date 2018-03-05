@@ -41,7 +41,7 @@ $(".ride_track img").css({ "position": "relative", "left": "690px", "transition"
                 <p className="next-text go_text">GO</p>
  <div className="red_box red-box-container">
                 <div className="ride_track">
-                                        <img src="/sites/elite/Style%20Library/Elite/images/stroller-1.png" />
+                                        <img src="/Style%20Library/Elite/images/stroller-1.png" />
                                     </div>
                                     </div>
             </div>)

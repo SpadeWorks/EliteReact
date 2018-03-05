@@ -37,7 +37,6 @@ class TestCases extends React.Component<TestCasesProps> {
         });
 
         $('#carousel-example-vertical').carousel({
-            interval: 5000,
             wrap: false
         });
 

@@ -1,6 +1,6 @@
 @font-face {
     font-family: "HemiHeadRg-BoldItalic";
-    src: url("/sites/elite/Style%20Library/Elite/fonts/hemi_head_bd_it.eot?") format("eot"), url("/sites/elite/Style%20Library/Elite/fonts/hemi_head_bd_it.woff") format("woff"), url("/sites/elite/Style%20Library/Elite/fonts/hemi_head_bd_it.ttf") format("truetype"), url("/sites/elite/Style%20Library/Elite/fonts/hemi_head_bd_it.svg#HemiHeadRg-BoldItalic") format("svg");
+    src: url("/Style%20Library/Elite/fonts/hemi_head_bd_it.eot?") format("eot"), url("/Style%20Library/Elite/fonts/hemi_head_bd_it.woff") format("woff"), url("/Style%20Library/Elite/fonts/hemi_head_bd_it.ttf") format("truetype"), url("/Style%20Library/Elite/fonts/hemi_head_bd_it.svg#HemiHeadRg-BoldItalic") format("svg");
     font-weight: normal;
     font-style: normal;
     letter-spacing: 1px;
@@ -8,13 +8,13 @@
 
 @font-face {
     font-family: titanium;
-    src: url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.ttf");
+    src: url("/Style%20Library/Elite/fonts/TitilliumWeb-Regular.ttf");
 }
 
 @font-face {
     font-family: 'Glyphicons Halflings';
-    src: url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.eot');
-    src: url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/sites/elite/Style%20Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+    src: url('/Style%20Library/Elite/fonts/glyphicons-halflings-regular.eot');
+    src: url('/Style%20Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/Style%20Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/Style%20Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/Style%20Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/Style%20Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
 body {
@@ -27,7 +27,7 @@ body.starts {
     height: 100vh;
     -webkit-transform: opacity 0.3s linear;
     transform: opacity 0.3s linear;
-    background: url('/sites/elite/Style%20Library/Elite/images/bg-stars.gif');
+    background: url('/Style%20Library/Elite/images/bg-stars.gif');
     width: 30%;
     height: auto;
     /* width: 100%; */
@@ -46,7 +46,7 @@ body.starts {
     height: 100vh;
     -webkit-transform: opacity 0.3s linear;
     transform: opacity 0.3s linear;
-    background: url('/sites/elite/Style%20Library/Elite/images/dash_back.jpg') center bottom no-repeat !important;
+    background: url('/Style%20Library/Elite/images/dash_back.jpg') center bottom no-repeat !important;
     width: 100%;
     height: auto;
     width: 100%;
@@ -3069,7 +3069,7 @@ span.select2-selection__choice__remove {
 
 /*.line_box {
 height: 200px;
-background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+background: url(/Style%20Library/Elite/images/line.png) no-repeat;
 width: 100%;
 background-size: contain;
 margin-top: -90px;
@@ -3389,12 +3389,12 @@ span.l_count {
 
 
 /*.therm.outer-therm.vertical {
-background: url(/sites/elite/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
+background: url(/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
 border-radius: 0;
 }
 
 .therm.inner-therm.vertical {
-background: url(/sites/elite/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
+background: url(/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
 border-radius: 0;
 width: 28px !important;
 }*/
@@ -3411,7 +3411,7 @@ width: 28px !important;
 #outer {
     height: 100px;
     width: 100px;
-    background: url('/sites/elite/Style%20Library/Elite/images/dash-loader-out.png');
+    background: url('/Style%20Library/Elite/images/dash-loader-out.png');
     -webkit-animation: rotation 30s infinite;
     animation-play-state: running;
 }
@@ -4083,19 +4083,19 @@ ul.task_circle li p.inactive_task {
 
 .line_box {
     height: 200px;
-    background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+    background: url(/Style%20Library/Elite/images/line.png) no-repeat;
     width: 100%;
     background-size: contain;
     margin-top: -90px;
 }
 
 .therm.outer-therm.vertical {
-    background: url(/sites/elite/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
+    background: url(/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
     border-radius: 0;
 }
 
 .therm.inner-therm.vertical {
-    background: url(/sites/elite/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
+    background: url(/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
     border-radius: 0;
     width: 28px !important;
 }
@@ -4404,28 +4404,28 @@ div#s4-ribbonrow {
 }
 
 span.teams {
-    background: url("/sites/elite/Style%20Library/Elite/images/teams1.png") no-repeat;
+    background: url("/Style%20Library/Elite/images/teams1.png") no-repeat;
     height: 23px;
     width: 23px;
     float: left;
 }
 
 span.teams:hover {
-    background: url("/sites/elite/Style%20Library/Elite/images/teams2.png") no-repeat;
+    background: url("/Style%20Library/Elite/images/teams2.png") no-repeat;
     height: 23px;
     width: 23px;
     float: left;
 }
 
 span.report {
-    background: url("/sites/elite/Style%20Library/Elite/images/bug.png") no-repeat;
+    background: url("/Style%20Library/Elite/images/bug.png") no-repeat;
     height: 23px;
     width: 23px;
     float: left;
 }
 
 span.report:hover {
-    background: url("/sites/elite/Style%20Library/Elite/images/bug2.png") no-repeat;
+    background: url("/Style%20Library/Elite/images/bug2.png") no-repeat;
     height: 23px;
     width: 23px;
     float: left;
@@ -4790,14 +4790,14 @@ ul.task_circle li p.inactive_task {
 }
 
 span.teams {
-    background: url(/sites/elite/Style%20Library/Elite/images/teams1.png) no-repeat;
+    background: url(/Style%20Library/Elite/images/teams1.png) no-repeat;
     height: 23px;
     width: 23px;
     float: left;
 }
 
 span.teams:hover {
-    background: url(/sites/elite/Style%20Library/Elite/images/teams2.png) no-repeat;
+    background: url(/Style%20Library/Elite/images/teams2.png) no-repeat;
     height: 23px;
     width: 23px;
     float: left;
@@ -5924,6 +5924,7 @@ h1.testcase_name {
     font-family: titanium;
 }
 
+
 /*.testcase_box .inputMaterial:valid~label {
     top: -6px;
     font-size: 18px;
@@ -6296,13 +6297,13 @@ button {
 }
 
 .therm .inner-therm {
-    background: url(/sites/elite/Style%20Library/Elite/images/guage_2.png) no-repeat !important;
+    background: url(/Style%20Library/Elite/images/guage_2.png) no-repeat !important;
 }
 
 .before_fill {
     height: 50px;
     width: 100%;
-    background: url(/sites/elite/Style%20Library/Elite/images/guage_1.png) no-repeat !important;
+    background: url(/Style%20Library/Elite/images/guage_1.png) no-repeat !important;
     margin-left: 40px;
 }
 
@@ -7008,7 +7009,7 @@ p.next-text.go_text {
     border-bottom: solid;
     margin-top: 200px;
     margin-left: 73px;
-    background: url(http://intranet.spdev.equinix.com/sites/elite/Style%20Library/Elite/images/track.png) no-repeat;
+    background: url(http://intranet.spdev.equinix.com/Style%20Library/Elite/images/track.png) no-repeat;
     border: none;
 }
 
@@ -7131,7 +7132,7 @@ span.orange.big {
         height: 100vh;
         -webkit-transform: opacity 0.3s linear;
         transform: opacity 0.3s linear;
-        background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') bottom center no-repeat !important;
+        background: url('/Style%20Library/Elite/images/dash_back_big.jpg') bottom center no-repeat !important;
         width: 100%;
         height: auto;
         width: 100%;
@@ -7207,7 +7208,7 @@ span.orange.big {
         width: 86%;
     }
     .line_box {
-        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+        background: url(/Style%20Library/Elite/images/line.png) no-repeat;
         width: 100%;
         background-size: 100% 190px;
         margin-top: -135px;
@@ -7523,10 +7524,15 @@ span.orange.big {
         float: left;
         background: #333;
     }
-
-    .detailed_box .para{height:auto !important;}
-
-    .detailed_box .profileinfo_box{margin-top:5px ! important;}
+    .detailed_box .para {
+        height: auto !important;
+    }
+    .detailed_box .profileinfo_box {
+        margin-top: 5px ! important;
+    }
+    .public-DraftStyleDefault-ltr span {
+        font-family: titanium !important;
+    }
 }
 
 span.s4-clust {

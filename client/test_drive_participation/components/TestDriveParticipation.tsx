@@ -33,18 +33,6 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
         super(props, context);
     }
     componentDidMount() {
-        $('#carousel-example-vertical').bind('mousewheel', function (e) {
-            if (e.originalEvent.wheelDelta / 120 > 0) {
-                $(this).carousel('prev');
-                $('#carousel-example-vertical').carousel({
-                    interval: 3000
-                });
-            }
-            else {
-                $(this).carousel('next');
-            }
-        });
-
         $(document).mouseup(function (e) {
             var container = $(".write_testdrivebox");
             if (!container.is(e.target) && container.has(e.target).length === 0){
