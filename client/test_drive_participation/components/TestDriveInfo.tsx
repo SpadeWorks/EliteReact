@@ -27,13 +27,11 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
 
                     <div className="col-md-12">
                         <div className="row">
-                            <div className="col-md-2">
-
+                            {/* <div className="col-md-2">
                                 <span className="orange">
                                     <i>DESCRIPTION :</i>
                                 </span>
-
-                            </div>
+                            </div> */}
                             <div className="col-md-4 pull-right">
                                 <div className="col-md-12 social_box">
                                     <div className="row">

@@ -15,20 +15,21 @@ class Navigation extends React.Component<NavigationProps> {
             title: 'Refer friends, earn points',
             width: 600,
             height: 600,
-        };
+        };         
         SP.SOD.executeFunc("sp.js", "SP.ClientContext", () => {
             SP.UI.ModalDialog.showModalDialog(options);
-        });
-        // let dialog = SP.UI.ModalDialog.showWaitScreenWithNoClose('Operation in progress...', 'Please wait...', 350, 550);
-        // setTimeout(() => {
-        //     dialog.close(SP.UI.DialogResult.OK);
-        // }, 4000)
+            let dialog = SP.UI.ModalDialog.showWaitScreenWithNoClose('Operation in progress...', 'Please wait...', 650, 600);
+                setTimeout(() => {
+                    dialog.close(SP.UI.DialogResult.OK);
+                }, 5000)
+        });   
+             
     }
     render() {
         return (<div className="col-md-8 location_box">
             <div className="map_container">
                 <object>
-                    <img src="/sites/elite/Style%20Library/Elite/images/track.svg" className="map_image"/>
+                    <img src="/sites/elite/Style%20Library/Elite/images/track.svg" className="map_image" />
                     <Link className="maplinks" to={"/testdrives"} id="link1">
                         <img src="/sites/elite/Style%20Library/Elite/images/testdrivecenter.png" />
                         <span>test drives central</span>
@@ -52,8 +53,8 @@ class Navigation extends React.Component<NavigationProps> {
                         <span>Leaderboard</span>
                     </Link>
                     <a data-toggle="modal" data-target="#exampleModal" id="link6" className="maplinks">
-                    <img src="/sites/elite/Style%20Library/Elite/images/video.png" />
-                    <span>Video</span></a>
+                        <img src="/sites/elite/Style%20Library/Elite/images/video.png" />
+                        <span>Video</span></a>
                 </object>
             </div>
         </div>)

@@ -126,7 +126,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                 </span> {(!this.props.id && this.props.id != -1) ? "My Profile" : "Profile"}
                                  </Link>
                             </h2>
-                            <h4 className="cancel-btn"><Link to={"/"}>Cancel</Link></h4>
+                            <h4 className="cancel-btn"><Link to={"/"}>CANCEL</Link></h4>
                         </div>
                         <div className="col-md-12" style={{ overflow: "auto" }}>
                             <div className="wrapper">

@@ -140,7 +140,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
               <span className="glyphicon glyphicon-menu-left" aria-hidden="true">
               </span> Test Drives</Link>
             </h2>
-            <h4 className="cancel-btn"><Link to={"/"}>Cancel</Link></h4>
+            <h4 className="cancel-btn"><Link to={"/"}>CANCEL</Link></h4>
           </div>
 
           <div className="clearBoth"></div>
