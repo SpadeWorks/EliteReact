@@ -21,6 +21,7 @@
     src: url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/sites/elite/Style%20Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
+
 body {
     font-family: HemiHeadRg-BoldItalic !important;
 }
@@ -2963,6 +2964,8 @@ ul.select2-selection__rendered {
     list-style-type: none;
     padding-left: 0px;
     margin: 0 0 0 15px;
+    padding-left:0px;
+    margin-left:0px; 
 }
 
 span.select2-container.select2-container--default.select2-container--open {
@@ -3463,6 +3466,7 @@ width: 28px !important;
     border-left: solid 2px #fff;
     opacity: 0;
     margin-top: -41px;
+    position:relative;
 }
 
 .white_circle2 {
@@ -3489,7 +3493,7 @@ width: 28px !important;
     float: left;
     transition: all 0.5s;
     z-index: 102;
-    border: solid 1px#fff;
+    border: solid 1px #fff;
     /*display: none;*/
 }
 
@@ -3588,7 +3592,7 @@ width: 28px !important;
     top: -300px;
     width: 400px;
     z-index: 102;
-    border: solid 1px#fff;
+    border: solid 1px #fff;
     /* display: none; */
     float: left;
 }
@@ -3870,10 +3874,13 @@ a#link6 span {
     z-index: 99;
 }
 
-.leader_namenphoto,
+
 .leader_car {
-    float: left;
-    -webkit-transform: skewX(20deg) !important;
+
+}
+
+.leader_namenphoto{ float: left;
+    -webkit-transform: skewX(21deg) !important;
     color: white;
     box-sizing: border-box;
     -moz-transform: skewX(45deg);
@@ -3883,8 +3890,7 @@ a#link6 span {
     left: 0px;
     /* padding-left: 13px; */
     padding-top: 5px;
-    padding-left: 50px;
-}
+    padding-left: 50px;}
 
 .leader_namenphoto img {
     float: left;
@@ -4315,11 +4321,15 @@ div#s4-ribbonrow {
 
 .cancel-btn a {
     color: white !important;
+    font-size: 11px;
+    letter-spacing: 1px;
+
 }
 
 .cancel-btn a:hover {
     color: white !important;
-    text-decoration: none !important;
+    font-size: 11px;
+    letter-spacing: 1px;
 }
 
 .page-heading {
@@ -4632,6 +4642,24 @@ span.increase_or_decreased {
     /* padding-left: 13px; */
     padding-top: 5px;
 }
+
+.leader_namenphoto,
+.leader_car {
+    float: left;
+    -webkit-transform: skewX(21deg) !important;
+    color: white;
+    box-sizing: border-box;
+    -moz-transform: skewX(45deg);
+    -ms-transform: skewX(45deg);
+    -webkit-transform: skewX(45deg);
+    /* transform: skewX(45deg); */
+    left: 0px;
+    /* padding-left: 13px; */
+    padding-top: 5px;
+}
+
+
+
 
 .leader_namenphoto img {
     float: left;
@@ -5272,6 +5300,7 @@ h1#dialogTitleSpan {
     float: left;
     width: 100%;
     margin-top: 15px;
+
 }
 
 .para {
