@@ -18,6 +18,7 @@ class MyProfileLeftContainer extends React.Component<MyProfileLeftContainerProps
                         <span className="orange">Role :</span>
                     </div>
                     <div className="col-md-6">
+                    
                         <h5>{eliteProfile.role}</h5>
                     </div>
                 </div>
@@ -26,7 +27,9 @@ class MyProfileLeftContainer extends React.Component<MyProfileLeftContainerProps
                         <span className="orange">Region :</span>
                     </div>
                     <div className="col-md-6">
+                    <div className="row">
                         <h5>{eliteProfile.region}</h5>
+                        </div>
                     </div>
                 </div>
                 <div className="row inforow">
@@ -34,7 +37,9 @@ class MyProfileLeftContainer extends React.Component<MyProfileLeftContainerProps
                         <span className="orange">Location :</span>
                     </div>
                     <div className="col-md-6">
+                    <div className="row">
                         <h5>{eliteProfile.location}</h5>
+                        </div>
                     </div>
                 </div>
                 <div className="row inforow">
@@ -42,7 +47,9 @@ class MyProfileLeftContainer extends React.Component<MyProfileLeftContainerProps
                         <span className="orange">Joined Date :</span>
                     </div>
                     <div className="col-md-6">
+                    <div className="row">
                         <h5>{eliteProfile.dateJoined}</h5>
+                    </div>
                     </div>
                 </div>
             </div>
