@@ -179,7 +179,7 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                                 <span className="bar"></span>
                                 <label>Role</label>
                             </div>
-                            <div className="col-md-4 register_input">
+                            <div className="col-md-6 register_input">
                                 <input className="inputMaterial"
                                     id="userLoaction"
                                     name="userLoaction"
@@ -192,7 +192,7 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                                 <span className="bar"></span>
                                 <label>Location</label>
                             </div>
-                            <div className="col-md-4 register_input">
+                            <div className="col-md-6 register_input">
                                 <input className="inputMaterial"
                                     id="joinedDate"
                                     name="joinedDate"

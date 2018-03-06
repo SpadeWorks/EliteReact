@@ -19,6 +19,7 @@ class MyProfileRightContainer extends React.Component<MyProfileRightContainerPro
                         <span className="orange">Devices :</span>
                     </div>
                     <div className="col-md-8">
+                    <div className="row">
                         <ul className="select2-selection__rendered">
                             {
                                 eliteProfile.availableDevices && eliteProfile.availableDevices.map((devices:any, index) => {
@@ -27,6 +28,7 @@ class MyProfileRightContainer extends React.Component<MyProfileRightContainerPro
                                     </li>)
                                 })}
                         </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -36,6 +38,8 @@ class MyProfileRightContainer extends React.Component<MyProfileRightContainerPro
                         <span className="orange">os :</span>
                     </div>
                     <div className="col-md-8">
+                    <div className="row">
+
                         <ul className="select2-selection__rendered">
                         {
                             eliteProfile.availableOS && eliteProfile.availableOS.map((OS:any, index) => {
@@ -44,6 +48,7 @@ class MyProfileRightContainer extends React.Component<MyProfileRightContainerPro
                                 </li>)
                             })}
                         </ul>
+                    </div>
                     </div>
                 </div>
                 
