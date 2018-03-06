@@ -8,7 +8,11 @@
 
 @font-face {
     font-family: titanium;
-    src: url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.ttf");
+    src: url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.ttf"),
+    url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.eot") format("eot"),
+    url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.woff") format("woff"),
+    url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.svg") format("svg");
+
 }
 
 @font-face {
