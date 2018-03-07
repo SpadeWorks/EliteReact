@@ -315,24 +315,6 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                     </div>
                     <div className="col-md-6 register_input">
                         <div className="form-group">
-                            <input className="form-control inputMaterial date_box"
-                                id="maxPoints"
-                                name="maxPoints"
-                                placeholder="Max Points"
-                                type="text"
-                                value={testDrive.maxPoints.toString() || '0'}
-                                readOnly
-                                disabled
-                            />
-                            <label className="disc_lable">Points Awarded</label>
-                            <span className="help-text">
-                                {fieldDescriptions && fieldDescriptions.TotalPoints}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div className="col-md-6 register_input">
-                        <div className="form-group">
                             <div data-validations={[required]} className="custom-select" id={"test-drive-type-" + testDrive.id}>
                                 <Select
                                     onBlurResetsInput={false}
@@ -351,8 +333,27 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             <span className="help-text">
                                 {fieldDescriptions && fieldDescriptions.TotalPoints}
                             </span>
+                        </div> 
+                    </div>
+                    <div className="col-md-6 register_input">
+                        <div className="form-group">
+                            <input className="form-control inputMaterial date_box"
+                                id="maxPoints"
+                                name="maxPoints"
+                                placeholder="Max Points"
+                                type="text"
+                                value={testDrive.maxPoints.toString() || '0'}
+                                readOnly
+                                disabled
+                            />
+                            <label className="disc_lable">Points awarded</label>
+                            <span className="help-text">
+                                {fieldDescriptions && fieldDescriptions.TotalPoints}
+                            </span>
                         </div>
                     </div>
+
+                    
                     <div className="col-md-12 register_input textarea-custom">
                         <textarea className="inputMaterial"
                             name="expectedBusinessValue"

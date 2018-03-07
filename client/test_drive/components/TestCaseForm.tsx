@@ -300,7 +300,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                             }}
                                         />
                                     }
-                                    <label className="disc_lable">Test Case Expected outcome</label>
+                                    <label className="disc_lable">Test case expected outcome</label>
                                     <span className="help-text">
                                         {fieldDescriptions && fieldDescriptions[Constants.Columns.TEST_CASE_OUTCOME]}
                                     </span>
