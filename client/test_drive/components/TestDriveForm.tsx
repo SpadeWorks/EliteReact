@@ -38,7 +38,8 @@ interface TestDriveFormState {
         startDate: null,
         endDate: null,
         rangePicker: null,
-        showDatePicker: false
+        showStartDatePicker: false,
+        showEndDatePicker: false
     }
 })
 class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormState> {
@@ -48,11 +49,25 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         this.selectControlChange = this.selectControlChange.bind(this);
         this.onSwitchTab = this.onSwitchTab.bind(this);
         this.saveValidate = this.saveValidate.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     onChange = (e) => {
         this.props.onChange(e, this.props.testDrive);
         validateControl(e.target.id, e.target.value);
+    }
+
+    handleChange(which, payload) {
+        console.log("date picker", which, payload);
+        this.props.testDrive[which] = payload.toISOString();
+        var e = {
+            target: {
+                value: payload.toISOString(),
+                name: which
+            }
+        };
+
+        this.onChange(e);
     }
 
     selectControlChange = (value, id, name) => {
@@ -124,16 +139,6 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         })
     }
 
-    handleChange(which, payload) {
-        this.props.updateDates({
-            startDate: payload['startDate'].toISOString(),
-            endDate: payload['endDate'].toISOString()
-        })
-        this.props.updateUI({
-            [which]: payload
-        });
-    }
-
     onSwitchTab(direction) {
         var isFormValid = validateForm("test-drive-form" + this.props.testDrive.id);
         if (isFormValid) {
@@ -153,10 +158,28 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     componentDidMount() {
         document.body.className = "black-bg";
         $(document).mouseup((e) => {
-            var container = $(".date_box");
+            var startDateContainer = $(".startDate .rdr-Calendar");
+
             // if the target of the click isn't the container nor a descendant of the container
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                this.props.updateUI({ showDatePicker: false });
+            if ($("#endDate").is(e.target)) {
+                this.props.updateUI({ showEndDatePicker: true });
+            }
+
+            if ($("#startDate").is(e.target)) {
+                this.props.updateUI({ showStartDatePicker: true });
+            }
+
+
+            // if the target of the click isn't the container nor a descendant of the container
+            if (!$("#startDate").is(e.target) && !startDateContainer.is(e.target) && startDateContainer.has(e.target).length === 0) {
+                this.props.updateUI({ showStartDatePicker: false });
+            }
+
+            var endDateContainer = $(".endDate .rdr-Calendar");
+
+
+            if (!$("#endDate").is(e.target) && !endDateContainer.is(e.target) && endDateContainer.has(e.target).length === 0) {
+                this.props.updateUI({ showEndDatePicker: false });
             }
 
             /* for car*/
@@ -201,9 +224,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             <span className="help-text">
                                 {fieldDescriptions && fieldDescriptions.TestDriveName}
                             </span>
-                            <span className="clsRemainingLength">Remaining: { maxLimit - testDrive.title.length}</span>
+                            <span className="clsRemainingLength">Remaining: {maxLimit - testDrive.title.length}</span>
                         </div>
-                        
+
                     </div>
                     <div className="col-md-12 register_input textarea-custom">
                         <div className="group">
@@ -232,13 +255,23 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                     placeholder="Start Date"
                                     type="text"
                                     value={Service.formatDate(testDrive.startDate) || ''}
-                                    onFocus={() => { updateUI({ showDatePicker: true }) }}
+                                    // onFocus={() => { updateUI({ showStartDatePicker: true }) }}
                                     readOnly
+                                    
                                 />
                                 <label className="disc_lable">Start date*</label>
                                 <span className="help-text">
                                     {fieldDescriptions && fieldDescriptions.TestDriveStartDate}
                                 </span>
+                            </div>
+                            <div className={"startDate " + (ui.showStartDatePicker ? "show-tab" : "hide-tab")}>
+                                <Calendar
+                                    minDate={now => { return now.add(0, 'days') }}
+                                    // date={now => { return now.add(0, 'days') }}
+                                    onInit={this.handleChange.bind(this, 'startDate')}
+                                    onChange={this.handleChange.bind(this, 'startDate')}
+                                    onFocus={() => { updateUI({ showDatePicker: true }) }}
+                                />
                             </div>
                         </div>
                     </div>
@@ -251,7 +284,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 placeholder="End Date"
                                 type="text"
                                 value={Service.formatDate(testDrive.endDate) || ''}
-                                onFocus={() => { updateUI({ showDatePicker: true }) }}
+                                // onFocus={() => { updateUI({ showEndDatePicker: true }) }}
                                 readOnly
                             />
                             <label className="disc_lable">End date*</label>
@@ -259,18 +292,16 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 {fieldDescriptions && fieldDescriptions.TestDriveEndDate}
                             </span>
                         </div>
-                    </div>
-                    {/*className={ui.showDatePicker ? "show-tab" : "hide-tab"}*/}
-                    <div id="calandeDiv">
-                        <div className={"register_input date-picker date_box " + (ui.showDatePicker ? "show-tab" : "hide-tab")}>
-                            <DateRange
-                                onChange={this.handleChange.bind(this, 'rangePicker')}
-                                minDate={Service.formatDate("today")}
+                        <div className={"endDate " + (ui.showEndDatePicker ? "show-tab" : "hide-tab")}>
+                            <Calendar
+                                // date={now => { return now.add(1, 'days') }}
+                                minDate={now => { return now.add(1, 'days') }}
+                                onInit={this.handleChange.bind(this, 'endDate')}
+                                onChange={this.handleChange.bind(this, 'endDate')}
                                 onFocus={() => { updateUI({ showDatePicker: true }) }}
                             />
                         </div>
                     </div>
-
                     <div className="col-md-6 register_input">
                         <div className="form-group">
                             <input className="form-control inputMaterial date_box"
@@ -311,8 +342,6 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             </span>
                         </div>
                     </div>
-
-
                     <div className="col-md-12 register_input textarea-custom">
                         <textarea className="inputMaterial"
                             name="expectedBusinessValue"
@@ -353,7 +382,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 loadOptions={this.getLocations}
                                 type="select-multiple"
                                 name="location"
-                                //data-validations={[required]}
+                            //data-validations={[required]}
                             />
                         </div>
                         <label className="disc_lable">Eligible drive location</label>
