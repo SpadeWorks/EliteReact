@@ -63,7 +63,8 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
         this.props.approveTestDrive(id);
         window.location.href = window.location.href;
     }
-    render() {
+
+    initialize(){
         const {
             ui, updateUI,
             approvedTestDrives,
@@ -89,7 +90,21 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
             this.getVisibleItems(currentPage, this.props.testDrivesWaitingForApproval, 'pendingItems', 'pendingItemCurrent');
         }
 
+    }
+    render() {
+        const {
+            ui, updateUI,
+            approvedTestDrives,
+            approvedTestDrivesLoading,
+            testDrivesWaitingForApproval,
+            testDrivesWaitingForApprovalLoading,
+            approveTestDrive,
+            saveTestDriveApprovalLoading
+        } = this.props;
+
+        
         const loading = testDrivesWaitingForApprovalLoading || saveTestDriveApprovalLoading;
+        this.initialize()
         return (
             <div>
                 {ui.isCreaseTestDriveVisible ? <div className="centralbox_button">

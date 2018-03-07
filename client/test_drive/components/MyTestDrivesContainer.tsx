@@ -55,10 +55,6 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
         });
     }
 
-    componentWillUpdate() {
-        this.initialize();
-    }
-
     initialize() {
         const { myCompletedTestDrives, myCompletedTestDrivesLoading, myInprogressTestDrives,
             myInprogressTestDrivesLoading, ui, updateUI,
@@ -84,6 +80,8 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
         const { myCompletedTestDrives, myCompletedTestDrivesLoading, myInprogressTestDrives,
             myInprogressTestDrivesLoading, ui, updateUI,
             loadMyInprogressTestDrives, loadMyCompletedTestDrives } = this.props;
+
+            this.initialize();
         return (
             <div>
                 {ui.isCreaseTestDriveVisible ? <div className="centralbox_button">

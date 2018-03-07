@@ -47,11 +47,6 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
         });
     }
 
-    
-    componentWillUpdate(){
-        this.initialize();
-    }
-
     initialize(){
         const { upCommingTestDrives, upCommingTestDrivesLoading, ui, updateUI } = this.props;
         if (!upCommingTestDrivesLoading && upCommingTestDrives && upCommingTestDrives.length && !ui.visibleItems.length) {
@@ -68,6 +63,8 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
 
     render() {
         const { upCommingTestDrives, upCommingTestDrivesLoading, ui, updateUI } = this.props;
+        this.initialize();
+
         return (<div>
             {ui.isCreaseTestDriveVisible ? <div className="centralbox_button row">
                 <div className="button type1 nextBtn btn-lg pull-right animated_button">

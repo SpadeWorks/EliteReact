@@ -3535,7 +3535,7 @@ width: 28px !important;
     background: #000;
 }
 
-@-webkit-keyframes rotation {
+@-webkit-keyframes rotation  {
     from {
         -webkit-transform: rotate(-359deg);
     }
@@ -4132,7 +4132,7 @@ ul.task_circle li p.inactive_task {
 }
 
 .therm.inner-therm.vertical {
-    background: url(/sites/elite/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left;
+    background: url(/sites/elite/Style%20Library/Elite/images/red-graph.png) no-repeat bottom left !important;
     border-radius: 0;
     width: 28px !important;
 }
@@ -7578,6 +7578,15 @@ span.orange.big {
     .public-DraftStyleDefault-ltr span {
         font-family: titanium !important;
     }
+
+
+    .col-md-12.text-center.create_new {
+        position: relative;
+        top: 90px;
+    }
+
+
+
 }
 
 span.s4-clust {
