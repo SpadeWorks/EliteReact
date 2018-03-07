@@ -3538,7 +3538,7 @@ width: 28px !important;
         -webkit-transform: rotate(359deg);
     }
 }
-@keyframes rotation  {
+@-ms-keyframes rotation  {
     from {
         transform: rotate(-359deg);
     }
