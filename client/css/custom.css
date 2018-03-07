@@ -7746,7 +7746,7 @@ h1.title:before {
     margin: 0;
     line-height: 32px;
     height: 32px;
-    border: 1px solid #666 !important;
+    
     text-align: center;
     display: inline-block;
     font-size: 12px;
