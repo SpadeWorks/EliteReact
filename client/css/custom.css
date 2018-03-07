@@ -5150,9 +5150,11 @@ li.active-thumbnail {
     margin-top: -10px;
 }
 
-.avatar_box .item {
+
+/* Removed to fixes avatar carousel issue. */
+/* .avatar_box .item {
     padding-left: 60px;
-}
+} */
 
 .avatar_box span.orange {
     margin-bottom: 50px;
