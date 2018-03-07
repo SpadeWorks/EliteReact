@@ -153,4 +153,5 @@ export class Messages {
     static REPORT_BUG_TITLE = 'Report a Bug';
     static SEND_EMAIL_TITLE = 'Send an email to TEST drive owner';
     static SHARE_TITLE = 'Share';
+    static START_GREATOR_ERROR = 'Start date can not be greator than end date';
 }
