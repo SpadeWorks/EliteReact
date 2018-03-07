@@ -80,7 +80,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
         const { myCompletedTestDrives, myCompletedTestDrivesLoading, myInprogressTestDrives,
             myInprogressTestDrivesLoading, ui, updateUI,
             loadMyInprogressTestDrives, loadMyCompletedTestDrives } = this.props;
-
+            const loading = myCompletedTestDrivesLoading && myInprogressTestDrivesLoading;
             this.initialize();
         return (
             <div>
@@ -105,7 +105,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                                 index={index}
                                                 isCompleted={false}
                                             />)
-                                        }) : (!myInprogressTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_INPROGRESS_MSG}</div>)
+                                        }) : (!loading && <div className="no-data-message">{Messages.TEST_DRIVE_INPROGRESS_MSG}</div>)
                                 }
                                 {
                                     (!myInprogressTestDrivesLoading && ui.inprogressItems && ui.inprogressItems.length > 0) ?
@@ -140,7 +140,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                                 index={index}
                                                 isCompleted={true}
                                             />)
-                                        }) : (!myCompletedTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_COMPLETED_MSG}</div>)
+                                        }) : (!loading && <div className="no-data-message">{Messages.TEST_DRIVE_COMPLETED_MSG}</div>)
                                 } </div>
                                 {
                                     (!myCompletedTestDrivesLoading && ui.completedItems && ui.completedItems.length > 0) ?
@@ -154,7 +154,6 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                                 onPageChanged={(newPage) => this.getVisibleItems(newPage, myCompletedTestDrives, 'completedItems', 'completedItemCurrent')}
                                             />
                                         </div> : ''
-
                                 }
                             </Loader>
                         </div>

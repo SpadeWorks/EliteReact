@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from "react-router-dom";
 import Service from '../../common/services/services';
 import { TestDrive } from '../../home/model';
-import { Globals } from '../../common/services/constants';
+import { Globals, Messages } from '../../common/services/constants';
 import * as $ from 'jquery';
 import Services from '../../common/services/services';
 interface TestDriveHoverPanelProps {
@@ -27,17 +27,17 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
             <div className="col-md-12 social_box">
                 <div className="row">
                     <a href="javascript:void(0);"
-                        onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)} title="Report a Bug">
+                        onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)} title={Messages.REPORT_BUG_TITLE}>
                         <span className="report"></span>
                     </a>
                     <a href="javascript:void(0);"
-                        onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)} title="Send an email to TEST drive owner">
+                        onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)} title={Messages.SEND_EMAIL_TITLE}>
                         <i className="material-icons">email</i>
                     </a>
                     {/* <a href="#">
                         <span className="teams"></span>
                     </a> */}
-                    <a href="javascript:void(0);"
+                    <a href="javascript:void(0);" title={Messages.SHARE_TITLE}
                         onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
                         <i className="material-icons">share</i>
                     </a>
@@ -71,7 +71,10 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                                     return (<li key={index} className="select2-selection__choice" title="iwatch">
                                                         {device.Label}
                                                     </li>)
-                                                })
+                                                })                                                
+                                            }
+                                            {
+                                                (!testDrive.requiredDevices || testDrive.requiredDevices.length == 0) && <p>{Messages.ALL_DEVICES_MSG}</p>
                                             }
                                         </ul>
                                     </div>
@@ -90,6 +93,9 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                                                 {os.Label}
                                                             </li>)
                                                         })
+                                                    }
+                                                    {
+                                                        (!testDrive.requiredOs || testDrive.requiredOs.length == 0) && <p>{Messages.ALL_OS_MSG}</p>
                                                     }
                                                 </ul>
                                             </div>
@@ -140,9 +146,9 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                 </div>
                 <div className="col-md-12 popup_buttonbox">
                     {
-                        checkPortion != Globals.UPCOMMING_Test_Drive ? <Link className="button type1"
+                         <Link className="button type1"
                             to={(checkPortion == Globals.TEST_DRIVE_THAT_I_RUN ? "/testdrive/" : "/participation/")
-                                + testDrive.id}> {isActive ? 'Drive Through' : 'View Details'} </Link> : ''
+                                + testDrive.id}> {isActive ? 'Drive Through' : 'View Details'} </Link>
                     }
                 </div>
             </div>
