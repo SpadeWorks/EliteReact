@@ -4021,7 +4021,7 @@ a.status_fail {
 
 .overview {
     margin-top: 0px;
-    padding-bottom: 30px;
+    
     padding-top: 30px;
     background: #1f1f28;
 }
@@ -4899,9 +4899,9 @@ span.teams:hover {
 /*video box styles starts here*/
 
 .modal-dialog.video_box {
-    position: absolute;
+    position: relative;
     top: 20%;
-    left: 20%;
+    
 }
 
 .modal-dialog {
@@ -5374,6 +5374,7 @@ a.status_fail:hover {
 
 .comment_box {
     margin-top: 55px;
+    margin-left:5px;
 }
 
 .common_box .inputMaterial {
@@ -5466,6 +5467,7 @@ ul.task_circle li p.inactive_task {
     width: auto;
     padding-right: 50px;
     transition: 0.6s ease-in-out top;
+    min-height: 617px;
 }
 
 @media all and (transform-3d),
@@ -5488,6 +5490,7 @@ ul.task_circle li p.inactive_task {
     .carousel.vertical .carousel-inner>.item.active {
         transform: translate3d(0, 0, 0);
         top: 0;
+        min-height:617px;
     }
 }
 

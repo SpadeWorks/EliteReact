@@ -356,7 +356,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
 
                         <div className="col-md-12 participation_actionbox">
                             <div className="button type1 nextBtn btn-lg pull-left animated_button">
-                                <input onClick={this.participate} type="button" value="Go For Drive" />
+                                <input onClick={this.participate} type="button" value="Go for a drive" />
                             </div>
                             <button id="participationButton" style={{ display: 'none' }} type="participationError" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
                         </div>
