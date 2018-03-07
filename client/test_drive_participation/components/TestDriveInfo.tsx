@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { TestDriveInstance } from '../model';
 import Services from '../../common/services/services';
+import { Messages } from '../../common/services/constants';
 interface TestDriveInfoProps {
     testDriveInstance: TestDriveInstance;
 };
@@ -34,18 +35,18 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                             <div className="col-md-4 pull-right">
                                 <div className="col-md-12 social_box">
                                     <div className="row">
-                                        <a href="javascript:void(0);"
+                                        <a href="javascript:void(0);"  title={Messages.REPORT_BUG_TITLE}
                                             onClick={() => Services.reportAbug(testDriveInstance.ownerEmail, testDriveInstance.title)}>
                                             <span className="report"></span>
                                         </a>
-                                        <a href="javascript:void(0);"
+                                        <a href="javascript:void(0);" title={Messages.SEND_EMAIL_TITLE}
                                             onClick={() => Services.emailOwner(testDriveInstance.ownerEmail, testDriveInstance.title)}>
                                             <i className="material-icons">email</i>
                                         </a>
                                         {/* <a href="#">
                                             <span className="teams"></span>
                                         </a> */}
-                                        <a href="javascript:void(0);"
+                                        <a href="javascript:void(0);" title={Messages.SHARE_TITLE}
                                             onClick={() => Services.shareTestDrive(testDriveInstance.ownerEmail, testDriveInstance.title)}>
                                             <i className="material-icons">share</i>
                                         </a>
@@ -61,7 +62,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                         <div className="col-md-12 earn_box">
                             <div className="row">
 
-                            <div className="col-md-2 text-center">
+                                <div className="col-md-2 text-center">
                                     <div className="row">
                                         <canvas id="participation-time-completed-tcases" width="140" height="140"></canvas>
                                         <h3>{testCaseCompletion.toFixed(0)} %</h3>
@@ -78,7 +79,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                         <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -96,8 +97,8 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                     </div>
                                 </div>
                                 <div className="col-md-6">
-                                <div className="row">
-                                    <h5>{testDriveInstance.owner}</h5>
+                                    <div className="row">
+                                        <h5>{testDriveInstance.owner}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -110,9 +111,9 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                             </div>
                                         </div>
                                         <div className="col-md-6">
-                                        <div className="row">
-                                            <h5>{Services.formatDate(testDriveInstance.startDate)}</h5>
-                                        </div>
+                                            <div className="row">
+                                                <h5>{Services.formatDate(testDriveInstance.startDate)}</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -124,8 +125,8 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                             </div>
                                         </div>
                                         <div className="col-md-6">
-                                        <div className="row">
-                                            <h5>{Services.formatDate(testDriveInstance.endDate)}</h5>
+                                            <div className="row">
+                                                <h5>{Services.formatDate(testDriveInstance.endDate)}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -138,9 +139,9 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                     </div>
                                 </div>
                                 <div className="col-md-6">
-                                <div className="row">
-                                    <h5>{testDriveInstance.levelName}</h5>
-                                 </div>
+                                    <div className="row">
+                                        <h5>{testDriveInstance.levelName}</h5>
+                                    </div>
                                 </div>
                             </div>
                             <div className="row inforow">
@@ -150,9 +151,9 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                     </div>
                                 </div>
                                 <div className="col-md-6">
-                                <div className="row">
-                                    <h5>{testDriveInstance.participants || "0"}</h5>
-                                </div>
+                                    <div className="row">
+                                        <h5>{testDriveInstance.participants || "0"}</h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -162,8 +163,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                         <p>{testDriveInstance.expectedBusinessValue}</p>
                     </div>
                     <div className="col-md-12 para">
-                        <span className="orange">ELIGIBLE DRIVER REGION :</span>
-                        <div className="row">
+                        <span className="orange">ELIGIBLE DRIVER REGION :</span>                        
                             <ul className="select2-selection__rendered">
                                 {
                                     testDriveInstance.region && testDriveInstance.region.map((region, index) => {
@@ -172,9 +172,10 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                         </li>)
                                     })
                                 }
-
-                            </ul>
-                        </div>
+                                {
+                                    (!testDriveInstance.region || testDriveInstance.region.length == 0) && <p>{Messages.ALL_REGION_MSG}</p>
+                                }
+                            </ul>                        
                     </div>
                     <div className="col-md-12 para">
                         <span className="orange">ELIGIBLE DRIVER LOCATION :</span>
@@ -186,6 +187,9 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                         {location.Label}
                                     </li>)
                                 })
+                            }
+                            {
+                                (!testDriveInstance.location || testDriveInstance.location.length == 0) && <p>{Messages.ALL_LOCATION_MSG}</p>
                             }
                         </ul>
 
@@ -199,7 +203,11 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                     return (<li key={index} className="select2-selection__choice" title="iwatch">
                                         {device.Label}
                                     </li>)
-                                })}
+                                })
+                            }
+                            {
+                                (!testDriveInstance.requiredDevices || testDriveInstance.requiredDevices.length == 0) && <p>{Messages.ALL_DEVICES_MSG}</p>
+                            }
                         </ul>
 
                     </div>
@@ -213,6 +221,9 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                         {os.Label}
                                     </li>)
                                 })
+                            }
+                            {
+                                (!testDriveInstance.requiredOs || testDriveInstance.requiredOs.length == 0) && <p>{Messages.ALL_OS_MSG}</p>
                             }
                         </ul>
 

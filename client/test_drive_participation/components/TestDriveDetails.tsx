@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { TestDriveInstance } from '../model';
 import Services from '../../common/services/services';
 import { EliteProfile } from '../../home/model';
-import { Messages } from '../../common/services/constants';
+import { Messages, ColumnsValues } from '../../common/services/constants';
 import ui from 'redux-ui';
 import Popup from 'react-popup';
 interface TestDriveDetailsProps {
@@ -48,23 +48,23 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                     return location.Label == user.location;
                 });
 
-                if ((ctx.props.testDriveInstance.location && 
-                        ctx.props.testDriveInstance.location.length > 0) && (!matchedLocation || !matchedLocation.length)) {
+                if ((ctx.props.testDriveInstance.location &&
+                    ctx.props.testDriveInstance.location.length > 0) && (!matchedLocation || !matchedLocation.length)) {
                     message += Messages.TEST_DRIVE_LOCATION_ERROR + '\n';
                     isUserEligible = false;
                 }
                 var matchedDevices = [];
                 var matchedDevice;
 
-                if ((ctx.props.testDriveInstance.requiredDevices && 
-                        ctx.props.testDriveInstance.requiredDevices.length > 0)
-                         &&  (!ctx.checkForElements(ctx.props.testDriveInstance.requiredDevices, user.availableDevices))) {
+                if ((ctx.props.testDriveInstance.requiredDevices &&
+                    ctx.props.testDriveInstance.requiredDevices.length > 0)
+                    && (!ctx.checkForElements(ctx.props.testDriveInstance.requiredDevices, user.availableDevices))) {
                     message += Messages.TEST_DRIVE_DEVICE_ERROR + '\n';
                     isUserEligible = false;
                 }
 
                 if ((ctx.props.testDriveInstance.requiredOs && ctx.props.testDriveInstance.requiredOs.length > 0)
-                         && (!ctx.checkForElements(ctx.props.testDriveInstance.requiredOs, user.availableOS))) {
+                    && (!ctx.checkForElements(ctx.props.testDriveInstance.requiredOs, user.availableOS))) {
                     message += Messages.TEST_DRIVE_OS_ERROR + '\n';
                     isUserEligible = false;
                 }
@@ -162,19 +162,19 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                 <div className="col-md-3 pull-right">
 
                                     <div className="row social_box">
-                                        <a href="javascript:void(0);" 
-                                            onClick={()=> Services.reportAbug(testDriveInstance.ownerEmail, testDriveInstance.title)}>
+                                        <a href="javascript:void(0);" title={Messages.REPORT_BUG_TITLE}
+                                            onClick={() => Services.reportAbug(testDriveInstance.ownerEmail, testDriveInstance.title)}>
                                             <span className="report"></span>
                                         </a>
-                                        <a href="javascript:void(0);"
-                                            onClick={()=> Services.emailOwner(testDriveInstance.ownerEmail, testDriveInstance.title)}>
+                                        <a href="javascript:void(0);" title={Messages.SEND_EMAIL_TITLE}
+                                            onClick={() => Services.emailOwner(testDriveInstance.ownerEmail, testDriveInstance.title)}>
                                             <i className="material-icons">email</i>
                                         </a>
                                         {/* <a href="#">
                                             <span className="teams"></span>
                                         </a> */}
-                                        <a href="javascript:void(0);"
-                                            onClick={()=> Services.shareTestDrive(testDriveInstance.ownerEmail, testDriveInstance.title)}>
+                                        <a href="javascript:void(0);" title={Messages.SHARE_TITLE}
+                                            onClick={() => Services.shareTestDrive(testDriveInstance.ownerEmail, testDriveInstance.title)}>
                                             <i className="material-icons">share</i>
                                         </a>
                                     </div>
@@ -299,18 +299,18 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                         </div>
                         <div className="col-md-12 para">
                             <span className="orange">ELIGIBLE DRIVER REGION :</span>
-                            <div className="row">
-                                <ul className="select2-selection__rendered">
-                                    {
-                                        testDriveInstance.region && testDriveInstance.region.map((region, index) => {
-                                            return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                                {region}
-                                            </li>)
-                                        })
-                                    }
-
-                                </ul>
-                            </div>
+                            <ul className="select2-selection__rendered">
+                                {
+                                    testDriveInstance.region && testDriveInstance.region.map((region, index) => {
+                                        return (<li key={index} className="select2-selection__choice" title="iwatch">
+                                            {region}
+                                        </li>)
+                                    })
+                                }
+                                {
+                                    (!testDriveInstance.region || testDriveInstance.region.length == 0) && <p>{Messages.ALL_REGION_MSG}</p>
+                                }
+                            </ul>
                         </div>
                         <div className="col-md-12 para">
                             <span className="orange">ELIGIBLE DRIVER LOCATION :</span>
@@ -322,6 +322,9 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                             {location.Label}
                                         </li>)
                                     })
+                                }
+                                {
+                                    (!testDriveInstance.location || testDriveInstance.location.length == 0) && <p>{Messages.ALL_LOCATION_MSG}</p>
                                 }
                             </ul>
 
@@ -335,7 +338,11 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                         return (<li key={index} className="select2-selection__choice" title="iwatch">
                                             {device.Label}
                                         </li>)
-                                    })}
+                                    })
+                                }
+                                {
+                                    (!testDriveInstance.requiredDevices || testDriveInstance.requiredDevices.length == 0) && <p>{Messages.ALL_DEVICES_MSG}</p>
+                                }
                             </ul>
 
                         </div>
@@ -350,14 +357,20 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                         </li>)
                                     })
                                 }
+                                {
+                                    (!testDriveInstance.requiredOs || testDriveInstance.requiredOs.length == 0) && <p>{Messages.ALL_OS_MSG}</p>
+                                }
                             </ul>
 
                         </div>
 
                         <div className="col-md-12 participation_actionbox">
-                            <div className="button type1 nextBtn btn-lg pull-left animated_button">
-                                <input onClick={this.participate} type="button" value="Go for a drive" />
-                            </div>
+                            {
+                                (testDriveInstance.status == ColumnsValues.ACTIVE) ? <div className="button type1 nextBtn btn-lg pull-left animated_button">
+                                    <input onClick={this.participate} type="button" value="Go for a drive" />
+                                </div> : ""
+                            }
+
                             <button id="participationButton" style={{ display: 'none' }} type="participationError" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
                         </div>
                     </div>
