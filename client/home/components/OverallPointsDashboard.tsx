@@ -88,7 +88,7 @@ class OverallPointsDashboard extends React.Component<OverallPointsDashboardProps
                             <h4>TOTAL TEST DRIVES</h4>
                             <div id="outer">
                                 <div id="inner">
-                                    <img src="/sites/elite/Style%20Library/Elite/images/dash-loader-in.png" className="img-responsive" />
+                                    <img src="/Style%20Library/Elite/images/dash-loader-in.png" className="img-responsive" />
                                 </div>
                             </div>
                             <div className="tdrivecount">
@@ -103,7 +103,7 @@ class OverallPointsDashboard extends React.Component<OverallPointsDashboardProps
                                     <h4 className="text-left">TOTAL TASKS</h4>
                                     <div className="number">
                                         <canvas id="total-task-canvas" width="100" height="100"></canvas>
-                                        <img src="/sites/elite/Style%20Library/Elite/images/rotate.png" className="img-responsive" />
+                                        <img src="/Style%20Library/Elite/images/rotate.png" className="img-responsive" />
                                         <h3>{this.props.totalTasks}</h3>
                                     </div>
                                 </div>
