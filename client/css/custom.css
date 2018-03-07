@@ -8,11 +8,7 @@
 
 @font-face {
     font-family: titanium;
-    src: url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.ttf"),
-    url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.eot") format("eot"),
-    url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.woff") format("woff"),
-    url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.svg") format("svg");
-
+    src: url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.ttf"), url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.eot") format("eot"), url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.woff") format("woff"), url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.svg") format("svg");
 }
 
 @font-face {
@@ -20,7 +16,6 @@
     src: url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.eot');
     src: url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/sites/elite/Style%20Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
-
 
 body {
     font-family: HemiHeadRg-BoldItalic !important;
@@ -2964,8 +2959,8 @@ ul.select2-selection__rendered {
     list-style-type: none;
     padding-left: 0px;
     margin: 0 0 0 15px;
-    padding-left:0px;
-    margin-left:0px; 
+    padding-left: 0px;
+    margin-left: 0px;
 }
 
 span.select2-container.select2-container--default.select2-container--open {
@@ -3466,7 +3461,7 @@ width: 28px !important;
     border-left: solid 2px #fff;
     opacity: 0;
     margin-top: -41px;
-    position:relative;
+    position: relative;
 }
 
 .white_circle2 {
@@ -3874,12 +3869,10 @@ a#link6 span {
     z-index: 99;
 }
 
+.leader_car {}
 
-.leader_car {
-
-}
-
-.leader_namenphoto{ float: left;
+.leader_namenphoto {
+    float: left;
     -webkit-transform: skewX(21deg) !important;
     color: white;
     box-sizing: border-box;
@@ -3890,7 +3883,8 @@ a#link6 span {
     left: 0px;
     /* padding-left: 13px; */
     padding-top: 5px;
-    padding-left: 50px;}
+    padding-left: 50px;
+}
 
 .leader_namenphoto img {
     float: left;
@@ -4323,7 +4317,6 @@ div#s4-ribbonrow {
     color: white !important;
     font-size: 11px;
     letter-spacing: 1px;
-
 }
 
 .cancel-btn a:hover {
@@ -4657,9 +4650,6 @@ span.increase_or_decreased {
     /* padding-left: 13px; */
     padding-top: 5px;
 }
-
-
-
 
 .leader_namenphoto img {
     float: left;
@@ -5152,6 +5142,8 @@ li.active-thumbnail {
 
 
 /* Removed to fixes avatar carousel issue. */
+
+
 /* .avatar_box .item {
     padding-left: 60px;
 } */
@@ -5302,7 +5294,6 @@ h1#dialogTitleSpan {
     float: left;
     width: 100%;
     margin-top: 15px;
-
 }
 
 .para {
@@ -5960,13 +5951,11 @@ h1.testcase_name {
 }
 
 
-
 /* .testcase_box .inputMaterial:valid~label {
     top: -6px;
     font-size: 18px;
     color: #909090;
 } */
-
 
 .modal-content {
     background-color: black;
@@ -7990,10 +7979,22 @@ a#link3 img {
     border-radius: 50%;
 }
 
-.selected-avatar{
+.selected-avatar {
     height: 80px !important;
     width: 80px !important;
     border: solid 2px orange !important;
     MARGIN-LEFT: -10PX !important;
     margin-top: -10px !important;
+}
+
+input[type=button][disabled=disabled],
+button[disabled=disabled] {
+    color: gray !important;
+    cursor: not-allowed;
+}
+
+input[type=button]:disabled,
+button:disabled {
+    color: gray !important;
+    cursor: not-allowed;
 }

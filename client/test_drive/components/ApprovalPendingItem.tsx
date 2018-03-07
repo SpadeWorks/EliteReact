@@ -186,7 +186,7 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                         </div>
 
 
-                        <div className="col-md-1" style={{marginLeft:"55px;"}}>
+                        <div className="col-md-1" style={{marginLeft:"55px"}}>
                         
                         <div className="row social_box" style={{position:"relative",right:"-60px"}}>
 {/*<Link to={"/testdrive/" + testDrive.id}>

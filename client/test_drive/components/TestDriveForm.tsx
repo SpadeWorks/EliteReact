@@ -10,7 +10,7 @@ import { validateControl, required, validateForm } from '../../common/components
 import { updateDate } from '../index';
 import { ToastContainer, toast } from 'react-toastify';
 import { css, active } from 'glamor';
-import { Messages } from '../../common/services/constants';
+import { Messages, ColumnsValues} from '../../common/services/constants';
 import Popup from 'react-popup';
 import { Services } from '../../common/services/data_service';
 
@@ -52,7 +52,10 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
 
     onChange = (e) => {
         this.props.onChange(e, this.props.testDrive);
-        validateControl(e.target.id, e.target.value);
+
+        if(e.target.id){
+            validateControl(e.target.id, e.target.value);
+        }
     }
 
     selectControlChange = (value, id, name) => {
@@ -316,6 +319,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                     <div className="col-md-12 register_input textarea-custom">
                         <textarea className="inputMaterial"
                             name="expectedBusinessValue"
+                            id="expectedBusinessValue"
                             onChange={this.onChange}
                             value={testDrive.expectedBusinessValue || ""}
                             required
@@ -419,7 +423,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                     onClick={() => this.onSwitchTab(1)} />
                             </div>
                             <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                <input type="button" value="Save as a draft"
+                                <input disabled={testDrive.status == ColumnsValues.ACTIVE} type="button" value="Save as a draft"
                                     onClick={() => { this.saveValidate(testDrive) }} />
                             </div>
                         </div>

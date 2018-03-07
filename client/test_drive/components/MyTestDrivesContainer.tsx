@@ -39,7 +39,6 @@ interface MyTestDrivesContainerProps {
 class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> {
     constructor(props, context) {
         super(props, context);
-        this.initialize();
     }
 
     componentDidMount() {
@@ -97,7 +96,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                         <div>
                             <Loader show={myCompletedTestDrivesLoading} message={'Loading...'}>
                                 {
-                                    (ui.inprogressItems && ui.inprogressItems.length) ?
+                                    (!myInprogressTestDrivesLoading && ui.inprogressItems && ui.inprogressItems.length) ?
                                         ui.inprogressItems.map((testDriveObj: any, index) => {
                                             return (<MyTestDrivesCompletedItem
                                                 key={index}
@@ -111,7 +110,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                         }) : (!myInprogressTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_INPROGRESS_MSG}</div>)
                                 }
                                 {
-                                    ui.inprogressItems && ui.inprogressItems.length > 0 ?
+                                    (!myInprogressTestDrivesLoading && ui.inprogressItems && ui.inprogressItems.length > 0) ?
                                         <div className="row">
                                             <Pager
                                                 total={Math.ceil(myInprogressTestDrives.length / ui.itemsPerPage)}
@@ -132,7 +131,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                         <div>
                             <Loader show={myCompletedTestDrivesLoading} message={'Loading...'}>
                                 <div className="row">{
-                                    (ui.completedItems && ui.completedItems.length) ?
+                                    (!myCompletedTestDrivesLoading && ui.completedItems && ui.completedItems.length) ?
                                         ui.completedItems.map((testDriveObj, index) => {
                                             return (<MyTestDrivesCompletedItem
                                                 key={index}
@@ -146,7 +145,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                         }) : (!myCompletedTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_COMPLETED_MSG}</div>)
                                 } </div>
                                 {
-                                    ui.completedItems && ui.completedItems.length > 0 ?
+                                    (!myCompletedTestDrivesLoading && ui.completedItems && ui.completedItems.length > 0) ?
                                         <div className="row">
                                             <Pager
                                                 total={Math.ceil(myCompletedTestDrives.length / ui.itemsPerPage)}

@@ -55,6 +55,36 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
         });
     }
 
+    componentWillUpdate() {
+        this.initialize();
+    }
+
+    initialize() {
+        const {
+            ui, updateUI,
+            upcommingTestDrivesIRun,
+            upcommingTestDrivesIRunLoading,
+            draftedTestDrivesIRun,
+            draftedTestDrivesIRunLoading,
+        } = this.props;
+
+        if (!upcommingTestDrivesIRunLoading && upcommingTestDrivesIRun && upcommingTestDrivesIRun.length && !ui.upcommingItems.length) {
+            var currentPage = ui.upcommingItemCurrent;
+            if (ui.upcommingItems.length < ui.upcommingItems * ui.itemsPerPage) {
+                currentPage = currentPage - 1;
+            }
+            this.getVisibleItems(currentPage, upcommingTestDrivesIRun, 'upcommingItems', 'upcommingItemCurrent');
+        }
+        if (!draftedTestDrivesIRunLoading && draftedTestDrivesIRun && draftedTestDrivesIRun.length && !ui.draftedItems.length) {
+            var currentPage = ui.draftedItemCurrent;
+            if (ui.draftedItemCurrent.length < ui.draftedItemCurrent * ui.itemsPerPage) {
+                currentPage = currentPage - 1;
+            }
+            this.getVisibleItems(currentPage, draftedTestDrivesIRun, 'draftedItems', 'draftedItemCurrent');
+        }
+    }
+
+
     render() {
         const {
             ui, updateUI,

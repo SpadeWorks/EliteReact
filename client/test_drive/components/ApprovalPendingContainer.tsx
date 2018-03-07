@@ -103,7 +103,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                         <div>
                             <Loader show={loading} message={'Loading...'}>
                                 {
-                                    (ui.pendingItems && ui.pendingItems.length) ?
+                                    (!loading && ui.pendingItems && ui.pendingItems.length) ?
                                         ui.pendingItems.map((testDrive, index) => {
                                             return (<ApprovalPendingItem
                                                 key={index}
@@ -113,7 +113,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                                         }) : (!loading && <div className="no-data-message">{Messages.TEST_DRIVE_PENDING_MSG}</div>)
                                 }
                                 {
-                                    ui.pendingItems && ui.pendingItems.length > 0 &&
+                                    !loading && ui.pendingItems && ui.pendingItems.length > 0 &&
                                     <Pager
                                         total={Math.ceil(testDrivesWaitingForApproval.length / ui.itemsPerPage)}
                                         current={ui.pendingItemCurrent}
@@ -131,7 +131,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                         <div>
                             <Loader show={loading} message={'Loading...'}>
                                 {
-                                    (ui.approvedItems && ui.approvedItems.length) ?
+                                    (!loading && ui.approvedItems && ui.approvedItems.length) ?
                                         ui.approvedItems.map((testDrive, index) => {
                                             return (<ApprovalPendingItem
                                                 key={index}
@@ -141,7 +141,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                                         }) : (!loading && <div className="no-data-message">{Messages.TEST_DRIVE_APPROVED_MSG}</div>)
                                 }
                                 {
-                                    ui.approvedItems && ui.approvedItems.length > 0 &&
+                                    !loading && ui.approvedItems && ui.approvedItems.length > 0 &&
                                     <Pager
                                         total={Math.ceil(approvedTestDrives.length / ui.itemsPerPage)}
                                         current={ui.approvedItemCurrent}
