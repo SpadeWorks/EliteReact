@@ -7566,6 +7566,10 @@ span.orange.big {
     .public-DraftStyleDefault-ltr span {
         font-family: titanium !important;
     }
+
+    .progress_drivebox ul.select2-selection__rendered {
+        margin-left: 15px;
+    }
 }
 
 span.s4-clust {

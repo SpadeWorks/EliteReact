@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link } from "react-router-dom";
 import { TestDrive } from '../model';
 import Services from '../../common/services/services';
+import { Messages } from '../../common/services/constants';
 
 interface TestDriveCardItemProps {
     testDrive: TestDrive;
@@ -21,18 +22,18 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                     <div className="row">
                         <div className="col-md-12 social_box">
                             <div className="row">
-                                <a href="javascript:void(0);"
+                                <a href="javascript:void(0);"  title={Messages.REPORT_BUG_TITLE}
                                     onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)}>
                                     <span className="report"></span>
                                 </a>
-                                <a href="javascript:void(0);"
+                                <a href="javascript:void(0);" title={Messages.SEND_EMAIL_TITLE}
                                     onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
                                     <i className="material-icons">email</i>
                                 </a>
                                 {/* <a href="#">
                                     <span className="teams"></span>
                                 </a> */}
-                                <a href="javascript:void(0);"
+                                <a href="javascript:void(0);" title={Messages.SHARE_TITLE}
                                     onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
                                     <i className="material-icons">share</i>
                                 </a>
@@ -118,37 +119,39 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                             <div className="row">
                                 <div className="col-md-6 enddate_Section">
                                     <div className="row">
-                                        
-                                                <div className="para">
-                                                    <span className="orange">
-                                                        
-                                                            DEVICE REQUIRED
-                                                        
+
+                                        <div className="para">
+                                            <span className="orange">
+
+                                                DEVICE REQUIRED
+
                                                     </span>
 
-                                                    <div className="row">
-                                                        <ul className="select2-selection__rendered">
-                                                            {(testDrive.requiredDevices && testDrive.requiredDevices.length) ?
-                                                                testDrive.requiredDevices.map((device: any, index) => {
-                                                                    return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                                                        {device.Label || ''}
-                                                                    </li>)
-                                                                }) : ''
-                                                            }
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            
-                                        
+                                            <div className="row">
+                                                <ul className="select2-selection__rendered">
+                                                    {(testDrive.requiredDevices && testDrive.requiredDevices.length) ?
+                                                        testDrive.requiredDevices.map((device: any, index) => {
+                                                            return (<li key={index} className="select2-selection__choice" title="iwatch">
+                                                                {device.Label || ''}
+                                                            </li>)
+                                                        }) : ''
+                                                    }
+                                                    {
+                                                        (!testDrive.requiredDevices || testDrive.requiredDevices.length == 0) && <p>{Messages.ALL_DEVICES_MSG}</p>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
                                     </div>
                                     <div className="col-md-12 partcipant_enddate">
                                         <div className="row">
-                                            
+
                                             <div className="row">
                                                 <div className="para">
                                                     <span className="orange">
                                                         OS REQUIRED
-                                                           
                                                     </span>
                                                     <div className="row">
                                                         <ul className="select2-selection__rendered">
@@ -159,10 +162,13 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                                                     </li>)
                                                                 }) : ''
                                                             }
+                                                            {
+                                                                (!testDrive.requiredOs || testDrive.requiredOs.length == 0) && <p>{Messages.ALL_OS_MSG}</p>
+                                                            }
                                                         </ul>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -195,7 +201,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                         </div>
                     </div>
                     <div className="col-md-12 text-center">
-                    <Link className="button type1" to={"/participation/" + testDrive.id}> {isActive ? 'Drive Through' : 'View Details'} </Link>
+                        <Link className="button type1" to={"/participation/" + testDrive.id}> {isActive ? 'Drive Through' : 'View Details'} </Link>
                     </div>
                 </div>
             </div>

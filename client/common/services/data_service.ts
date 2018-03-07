@@ -1497,8 +1497,7 @@ export class Services {
                     MaxTestDrivers: testDrive.maxTestDrivers,
                     TestDriveName: testDrive.title,
                     TestDriveStatus: testDrive.status,
-                    TestDriveOwner_id: this.getCurrentUserID(),
-                    UserRegion_tax: testDrive.region
+                    TestDriveOwner_id: this.getCurrentUserID()
                 }
                 if (questions.length > 0) {
                     let ids = [];
@@ -2176,7 +2175,7 @@ export class Services {
         });
     }
 
-    static getActiveTestDrives(skip = 0, top = 100) {
+    static getActiveTestDrives(skip = 0, top = 3) {
         var d = new Date();
         var userRegion = Services.getUserProfileProperties().region || '';
         var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
@@ -2200,17 +2199,17 @@ export class Services {
                         testDriveInstances = testDriveInstances.slice(0, top);
                         Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
                             testDriveInstances.map((testDrive, index) => {
-                                if (testDrive.region && testDrive.region.indexOf(userRegion) != -1 || testDrive.region.length == 0) {
+                                if ((testDrive.region && testDrive.region.indexOf(userRegion) != -1 || testDrive.region.length == 0)) {
                                     activeTestDriveArr.push({
                                         id: testDrive.id,
                                         title: testDrive.title,
                                         enddate: testDrive.endDate,
                                         participants: parseInt(participants[index]),
                                         testDrive: testDrive
-                                    });
+                                    });                                    
                                 }
                             });
-                            resolve(activeTestDriveArr);
+                            resolve(activeTestDriveArr.slice(0, top));
                         }, err => reject(err))
                     } else {
                         resolve(testDriveInstances);
@@ -2220,17 +2219,17 @@ export class Services {
         });
     }
 
-    static getUpcomingTestDrives(skip = 0, top = 100) {
+    static getUpcomingTestDrives(skip = 0, top = 3) {
         var d = new Date();
         var userRegion = Services.getUserProfileProperties().region || '';
         var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
         var filter = "TestDriveStatus eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'" +
             " and TestDriveStartDate ge datetime'" + todayDate + "T00:00:00.000Z'";
         return new Promise((resolve, reject) => {
-            Services.getTestDrivesByFilter(filter, skip, top, "TestDriveStartDate", true)
+            Services.getTestDrivesByFilter(filter, skip, 1000, "TestDriveStartDate", true)
                 .then((testDriveInstances: TestDrive[]) => {
                     if (testDriveInstances && testDriveInstances.length > 0) {
-                        let upcomingTestDriveArr: HomeTestDrive[] = [];
+                        var upcomingTestDriveArr: HomeTestDrive[] = [];
                         let testDrivesIDs = [];
                         testDriveInstances.map((value, index) => {
                             testDrivesIDs.push(testDriveInstances[index].id);
@@ -2239,17 +2238,17 @@ export class Services {
                         Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
 
                             testDriveInstances.map((testDrive, index) => {
-                                if (testDrive.region && testDrive.region.indexOf(userRegion) != -1 || testDrive.region.length == 0) {
+                                if ((testDrive.region && testDrive.region.indexOf(userRegion) != -1 || testDrive.region.length == 0)) {
                                     upcomingTestDriveArr.push({
                                         id: testDrive.id,
                                         title: testDrive.title,
                                         enddate: testDrive.endDate,
                                         participants: parseInt(participants[index]),
                                         testDrive: testDrive
-                                    });
+                                    });                                    
                                 }
                             });
-                            resolve(upcomingTestDriveArr);
+                            resolve(upcomingTestDriveArr.slice(0, top));
                         }, err => reject(err))
                     } else {
                         resolve(testDriveInstances);

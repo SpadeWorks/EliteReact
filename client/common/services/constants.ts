@@ -146,4 +146,11 @@ export class Messages {
     static TEST_DRIVE_SUBMIT_MSG = 'Test drive submitted successfully.';
     static LEADERBOARD_GLOBAL_MSG = 'There are no global leaders to show here.';
     static LEADERBOARD_REGIONAL_MSG = 'There are no regional leaders to show here.';
+    static ALL_REGION_MSG = 'All regions are eligible.';
+    static ALL_LOCATION_MSG = 'All locations are eligible.';
+    static ALL_DEVICES_MSG = 'All devices are eligible.';
+    static ALL_OS_MSG = 'All OS are eligible.';
+    static REPORT_BUG_TITLE = 'Report a Bug';
+    static SEND_EMAIL_TITLE = 'Send an email to TEST drive owner';
+    static SHARE_TITLE = 'Share';
 }
