@@ -89,8 +89,8 @@ class Home extends React.Component<HomeProps, HomeState> {
         $("#app").mouseup(function (e) {
             var container = $(".letest_drivebox");
             var container2 = $(".letest_drivebox2");
-            if (!container.is(e.target) && container.has(e.target).length === 0 && 
-                !container2.is(e.target) && container2.has(e.target).length === 0){
+            if (!container.is(e.target) && container.has(e.target).length === 0 &&
+                !container2.is(e.target) && container2.has(e.target).length === 0) {
                 $(".lc_container").removeClass("lc_containerclick");
                 $(".letest_drivebox").removeClass("letest_driveboxclick");
                 $(".lc_container2").removeClass("lc_containerclick2");
@@ -131,7 +131,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                     </div>
                     <div className="col-md-12">
                         <div className="col-md-12">
-                            <Navigation currentUserImage= {eliteProfile.avatarImage}/>
+                            <Navigation currentUserImage={eliteProfile.avatarImage} />
                             <LeaderBoard updateUI={updateUI}
                                 ui={ui}
                                 leaders={leaders}

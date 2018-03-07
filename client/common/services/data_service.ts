@@ -633,7 +633,7 @@ export class Services {
                 Constants.Columns.USER_REGION_TEXT,
                 Constants.Columns.Car_ID + '/' + Constants.Columns.CAR_LEVEL,
                 Constants.Columns.AVATAR_ID + '/' + Constants.Columns.ID
-            )
+                )
                 .expand(Constants.Columns.Car_ID, Constants.Columns.AVATAR_ID)
                 .get().then(profile => {
                     resolve(<EliteProfile>{
@@ -956,7 +956,8 @@ export class Services {
                 Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
                 Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
                 Constants.Columns.EXPECTED_BUSINESS_VALUE,
-                Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_EMAIL
+                Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_EMAIL,
+                Constants.Columns.USER_REGION
                 ).skip(skip).top(top)
                 .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID, Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
                 .filter(filter)
@@ -982,6 +983,9 @@ export class Services {
                             level: testDrive.LevelID.ID,
                             owner: testDrive.TestDriveOwner.UserInfoName,
                             testCaseIDs: testDrive[Constants.Columns.TESTCASE_ID].results,
+                            region: testDrive[Constants.Columns.USER_REGION].results.map((value, index) => {
+                                return value.Label;
+                            }),
                             questionIDs: testDrive[Constants.Columns.QUESTION_ID].results,
                             expectedBusinessValue: '',
                             testCases: null,
@@ -1456,11 +1460,11 @@ export class Services {
 
     static getReferrerID(referrer) {
         if (referrer) {
-            try{
+            try {
                 return parseInt(referrer);
-            } catch(e){
+            } catch (e) {
                 return '';
-            }    
+            }
         }
         else {
             return '';
@@ -1489,6 +1493,7 @@ export class Services {
                     TestDriveLocation_tax: testDrive.location,
                     AvailableDevices_tax: testDrive.requiredDevices,
                     AvailableOS_tax: testDrive.requiredOs,
+                    Elite_UserRegion_tax: testDrive.region,
                     MaxTestDrivers: testDrive.maxTestDrivers,
                     TestDriveName: testDrive.title,
                     TestDriveStatus: testDrive.status,
@@ -2171,7 +2176,7 @@ export class Services {
         });
     }
 
-    static getActiveTestDrives(skip = 0, top = 3) {
+    static getActiveTestDrives(skip = 0, top = 100) {
         var d = new Date();
         var userRegion = Services.getUserProfileProperties().region || '';
         var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
@@ -2195,13 +2200,15 @@ export class Services {
                         testDriveInstances = testDriveInstances.slice(0, top);
                         Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
                             testDriveInstances.map((testDrive, index) => {
-                                activeTestDriveArr.push({
-                                    id: testDrive.id,
-                                    title: testDrive.title,
-                                    enddate: testDrive.endDate,
-                                    participants: parseInt(participants[index]),
-                                    testDrive: testDrive
-                                });
+                                if (testDrive.region && testDrive.region.indexOf(userRegion) != -1 || testDrive.region.length == 0) {
+                                    activeTestDriveArr.push({
+                                        id: testDrive.id,
+                                        title: testDrive.title,
+                                        enddate: testDrive.endDate,
+                                        participants: parseInt(participants[index]),
+                                        testDrive: testDrive
+                                    });
+                                }
                             });
                             resolve(activeTestDriveArr);
                         }, err => reject(err))
@@ -2209,12 +2216,11 @@ export class Services {
                         resolve(testDriveInstances);
                     }
                 })
-
             })
         });
     }
 
-    static getUpcomingTestDrives(skip = 0, top = 3) {
+    static getUpcomingTestDrives(skip = 0, top = 100) {
         var d = new Date();
         var userRegion = Services.getUserProfileProperties().region || '';
         var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
@@ -2233,13 +2239,15 @@ export class Services {
                         Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
 
                             testDriveInstances.map((testDrive, index) => {
-                                upcomingTestDriveArr.push({
-                                    id: testDrive.id,
-                                    title: testDrive.title,
-                                    enddate: testDrive.endDate,
-                                    participants: parseInt(participants[index]),
-                                    testDrive: testDrive
-                                });
+                                if (testDrive.region && testDrive.region.indexOf(userRegion) != -1 || testDrive.region.length == 0) {
+                                    upcomingTestDriveArr.push({
+                                        id: testDrive.id,
+                                        title: testDrive.title,
+                                        enddate: testDrive.endDate,
+                                        participants: parseInt(participants[index]),
+                                        testDrive: testDrive
+                                    });
+                                }
                             });
                             resolve(upcomingTestDriveArr);
                         }, err => reject(err))
