@@ -154,7 +154,7 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                         </div>
                         <AvatarCarousel eliteProfile={eliteProfile} avatars={avatars} updateUI={updateUI} ui={ui} />
                         <div className="col-xs-12 form_box">
-                            <div className="col-md-12 register_input">
+                            <div className="col-md-12 register_input readonly">
                                 <input className="inputMaterial"
                                     id="driverName"
                                     name="driverName"
@@ -167,7 +167,7 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                                 <span className="bar"></span>
                                 <label>Driver Name</label>
                             </div>
-                            <div className="col-md-12 register_input">
+                            <div className="col-md-12 register_input readonly">
                                 <input className="inputMaterial"
                                     id="userRole"
                                     name="userRole"
@@ -180,7 +180,7 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                                 <span className="bar"></span>
                                 <label>Role</label>
                             </div>
-                            <div className="col-md-6 register_input">
+                            <div className="col-md-6 register_input readonly">
                                 <input className="inputMaterial"
                                     id="userLoaction"
                                     name="userLoaction"
@@ -193,7 +193,7 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                                 <span className="bar"></span>
                                 <label>Location</label>
                             </div>
-                            <div className="col-md-6 register_input">
+                            <div className="col-md-6 register_input readonly">
                                 <input className="inputMaterial"
                                     id="joinedDate"
                                     name="joinedDate"
@@ -206,7 +206,7 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                                 <span className="bar"></span>
                                 <label>Joined Date</label>
                             </div>
-                            <div className="col-md-12 register_input">
+                            <div className="col-md-12 register_input readonly">
                                 <input className="inputMaterial"
                                     id="userRegion"
                                     name="userRegion"
