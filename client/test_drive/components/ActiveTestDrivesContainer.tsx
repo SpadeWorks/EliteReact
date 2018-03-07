@@ -58,6 +58,12 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
         }
 
         return (<div>
+            {ui.isCreaseTestDriveVisible ? <div className="centralbox_button row">
+                <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                    <Link to={"/testdrive"} >Create Test Drive</Link>
+                </div>
+            </div> : ''}
+
             <Loader show={activeTestDrivesLoading || false} message={'Loading...'}>
                 {
                     (ui.visibleItems && ui.visibleItems.length) ?

@@ -191,16 +191,16 @@ class MyProfile extends React.Component<MyProfileProps> {
                                                                 <span className="testd_count">
                                                                     {rank}
                                                                 </span>
-                                                                <div className="toplevel">
+                                                                <span className="toplevel">
                                                                 
                                                                 <span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
                                                                 <span className="increase_num">+1</span>
-                                                                </div>
+                                                                </span>
 
-                                                                <div className="outof_count">
+                                                                <span className="outof_count">
                                                                  <span className="of">of </span>
                                                                 {totalCount}
-                                                                </div>
+                                                                </span>
                                                             </p>
                                                             </div>
                                                         </div>

@@ -71,7 +71,8 @@ interface AppProps {
 }
 @ui({
   state: {
-    activeTab: 0
+    activeTab: 0,
+    isCreaseTestDriveVisible: false
   }
 })
 
@@ -130,7 +131,11 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
     const role = Service.getUserProfileProperties().role;
     const isTestDriveIRunVisible = (role == "Test Drive Owner" ||
       role == "Site Owner");
+
+
     const isApprover = (role == "Site Owner")
+
+    this.props.updateUI({isCreaseTestDriveVisible: isTestDriveIRunVisible})
     return (
       <div className="testDrives container">
         <div>
@@ -150,6 +155,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
             </div>
             <div className="row">
               <div className="well">
+              
                 <Tabs selected={this.getSelectedTab()}>
                   <Pane label="MY TEST DRIVES">
                     <MyTestDrivesContainer
@@ -177,7 +183,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                       />
                     </Pane> : ''
                   }
-                  
+
                   <Pane label="Upcoming Test Drive">
                     <UpCommingTestdrivesContainer
                       upCommingTestDrives={upCommingTestDrives}
@@ -195,7 +201,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                       ui={ui}
                       updateUI={updateUI} />
                   </Pane>
-                  
+
                   {
                     isApprover ? <Pane label="PENDING APPROVALS">
                       <ApprovalPendingContainer
@@ -214,6 +220,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                   }
                 </Tabs>
               </div>
+              
             </div>
           </div>
         </div>

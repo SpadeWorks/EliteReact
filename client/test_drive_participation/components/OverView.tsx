@@ -50,7 +50,7 @@ class OverView extends React.Component<OverViewProps> {
                                         <p><span className="orange "><i>{testDriveInstance.currentPoint}</i></span> of {testDriveInstance.maxPoints}</p>
                                     </div>
                                     <div className="col-md-12 ">
-                                        <h4 className="testcase_title ">POINTS EARNED FOR TEST CASES</h4>
+                                        <h4 className="testcase_title ">POINTS EARNED FOR TEST DRIVE</h4>
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@ class OverView extends React.Component<OverViewProps> {
                                         <p><span className="orange "><i>{testDriveInstance.currentPoint}</i></span> of {testDriveInstance.maxPoints}</p>
                                     </div>
                                     <div className="col-md-12 ">
-                                        <h4 className="testcase_title ">POINTS EARNED FOR TEST CASES</h4>
+                                        <h4 className="testcase_title ">POINTS EARNED FOR TEST DRIVE</h4>
                                     </div>
                                 </div>
                             </div>

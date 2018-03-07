@@ -56,11 +56,11 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
         });
     }
 
-    componentWillUpdate(){
+    componentWillUpdate() {
         this.initialize();
     }
 
-    initialize(){
+    initialize() {
         const { myCompletedTestDrives, myCompletedTestDrivesLoading, myInprogressTestDrives,
             myInprogressTestDrivesLoading, ui, updateUI,
             loadMyInprogressTestDrives, loadMyCompletedTestDrives } = this.props;
@@ -85,77 +85,85 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
         const { myCompletedTestDrives, myCompletedTestDrivesLoading, myInprogressTestDrives,
             myInprogressTestDrivesLoading, ui, updateUI,
             loadMyInprogressTestDrives, loadMyCompletedTestDrives } = this.props;
-        return (<Tabs selected={0}>
-            <Pane label="TEST DRIVES IN PROGRESS">
-                <div>
-                    <Loader show={myCompletedTestDrivesLoading} message={'Loading...'}>
-                        {
-                            (ui.inprogressItems && ui.inprogressItems.length) ?
-                                ui.inprogressItems.map((testDriveObj: any, index) => {
-                                    return (<MyTestDrivesCompletedItem
-                                        key={index}
-                                        testDrive={testDriveObj.testDrive}
-                                        participants={testDriveObj.participants}
-                                        testDriveResponse={testDriveObj.testDriveResponse}
-                                        checkPortion={'inProgressTestDrive'}
-                                        index={index}
-                                        isCompleted={false}
-                                    />)
-                                }) : (!myInprogressTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_INPROGRESS_MSG}</div>)
-                        }
-                        {
-                            ui.inprogressItems && ui.inprogressItems.length > 0 ?
-                                <div className="row">
-                                    <Pager
-                                        total={Math.ceil(myInprogressTestDrives.length / ui.itemsPerPage)}
-                                        current={ui.inprogressItemCurrent}
-                                        visiblePages={ui.visiblePages}
-                                        titles={{ first: '<', last: '>' }}
-                                        className="pagination-sm pull-right"
-                                        onPageChanged={(newPage) => this.getVisibleItems(newPage, myInprogressTestDrives, 'inprogressItems', 'inprogressItemCurrent')}
-                                    />
-                                </div> : ''
+        return (
+            <div>
+                {ui.isCreaseTestDriveVisible ? <div className="centralbox_button">
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <Link to={"/testdrive"} >Create Test Drive</Link>
+                    </div>
+                </div> : ''}
+                <Tabs selected={0}>
+                    <Pane label="TEST DRIVES IN PROGRESS">
+                        <div>
+                            <Loader show={myCompletedTestDrivesLoading} message={'Loading...'}>
+                                {
+                                    (ui.inprogressItems && ui.inprogressItems.length) ?
+                                        ui.inprogressItems.map((testDriveObj: any, index) => {
+                                            return (<MyTestDrivesCompletedItem
+                                                key={index}
+                                                testDrive={testDriveObj.testDrive}
+                                                participants={testDriveObj.participants}
+                                                testDriveResponse={testDriveObj.testDriveResponse}
+                                                checkPortion={'inProgressTestDrive'}
+                                                index={index}
+                                                isCompleted={false}
+                                            />)
+                                        }) : (!myInprogressTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_INPROGRESS_MSG}</div>)
+                                }
+                                {
+                                    ui.inprogressItems && ui.inprogressItems.length > 0 ?
+                                        <div className="row">
+                                            <Pager
+                                                total={Math.ceil(myInprogressTestDrives.length / ui.itemsPerPage)}
+                                                current={ui.inprogressItemCurrent}
+                                                visiblePages={ui.visiblePages}
+                                                titles={{ first: '<', last: '>' }}
+                                                className="pagination-sm pull-right"
+                                                onPageChanged={(newPage) => this.getVisibleItems(newPage, myInprogressTestDrives, 'inprogressItems', 'inprogressItemCurrent')}
+                                            />
+                                        </div> : ''
 
-                        }
+                                }
 
-                    </Loader>
-                </div>
-            </Pane>
-            <Pane label="COMPLETED TEST DRIVES">
-                <div>
-                    <Loader show={myCompletedTestDrivesLoading} message={'Loading...'}>
-                        <div className="row">{
-                            (ui.completedItems && ui.completedItems.length) ?
-                                ui.completedItems.map((testDriveObj, index) => {
-                                    return (<MyTestDrivesCompletedItem
-                                        key={index}
-                                        testDrive={testDriveObj.testDrive}
-                                        participants={testDriveObj.participants}
-                                        testDriveResponse={testDriveObj.testDriveResponse}
-                                        checkPortion={'completedTestDrive'}
-                                        index={index}
-                                        isCompleted={true}
-                                    />)
-                                }) : (!myCompletedTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_COMPLETED_MSG}</div>)
-                        } </div>
-                        {
-                            ui.completedItems && ui.completedItems.length > 0 ?
-                                <div className="row">
-                                    <Pager
-                                        total={Math.ceil(myCompletedTestDrives.length / ui.itemsPerPage)}
-                                        current={ui.completedItemCurrent}
-                                        visiblePages={ui.visiblePages}
-                                        titles={{ first: '<', last: '>' }}
-                                        className="pagination-sm pull-right"
-                                        onPageChanged={(newPage) => this.getVisibleItems(newPage, myCompletedTestDrives, 'completedItems', 'completedItemCurrent')}
-                                    />
-                                </div> : ''
+                            </Loader>
+                        </div>
+                    </Pane>
+                    <Pane label="COMPLETED TEST DRIVES">
+                        <div>
+                            <Loader show={myCompletedTestDrivesLoading} message={'Loading...'}>
+                                <div className="row">{
+                                    (ui.completedItems && ui.completedItems.length) ?
+                                        ui.completedItems.map((testDriveObj, index) => {
+                                            return (<MyTestDrivesCompletedItem
+                                                key={index}
+                                                testDrive={testDriveObj.testDrive}
+                                                participants={testDriveObj.participants}
+                                                testDriveResponse={testDriveObj.testDriveResponse}
+                                                checkPortion={'completedTestDrive'}
+                                                index={index}
+                                                isCompleted={true}
+                                            />)
+                                        }) : (!myCompletedTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_COMPLETED_MSG}</div>)
+                                } </div>
+                                {
+                                    ui.completedItems && ui.completedItems.length > 0 ?
+                                        <div className="row">
+                                            <Pager
+                                                total={Math.ceil(myCompletedTestDrives.length / ui.itemsPerPage)}
+                                                current={ui.completedItemCurrent}
+                                                visiblePages={ui.visiblePages}
+                                                titles={{ first: '<', last: '>' }}
+                                                className="pagination-sm pull-right"
+                                                onPageChanged={(newPage) => this.getVisibleItems(newPage, myCompletedTestDrives, 'completedItems', 'completedItemCurrent')}
+                                            />
+                                        </div> : ''
 
-                        }
-                    </Loader>
-                </div>
-            </Pane>
-        </Tabs>)
+                                }
+                            </Loader>
+                        </div>
+                    </Pane>
+                </Tabs>
+            </div>)
     }
 }
 

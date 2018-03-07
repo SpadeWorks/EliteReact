@@ -55,7 +55,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
         });
     }
 
-    approveTestDrive(id){
+    approveTestDrive(id) {
         this.props.updateUI({
             pendingItems: [],
             approvedItems: [],
@@ -76,79 +76,87 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
 
         if (!saveTestDriveApprovalLoading && approvedTestDrives && approvedTestDrives.length && !ui.approvedItems.length) {
             var currentPage = ui.approvedItemCurrent;
-            if(ui.approvedItems.length < ui.approvedItemCurrent * ui.itemsPerPage ){
-                currentPage = currentPage - 1;      
+            if (ui.approvedItems.length < ui.approvedItemCurrent * ui.itemsPerPage) {
+                currentPage = currentPage - 1;
             }
             this.getVisibleItems(currentPage, approvedTestDrives, 'approvedItems', 'approvedItemCurrent');
         }
         if (!saveTestDriveApprovalLoading && testDrivesWaitingForApproval && testDrivesWaitingForApproval.length && !ui.pendingItems.length) {
             var currentPage = ui.pendingItemCurrent;
-            if(ui.pendingItems.length < ui.pendingItemCurrent * ui.itemsPerPage ){
-                currentPage = currentPage - 1;      
+            if (ui.pendingItems.length < ui.pendingItemCurrent * ui.itemsPerPage) {
+                currentPage = currentPage - 1;
             }
             this.getVisibleItems(currentPage, this.props.testDrivesWaitingForApproval, 'pendingItems', 'pendingItemCurrent');
         }
-        
+
         const loading = testDrivesWaitingForApprovalLoading || saveTestDriveApprovalLoading;
-        return (<Tabs selected={0}>
+        return (
+            <div>
+                {ui.isCreaseTestDriveVisible ? <div className="centralbox_button">
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <Link to={"/testdrive"} >Create Test Drive</Link>
+                    </div>
+                </div> : ''}
+                <Tabs selected={0}>
 
-            <Pane label="PENDING APPROVAL">
-                <div>
-                    <Loader show={loading} message={'Loading...'}>
-                        {
-                            (ui.pendingItems && ui.pendingItems.length) ?
-                                ui.pendingItems.map((testDrive, index) => {
-                                    return (<ApprovalPendingItem
-                                        key={index}
-                                        testDrive={testDrive}
-                                        saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
-                                        approveTestDrive={(id) => this.approveTestDrive(id)} />)
-                                }) : (!loading && <div className="no-data-message">{Messages.TEST_DRIVE_PENDING_MSG}</div>)
-                        }
-                        {
-                            ui.pendingItems && ui.pendingItems.length > 0 &&
-                            <Pager
-                                total={Math.ceil(testDrivesWaitingForApproval.length / ui.itemsPerPage)}
-                                current={ui.pendingItemCurrent}
-                                visiblePages={ui.visiblePages}
-                                titles={{ first: '<', last: '>' }}
-                                className="pagination-sm pull-right"
-                                onPageChanged={(newPage) => this.getVisibleItems(newPage, testDrivesWaitingForApproval, 'pendingItems', 'pendingItemCurrent')}
-                            />
-                        }
+                    <Pane label="PENDING APPROVAL">
+                        <div>
+                            <Loader show={loading} message={'Loading...'}>
+                                {
+                                    (ui.pendingItems && ui.pendingItems.length) ?
+                                        ui.pendingItems.map((testDrive, index) => {
+                                            return (<ApprovalPendingItem
+                                                key={index}
+                                                testDrive={testDrive}
+                                                saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
+                                                approveTestDrive={(id) => this.approveTestDrive(id)} />)
+                                        }) : (!loading && <div className="no-data-message">{Messages.TEST_DRIVE_PENDING_MSG}</div>)
+                                }
+                                {
+                                    ui.pendingItems && ui.pendingItems.length > 0 &&
+                                    <Pager
+                                        total={Math.ceil(testDrivesWaitingForApproval.length / ui.itemsPerPage)}
+                                        current={ui.pendingItemCurrent}
+                                        visiblePages={ui.visiblePages}
+                                        titles={{ first: '<', last: '>' }}
+                                        className="pagination-sm pull-right"
+                                        onPageChanged={(newPage) => this.getVisibleItems(newPage, testDrivesWaitingForApproval, 'pendingItems', 'pendingItemCurrent')}
+                                    />
+                                }
 
-                    </Loader>
-                </div>
-            </Pane>
-            <Pane label="APPROVED TEST DRIVES">
-                <div>
-                    <Loader show={loading} message={'Loading...'}>
-                        {
-                            (ui.approvedItems && ui.approvedItems.length) ?
-                                ui.approvedItems.map((testDrive, index) => {
-                                    return (<ApprovalPendingItem
-                                        key={index}
-                                        testDrive={testDrive}
-                                        saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
-                                        approveTestDrive={(id) => approveTestDrive(id)} />)
-                                }) : (!loading && <div className="no-data-message">{Messages.TEST_DRIVE_APPROVED_MSG}</div>)
-                        }
-                        {
-                            ui.approvedItems && ui.approvedItems.length > 0 &&
-                            <Pager
-                                total={Math.ceil(approvedTestDrives.length / ui.itemsPerPage)}
-                                current={ui.approvedItemCurrent}
-                                visiblePages={ui.visiblePages}
-                                titles={{ first: '<', last: '>' }}
-                                className="pagination-sm pull-right"
-                                onPageChanged={(newPage) => this.getVisibleItems(newPage, approvedTestDrives, 'approvedItems', 'approvedItemCurrent')}
-                            />
-                        }
+                            </Loader>
+                        </div>
+                    </Pane>
+                    <Pane label="APPROVED TEST DRIVES">
+                        <div>
+                            <Loader show={loading} message={'Loading...'}>
+                                {
+                                    (ui.approvedItems && ui.approvedItems.length) ?
+                                        ui.approvedItems.map((testDrive, index) => {
+                                            return (<ApprovalPendingItem
+                                                key={index}
+                                                testDrive={testDrive}
+                                                saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
+                                                approveTestDrive={(id) => approveTestDrive(id)} />)
+                                        }) : (!loading && <div className="no-data-message">{Messages.TEST_DRIVE_APPROVED_MSG}</div>)
+                                }
+                                {
+                                    ui.approvedItems && ui.approvedItems.length > 0 &&
+                                    <Pager
+                                        total={Math.ceil(approvedTestDrives.length / ui.itemsPerPage)}
+                                        current={ui.approvedItemCurrent}
+                                        visiblePages={ui.visiblePages}
+                                        titles={{ first: '<', last: '>' }}
+                                        className="pagination-sm pull-right"
+                                        onPageChanged={(newPage) => this.getVisibleItems(newPage, approvedTestDrives, 'approvedItems', 'approvedItemCurrent')}
+                                    />
+                                }
 
-                    </Loader>
-                </div>
-            </Pane>
-        </Tabs >)
+                            </Loader>
+                        </div>
+                    </Pane>
+                </Tabs >
+            </div>)
     }
 }
 

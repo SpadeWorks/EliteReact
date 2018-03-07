@@ -54,6 +54,7 @@ export class Columns {
     static Car_ID = 'CarID';
     static AVATAR_IMAGE = 'AvatarImage';
     static AVATAR_NAME = 'AvatarName';
+    static AVATAR_ID = 'AvatarID';
     static COMPLETED_TEST_DRIVES = 'CompletedTestDrives';
     static COMPLETED_TEST_CASES = 'CompletedTestCases';
     static DATE_JOINED = 'DateJoined';

@@ -61,33 +61,16 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
             upcommingTestDrivesIRun,
             upcommingTestDrivesIRunLoading,
             draftedTestDrivesIRun,
-            draftedTestDrivesIRunLoading
+            draftedTestDrivesIRunLoading,
         } = this.props;
-
-        if (!upcommingTestDrivesIRunLoading && upcommingTestDrivesIRun && upcommingTestDrivesIRun.length && !ui.upcommingItems.length) {
-            var currentPage = ui.upcommingItemCurrent;
-            if(ui.upcommingItems.length < ui.upcommingItemCurrent * ui.itemsPerPage ){
-                currentPage = currentPage - 1;      
-            }
-            this.getVisibleItems(currentPage, upcommingTestDrivesIRun, 'upcommingItems', 'upcommingItemCurrent');
-        }
-        if (!draftedTestDrivesIRunLoading && draftedTestDrivesIRun && draftedTestDrivesIRun.length && !ui.draftedItems.length) {
-            var currentPage = ui.draftedItemCurrent;
-            if(ui.draftedItems.length < ui.draftedItemCurrent * ui.itemsPerPage ){
-                currentPage = currentPage - 1;      
-            }
-            this.getVisibleItems(currentPage, draftedTestDrivesIRun, 'draftedItems', 'draftedItemCurrent');
-        }
-        
-
 
         return (
             <div>
-                <div className="centralbox_button">
-               <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                    <Link to={"/testdrive"} >Create Test Drive</Link>
+                {ui.isCreaseTestDriveVisible ? <div className="centralbox_button">
+                <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                  <Link to={"/testdrive"} >Create Test Drive</Link>
                 </div>
-                </div>
+              </div> : ''}
                 <Tabs selected={0}>
                     <Pane label="UPCOMING TEST DRIVES">
                         <div>

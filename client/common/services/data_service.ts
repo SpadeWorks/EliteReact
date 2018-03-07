@@ -574,9 +574,10 @@ export class Services {
                     Constants.Columns.Car_ID + '/' + Constants.Columns.ID,
                     Constants.Columns.AVATAR_IMAGE,
                     Constants.Columns.AVATAR_NAME,
-                    Constants.Columns.Car_ID + '/' + Constants.Columns.CAR_LEVEL
+                    Constants.Columns.Car_ID + '/' + Constants.Columns.CAR_LEVEL,
+                    Constants.Columns.AVATAR_ID + '/' + Constants.Columns.ID
                     )
-                    .expand(Constants.Columns.Car_ID)
+                    .expand(Constants.Columns.Car_ID, Constants.Columns.AVATAR_ID)
                     .get().then(profile => {
                         let eliteProfle = <EliteProfile>{
                             eliteProfileID: user.eliteProfileID,
@@ -595,7 +596,8 @@ export class Services {
                             avatarName: profile.AvatarName,
                             avatarImage: profile.AvatarImage,
                             completedTestDrives: profile[Constants.Columns.COMPLETED_TEST_DRIVES],
-                            levelName: profile.CarID.CarLevel
+                            levelName: profile.CarID.CarLevel,
+                            avatarID: profile[Constants.Columns.AVATAR_ID][Constants.Columns.ID]
                         };
                         Cache.setCache(Constants.CacheKeys.ELITE_PROFILE, eliteProfle)
                         resolve(eliteProfle);
@@ -630,8 +632,9 @@ export class Services {
                 Constants.Columns.USER_LOCATION,
                 Constants.Columns.USER_REGION_TEXT,
                 Constants.Columns.Car_ID + '/' + Constants.Columns.CAR_LEVEL,
+                Constants.Columns.AVATAR_ID + '/' + Constants.Columns.ID
             )
-                .expand(Constants.Columns.Car_ID)
+                .expand(Constants.Columns.Car_ID, Constants.Columns.AVATAR_ID)
                 .get().then(profile => {
                     resolve(<EliteProfile>{
                         eliteProfileID: profile.Id,
@@ -649,7 +652,8 @@ export class Services {
                         role: profile.UserRole,
                         availableOS: profile.AvailableOS.results,
                         availableDevices: profile.AvailableDevices.results,
-                        levelName: profile.CarID.CarLevel == null ? 0 : profile.CarID.CarLevel
+                        levelName: profile.CarID.CarLevel == null ? 0 : profile.CarID.CarLevel,
+                        avatarID: profile[Constants.Columns.AVATAR_ID][Constants.Columns.ID]
                     });
                 }, err => {
                     Utils.clientLog(err);

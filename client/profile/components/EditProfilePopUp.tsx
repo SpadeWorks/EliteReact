@@ -7,7 +7,7 @@ import Service from '../../common/services/services';
 import ui from 'redux-ui';
 import { Dispatch } from 'redux';
 import {
-    loadAvatars    
+    loadAvatars
 } from '../';
 
 interface EditProfilePopUpProps {
@@ -48,103 +48,104 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                             return device == obj.Label
                         })
                     })
-                    this.props.updateUI({devices: selectedDevices});
+                    this.props.updateUI({ devices: selectedDevices });
                 }
             });
         }
-        this.props.updateUI({ OS: this.props.eliteProfile.availableOS,
+        this.props.updateUI({
+            OS: this.props.eliteProfile.availableOS,
             devices: this.props.eliteProfile.availableDevices,
             avatarSelectedID: this.props.eliteProfile.avatarID,
             avatarSelectedImage: this.props.eliteProfile.avatarImage,
-            avatarSelectedName:this.props.eliteProfile.avatarName
-          })        
+            avatarSelectedName: this.props.eliteProfile.avatarName
+        })
     }
 
-        componentDidMount() {
-            this.props.updateUI({
-                devices: this.props.eliteProfile.availableDevices,
-                OS: this.props.eliteProfile.availableOS
-            })
-            this.props.dispatch(loadAvatars());            
-        }        
+    componentDidMount() {
+        this.props.updateUI({
+            devices: this.props.eliteProfile.availableDevices,
+            OS: this.props.eliteProfile.availableOS
+        })
+        this.props.dispatch(loadAvatars());
+    }
 
-        getDevices(input, callback) {
-            let classContext = this;
-            const functions = Service.getDevices().then((devices: Array<any>) => {
-                input = input.toLowerCase();
-                var options = devices.filter((i: any) => {
-                    return i.Label.toLowerCase().indexOf(input) > -1;
-                });
-                var data = {
-                    options: options.slice(0, 5),
-                    complete: options.length <= 6,
-                };
+    getDevices(input, callback) {
+        let classContext = this;
+        const functions = Service.getDevices().then((devices: Array<any>) => {
+            input = input.toLowerCase();
+            var options = devices.filter((i: any) => {
+                return i.Label.toLowerCase().indexOf(input) > -1;
+            });
+            var data = {
+                options: options.slice(0, 5),
+                complete: options.length <= 6,
+            };
 
-                // if (classContext.props.ui.devices == '') {
-                //     let selectedDevices = devices.filter(obj => {
-                //         return classContext.props.eliteProfile.availableDevices.filter(device => {
-                //             return device == obj.Label
-                //         })
-                //     })
-                //     classContext.props.updateUI({devices: selectedDevices});
-                // }
-                callback(null, data);
-            })
-        }
+            // if (classContext.props.ui.devices == '') {
+            //     let selectedDevices = devices.filter(obj => {
+            //         return classContext.props.eliteProfile.availableDevices.filter(device => {
+            //             return device == obj.Label
+            //         })
+            //     })
+            //     classContext.props.updateUI({devices: selectedDevices});
+            // }
+            callback(null, data);
+        })
+    }
 
-        getOSes(input, callback) {
-            let classContext = this;
-            const functions = Service.getOSes().then((oses: Array<any>) => {
-                input = input.toLowerCase();
-                var options = oses.filter((i: any) => {
-                    return i.Label.toLowerCase().indexOf(input) > -1;
-                });
-                var data = {
-                    options: options.slice(0, 5),
-                    complete: options.length <= 6,
-                };
+    getOSes(input, callback) {
+        let classContext = this;
+        const functions = Service.getOSes().then((oses: Array<any>) => {
+            input = input.toLowerCase();
+            var options = oses.filter((i: any) => {
+                return i.Label.toLowerCase().indexOf(input) > -1;
+            });
+            var data = {
+                options: options.slice(0, 5),
+                complete: options.length <= 6,
+            };
 
-                // if (classContext.props.ui.OS == '') {
-                //     let selectedOses = oses.filter(obj => {
-                //         return classContext.props.eliteProfile.availableOS.filter(os => {
-                //             return os == obj.Label
-                //         })
-                //     })                
-                //     classContext.props.updateUI({OS: selectedOses})
-                // }
-                callback(null, data);
-            })
-        }
+            // if (classContext.props.ui.OS == '') {
+            //     let selectedOses = oses.filter(obj => {
+            //         return classContext.props.eliteProfile.availableOS.filter(os => {
+            //             return os == obj.Label
+            //         })
+            //     })                
+            //     classContext.props.updateUI({OS: selectedOses})
+            // }
+            callback(null, data);
+        })
+    }
 
-        deviceChange = (value) => {
-            this.props.updateUI({
-                devices: value
-            })
-        }
+    deviceChange = (value) => {
+        this.props.updateUI({
+            devices: value
+        })
+    }
 
-        osChange = (value) => {
-            this.props.updateUI({
-                OS: value
-            })
-        }
+    osChange = (value) => {
+        this.props.updateUI({
+            OS: value
+        })
+    }
 
-        onSave() {
-            this.props.updateMultiSelect(this.props.ui.OS, "availableOS", this.props.eliteProfile);
-            this.props.updateMultiSelect(this.props.ui.devices, "availableDevices", this.props.eliteProfile);
-            this.props.updateMultiSelect(this.props.ui.avatarSelectedImage, "avatarImage", this.props.eliteProfile);
-            this.props.eliteProfile.avatarID = this.props.ui.avatarSelectedID;
-            this.props.eliteProfile.avatarImage = this.props.ui.avatarSelectedImage;
-            this.props.eliteProfile.avatarName = this.props.ui.avatarSelectedName;
-            this.props.saveEliteProfile(this.props.eliteProfile);
-        }
+    onSave() {
+        this.props.updateMultiSelect(this.props.ui.OS, "availableOS", this.props.eliteProfile);
+        this.props.updateMultiSelect(this.props.ui.devices, "availableDevices", this.props.eliteProfile);
+        this.props.updateMultiSelect(this.props.ui.avatarSelectedImage, "avatarImage", this.props.eliteProfile);
+        this.props.eliteProfile.avatarID = this.props.ui.avatarSelectedID;
+        this.props.eliteProfile.avatarImage = this.props.ui.avatarSelectedImage;
+        this.props.eliteProfile.avatarName = this.props.ui.avatarSelectedName;
+        this.props.saveEliteProfile(this.props.eliteProfile);
+    }
 
-        render() {
-            const { eliteProfile, fieldDescriptions, saveEliteProfile, updateUI, ui, avatars } = this.props;
-            return (
-                <div className="modal-dialog edit_profile">
-                    {/* <!-- Modal content--> */}
-                    <div className="modal-content editpro_box">
-                        <div className="wrapper">
+    render() {
+        const { eliteProfile, fieldDescriptions, saveEliteProfile, updateUI, ui, avatars } = this.props;
+        return (
+            <div className="modal-dialog edit_profile">
+                {/* <!-- Modal content--> */}
+                <div className="modal-content editpro_box">
+                    <div className="wrapper">
                         <div className="modal-header">
                             <button type="button" className="close" data-dismiss="modal">
                                 <i className="material-icons pull-right">close</i>
@@ -248,22 +249,22 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                             </div>
                         </div>
                         <div className="modal-footer testdrive_actionbox">
-                          <div className="button type1 nextBtn btn-lg pull-right animated_button" >
+                            <div className="button type1 nextBtn btn-lg pull-right animated_button" >
                                 <input type="button" value="All Set"
-                                    onClick={() => { this.onSave() }} data-dismiss="modal"/>
-                         </div>
-
-
-
-                       
-
-
-
+                                    onClick={() => { this.onSave() }} data-dismiss="modal" />
                             </div>
+
+
+
+
+
+
+
                         </div>
                     </div>
-                </div>)
-        }
+                </div>
+            </div>)
     }
+}
 
-    export default EditProfilePopUp;
+export default EditProfilePopUp;

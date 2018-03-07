@@ -5137,7 +5137,7 @@ li.active-thumbnail {
 .carousel-inner.avatar_box a:hover img {
     height: 80px;
     width: 80px;
-    border: solid 2px orange;
+    border: solid 2px white;
     MARGIN-LEFT: -10PX;
     margin-top: -10px;
 }
@@ -7986,4 +7986,12 @@ a#link3 img {
     border: 1px solid red;
     background: black;
     border-radius: 50%;
+}
+
+.selected-avatar{
+    height: 80px !important;
+    width: 80px !important;
+    border: solid 2px orange !important;
+    MARGIN-LEFT: -10PX !important;
+    margin-top: -10px !important;
 }
