@@ -71,7 +71,8 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                                     return (<li key={index} className="select2-selection__choice" title="iwatch">
                                                         {device.Label}
                                                     </li>)
-                                                })}
+                                                })
+                                            }
                                         </ul>
                                     </div>
                                 </div>
@@ -88,7 +89,8 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                                             return (<li key={index} className="select2-selection__choice" title="iwatch">
                                                                 {os.Label}
                                                             </li>)
-                                                        })}
+                                                        })
+                                                    }
                                                 </ul>
                                             </div>
                                         </div>
