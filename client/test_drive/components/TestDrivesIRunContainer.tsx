@@ -55,10 +55,6 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
         });
     }
 
-    componentWillUpdate() {
-        this.initialize();
-    }
-
     initialize() {
         const {
             ui, updateUI,
@@ -94,6 +90,8 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
             draftedTestDrivesIRunLoading,
         } = this.props;
 
+        this.initialize();
+
         return (
             <div>
                 {ui.isCreaseTestDriveVisible ? <div className="centralbox_button">
@@ -106,7 +104,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                         <div>
                             <Loader show={upcommingTestDrivesIRunLoading} message={'Loading...'}>
                                 {
-                                    (ui.upcommingItems && ui.upcommingItems.length) ?
+                                    (!upcommingTestDrivesIRunLoading && ui.upcommingItems && ui.upcommingItems.length) ?
                                         ui.upcommingItems.map((testDriveObj, index) => {
                                             return (<TestDrivesIRunUpcommingItem
                                                 key={index}
@@ -132,7 +130,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                         <div>
                             <Loader show={draftedTestDrivesIRunLoading} message={'Loading...'}>
                                 {
-                                    (ui.draftedItems && ui.draftedItems.length) ?
+                                    (!draftedTestDrivesIRunLoading && ui.draftedItems && ui.draftedItems.length) ?
                                         ui.draftedItems.map((testDriveObj, index) => {
                                             return (<TestDrivesIRunUpcommingItem
                                                 key={index}
@@ -140,7 +138,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                                         }) : (!draftedTestDrivesIRunLoading && <div className="no-data-message">{Messages.TEST_DRIVE_DRAFTED_MSG}</div>)
                                 }
                                 {
-                                    ui.draftedItems && ui.draftedItems.length > 0 &&
+                                    !draftedTestDrivesIRunLoading && ui.draftedItems && ui.draftedItems.length > 0 &&
                                     <Pager
                                         total={Math.ceil(draftedTestDrivesIRun.length / ui.itemsPerPage)}
                                         current={ui.draftedItemCurrent}

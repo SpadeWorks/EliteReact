@@ -46,10 +46,6 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
         });
     }
 
-    componentWillUpdate(){
-        this.initialize();
-    }
-
     initialize(){
         const { activeTestDrives, activeTestDrivesLoading, ui, updateUI } = this.props;
 
@@ -65,6 +61,9 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
 
     render() {
         const { activeTestDrives, activeTestDrivesLoading, ui, updateUI } = this.props;
+
+        this.initialize();
+
         return (<div>
             {ui.isCreaseTestDriveVisible ? <div className="centralbox_button row">
                 <div className="button type1 nextBtn btn-lg pull-right animated_button">

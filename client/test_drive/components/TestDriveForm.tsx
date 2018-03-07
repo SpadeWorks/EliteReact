@@ -63,7 +63,6 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     }
 
     handleChange(which, payload) {
-        console.log("date picker", which, payload);
         var e = {
             target: {
                 value: payload.toISOString(),
