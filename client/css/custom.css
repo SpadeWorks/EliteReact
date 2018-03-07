@@ -3163,7 +3163,7 @@ border: solid 1px#fff;
     color: #fff;
     border: none;
     font-size: 68%;
-    letter-spacing: 1px;
+    /*letter-spacing: 1px;*/
 }
 
 .nav-tabs>li.active>a,
@@ -3174,7 +3174,7 @@ border: solid 1px#fff;
     color: #ff8d00;
     font-weight: bold;
     font-size: 68%;
-    letter-spacing: 1px;
+    /*letter-spacing: 1px;*/
 }
 
 .nav-tabs>li>a:hover {
@@ -3222,13 +3222,14 @@ a.drive_name h4 {
 }
 
 .leader_rank span {
-    -webkit-transform: skewX(25deg) !important;
+    
     color: white;
     position: absolute;
     box-sizing: border-box;
+    /*-webkit-transform: skewX(25deg) !important;
     -moz-transform: skewX(45deg);
     -ms-transform: skewX(45deg);
-    -webkit-transform: skewX(45deg);
+    -webkit-transform: skewX(45deg);*/
     left: 6px;
     font-size: 23px;
     top: 7px;
@@ -3244,7 +3245,7 @@ a.drive_name h4 {
     height: 60px;
     background: none;
     border: solid 1px #fff;
-    background: #0000008a;
+    background: rgba(0, 0, 0, 0.5411764705882353);
 }
 
 .leader_name span {
@@ -3276,14 +3277,15 @@ span.l_count {
 }
 
 .avatar {
-    -webkit-transform: skewX(27deg) !important;
+    
     color: white;
     position: absolute;
     box-sizing: border-box;
-    -moz-transform: skewX(45deg);
+    transform: skewX(27deg) !important;
+    /*-moz-transform: skewX(45deg);
     -ms-transform: skewX(45deg);
     -webkit-transform: skewX(45deg);
-    /* transform: skewX(45deg); */
+     transform: skewX(45deg); */
     left: 25px;
     /* padding-left: 13px; */
     padding-top: 5px;
@@ -3307,15 +3309,16 @@ span.l_count {
     height: 50px;
     /* background: red; */
     float: left;
-    -webkit-transform: skewX(27deg) !important;
+    transform: skewX(27deg) !important;
     color: white;
     position: absolute;
     box-sizing: border-box;
-    -moz-transform: skewX(45deg);
+    /*-moz-transform: skewX(45deg);
     -ms-transform: skewX(45deg);
+    transform: skewX(45deg);
     -webkit-transform: skewX(45deg);
+    padding-top: 7px;*/
     left: 53px;
-    padding-top: 7px;
 }
 
 .name {
@@ -3416,12 +3419,16 @@ width: 28px !important;
     background: url('/sites/elite/Style%20Library/Elite/images/dash-loader-out.png');
     -webkit-animation: rotation 30s infinite;
     animation-play-state: running;
+    animation: rotation 30s infinite;
+    -ms-animation: rotation 30s infinite;
 }
 
 #inner img {
     height: 80px;
     width: 80px;
     -webkit-animation: rotation 50s infinite;
+    animation: rotation 50s infinite;
+    -ms-animation: rotation 50s infinite;
     margin: 8px;
     margin-left: 9px;
     position: absolute;
@@ -3450,7 +3457,7 @@ width: 28px !important;
 }
 
 .black_box_right {
-    background: #ffffff0a;
+    background: rgba(255, 255, 255, 0.0392156862745098);
     margin-top: -100px;
     z-index: 99;
 }
@@ -3647,6 +3654,7 @@ a#link4 img,
 a#link5 img,
 a#link6 img {
     height: 35px;
+    width: 35px;
     margin-left: 1;
     position: absolute;
     z-index: 10;
@@ -4376,7 +4384,7 @@ div#s4-ribbonrow {
 }
 
 .black_box {
-    background: #ffffff0a;
+    background: rgba(255, 255, 255, 0.0392156862745098);
     margin-top: -100px;
 }
 
@@ -7153,6 +7161,7 @@ span.orange.big {
         height: 100vh;
         -webkit-transform: opacity 0.3s linear;
         transform: opacity 0.3s linear;
+        -ms-transform: opacity 0.3s linear;
         background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') bottom center no-repeat !important;
         width: 100%;
         height: auto;
@@ -7373,13 +7382,13 @@ span.orange.big {
         background: #004b8d;
     }
     .container.big_leaderbox .leader_listbox .leader_rank span {
-        -webkit-transform: skewX(25deg) !important;
+        transform: skewX(25deg) !important;
         color: white;
         position: absolute;
         box-sizing: border-box;
-        -moz-transform: skewX(45deg);
+        /*-moz-transform: skewX(45deg);
         -ms-transform: skewX(45deg);
-        -webkit-transform: skewX(45deg);
+        -webkit-transform: skewX(45deg);*/
         left: 6px;
         font-size: 23px;
         padding-left: 16px !important;
