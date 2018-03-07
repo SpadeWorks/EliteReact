@@ -47,9 +47,13 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
         });
     }
 
-    render() {
-        const { upCommingTestDrives, upCommingTestDrivesLoading, ui, updateUI } = this.props;
+    
+    componentWillUpdate(){
+        this.initialize();
+    }
 
+    initialize(){
+        const { upCommingTestDrives, upCommingTestDrivesLoading, ui, updateUI } = this.props;
         if (!upCommingTestDrivesLoading && upCommingTestDrives && upCommingTestDrives.length && !ui.visibleItems.length) {
             var currentPage = ui.current;
             if ((ui.visibleItems.length < ui.visibleItems * ui.itemsPerPage) && ui.current != 0) {
@@ -58,7 +62,12 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
             this.getVisibleItems(currentPage);
         }
 
+    }
 
+
+
+    render() {
+        const { upCommingTestDrives, upCommingTestDrivesLoading, ui, updateUI } = this.props;
         return (<div>
             {ui.isCreaseTestDriveVisible ? <div className="centralbox_button row">
                 <div className="button type1 nextBtn btn-lg pull-right animated_button">
@@ -67,7 +76,7 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
               </div> : ''}
             <Loader show={upCommingTestDrivesLoading} message={'Loading...'}>
                 {
-                    (ui.visibleItems && ui.visibleItems.length) ?
+                    (!upCommingTestDrivesLoading && ui.visibleItems && ui.visibleItems.length) ?
                         ui.visibleItems.map((testDriveObj, index) => {
                             return (<TestDriveCardItem
                                 key={index}
@@ -77,7 +86,7 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
                         }) : (!upCommingTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_UPCOMING_MSG}</div>)
                 }
                 {
-                    ui.visibleItems && ui.visibleItems.length > 0 &&
+                    (!upCommingTestDrivesLoading && ui.visibleItems && ui.visibleItems.length > 0) &&
                     <Pager
                         total={Math.ceil(upCommingTestDrives.length / ui.itemsPerPage)}
                         current={ui.current}

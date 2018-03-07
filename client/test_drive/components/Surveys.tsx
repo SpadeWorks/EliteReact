@@ -113,7 +113,7 @@ class Surveys extends React.Component<SurveysProps> {
                     </div>
 
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                        <input type="button" value="Submit"
+                        <input disabled={testDrive.status == ColumnsValues.ACTIVE} type="button" value="Submit"
                             onClick={this.onSubmit} />
                     </div>
                 </div>

@@ -122,7 +122,7 @@ class TestCases extends React.Component<TestCasesProps> {
                         <input type="button" value="Next" onClick={() => this.switchTab(1)} />
                     </div>
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                        <input type="button" value="Save as a draft" onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
+                        <input disabled={testDrive.status == ColumnsValues.ACTIVE} type="button" value="Save as a draft" onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
                     </div>
                 </div>
             </div>

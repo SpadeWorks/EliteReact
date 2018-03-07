@@ -1497,7 +1497,8 @@ export class Services {
                     MaxTestDrivers: testDrive.maxTestDrivers,
                     TestDriveName: testDrive.title,
                     TestDriveStatus: testDrive.status,
-                    TestDriveOwner_id: this.getCurrentUserID()
+                    TestDriveOwner_id: this.getCurrentUserID(),
+                    UserRegion_tax: testDrive.region
                 }
                 if (questions.length > 0) {
                     let ids = [];

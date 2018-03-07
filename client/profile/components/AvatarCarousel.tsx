@@ -21,6 +21,8 @@ class AvatarCarousel extends React.Component<AvatarCarouselProps> {
         this.props.updateUI({
             avatarSelectedID: this.props.eliteProfile.avatarID,
         })
+
+        $()
     }
 
     avatarSelected(avatar, baseUrl, index) {
@@ -36,11 +38,11 @@ class AvatarCarousel extends React.Component<AvatarCarouselProps> {
         var strImage = [];
         let avatars = this.props.avatars;
         for (var i = 0, j = 0; i < avatars.length; i = i + 8) {
-            let outrdiv = <div className={'item' + (i == 0 ? 'active' : '')}>
+            let outrdiv = <div className={'item' + (i == 0 ? ' active' : '')}>
                 <div className='col-md-12'>{
                     avatars.slice(i, i + 8).map((avatar, index) => {
                         if (index % 2 == 0) {
-                            return <div className="col-md-3">
+                            return <div className="col-md-3" key={index}>
                                 <a href='javascript:void(0)'
                                     onClick={() => this.avatarSelected(avatar, baseUrl, index)}>
                                     <img className={this.props.ui.avatarSelectedID == avatar.ID ? 'selected-avatar' : ''}
@@ -54,7 +56,7 @@ class AvatarCarousel extends React.Component<AvatarCarouselProps> {
                 <div className='col-md-12'>{
                     avatars.slice(i, i + 8).map((avatar, index) => {
                         if (index % 2 != 0) {
-                            return <div className="col-md-3">
+                            return <div className="col-md-3" key={index}>
                                 <a href='javascript:void(0)' onClick={() => this.avatarSelected(avatar, baseUrl, index)}>
                                     <img className={this.props.ui.avatarSelectedID == avatar.ID ? 'selected-avatar' : ''}
                                         id={avatar.ID} src={baseUrl + avatar.FileRef} />
@@ -79,7 +81,7 @@ class AvatarCarousel extends React.Component<AvatarCarouselProps> {
             <span className="orange">Select Avatar</span>
         </div>
             <div className="modal-body">
-                <div id="myCarousel" className="carousel slide" data-ride="carousel">
+                <div id="myCarousel" className="carousel slide" data-ride="carousel" data-interval="false">
                     {/* <!-- Indicators --> */}
                     {/*let baseUrl = location.protocol + "//" + location.hostname;
                         AvatarImage: baseUrl + avatarDetails.FileRef*/}
@@ -87,7 +89,7 @@ class AvatarCarousel extends React.Component<AvatarCarouselProps> {
                         {
                             avatars && avatars.length && avatars.map((avatar, index) => {
                                 return (index % 8 == 0) &&
-                                    <li data-target="#myCarousel" data-slide-to={index / 8}
+                                    <li key={index} data-target="#myCarousel" data-slide-to={index / 8}
                                         className={index == 0 ? "active" : ''}></li>
                             })
                         }

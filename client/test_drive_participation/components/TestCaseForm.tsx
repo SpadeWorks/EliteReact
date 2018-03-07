@@ -234,13 +234,13 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                                 </div>
 
                                             </div>
-                                            <div className="col-md-12 participation_actionbox">
+                                            <div className="col-md-3 participation_actionbox">
                                                 <div className="button type1 nextBtn btn-lg pull-left animated_button">
                                                     <input type="button" value="Save" onClick={() => this.saveTestCaseResponse(testCase, index)} />
                                                 </div>
                                             </div>
 
-                                            {isLast && <div className="col-md-12 participation_actionbox">
+                                            {isLast && <div className="col-md-3 participation_actionbox pull-right">
                                                 <div className="button type1 nextBtn btn-lg pull-right animated_button">
                                                     <input type="button" value="Submit test cases" onClick={() => this.submitTestCaseResponse(testCase, index)} />
                                                 </div>

@@ -46,7 +46,11 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
         });
     }
 
-    render() {
+    componentWillUpdate(){
+        this.initialize();
+    }
+
+    initialize(){
         const { activeTestDrives, activeTestDrivesLoading, ui, updateUI } = this.props;
 
         if (!activeTestDrivesLoading && activeTestDrives && activeTestDrives.length && !ui.visibleItems.length) {
@@ -57,6 +61,10 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
             this.getVisibleItems(currentPage);
         }
 
+    }
+
+    render() {
+        const { activeTestDrives, activeTestDrivesLoading, ui, updateUI } = this.props;
         return (<div>
             {ui.isCreaseTestDriveVisible ? <div className="centralbox_button row">
                 <div className="button type1 nextBtn btn-lg pull-right animated_button">
@@ -66,7 +74,7 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
 
             <Loader show={activeTestDrivesLoading || false} message={'Loading...'}>
                 {
-                    (ui.visibleItems && ui.visibleItems.length) ?
+                    (!activeTestDrivesLoading && ui.visibleItems && ui.visibleItems.length) ?
                         ui.visibleItems.map((testDriveObj, index) => {
                             return (<TestDriveCardItem
                                 key={index}
@@ -76,7 +84,7 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
                         }) : (!activeTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_ACTIVE_MSG}</div>)
                 }
                 {
-                    ui.visibleItems && ui.visibleItems.length > 0 &&
+                    (!activeTestDrivesLoading && ui.visibleItems && ui.visibleItems.length > 0) &&
                     <Pager
                         total={Math.ceil(activeTestDrives.length / ui.itemsPerPage)}
                         current={ui.current}

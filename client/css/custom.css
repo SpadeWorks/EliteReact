@@ -8,11 +8,7 @@
 
 @font-face {
     font-family: titanium;
-    src: url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.ttf"),
-    url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.eot") format("eot"),
-    url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.woff") format("woff"),
-    url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.svg") format("svg");
-
+    src: url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.ttf"), url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.eot") format("eot"), url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.woff") format("woff"), url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.svg") format("svg");
 }
 
 @font-face {
@@ -20,7 +16,6 @@
     src: url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.eot');
     src: url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/sites/elite/Style%20Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
-
 
 body {
     font-family: HemiHeadRg-BoldItalic !important;
@@ -2964,8 +2959,8 @@ ul.select2-selection__rendered {
     list-style-type: none;
     padding-left: 0px;
     margin: 0 0 0 15px;
-    padding-left:0px;
-    margin-left:0px; 
+    padding-left: 0px;
+    margin-left: 0px;
 }
 
 span.select2-container.select2-container--default.select2-container--open {
@@ -3168,7 +3163,7 @@ border: solid 1px#fff;
     color: #fff;
     border: none;
     font-size: 68%;
-    letter-spacing: 1px;
+    /*letter-spacing: 1px;*/
 }
 
 .nav-tabs>li.active>a,
@@ -3179,7 +3174,7 @@ border: solid 1px#fff;
     color: #ff8d00;
     font-weight: bold;
     font-size: 68%;
-    letter-spacing: 1px;
+    /*letter-spacing: 1px;*/
 }
 
 .nav-tabs>li>a:hover {
@@ -3227,13 +3222,14 @@ a.drive_name h4 {
 }
 
 .leader_rank span {
-    -webkit-transform: skewX(25deg) !important;
+    
     color: white;
     position: absolute;
     box-sizing: border-box;
+    /*-webkit-transform: skewX(25deg) !important;
     -moz-transform: skewX(45deg);
     -ms-transform: skewX(45deg);
-    -webkit-transform: skewX(45deg);
+    -webkit-transform: skewX(45deg);*/
     left: 6px;
     font-size: 23px;
     top: 7px;
@@ -3249,7 +3245,7 @@ a.drive_name h4 {
     height: 60px;
     background: none;
     border: solid 1px #fff;
-    background: #0000008a;
+    background: rgba(0, 0, 0, 0.5411764705882353);
 }
 
 .leader_name span {
@@ -3281,14 +3277,15 @@ span.l_count {
 }
 
 .avatar {
-    -webkit-transform: skewX(27deg) !important;
+    
     color: white;
     position: absolute;
     box-sizing: border-box;
-    -moz-transform: skewX(45deg);
+    transform: skewX(27deg) !important;
+    /*-moz-transform: skewX(45deg);
     -ms-transform: skewX(45deg);
     -webkit-transform: skewX(45deg);
-    /* transform: skewX(45deg); */
+     transform: skewX(45deg); */
     left: 25px;
     /* padding-left: 13px; */
     padding-top: 5px;
@@ -3312,15 +3309,16 @@ span.l_count {
     height: 50px;
     /* background: red; */
     float: left;
-    -webkit-transform: skewX(27deg) !important;
+    transform: skewX(27deg) !important;
     color: white;
     position: absolute;
     box-sizing: border-box;
-    -moz-transform: skewX(45deg);
+    /*-moz-transform: skewX(45deg);
     -ms-transform: skewX(45deg);
+    transform: skewX(45deg);
     -webkit-transform: skewX(45deg);
+    padding-top: 7px;*/
     left: 53px;
-    padding-top: 7px;
 }
 
 .name {
@@ -3421,12 +3419,16 @@ width: 28px !important;
     background: url('/sites/elite/Style%20Library/Elite/images/dash-loader-out.png');
     -webkit-animation: rotation 30s infinite;
     animation-play-state: running;
+    animation: rotation 30s infinite;
+    -ms-animation: rotation 30s infinite;
 }
 
 #inner img {
     height: 80px;
     width: 80px;
     -webkit-animation: rotation 50s infinite;
+    animation: rotation 50s infinite;
+    -ms-animation: rotation 50s infinite;
     margin: 8px;
     margin-left: 9px;
     position: absolute;
@@ -3455,7 +3457,7 @@ width: 28px !important;
 }
 
 .black_box_right {
-    background: #ffffff0a;
+    background: rgba(255, 255, 255, 0.0392156862745098);
     margin-top: -100px;
     z-index: 99;
 }
@@ -3466,7 +3468,7 @@ width: 28px !important;
     border-left: solid 2px #fff;
     opacity: 0;
     margin-top: -41px;
-    position:relative;
+    position: relative;
 }
 
 .white_circle2 {
@@ -3652,6 +3654,7 @@ a#link4 img,
 a#link5 img,
 a#link6 img {
     height: 35px;
+    width: 35px;
     margin-left: 1;
     position: absolute;
     z-index: 10;
@@ -3874,12 +3877,10 @@ a#link6 span {
     z-index: 99;
 }
 
+.leader_car {}
 
-.leader_car {
-
-}
-
-.leader_namenphoto{ float: left;
+.leader_namenphoto {
+    float: left;
     -webkit-transform: skewX(21deg) !important;
     color: white;
     box-sizing: border-box;
@@ -3890,7 +3891,8 @@ a#link6 span {
     left: 0px;
     /* padding-left: 13px; */
     padding-top: 5px;
-    padding-left: 50px;}
+    padding-left: 50px;
+}
 
 .leader_namenphoto img {
     float: left;
@@ -4019,7 +4021,7 @@ a.status_fail {
 
 .overview {
     margin-top: 0px;
-    padding-bottom: 30px;
+    
     padding-top: 30px;
     background: #1f1f28;
 }
@@ -4323,7 +4325,6 @@ div#s4-ribbonrow {
     color: white !important;
     font-size: 11px;
     letter-spacing: 1px;
-
 }
 
 .cancel-btn a:hover {
@@ -4383,7 +4384,7 @@ div#s4-ribbonrow {
 }
 
 .black_box {
-    background: #ffffff0a;
+    background: rgba(255, 255, 255, 0.0392156862745098);
     margin-top: -100px;
 }
 
@@ -4658,9 +4659,6 @@ span.increase_or_decreased {
     padding-top: 5px;
 }
 
-
-
-
 .leader_namenphoto img {
     float: left;
 }
@@ -4901,9 +4899,9 @@ span.teams:hover {
 /*video box styles starts here*/
 
 .modal-dialog.video_box {
-    position: absolute;
+    position: relative;
     top: 20%;
-    left: 20%;
+    
 }
 
 .modal-dialog {
@@ -5150,9 +5148,13 @@ li.active-thumbnail {
     margin-top: -10px;
 }
 
-.avatar_box .item {
+
+/* Removed to fixes avatar carousel issue. */
+
+
+/* .avatar_box .item {
     padding-left: 60px;
-}
+} */
 
 .avatar_box span.orange {
     margin-bottom: 50px;
@@ -5300,7 +5302,6 @@ h1#dialogTitleSpan {
     float: left;
     width: 100%;
     margin-top: 15px;
-
 }
 
 .para {
@@ -5373,6 +5374,7 @@ a.status_fail:hover {
 
 .comment_box {
     margin-top: 55px;
+    margin-left:5px;
 }
 
 .common_box .inputMaterial {
@@ -5465,6 +5467,7 @@ ul.task_circle li p.inactive_task {
     width: auto;
     padding-right: 50px;
     transition: 0.6s ease-in-out top;
+    min-height: 617px;
 }
 
 @media all and (transform-3d),
@@ -5487,6 +5490,7 @@ ul.task_circle li p.inactive_task {
     .carousel.vertical .carousel-inner>.item.active {
         transform: translate3d(0, 0, 0);
         top: 0;
+        min-height:617px;
     }
 }
 
@@ -5958,13 +5962,11 @@ h1.testcase_name {
 }
 
 
-
 /* .testcase_box .inputMaterial:valid~label {
     top: -6px;
     font-size: 18px;
     color: #909090;
 } */
-
 
 .modal-content {
     background-color: black;
@@ -7162,6 +7164,7 @@ span.orange.big {
         height: 100vh;
         -webkit-transform: opacity 0.3s linear;
         transform: opacity 0.3s linear;
+        -ms-transform: opacity 0.3s linear;
         background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') bottom center no-repeat !important;
         width: 100%;
         height: auto;
@@ -7382,13 +7385,13 @@ span.orange.big {
         background: #004b8d;
     }
     .container.big_leaderbox .leader_listbox .leader_rank span {
-        -webkit-transform: skewX(25deg) !important;
+        transform: skewX(25deg) !important;
         color: white;
         position: absolute;
         box-sizing: border-box;
-        -moz-transform: skewX(45deg);
+        /*-moz-transform: skewX(45deg);
         -ms-transform: skewX(45deg);
-        -webkit-transform: skewX(45deg);
+        -webkit-transform: skewX(45deg);*/
         left: 6px;
         font-size: 23px;
         padding-left: 16px !important;
@@ -7988,10 +7991,22 @@ a#link3 img {
     border-radius: 50%;
 }
 
-.selected-avatar{
+.selected-avatar {
     height: 80px !important;
     width: 80px !important;
     border: solid 2px orange !important;
     MARGIN-LEFT: -10PX !important;
     margin-top: -10px !important;
+}
+
+input[type=button][disabled=disabled],
+button[disabled=disabled] {
+    color: gray !important;
+    cursor: not-allowed;
+}
+
+input[type=button]:disabled,
+button:disabled {
+    color: gray !important;
+    cursor: not-allowed;
 }
