@@ -13,6 +13,7 @@ import { css, active } from 'glamor';
 import { Messages, ColumnsValues} from '../../common/services/constants';
 import Popup from 'react-popup';
 import { Services } from '../../common/services/data_service';
+import * as moment from '../../js/moment';
 
 interface TestDriveFormProps {
     testDrive: TestDrive,
@@ -50,6 +51,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         this.onSwitchTab = this.onSwitchTab.bind(this);
         this.saveValidate = this.saveValidate.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.getEndDate = this.getEndDate.bind(this);
     }
 
     onChange = (e) => {
@@ -62,15 +64,18 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
 
     handleChange(which, payload) {
         console.log("date picker", which, payload);
-        this.props.testDrive[which] = payload.toISOString();
         var e = {
             target: {
                 value: payload.toISOString(),
                 name: which
             }
         };
-
-        this.onChange(e);
+        
+        if(which == 'startDate' && this.props.testDrive.endDate && payload > moment(this.props.testDrive.endDate)){
+            Popup.alert(Messages.START_GREATOR_ERROR);
+        } else{
+            this.onChange(e);
+        }
     }
 
     selectControlChange = (value, id, name) => {
@@ -200,6 +205,10 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         });
     }
 
+    getEndDate(){
+        return moment(this.props.testDrive.startDate).add(1, 'days')
+    }
+
     render() {
         const { testDrive, saveTestDrive, submitTestDrive, updateMultiSelect, ui, updateUI, fieldDescriptions } = this.props;
         const butttonGroup = {
@@ -298,7 +307,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         <div className={"endDate " + (ui.showEndDatePicker ? "show-tab" : "hide-tab")}>
                             <Calendar
                                 // date={now => { return now.add(1, 'days') }}
-                                minDate={now => { return now.add(1, 'days') }}
+                                minDate={this.getEndDate()}
                                 onInit={this.handleChange.bind(this, 'endDate')}
                                 onChange={this.handleChange.bind(this, 'endDate')}
                                 onFocus={() => { updateUI({ showDatePicker: true }) }}

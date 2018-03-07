@@ -1493,7 +1493,7 @@ export class Services {
                     TestDriveName: testDrive.title,
                     TestDriveStatus: testDrive.status,
                     TestDriveOwner_id: this.getCurrentUserID(),
-                    UserRegion_tax: testDrive.region
+                    ConstantsUSER_REGION: testDrive.region
                 }
                 if (questions.length > 0) {
                     let ids = [];
