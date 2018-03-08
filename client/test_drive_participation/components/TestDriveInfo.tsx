@@ -89,9 +89,9 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                         <p>{testDriveInstance.description}</p>
                     </div>
                     <div className="col-md-12">
-                        <div className="col-md-10  detailed_points profileinfo_box">
+                        <div className="col-md-11  detailed_points profileinfo_box">
                             <div className="row inforow">
-                                <div className="col-md-4">
+                                <div className="col-md-3">
                                     <div className="row">
                                         <span className="orange">TEST DRIVE OWNER :</span>
                                     </div>
@@ -140,7 +140,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                 </div>
                                 <div className="col-md-6">
                                     <div className="row">
-                                        <h5>{testDriveInstance.levelName}</h5>
+                                        <h5 style={{"position" : "relative", "right" : "10px"}}>{testDriveInstance.levelName}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -152,7 +152,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                 </div>
                                 <div className="col-md-6">
                                     <div className="row">
-                                        <h5>{testDriveInstance.participants || "0"}</h5>
+                                        <h5 style={{"position" : "relative", "right" : "40px"}}>{testDriveInstance.participants || "0"}</h5>
                                     </div>
                                 </div>
                             </div>

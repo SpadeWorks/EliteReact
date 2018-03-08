@@ -74,7 +74,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                         </div>
                         <div className="col-md-12 partcipant_enddate">
                             <div className="row">
-                                <div className="col-md-6 enddate_Section">
+                                <div className="col-md-6 enddate_Section para">
                                     <div className="row">
                                         <div className="col-md-12">
 
@@ -145,7 +145,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
 
 
                                     </div>
-                                    <div className="col-md-12 partcipant_enddate">
+                                    <div className="col-md-12 para">
                                         <div className="row">
 
                                             <div className="row">
@@ -173,7 +173,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-md-6 partcipant_Section">
+                                <div className="col-md-6 partcipant_Section para">
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="row">
