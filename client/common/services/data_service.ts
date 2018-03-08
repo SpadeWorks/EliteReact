@@ -411,7 +411,7 @@ export class Services {
                         responseID: t[Constants.Columns.ID],
                         testCaseResponse: t[Constants.Columns.TEST_CASE_RESPONSE],
                         responseStatus: t[Constants.Columns.TEST_CASE_RESPONSE_STATUS],
-                        testCaseId: t[Constants.Columns.TESTCASE_ID].results[0][Constants.Columns.ID],
+                        testCaseId: t[Constants.Columns.TESTCASE_ID][Constants.Columns.ID],
                         selectedResponse: t[Constants.Columns.Selected_Response],
                         files: t[Constants.Columns.RESPONSE_ATTACHMENTS] && t[Constants.Columns.RESPONSE_ATTACHMENTS].length
                             && Utils.tryParseJSON(t[Constants.Columns.RESPONSE_ATTACHMENTS])
@@ -443,7 +443,7 @@ export class Services {
                         let questionsArray: QuestionInstance[] = [];
                         questions.map(question => {
                             let response = questionResponses.filter(response => {
-                                return response[Constants.Columns.QUESTION_ID].results[0][Constants.Columns.ID] == question.id;
+                                return response[Constants.Columns.QUESTION_ID][Constants.Columns.ID] == question.id;
                             })
                             response = response[0];
                             questionsArray.push(<QuestionInstance>{
@@ -1950,7 +1950,7 @@ export class Services {
     //                         id: index + 1,
     //                         name: testDrive.UserID.UserInfoName,
     //                         points: testDrive.Points,
-    //                         avatar: "/Style%20Library/Elite/images/masc1.png"
+    //                         avatar: "/sites/elite/Style%20Library/Elite/images/masc1.png"
     //                     });
     //                 });
     //                 resolve(leaderBoardArr);
@@ -1980,7 +1980,7 @@ export class Services {
     //                                 id: index + 1,
     //                                 name: testDrive.UserID.UserInfoName,
     //                                 points: testDrive.Points,
-    //                                 avatar: "/Style%20Library/Elite/images/masc1.png"
+    //                                 avatar: "/sites/elite/Style%20Library/Elite/images/masc1.png"
     //                             });
     //                         });
     //                         resolve(regionLeaderBoardArr);
