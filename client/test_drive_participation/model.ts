@@ -19,6 +19,7 @@ export type TestCaseInstance = {
     files?: any[];
     saveInProgress?: boolean;
     participants: number;
+    testDriveStatus: string;
 }
 
 export type QuestionInstance = {
@@ -74,6 +75,7 @@ export type TestDriveInstance = {
     isSumbitInProgress: boolean;
     participants: number;
     ownerEmail: string;
+    testDriveStatus: string;
 };
 
 export type Configurations = {

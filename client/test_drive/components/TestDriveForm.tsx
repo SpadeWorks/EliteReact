@@ -69,7 +69,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     handleChange(which, payload) {
         var e = {
             target: {
-                value: payload.format("YYYY-DD-MM"),
+                value: payload.toISOString(),
                 name: which
             }
         };

@@ -516,6 +516,7 @@ export class Services {
                 })
 
                 var instance = <TestDriveInstance>{
+                    testDriveStatus: testDrive.status,
                     instanceID: testDriveInstance ? testDriveInstance[Constants.Columns.ID] : -1,
                     currentPoint: testDriveInstance ? testDriveInstance[Constants.Columns.CURRENT_POINTS] : 0,
                     dateJoined: testDriveInstance ? testDriveInstance[Constants.Columns.DATE_JOINED] : "",

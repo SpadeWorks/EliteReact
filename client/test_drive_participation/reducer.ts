@@ -60,7 +60,8 @@ const initialState: IState = {
         testCaseSaveInProgress: false,
         isSumbitInProgress: false,
         participants: 0,
-        ownerEmail: ''
+        ownerEmail: '',
+        testDriveStatus: ''
 
     },
     loading: true,
