@@ -133,7 +133,7 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                         </span>
                                         <h4>{participants}</h4>
                                     </div>
-                                    <div className="col-md-12 end_date">
+                                    <div className="col-md-12 end_date race_type">
                                         <span className="orange">
                                             <i>DIFFICULTY LEVEL :</i>
                                         </span>
