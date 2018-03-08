@@ -69,11 +69,11 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     handleChange(which, payload) {
         var e = {
             target: {
-                value: payload.toISOString(),
+                value: payload.format("YYYY-DD-MM"),
                 name: which
             }
         };
-        
+
         if(which == 'startDate' && this.props.testDrive.endDate && payload > moment(this.props.testDrive.endDate)){
             Popup.alert(Messages.START_GREATOR_ERROR);
         } else{
