@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { Tabs, Pane } from '../../common/components/Tabs';
 import Service from '../../common/services/services';
 import * as Constants from '../../common/services/constants';
+import * as $ from 'jquery';
 
 import {
   ApprovalPendingContainer,
@@ -84,7 +85,96 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
   componentDidMount() {
     document.body.className = "black-bg";
     this.props.dispatch(loadTestDrives(services.getCurrentUserID()));
-  }
+
+    $(document).ready(function(){
+
+      $(".total_testdrivebox li:first-child").click(function(){
+
+        if($(".total_testdrivebox li:first-child").hasClass("active")){
+          $(".car_box ").addClass("first_place");
+          $(".car_box ").removeClass("second_place");
+          $(".car_box ").removeClass("third_place");
+          $(".car_box ").removeClass("fourth_place");
+          $(".car_box ").removeClass("fifth_place");
+
+        }
+      
+
+
+      });
+
+
+      $(".total_testdrivebox li:nth-child(2)").click(function(){
+
+        if($(".total_testdrivebox li:nth-child(2)").hasClass("active")){
+          
+          $(".car_box ").removeClass("first_place");
+          $(".car_box ").removeClass("third_place");
+          $(".car_box ").removeClass("fourth_place");
+          $(".car_box ").removeClass("fifth_place");
+          $(".car_box ").addClass("second_place");
+
+        }
+      
+
+
+      });
+
+
+      $(".total_testdrivebox li:nth-child(3)").click(function(){
+
+        if($(".total_testdrivebox li:nth-child(3)").hasClass("active")){
+         
+          $(".car_box ").removeClass("first_place");
+          $(".car_box ").removeClass("second_place");
+          $(".car_box ").removeClass("fourth_place");
+          $(".car_box ").removeClass("fifth_place");
+          $(".car_box ").addClass("third_place");
+
+        }
+      
+
+
+      });
+
+
+      $(".total_testdrivebox li:nth-child(4)").click(function(){
+
+        if($(".total_testdrivebox li:nth-child(4)").hasClass("active")){
+         
+          $(".car_box ").removeClass("first_place");
+          $(".car_box ").removeClass("second_place");
+          $(".car_box ").removeClass("third_place");
+          $(".car_box ").removeClass("fifth_place");
+          $(".car_box ").addClass("fourth_place");
+
+        }
+
+        $(".total_testdrivebox li:nth-child(5)").click(function(){
+
+          if($(".total_testdrivebox li:nth-child(5)").hasClass("active")){
+            
+            $(".car_box ").removeClass("first_place");
+            $(".car_box ").removeClass("second_place");
+            $(".car_box ").removeClass("third_place");
+            $(".car_box ").removeClass("fourth_place");
+            $(".car_box ").addClass("fifth_place");
+  
+          }
+      
+
+
+      });
+
+
+
+
+  
+      
+
+    });
+
+    }
 
   getSelectedTab() {
     switch (this.props.activeTab.toLowerCase()) {

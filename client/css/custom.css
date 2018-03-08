@@ -7632,6 +7632,18 @@ div.td_namebox:hover h4 span::after
     .partcipant_Section .race_type h5{text-transform:uppercase;}
 
     .popup_dificultybox .race_type h4{text-transform:uppercase;}
+
+
+.first_place{position:relative;left:0px; transition:all 0.5s;}
+.second_place{position:relative;left:190px;transition:all 0.5s;}
+.third_place{position:relative;left: 390px;transition:all 0.5s;}
+.fourth_place{position:relative;left: 620px;transition:all 0.5s;}
+.fifth_place{position:relative;left: 820px;transition:all 0.5s;}
+
+
+
+
+
 }
 
 .currtestdrive_list ul.dragrace_indicator,.currtestdrive_list ul.streetrace_indicator {
@@ -7641,6 +7653,10 @@ div.td_namebox:hover h4 span::after
 .currtestdrive_list ul.soapbox_indicator{margin-left:0px;}
 
 .currtestdrive_list ul.streetrace_indicator{margin-left:0px;}
+
+
+
+
 
 
 span.s4-clust {
@@ -7698,6 +7714,7 @@ ul.soapbox_indicator {margin: 0 0 0 10px;}
 .total_testdrivebox .nav-tabs>li {
     margin-right: 17px;
 }
+
 
 
 /*testdrive central styling ends here*/
