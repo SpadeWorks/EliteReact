@@ -52,7 +52,7 @@ let application;
 if (user.eliteProfileID) {
   application = (<Provider store={store}>
     <HashRouter basename="/" >
-      <div>
+      <div> 
         <Switch>
           <Route exact path="/testdrive" component={ManageTestDrive} />
           <Route exact path="/testdrive/:id" component={ManageTestDrive} />

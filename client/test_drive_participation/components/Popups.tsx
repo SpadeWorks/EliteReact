@@ -8,6 +8,7 @@ class Footer extends React.Component<FooterProps> {
     constructor(props, context) {
         super(props, context);
     }
+
     render() {
         return (<div className="col-md-12">
         <div className="row">
@@ -20,18 +21,18 @@ class Footer extends React.Component<FooterProps> {
               <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#submitTestDrive">Fizz</button>
             </div>
             <div className="col-md-2">
-              <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2">comming through</button>
+              <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#ComingThrough">comming through</button>
             </div>
     
             <div className="col-md-2">
-              <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal3">missing out</button>
+              <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#partialSubmit">missing out</button>
             </div>
             <div className="col-md-2">
-              <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal4">HIgh Five</button>
+              <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#highFive">HIgh Five</button>
             </div>
     
             <div className="col-md-2">
-              <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal5">Hit the breaks</button>
+              <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#hitTheBreaks">Hit the breaks</button>
             </div>
           </div>
         </div>
@@ -62,7 +63,7 @@ class Footer extends React.Component<FooterProps> {
           </div>
         </div>
     
-        <div id="myModal2" className="modal fade" role="dialog">
+        <div id="comingThrough" className="modal fade" role="dialog">
           <div className="modal-dialog">
             <div className="modal-content testrive_notification">
               <div className="modal-header">
@@ -88,7 +89,7 @@ class Footer extends React.Component<FooterProps> {
           </div>
         </div>
     
-        <div id="myModal3" className="modal fade" role="dialog">
+        <div id="partialSubmit" className="modal fade" role="dialog">
           <div className="modal-dialog">
             <div className="modal-content testrive_notification">
               <div className="modal-header">
@@ -112,7 +113,7 @@ class Footer extends React.Component<FooterProps> {
           </div>
         </div>
     
-        <div id="myModal4" className="modal fade" role="dialog">
+        <div id="highFive" className="modal fade" role="dialog">
           <div className="modal-dialog">
             <div className="modal-content testrive_notification">
               <div className="modal-header">
@@ -140,7 +141,7 @@ class Footer extends React.Component<FooterProps> {
             </div>
           </div>
         </div>
-        <div id="myModal5" className="modal fade" role="dialog">
+        <div id="hitTheBreaks" className="modal fade" role="dialog">
           <div className="modal-dialog">
             <div className="modal-content testrive_notification">
               <div className="modal-header">
