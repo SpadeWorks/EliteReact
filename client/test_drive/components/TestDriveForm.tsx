@@ -13,7 +13,11 @@ import { css, active } from 'glamor';
 import { Messages, ColumnsValues} from '../../common/services/constants';
 import Popup from 'react-popup';
 import { Services } from '../../common/services/data_service';
-import * as moment from '../../js/moment';
+
+let moment = require("moment");
+if ("default" in moment) {
+    moment = moment["default"];
+}
 
 interface TestDriveFormProps {
     testDrive: TestDrive,
