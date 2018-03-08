@@ -49,10 +49,10 @@ const store: Store<any> = createStore(rootReducer,
 
 let user = Services.getUserProfileProperties();
 let application;
-if (!user.eliteProfileID) {
+if (user.eliteProfileID) {
   application = (<Provider store={store}>
     <HashRouter basename="/" >
-      <div>
+      <div> 
         <Switch>
           <Route exact path="/testdrive" component={ManageTestDrive} />
           <Route exact path="/testdrive/:id" component={ManageTestDrive} />

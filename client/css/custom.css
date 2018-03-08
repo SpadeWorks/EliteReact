@@ -7624,9 +7624,11 @@ span.orange.big {
     .popup_dificultybox .race_type h4{text-transform:uppercase;}
 }
 
-.currtestdrive_list ul.dragrace_indicator .currtestdrive_list ul.streetrace_indicator {
+.currtestdrive_list ul.dragrace_indicator,.currtestdrive_list ul.streetrace_indicator {
     margin-left: 2px;
 }
+
+.currtestdrive_list ul.soapbox_indicator{margin-left:0px;}
 
 .currtestdrive_list ul.streetrace_indicator{margin-left:0px;}
 
