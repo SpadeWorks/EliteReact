@@ -6568,7 +6568,8 @@ ul.streetrace_indicator li span {
 
 .testdrive_I_runbox ul.dragrace_indicator {
     margin-top: 2px;
-    margin-bottom: 2px
+    margin-bottom: 2px;
+    margin-left:0px;
 }
 
 .testdrive_I_runbox ul.dragrace_indicator li:first-child span {
@@ -7512,15 +7513,24 @@ span.orange.big {
     .inner-therm span {
         display: none;
     }
-    a.drive_name h4:hover::after,
-    a.drive_name h4:focus::after,
-    a.drive_name h4:visited::after {
+
+    div.td_namebox{min-width:200px;}
+    div.td_namebox:hover::after,
+    div.td_namebox:focus::after,
+    div.td_namebox:visited::after {
         font-family: 'Glyphicons Halflings';
         content: "\e250";
         color: white;
         font-size: 15px;
         margin-left: 12px;
+        
+        position:absolute;
+        top:0px; 
+        right:0px;  
     }
+
+
+
     .black_box_right a.drive_name h4:hover::after {
         display: none;
     }
@@ -7559,8 +7569,8 @@ span.orange.big {
         font-size: 14px;
     }
     .detailed_box .social_box {
-        position: relative;
-        top: 25px;
+        /* position: relative;
+        top: 25px; */
     }
     .big_leaderbox .leader_namenphoto h4 {
         padding-top: 15px;
@@ -7612,6 +7622,13 @@ span.orange.big {
 
 }
 
+.currtestdrive_list ul.dragrace_indicator .currtestdrive_list ul.streetrace_indicator {
+    margin-left: 2px;
+}
+
+.currtestdrive_list ul.streetrace_indicator{margin-left:0px;}
+
+
 span.s4-clust {
     margin-left: -20px!important;
 }
@@ -7652,9 +7669,13 @@ a {
     margin-bottom: 30px;
 }
 
-ul.dragrace_indicator {
+ul.dragrace_indicator{
     margin: 0 0 0 5px;
 }
+
+ul.streetrace_indicator{margin: 0 0 0 10px;}
+
+ul.soapbox_indicator {margin: 0 0 0 10px;}
 
 .total_testdrivebox .tab-pane ul.nav-tabs li a {
     font-size: 14px !important;

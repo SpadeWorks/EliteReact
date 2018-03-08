@@ -58,14 +58,17 @@ class MyTestDrives extends React.Component<LeftContainer> {
         return (<div>{
             <div className="row test_drive" id={driveID}>
                 <div className="modal-backdrop in hidden"></div>
-                <div className="col-md-10">
+                <div className="col-md-10 td_containerbox">
+                <div className="td_namebox">
                     <a className="drive_name">
+                        
                         <h4 onClick={() => this.openMyTestDriveDialog(driveID)}>
                             {testDrive.title}
                             <span className={"glyphicon glyphicon-triangle-right hidden"} aria-hidden="true">
                             </span>
                         </h4>
                     </a>
+                    </div>
                     <p><span className="end_date">END DATE : </span>{Service.formatDate(testDrive.endDate)}</p>
                     <p><span className="participants">PARTICIPANTS : </span> {participants}</p>
                 </div>
