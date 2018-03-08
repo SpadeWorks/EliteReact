@@ -86,62 +86,39 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
     document.body.className = "black-bg";
     this.props.dispatch(loadTestDrives(services.getCurrentUserID()));
 
-    $(document).ready(function(){
-
-      $(".total_testdrivebox li:first-child").click(function(){
-
-        if($(".total_testdrivebox li:first-child").hasClass("active")){
+    $(document).ready(function () {
+      $(".total_testdrivebox li:first-child").click(function () {
+        if ($(".total_testdrivebox li:first-child").hasClass("active")) {
           $(".car_box ").addClass("first_place");
           $(".car_box ").removeClass("second_place");
           $(".car_box ").removeClass("third_place");
           $(".car_box ").removeClass("fourth_place");
           $(".car_box ").removeClass("fifth_place");
-
         }
-      
-
-
       });
 
-
-      $(".total_testdrivebox li:nth-child(2)").click(function(){
-
-        if($(".total_testdrivebox li:nth-child(2)").hasClass("active")){
-          
+      $(".total_testdrivebox li:nth-child(2)").click(function () {
+        if ($(".total_testdrivebox li:nth-child(2)").hasClass("active")) {
           $(".car_box ").removeClass("first_place");
           $(".car_box ").removeClass("third_place");
           $(".car_box ").removeClass("fourth_place");
           $(".car_box ").removeClass("fifth_place");
           $(".car_box ").addClass("second_place");
-
         }
-      
-
-
       });
 
-
-      $(".total_testdrivebox li:nth-child(3)").click(function(){
-
-        if($(".total_testdrivebox li:nth-child(3)").hasClass("active")){
-         
+      $(".total_testdrivebox li:nth-child(3)").click(function () {
+        if ($(".total_testdrivebox li:nth-child(3)").hasClass("active")) {
           $(".car_box ").removeClass("first_place");
           $(".car_box ").removeClass("second_place");
           $(".car_box ").removeClass("fourth_place");
           $(".car_box ").removeClass("fifth_place");
           $(".car_box ").addClass("third_place");
-
         }
-      
-
-
       });
 
-
-      $(".total_testdrivebox li:nth-child(4)").click(function(){
-
-        if($(".total_testdrivebox li:nth-child(4)").hasClass("active")){
-         
+      $(".total_testdrivebox li:nth-child(4)").click(function () {
+        if ($(".total_testdrivebox li:nth-child(4)").hasClass("active")) {
           $(".car_box ").removeClass("first_place");
           $(".car_box ").removeClass("second_place");
           $(".car_box ").removeClass("third_place");
@@ -150,31 +127,18 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
 
         }
 
-        $(".total_testdrivebox li:nth-child(5)").click(function(){
-
-          if($(".total_testdrivebox li:nth-child(5)").hasClass("active")){
-            
+        $(".total_testdrivebox li:nth-child(5)").click(function () {
+          if ($(".total_testdrivebox li:nth-child(5)").hasClass("active")) {
             $(".car_box ").removeClass("first_place");
             $(".car_box ").removeClass("second_place");
             $(".car_box ").removeClass("third_place");
             $(".car_box ").removeClass("fourth_place");
             $(".car_box ").addClass("fifth_place");
-  
           }
-      
-
-
+        });
       });
-
-
-
-
-  
-      
-
     });
-
-    }
+  }
 
   getSelectedTab() {
     switch (this.props.activeTab.toLowerCase()) {
@@ -225,7 +189,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
 
     const isApprover = (role == "Site Owner")
 
-    this.props.updateUI({isCreaseTestDriveVisible: isTestDriveIRunVisible})
+    this.props.updateUI({ isCreaseTestDriveVisible: isTestDriveIRunVisible })
     return (
       <div className="testDrives container">
         <div>
@@ -245,7 +209,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
             </div>
             <div className="row">
               <div className="well">
-              
+
                 <Tabs selected={this.getSelectedTab()}>
                   <Pane label="MY TEST DRIVES">
                     <MyTestDrivesContainer
@@ -310,7 +274,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                   }
                 </Tabs>
               </div>
-              
+
             </div>
           </div>
         </div>
