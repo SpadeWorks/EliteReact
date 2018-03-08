@@ -50,6 +50,7 @@ export type TestDrive = {
     newItem?: boolean;
     levelNumber?: number;
     ownerEmail?: string;
+    saveIsInProgress?: boolean;
 };
 
 export type TestDriveIRun = {

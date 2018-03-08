@@ -109,6 +109,7 @@ const initialState: IState = {
         questions: [],
         status: 'Draft',
         level: 'Level1',
+        saveIsInProgress: false
     },
     testCase: {
         id: -1,
@@ -239,7 +240,8 @@ export default handleActions<IState, any>({
         return {
             ...state,
             loading: true,
-            isTestDriveSaveComplet: false
+            isTestDriveSaveComplet: false,
+            testDrive: {...state.testDrive, saveIsInProgress: true}
         }
     },
 
@@ -255,10 +257,10 @@ export default handleActions<IState, any>({
             });
         return {
             ...state,
-            testDrive: { ...state.testDrive, ...newTestDrive },
+            testDrive: { ...state.testDrive, ...newTestDrive, saveIsInProgress: false },
             testDrives: testDrives || [],
             loading: false,
-            isTestDriveSaveComplet: true
+            isTestDriveSaveComplet: true            
         }
     },
 

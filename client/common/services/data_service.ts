@@ -20,6 +20,11 @@ import { Lists } from "sp-pnp-js/lib/sharepoint/lists";
 const delay = 100;
 declare var SP: any;
 
+let moment = require("moment");
+if ("default" in moment) {
+    moment = moment["default"];
+}
+
 export type listItem = {
     key: string;
     value: string;
@@ -1902,13 +1907,8 @@ export class Services {
         });
     }
 
-    static formatDate(date: string) {
-        let dateFormat = require('dateformat');
-        let today = date && date.toLowerCase() !== "today" ? new Date(date) : new Date();
-        let dd = today.getDate();
-        let mm = today.getMonth() + 1;
-        let yyyy = today.getFullYear();
-        return dateFormat(today, "mmm dd, yyyy");
+    static formatDate(date: string) {                
+        return moment(date).format("MMM DD, YYYY");
     }
 
     static getTermSetAsOptions(termSetName, termSetID) {
