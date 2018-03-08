@@ -45,7 +45,7 @@ class SurveyForm extends React.Component<SurveyFormProps> {
         { value: 'Yes', label: 'Yes' },
         { value: 'No', label: 'No' },
         { value: 'Satisfied', label: 'Satisfied' },
-        { value: 'unsatisfied', label: 'unsatisfied' }
+        { value: 'Unsatisfied', label: 'Unsatisfied' }
     ]
 
     selectControlChange = (value, id, name) => {
