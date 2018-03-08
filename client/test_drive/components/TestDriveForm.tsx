@@ -269,7 +269,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                     name="startDate"
                                     placeholder="Start Date"
                                     type="text"
-                                    value={Service.formatDate(testDrive.startDate) || ''}
+                                    value={testDrive.startDate && moment(testDrive.startDate).format("YYYY-MM-DD")  || ''}
                                     // onFocus={() => { updateUI({ showStartDatePicker: true }) }}
                                     readOnly
                                     
@@ -283,7 +283,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 <Calendar
                                     minDate={now => { return now.add(0, 'days') }}
                                     // date={now => { return now.add(0, 'days') }}
-                                    onInit={this.handleChange.bind(this, 'startDate')}
+                                    // onInit={this.handleChange.bind(this, 'startDate')}
                                     onChange={this.handleChange.bind(this, 'startDate')}
                                     onFocus={() => { updateUI({ showDatePicker: true }) }}
                                 />
@@ -298,7 +298,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 name="endDate"
                                 placeholder="End Date"
                                 type="text"
-                                value={Service.formatDate(testDrive.endDate) || ''}
+                                value={testDrive.endDate && moment(testDrive.endDate).format("YYYY-MM-DD")  || ''}
                                 // onFocus={() => { updateUI({ showEndDatePicker: true }) }}
                                 readOnly
                             />
@@ -311,7 +311,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             <Calendar
                                 // date={now => { return now.add(1, 'days') }}
                                 minDate={this.getEndDate()}
-                                onInit={this.handleChange.bind(this, 'endDate')}
+                                // onInit={this.handleChange.bind(this, 'endDate')}
                                 onChange={this.handleChange.bind(this, 'endDate')}
                                 onFocus={() => { updateUI({ showDatePicker: true }) }}
                             />
