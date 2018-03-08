@@ -7619,7 +7619,9 @@ span.orange.big {
 
     .col-md-12.register_input.readonly input{color: #656565 !important;}
 
+    .partcipant_Section .race_type h5{text-transform:uppercase;}
 
+    .popup_dificultybox .race_type h4{text-transform:uppercase;}
 }
 
 .currtestdrive_list ul.dragrace_indicator .currtestdrive_list ul.streetrace_indicator {
