@@ -366,7 +366,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
 
                         <div className="col-md-12 participation_actionbox">
                             {
-                                (testDriveInstance.status == ColumnsValues.ACTIVE) ? <div className="button type1 nextBtn btn-lg pull-left animated_button">
+                                (testDriveInstance.testDriveStatus == ColumnsValues.ACTIVE) ? <div className="button type1 nextBtn btn-lg pull-left animated_button">
                                     <input onClick={this.participate} type="button" value="Go for a drive" />
                                 </div> : ""
                             }
