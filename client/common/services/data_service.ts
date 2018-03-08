@@ -3,7 +3,6 @@ import * as Constants from './constants';
 import * as pnp from '../../../node_modules/sp-pnp-js/dist/pnp.min';
 import { TestDrive, Question, TestCase } from '../../test_drive/model';
 import * as $ from 'jquery';
-import * as moment from 'moment';
 import TestCases from "../../test_drive/components/TestCases";
 import { HomeTestDrive, Leaders, EliteProfile, TestDriveResponse } from '../../home/model';
 import { Leader } from '../../leader_board/model';
