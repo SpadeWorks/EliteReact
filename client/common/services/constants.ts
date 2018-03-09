@@ -154,4 +154,15 @@ export class Messages {
     static SEND_EMAIL_TITLE = 'Send an email to TEST drive owner';
     static SHARE_TITLE = 'Share';
     static START_GREATOR_ERROR = 'Start date can not be greator than end date';
+    static POP_THE_FIZZ_1 = "You have successfully completed this testdrive.";
+    static POP_THE_FIZZ_2 = "You have completed all the test cases and answered #0# of #1# survey questions."
+    static POP_THE_FIZZ_3 = "You earned #0# points.";
+    static HIGH_FIVE_1 = "You have completed #0# of #1# test cases successfully.";
+    static HIGH_FIVE_2 = "You earned #0# points."
+    static HIGH_FIVE_3 = "You are now #0# on the leaderboard.";
+    static HIGH_FIVE_4 = "You are #0# points away from getting a #1#";
+    static MISSING_OUT_1 = "You have completed #0# of #1# test cases.";
+    static MISSING_OUT_2 = "You earned #0# points."
+    static MISSING_OUT_3 = "You are now #0# on the leaderboard.";
+    static MISSING_OUT_4 = "You are #0# points away from getting a #1#";
 }

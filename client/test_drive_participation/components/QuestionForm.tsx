@@ -1,15 +1,19 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
-import { TestCaseInstance, QuestionInstance } from '../../test_drive_participation/model';
+import { TestCaseInstance, QuestionInstance, TestDriveInstance } from '../../test_drive_participation/model';
 import ui from 'redux-ui';
 import { ColumnsValues } from '../../common/services/constants';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import * as $ from 'jquery';
-import Popup from 'react-popup';
+import Popup from '../../common/components/Popups';
 import { Messages } from '../../common/services/constants';
+import Promise from "ts-promise";
+import { Services } from '../../common/services/data_service';
+import * as Constants from '../../common/services/constants';
 
 interface QuestionFormProps {
+    testDriveInstance: TestDriveInstance;
     showSurvey: boolean;
     question: QuestionInstance;
     active: boolean;
@@ -22,7 +26,7 @@ interface QuestionFormProps {
 @ui({
     state: {
         questionResponse: '',
-        selectedResponse: ''
+        selectedResponse: ''        
     }
 })
 class QuestionForm extends React.Component<QuestionFormProps> {
@@ -30,34 +34,15 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         super(props, context);
         this.onChangeSeletedResponseChange = this.onChangeSeletedResponseChange.bind(this);
         this.saveQuestionResponse = this.saveQuestionResponse.bind(this);
-
+        this.getPopUpBodyData = this.getPopUpBodyData.bind(this);
         this.props.updateUI({
             questionResponse: this.props.question.questionResponse,
             selectedResponse: this.props.question.selectedResponse
         });
     }
 
-    componentDidMount(){
-        Popup.registerPlugin('success', function (defaultValue, placeholder, callback) {
-            let promptValue = null;
-            let promptChange = function (value) {
-                promptValue = value;
-            };
-
-            this.create({
-                title: 'Success',
-                content: 'Survey Submitted Successfully!',
-                buttons: {
-                    right: [{
-                        text: 'Go to Dashboard',
-                        action: function () {
-                            window.location.href = "#";
-                            Popup.close();
-                        }
-                    }]
-                }
-            });
-        });
+    componentDidMount() {
+    
     }
 
     onChange(e) {
@@ -86,16 +71,37 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         this.props.saveQuestionResponse(question);
     }
 
+    getCompletedQuestionCount() {
+        var question = this.props.testDriveInstance.questions
+        var completedQuestions = question && question.length && question.filter(question => {
+            return question.responseStatus == Constants.ColumnsValues.COMPLETE_STATUS;
+        });
+        if(completedQuestions)
+            return completedQuestions.length;
+        else
+            return 0;
+    }
+
+    getPopUpBodyData() {
+        return new Promise((resolve, reject) => {        
+                var message = Messages.POP_THE_FIZZ_1 + '<br>';                
+                message += Messages.POP_THE_FIZZ_2.replace("#0#",this.getCompletedQuestionCount().toString()).replace("#1#",this.props.testDriveInstance.questionIDs.length.toString()) + '<br>';
+                message += Messages.POP_THE_FIZZ_3.replace("#0#",this.props.testDriveInstance.currentPoint.toString()) + '<br>';                
+                resolve({ message });            
+        });
+    }
+
     submitSurvey(question) {
         this.submitQuestionResponse(question);
-        var popUpMessage = Messages.SURVEY_SUBMITTED;
-        //$("#popupSubmitTestDrive").trigger("click");        
-        //Popup.plugins().success('', 'What do you want to do?');
+        this.getPopUpBodyData().then((data: any) => {
+            this.props.updateUI({ requirmentMessage: data.message });
+            $("#popupPopTheFizz").trigger("click");
+        })                
     }
 
     render() {
         const { question, saveQuestionResponse, ui, updateUI, active, isLast } = this.props;
-        return (<div className={"item " + (active ? 'active' : '')}>
+        return (<div className={"item " + (active ? 'active' : '')}>            
             <div className="container ">
                 <div className="col-md-12 ">
                     <div className="row testcase_box ">
@@ -104,7 +110,6 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                             <div className="test_progress ">
                                 {
                                     question.questionType == ColumnsValues.QUESTION_TYPE_OBJECTIVE &&
-
                                     <Select
                                         id="question-response"
                                         onBlurResetsInput={false}
@@ -126,12 +131,12 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                         <textarea className="inputMaterial form-control"
                                             onChange={(e) => this.onChange(e)}
                                             name="questionResponse"
-                                            value={ui.questionResponse}
+                                            value={ui.questionResponse || ""}
                                             required />
                                         <span className="highlight "></span>
                                         <span className="bar "></span>
                                         <label className="disc_lable ">Description</label>
-                             
+
                                     </div>
                                 }
                                 {
@@ -152,7 +157,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div >)
     }
 }

@@ -23,7 +23,6 @@ class Popup extends React.Component<PopupProps> {
         $(".close-popup").trigger('click');
       }
     });
-
   }
 
   render() {
@@ -32,13 +31,13 @@ class Popup extends React.Component<PopupProps> {
       <div className="row">
         <div className="col-md-12">
           <div className="col-md-2">
-            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" id={popupId} data-target="#cusstom-popup"
+            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" id={"popup" + popupId} data-target={"#" + popupId}
               style={{ display: 'none' }}></button>
           </div>
         </div>
       </div>
 
-      <div id="cusstom-popup" className="modal fade " role="dialog">
+      <div id={popupId} className="modal fade " role="dialog">
         <div className="modal-dialog">
           <div className="modal-content testrive_notification">
             <div className="modal-header">
@@ -63,9 +62,7 @@ class Popup extends React.Component<PopupProps> {
   }
 }
 
-
 export default Popup;
-
 
 /* <div id="cusstom-popup" className="modal fade " role="dialog">
         <div className="modal-dialog">

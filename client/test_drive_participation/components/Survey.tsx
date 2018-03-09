@@ -5,6 +5,7 @@ import QuestionForm from './QuestionForm';
 import * as $ from 'jquery';
 import Services from '../../common/services/services';
 import * as Constants from '../../common/services/constants';
+import Popup from '../../common/components/Popups';
 interface SurveyProps {
     questions: QuestionInstance[];
     testDriveInstance: TestDriveInstance;
@@ -45,11 +46,12 @@ class Survey extends React.Component<SurveyProps> {
             wrap: false
         });
 
-    }
+    }   
+
     render() {
-        const { questions, saveQuestionResponse, ui, updateUI } = this.props;
+        const { questions, saveQuestionResponse, ui, updateUI, testDriveInstance } = this.props;
         return (
-            <div className="col-md-12">
+            <div className="col-md-12">            
                 {this.isTestDriveCompleted() && <div>
                     <div id="carousel-question-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
                         <div className="testcase_no " id="questions">
@@ -75,6 +77,7 @@ class Survey extends React.Component<SurveyProps> {
                                 questions.length &&
                                 questions.map((question, index) => {
                                     return (<QuestionForm
+                                        testDriveInstance= {testDriveInstance}
                                         isLast={index == questions.length - 1}
                                         key={index}
                                         active={index == 0 ? true : false}
@@ -93,7 +96,7 @@ class Survey extends React.Component<SurveyProps> {
                     !this.isTestDriveCompleted() && <div>
                         <h3>Survey will open once you complete all the test cases.</h3>
                     </div>
-                }
+                }                 
             </div>
         )
     }
