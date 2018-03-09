@@ -2033,7 +2033,7 @@ h1 {
     max-width: 1280px;
     margin: auto;
     padding: 0 5%;
-    height: 70%;
+    height: auto;
 }
 
 #header .hud-box .hud-box-border {
@@ -6996,6 +6996,7 @@ button {
     left: 123px;
     top: 23px;
     -webkit-animation: rotate 30s infinite;
+    -ms-animation: rotation 30s infinite;
     animation-play-state: running;
 }
 
@@ -7091,8 +7092,8 @@ p.go {
 
 .col-md-12.intro_actionbox.testdrive_actionbox.new_ride {
     position: absolute;
-    bottom: -123px;
-    left: -57px;
+    bottom: -202px;
+    left: -4px;
     background: none!important;
 }
 
@@ -7102,8 +7103,8 @@ a {
 
 .col-md-12.intro_actionbox.testdrive_actionbox.betterride_box {
     position: absolute;
-    bottom: -123px;
-    left: 17px;
+    bottom: -209px;
+    left: 70px;
     background: none!important;
 }
 
@@ -7764,10 +7765,9 @@ ul.soapbox_indicator {margin: 0 0 0 10px;}
 /* Css for pop up */
 
 .letsgo {
-  position: absolute !important;
+    position: absolute !important;
     right: 365px !important;
-    bottom: -168px;
-    
+    bottom: -249px;
 }
 
 .mm-popup {
