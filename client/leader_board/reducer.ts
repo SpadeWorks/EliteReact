@@ -31,6 +31,7 @@ const initialState: IState = {
             completedTestDrives: 0,
             car: "",
             rank: 0,
+            region: ''
         },
         loading: false
     },
@@ -45,6 +46,7 @@ const initialState: IState = {
             completedTestDrives: 0,
             car: "",
             rank: 0,
+            region: ''
         },
         loading: false,
         regions: [],
@@ -75,7 +77,7 @@ export default handleActions<IState, any>({
     [LOAD_RegionLeaderBoard_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            regionalLeaderBoard: { ...state.regionalLeaderBoard, loading: true }
+            regionalLeaderBoard: { ...state.regionalLeaderBoard, regionalLeaders: [], loading: true }
         }
     },
     [LOAD_RegionLeaderBoard_FULFILLED]: (state: IState, action: Action<any>): IState => {

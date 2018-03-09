@@ -177,14 +177,14 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                             {testCase.title || "New test case " + testCase.id}
                         </a>
                         <div className="pull-right">
-                            <a href="javascript:void(0);"><i className="material-icons"
+                            <a href="javascript:;"><i className="material-icons"
                                 onClick={() => this.deleteTestCase(testCase.id)}>delete</i></a>
                             {!testCase.isInEditMode &&
-                                <a href="javascript:void(0);"><i className="material-icons"
+                                <a href="javascript:;"><i className="material-icons"
                                     onClick={() => editTestCase(testCase)}>mode_edit</i></a>
                             }
                             {testCase.isInEditMode &&
-                                <a href="javascript:void(0);" className="check_ico"
+                                <a href="javascript:;" className="check_ico"
                                     onClick={() => saveTestCase(testCase, "test-case-form" + testCase.id)}>
                                     <i className="material-icons" style={checkBoxStyle}>check</i>
                                 </a>}

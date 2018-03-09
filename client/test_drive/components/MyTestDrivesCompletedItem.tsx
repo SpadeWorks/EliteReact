@@ -48,18 +48,18 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                     <div className="row">
                         <div className="col-md-12 social_box">
                             <div className="row">
-                                <a href="javascript:void(0);"
+                                <a href="javascript:;"
                                     onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)}>
                                     <span className="report"></span>
                                 </a>
-                                <a href="javascript:void(0);"
+                                <a href="javascript:;"
                                     onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
                                     <i className="material-icons">email</i>
                                 </a>
                                 {/* <a href="#">
                                     <span className="teams"></span>
                                 </a> */}
-                                <a href="javascript:void(0);"
+                                <a href="javascript:;"
                                     onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
                                     <i className="material-icons">share</i>
                                 </a>

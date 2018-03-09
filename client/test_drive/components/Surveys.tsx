@@ -82,7 +82,7 @@ class Surveys extends React.Component<SurveysProps> {
                     <p>{ui.helpText}</p>
                 </div>
                 <div className="add-button col-md-2 add_test pull-right text-right">
-                    <a href="javascript:void(0);" onClick={addQuestion}> + ADD QUESTION </a>
+                    <a href="javascript:;" onClick={addQuestion}> + ADD QUESTION </a>
                 </div>
                 <div className="col-md-12">
                     {

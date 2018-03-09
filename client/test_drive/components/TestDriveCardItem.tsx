@@ -22,18 +22,18 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                     <div className="row">
                         <div className="col-md-12 social_box">
                             <div className="row">
-                                <a href="javascript:void(0);"  title={Messages.REPORT_BUG_TITLE}
+                                <a href="javascript:;"  title={Messages.REPORT_BUG_TITLE}
                                     onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)}>
                                     <span className="report"></span>
                                 </a>
-                                <a href="javascript:void(0);" title={Messages.SEND_EMAIL_TITLE}
+                                <a href="javascript:;" title={Messages.SEND_EMAIL_TITLE}
                                     onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
                                     <i className="material-icons">email</i>
                                 </a>
                                 {/* <a href="#">
                                     <span className="teams"></span>
                                 </a> */}
-                                <a href="javascript:void(0);" title={Messages.SHARE_TITLE}
+                                <a href="javascript:;" title={Messages.SHARE_TITLE}
                                     onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
                                     <i className="material-icons">share</i>
                                 </a>

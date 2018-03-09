@@ -88,54 +88,23 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
 
     $(document).ready(function () {
       $(".total_testdrivebox li:first-child").click(function () {
-        if ($(".total_testdrivebox li:first-child").hasClass("active")) {
-          $(".car_box ").addClass("first_place");
-          $(".car_box ").removeClass("second_place");
-          $(".car_box ").removeClass("third_place");
-          $(".car_box ").removeClass("fourth_place");
-          $(".car_box ").removeClass("fifth_place");
-        }
+        $(".car_box").attr('class', 'car_box first_place');
       });
 
       $(".total_testdrivebox li:nth-child(2)").click(function () {
-        if ($(".total_testdrivebox li:nth-child(2)").hasClass("active")) {
-          $(".car_box ").removeClass("first_place");
-          $(".car_box ").removeClass("third_place");
-          $(".car_box ").removeClass("fourth_place");
-          $(".car_box ").removeClass("fifth_place");
-          $(".car_box ").addClass("second_place");
-        }
+        $(".car_box ").attr('class', 'car_box second_place');
       });
 
       $(".total_testdrivebox li:nth-child(3)").click(function () {
-        if ($(".total_testdrivebox li:nth-child(3)").hasClass("active")) {
-          $(".car_box ").removeClass("first_place");
-          $(".car_box ").removeClass("second_place");
-          $(".car_box ").removeClass("fourth_place");
-          $(".car_box ").removeClass("fifth_place");
-          $(".car_box ").addClass("third_place");
-        }
+        $(".car_box ").attr('class', 'car_box third_place');
       });
 
       $(".total_testdrivebox li:nth-child(4)").click(function () {
-        if ($(".total_testdrivebox li:nth-child(4)").hasClass("active")) {
-          $(".car_box ").removeClass("first_place");
-          $(".car_box ").removeClass("second_place");
-          $(".car_box ").removeClass("third_place");
-          $(".car_box ").removeClass("fifth_place");
-          $(".car_box ").addClass("fourth_place");
+        $(".car_box ").attr('class', 'car_box fourth_place');
+      });
 
-        }
-
-        $(".total_testdrivebox li:nth-child(5)").click(function () {
-          if ($(".total_testdrivebox li:nth-child(5)").hasClass("active")) {
-            $(".car_box ").removeClass("first_place");
-            $(".car_box ").removeClass("second_place");
-            $(".car_box ").removeClass("third_place");
-            $(".car_box ").removeClass("fourth_place");
-            $(".car_box ").addClass("fifth_place");
-          }
-        });
+      $(".total_testdrivebox li:nth-child(5)").click(function () {
+        $(".car_box ").attr('class', 'car_box fifth_place');
       });
     });
   }

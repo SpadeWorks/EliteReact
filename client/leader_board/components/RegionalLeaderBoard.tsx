@@ -7,13 +7,14 @@ import Service from '../../common/services/services';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import Pager from 'react-pager';
-
+import { Messages } from '../../common/services/constants';
+import Loader from 'react-loader-advanced';
 interface RegionalLeaderBoardProps {
     loadRegionalLeaderBoard: (region: string, skip: number, top: number) => any;
     loadCurrentRegionalPosition: (region: string) => any;
     leaders: Leader[];
     currentUser: Leader;
-
+    loading: boolean;
     updateUI: (any) => any;
     ui: any;
 };
@@ -45,6 +46,10 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
             region: value
         });
         this.props.loadRegionalLeaderBoard(value.Label, 0, 100);
+        this.props.updateUI({
+            current: 0,
+            visibleItems: []
+        });
     }
 
     componentDidMount() {
@@ -89,9 +94,10 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
     }
 
     render() {
-        const { leaders, currentUser, ui } = this.props;
+        const { leaders, currentUser, ui, loading} = this.props;
         return (
             <div className="col-md-12">
+            <Loader show={loading} message={'Loading...'}>
                 <Select.Async multi={false}
                     value={ui.region}
                     onChange={this.regionChange}
@@ -99,27 +105,34 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
                     labelKey="Label"
                     loadOptions={this.getRegions}
                     type="select-multiple"
-                    clearable= {false}
+                    clearable={false}
                 />
                 <br></br>
 
                 {
-                    ui.visibleItems && ui.visibleItems.map((leader, index) => {
+                    (ui.visibleItems && ui.visibleItems.length > 0) ? ui.visibleItems.map((leader, index) => {
                         return (<LeaderItem
                             key={index}
                             isCurrentUser={leader.id == currentUser.id}
                             leader={leader} />)
-                    })
+                    }) : ''
+                }
+
+
+                {
+                    (ui.visibleItems && ui.visibleItems.length == 0 && leaders && leaders.length) ? leaders.slice(0, ui.itemsPerPage).map((leader, index) => {
+                        return (<LeaderItem
+                            key={index}
+                            isCurrentUser={leader.id == currentUser.id}
+                            leader={leader} />)
+                    }) : ''
                 }
 
                 {
-                    ui.visibleItems.length == 0 && leaders && leaders.slice(0, ui.itemsPerPage).map((leader, index) => {
-                        return (<LeaderItem
-                            key={index}
-                            isCurrentUser={leader.id == currentUser.id}
-                            leader={leader} />)
-                    })
+                    !loading && ui.visibleItems && ui.visibleItems.length == 0 && leaders && leaders.length == 0 ? 
+                        (<div className="no-data-message">{Messages.LEADERBOARD_REGIONAL_MSG}</div>) : ''
                 }
+
                 {
                     leaders.length > 0 &&
                     <Pager
@@ -133,10 +146,11 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
                 }
 
                 {
-                    (currentUser.rank && currentUser.rank != -1) ? <LeaderItem
+                    (currentUser.rank && currentUser.rank != -1 && currentUser.region == ui.region.Label) ? <LeaderItem
                         isCurrentUser={true}
                         leader={currentUser} /> : ''
                 }
+                </Loader>
             </div >)
     }
 }

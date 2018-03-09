@@ -35,18 +35,18 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                             <div className="col-md-4 pull-right">
                                 <div className="col-md-12 social_box">
                                     <div className="row">
-                                        <a href="javascript:void(0);"  title={Messages.REPORT_BUG_TITLE}
+                                        <a href="javascript:;"  title={Messages.REPORT_BUG_TITLE}
                                             onClick={() => Services.reportAbug(testDriveInstance.ownerEmail, testDriveInstance.title)}>
                                             <span className="report"></span>
                                         </a>
-                                        <a href="javascript:void(0);" title={Messages.SEND_EMAIL_TITLE}
+                                        <a href="javascript:;" title={Messages.SEND_EMAIL_TITLE}
                                             onClick={() => Services.emailOwner(testDriveInstance.ownerEmail, testDriveInstance.title)}>
                                             <i className="material-icons">email</i>
                                         </a>
                                         {/* <a href="#">
                                             <span className="teams"></span>
                                         </a> */}
-                                        <a href="javascript:void(0);" title={Messages.SHARE_TITLE}
+                                        <a href="javascript:;" title={Messages.SHARE_TITLE}
                                             onClick={() => Services.shareTestDrive(testDriveInstance.ownerEmail, testDriveInstance.title)}>
                                             <i className="material-icons">share</i>
                                         </a>
