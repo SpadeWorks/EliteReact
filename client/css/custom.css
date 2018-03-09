@@ -2033,7 +2033,7 @@ h1 {
     max-width: 1280px;
     margin: auto;
     padding: 0 5%;
-    height: 70%;
+    height: auto;
 }
 
 #header .hud-box .hud-box-border {
@@ -2342,6 +2342,8 @@ h1 {
     fill: DeepPink;
     width: 8px;
     animation: equalize 1.25s steps(25, end) 0s infinite;
+    -ms-animation:equalize 1.25s steps(25, end) 0s infinite;
+ 
 }
 
 .bar:nth-child(1) {
@@ -6950,9 +6952,9 @@ img.car_bigview {
 }
 
 .intro_actionbox.testdrive_actionbox {
-    position: fixed;
+    position: absolute;
     bottom: 40px;
-    left: 0px;
+    left: 58px;
     background: none!important;
 }
 
@@ -6996,6 +6998,7 @@ button {
     left: 123px;
     top: 23px;
     -webkit-animation: rotate 30s infinite;
+    -ms-animation: rotation 30s infinite;
     animation-play-state: running;
 }
 
@@ -7090,9 +7093,9 @@ p.go {
 }
 
 .col-md-12.intro_actionbox.testdrive_actionbox.new_ride {
-    position: fixed;
-    bottom: -123px;
-    left: -57px;
+    position: absolute;
+    bottom: -202px;
+    left: -4px;
     background: none!important;
 }
 
@@ -7101,9 +7104,9 @@ a {
 }
 
 .col-md-12.intro_actionbox.testdrive_actionbox.betterride_box {
-    position: fixed;
-    bottom: -123px;
-    left: 17px;
+    position: absolute;
+    bottom: -209px;
+    left: 70px;
     background: none!important;
 }
 
@@ -7765,8 +7768,8 @@ ul.soapbox_indicator {margin: 0 0 0 10px;}
 
 .letsgo {
     position: absolute !important;
-    right: 380px !important;
-    bottom: -152px;
+    right: 365px !important;
+    bottom: -249px;
 }
 
 .mm-popup {
