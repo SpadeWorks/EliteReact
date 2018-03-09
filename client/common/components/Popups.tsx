@@ -51,7 +51,7 @@ class Popup extends React.Component<PopupProps> {
             </div>
             <div className="modal-buttons">{
               buttons && buttons.length > 0 ? buttons.map((button: any, index) => {
-                return (<div data-link={button.name}><Link key={index} className="button type1" to={button.link}>{button.name}</Link></div>)
+                return (<Link key={index} className="button type1" to={button.link}>{button.name}</Link>)
               }) : ''
             }</div>
             <div className="modal-footer" dangerouslySetInnerHTML={{ __html: footer }}>
