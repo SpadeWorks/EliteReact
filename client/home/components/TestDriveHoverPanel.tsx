@@ -26,18 +26,18 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
             <h3>{testDrive.title}</h3>
             <div className="col-md-12 social_box">
                 <div className="row">
-                    <a href="javascript:void(0);"
+                    <a href="javascript:;"
                         onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)} title={Messages.REPORT_BUG_TITLE}>
                         <span className="report"></span>
                     </a>
-                    <a href="javascript:void(0);"
+                    <a href="javascript:;"
                         onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)} title={Messages.SEND_EMAIL_TITLE}>
                         <i className="material-icons">email</i>
                     </a>
                     {/* <a href="#">
                         <span className="teams"></span>
                     </a> */}
-                    <a href="javascript:void(0);" title={Messages.SHARE_TITLE}
+                    <a href="javascript:;" title={Messages.SHARE_TITLE}
                         onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
                         <i className="material-icons">share</i>
                     </a>

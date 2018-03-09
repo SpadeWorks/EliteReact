@@ -7650,6 +7650,44 @@ div.td_namebox:hover h4 span::after
     margin-left: 0px;
 }
 
+/*all popups starts here*/
+
+
+
+.testrive_notification {
+    background: #060611;
+    border: solid 1px #a5a5a5;
+    border-radius: 0px;
+    text-align: center;
+    width: 600px;
+    margin: 0 auto;
+}
+
+h4.notification_heading{font-size: 25px;}
+
+.testrive_notification .modal-header{border:none;}
+.testrive_notification p {
+    font-family: titanium;
+    font-size: 14px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.testrive_notification span.orange {
+    font-size: 37px !important;
+    font: 1em "HemiHeadRg-BoldItalic", Monospace;
+    color: #ff8d00;
+    font-weight: bold;
+}
+.holdon_msgbox {width:60%;
+margin:0 auto;}
+
+.holdon_msgbox h5{font-size: 32px;}
+
+.holdon_msgbox p{font-family: titanium; font-size: 16px;}
+
+/*all popups ends here*/
+
 .currtestdrive_list ul.soapbox_indicator{margin-left:0px;}
 
 .currtestdrive_list ul.streetrace_indicator{margin-left:0px;}
@@ -8067,6 +8105,7 @@ span.clsRemainingLength {
     position: relative;
     left: 0%;
     top: 138px;
+    color: white;
 }
 
 .ms-dlgLoadingTextDiv {

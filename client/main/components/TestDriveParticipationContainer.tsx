@@ -8,6 +8,7 @@ import TestDriveDetails from '../../test_drive_participation/components/TestDriv
 import TestDriveParticipation from '../../test_drive_participation/components/TestDriveParticipation';
 import Services from '../../common/services/services';
 import Footer from '../../common/components/Footer';
+
 import {
   model,
   loadTestDriveInstanceByID,
@@ -18,6 +19,8 @@ import {
   submitTestDriveInstance
 } from '../../test_drive_participation';
 import { create } from 'domain';
+import Popups from '../../test_drive_participation/components/Popups';
+import * as $ from "jQuery";
 
 
 interface AppProps {
@@ -40,12 +43,25 @@ class TestDriveParticipationContainer extends React.Component<AppProps> {
     document.body.className = "black-bg";
     let userID = Services.getCurrentUserID();
     this.props.dispatch(loadTestDriveInstanceByID(this.props.testDriveID, userID));
+    // $("#app").mouseup(function (e) {
+    //   //   var container = $(".testrive_notification");        
+    //   //   if (!container.is(e.target) && container.has(e.target).length === 0 && "Submit survey" != e.target)
+    //   // {
+    //   //   for(var i = 0 ; i <=$(".modal-backdrop.fade.in").length;i++)
+    //   //   $(".modal-backdrop.fade.in").remove();            
+    //   // } 
+    //   //$modal.on('hidden', function () {
+    //     $('.modal-backdrop').remove();
+        
+    //   //});
+    // });
   }
 
   render() {
     const { dispatch, testDriveInstance, loading, ui, updateUI } = this.props;
     return (
       <div className="test-drive-participation">
+        <Popups/>
         <Loader show={loading} message={'loading'}>
           {
             !loading && testDriveInstance.instanceID == -1 &&

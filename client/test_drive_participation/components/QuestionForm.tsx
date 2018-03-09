@@ -8,6 +8,7 @@ import 'react-select/dist/react-select.css';
 import * as $ from 'jquery';
 import Popup from 'react-popup';
 import { Messages } from '../../common/services/constants';
+
 interface QuestionFormProps {
     showSurvey: boolean;
     question: QuestionInstance;
@@ -37,8 +38,26 @@ class QuestionForm extends React.Component<QuestionFormProps> {
     }
 
     componentDidMount(){
+        Popup.registerPlugin('success', function (defaultValue, placeholder, callback) {
+            let promptValue = null;
+            let promptChange = function (value) {
+                promptValue = value;
+            };
 
-       
+            this.create({
+                title: 'Success',
+                content: 'Survey Submitted Successfully!',
+                buttons: {
+                    right: [{
+                        text: 'Go to Dashboard',
+                        action: function () {
+                            window.location.href = "#";
+                            Popup.close();
+                        }
+                    }]
+                }
+            });
+        });
     }
 
     onChange(e) {
@@ -70,27 +89,8 @@ class QuestionForm extends React.Component<QuestionFormProps> {
     submitSurvey(question) {
         this.submitQuestionResponse(question);
         var popUpMessage = Messages.SURVEY_SUBMITTED;
-        Popup.registerPlugin('success', function (defaultValue, placeholder, callback) {
-            let promptValue = null;
-            let promptChange = function (value) {
-                promptValue = value;
-            };
-
-            this.create({
-                title: 'Success',
-                content: 'Survey Submitted Successfully!',
-                buttons: {
-                    right: [{
-                        text: 'Go to Dashboard',
-                        action: function () {
-                            window.location.href = "#";
-                            Popup.close();
-                        }
-                    }]
-                }
-            });
-        });
-        Popup.plugins().success('', 'What do you want to do?');
+        //$("#popupSubmitTestDrive").trigger("click");        
+        //Popup.plugins().success('', 'What do you want to do?');
     }
 
     render() {
@@ -148,12 +148,11 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                         </div>
                                     </div>
                                 }
-
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
         </div >)
     }
 }

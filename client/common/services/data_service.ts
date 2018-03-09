@@ -20,6 +20,11 @@ import { Lists } from "sp-pnp-js/lib/sharepoint/lists";
 const delay = 100;
 declare var SP: any;
 
+let moment = require("moment");
+if ("default" in moment) {
+    moment = moment["default"];
+}
+
 export type listItem = {
     key: string;
     value: string;
@@ -718,7 +723,8 @@ export class Services {
                         id: user.eliteProfileID,
                         name: user.displayName,
                         rank: rankObj.rank,
-                        totalPoints: rankObj.points
+                        totalPoints: rankObj.points,
+                        region: user.region
                     })
                 }, err => reject(err))
             }, err => reject(err))
@@ -1902,13 +1908,8 @@ export class Services {
         });
     }
 
-    static formatDate(date: string) {
-        let dateFormat = require('dateformat');
-        let today = date && date.toLowerCase() !== "today" ? new Date(date) : new Date();
-        let dd = today.getDate();
-        let mm = today.getMonth() + 1;
-        let yyyy = today.getFullYear();
-        return dateFormat(today, "mmm dd, yyyy");
+    static formatDate(date: string) {                
+        return moment(date).format("MMM DD, YYYY");
     }
 
     static getTermSetAsOptions(termSetName, termSetID) {
@@ -2008,6 +2009,7 @@ export class Services {
                 Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_NAME,
                 Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_NAME,
                 Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_IMAGE,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION_TEXT
             )
                 .expand("UserID").top(100)
                 .orderBy('Points', false)
@@ -2023,7 +2025,8 @@ export class Services {
                             car: leader.UserID.CarImage,
                             completedTestDrives:
                                 leader[Constants.Columns.USER_ID][Constants.Columns.COMPLETED_TEST_DRIVES] || 0,
-                            rank: index + 1
+                            rank: index + 1,
+                            region: [Constants.Columns.USER_ID][Constants.Columns.USER_REGION_TEXT]
                         })
                     })
                     resolve(globalLeaders);
@@ -2064,7 +2067,8 @@ export class Services {
                             car: leader.UserID.CarImage,
                             completedTestDrives:
                                 leader[Constants.Columns.USER_ID][Constants.Columns.COMPLETED_TEST_DRIVES] || 0,
-                            rank: index + 1
+                            rank: index + 1,
+                            region: [Constants.Columns.USER_ID][Constants.Columns.USER_REGION_TEXT]
                         })
                     })
                     resolve(regionalLeaders);

@@ -38,7 +38,7 @@ class AvatarCarousel extends React.Component<AvatarCarouselProps> {
         var strImage = [];
         let avatars = this.props.avatars;
         for (var i = 0, j = 0; i < avatars.length; i = i + 8) {
-            let outrdiv = <div className={'item' + (i == 0 ? ' active' : '')}>
+            let outrdiv = <div className={'item' + (i == 0 ? ' active' : '')} key={i}>
                 <div className='col-md-12'>{
                     avatars.slice(i, i + 8).map((avatar, index) => {
                         if (index % 2 == 0) {
@@ -102,13 +102,13 @@ class AvatarCarousel extends React.Component<AvatarCarouselProps> {
                     </div>
                     {/* <!-- Left and right controls --> */}
                     {(avatars && avatars.length > itemsPerPage) ? <div>
-                        <a className="left carousel-control" href="javascript:void(0);"
+                        <a className="left carousel-control" 
                             onClick={() => $("#myCarousel").carousel('prev')}
                             data-slide="prev">
                             <span className="glyphicon glyphicon-chevron-left"></span>
                             <span className="sr-only">Previous</span>
                         </a>
-                        <a className="right carousel-control" href="javascript:void(0);"
+                        <a className="right carousel-control"
                             onClick={() => $("#myCarousel").carousel('next')}
                             data-slide="next">
                             <span className="glyphicon glyphicon-chevron-right"></span>
