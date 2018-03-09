@@ -6950,7 +6950,7 @@ img.car_bigview {
 }
 
 .intro_actionbox.testdrive_actionbox {
-    position: fixed;
+    position: absolute;
     bottom: 40px;
     left: 0px;
     background: none!important;
@@ -7090,7 +7090,7 @@ p.go {
 }
 
 .col-md-12.intro_actionbox.testdrive_actionbox.new_ride {
-    position: fixed;
+    position: absolute;
     bottom: -123px;
     left: -57px;
     background: none!important;
@@ -7101,7 +7101,7 @@ a {
 }
 
 .col-md-12.intro_actionbox.testdrive_actionbox.betterride_box {
-    position: fixed;
+    position: absolute;
     bottom: -123px;
     left: 17px;
     background: none!important;
