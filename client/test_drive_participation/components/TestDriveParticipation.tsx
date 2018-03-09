@@ -110,7 +110,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                             className="material-icons pull-right close-btn"
                                             id={"close_discription" + index}>close</i>
                                     </div>
-                                    <div className="col-md-12 testdrive_completionbox">
+                                    <div className="col-md-12 testdrive_completionbox testcase_detiled">
                                         <div className="col-md-11 pull-left"><h3>Description</h3></div>
                                         <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.description }}>
                                         </div>

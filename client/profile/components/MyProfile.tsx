@@ -138,7 +138,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                         <div className="col-md-10">
 
                                             <div className="col-md-12">
-                                                <div className="col-md-5 pull-left">
+                                                <div className="col-md-8 pull-left">
                                                     <div className="row">
                                                         <h2>{eliteProfile.displayName}</h2>
                                                     </div>

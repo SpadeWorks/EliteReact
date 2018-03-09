@@ -6429,7 +6429,7 @@ button {
     font-family: titanium;
     color: #fff;
     padding-left: 10px;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .testcase_completionbox {
@@ -7560,7 +7560,7 @@ span.orange.big {
         padding: 9px 0;
         word-wrap: break-word;
         word-break: break-all;
-        padding: 20px 11px 10px 1px !important;
+        padding: 17px 23px 10px 1px !important;
     }
     .popup_infocontainer li.select2-selection__choice {
         margin-bottom: 10px;
@@ -7784,7 +7784,21 @@ margin-top: 100px;}
 
 .holdon_msgbox img{float:none !important; margin-right:0px !important; margin-bottom:50px;}
 
+.modal-dialog.hit_breakbox .testrive_notification {
+    width: 700px;
+    padding-bottom: 40px;
+    margin-top: 20%;
+}
+
+.modal-dialog.hit_breakbox .testrive_notification p{margin-bottom:50px;}
+
+.modal-dialog.hit_breakbox .testrive_notification a.button{margin-left:30px;}
+
+
+
+
 /*all popups ends here*/
+.testcase_detiled img{width:100% !important;}
 
 .currtestdrive_list ul.soapbox_indicator{margin-left:0px;}
 
