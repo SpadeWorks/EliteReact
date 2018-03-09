@@ -90,7 +90,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                     </h2>
                 </div>
                 <div className="container participation_container">
-                    <div className="wrapper" style={{ height: "544px" }}>
+                    <div className="wrapper" style={{ height: "784px" }}>
                         <div className="col-md-11 profile_box">
                             <div className="well count_box">
                                 <ul className="nav nav-tabs">
@@ -151,7 +151,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                             className="material-icons pull-right close-btn"
                                             id={"close_discription" + index}>close</i>
                                     </div>
-                                    <div className="col-md-12 testdrive_completionbox">
+                                    <div className="col-md-12 testdrive_completionbox testcase_detiled">
                                         <div className="col-md-11 pull-left"><h3>Description</h3></div>
                                         <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.description }}>
                                         </div>
