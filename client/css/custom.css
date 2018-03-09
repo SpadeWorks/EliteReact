@@ -2342,6 +2342,8 @@ h1 {
     fill: DeepPink;
     width: 8px;
     animation: equalize 1.25s steps(25, end) 0s infinite;
+    -ms-animation:equalize 1.25s steps(25, end) 0s infinite;
+ 
 }
 
 .bar:nth-child(1) {
