@@ -7764,9 +7764,10 @@ ul.soapbox_indicator {margin: 0 0 0 10px;}
 /* Css for pop up */
 
 .letsgo {
-    position: absolute !important;
+  position: absolute !important;
     right: 365px !important;
     bottom: -168px;
+    
 }
 
 .mm-popup {
