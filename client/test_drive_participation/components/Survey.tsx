@@ -82,7 +82,8 @@ class Survey extends React.Component<SurveyProps> {
                                         saveQuestionResponse={(survey) => saveQuestionResponse(survey)}
                                         ui={ui}
                                         updateUI={updateUI}
-                                        showSurvey={this.isTestDriveCompleted()} />)
+                                        showSurvey={this.isTestDriveCompleted()}
+                                        index={index} />)
                                 })
                             }
                         </div>

@@ -17,6 +17,7 @@ interface QuestionFormProps {
     updateUI: (any) => any;
     ui: any;
     isLast: boolean;
+    index: number
 };
 
 @ui({
@@ -94,11 +95,12 @@ class QuestionForm extends React.Component<QuestionFormProps> {
     }
 
     render() {
-        const { question, saveQuestionResponse, ui, updateUI, active, isLast } = this.props;
+        const { question, saveQuestionResponse, ui, updateUI, active, isLast, index } = this.props;
         return (<div className={"item " + (active ? 'active' : '')}>
             <div className="container ">
                 <div className="col-md-12 ">
                     <div className="row testcase_box ">
+                        <span className="orange">{"Question " + (index + 1)}</span>
                         <h1>{question.title}</h1>
                         <div className="row ">
                             <div className="test_progress ">
