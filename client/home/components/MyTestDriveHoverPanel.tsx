@@ -4,6 +4,7 @@ import Service from '../../common/services/services';
 import { TestDrive, TestDriveResponse } from '../../home/model';
 import * as $ from 'jquery';
 import Services from '../../common/services/services';
+import { Messages } from '../../common/services/constants';
 interface MyTestDriveHoverPanelProps {
     participants: number;
     checkPortion: string;
@@ -42,17 +43,17 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
             <div className="col-md-12 social_box">
                 <div className="row">
                     <a href="javascript:;"
-                        onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)} title="Report a Bug">
+                        onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)} title={Messages.REPORT_BUG_TITLE}>
                         <span className="report"></span>
                     </a>
                     <a href="javascript:;"
-                        onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)} title="Send an email to TEST drive owner">
+                        onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)} title={Messages.SEND_EMAIL_TITLE}>
                         <i className="material-icons">email</i>
                     </a>
                     {/* <a href="#">
                             <span className="teams"></span>
                         </a> */}
-                    <a href="javascript:;"
+                    <a href="javascript:;" title={Messages.SHARE_TITLE}
                         onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
                         <i className="material-icons">share</i>
                     </a>
