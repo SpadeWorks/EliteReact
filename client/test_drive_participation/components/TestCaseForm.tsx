@@ -104,6 +104,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
 
     submitTestCaseResponse(testCase: TestCaseInstance, index) {
         this.props.submitTestDriveInstance(this.props.testDriveInstance);
+        toast.success("Test Case Responses Submitted Successfully!");
         // this.props.updateUI({ showSurveyPopUp: true })
         // $('#test-drive-completion-btn').trigger('click');
     }
