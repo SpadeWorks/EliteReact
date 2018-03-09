@@ -39,7 +39,7 @@ class Popup extends React.Component<PopupProps> {
       </div>
 
       <div id="cusstom-popup" className="modal fade " role="dialog">
-        <div className="modal-dialog">
+        <div className="modal-dialog hit_breakbox">
           <div className="modal-content testrive_notification">
             <div className="modal-header">
               <h4 className="modal-title notification_heading" dangerouslySetInnerHTML={{ __html: title }}></h4>
@@ -47,7 +47,8 @@ class Popup extends React.Component<PopupProps> {
                 <button type="button" className="btn btn-default close-popup" data-dismiss="modal">Close</button>
               </div>
             </div>
-            <div className="modal-body" dangerouslySetInnerHTML={{ __html: body }}>
+            <div className="modal-body" >
+              <p dangerouslySetInnerHTML={{ __html: body }}></p>
             </div>
             <div className="modal-buttons">{
               buttons && buttons.length > 0 ? buttons.map((button: any, index) => {

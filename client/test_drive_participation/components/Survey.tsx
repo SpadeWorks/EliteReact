@@ -91,7 +91,20 @@ class Survey extends React.Component<SurveyProps> {
                 }
                 {
                     !this.isTestDriveCompleted() && <div>
-                        <h3>Survey will open once you complete all the test cases.</h3>
+                         <div className="text-center holdon_msgbox">
+     
+                         <img src="/Style%20Library/Elite/images/signal.png" />
+     
+     <h5>Hold on there, Cowboy !</h5>
+     
+     <p> Servay questions will be unlocked once you submit your testcase result.</p>
+     
+     
+     
+     
+     
+             
+           </div>
                     </div>
                 }
             </div>
