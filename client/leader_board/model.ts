@@ -25,5 +25,6 @@ export type Leader = {
     completedTestDrives: number;
     car: string;
     rank: number;
+    region: string;
 };
 

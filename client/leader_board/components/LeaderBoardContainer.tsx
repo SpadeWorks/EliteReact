@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import GlobalLeaderBoard from './GlobalLeaderBoard';
 import RegionalLeaderBoard from './RegionalLeaderBoard'
-import Loader from 'react-loader-advanced';
 import { Tabs, Pane } from '../../common/components/Tabs';
 import {
   model,
@@ -58,26 +57,24 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
               <div className="well count_box">
                 <Tabs selected={this.getSelectedTab()}>
                   <Pane label="Global Leaderboard">
-                    <Loader show={globalLeaderBoard.loading} message={'Loading...'}>
-                      <GlobalLeaderBoard
-                        leaders={globalLeaderBoard.globalLeaders}
-                        loadGlobalLeaderBoard={(skip, top) => dispatch(loadGlobalLeaderBoard(skip, top))}
-                        loadCurrentLeaderBoardPosition={() => dispatch(loadCurrentLeaderBoardPosition())}
-                        ui={ui}
-                        updateUI={updateUI}
-                        currentUser={globalLeaderBoard.currentUserPosition} />
-                    </Loader>
+                    <GlobalLeaderBoard
+                      loading={globalLeaderBoard.loading}
+                      leaders={globalLeaderBoard.globalLeaders}
+                      loadGlobalLeaderBoard={(skip, top) => dispatch(loadGlobalLeaderBoard(skip, top))}
+                      loadCurrentLeaderBoardPosition={() => dispatch(loadCurrentLeaderBoardPosition())}
+                      ui={ui}
+                      updateUI={updateUI}
+                      currentUser={globalLeaderBoard.currentUserPosition} />
                   </Pane>
                   <Pane label="Regional Leaderboard">
-                    <Loader show={regionalLeaderBoard.loading} message={'Loading...'}>
-                      <RegionalLeaderBoard
-                        leaders={regionalLeaderBoard.regionalLeaders}
-                        loadRegionalLeaderBoard={(region: string, skip: number, top: number) => dispatch(loadRegionalLeaderBoard(region, skip, top))}
-                        ui={ui}
-                        updateUI={updateUI}
-                        currentUser={regionalLeaderBoard.currentUserPosition}
-                        loadCurrentRegionalPosition={(region: string) => dispatch(loadCurrentRegionalPosition(region))} />
-                    </Loader>
+                    <RegionalLeaderBoard
+                      loading={regionalLeaderBoard.loading}
+                      leaders={regionalLeaderBoard.regionalLeaders}
+                      loadRegionalLeaderBoard={(region: string, skip: number, top: number) => dispatch(loadRegionalLeaderBoard(region, skip, top))}
+                      ui={ui}
+                      updateUI={updateUI}
+                      currentUser={regionalLeaderBoard.currentUserPosition}
+                      loadCurrentRegionalPosition={(region: string) => dispatch(loadCurrentRegionalPosition(region))} />
                   </Pane>
                 </Tabs>
               </div>

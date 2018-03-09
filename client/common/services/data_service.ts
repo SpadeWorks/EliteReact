@@ -718,7 +718,8 @@ export class Services {
                         id: user.eliteProfileID,
                         name: user.displayName,
                         rank: rankObj.rank,
-                        totalPoints: rankObj.points
+                        totalPoints: rankObj.points,
+                        region: user.region
                     })
                 }, err => reject(err))
             }, err => reject(err))
@@ -2008,6 +2009,7 @@ export class Services {
                 Constants.Columns.USER_ID + '/' + Constants.Columns.CAR_NAME,
                 Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_NAME,
                 Constants.Columns.USER_ID + '/' + Constants.Columns.AVATAR_IMAGE,
+                Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION_TEXT
             )
                 .expand("UserID").top(100)
                 .orderBy('Points', false)
@@ -2023,7 +2025,8 @@ export class Services {
                             car: leader.UserID.CarImage,
                             completedTestDrives:
                                 leader[Constants.Columns.USER_ID][Constants.Columns.COMPLETED_TEST_DRIVES] || 0,
-                            rank: index + 1
+                            rank: index + 1,
+                            region: [Constants.Columns.USER_ID][Constants.Columns.USER_REGION_TEXT]
                         })
                     })
                     resolve(globalLeaders);
@@ -2064,7 +2067,8 @@ export class Services {
                             car: leader.UserID.CarImage,
                             completedTestDrives:
                                 leader[Constants.Columns.USER_ID][Constants.Columns.COMPLETED_TEST_DRIVES] || 0,
-                            rank: index + 1
+                            rank: index + 1,
+                            region: [Constants.Columns.USER_ID][Constants.Columns.USER_REGION_TEXT]
                         })
                     })
                     resolve(regionalLeaders);
