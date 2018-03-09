@@ -93,7 +93,7 @@ class TestCases extends React.Component<TestCasesProps> {
                     <p>{ui.helpText}</p>
                 </div>
                 <div className="add-button col-md-2 add_test pull-right text-right">
-                    <a href="javascript:void(0);" onClick={addTestCase}> + ADD TEST CASE </a>
+                    <a href="javascript:;" onClick={addTestCase}> + ADD TEST CASE </a>
                 </div>
                 <div className="col-md-12">
                     {

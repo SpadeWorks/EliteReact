@@ -137,10 +137,10 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                     <p>{testCase.description && testCase.description.length > 200 ?
                                         testCase.description.slice(0, 200) + '...   ' : testCase.description}
                                         {testCase.description && testCase.description.length > 200 ?
-                                            <a href="javascript:void(0);" onClick={() => this.openPopUp(index)}>
+                                            <a href="javascript:;" onClick={() => this.openPopUp(index)}>
                                                 <span className="read-more">Read more</span>
                                         </a> : ''}</p>
-                                    <a href="javascript:void(0);" onClick={() => this.openPopUp(index)}> <span className="red">
+                                    <a href="javascript:;" onClick={() => this.openPopUp(index)}> <span className="red">
                                         <img src="/Style%20Library/Elite/images//i.png" />
                                         Guide me to solve this test case</span>
                                     </a>
