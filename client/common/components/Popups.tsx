@@ -1,50 +1,80 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
+import * as $ from 'jquery';
 
-interface PopupsProps {
-
+interface PopupProps {
+  popupId: string;
+  title: string;
+  body: string;
+  footer?: any;
+  buttons?: any[];
 }
 
-class Popups extends React.Component<PopupsProps> {
+class Popup extends React.Component<PopupProps> {
   constructor(props, context) {
     super(props, context);
   }
 
-  componentDidMount()
-  {
-    
-      
+  componentDidMount() {
+    $("#app").mouseup(function (e) {
+      var container = $(".testrive_notification");
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+        $(".close-popup").trigger('click');
+        $(".close-popup").trigger('click');
+      }
+    });
+
   }
 
   render() {
+    const { popupId, title, body, footer, buttons } = this.props;
     return (<div className="col-md-12 ">
       <div className="row">
         <div className="col-md-12">
           <div className="col-md-2">
-            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" id="popupSubmitTestDrive" data-target="#SubmitTestDrive">Fizz</button>
+            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" id={popupId} data-target="#cusstom-popup"
+              style={{ display: 'none' }}></button>
           </div>
-          {/* <div className="col-md-2">
-            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" id="popupComingThrough" data-target="#ComingThrough">Coming Through</button>
-          </div>
-
-          <div className="col-md-2">
-            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" id="popupPartialSubmit" data-target="#PartialSubmit">Missing Out</button>
-          </div>
-          <div className="col-md-2">
-            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" id="popupHighFive" data-target="#HighFive">High Five</button>
-          </div>
-
-          <div className="col-md-2">
-            <button type="button" className="btn btn-info btn-lg" data-toggle="modal" id="popupHitTheBreaks" data-target="#HitTheBreaks">Hit the breaks</button>
-          </div> */}
         </div>
       </div>
 
-      <div id="SubmitTestDrive" className="modal fade " role="dialog">
+      <div id="cusstom-popup" className="modal fade " role="dialog">
         <div className="modal-dialog">
-          <div className="modal-content testrive_notification">          
+          <div className="modal-content testrive_notification">
+            <div className="modal-header">
+              <h4 className="modal-title notification_heading" dangerouslySetInnerHTML={{ __html: title }}></h4>
+              <div className="modal-footer" style={{ display: 'none' }}>
+                <button type="button" className="btn btn-default close-popup" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+            <div className="modal-body" dangerouslySetInnerHTML={{ __html: body }}>
+            </div>
+            <div className="modal-buttons">{
+              buttons && buttons.length > 0 ? buttons.map((button: any, index) => {
+                return (<div data-link={button.name}><Link key={index} className="button type1" to={button.link}>{button.name}</Link></div>)
+              }) : ''
+            }</div>
+            <div className="modal-footer" dangerouslySetInnerHTML={{ __html: footer }}>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>)
+  }
+}
+
+
+export default Popup;
+
+
+/* <div id="cusstom-popup" className="modal fade " role="dialog">
+        <div className="modal-dialog">
+          <div className="modal-content testrive_notification">
             <div className="modal-header">
               <h4 className="modal-title notification_heading">Pop the Fizz !</h4>
+              <div className="modal-footer" style={{display: 'none'}}>
+                <button type="button" className="btn btn-default close-popup" data-dismiss="modal">Close</button>
+              </div>
             </div>
             <div className="modal-body">
               <p>You have successfully submitted the test drive </p>
@@ -65,11 +95,14 @@ class Popups extends React.Component<PopupsProps> {
         </div>
       </div>
 
-      {/* <div id="ComingThrough" className="modal fade" role="dialog">
+      <div id="ComingThrough" className="modal fade" role="dialog">
         <div className="modal-dialog">
           <div className="modal-content testrive_notification">
             <div className="modal-header">
               <h4 className="modal-title notification_heading">Coming through</h4>
+              <div className="modal-footer" style={{display: 'none'}}>
+                <button type="button" className="btn btn-default close-popup" data-dismiss="modal">Close</button>
+              </div>
             </div>
             <div className="modal-body">
               <p>You have successfully submitted the test drive </p>
@@ -95,6 +128,9 @@ class Popups extends React.Component<PopupsProps> {
           <div className="modal-content testrive_notification">
             <div className="modal-header">
               <h4 className="modal-title notification_heading">You're missing out</h4>
+              <div className="modal-footer" style={{display: 'none'}}>
+                <button type="button" className="btn btn-default close-popup" data-dismiss="modal">Close</button>
+              </div>
             </div>
             <div className="modal-body">
               <p>You have complted
@@ -118,6 +154,9 @@ class Popups extends React.Component<PopupsProps> {
           <div className="modal-content testrive_notification">
             <div className="modal-header">
               <h4 className="modal-title notification_heading">High Five</h4>
+              <div className="modal-footer" style={{display: 'none'}}>
+                <button type="button" className="btn btn-default close-popup" data-dismiss="modal">Close</button>
+              </div>
             </div>
             <div className="modal-body">
               <p>You have completed
@@ -146,7 +185,10 @@ class Popups extends React.Component<PopupsProps> {
         <div className="modal-dialog">
           <div className="modal-content testrive_notification">
             <div className="modal-header">
-              <h4 className="modal-title notification_heading">Hit the brakes</h4>
+              <h4 className="modal-title notification_heading">{title}</h4>
+              <div className="modal-footer" style={{display: 'none'}}>
+                <button type="button" className="btn btn-default close-popup" data-dismiss="modal">Close</button>
+              </div>
             </div>
             <div className="modal-body">
               <p> The Modal plugin is a dialog box/popup window that is displayed on top of the current page: The Modal plugin
@@ -155,10 +197,8 @@ class Popups extends React.Component<PopupsProps> {
             </div>
           </div>
         </div>
-      </div> */}
-    </div>)
-  }
-}
-
-export default Popups;
+      </div>
+    </div> 
+    
+    */
 
