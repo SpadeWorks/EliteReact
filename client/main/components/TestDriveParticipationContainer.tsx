@@ -19,7 +19,6 @@ import {
   submitTestDriveInstance
 } from '../../test_drive_participation';
 import { create } from 'domain';
-import Popups from '../../test_drive_participation/components/Popups';
 import * as $ from "jQuery";
 
 
@@ -61,7 +60,6 @@ class TestDriveParticipationContainer extends React.Component<AppProps> {
     const { dispatch, testDriveInstance, loading, ui, updateUI } = this.props;
     return (
       <div className="test-drive-participation">
-        <Popups/>
         <Loader show={loading} message={'loading'}>
           {
             !loading && testDriveInstance.instanceID == -1 &&
