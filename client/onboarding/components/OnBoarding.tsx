@@ -155,6 +155,22 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                             <rect className="bar" transform="translate(65,0)" y="15"></rect>
                                             <rect className="bar" transform="translate(39,0)" y="15"></rect>
                                             <rect className="bar" transform="translate(78,0)" y="15"></rect>
+
+
+                                            <rect className="bar" transform="translate(0,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(130,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(13,0)" y="15"></rect>
+
+                                            <rect className="bar" transform="translate(52,0)" y="15"></rect>
+
+                                            <rect className="bar" transform="translate(117,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(26,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(91,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(104,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(65,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(39,0)" y="15"></rect>
+                                            <rect className="bar" transform="translate(78,0)" y="15"></rect>
+                                            
                                         </g>
                                     </svg>
                                 </div>
