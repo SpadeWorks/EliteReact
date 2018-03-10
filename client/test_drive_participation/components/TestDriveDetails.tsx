@@ -6,7 +6,8 @@ import Services from '../../common/services/services';
 import { EliteProfile } from '../../home/model';
 import { Messages, ColumnsValues } from '../../common/services/constants';
 import ui from 'redux-ui';
-import Popup from 'react-popup';
+import Popup from '../../common/components/Popups';
+import * as $ from 'jquery';
 interface TestDriveDetailsProps {
     testDriveInstance: TestDriveInstance;
     createTestDriveInstance: (testDriveInstance: TestDriveInstance) => any;
@@ -16,7 +17,7 @@ interface TestDriveDetailsProps {
 @ui({
     state: {
         showPopUp: false,
-        message: ''
+        requirmentMessage: ''
     }
 })
 class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
@@ -42,7 +43,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         return new Promise((resolve, reject) => {
             var ctx = this;
             Services.getEliteProfileByID().then((user: EliteProfile) => {
-                var message = Messages.TEST_DRIVE_PARTICIPATION_ERROR;
+                var message = Messages.TEST_DRIVE_PARTICIPATION_ERROR + '<br>';
                 var isUserEligible: boolean = true;
                 var matchedLocation = ctx.props.testDriveInstance.location.filter((location: any) => {
                     return location.Label == user.location;
@@ -50,7 +51,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
 
                 if ((ctx.props.testDriveInstance.location &&
                     ctx.props.testDriveInstance.location.length > 0) && (!matchedLocation || !matchedLocation.length)) {
-                    message += Messages.TEST_DRIVE_LOCATION_ERROR + '\n';
+                    message += Messages.TEST_DRIVE_LOCATION_ERROR + '<br>';
                     isUserEligible = false;
                 }
                 var matchedDevices = [];
@@ -59,13 +60,13 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                 if ((ctx.props.testDriveInstance.requiredDevices &&
                     ctx.props.testDriveInstance.requiredDevices.length > 0)
                     && (!ctx.checkForElements(ctx.props.testDriveInstance.requiredDevices, user.availableDevices))) {
-                    message += Messages.TEST_DRIVE_DEVICE_ERROR + '\n';
+                    message += Messages.TEST_DRIVE_DEVICE_ERROR + '<br>';
                     isUserEligible = false;
                 }
 
                 if ((ctx.props.testDriveInstance.requiredOs && ctx.props.testDriveInstance.requiredOs.length > 0)
                     && (!ctx.checkForElements(ctx.props.testDriveInstance.requiredOs, user.availableOS))) {
-                    message += Messages.TEST_DRIVE_OS_ERROR + '\n';
+                    message += Messages.TEST_DRIVE_OS_ERROR + '<br>';
                     isUserEligible = false;
                 }
 
@@ -78,13 +79,14 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         var ctx = this;
         const { maxTestDrivers, participants } = this.props.testDriveInstance;
         if (maxTestDrivers && maxTestDrivers < participants + 1) {
-            Popup.alert(Messages.MAX_TEST_DRIVER_LIMIT_REACHED);
+            $("#maxTestDrivers").trigger('click');
         } else {
             this.isUserEligible().then((data: any) => {
+                this.props.updateUI({ requirmentMessage: data.message });
                 if (data.isUserEligible) {
                     ctx.props.createTestDriveInstance(this.props.testDriveInstance)
                 } else {
-                    Popup.plugins().prompt('Hit the brakes!', data.message);
+                    $("#popuphitTheBreaks").trigger('click');
                 }
             })
         }
@@ -96,46 +98,21 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         var pointsEarned = testDriveInstance.currentPoint / (testDriveInstance.maxPoints || 1)
         Services.loadProgressBar("completed-test-cases-canvas", testCaseCompletion, 150);
         Services.loadProgressBar("test-drive-points-canvas", pointsEarned, 150);
-
-        /** Prompt plugin */
-        Popup.registerPlugin('prompt', function (title, content, callback) {
-            let promptValue = null;
-            let promptChange = function (value) {
-                promptValue = value;
-            };
-
-            this.create({
-                title: title,
-                content: content,
-                buttons: {
-                    left: [{
-                        text: 'Test drive details',
-                        action: function () {
-                            Popup.close();
-                        }
-                    }],
-                    center: [],
-
-                    right: [{
-                        text: 'Test drive central',
-                        action: function () {
-                            window.location.hash = "/testdrives";
-                            Popup.close();
-                        }
-                    }, {
-                        text: 'Edit profile',
-                        action: function () {
-                            window.location.hash = "/profile";
-                            Popup.close();
-                        }
-                    }]
-                }
-            });
-        });
-
-        /** Call the plugin */
     }
 
+    hitTheBreaksButtons = [{
+        name: 'Dashboard',
+        link: '/'
+    },
+    {
+        name: 'Test Drive Central',
+        link: '/'
+    },
+    {
+        name: 'Edit Profile',
+        link: '/'
+    },
+    ]
     render() {
         const { testDriveInstance, createTestDriveInstance, ui, updateUI } = this.props;
         var testCaseCompletion = (testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 1) * 100;
@@ -144,7 +121,12 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         return (<div className="container detailed_box">
 
             <div className="row">
-                <Popup />
+                <Popup popupId="hitTheBreaks" title={"Hit the breaks!"}
+                    body={ui.requirmentMessage}
+                    buttons={this.hitTheBreaksButtons}/>
+                <Popup popupId="maxTestDrivers" title={""}
+                    body={Messages.MAX_TEST_DRIVER_LIMIT_REACHED} />
+
                 <div className="container header_part">
                     <h2 className="header_prevlink">
                         <Link to={"/"}><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>{testDriveInstance.title}  </Link></h2>
@@ -372,22 +354,6 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             }
 
                             <button id="participationButton" style={{ display: 'none' }} type="participationError" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="participationError" className={"modal fade " + (ui.showPopUp ? 'in' : '')}
-                role="dialog" style={{ display: ui.showPopUp ? 'block' : 'none' }}>
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <input
-                                onClick={() => { updateUI({ showPopUp: false }) }}
-                                type="button" className="close" data-dismiss="modal" value="X" />
-                            <h4 className="modal-title">ERROR :</h4>
-                        </div>
-                        <div className="modal-body error">
-                            <p>{ui.message}</p>
                         </div>
                     </div>
                 </div>

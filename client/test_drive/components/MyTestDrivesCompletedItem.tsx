@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { TestDrive, } from '../model';
 import Services from '../../common/services/services';
 import '../../js/jqmeter';
+import { Messages } from '../../common/services/constants';
 interface MyTestDrivesCompletedItemProps {
     testDrive: TestDrive;
     testDriveResponse: any;
@@ -48,18 +49,18 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                     <div className="row">
                         <div className="col-md-12 social_box">
                             <div className="row">
-                                <a href="javascript:;"
+                                <a href="javascript:;" title={Messages.REPORT_BUG_TITLE}
                                     onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)}>
                                     <span className="report"></span>
                                 </a>
-                                <a href="javascript:;"
+                                <a href="javascript:;" title={Messages.SEND_EMAIL_TITLE}
                                     onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
                                     <i className="material-icons">email</i>
                                 </a>
                                 {/* <a href="#">
                                     <span className="teams"></span>
                                 </a> */}
-                                <a href="javascript:;"
+                                <a href="javascript:;" title={Messages.SHARE_TITLE}
                                     onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
                                     <i className="material-icons">share</i>
                                 </a>

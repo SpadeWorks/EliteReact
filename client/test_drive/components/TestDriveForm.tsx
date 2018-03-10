@@ -40,8 +40,8 @@ interface TestDriveFormState {
 @ui({
     state: {
         focusedInput: 'startDate',
-        startDate: null,
-        endDate: null,
+        startDate: "",
+        endDate: "",
         rangePicker: null,
         showStartDatePicker: false,
         showEndDatePicker: false,
@@ -67,14 +67,14 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         }
     }
 
-    handleChange(which, payload) {
+    handleChange(which, payload) {            
         var e = {
             target: {
                 value: payload.toISOString(),
                 name: which,
                 //id: which
             }
-        };
+        };                
         //validateControl(e.target.id, e.target.value);
         if (which == 'startDate' && this.props.testDrive.endDate && payload > moment(this.props.testDrive.endDate)) {
             Popup.alert(Messages.START_GREATOR_ERROR);
@@ -274,7 +274,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                     name="startDate"
                                     placeholder="Start Date"
                                     type="text"
-                                    value={testDrive.startDate &&  Services.formatDate(testDrive.startDate) || null}
+                                    value={testDrive.startDate &&  Services.formatDate(testDrive.startDate) || ""}
                                     // onFocus={() => { updateUI({ showStartDatePicker: true }) }}
                                     readOnly
                                     data-validations={[required]}
@@ -285,7 +285,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 </span>
                             </div>
                             <div className={"startDate " + (ui.showStartDatePicker ? "show-tab" : "hide-tab")}>
-                                <Calendar
+                                <Calendar                                    
                                     minDate={now => { return now.add(0, 'days') }}
                                     // date={now => { return now.add(0, 'days') }}
                                     //onInit={this.handleChange.bind(this, 'startDate')}
@@ -303,7 +303,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 name="endDate"
                                 placeholder="End Date"
                                 type="text"
-                                value={testDrive.endDate && Services.formatDate(testDrive.endDate) || null}
+                                value={testDrive.endDate && Services.formatDate(testDrive.endDate) || ""}
                                 // onFocus={() => { updateUI({ showEndDatePicker: true }) }}
                                 readOnly
                                 data-validations={[required]}
@@ -314,7 +314,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             </span>
                         </div>
                         <div className={"endDate " + (ui.showEndDatePicker ? "show-tab" : "hide-tab")}>
-                            <Calendar
+                            <Calendar                                
                                 // date={now => { return now.add(1, 'days') }}
                                 minDate={this.getEndDate()}
                                 //onInit={this.handleChange.bind(this, 'endDate')}

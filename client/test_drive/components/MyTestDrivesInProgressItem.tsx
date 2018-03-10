@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link } from "react-router-dom";
 import { TestDrive } from '../model';
 import Services from '../../common/services/services';
+import { Messages } from '../../common/services/constants';
 interface MyTestDrivesInProgressItemProps {
     testDrive: TestDrive;
     participants: number;
@@ -14,7 +15,7 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
         super(props, context);
     }
     render() {
-        const { testDrive, participants} = this.props;
+        const { testDrive, participants } = this.props;
         return (<div className="col-md-4">
             <div className="col-md-12 progress_drivebox">
                 <h4>{testDrive.title}</h4>
@@ -22,10 +23,21 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
                     <div className="row">
                         <div className="col-md-12 social_box">
                             <div className="row">
-                                <a href="#"><i className="material-icons">bug_report</i></a>
-                                <a href="#"><i className="material-icons">email</i></a>
-                                <a href="#"><span className="teams"></span></a>
-                                <a href="#"><i className="material-icons">share</i></a>
+                                <a href="javascript:;" title={Messages.REPORT_BUG_TITLE}
+                                    onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)}>
+                                    <span className="report"></span>
+                                </a>
+                                <a href="javascript:;" title={Messages.SEND_EMAIL_TITLE}
+                                    onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
+                                    <i className="material-icons">email</i>
+                                </a>
+                                {/* <a href="#">
+                            <span className="teams"></span>
+                        </a> */}
+                                <a href="javascript:;" title={Messages.SHARE_TITLE}
+                                    onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
+                                    <i className="material-icons">share</i>
+                                </a>
                             </div>
                         </div>
                         <div className="col-md-12 partcipant_enddate">

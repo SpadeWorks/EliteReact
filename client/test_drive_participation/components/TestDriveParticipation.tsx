@@ -10,8 +10,9 @@ import TestDriveInfo from './TestDriveInfo';
 import * as $ from 'jquery';
 import * as Constants from '../../common/services/constants';
 import ui from 'redux-ui';
-import Popup from 'react-popup';
 import { ToastContainer, toast } from 'react-toastify';
+import Popup from '../../common/components/Popups';
+
 interface TestDriveParticipationProps {
     testDriveInstance: TestDriveInstance;
     saveTestCaseResponse: (testCase: TestCaseInstance, testDrive: TestDriveInstance) => any;
@@ -25,6 +26,7 @@ interface TestDriveParticipationProps {
 @ui({
     state: {
         activeTab: 'test_Cases',
+        requirmentMessage: ''
     }
 })
 
@@ -44,21 +46,51 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
     closePopUp(id) {
         $("#test-case-details" + id)
             .css({ "position": "fixed", "right": "-700px", "transition": "0.5s" });
+    }        
+
+    popTheFizzButtons = [{
+        name: 'Home',
+        link: '/'
+    },
+    {
+        name: 'Play more',
+        link: '/'
     }
+    ]
+
+    missingOutButtons = [{
+        name: 'Go to servey',
+        link: '/'
+    },
+    {
+        name: 'Complete test cases',
+        link: '/'
+    }
+    ]
+
+    highFiveButtons = [{
+        name: 'Go to servey',
+        link: '/'
+    },
+    {
+        name: 'Complete test cases',
+        link: '/'
+    }
+    ]
+
     render() {
         const { testDriveInstance, saveTestCaseResponse, submitTestDriveInstance, loadQuestions, saveQuestionResponse, ui, updateUI } = this.props;
-        return (<div className="col-md-12">
+        return (<div className="col-md-12">       
             <div className="row">
                 <div className="container header_part">
                     <h2>
                         <Link to={"/"}><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                             {testDriveInstance.title}
                         </Link>
-
                     </h2>
                 </div>
                 <div className="container participation_container">
-                    <div className="wrapper" style={{ height: "544px" }}>
+                    <div className="wrapper" style={{ height: "784px" }}>
                         <div className="col-md-11 profile_box">
                             <div className="well count_box">
                                 <ul className="nav nav-tabs">
@@ -83,8 +115,14 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                             updateUI={updateUI}
                                             ui={ui}
                                         />
+                                        <Popup popupId="HighFive" title={"High five!"}
+                                                body={ui.requirmentMessage}
+                                        buttons={this.highFiveButtons} />          
+                                    <Popup popupId="MissingOut" title={"You are missing out!"}
+                                        body={ui.requirmentMessage}
+                                        buttons={this.missingOutButtons} /> 
                                     </div>
-                                    <div className="tab-pane fade " id="Servay_q">
+                                    <div className="tab-pane fade " id="Servay_q">                                   
                                         <Survey questions={testDriveInstance.questions}
                                             saveQuestionResponse={(q) => saveQuestionResponse(q)}
                                             loadQuestions={(testDriveID, questionIDs, userID) =>
@@ -92,6 +130,9 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                             ui={ui}
                                             updateUI={updateUI}
                                             testDriveInstance={testDriveInstance} />
+                                            <Popup popupId="PopTheFizz" title={"Pop the fizz!"}
+                                        body={ui.requirmentMessage}
+                                        buttons={this.popTheFizzButtons} />
                                     </div>
                                     <div className="tab-pane fade " id="Description">
                                         <TestDriveInfo testDriveInstance={testDriveInstance} />
@@ -110,7 +151,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                             className="material-icons pull-right close-btn"
                                             id={"close_discription" + index}>close</i>
                                     </div>
-                                    <div className="col-md-12 testdrive_completionbox">
+                                    <div className="col-md-12 testdrive_completionbox testcase_detiled">
                                         <div className="col-md-11 pull-left"><h3>Description</h3></div>
                                         <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.description }}>
                                         </div>
@@ -127,8 +168,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                         }
                     </div>
                 </div>
-            </div>
-            <Popup />
+            </div>            
             <ToastContainer />
             <Overview testDriveInstance={testDriveInstance} ui={ui} updateUI={updateUI} />
         </div>)

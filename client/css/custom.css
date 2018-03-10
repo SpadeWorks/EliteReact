@@ -2033,7 +2033,7 @@ h1 {
     max-width: 1280px;
     margin: auto;
     padding: 0 5%;
-    height: 70%;
+    height: auto;
 }
 
 #header .hud-box .hud-box-border {
@@ -2342,42 +2342,53 @@ h1 {
     fill: DeepPink;
     width: 8px;
     animation: equalize 1.25s steps(25, end) 0s infinite;
+    -ms-animation:equalize 1.25s steps(25, end) 0s infinite;
+ 
 }
 
 .bar:nth-child(1) {
     animation-duration: 1.9s;
+    -ms-animation-duration: 1.9s;
 }
 
 .bar:nth-child(2) {
     animation-duration: 2s;
+    -ms-animation-duration: 2s;
 }
 
 .bar:nth-child(3) {
     animation-duration: 2.3s;
+    -ms-animation-duration: 2s;
 }
 
 .bar:nth-child(4) {
     animation-duration: 2.4s;
+    -ms-animation-duration: 2s;
 }
 
 .bar:nth-child(5) {
     animation-duration: 2.1s;
+    -ms-animation-duration: 2s;
 }
 
 .bar:nth-child(6) {
     animation-duration: 2.9s;
+    -ms-animation-duration: 2s;
 }
 
 .bar:nth-child(3) {
     animation-duration: 3.1s;
+    -ms-animation-duration: 2s;
 }
 
 .bar:nth-child(4) {
     animation-duration: 3.3s;
+    -ms-animation-duration: 2s;
 }
 
 .bar:nth-child(5) {
     animation-duration: 3.2s;
+    -ms-animation-duration: 2s;
 }
 
 @keyframes equalize {
@@ -2460,6 +2471,89 @@ h1 {
         height: 80px;
     }
 }
+
+
+@-ms-keyframes equalize {
+    0% {
+        height: 60px;
+    }
+    2% {
+        height: 50px;
+    }
+    4% {
+        height: 40px;
+    }
+    12% {
+        height: 30px;
+    }
+    16% {
+        height: 20px;
+    }
+    20% {
+        height: 30px;
+    }
+    24% {
+        height: 40px;
+    }
+    28% {
+        height: 10px;
+    }
+    32% {
+        height: 40px;
+    }
+    36% {
+        height: 60px;
+    }
+    40% {
+        height: 20px;
+    }
+    44% {
+        height: 40px;
+    }
+    48% {
+        height: 70px;
+    }
+    52% {
+        height: 30px;
+    }
+    56% {
+        height: 10px;
+    }
+    60% {
+        height: 30px;
+    }
+    64% {
+        height: 50px;
+    }
+    68% {
+        height: 60px;
+    }
+    72% {
+        height: 70px;
+    }
+    76% {
+        height: 80px;
+    }
+    80% {
+        height: 70px;
+    }
+    84% {
+        height: 60px;
+    }
+    88% {
+        height: 50px;
+    }
+    92% {
+        height: 60px;
+    }
+    96% {
+        height: 70px;
+    }
+    100% {
+        height: 80px;
+    }
+}
+
 
 
 /*equiliser ends here*/
@@ -5413,8 +5507,8 @@ a.status_fail:hover {
 
 .overview {
     margin-top: 0px;
-    padding-bottom: 40px;
-    padding-top: 40px;
+    padding-bottom: 20px;
+    padding-top: 20px;
     background: #1f1f28;
 }
 
@@ -6335,7 +6429,7 @@ button {
     font-family: titanium;
     color: #fff;
     padding-left: 10px;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .testcase_completionbox {
@@ -6952,7 +7046,7 @@ img.car_bigview {
 .intro_actionbox.testdrive_actionbox {
     position: absolute;
     bottom: 40px;
-    left: 0px;
+    left: 58px;
     background: none!important;
 }
 
@@ -6996,6 +7090,7 @@ button {
     left: 123px;
     top: 23px;
     -webkit-animation: rotate 30s infinite;
+    -ms-animation: rotation 30s infinite;
     animation-play-state: running;
 }
 
@@ -7091,8 +7186,8 @@ p.go {
 
 .col-md-12.intro_actionbox.testdrive_actionbox.new_ride {
     position: absolute;
-    bottom: -123px;
-    left: -57px;
+    bottom: -202px;
+    left: -4px;
     background: none!important;
 }
 
@@ -7102,8 +7197,8 @@ a {
 
 .col-md-12.intro_actionbox.testdrive_actionbox.betterride_box {
     position: absolute;
-    bottom: -123px;
-    left: 17px;
+    bottom: -209px;
+    left: 70px;
     background: none!important;
 }
 
@@ -7465,7 +7560,7 @@ span.orange.big {
         padding: 9px 0;
         word-wrap: break-word;
         word-break: break-all;
-        padding: 20px 11px 10px 1px !important;
+        padding: 17px 23px 10px 1px !important;
     }
     .popup_infocontainer li.select2-selection__choice {
         margin-bottom: 10px;
@@ -7679,14 +7774,31 @@ h4.notification_heading{font-size: 25px;}
     color: #ff8d00;
     font-weight: bold;
 }
-.holdon_msgbox {width:60%;
-margin:0 auto;}
+.holdon_msgbox {width:70%;
+margin:0 auto;
+margin-top: 100px;}
 
 .holdon_msgbox h5{font-size: 32px;}
 
-.holdon_msgbox p{font-family: titanium; font-size: 16px;}
+.holdon_msgbox p{font-family: titanium; font-size: 16px; margin-top: 30px; letter-spacing: 1px;}
+
+.holdon_msgbox img{float:none !important; margin-right:0px !important; margin-bottom:50px;}
+
+.modal-dialog.hit_breakbox .testrive_notification {
+    width: 700px;
+    padding-bottom: 40px;
+    margin-top: 20%;
+}
+
+.modal-dialog.hit_breakbox .testrive_notification p{margin-bottom:50px;}
+
+.modal-dialog.hit_breakbox .testrive_notification a.button{margin-left:30px;}
+
+
+
 
 /*all popups ends here*/
+.testcase_detiled img{width:100% !important;}
 
 .currtestdrive_list ul.soapbox_indicator{margin-left:0px;}
 
@@ -7765,8 +7877,8 @@ ul.soapbox_indicator {margin: 0 0 0 10px;}
 
 .letsgo {
     position: absolute !important;
-    right: 315px !important;
-    bottom: -115px;
+    right: 365px !important;
+    bottom: -249px;
 }
 
 .mm-popup {
