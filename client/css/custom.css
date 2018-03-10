@@ -7343,6 +7343,7 @@ span.orange.big {
     }
     img.map_image {
         width: 86%;
+        height:100%;
     }
     .line_box {
         background: url(/Style%20Library/Elite/images/line.png) no-repeat;

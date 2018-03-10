@@ -8,8 +8,11 @@ import * as $ from 'jquery';
 import { validateControl, required, validateForm } from '../../common/components/Validations';
 import Files from 'react-files';
 import Loader from 'react-loader-advanced';
-import Popup from 'react-popup';
+import Popup from '../../common/components/Popups';
 import { ToastContainer, toast } from 'react-toastify';
+import { Messages } from '../../common/services/constants';
+import Promise from "ts-promise";
+
 interface TestCaseFormProps {
     testDriveInstance: TestDriveInstance
     testCase: TestCaseInstance;
@@ -38,6 +41,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         this.submitTestCaseResponse = this.submitTestCaseResponse.bind(this);
         this.props.updateUI({ testCaseResponse: this.props.testCase.testCaseResponse });
         this.props.updateUI({ selectedResponse: this.props.testCase.selectedResponse });
+        this.getPopUpBodyData = this.getPopUpBodyData.bind(this);
         this.openPopUp = this.openPopUp.bind(this);
         this.onFilesChange = this.onFilesChange.bind(this);
         this.filesRemoveOne = this.filesRemoveOne.bind(this);
@@ -56,7 +60,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         })
 
         if (duplicateFiles.length) {
-            Popup.alert("Files with following names are alredy attached:" + '\n' + duplicateFiles.join(', '));
+            //Popup.alert("Files with following names are alredy attached:" + '\n' + duplicateFiles.join(', '));
         } else {
             this.props.updateUI({
                 files: files
@@ -97,14 +101,17 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
             toast.success("Test Case Response Saved Successfully!");
             $('#carousel-example-vertical').carousel('next');
         } else {
-            Popup.alert(Constants.Messages.ERROR_IN_FORM);
+            //Popup.alert(Constants.Messages.ERROR_IN_FORM);
         }
-
     }
 
     submitTestCaseResponse(testCase: TestCaseInstance, index) {
         this.props.submitTestDriveInstance(this.props.testDriveInstance);
         toast.success("Test Case Responses Submitted Successfully!");
+        this.getPopUpBodyData().then((data: any) => {
+            this.props.updateUI({ requirmentMessage: data.message });            
+            //$("#popupMissingOut").trigger("click");
+        })
         // this.props.updateUI({ showSurveyPopUp: true })
         // $('#test-drive-completion-btn').trigger('click');
     }
@@ -122,12 +129,20 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
             .css({ "position": "fixed", "right": "0px", "height": "100%", "transition": "0.5s" });
     }
 
-
-
+    getPopUpBodyData() {
+        return new Promise((resolve, reject) => {        
+                var message = Messages.MISSING_OUT_1.replace("#0#", this.props.testDriveInstance.numberOfTestCasesCompleted.toString()).replace("#1#", this.props.testDriveInstance.testCases.length.toString()) + '<br>';                
+                message += Messages.MISSING_OUT_2.replace("#0#", this.props.testDriveInstance.currentPoint.toString()) + '<br>';
+                message += Messages.MISSING_OUT_3.replace("#0#", "5th") + '<br>';
+                message += Messages.MISSING_OUT_4.replace("#0#", (this.props.testDriveInstance.maxPoints - this.props.testDriveInstance.currentPoint).toString()).replace("#1#", "Supercar") + '<br>';                
+                resolve({ message });            
+        });
+    }    
+ 
     render() {
         const { testCase, active, saveTestCaseResponse, ui, updateUI, index, testDriveInstance, isLast } = this.props;
         return (
-            <div className={"item " + (active ? 'active' : '')} id={'test-case-form' + index}>
+            <div className={"item " + (active ? 'active' : '')} id={'test-case-form' + index}>               
                 <div className="row">
                     <Loader show={testDriveInstance.testCaseSaveInProgress || false} message={'Loading...'}>
                         <div className="container ">
@@ -140,7 +155,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                         {testCase.description && testCase.description.length > 200 ?
                                             <a href="javascript:;" onClick={() => this.openPopUp(index)}>
                                                 <span className="read-more">Read more</span>
-                                        </a> : ''}</p>
+                                            </a> : ''}</p>
                                     <a href="javascript:;" onClick={() => this.openPopUp(index)}> <span className="red">
                                         <img src="/Style%20Library/Elite/images//i.png" />
                                         Guide me to solve this test case</span>

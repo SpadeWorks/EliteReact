@@ -86,8 +86,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                 if (data.isUserEligible) {
                     ctx.props.createTestDriveInstance(this.props.testDriveInstance)
                 } else {
-
-                    $("#hitTheBreaks").trigger('click');
+                    $("#popuphitTheBreaks").trigger('click');
                 }
             })
         }
