@@ -38,10 +38,10 @@ class CurrentRide extends React.Component<CurrentRideProps> {
                 </div>
                 <div className="col-md-12 intro_actionbox testdrive_actionbox new_ride">
                     <div className="button type1 pull-right">
-                        <input onClick={() => this.goToDashboard()} type="button" value="Also Yes" />
+                        <input onClick={() => this.goToDashboard()} type="button" value="Also Yes!" />
                     </div>
                     <div className="button type1 pull-right">
-                        <input onClick={() => this.goToDashboard()} type="button" value="Yes" />
+                        <input onClick={() => this.goToDashboard()} type="button" value="Yes!" />
                     </div>
                 </div>
             </div>)

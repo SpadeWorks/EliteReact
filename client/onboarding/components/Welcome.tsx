@@ -43,7 +43,7 @@ class Welcome extends React.Component<WelcomeProps> {
             <div id="typewriteText" style={{ animationDelay: "10s" }}></div>
             <div className="col-md-12 intro_actionbox testdrive_actionbox">
                 <div className="button type1 pull-right animated_button letsgo">
-                    <input value="Let's go" type="button" onClick={() => createEliteUserProfile(currentUser)} />
+                    <input value="Let's go!" type="button" onClick={() => createEliteUserProfile(currentUser)} />
                 </div>
             </div>
         </div>)
