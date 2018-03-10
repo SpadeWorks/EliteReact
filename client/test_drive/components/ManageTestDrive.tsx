@@ -96,16 +96,16 @@ class ManageTestDrive extends React.Component<AppProps> {
         }
         this.props.dispatch(loadTestDrive(this.props.id || -1));
 
-        $('.nav.nav-tabs li').click(function() {
+        $('.nav.nav-tabs li').click(function () {
             var selectedIndex = $(this).attr('data-index');
             try {
-                
+
                 selectedIndex = parseInt(selectedIndex)
             } catch (err) {
                 selectedIndex = 0;
             }
             self.props.updateUI({ activeTab: selectedIndex });
-        });        
+        });
 
         /** Call the plugin */
     }
@@ -131,29 +131,29 @@ class ManageTestDrive extends React.Component<AppProps> {
                 return false;
             }
 
-            if (testDrive.status == ColumnsValues.SUBMIT && testCases && testCases.length == 0) {    
+            if (testDrive.status == ColumnsValues.SUBMIT && testCases && testCases.length == 0) {
                 //Popup.alert(Messages.NO_TEST_CASE_ERROR);            
-                this.props.updateUI({ requirmentMessage: Messages.NO_TEST_CASE_ERROR, title:"Alert!" }); 
-                $("#popupTestDriveAlert").trigger('click');
+                this.props.updateUI({ requirmentMessage: Messages.NO_TEST_CASE_ERROR, title: "Alert!" });
+                $("#popupManageTestDriveAlert").trigger('click');
                 return false;
             }
 
             if (testDrive.status == ColumnsValues.SUBMIT && questions && questions.length == 0) {
-               //Popup.alert(Messages.NO_QUESTION_ERROR);
-                this.props.updateUI({ requirmentMessage: Messages.NO_QUESTION_ERROR, title:"Alert!" });
-                $("#popupTestDriveAlert").trigger('click');
+                //Popup.alert(Messages.NO_QUESTION_ERROR);
+                this.props.updateUI({ requirmentMessage: Messages.NO_QUESTION_ERROR, title: "Alert!" });
+                $("#popupManageTestDriveAlert").trigger('click');
                 return false;
             }
             if (testDrive.status == ColumnsValues.DRAFT) {
                 //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
                 toast.success(Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
-                this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAVEDDRAFT_MSG, title:"Success!" });
-                $("#popupTestDriveSuccess").trigger('click');
+                this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAVEDDRAFT_MSG, title: "Success!" });
+                $("#popupManageTestDriveSuccess").trigger('click');
             }
             else {
                 //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SUBMIT_MSG);
-                this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SUBMIT_MSG, title:"Success!" });
-                $("#popupTestDriveSuccess").trigger('click');
+                this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SUBMIT_MSG, title: "Success!" });
+                $("#popupManageTestDriveSuccess").trigger('click');
                 toast.success(Messages.TEST_DRIVE_SUBMIT_MSG);
             }
             this.props.dispatch(saveTestDrive(testDrive));
@@ -161,8 +161,8 @@ class ManageTestDrive extends React.Component<AppProps> {
         else {
             this.switchTab(0);
             //Popup.alert(Messages.TEST_DRIVE_ERROR);
-            this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_ERROR, title:"Alert!" });
-            $("#popupTestDriveAlert").trigger('click');
+            this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_ERROR, title: "Alert!" });
+            $("#popupManageTestDriveAlert").trigger('click');
         }
     }
 
@@ -171,16 +171,16 @@ class ManageTestDrive extends React.Component<AppProps> {
         if (isFormValid) {
             if (question.questionType == "Objective" && question.options.length < 2) {
                 //Popup.alert(Messages.NO_OPTIONS_ERROR);
-                this.props.updateUI({ requirmentMessage: Messages.NO_OPTIONS_ERROR, title:"Alert!" });
-                $("#popupTestDriveAlert").trigger('click');
+                this.props.updateUI({ requirmentMessage: Messages.NO_OPTIONS_ERROR, title: "Alert!" });
+                $("#popupManageTestDriveAlert").trigger('click');
             } else {
                 this.props.dispatch(saveQuestion(question));
                 toast.success("Question Saved Successfully!");
             }
         } else {
             //Popup.alert(Messages.QUESTION_ERROR);
-            this.props.updateUI({ requirmentMessage: Messages.QUESTION_ERROR, title:"Alert!" });
-            $("#popupTestDriveAlert").trigger('click');
+            this.props.updateUI({ requirmentMessage: Messages.QUESTION_ERROR, title: "Alert!" });
+            $("#popupManageTestDriveAlert").trigger('click');
         }
     }
 
@@ -191,8 +191,8 @@ class ManageTestDrive extends React.Component<AppProps> {
             toast.success("Test Case Saved Successfully!");
         } else {
             //Popup.alert(Messages.TEST_CASE_ERROR);
-            this.props.updateUI({ requirmentMessage: Messages.TEST_CASE_ERROR, title:"Alert!" });
-            $("#popupTestDriveAlert").trigger('click');
+            this.props.updateUI({ requirmentMessage: Messages.TEST_CASE_ERROR, title: "Alert!" });
+            $("#popupManageTestDriveAlert").trigger('click');
         }
     }
 
@@ -203,8 +203,8 @@ class ManageTestDrive extends React.Component<AppProps> {
 
         if (unsaveTestCase.length) {
             //Popup.alert(message);
-            this.props.updateUI({ requirmentMessage: Messages.TEST_CASE_ERROR, title:"Alert!" });
-            $("#popupTestDriveAlert").trigger('click');
+            this.props.updateUI({ requirmentMessage: Messages.TEST_CASE_ERROR, title: "Alert!" });
+            $("#popupManageTestDriveAlert").trigger('click');
             return true;
         } else {
             return false;
@@ -238,29 +238,29 @@ class ManageTestDrive extends React.Component<AppProps> {
         return this.props.ui.activeTab;
     }
 
-    dashboardSuccessButtons = [{
+    manageTestDriveSuccessButtons = [{
         name: 'Go to dashboard',
         link: '/'
     }
     ]
 
-    dashboardAlertButtons = [{
+    manageTestDriveAlertButtons = [{
         name: 'Ok',
-        link: '/'
+        link: '#'
     }
     ]
-    
+
     render() {
         const { testDrive, question, dispatch, loading, testCase, ui, updateUI,
             testCaseFields, surveyFields, testDriveFields } = this.props;
         return (
-            <div className="container header_part">                
-            <Popup popupId="TestDriveSuccess" title={ui.title}
-                                                body={ui.requirmentMessage}
-                                        buttons={this.dashboardSuccessButtons} />  
-            <Popup popupId="TestDriveAlert" title={ui.title}
-                                                body={ui.requirmentMessage}
-                                        buttons={this.dashboardAlertButtons} />  
+            <div className="container header_part">
+                <Popup popupId="ManageTestDriveSuccess" title={ui.title}
+                    body={ui.requirmentMessage}
+                    buttons={this.manageTestDriveSuccessButtons} />
+                <Popup popupId="ManageTestDriveAlert" title={ui.title}
+                    body={ui.requirmentMessage}
+                    buttons={this.manageTestDriveAlertButtons} />
                 <h2 className="header_prevlink">
                     <Link to={"/"} >
                         <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Create test drive

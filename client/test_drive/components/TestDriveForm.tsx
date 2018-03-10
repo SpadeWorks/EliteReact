@@ -11,7 +11,7 @@ import { updateDate } from '../index';
 import { ToastContainer, toast } from 'react-toastify';
 import { css, active } from 'glamor';
 import { Messages, ColumnsValues } from '../../common/services/constants';
-import Popup from 'react-popup';
+import Popup from '../../common/components/Popups';
 import { Services } from '../../common/services/data_service';
 
 let moment = require("moment");
@@ -45,7 +45,9 @@ interface TestDriveFormState {
         rangePicker: null,
         showStartDatePicker: false,
         showEndDatePicker: false,
-        saveIsInProgress: false
+        saveIsInProgress: false,
+        requirmentMessage: '',
+        title: ""
     }
 })
 class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormState> {
@@ -67,17 +69,19 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         }
     }
 
-    handleChange(which, payload) {            
+    handleChange(which, payload) {
         var e = {
             target: {
                 value: payload.toISOString(),
                 name: which,
                 //id: which
             }
-        };                
+        };
         //validateControl(e.target.id, e.target.value);
         if (which == 'startDate' && this.props.testDrive.endDate && payload > moment(this.props.testDrive.endDate)) {
-            Popup.alert(Messages.START_GREATOR_ERROR);
+            //Popup.alert(Messages.START_GREATOR_ERROR);
+            this.props.updateUI({ requirmentMessage: Messages.START_GREATER_ERROR, title: "Alert!" });
+            $("#popupCreateTestDriveAlert").trigger('click');
         } else {
             this.onChange(e);
         }
@@ -157,19 +161,27 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         if (isFormValid) {
             this.props.updateUI({ activeTab: this.props.ui.activeTab + direction });
         } else {
-            Popup.alert(Messages.TEST_DRIVE_ERROR);
+            //Popup.alert(Messages.TEST_DRIVE_ERROR);
+            this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_ERROR, title: "Alert!" });
+            $("#popupCreateTestDriveAlert").trigger('click');
         }
     }
 
-    saveValidate(testDrive) {                
-        this.props.updateUI({saveIsInProgress: true});    
-            Services.getTestDrivesByFilter("TestDriveName eq '" + testDrive.title + "'").then((testDriveData: any) => {                
-                testDriveData && testDriveData.length > 1 ? Popup.alert(Messages.TEST_DRIVE_SAME_NAME_ERROR) :
-                    this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);
-                    this.props.updateUI({saveIsInProgress: false});
-            });                        
-        }
-    
+    saveValidate(testDrive) {
+        this.props.updateUI({ saveIsInProgress: true });
+        Services.getTestDrivesByFilter("TestDriveName eq '" + testDrive.title + "'").then((testDriveData: any) => {
+            if (testDriveData && testDriveData.length > 1) {
+                //Popup.alert(Messages.TEST_DRIVE_SAME_NAME_ERROR)
+                this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAME_NAME_ERROR, title: "Alert!" });
+                $("#popupCreateTestDriveAlert").trigger('click');
+            }
+            else {
+                this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);
+            }
+            this.props.updateUI({ saveIsInProgress: false });
+        });
+    }
+
 
     componentDidMount() {
         document.body.className = "black-bg";
@@ -217,6 +229,18 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         return moment(this.props.testDrive.startDate).add(1, 'days')
     }
 
+    createTestDriveSuccessButtons = [{
+        name: 'Go to dashboard',
+        link: '/'
+    }
+    ]
+
+    createTestDriveAlertButtons = [{
+        name: 'Ok',
+        link: '#'
+    }
+    ]
+
     render() {
         const { testDrive, saveTestDrive, submitTestDrive, updateMultiSelect, ui, updateUI, fieldDescriptions } = this.props;
         const butttonGroup = {
@@ -227,6 +251,12 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         return (
             <form className="registration_form" id={"test-drive-form" + testDrive.id}>
                 <div className="col-xs-12 testdrive_creationbox form_box ">
+                    <Popup popupId="CreateTestDriveSuccess" title={ui.title}
+                        body={ui.requirmentMessage}
+                        buttons={this.createTestDriveSuccessButtons} />
+                    <Popup popupId="CreateTestDriveAlert" title={ui.title}
+                        body={ui.requirmentMessage}
+                        buttons={this.createTestDriveAlertButtons} />
                     <div className="col-md-12 register_input">
                         <div className="group">
                             <input className="inputMaterial"
@@ -274,7 +304,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                     name="startDate"
                                     placeholder="Start Date"
                                     type="text"
-                                    value={testDrive.startDate &&  Services.formatDate(testDrive.startDate) || ""}
+                                    value={testDrive.startDate && Services.formatDate(testDrive.startDate) || ""}
                                     // onFocus={() => { updateUI({ showStartDatePicker: true }) }}
                                     readOnly
                                     data-validations={[required]}
@@ -285,7 +315,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 </span>
                             </div>
                             <div className={"startDate " + (ui.showStartDatePicker ? "show-tab" : "hide-tab")}>
-                                <Calendar                                    
+                                <Calendar
                                     minDate={now => { return now.add(0, 'days') }}
                                     // date={now => { return now.add(0, 'days') }}
                                     //onInit={this.handleChange.bind(this, 'startDate')}
@@ -314,7 +344,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             </span>
                         </div>
                         <div className={"endDate " + (ui.showEndDatePicker ? "show-tab" : "hide-tab")}>
-                            <Calendar                                
+                            <Calendar
                                 // date={now => { return now.add(1, 'days') }}
                                 minDate={this.getEndDate()}
                                 //onInit={this.handleChange.bind(this, 'endDate')}
@@ -472,7 +502,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             </div>
                             <div className="button type1 nextBtn btn-lg pull-right animated_button">
                                 <input disabled={testDrive.status == ColumnsValues.ACTIVE || testDrive.saveIsInProgress
-                                || ui.saveIsInProgress
+                                    || ui.saveIsInProgress
                                 } type="button" value="Save as a draft"
                                     onClick={() => { this.saveValidate(testDrive) }} />
                             </div>

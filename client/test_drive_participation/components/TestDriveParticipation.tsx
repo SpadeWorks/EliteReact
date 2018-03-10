@@ -48,32 +48,24 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
             .css({ "position": "fixed", "right": "-700px", "transition": "0.5s" });
     }        
 
-    popTheFizzButtons = [{
-        name: 'Home',
-        link: '/'
-    },
-    {
-        name: 'Play more',
-        link: '/'
-    }
-    ]
+   
 
     missingOutButtons = [{
         name: 'Go to servey',
-        link: '/'
+        link: '#'
     },
     {
         name: 'Complete test cases',
-        link: '/'
+        link: '#'
     }
     ]
 
     highFiveButtons = [{
         name: 'Go to servey',
-        link: '/'
+        link: '#'
     },
     {
-        name: 'Complete test cases',
+        name: 'Dashboard',
         link: '/'
     }
     ]
@@ -130,13 +122,11 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                             ui={ui}
                                             updateUI={updateUI}
                                             testDriveInstance={testDriveInstance} />
-                                            <Popup popupId="PopTheFizz" title={"Pop the fizz!"}
-                                        body={ui.requirmentMessage}
-                                        buttons={this.popTheFizzButtons} />
+                                            
                                     </div>
                                     <div className="tab-pane fade " id="Description">
                                         <TestDriveInfo testDriveInstance={testDriveInstance} />
-                                    </div>
+                                    </div>                                    
                                 </div>
                             </div >
                         </div >

@@ -101,8 +101,7 @@ export class ColumnsValues {
     static TEST_DRIVE_OWNER = "Test Drive Owner";
     static SITE_OWNER_DISPLAY_NAME = "Site Owner"
     static TEST_DRIVER_DISPLAY_NAME = "Test Drivers";
-    static TEST_DRIVE_OWNER_DISPLAY_NAME = "Test Drive Owner";
-
+    static TEST_DRIVE_OWNER_DISPLAY_NAME = "Test Drive Owner";    
 }
 
 export class Globals {
@@ -153,7 +152,7 @@ export class Messages {
     static REPORT_BUG_TITLE = 'Report a Bug';
     static SEND_EMAIL_TITLE = 'Send an email to TEST drive owner';
     static SHARE_TITLE = 'Share';
-    static START_GREATOR_ERROR = 'Start date can not be greator than end date';
+    static START_GREATER_ERROR = 'Start date can not be greater than end date';
     static POP_THE_FIZZ_1 = "You have successfully completed this testdrive.";
     static POP_THE_FIZZ_2 = "You have completed all the test cases and answered <span class='orange'>#0#</span> of #1# survey questions."
     static POP_THE_FIZZ_3 = "You earned <span class='orange'>#0#</span> points.";

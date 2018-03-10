@@ -28,7 +28,8 @@ interface TestCasesProps {
 class TestCases extends React.Component<TestCasesProps> {
     constructor(props, context) {
         super(props, context);
-        this.getPopUpBodyData = this.getPopUpBodyData.bind(this);
+        this.getPopUpBodyDataHighFive = this.getPopUpBodyDataHighFive.bind(this);
+        this.getPopUpBodyDataMissingOut = this.getPopUpBodyDataMissingOut.bind(this);
     }
     componentDidMount() {
         $('#carousel-example-vertical').bind('mousewheel', function (e) {
@@ -44,42 +45,23 @@ class TestCases extends React.Component<TestCasesProps> {
             wrap: false
         });
 
-        // /** Prompt plugin */
-        // Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
-        //     let promptValue = null;
-        //     let promptChange = function (value) {
-        //         promptValue = value;
-        //     };
-
-        //     this.create({
-        //         title: 'Success',
-        //         content: 'Test Drive Submitted Successfully!',
-        //         buttons: {
-        //             left: [{
-        //                 text: 'Take Survey',
-        //                 action: function () {
-
-        //                     Popup.close();
-        //                     $('[href="#Servay_q"]').trigger('click');
-        //                 }
-        //             }],
-        //             right: [{
-        //                 text: 'Go to Dashboard',
-        //                 action: function () {
-        //                     window.location.href = "#";
-        //                     Popup.close();
-        //                 }
-        //             }]
-        //         }
-        //     });
-        // });
-        // /** Call the plugin */
+      
 
 
 
     }
 
-    getPopUpBodyData() {
+    getPopUpBodyDataMissingOut() {
+        return new Promise((resolve, reject) => {        
+                var message = Messages.MISSING_OUT_1.replace("#0#", this.props.testDriveInstance.numberOfTestCasesCompleted.toString()).replace("#1#", this.props.testDriveInstance.testCases.length.toString()) + '<br>';                
+                message += Messages.MISSING_OUT_2.replace("#0#", this.props.testDriveInstance.currentPoint.toString()) + '<br>';
+                message += Messages.MISSING_OUT_3.replace("#0#", "5th") + '<br>';
+                message += Messages.MISSING_OUT_4.replace("#0#", (this.props.testDriveInstance.maxPoints - this.props.testDriveInstance.currentPoint).toString()).replace("#1#", "Supercar") + '<br>';                
+                resolve({ message });            
+        });
+    }    
+
+    getPopUpBodyDataHighFive() {
         return new Promise((resolve, reject) => {        
                 var message = Messages.HIGH_FIVE_1.replace("#0#", this.props.testDriveInstance.numberOfTestCasesCompleted.toString()).replace("#1#", this.props.testDriveInstance.testCases.length.toString()) + '<br>';                
                 message += Messages.HIGH_FIVE_2.replace("#0#", this.props.testDriveInstance.currentPoint.toString()) + '<br>';
@@ -93,7 +75,19 @@ class TestCases extends React.Component<TestCasesProps> {
         if (this.props.testDriveInstance.isTestDriveSubmissionCompleted &&
             this.props.testDriveInstance.status == Constants.ColumnsValues.COMPLETE_STATUS && !this.props.ui.isSurveyPopUpVisiable) {
             //Popup.plugins().prompt('', 'What do you want to do?');
-            $("#popupHighFive").trigger("click");
+            this.getPopUpBodyDataHighFive().then((data: any) => {
+                this.props.updateUI({ requirmentMessage: data.message });
+                 $("#popupHighFive").trigger("click");            
+            });
+            this.props.updateUI({ isSurveyPopUpVisiable: true });
+        }
+        else if (this.props.testDriveInstance.isTestDriveSubmissionCompleted &&
+            this.props.testDriveInstance.status == Constants.ColumnsValues.DRAFT && !this.props.ui.isSurveyPopUpVisiable)
+        {
+            this.getPopUpBodyDataMissingOut().then((data: any) => {
+                this.props.updateUI({ requirmentMessage: data.message });
+                $("#popupMissingOut").trigger("click");            
+           });           
             this.props.updateUI({ isSurveyPopUpVisiable: true });
         }
     }    

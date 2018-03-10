@@ -5,7 +5,8 @@ import Services from '../../common/services/services';
 import ui from 'redux-ui';
 import { validateControl, required, validateForm } from '../../common/components/Validations';
 import { ToastContainer, toast } from 'react-toastify';
-import Popup from 'react-popup';
+import * as $ from 'jquery';
+import Popup from '../../common/components/Popups';
 import { ColumnsValues } from '../../common/services/constants';
 import { Messages } from '../../common/services/constants';
 import {
@@ -37,7 +38,9 @@ interface TestCasesProps {
 
 @ui({
     state: {
-        helpText: ''
+        helpText: '',
+        requirmentMessage: '',
+        title: ""
     }
 })
 class TestCases extends React.Component<TestCasesProps> {
@@ -53,7 +56,9 @@ class TestCases extends React.Component<TestCasesProps> {
         if (isFormValid) {
             this.props.updateUI({ activeTab: this.props.ui.activeTab + direction });
         } else {
-            Popup.alert(Messages.TEST_DRIVE_ERROR);
+            //Popup.alert(Messages.TEST_DRIVE_ERROR);
+            this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_ERROR, title: "Alert!" });
+            $("#popupTestCasesAlert").trigger('click');
         }
 
     }
@@ -70,6 +75,12 @@ class TestCases extends React.Component<TestCasesProps> {
             this.props.updateUI({ helpText: appConfig.TestCaseHelpText });
         })
     }
+
+    testCasesAlertButtons = [{
+        name: 'Ok',
+        link: '#'
+    }
+    ]
 
     render() {
         const {
@@ -89,6 +100,9 @@ class TestCases extends React.Component<TestCasesProps> {
         } = this.props;
         return (
             <div className="test-case-container col-xs-12">
+                <Popup popupId="TestCasesAlert" title={ui.title}
+                    body={ui.requirmentMessage}
+                    buttons={this.testCasesAlertButtons} />
                 <div className="col-md-8 sample_text">
                     <p>{ui.helpText}</p>
                 </div>

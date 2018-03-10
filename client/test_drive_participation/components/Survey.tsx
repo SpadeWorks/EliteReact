@@ -48,6 +48,16 @@ class Survey extends React.Component<SurveyProps> {
 
     }   
 
+    popTheFizzButtons = [{
+        name: 'Home',
+        link: '/'
+    },
+    {
+        name: 'Play more',
+        link: '#'
+    }
+    ]
+
     render() {
         const { questions, saveQuestionResponse, ui, updateUI, testDriveInstance } = this.props;
         return (
@@ -89,6 +99,9 @@ class Survey extends React.Component<SurveyProps> {
                                         index={index} />)
                                 })
                             }
+                            <Popup popupId="PopTheFizz" title={"Pop the fizz!"}
+                                        body={ui.requirmentMessage}
+                                        buttons={this.popTheFizzButtons} />
                         </div>
                     </div>
                 </div>
@@ -110,7 +123,7 @@ class Survey extends React.Component<SurveyProps> {
              
            </div>
                     </div>
-                }                 
+                }                                 
             </div>
         )
     }

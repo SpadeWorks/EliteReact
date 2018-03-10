@@ -40,8 +40,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         // this.saveTestCaseResponse = this.saveTestCaseResponse.bind(this);
         this.submitTestCaseResponse = this.submitTestCaseResponse.bind(this);
         this.props.updateUI({ testCaseResponse: this.props.testCase.testCaseResponse });
-        this.props.updateUI({ selectedResponse: this.props.testCase.selectedResponse });
-        this.getPopUpBodyData = this.getPopUpBodyData.bind(this);
+        this.props.updateUI({ selectedResponse: this.props.testCase.selectedResponse });        
         this.openPopUp = this.openPopUp.bind(this);
         this.onFilesChange = this.onFilesChange.bind(this);
         this.filesRemoveOne = this.filesRemoveOne.bind(this);
@@ -107,11 +106,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
 
     submitTestCaseResponse(testCase: TestCaseInstance, index) {
         this.props.submitTestDriveInstance(this.props.testDriveInstance);
-        toast.success("Test Case Responses Submitted Successfully!");
-        this.getPopUpBodyData().then((data: any) => {
-            this.props.updateUI({ requirmentMessage: data.message });            
-            //$("#popupMissingOut").trigger("click");
-        })
+        toast.success("Test Case Responses Submitted Successfully!");        
         // this.props.updateUI({ showSurveyPopUp: true })
         // $('#test-drive-completion-btn').trigger('click');
     }
@@ -127,17 +122,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         $(".write_testdrivebox").css({ "position": "fixed", "right": "-700px", "transition": "0.5s" });
         $("#test-case-details" + id)
             .css({ "position": "fixed", "right": "0px", "height": "100%", "transition": "0.5s" });
-    }
-
-    getPopUpBodyData() {
-        return new Promise((resolve, reject) => {        
-                var message = Messages.MISSING_OUT_1.replace("#0#", this.props.testDriveInstance.numberOfTestCasesCompleted.toString()).replace("#1#", this.props.testDriveInstance.testCases.length.toString()) + '<br>';                
-                message += Messages.MISSING_OUT_2.replace("#0#", this.props.testDriveInstance.currentPoint.toString()) + '<br>';
-                message += Messages.MISSING_OUT_3.replace("#0#", "5th") + '<br>';
-                message += Messages.MISSING_OUT_4.replace("#0#", (this.props.testDriveInstance.maxPoints - this.props.testDriveInstance.currentPoint).toString()).replace("#1#", "Supercar") + '<br>';                
-                resolve({ message });            
-        });
-    }    
+    }   
  
     render() {
         const { testCase, active, saveTestCaseResponse, ui, updateUI, index, testDriveInstance, isLast } = this.props;

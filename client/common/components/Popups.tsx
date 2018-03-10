@@ -18,7 +18,7 @@ class Popup extends React.Component<PopupProps> {
   componentDidMount() {
     $("#app").mouseup(function (e) {
       var container = $(".testrive_notification");
-      if (!container.is(e.target) && container.has(e.target).length === 0) {
+      if (!container.is(e.target) && container.has(e.target).length === 0 || (e.target.className && e.target.className.indexOf("closingModal")!=-1)) {
         $(".close-popup").trigger('click');
         $(".close-popup").trigger('click');
       }
@@ -51,7 +51,7 @@ class Popup extends React.Component<PopupProps> {
             </div>
             <div className="modal-buttons">{
               buttons && buttons.length > 0 ? buttons.map((button: any, index) => {
-                return (<Link key={index} className="button type1" to={button.link}>{button.name}</Link>)
+                return (<Link key={index} className="button type1 closingModal" to={button.link}>{button.name}</Link>)
               }) : ''
             }</div>
             <div className="modal-footer" dangerouslySetInnerHTML={{ __html: footer }}>

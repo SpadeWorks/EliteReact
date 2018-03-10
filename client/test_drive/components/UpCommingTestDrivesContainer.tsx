@@ -77,7 +77,7 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
                         ui.visibleItems.map((testDriveObj, index) => {
                             return (<TestDriveCardItem
                                 key={index}
-                                participants={testDriveObj.participents}
+                                participants={testDriveObj.participants}
                                 testDrive={testDriveObj.testDrive} 
                                 isActive={false}/>)
                         }) : (!upCommingTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_UPCOMING_MSG}</div>)

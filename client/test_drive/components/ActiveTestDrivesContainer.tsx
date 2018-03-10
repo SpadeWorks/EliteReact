@@ -77,7 +77,7 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
                         ui.visibleItems.map((testDriveObj, index) => {
                             return (<TestDriveCardItem
                                 key={index}
-                                participants={testDriveObj.participents}
+                                participants={testDriveObj.participants}
                                 testDrive={testDriveObj.testDrive}
                                 isActive={false} />)
                         }) : (!activeTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_ACTIVE_MSG}</div>)
