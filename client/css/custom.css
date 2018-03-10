@@ -7145,7 +7145,7 @@ p.next-text.go_text {
     border-bottom: solid;
     margin-top: 200px;
     margin-left: 73px;
-    background: url(http://intranet.spdev.equinix.com/Style%20Library/Elite/images/track.png) no-repeat;
+    background: url('/Style%20Library/Elite/images/track.png') no-repeat;
     border: none;
 }
 
@@ -7215,7 +7215,7 @@ a {
 }
 
 .red_text {
-    color: red !important;
+    color: #ee1d23;
 }
 
 .currentride_text {
