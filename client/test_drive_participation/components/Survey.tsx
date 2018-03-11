@@ -53,8 +53,8 @@ class Survey extends React.Component<SurveyProps> {
         link: '/'
     },
     {
-        name: 'Play more',
-        link: '#'
+        name: 'Test Drive Center',
+        link: '/testdrives'
     }
     ]
 
