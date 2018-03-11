@@ -47,7 +47,8 @@ interface TestDriveFormState {
         showEndDatePicker: false,
         saveIsInProgress: false,
         requirmentMessage: '',
-        title: ""
+        title: "",
+        saveTestDriveApprovalLoading: false
     }
 })
 class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormState> {
@@ -229,9 +230,27 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         return moment(this.props.testDrive.startDate).add(1, 'days')
     }
 
+    approveTestDrive(testDriveId) {
+        this.props.updateUI({saveTestDriveApprovalLoading: true});
+        Services.approveTestdrive(testDriveId).then(() => {
+            this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_APPROVE_MSG, title: "Success!" });
+            $("#popupCreateTestDriveApprove").trigger('click');
+        });
+    }
+
     createTestDriveSuccessButtons = [{
         name: 'Go to dashboard',
         link: '/'
+    }
+    ]
+
+    createTestDriveApproveButtons = [{
+        name: 'Go to dashboard',
+        link: '/'
+    },
+    {
+        name: 'Go to test drive center',
+        link: '/testdrives/pendingapprovals '
     }
     ]
 
@@ -242,6 +261,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     ]
 
     render() {
+        const isApprover = Service.getUserProfileProperties().role;
         const { testDrive, saveTestDrive, submitTestDrive, updateMultiSelect, ui, updateUI, fieldDescriptions } = this.props;
         const butttonGroup = {
             float: 'right'
@@ -257,6 +277,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                     <Popup popupId="CreateTestDriveAlert" title={ui.title}
                         body={ui.requirmentMessage}
                         buttons={this.createTestDriveAlertButtons} />
+                    <Popup popupId="CreateTestDriveApprove" title={ui.title}
+                        body={ui.requirmentMessage}
+                        buttons={this.createTestDriveApproveButtons} />
                     <div className="col-md-12 register_input">
                         <div className="group">
                             <input className="inputMaterial"
@@ -506,6 +529,14 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 } type="button" value="Save as a draft"
                                     onClick={() => { this.saveValidate(testDrive) }} />
                             </div>
+                            {testDrive.status == ColumnsValues.SUBMIT && isApprover == ColumnsValues.SITE_OWNER ?
+                                <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                    <input type="button" value="Approve"
+                                        disabled={ui.saveTestDriveApprovalLoading}
+                                        onClick={() => this.approveTestDrive(testDrive.id)} />
+                                </div>
+                                : ''
+                            }
                         </div>
                     </div>
                 </div>
