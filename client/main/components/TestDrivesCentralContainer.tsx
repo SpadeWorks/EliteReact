@@ -119,6 +119,8 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
         return 3;
       case 'uptestdrive':
         return 2;
+      case 'pendingapprovals':
+        return 4;
     }
   }
 

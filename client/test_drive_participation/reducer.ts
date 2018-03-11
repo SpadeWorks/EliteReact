@@ -20,10 +20,10 @@ import {
     CREATE_QuestionInstance_REJECTED,
     DELETE_Attachment,
     DELETE_Attachment_FULFILLED,
-    SUBMIT_TestDriveInstance_PENDING,
-    SUBMIT_TestDriveInstance_FULFILLED,
-    SUBMIT_TestDriveInstance_REJECTED,
-    SUBMIT_TestDriveInstance
+    UPDATE_Points_PENDING,
+    UPDATE_Points_FULFILLED,
+    UPDATE_Points_REJECTED,
+    UPDATE_Points
 
 } from './constants/ActionTypes';
 import { submitTestDrive } from '../test_drive/index';
@@ -213,7 +213,7 @@ export default handleActions<IState, any>({
         }
     },
 
-    // [SUBMIT_TestDriveInstance_PENDING]: (state: IState, action: Action<any>): IState => {
+    // [UPDATE_Points_PENDING]: (state: IState, action: Action<any>): IState => {
     //     return {
     //         ...state,
     //         testDriveInstance: {
@@ -224,7 +224,7 @@ export default handleActions<IState, any>({
     //         }
     //     }
     // },
-    [SUBMIT_TestDriveInstance]: (state: IState, action: Action<any>): IState => {
+    [UPDATE_Points]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
             testDriveInstance: {
@@ -239,7 +239,7 @@ export default handleActions<IState, any>({
         }
     },
 
-    // [SUBMIT_TestDriveInstance_REJECTED]: (state: IState, action: Action<any>): IState => {
+    // [UPDATE_Points_REJECTED]: (state: IState, action: Action<any>): IState => {
     //     return {
     //         ...state,
     //         testDriveInstance: {

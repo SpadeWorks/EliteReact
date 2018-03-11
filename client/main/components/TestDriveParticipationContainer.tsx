@@ -16,7 +16,7 @@ import {
   createOrSaveTestDriveInstance,
   createOrSaveTestCaseInstance,
   createOrSaveQuestionInstance,
-  submitTestDriveInstance
+  updatePoints
 } from '../../test_drive_participation';
 import { create } from 'domain';
 import * as $ from "jQuery";
@@ -78,7 +78,7 @@ class TestDriveParticipationContainer extends React.Component<AppProps> {
             testDriveInstance={testDriveInstance}
             saveTestCaseResponse={(testcaseInstance, testDriveInstance) =>
               dispatch(createOrSaveTestCaseInstance(testcaseInstance, testDriveInstance))}
-            submitTestDriveInstance={(testDriveInstance) => dispatch(submitTestDriveInstance(testDriveInstance))}
+            updatePoints={(testDriveInstance) => dispatch(updatePoints(testDriveInstance))}
             saveQuestionResponse={(questionInstance) =>
               dispatch(createOrSaveQuestionInstance(questionInstance))}
             loadQuestions={(testDriveID: number, questionIDs: number[], userID: number) =>

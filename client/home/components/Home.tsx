@@ -87,6 +87,7 @@ class Home extends React.Component<HomeProps, HomeState> {
         });
 
         $("#app").mouseup(function (e) {
+            var videoContainer = $(".modal-content");
             var container = $(".letest_drivebox");
             var container2 = $(".letest_drivebox2");
             if (!container.is(e.target) && container.has(e.target).length === 0 &&
@@ -97,6 +98,11 @@ class Home extends React.Component<HomeProps, HomeState> {
                 $(".letest_drivebox2").removeClass("letest_driveboxclick_right");
                 $(".letest_drivebox").removeClass('box').hide();
                 $(".letest_drivebox2").removeClass('box').hide();
+            }
+
+            if (!videoContainer.is(e.target) && videoContainer.has(e.target).length === 0) {
+                $(".close-popup").trigger('click');
+                $(".close-popup").trigger('click');
             }
         });
 

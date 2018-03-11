@@ -89,7 +89,7 @@ import {
 
 } from './constants/ActionTypes';
 import { LOAD_ActiveTestDrive_PENDING, LOAD_ActiveTestDrive_FULFILLED, LOAD_ActiveTestDrive_REJECTED, LOAD_UpcomingTestDrive_PENDING } from '../home/constants/ActionTypes';
-import { SUBMIT_TestDriveInstance_FULFILLED } from '../test_drive_participation/constants/ActionTypes';
+import { UPDATE_Points_FULFILLED } from '../test_drive_participation/constants/ActionTypes';
 
 const initialState: IState = {
     testDrive: {
@@ -732,7 +732,7 @@ export default handleActions<IState, any>({
         }
     },
 
-    [SUBMIT_TestDriveInstance_FULFILLED]: (state: IState, action: Action<any>): IState => {
+    [UPDATE_Points_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
             submittedTestDrivesIRun: action.payload,

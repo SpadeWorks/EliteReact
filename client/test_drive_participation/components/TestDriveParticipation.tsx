@@ -16,7 +16,7 @@ import Popup from '../../common/components/Popups';
 interface TestDriveParticipationProps {
     testDriveInstance: TestDriveInstance;
     saveTestCaseResponse: (testCase: TestCaseInstance, testDrive: TestDriveInstance) => any;
-    submitTestDriveInstance: (testDriveInstance: TestDriveInstance) => any;
+    updatePoints: (testDriveInstance: TestDriveInstance) => any;
     saveQuestionResponse: (question: QuestionInstance) => any;
     loadQuestions: (testDriveID: number, questions: number[], userID: number) => any;
     updateUI: (any) => any;
@@ -37,7 +37,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
     componentDidMount() {
         $(document).mouseup(function (e) {
             var container = $(".write_testdrivebox");
-            if (!container.is(e.target) && container.has(e.target).length === 0){
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
                 container.css({ "position": "fixed", "right": "-700px", "transition": "0.5s" });
             }
         });
@@ -46,13 +46,17 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
     closePopUp(id) {
         $("#test-case-details" + id)
             .css({ "position": "fixed", "right": "-700px", "transition": "0.5s" });
-    }        
+    }
 
-   
+
 
     missingOutButtons = [{
         name: 'Go to servey',
-        link: '#'
+        callBack: function(){
+            $(".close-popup").trigger('click');
+            $(".close-popup").trigger('click');
+            $("a[href='#Servay_q']").trigger('click');
+        }
     },
     {
         name: 'Complete test cases',
@@ -62,7 +66,11 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
 
     highFiveButtons = [{
         name: 'Go to servey',
-        link: '#'
+        callBack: function(){
+            $(".close-popup").trigger('click');
+            $(".close-popup").trigger('click');
+            $("a[href='#Servay_q']").trigger('click');
+        }
     },
     {
         name: 'Dashboard',
@@ -71,8 +79,8 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
     ]
 
     render() {
-        const { testDriveInstance, saveTestCaseResponse, submitTestDriveInstance, loadQuestions, saveQuestionResponse, ui, updateUI } = this.props;
-        return (<div className="col-md-12">       
+        const { testDriveInstance, saveTestCaseResponse, updatePoints, loadQuestions, saveQuestionResponse, ui, updateUI } = this.props;
+        return (<div className="col-md-12">
             <div className="row">
                 <div className="container header_part">
                     <h2>
@@ -103,18 +111,18 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                             testCases={testDriveInstance.testCases}
                                             saveTestCaseResponse={(testCase, testDrive) =>
                                                 saveTestCaseResponse(testCase, testDrive)}
-                                            submitTestDriveInstance={(t) => submitTestDriveInstance(t)}
+                                            updatePoints={(t) => updatePoints(t)}
                                             updateUI={updateUI}
                                             ui={ui}
                                         />
                                         <Popup popupId="HighFive" title={"High five!"}
-                                                body={ui.requirmentMessage}
-                                        buttons={this.highFiveButtons} />          
-                                    <Popup popupId="MissingOut" title={"You are missing out!"}
-                                        body={ui.requirmentMessage}
-                                        buttons={this.missingOutButtons} /> 
+                                            body={ui.requirmentMessage}
+                                            buttons={this.highFiveButtons} />
+                                        <Popup popupId="MissingOut" title={"You are missing out!"}
+                                            body={ui.requirmentMessage}
+                                            buttons={this.missingOutButtons} />
                                     </div>
-                                    <div className="tab-pane fade " id="Servay_q">                                   
+                                    <div className="tab-pane fade " id="Servay_q">
                                         <Survey questions={testDriveInstance.questions}
                                             saveQuestionResponse={(q) => saveQuestionResponse(q)}
                                             loadQuestions={(testDriveID, questionIDs, userID) =>
@@ -122,11 +130,11 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                             ui={ui}
                                             updateUI={updateUI}
                                             testDriveInstance={testDriveInstance} />
-                                            
+
                                     </div>
                                     <div className="tab-pane fade " id="Description">
                                         <TestDriveInfo testDriveInstance={testDriveInstance} />
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div >
                         </div >
@@ -158,7 +166,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                         }
                     </div>
                 </div>
-            </div>            
+            </div>
             <ToastContainer />
             <Overview testDriveInstance={testDriveInstance} ui={ui} updateUI={updateUI} />
         </div>)

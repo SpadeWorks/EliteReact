@@ -51,7 +51,9 @@ class Popup extends React.Component<PopupProps> {
             </div>
             <div className="modal-buttons">{
               buttons && buttons.length > 0 ? buttons.map((button: any, index) => {
-                return (<Link key={index} className="button type1 closingModal" to={button.link}>{button.name}</Link>)
+                return (button.callBack ? 
+                <input type="button" value={button.name} onClick={() => {console.log("calling call back"); button.callBack()}} />
+             : <Link key={index} className="button type1 closingModal" to={button.link}>{button.name}</Link>)
               }) : ''
             }</div>
             <div className="modal-footer" dangerouslySetInnerHTML={{ __html: footer }}>

@@ -11,6 +11,9 @@ class Video extends React.Component<VideoProps> {
     render() {
         return (<div className="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog video_box" role="document">
+                <div style={{ display: 'none' }}>
+                    <button type="button" className="btn btn-default close-popup" data-dismiss="modal">Close</button>
+                </div>
                 <div className="modal-content">
                     <video width="100%" controls>
                         <source src={this.props.videoUrl} type="video/mp4" />

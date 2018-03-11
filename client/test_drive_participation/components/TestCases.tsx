@@ -10,12 +10,13 @@ import * as Constants from '../../common/services/constants';
 import { Messages } from '../../common/services/constants';
 import Promise from "ts-promise";
 import Popup from '../../common/components/Popups';
+import { ToastContainer, toast } from 'react-toastify';
 
 interface TestCasesProps {
     testDriveInstance: TestDriveInstance;
     testCases: TestCaseInstance[];
     saveTestCaseResponse: (testCase: TestCaseInstance, testDrive: TestDriveInstance) => any;
-    submitTestDriveInstance: (testDriveInstance: TestDriveInstance) => any;
+    updatePoints: (testDriveInstance: TestDriveInstance) => any;
     updateUI: (any) => any;
     ui: any;
 };
@@ -23,6 +24,7 @@ interface TestCasesProps {
     state: {
         isSurveyPopUpVisiable: false,
         activeItemID: 0,
+        loading: false
     }
 })
 class TestCases extends React.Component<TestCasesProps> {
@@ -44,11 +46,6 @@ class TestCases extends React.Component<TestCasesProps> {
         $('#carousel-example-vertical').carousel({
             wrap: false
         });
-
-      
-
-
-
     }
 
     getPopUpBodyDataMissingOut() {
@@ -65,39 +62,31 @@ class TestCases extends React.Component<TestCasesProps> {
         return new Promise((resolve, reject) => {        
                 var message = Messages.HIGH_FIVE_1.replace("#0#", this.props.testDriveInstance.numberOfTestCasesCompleted.toString()).replace("#1#", this.props.testDriveInstance.testCases.length.toString()) + '<br>';                
                 message += Messages.HIGH_FIVE_2.replace("#0#", this.props.testDriveInstance.currentPoint.toString()) + '<br>';
-                message += Messages.HIGH_FIVE_3.replace("#0#", "5th") + '<br>';
-                message += Messages.HIGH_FIVE_4.replace("#0#", (this.props.testDriveInstance.maxPoints - this.props.testDriveInstance.currentPoint).toString()).replace("#1#", "Supercar") + '<br>';                
+                // message += Messages.HIGH_FIVE_3.replace("#0#", "5th") + '<br>';
+                // message += Messages.HIGH_FIVE_4.replace("#0#", (this.props.testDriveInstance.maxPoints - this.props.testDriveInstance.currentPoint).toString()).replace("#1#", "Supercar") + '<br>';                
                 resolve({ message });            
         });
     }
 
     showSubmitPopUp() {
-        if (this.props.testDriveInstance.isTestDriveSubmissionCompleted &&
-            this.props.testDriveInstance.status == Constants.ColumnsValues.COMPLETE_STATUS && !this.props.ui.isSurveyPopUpVisiable) {
+        if (this.props.testDriveInstance.numberOfTestCasesCompleted == this.props.testDriveInstance.testCaseIDs.length) {
             //Popup.plugins().prompt('', 'What do you want to do?');
             this.getPopUpBodyDataHighFive().then((data: any) => {
                 this.props.updateUI({ requirmentMessage: data.message });
                  $("#popupHighFive").trigger("click");            
             });
             this.props.updateUI({ isSurveyPopUpVisiable: false });
-        }
-        else if (this.props.testDriveInstance.isTestDriveSubmissionCompleted &&
-            this.props.testDriveInstance.status == Constants.ColumnsValues.DRAFT && !this.props.ui.isSurveyPopUpVisiable)
-        {
-            this.getPopUpBodyDataMissingOut().then((data: any) => {
-                this.props.updateUI({ requirmentMessage: data.message });
-                $("#popupMissingOut").trigger("click");            
-           });           
-            this.props.updateUI({ isSurveyPopUpVisiable: false });
+        } else{
+            toast.success("Test Case Responses Submitted Successfully!");
         }
     }    
 
     render() {
-        const { testCases, saveTestCaseResponse, submitTestDriveInstance, ui, updateUI, testDriveInstance } = this.props;
+        const { testCases, saveTestCaseResponse, updatePoints, ui, updateUI, testDriveInstance } = this.props;
         return (
             <div className="col-md-12">            
                 {/* {this.showSubmitPopUp()} */}
-                <Loader show={testDriveInstance.isSumbitInProgress || false} message={'Loading...'}>
+                <Loader show={ui.loading || false} message={'Loading...'}>
                     <div id="carousel-example-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
                         <div className="testcase_no " id="test_Cases">
                             <ul className="task_circle carousel-indicators">
@@ -134,7 +123,7 @@ class TestCases extends React.Component<TestCasesProps> {
                                             testCase={testCase}
                                             saveTestCaseResponse={(testCase, testDrive) =>
                                                 saveTestCaseResponse(testCase, testDrive)}
-                                            submitTestDriveInstance={(t) => submitTestDriveInstance(t)}
+                                            updatePoints={(t) => updatePoints(t)}
                                             ui={ui}
                                             updateUI={updateUI} />
                                     )

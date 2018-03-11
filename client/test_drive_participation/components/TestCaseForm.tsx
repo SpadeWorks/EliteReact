@@ -13,13 +13,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Messages } from '../../common/services/constants';
 import Promise from "ts-promise";
 
-interface TestCaseFormProps {    
-    showSubmitPopUp: ()=>any;
+interface TestCaseFormProps {
+    showSubmitPopUp: () => any;
     testDriveInstance: TestDriveInstance;
     testCase: TestCaseInstance;
     active: boolean;
     saveTestCaseResponse: (testCase: TestCaseInstance, testdrive: TestDriveInstance) => any;
-    submitTestDriveInstance: (testDriveInstance: TestDriveInstance) => any;
+    updatePoints: (testDriveInstance: TestDriveInstance) => any;
     updateUI: (any) => any;
     ui: any;
     index: number;
@@ -41,7 +41,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         // this.saveTestCaseResponse = this.saveTestCaseResponse.bind(this);
         this.submitTestCaseResponse = this.submitTestCaseResponse.bind(this);
         this.props.updateUI({ testCaseResponse: this.props.testCase.testCaseResponse });
-        this.props.updateUI({ selectedResponse: this.props.testCase.selectedResponse });        
+        this.props.updateUI({ selectedResponse: this.props.testCase.selectedResponse });
         this.openPopUp = this.openPopUp.bind(this);
         this.onFilesChange = this.onFilesChange.bind(this);
         this.filesRemoveOne = this.filesRemoveOne.bind(this);
@@ -106,15 +106,22 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
     }
 
     submitTestCaseResponse(testCase: TestCaseInstance, index) {
-        this.props.submitTestDriveInstance(this.props.testDriveInstance);
-           
-        Services.submitTestDriveResponse(this.props.testDriveInstance).then(()=>
-        {
-            this.props.showSubmitPopUp();
-            toast.success("Test Case Responses Submitted Successfully!"); 
+        this.props.updateUI({ loading: true });
+        testCase = {
+            ...testCase,
+            responseStatus: testCase.responseStatus,
+            testCaseResponse: this.props.ui.testCaseResponse,
+            selectedResponse: this.props.ui.selectedResponse,
+            files: this.props.ui.files
         }
-    )
 
+        Services.submitTestCaseResponse(testCase, this.props.testDriveInstance)
+            .then((testDriveInstance: TestDriveInstance) => {
+                this.props.updatePoints(testDriveInstance);
+                this.props.showSubmitPopUp();
+                this.props.updateUI({ loading: false });
+                $('#carousel-example-vertical').carousel('next');
+            })
         // this.props.updateUI({ showSurveyPopUp: true })
         // $('#test-drive-completion-btn').trigger('click');
     }
@@ -130,12 +137,12 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         $(".write_testdrivebox").css({ "position": "fixed", "right": "-700px", "transition": "0.5s" });
         $("#test-case-details" + id)
             .css({ "position": "fixed", "right": "0px", "height": "100%", "transition": "0.5s" });
-    }   
- 
+    }
+
     render() {
         const { testCase, active, saveTestCaseResponse, ui, updateUI, index, testDriveInstance, isLast } = this.props;
         return (
-            <div className={"item " + (active ? 'active' : '')} id={'test-case-form' + index}>               
+            <div className={"item " + (active ? 'active' : '')} id={'test-case-form' + index}>
                 <div className="row">
                     <Loader show={testDriveInstance.testCaseSaveInProgress || false} message={'Loading...'}>
                         <div className="container ">
@@ -243,19 +250,22 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                                 </div>
 
                                             </div>
-                                            <div className="col-md-3 participation_actionbox">
-                                                <div className="button type1 nextBtn btn-lg pull-left animated_button">
-                                                    <input type="button" value="Save" onClick={() => this.saveTestCaseResponse(testCase, index)} />
-                                                </div>
-                                            </div>
 
-                                            {isLast && <div className="col-md-3 participation_actionbox pull-right">
-                                                <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                                    <input type="button" value="Submit test cases" onClick={() => this.submitTestCaseResponse(testCase, index)} />
+                                            <div className="col-md-12 participation_actionbox pull-right">
+                                                <div className="button type1 nextBtn btn-lg pull-right animated_button"
+                                                style={{marginLeft: '40px'}}>
+                                                    <input type="button"
+                                                        disabled={ui.loading}
+                                                        value="Submit test cases" onClick={() => this.submitTestCaseResponse(testCase, index)} />
                                                 </div>
-                                            </div>
-                                            }
+                                                <div className="button type1 nextBtn btn-lg pull-right animated_button" 
+                                                 >
+                                                    <input type="button"
+                                                        disabled={ui.loading}
+                                                        value="Save" onClick={() => this.saveTestCaseResponse(testCase, index)} />
+                                                </div>
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
