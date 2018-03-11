@@ -79,7 +79,7 @@ class TestCases extends React.Component<TestCasesProps> {
                 this.props.updateUI({ requirmentMessage: data.message });
                  $("#popupHighFive").trigger("click");            
             });
-            this.props.updateUI({ isSurveyPopUpVisiable: true });
+            this.props.updateUI({ isSurveyPopUpVisiable: false });
         }
         else if (this.props.testDriveInstance.isTestDriveSubmissionCompleted &&
             this.props.testDriveInstance.status == Constants.ColumnsValues.DRAFT && !this.props.ui.isSurveyPopUpVisiable)
@@ -88,7 +88,7 @@ class TestCases extends React.Component<TestCasesProps> {
                 this.props.updateUI({ requirmentMessage: data.message });
                 $("#popupMissingOut").trigger("click");            
            });           
-            this.props.updateUI({ isSurveyPopUpVisiable: true });
+            this.props.updateUI({ isSurveyPopUpVisiable: false });
         }
     }    
 
@@ -96,7 +96,7 @@ class TestCases extends React.Component<TestCasesProps> {
         const { testCases, saveTestCaseResponse, submitTestDriveInstance, ui, updateUI, testDriveInstance } = this.props;
         return (
             <div className="col-md-12">            
-                {this.showSubmitPopUp()}
+                {/* {this.showSubmitPopUp()} */}
                 <Loader show={testDriveInstance.isSumbitInProgress || false} message={'Loading...'}>
                     <div id="carousel-example-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
                         <div className="testcase_no " id="test_Cases">
@@ -124,7 +124,8 @@ class TestCases extends React.Component<TestCasesProps> {
                                 testCases.length &&
                                 testCases.map((testCase, index) => {
                                     return (
-                                        <TestCaseForm
+                                        <TestCaseForm       
+                                            showSubmitPopUp = {() => this.showSubmitPopUp()}                                 
                                             isLast={index == testCases.length - 1}
                                             testDriveInstance={testDriveInstance}
                                             key={index}

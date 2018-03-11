@@ -46,8 +46,9 @@ const createOrSaveTestCaseInstance = createAction<any, TestCaseInstance, TestDri
 
 const submitTestDriveInstance = createAction<any, TestDriveInstance>(
   SUBMIT_TestDriveInstance,
-  (testDriveInstance: TestDriveInstance) => 
-    Services.submitTestDriveResponse(testDriveInstance)
+  (testDriveInstance) => testDriveInstance
+  
+    
 )
 
 const deleteAttachment = createAction(DELETE_Attachment)

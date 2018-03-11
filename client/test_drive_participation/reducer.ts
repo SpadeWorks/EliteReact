@@ -22,7 +22,8 @@ import {
     DELETE_Attachment_FULFILLED,
     SUBMIT_TestDriveInstance_PENDING,
     SUBMIT_TestDriveInstance_FULFILLED,
-    SUBMIT_TestDriveInstance_REJECTED
+    SUBMIT_TestDriveInstance_REJECTED,
+    SUBMIT_TestDriveInstance
 
 } from './constants/ActionTypes';
 import { submitTestDrive } from '../test_drive/index';
@@ -212,18 +213,18 @@ export default handleActions<IState, any>({
         }
     },
 
-    [SUBMIT_TestDriveInstance_PENDING]: (state: IState, action: Action<any>): IState => {
-        return {
-            ...state,
-            testDriveInstance: {
-                ...state.testDriveInstance,
-                isTestDriveSubmissionCompleted: false,
-                isSumbitInProgress: true
+    // [SUBMIT_TestDriveInstance_PENDING]: (state: IState, action: Action<any>): IState => {
+    //     return {
+    //         ...state,
+    //         testDriveInstance: {
+    //             ...state.testDriveInstance,
+    //             isTestDriveSubmissionCompleted: false,
+    //             isSumbitInProgress: true
                 
-            }
-        }
-    },
-    [SUBMIT_TestDriveInstance_FULFILLED]: (state: IState, action: Action<any>): IState => {
+    //         }
+    //     }
+    // },
+    [SUBMIT_TestDriveInstance]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
             testDriveInstance: {
@@ -238,16 +239,16 @@ export default handleActions<IState, any>({
         }
     },
 
-    [SUBMIT_TestDriveInstance_REJECTED]: (state: IState, action: Action<any>): IState => {
-        return {
-            ...state,
-            testDriveInstance: {
-                ...state.testDriveInstance,
-                isTestDriveSubmissionCompleted: false,
-                isSumbitInProgress: false
-            }
-        }
-    },
+    // [SUBMIT_TestDriveInstance_REJECTED]: (state: IState, action: Action<any>): IState => {
+    //     return {
+    //         ...state,
+    //         testDriveInstance: {
+    //             ...state.testDriveInstance,
+    //             isTestDriveSubmissionCompleted: true,
+    //             isSumbitInProgress: false
+    //         }
+    //     }
+    // },
 
     [DELETE_Attachment_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {

@@ -13,8 +13,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Messages } from '../../common/services/constants';
 import Promise from "ts-promise";
 
-interface TestCaseFormProps {
-    testDriveInstance: TestDriveInstance
+interface TestCaseFormProps {    
+    showSubmitPopUp: ()=>any;
+    testDriveInstance: TestDriveInstance;
     testCase: TestCaseInstance;
     active: boolean;
     saveTestCaseResponse: (testCase: TestCaseInstance, testdrive: TestDriveInstance) => any;
@@ -106,7 +107,14 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
 
     submitTestCaseResponse(testCase: TestCaseInstance, index) {
         this.props.submitTestDriveInstance(this.props.testDriveInstance);
-        toast.success("Test Case Responses Submitted Successfully!");        
+           
+        Services.submitTestDriveResponse(this.props.testDriveInstance).then(()=>
+        {
+            this.props.showSubmitPopUp();
+            toast.success("Test Case Responses Submitted Successfully!"); 
+        }
+    )
+
         // this.props.updateUI({ showSurveyPopUp: true })
         // $('#test-drive-completion-btn').trigger('click');
     }
