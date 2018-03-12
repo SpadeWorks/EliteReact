@@ -6251,12 +6251,12 @@ h1.testcase_name {
 }
 
 .files-list-item-remove {
-    height: 50px;
-    width: 28px;
+    height: 60px;
+    width: 60px;
     float: right;
     cursor: pointer;
-    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI0O…ctMTEuMTd6Ii8+PHBhdGggZD0iTTAgMGg0OHY0OGgtNDh6IiBmaWxsPSJub25lIi8+PC9zdmc+) no-repeat center center;
-    background-size: 22px 45px;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4IiB3aWR0aD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTM4IDEyLjgzbC0yLjgzLTIuODMtMTEuMTcgMTEuMTctMTEuMTctMTEuMTctMi44MyAyLjgzIDExLjE3IDExLjE3LTExLjE3IDExLjE3IDIuODMgMi44MyAxMS4xNy0xMS4xNyAxMS4xNyAxMS4xNyAyLjgzLTIuODMtMTEuMTctMTEuMTd6Ii8+PHBhdGggZD0iTTAgMGg0OHY0OGgtNDh6IiBmaWxsPSJub25lIi8+PC9zdmc+) no-repeat center center;
+    background-size: 23px 35px;
 }
 
 .files-list-item-remove-image {
@@ -6348,7 +6348,7 @@ button {
 
 .sample_text {
     font-family: titanium;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .participation_actionbox .button {
@@ -7811,7 +7811,7 @@ margin-top: 100px;}
 .participation_container .files-list-item-content-item-1{font-size: 16px;
     line-height: 30px;
     width: 78px;
-    margin-top: 5px;}
+padding-top: 5px;}
 
 
 
