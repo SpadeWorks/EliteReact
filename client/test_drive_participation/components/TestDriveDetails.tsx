@@ -79,14 +79,14 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         var ctx = this;
         const { maxTestDrivers, participants } = this.props.testDriveInstance;
         if (maxTestDrivers && maxTestDrivers < participants + 1) {
-            $("#maxTestDrivers").trigger('click');
+            $("#popupMaxTestDrivers").trigger('click');
         } else {
             this.isUserEligible().then((data: any) => {
                 this.props.updateUI({ requirmentMessage: data.message });
                 if (data.isUserEligible) {
                     ctx.props.createTestDriveInstance(this.props.testDriveInstance)
                 } else {
-                    $("#popuphitTheBreaks").trigger('click');
+                    $("#popupHitTheBreaks").trigger('click');
                 }
             })
         }
@@ -105,14 +105,21 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         link: '/'
     },
     {
-        name: 'Test Drive Central',
-        link: '/'
+        name: 'Test drive central',
+        link: '/testdrives/'
     },
     {
-        name: 'Edit Profile',
-        link: '/'
+        name: 'Edit profile',
+        link: '/profile/'
     },
     ]
+
+    alertButtons = [{
+        name: 'Ok',
+        link: '#'
+    }    
+    ]
+
     render() {
         const { testDriveInstance, createTestDriveInstance, ui, updateUI } = this.props;
         var testCaseCompletion = (testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 1) * 100;
@@ -121,11 +128,11 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         return (<div className="container detailed_box">
 
             <div className="row">
-                <Popup popupId="hitTheBreaks" title={"Hit the breaks!"}
+                <Popup popupId="HitTheBreaks" title={"Hit the breaks!"}
                     body={ui.requirmentMessage}
                     buttons={this.hitTheBreaksButtons}/>
-                <Popup popupId="maxTestDrivers" title={""}
-                    body={Messages.MAX_TEST_DRIVER_LIMIT_REACHED} />
+                <Popup popupId="MaxTestDrivers" title={"Alert"}
+                    body={Messages.MAX_TEST_DRIVER_LIMIT_REACHED} buttons={this.alertButtons} />
 
                 <div className="container header_part">
                     <h2 className="header_prevlink">
