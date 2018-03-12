@@ -125,7 +125,7 @@ export class Messages {
     static Saving_question = 'Saving questions...';
     static SAVING = 'Saving...';
     static LOADING = 'Loading...';
-    static ERROR_IN_FORM = 'Please fill all the required fields and save again. Fields marked with * are mandetory.';
+    static ERROR_IN_FORM = 'Please fill all the required fields and save again. Fields marked with * are mandatory.';
     static TEST_DRIVE_PARTICIPATION_ERROR = 'You can\'t participate in this test drive as : ';
     static TEST_DRIVE_LOCATION_ERROR = 'This test drive is not available for your location.';
     static TEST_DRIVE_DEVICE_ERROR = 'You don\'t have the required device to participate in this test drive.';
