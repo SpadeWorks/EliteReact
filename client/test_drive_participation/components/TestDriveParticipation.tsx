@@ -51,7 +51,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
 
 
     missingOutButtons = [{
-        name: 'Go to servey',
+        name: 'Go to survey',
         callBack: function(){
             $(".close-popup").trigger('click');
             $(".close-popup").trigger('click');
@@ -65,7 +65,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
     ]
 
     highFiveButtons = [{
-        name: 'Go to servey',
+        name: 'Go to survey',
         callBack: function(){
             $(".close-popup").trigger('click');
             $(".close-popup").trigger('click');

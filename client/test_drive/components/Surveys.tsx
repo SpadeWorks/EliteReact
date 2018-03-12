@@ -78,7 +78,7 @@ class Surveys extends React.Component<SurveysProps> {
         } = this.props;
         return (
             <div className="test-case-container col-xs-12">
-                <div className="col-md-8 sample_text">
+                <div className="col-md-10 sample_text">
                     <p>{ui.helpText}</p>
                 </div>
                 <div className="add-button col-md-2 add_test pull-right text-right">
