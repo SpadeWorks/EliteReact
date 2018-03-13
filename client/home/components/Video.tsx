@@ -16,7 +16,7 @@ class Video extends React.Component<VideoProps> {
                     <button type="button" className="btn btn-default close-popup" data-dismiss="modal">Close</button>
                 </div>
                 <div className="modal-content">
-             <video width="100%" controls>
+             <video width="100%" controls height="400px">
              <source src="/Style%20Library/Elite/images/movie.mp4" type="video/mp4" />
              {/* <source src={this.props.videoUrl} type="video/mp4" /> */}
   {/* <source src={this.props.videoUrl && this.props.videoUrl.replace("mp4","ogg")} type="video/ogg" /> */}
