@@ -144,19 +144,31 @@ class ManageTestDrive extends React.Component<AppProps> {
                 $("#popupManageTestDriveAlert").trigger('click');
                 return false;
             }
-            if (testDrive.status == ColumnsValues.DRAFT) {
-                //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
-                toast.success(Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
-                this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAVEDDRAFT_MSG, title: "Success!" });
-                $("#popupManageTestDriveSuccess").trigger('click');
-            }
-            else {
-                //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SUBMIT_MSG);
-                this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SUBMIT_MSG, title: "Success!" });
-                $("#popupManageTestDriveSuccess").trigger('click');
-                toast.success(Messages.TEST_DRIVE_SUBMIT_MSG);
-            }
-            this.props.dispatch(saveTestDrive(testDrive));
+            //this.props.updateUI({ saveIsInProgress: true });
+            Services.getTestDrivesByFilter("TestDriveName eq '" + testDrive.title + "' && TestDriveStatus eq '" + ColumnsValues.SUBMIT + "'").then((testDriveData: any) => {
+                if (testDriveData && testDriveData.length > 1) {
+                    //Popup.alert(Messages.TEST_DRIVE_SAME_NAME_ERROR)
+                    this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAME_NAME_ERROR, title: "Alert!" });
+                    $("#popupCreateTestDriveAlert").trigger('click');
+                }
+                else {
+                    if (testDrive.status == ColumnsValues.DRAFT) {
+                        //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
+                        toast.success(Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
+                        this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAVEDDRAFT_MSG, title: "Success!" });
+                        $("#popupManageTestDriveSuccess").trigger('click');
+                    }
+                    else {
+                        //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SUBMIT_MSG);
+                        this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SUBMIT_MSG, title: "Success!" });
+                        $("#popupManageTestDriveSuccess").trigger('click');
+                        toast.success(Messages.TEST_DRIVE_SUBMIT_MSG);
+                    }
+                    this.props.dispatch(saveTestDrive(testDrive));
+                }
+                //this.props.updateUI({ saveIsInProgress: false });
+            });
+
         }
         else {
             this.switchTab(0);
@@ -250,6 +262,12 @@ class ManageTestDrive extends React.Component<AppProps> {
     }
     ]
 
+    createTestDriveAlertButtons = [{
+        name: 'Ok',
+        link: '#'
+    }
+    ]
+
     render() {
         const { testDrive, question, dispatch, loading, testCase, ui, updateUI,
             testCaseFields, surveyFields, testDriveFields } = this.props;
@@ -261,6 +279,9 @@ class ManageTestDrive extends React.Component<AppProps> {
                 <Popup popupId="ManageTestDriveAlert" title={ui.title}
                     body={ui.requirmentMessage}
                     buttons={this.manageTestDriveAlertButtons} />
+                <Popup popupId="CreateTestDriveAlert" title={ui.title}
+                    body={ui.requirmentMessage}
+                    buttons={this.createTestDriveAlertButtons} />
                 <h2 className="header_prevlink">
                     <Link to={"/"} >
                         <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Create test drive

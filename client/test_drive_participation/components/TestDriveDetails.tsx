@@ -117,7 +117,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
     alertButtons = [{
         name: 'Ok',
         link: '#'
-    }    
+    }
     ]
 
     render() {
@@ -130,7 +130,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
             <div className="row">
                 <Popup popupId="HitTheBreaks" title={"Hit the breaks!"}
                     body={ui.requirmentMessage}
-                    buttons={this.hitTheBreaksButtons}/>
+                    buttons={this.hitTheBreaksButtons} />
                 <Popup popupId="MaxTestDrivers" title={"Alert"}
                     body={Messages.MAX_TEST_DRIVER_LIMIT_REACHED} buttons={this.alertButtons} />
 
@@ -350,9 +350,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                     (!testDriveInstance.requiredOs || testDriveInstance.requiredOs.length == 0) && <p>{Messages.ALL_OS_MSG}</p>
                                 }
                             </ul>
-
                         </div>
-
                         <div className="col-md-12 participation_actionbox">
                             {
                                 (testDriveInstance.testDriveStatus == ColumnsValues.ACTIVE) ? <div className="button type1 nextBtn btn-lg pull-left animated_button">

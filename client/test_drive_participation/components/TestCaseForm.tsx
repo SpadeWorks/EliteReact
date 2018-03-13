@@ -106,22 +106,25 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
     }
 
     submitTestCaseResponse(testCase: TestCaseInstance, index) {
-        this.props.updateUI({ loading: true });
-        testCase = {
-            ...testCase,
-            responseStatus: testCase.responseStatus,
-            testCaseResponse: this.props.ui.testCaseResponse,
-            selectedResponse: this.props.ui.selectedResponse,
-            files: this.props.ui.files
-        }
+        var isFormValid = validateForm('test-case-form' + index);
+        if (isFormValid) {
+            this.props.updateUI({ loading: true });
+            testCase = {
+                ...testCase,
+                responseStatus: testCase.responseStatus,
+                testCaseResponse: this.props.ui.testCaseResponse,
+                selectedResponse: this.props.ui.selectedResponse,
+                files: this.props.ui.files
+            }
 
-        Services.submitTestCaseResponse(testCase, this.props.testDriveInstance)
-            .then((testDriveInstance: TestDriveInstance) => {
-                this.props.updatePoints(testDriveInstance);
-                this.props.showSubmitPopUp();
-                this.props.updateUI({ loading: false });
-                $('#carousel-example-vertical').carousel('next');
-            })
+            Services.submitTestCaseResponse(testCase, this.props.testDriveInstance)
+                .then((testDriveInstance: TestDriveInstance) => {
+                    this.props.updatePoints(testDriveInstance);
+                    this.props.showSubmitPopUp();
+                    this.props.updateUI({ loading: false });
+                    $('#carousel-example-vertical').carousel('next');
+                })
+        }
         // this.props.updateUI({ showSurveyPopUp: true })
         // $('#test-drive-completion-btn').trigger('click');
     }
@@ -253,13 +256,13 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
 
                                             <div className="col-md-12 participation_actionbox pull-right">
                                                 <div className="button type1 nextBtn btn-lg pull-right animated_button"
-                                                style={{marginLeft: '40px'}}>
+                                                    style={{ marginLeft: '40px' }}>
                                                     <input type="button"
                                                         disabled={ui.loading}
                                                         value="Submit test case" onClick={() => this.submitTestCaseResponse(testCase, index)} />
                                                 </div>
-                                                <div className="button type1 nextBtn btn-lg pull-right animated_button" 
-                                                 >
+                                                <div className="button type1 nextBtn btn-lg pull-right animated_button"
+                                                >
                                                     <input type="button"
                                                         disabled={ui.loading}
                                                         value="Save" onClick={() => this.saveTestCaseResponse(testCase, index)} />

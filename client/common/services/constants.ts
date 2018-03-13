@@ -115,7 +115,7 @@ export class Messages {
     static SAVE_UNSAVED_TEST_CASE = 'Please save the unsaved test case(Click on green check mark) and then try saving test drive again.';
     static TEST_CASE_ERROR = 'Please fill all the required fields and save again.';
     static TEST_DRIVE_ERROR = 'Please fill all the required fields and save again.';
-    static TEST_DRIVE_SAME_NAME_ERROR = 'Test drive with same name is already exists. Please try different test drive name.';
+    static TEST_DRIVE_SAME_NAME_ERROR = 'Test drive with same name already exists. Please try different test drive name.';
     static TEST_DRIVE_APPROVE_MSG = 'Test drive has been approved successfully';
     static QUESTION_ERROR = 'Please fill all the required fields and save again.';
     static LOADING_QUESTIONS = 'Loading questions...';

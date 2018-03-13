@@ -129,6 +129,20 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         })
     }
 
+    getDepartments(input, callback) {
+        const functions = Service.getDepartments().then((departments: Array<any>) => {
+            input = input.toLowerCase();
+            var options = departments.filter((i: any) => {
+                return i.Label.toLowerCase().indexOf(input) > -1;
+            });
+            var data = {
+                options: options.slice(0, 5),
+                complete: options.length <= 6,
+            };
+            callback(null, data);
+        })
+    }
+
     getDevices(input, callback) {
         const functions = Service.getDevices().then((devices: Array<any>) => {
             input = input.toLowerCase();
@@ -170,7 +184,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
 
     saveValidate(testDrive) {
         this.props.updateUI({ saveIsInProgress: true });
-        Services.getTestDrivesByFilter("TestDriveName eq '" + testDrive.title + "'").then((testDriveData: any) => {
+        Services.getTestDrivesByFilter("TestDriveName eq '" + testDrive.title + "' && TestDriveStatus eq '" + ColumnsValues.SUBMIT + "'").then((testDriveData: any) => {
             if (testDriveData && testDriveData.length > 1) {
                 //Popup.alert(Messages.TEST_DRIVE_SAME_NAME_ERROR)
                 this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAME_NAME_ERROR, title: "Alert!" });
@@ -231,7 +245,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     }
 
     approveTestDrive(testDriveId) {
-        this.props.updateUI({saveTestDriveApprovalLoading: true});
+        this.props.updateUI({ saveTestDriveApprovalLoading: true });
         Services.approveTestdrive(testDriveId).then(() => {
             this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_APPROVE_MSG, title: "Success!" });
             $("#popupCreateTestDriveApprove").trigger('click');
@@ -254,11 +268,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     }
     ]
 
-    createTestDriveAlertButtons = [{
-        name: 'Ok',
-        link: '#'
-    }
-    ]
+
 
     render() {
         const isApprover = Service.getUserProfileProperties().role;
@@ -274,9 +284,6 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                     <Popup popupId="CreateTestDriveSuccess" title={ui.title}
                         body={ui.requirmentMessage}
                         buttons={this.createTestDriveSuccessButtons} />
-                    <Popup popupId="CreateTestDriveAlert" title={ui.title}
-                        body={ui.requirmentMessage}
-                        buttons={this.createTestDriveAlertButtons} />
                     <Popup popupId="CreateTestDriveApprove" title={ui.title}
                         body={ui.requirmentMessage}
                         buttons={this.createTestDriveApproveButtons} />
@@ -423,7 +430,6 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             id="expectedBusinessValue"
                             onChange={this.onChange}
                             value={testDrive.expectedBusinessValue || ""}
-                            required
                         />
                         <span className="highlight"></span>
                         <span className="bar"></span>
@@ -448,6 +454,26 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         </span>
                     </div>
                     <div className="col-md-12 register_input">
+                        <div className="custom-select" id={"testDrive-department" + testDrive.id}>
+                            <Select.Async multi={true}
+                                value={testDrive.department}
+                                onChange={(value) =>
+                                    this.selectControlChange(value, "testDrive-department" + testDrive.id, "department")}
+                                valueKey="TermGuid"
+                                labelKey="Label"
+                                loadOptions={this.getDepartments}
+                                type="select-multiple"
+                                name="department"
+                            //data-validations={[required]}
+                            />
+                        </div>
+                        <label className="disc_lable">Eligible driver function</label>
+
+                        <span className="help-text">
+                            {fieldDescriptions && fieldDescriptions.TestDriveLocation}
+                        </span>
+                    </div>
+                    <div className="col-md-12 register_input">
                         <div className="custom-select" id={"testDrive-location" + testDrive.id}>
                             <Select.Async multi={true}
                                 value={testDrive.location}
@@ -461,7 +487,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             //data-validations={[required]}
                             />
                         </div>
-                        <label className="disc_lable">Eligible drive location</label>
+                        <label className="disc_lable">Eligible driver location</label>
 
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.TestDriveLocation}
