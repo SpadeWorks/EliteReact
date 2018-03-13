@@ -48,7 +48,7 @@ export type TestDriveInstance = {
     startDate: string;
     endDate: string;
     expectedBusinessValue: string;
-    department?: string;
+    department?: string[];
     region: string[];
     location: string[];
     requiredDevices: string[];
