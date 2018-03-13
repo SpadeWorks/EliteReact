@@ -397,6 +397,7 @@ h1 {
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+   
 }
 
 .cross .dot .x-hair .line {
@@ -467,6 +468,7 @@ h1 {
     -webkit-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
     left: 50%;
+    bottom: -4px;
 }
 
 .ui-button.small .frame {
@@ -605,6 +607,7 @@ h1 {
     border-left: 3px solid #3886c6;
     border-top: 3px solid #3886c6;
     border-right: 3px solid #3886c6;
+    margin-bottom: -50px;
 }
 
 #header .border.t,
@@ -3819,7 +3822,7 @@ a#link3 {
 a#link4 {
     position: absolute;
     top: 90%;
-    left: 51%;
+    left: 51.5%;
     color: red;
     font-family: titanium;
     text-decoration: none;
@@ -4207,6 +4210,8 @@ ul.task_circle li img {
     float: right;
     padding-left: 10px;
     padding-top: 10px;
+    height:30px;
+    width:30px;
 }
 
 ul.task_circle li p.inactive_task {
@@ -7198,7 +7203,7 @@ a {
 
 .col-md-12.intro_actionbox.testdrive_actionbox.betterride_box {
     position: absolute;
-    bottom: -209px;
+    bottom: -186px;
     left: 70px;
     background: none!important;
 }
@@ -7212,7 +7217,7 @@ a {
 .stroller_ridebox img {
     height: 238px;
     position: absolute;
-    top: -30px;
+    top: 0px;
 }
 
 .red_text {
