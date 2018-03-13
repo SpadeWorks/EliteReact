@@ -59,6 +59,8 @@ interface AppProps {
     testDriveFields: object;
 };
 
+var previousStatus = "";
+
 @ui({
     state: {
         activeTab: 0,
@@ -66,6 +68,7 @@ interface AppProps {
         title: ""
     }
 })
+
 class ManageTestDrive extends React.Component<AppProps> {
     constructor(props, context) {
         super(props, context);
@@ -78,6 +81,8 @@ class ManageTestDrive extends React.Component<AppProps> {
         this.checkForUnsavedItems = this.checkForUnsavedItems.bind(this);
         this.getSelectedTab = this.getSelectedTab.bind(this);
     }
+
+    
 
     getTestDriveById(testDrives, testDriveId) {
         const testDrive = testDrives.filter(testDrive => testDrive.id == testDriveId);
@@ -106,7 +111,7 @@ class ManageTestDrive extends React.Component<AppProps> {
             }
             self.props.updateUI({ activeTab: selectedIndex });
         });
-
+        previousStatus = this.props.testDrive.status;
         /** Call the plugin */
     }
 
@@ -146,7 +151,7 @@ class ManageTestDrive extends React.Component<AppProps> {
             }
             //this.props.updateUI({ saveIsInProgress: true });
             Services.getTestDrivesByFilter("TestDriveName eq '" + testDrive.title + "' && TestDriveStatus eq '" + ColumnsValues.SUBMIT + "'").then((testDriveData: any) => {
-                if (testDriveData && testDriveData.length > 1) {
+                if (testDriveData && testDriveData.length > 1 && previousStatus != ColumnsValues.SUBMIT) {
                     //Popup.alert(Messages.TEST_DRIVE_SAME_NAME_ERROR)
                     this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAME_NAME_ERROR, title: "Alert!" });
                     $("#popupCreateTestDriveAlert").trigger('click');

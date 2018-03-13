@@ -148,6 +148,7 @@ export class Messages {
     static LEADERBOARD_REGIONAL_MSG = 'There are no regional leaders to show here.';
     static ALL_REGION_MSG = 'All regions are eligible.';
     static ALL_LOCATION_MSG = 'All locations are eligible.';
+    static ALL_DEPARTMENT_MSG = 'All departments are eligible.';
     static ALL_DEVICES_MSG = 'All devices are eligible.';
     static ALL_OS_MSG = 'All OS are eligible.';
     static REPORT_BUG_TITLE = 'Report a Bug';

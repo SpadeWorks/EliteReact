@@ -302,6 +302,23 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             </ul>
                         </div>
                         <div className="col-md-12 para">
+                            <span className="orange">ELIGIBLE DRIVER FUNCTION :</span>
+
+                            <ul className="select2-selection__rendered">
+                                {
+                                    testDriveInstance.department && testDriveInstance.department.map((department: any, index) => {
+                                        return (<li key={index} className="select2-selection__choice" title="iwatch">
+                                            {department.Label}
+                                        </li>)
+                                    })
+                                }
+                                {
+                                    (!testDriveInstance.department || testDriveInstance.department.length == 0) && <p>{Messages.ALL_DEPARTMENT_MSG}</p>
+                                }
+                            </ul>
+
+                        </div>
+                        <div className="col-md-12 para">
                             <span className="orange">ELIGIBLE DRIVER LOCATION :</span>
 
                             <ul className="select2-selection__rendered">

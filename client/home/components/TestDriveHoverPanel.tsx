@@ -147,7 +147,7 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                 <div className="col-md-12 popup_buttonbox">
                     {
                          checkPortion == Globals.TEST_DRIVE_THAT_I_RUN ?
-                         <div dangerouslySetInnerHTML = {{ __html: "<a href='../Lists/TestCaseResponses/Test%20Drive%20Report.aspx?FilterField1=TestDriveID&FilterValue1="+testDrive.id+"' target='_blank' class='button type1'>View Details</a>" }}></div> : <Link className="button type1"
+                         <div dangerouslySetInnerHTML = {{ __html: "<a href='../Pages/TestCaseReport.aspx?FilterField1=TestDriveID&FilterValue1="+testDrive.id+"' target='_blank' class='button type1'>View Details</a>" }}></div> : <Link className="button type1"
                             to={(checkPortion == Globals.TEST_DRIVE_THAT_I_RUN ? "/testdrive/" : "/participation/")
                                 + testDrive.id}> {isActive ? 'Drive Through' : 'View Details'} </Link>                    
                     }

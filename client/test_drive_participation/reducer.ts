@@ -50,7 +50,7 @@ const initialState: IState = {
         levelName: 'Level1',
         currentPoint: 0,
         dateJoined: "",
-        department: "",
+        department: [],
         numberOfTestCasesCompleted: 0,
         questionIDs: [],
         testCaseIDs: [],
