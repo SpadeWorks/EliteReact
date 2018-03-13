@@ -189,12 +189,12 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                         <div className="col-md-1" style={{marginLeft:"27px",marginTop:"10px"}}>
                         
                         <div className="row social_box" style={{position:"relative",right:"-60px"}}>
-{/*<Link to={"/testdrive/" + testDrive.id}>
+<Link to={"/testdrive/" + testDrive.id}>
                                         <i className="material-icons">mode_edit</i>
-                                </Link>*/}
-                                    <Link to={"/testdrive/" + testDrive.id}>
+                                </Link>
+                                    {/* <Link to={"/testdrive/" + testDrive.id}>
                                         <i className="material-icons">remove_red_eye</i>
-                                    </Link>
+                                    </Link> */}
                             </div>
                         </div>
                     </div>
