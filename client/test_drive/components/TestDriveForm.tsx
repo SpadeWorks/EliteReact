@@ -46,8 +46,6 @@ interface TestDriveFormState {
         showStartDatePicker: false,
         showEndDatePicker: false,
         saveIsInProgress: false,
-        requirmentMessage: '',
-        title: "",
         saveTestDriveApprovalLoading: false
     }
 })
@@ -184,17 +182,8 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
 
     saveValidate(testDrive) {
         this.props.updateUI({ saveIsInProgress: true });
-        Services.getTestDrivesByFilter("TestDriveName eq '" + testDrive.title + "' && TestDriveStatus eq '" + ColumnsValues.SUBMIT + "'").then((testDriveData: any) => {
-            if (testDriveData && testDriveData.length > 1) {
-                //Popup.alert(Messages.TEST_DRIVE_SAME_NAME_ERROR)
-                this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAME_NAME_ERROR, title: "Alert!" });
-                $("#popupCreateTestDriveAlert").trigger('click');
-            }
-            else {
-                this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);
-            }
-            this.props.updateUI({ saveIsInProgress: false });
-        });
+        this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);
+        this.props.updateUI({ saveIsInProgress: false });
     }
 
 

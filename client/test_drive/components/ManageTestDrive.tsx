@@ -146,7 +146,7 @@ class ManageTestDrive extends React.Component<AppProps> {
             }
             //this.props.updateUI({ saveIsInProgress: true });
             Services.getTestDrivesByFilter("TestDriveName eq '" + testDrive.title + "' && TestDriveStatus eq '" + ColumnsValues.SUBMIT + "'").then((testDriveData: any) => {
-                if (testDriveData && testDriveData.length > 1) {
+                if (testDriveData && testDriveData.length > 2) {
                     //Popup.alert(Messages.TEST_DRIVE_SAME_NAME_ERROR)
                     this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAME_NAME_ERROR, title: "Alert!" });
                     $("#popupCreateTestDriveAlert").trigger('click');

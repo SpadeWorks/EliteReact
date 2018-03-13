@@ -1366,7 +1366,7 @@ export class Services {
                 ids.map((id, index) => {
                     filter += 'ID eq ' + id + (ids.length - 1 != index ? ' or ' : '');
                 });
-                Services.getTestDrivesByFilter(filter).then(testDrives => {
+                Services.getTestDrivesByFilter(filter, 0, 1000).then(testDrives => {
                     resolve(testDrives);
                 }, error => {
                     Utils.clientLog(error);
