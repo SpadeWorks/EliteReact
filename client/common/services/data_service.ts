@@ -16,6 +16,7 @@ import { TestDriveInstance, QuestionInstance, TestCaseInstance } from '../../tes
 import { File, ListItem } from "@microsoft/microsoft-graph-types";
 import { error } from "util";
 import { Lists } from "sp-pnp-js/lib/sharepoint/lists";
+import { ReportBug } from "../../report_bug/model";
 
 const delay = 100;
 declare var SP: any;
@@ -1278,6 +1279,7 @@ export class Services {
                     endDate: "",
                     expectedBusinessValue: "",
                     function: [],
+                    department: [],
                     location: [],
                     requiredDevices: [],
                     requiredOs: [],
@@ -1614,6 +1616,32 @@ export class Services {
                 this.createOrUpdateListItemsInBatch(Constants.Lists.USER_INFORMATION,
                     eliteProfiles).then((data: EliteProfile) => {
                         resolve({ ...eliteProfile, id: data.eliteProfileID });
+                    }, err => {
+                        reject(err);
+                    }).catch(err => {
+                        Utils.clientLog(err);
+                    });
+            });
+        });
+    }
+
+    static createOrSaveReportBug(reportBug: ReportBug) {
+        return new Promise((resolve, reject) => {
+            var promises = [];
+            Promise.all(promises).then((results) => {
+                let reportBugs = [];
+                let newReportBug = {
+                    ID: reportBug.id,
+                    Title: reportBug.title,
+                    EliteDescription: reportBug.description,  
+                    TestDriveID:  reportBug.testDriveID               
+                }
+
+                reportBugs.push(newReportBug);
+
+                this.createOrUpdateListItemsInBatch(Constants.Lists.REPORT_BUG,
+                    reportBugs).then((data: ReportBug) => {
+                        resolve({ ...reportBug, id: data.id });
                     }, err => {
                         reject(err);
                     }).catch(err => {

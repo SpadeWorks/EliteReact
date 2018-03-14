@@ -15,6 +15,7 @@ import rootReducer from './main/reducer';
 import TestDrivesCentralContainer from './main/components/TestDrivesCentralContainer';
 import Prizes from './home/components/Prizes';
 import Video from './home/components/Video';
+import ReportBugHome from './report_bug/components/ReportBugHome';
 import LeaderBoardContainer from './leader_board/components/LeaderBoardContainer';
 import Profile from './profile/components/Profile';
 import MyProfile from './profile/components/MyProfile';
@@ -66,7 +67,8 @@ if (user.eliteProfileID) {
           <Route exact path="/profile" component={MyProfile} />
           <Route exact path="/participation/:id" component={TestDriveParticipationContainer} />
           <Route exact path="/testDriveDetails/:id/:instanceID" component={TestDriveParticipationContainer} />
-          <Route path="/" component={Home} />
+          <Route path="/reportbug/:id" component={ReportBugHome} />
+          <Route path="/" component={Home} />          
         </Switch>
       </div>
     </HashRouter>

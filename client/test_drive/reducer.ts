@@ -100,6 +100,7 @@ const initialState: IState = {
         startDate: "",
         endDate: "",
         expectedBusinessValue: "",
+        department: [],
         region: [],
         location: [],
         requiredDevices: [],

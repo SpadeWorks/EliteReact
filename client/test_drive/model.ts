@@ -33,7 +33,7 @@ export type TestDrive = {
     startDate: string;
     endDate: string;
     expectedBusinessValue: string;
-    department?: string;
+    department?: string[];
     region: string[];
     location: string[];
     requiredDevices: string[];
@@ -61,7 +61,7 @@ export type TestDriveIRun = {
     startDate: string;
     endDate: string;
     expectedBusinessValue: string;
-    department?: string;
+    department?: string[];
     region: string[];
     location: string[];
     requiredDevices: string[];
@@ -85,7 +85,7 @@ export type MyTestDrive = {
     startDate: string;
     endDate: string;
     expectedBusinessValue: string;
-    department?: string;
+    department?: string[];
     region: string[];
     location: string[];
     requiredDevices: string[];

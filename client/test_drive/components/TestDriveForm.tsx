@@ -44,8 +44,7 @@ interface TestDriveFormState {
         endDate: "",
         rangePicker: null,
         showStartDatePicker: false,
-        showEndDatePicker: false,
-        saveIsInProgress: false,
+        showEndDatePicker: false,        
         saveTestDriveApprovalLoading: false
     }
 })
@@ -180,10 +179,8 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         }
     }
 
-    saveValidate(testDrive) {
-        this.props.updateUI({ saveIsInProgress: true });
-        this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);
-        this.props.updateUI({ saveIsInProgress: false });
+    saveValidate(testDrive) {        
+        this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);        
     }
 
 
@@ -539,8 +536,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                     onClick={() => this.onSwitchTab(1)} />
                             </div>
                             <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                <input disabled={testDrive.status == ColumnsValues.ACTIVE || testDrive.saveIsInProgress
-                                    || ui.saveIsInProgress
+                                <input disabled={testDrive.status == ColumnsValues.ACTIVE || testDrive.saveIsInProgress                                    
                                 } type="button" value="Save as a draft"
                                     onClick={() => { this.saveValidate(testDrive) }} />
                             </div>
