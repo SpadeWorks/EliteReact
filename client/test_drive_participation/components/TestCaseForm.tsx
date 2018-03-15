@@ -60,7 +60,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         })
 
         if (duplicateFiles.length) {
-            //Popup.alert("Files with following names are alredy attached:" + '\n' + duplicateFiles.join(', '));
+            alert("Files with following names are alredy attached:" + '\n' + duplicateFiles.join(', '));
         } else {
             this.props.updateUI({
                 files: files

@@ -12,7 +12,8 @@ import ReportBugHome from './components/ReportBugHome';
 
 const initialState: IState = {
     reportBug: {
-        id:-1, title:"", description:"", attachments:"", testDriveID:0       
+        id:-1, title:"", description:"", attachments:"", testDriveID:0,
+        files: []
     },
     loading: true
 };
