@@ -1668,7 +1668,8 @@ export class Services {
                 ID: reportBug.id || -1,
                 Title: reportBug.title,
                 EliteDescription: reportBug.description,
-                TestDriveID: reportBug.testDriveID
+                TestDriveID: reportBug.testDriveID,
+                BugReportedBy: reportBug.reportedBy
             }
             reportBugs.push(newReportBug);
             this.createOrUpdateListItemsInBatch(Constants.Lists.REPORT_BUG, reportBugs).then((data: ReportBug) => {

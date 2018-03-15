@@ -99,7 +99,7 @@ class Survey extends React.Component<SurveyProps> {
                                         index={index} />)
                                 })
                             }
-                            <Popup popupId="PopTheFizz" title={"Pop the fizz!"}
+                            <Popup popupId="PopTheFizz" title={"Congratrulations!"}
                                         body={ui.requirmentMessage}
                                         buttons={this.popTheFizzButtons} />
                         </div>
@@ -114,7 +114,7 @@ class Survey extends React.Component<SurveyProps> {
      
      <h5>Hold on there, Cowboy !</h5>
      
-     <p> Servay questions will be unlocked once you submit your testcase result.</p>
+     <p> Survey questions will be unlocked once you submit your test case result.</p>
      
      
      

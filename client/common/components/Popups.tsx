@@ -72,7 +72,7 @@ export default Popup;
         <div className="modal-dialog">
           <div className="modal-content testrive_notification">
             <div className="modal-header">
-              <h4 className="modal-title notification_heading">Pop the Fizz !</h4>
+              <h4 className="modal-title notification_heading">Congratrulations !</h4>
               <div className="modal-footer" style={{display: 'none'}}>
                 <button type="button" className="btn btn-default close-popup" data-dismiss="modal">Close</button>
               </div>

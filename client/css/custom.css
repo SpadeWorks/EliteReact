@@ -6353,7 +6353,7 @@ button {
 
 .sample_text {
     font-family: titanium;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .participation_actionbox .button {
@@ -7234,6 +7234,7 @@ a.more {
     padding-top: 0px;
     color: #ff0000;
     margin-top: 0px;
+    float:left;
 }
 
 .point_board h3 {
@@ -7471,8 +7472,8 @@ span.orange.big {
         display: block;
     }
     .test_drive {
-        margin-bottom: 5px;
-        height: 76px;
+        margin-top: 10px;
+        min-height: 70px;
     }
     .black_box.black_box_left.pull-left {
         z-index: 1;
@@ -7525,6 +7526,9 @@ span.orange.big {
         font-size: 14px;
     }
     /* extra added */
+
+    .nav>li>a:focus{background:none;
+    outline: none;}
     span.increase_num {
         position: absolute;
         left: 59px;
@@ -7801,7 +7805,9 @@ margin-top: 100px;}
 
 .modal-dialog.hit_breakbox .testrive_notification a.button{margin-left:30px;}
 
-
+.col-md-3.black_box_right{width:29%;}
+.col-md-3.black_box_left{width:28%;}
+.col-md-3.small_leaderbox{width:28%;}
 
 
 /*all popups ends here*/
@@ -7818,6 +7824,33 @@ margin-top: 100px;}
     width: 78px;
 padding-top: 5px;}
 
+
+
+.report_bugbox li.files-list-item{margin-left:12px;}
+
+.report_bugbox .files-list-item-content-item{overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 78px;}
+
+    .report_bugbox .files-list-item-content-item-1{font-size: 16px;}
+
+
+.black_box .nav-tabs>li.active>a, .black_box .nav-tabs>li.active>a:focus,
+ .black_box .nav-tabs>li.active>a:hover,
+ .small_leaderbox .nav-tabs>li.active>a,.small_leaderbox .nav-tabs>li.active>a:focus,
+ .small_leaderbox .nav-tabs>li.active>a:hover{
+
+    background: none;
+    border: none;
+    color: #ff8d00;
+    font-weight: bold;
+    font-size: 79% !important;
+    letter-spacing: 1px;
+    opacity:1;
+ }
+ .black_box .nav-tabs>li>a, .small_leaderbox .nav-tabs>li>a{opacity:0.4;font-size: 79% !important;
+    letter-spacing: 1px;}
 
 
 

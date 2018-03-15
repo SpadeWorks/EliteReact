@@ -22,8 +22,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                     <div className="row">
                         <div className="col-md-12 social_box">
                             <div className="row">
-                                <a href="javascript:;"  title={Messages.REPORT_BUG_TITLE}
-                                    onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)}>
+                                <a href={"#/reportbug/"+testDrive.id}  title={Messages.REPORT_BUG_TITLE}>
                                     <span className="report"></span>
                                 </a>
                                 <a href="javascript:;" title={Messages.SEND_EMAIL_TITLE}

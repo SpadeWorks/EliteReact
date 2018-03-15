@@ -82,7 +82,7 @@ class ManageTestDrive extends React.Component<AppProps> {
         this.getSelectedTab = this.getSelectedTab.bind(this);
     }
 
-    
+
 
     getTestDriveById(testDrives, testDriveId) {
         const testDrive = testDrives.filter(testDrive => testDrive.id == testDriveId);
@@ -289,8 +289,8 @@ class ManageTestDrive extends React.Component<AppProps> {
                     buttons={this.createTestDriveAlertButtons} />
                 <h2 className="header_prevlink">
                     <Link to={"/"} >
-                        <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Create test drive
-                        </Link>
+                        <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>{this.props.id ? "Update Test Drive" : "Create test drive"}
+                    </Link>
                 </h2>
                 <h4 className="cancel-btn"><Link to={"/testdrives"}>CANCEL</Link></h4>
                 <div className="col-md-12 testdrive_createbox">
