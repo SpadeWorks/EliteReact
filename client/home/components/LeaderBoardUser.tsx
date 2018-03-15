@@ -29,7 +29,7 @@ class LeaderBoardUser extends React.Component<LeaderBoardUserProps> {
                       <div className="col-md-12 name">
                       {userName}                          
                       </div>
-                      <div className="col-md-8 count pull-right">
+                      <div className="col-md-9 count pull-right">
                           <div className="row">
                               <p className="orange">POINTS:</p>
                               <p className="digits"> {points}</p>

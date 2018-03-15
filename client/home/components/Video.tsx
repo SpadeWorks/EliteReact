@@ -30,7 +30,7 @@ class Video extends React.Component<VideoProps> {
   <source src="/Style%20Library/Elite/images/movie.ogg" type="video/ogg" />
   Your browser does not support the video tag.
 </video> */}
-
+    
 
 
                 </div>
