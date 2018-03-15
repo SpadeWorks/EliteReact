@@ -122,7 +122,7 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
                 <div className="col-md-12 testdrive_createbox">
                     <div className="wrapper">
                         <div className={"row setup-content"} id="step-1" >
-                            <div className="col-xs-12 form_box tab-container">
+                            <div className="col-xs-11 form_box tab-container report_bugbox">
                                 <form className="registration_form" id={"reportbug-form" + reportBug.id}>
                                     <div className="col-xs-12 testdrive_creationbox form_box ">
                                         <div className="col-md-12 register_input">

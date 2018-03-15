@@ -12,6 +12,7 @@ import {
     deleteTestDrive
 } from '../index';
 import TestDrivesIRunUpcommingItem from './TestDrivesIRunUpcommingItem';
+import TestDrivesIRunCompletedItem from './TestDrivesIRunCompletedItem';
 import { Messages } from '../../common/services/constants';
 
 interface TestDrivesIRunContainerProps {
@@ -19,6 +20,12 @@ interface TestDrivesIRunContainerProps {
     upcommingTestDrivesIRunLoading: boolean;
     draftedTestDrivesIRun: TestDrive[];
     draftedTestDrivesIRunLoading: boolean;
+    inProgressTestDrivesIRun: TestDrive[];
+    inProgressTestDrivesIRunLoading: boolean;
+    completedTestDrivesIRun: TestDrive[];
+    completedTestDrivesIRunLoading: boolean;
+    loadInProgressTestDrivesIRun: (skip: number, top: number) => any;
+    loadCompletedTestDrivesIRun: (skp: number, top: number) => any;
     loadUpcommingTestDrivesIRun: (skip: number, top: number) => any;
     loadDraftedTestDrivesIRun: (skip: number, top: number) => any;
     updateUI: (any) => any;
@@ -31,8 +38,12 @@ interface TestDrivesIRunContainerProps {
         total: 11,
         draftedItemCurrent: 0,
         upcommingItemCurrent: 0,
+        inprogressItemCurrent: 0,
+        completedItemsCurrent: 0,
         draftedItems: [],
         upcommingItems: [],
+        inprogressItems: [],
+        completedItems: [],
         visiblePages: 4,
         visibleItems: []
     }
@@ -45,6 +56,8 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
     componentDidMount() {
         this.props.loadUpcommingTestDrivesIRun(0, 100);
         this.props.loadDraftedTestDrivesIRun(0, 100);
+        this.props.loadCompletedTestDrivesIRun(0, 100);
+        this.props.loadInProgressTestDrivesIRun(0, 100);
     }
 
     getVisibleItems(newPage: number, array: any[], visibleItems: string, currentPage: string) {
@@ -62,6 +75,10 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
             upcommingTestDrivesIRunLoading,
             draftedTestDrivesIRun,
             draftedTestDrivesIRunLoading,
+            inProgressTestDrivesIRun,
+            inProgressTestDrivesIRunLoading,
+            completedTestDrivesIRun,
+            completedTestDrivesIRunLoading
         } = this.props;
 
         if (!upcommingTestDrivesIRunLoading && upcommingTestDrivesIRun && upcommingTestDrivesIRun.length && !ui.upcommingItems.length) {
@@ -78,6 +95,25 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
             }
             this.getVisibleItems(currentPage, draftedTestDrivesIRun, 'draftedItems', 'draftedItemCurrent');
         }
+
+        if (!inProgressTestDrivesIRunLoading && inProgressTestDrivesIRun
+            && inProgressTestDrivesIRun.length && !ui.inprogressItems.length) {
+            var currentPage = ui.inprogressItemCurrent;
+            if (ui.inprogressItems.length < ui.inprogressItems * ui.itemsPerPage) {
+                currentPage = currentPage - 1;
+            }
+            this.getVisibleItems(currentPage, inProgressTestDrivesIRun, 'inprogressItems', 'inprogressItemCurrent')
+
+        }
+
+        if (!completedTestDrivesIRunLoading && completedTestDrivesIRun 
+                && completedTestDrivesIRun.length && !ui.completedItems.length) {
+            var currentPage = ui.completedItemsCurrent;
+            if (ui.completedItemsCurrent.length < ui.completedItemsCurrent * ui.itemsPerPage) {
+                currentPage = currentPage - 1;
+            }
+            this.getVisibleItems(currentPage, completedTestDrivesIRun, 'completedItems', 'completedItemsCurrent');
+        }
     }
 
 
@@ -88,6 +124,10 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
             upcommingTestDrivesIRunLoading,
             draftedTestDrivesIRun,
             draftedTestDrivesIRunLoading,
+            inProgressTestDrivesIRun,
+            inProgressTestDrivesIRunLoading,
+            completedTestDrivesIRun,
+            completedTestDrivesIRunLoading
         } = this.props;
 
         this.initialize();
@@ -95,11 +135,41 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
         return (
             <div>
                 {ui.isCreaseTestDriveVisible ? <div className="centralbox_button">
-                <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                  <Link to={"/testdrive"} >Create Test Drive</Link>
-                </div>
-              </div> : ''}
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <Link to={"/testdrive"} >Create Test Drive</Link>
+                    </div>
+                </div> : ''}
                 <Tabs selected={0}>
+                    <Pane label="TEST DRIVES IN PROGRESS">
+                        <div>
+                            <Loader show={inProgressTestDrivesIRunLoading} message={'Loading...'}>
+                                {
+                                    (!inProgressTestDrivesIRunLoading && ui.inprogressItems && ui.inprogressItems.length) ?
+                                        ui.inprogressItems.map((testDriveObj, index) => {
+                                            return (<TestDrivesIRunCompletedItem
+                                                key={index}
+                                                testDrive={testDriveObj.testDrive} />)
+                                        }) : (!inProgressTestDrivesIRunLoading &&
+                                            <div className="no-data-message">{Messages.TEST_DRIVE_INPROGRESS_MSG}</div>)
+                                }
+                                {
+                                    ui.inprogressItems && ui.inprogressItems.length > 0 &&
+                                    <Pager
+                                        total={Math.ceil(inProgressTestDrivesIRun.length / ui.itemsPerPage)}
+                                        current={ui.inprogressItemCurrent}
+                                        visiblePages={ui.visiblePages}
+                                        titles={{ first: '<', last: '>' }}
+                                        className="pagination-sm pull-right"
+                                        onPageChanged={(newPage) =>
+                                            this.getVisibleItems(newPage, inProgressTestDrivesIRun, 'inprogressItems', 'inprogressItemCurrent')}
+                                    />
+                                }
+
+                            </Loader>
+                        </div>
+                    </Pane>
+
+
                     <Pane label="UPCOMING TEST DRIVES">
                         <div>
                             <Loader show={upcommingTestDrivesIRunLoading} message={'Loading...'}>
@@ -108,7 +178,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                                         ui.upcommingItems.map((testDriveObj, index) => {
                                             return (<TestDrivesIRunUpcommingItem
                                                 key={index}
-                                                testDrive={testDriveObj.testDrive}/>)
+                                                testDrive={testDriveObj.testDrive} />)
                                         }) : (!upcommingTestDrivesIRunLoading && <div className="no-data-message">{Messages.TEST_DRIVE_UPCOMING_MSG}</div>)
                                 }
                                 {
@@ -126,6 +196,33 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                             </Loader>
                         </div>
                     </Pane>
+                    <Pane label="COMPLETED TEST DRIVES">
+                        <div>
+                            <Loader show={completedTestDrivesIRunLoading} message={'Loading...'}>
+                                {
+                                    (!completedTestDrivesIRunLoading && ui.completedItems && ui.completedItems.length) ?
+                                        ui.completedItems.map((testDriveObj, index) => {
+                                            return (<TestDrivesIRunCompletedItem
+                                                key={index}
+                                                testDrive={testDriveObj.testDrive} />)
+                                        }) : (!completedTestDrivesIRunLoading &&
+                                            <div className="no-data-message">{Messages.TEST_DRIVE_COMPLETED_MSG}</div>)
+                                }
+                                {
+                                    !completedTestDrivesIRunLoading && ui.completedItems && ui.completedItems.length > 0 &&
+                                    <Pager
+                                        total={Math.ceil(completedTestDrivesIRun.length / ui.itemsPerPage)}
+                                        current={ui.completedItemsCurrent}
+                                        visiblePages={ui.visiblePages}
+                                        titles={{ first: '<', last: '>' }}
+                                        className="pagination-sm pull-right"
+                                        onPageChanged={(newPage) => this.getVisibleItems(newPage, completedTestDrivesIRun,
+                                            'completedItems', 'completedItemsCurrent')}
+                                    />
+                                }
+                            </Loader>
+                        </div>
+                    </Pane>
                     <Pane label="DRAFTED TEST DRIVES">
                         <div>
                             <Loader show={draftedTestDrivesIRunLoading} message={'Loading...'}>
@@ -134,7 +231,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                                         ui.draftedItems.map((testDriveObj, index) => {
                                             return (<TestDrivesIRunUpcommingItem
                                                 key={index}
-                                                testDrive={testDriveObj.testDrive}/>)
+                                                testDrive={testDriveObj.testDrive} />)
                                         }) : (!draftedTestDrivesIRunLoading && <div className="no-data-message">{Messages.TEST_DRIVE_DRAFTED_MSG}</div>)
                                 }
                                 {
