@@ -211,11 +211,11 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                                     name="description"
                                                     value={ui.testCaseResponse}
                                                     id={"test-case-response-description" + index}
-                                                    data-validations={[required]} />
-
+                                                //  data-validations={[required]}
+                                                />
                                                 <span className="highlight "></span>
                                                 <span className="bar "></span>
-                                                <label className="disc_lable ">Test case result comments*</label>
+                                                <label className="disc_lable ">Test case result comments</label>
                                             </div>
                                             <div className="files" style={{ clear: 'both' }}>
                                                 {

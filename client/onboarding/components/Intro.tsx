@@ -36,10 +36,10 @@ class Intro extends React.Component<IntroProps> {
                 <p className="next-text">WANTED</p>
                 <div id="typewriteText"></div>
                 <div className="col-md-12 intro_actionbox testdrive_actionbox">
-                    <div className="button type1 pull-right animated_button">
+                    {/* <div className="button type1 pull-right animated_button">
                         <input onClick={this.backToReferrer} type="button" value="Take me home!" />
-                    </div>
-                    <div className="button type1 pull-right animated_button">
+                    </div> */}
+                    <div className="button type1 pull-left animated_button" style={{marginLeft:"409px"}}>
                         <input onClick={() => updateUI({ nextScreen: ui.nextScreen + 1 })} type="button" value="Heck yeah!" />
                     </div>
                 </div>

@@ -152,7 +152,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                                 testDriveThatIRunLoading={testDriveThatIRunLoading}
                             />
 
-                            <div className="col-md-6">
+                            <div className="col-md-5">
                                 <h2 className="text-center skills_heading" id="homeMiddleText"></h2>
                             </div>
                             <HomeRightTestDrives
