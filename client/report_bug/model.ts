@@ -3,6 +3,7 @@ export type ReportBug = {
     title: string;
     description: string;
     attachments: string;
+    files: any[];
     testDriveID: number;
 }
 
