@@ -6,7 +6,7 @@ import { validateControl, required, validateForm } from '../../common/components
 import { connect } from 'react-redux';
 import { Services } from '../../common/services/data_service';
 import { updateReportBug } from '../../report_bug'
-import { Messages } from '../../common/services/constants';
+import { Messages, ColumnsValues } from '../../common/services/constants';
 import Popup from '../../common/components/Popups';
 import * as $ from 'jquery';
 import Files from 'react-files';
@@ -84,6 +84,7 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
     saveReportBug(reportBug) {
         reportBug.testDriveID = this.props.id;
         reportBug.files = this.props.ui.files;
+        reportBug.status = ColumnsValues.APPROVAL_PENDING;        
         var isFormValid = validateForm("reportbug-form" + reportBug.id);
         if (isFormValid) {
             this.props.updateUI({
