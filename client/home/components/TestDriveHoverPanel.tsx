@@ -26,8 +26,8 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
             <h3>{testDrive.title}</h3>
             <div className="col-md-12 social_box">
                 <div className="row">
-                    <a href="javascript:;"
-                        onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)} title={Messages.REPORT_BUG_TITLE}>
+                    <a href={"#/reportbug/"+testDrive.id}
+                        title={Messages.REPORT_BUG_TITLE}>
                         <span className="report"></span>
                     </a>
                     <a href="javascript:;"

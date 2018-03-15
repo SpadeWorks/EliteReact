@@ -1,48 +1,63 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
+import { TestDrive } from '../model';
+import { ColumnsValues } from '../../common/services/constants';
+import Services from '../../common/services/services';
 
-interface TestDrivesIRunCompletedItemsProps {
-
+interface TestDrivesIRunCompletedItemProps {
+    testDrive: TestDrive;
 };
-class TestDrivesIRunCompletedItems extends React.Component<TestDrivesIRunCompletedItemsProps> {
+class TestDrivesIRunCompletedItem extends React.Component<TestDrivesIRunCompletedItemProps> {
     constructor(props, context) {
         super(props, context);
     }
     render() {
-        return (
+        const { testDrive } = this.props;
+
+        var completedPercent = testDrive.report.total == 0 ?
+            0 : ((testDrive.report.total - testDrive.report.inProgress) / testDrive.report.total) * 100;
+            
+        var passPercent = testDrive.report.total == 0 ?
+            0 : (testDrive.report.pass / testDrive.report.total) * 100;
+
+        var failPercent = testDrive.report.total == 0 ?
+            0 : (testDrive.report.fail / testDrive.report.total) * 100;
+
+        return (<div className="col-md-12 currtestdrive_list testdrive_I_runbox">
             <div className="row">
                 <div className="col-md-12">
-                    <h4>Skype for Bussiness</h4>
+                    <h4>{testDrive.title}</h4>
                 </div>
                 <div className="col-md-12">
                     <div className="row">
-                        <div className="col-md-2">
+                        <div className="col-md-3">
                             <div className="col-md-12">
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="row inforow">
-                                            <div className="col-md-6">
+                                            <div className="col-md-5">
                                                 <div className="row">
                                                     <span className="orange">Start Date :</span>
                                                 </div>
                                             </div>
-                                            <div className="col-md-6">
+                                            <div className="col-md-5">
                                                 <div className="row">
-                                                    <h5 style={{ marginTop: "0px" }}>Mar13, 2018</h5>
+                                                    <h5 style={{ marginTop: "0px" }}>
+                                                        {Services.formatDate(testDrive.startDate)}</h5>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-12">
+                                    <div className="col-md-12 enddate_line">
                                         <div className="row inforow">
-                                            <div className="col-md-6">
+                                            <div className="col-md-4">
                                                 <div className="row">
                                                     <span className="orange">End date :</span>
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="row">
-                                                    <h5> Mar18, 2018</h5>
+                                                    <h5>{Services.formatDate(testDrive.endDate)}</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -50,6 +65,7 @@ class TestDrivesIRunCompletedItems extends React.Component<TestDrivesIRunComplet
                                 </div>
                             </div>
                         </div>
+
                         <div className="col-md-2">
                             <div className="col-md-12">
                                 <div className="row">
@@ -57,42 +73,7 @@ class TestDrivesIRunCompletedItems extends React.Component<TestDrivesIRunComplet
                                         <div className="row inforow">
                                             <div className="col-md-12">
                                                 <div className="row">
-                                                    <span className="orange">Difficulty Level:</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <div className="row inforow">
-                                            <div className="col-md-12">
-                                                <div className="row">
-                                                    <div className="col-md-12">
-                                                        <div className="row">
-                                                            <ul className="dragrace_indicator">
-                                                                <li><span></span></li>
-                                                                <li><span></span></li>
-                                                                <li><span></span></li>
-                                                            </ul>
-                                                        </div>
-                                                        <div className="row">
-                                                            <h5 className="race_neme">Drag Race</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-2">
-                            <div className="col-md-12">
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="row inforow">
-                                            <div className="col-md-12">
-                                                <div className="row">
-                                                    <span className="orange">Possible Points:</span>
+                                                    <span className="orange">TEST DRIVERS</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -102,8 +83,11 @@ class TestDrivesIRunCompletedItems extends React.Component<TestDrivesIRunComplet
                                             <div className="col-md-12">
                                                 <div className="row">
                                                     <span className="big_text">
-                                                        2000
-                     </span>
+                                                        {testDrive.participants}
+                                                    </span>
+                                                    <span className="small_text">
+                                                        / {testDrive.maxTestDrivers ? testDrive.maxTestDrivers.toFixed(0) : 'NO LIMIT'}
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -118,7 +102,7 @@ class TestDrivesIRunCompletedItems extends React.Component<TestDrivesIRunComplet
                                         <div className="row inforow">
                                             <div className="col-md-12">
                                                 <div className="row">
-                                                    <span className="orange">No of test Cases :</span>
+                                                    <span className="orange">COMPLETED CASES</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -128,8 +112,8 @@ class TestDrivesIRunCompletedItems extends React.Component<TestDrivesIRunComplet
                                             <div className="col-md-12">
                                                 <div className="row">
                                                     <span className="big_text">
-                                                        30
-                     </span>
+                                                        {completedPercent.toFixed(0)} %
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -144,7 +128,7 @@ class TestDrivesIRunCompletedItems extends React.Component<TestDrivesIRunComplet
                                         <div className="row inforow">
                                             <div className="col-md-12">
                                                 <div className="row">
-                                                    <span className="orange">Status :</span>
+                                                    <span className="orange">PASSED CASES</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -153,7 +137,9 @@ class TestDrivesIRunCompletedItems extends React.Component<TestDrivesIRunComplet
                                         <div className="row inforow">
                                             <div className="col-md-12">
                                                 <div className="row">
-                                                    <h5>Aprooval Pending</h5>
+                                                    <span className="big_text">
+                                                        {passPercent.toFixed(0)} %
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -162,18 +148,51 @@ class TestDrivesIRunCompletedItems extends React.Component<TestDrivesIRunComplet
                             </div>
                         </div>
                         <div className="col-md-2">
-                            <div className="col-md-12 social_box">
+                            <div className="col-md-12">
                                 <div className="row">
-                                    <a href="#"><i className="material-icons">mode_edit</i></a>
-                                    <a href="#"><i className="material-icons">remove_red_eye</i></a>
+                                    <div className="col-md-12">
+                                        <div className="row inforow">
+                                            <div className="col-md-12">
+                                                <div className="row">
+                                                    <span className="orange">FAILED CASES</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-12">
+                                        <div className="row inforow">
+                                            <div className="col-md-12">
+                                                <div className="row">
+                                                    <span className="big_text">
+                                                        {failPercent.toFixed(0)} %
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-1">
+
+                            <div className="row social_box">
+                                <div className="col-md-6">
+                                    <Link to={"/testdrive/" + testDrive.id}>
+                                        <i className="material-icons">edit</i>
+                                    </Link>
+                                </div>
+                                <div className="col-md-6">
+                                    <a target='_blank' href={"/Pages/TestCaseReport.aspx?FilterField1=TestDriveID&FilterValue1=" + testDrive.id } >
+                                        <i className="material-icons">remove_red_eye</i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        )
+        </div>)
     }
 }
 
-export default TestDrivesIRunCompletedItems;
+export default TestDrivesIRunCompletedItem;

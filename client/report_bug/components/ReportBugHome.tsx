@@ -22,7 +22,8 @@ interface ReportBugHomeProps {
 
 @ui({
     state: {
-        files: []
+        files: [],
+        saveReportIsInProgress: false
     }
 })
 
@@ -36,6 +37,8 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
     }
 
     componentDidMount() {
+        let user = Services.getUserProfileProperties();
+        this.props.reportBug.reportedBy = user.eliteProfileID; 
         document.body.className = "black-bg";
     }
     onFilesChange(files) {
@@ -83,6 +86,9 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
         reportBug.files = this.props.ui.files;
         var isFormValid = validateForm("reportbug-form" + reportBug.id);
         if (isFormValid) {
+            this.props.updateUI({
+                saveReportIsInProgress: true
+            });
             Services.createOrSaveReportBug(reportBug).then(() => {
                 $("#popupReportBugSuccess").trigger('click');
             });
@@ -91,7 +97,7 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
 
     reportBugSuccessButtons = [{
         name: 'Ok',
-        link: '#'
+        link: '/'
     }
     ]
 
@@ -111,10 +117,11 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
                         <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Report a bug
                     </Link>
                 </h2>
+                <h4 className="cancel-btn"><Link to={"/"}>CANCEL</Link></h4>
                 <div className="col-md-12 testdrive_createbox">
                     <div className="wrapper">
                         <div className={"row setup-content"} id="step-1" >
-                            <div className="col-xs-12 form_box tab-container">
+                            <div className="col-xs-11 form_box tab-container report_bugbox">
                                 <form className="registration_form" id={"reportbug-form" + reportBug.id}>
                                     <div className="col-xs-12 testdrive_creationbox form_box ">
                                         <div className="col-md-12 register_input">
@@ -213,7 +220,7 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
                                         <div className="col-md-12 testdrive_actionbox">
                                             <div style={butttonGroup}>
                                                 <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                                    <input type="button" value="Submit"
+                                                    <input disabled={ui.saveReportIsInProgress} type="button" value="Submit"
                                                         onClick={() => {
                                                             this.saveReportBug(reportBug)
                                                         }} />

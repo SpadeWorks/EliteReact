@@ -6353,7 +6353,7 @@ button {
 
 .sample_text {
     font-family: titanium;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .participation_actionbox .button {
@@ -7824,6 +7824,16 @@ margin-top: 100px;}
     width: 78px;
 padding-top: 5px;}
 
+
+
+.report_bugbox li.files-list-item{margin-left:12px;}
+
+.report_bugbox .files-list-item-content-item{overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 78px;}
+
+    .report_bugbox .files-list-item-content-item-1{font-size: 16px;}
 
 
 .black_box .nav-tabs>li.active>a, .black_box .nav-tabs>li.active>a:focus,

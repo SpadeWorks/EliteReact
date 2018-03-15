@@ -35,8 +35,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                             <div className="col-md-4 pull-right">
                                 <div className="col-md-12 social_box">
                                     <div className="row">
-                                        <a href="javascript:;"  title={Messages.REPORT_BUG_TITLE}
-                                            onClick={() => Services.reportAbug(testDriveInstance.ownerEmail, testDriveInstance.title)}>
+                                        <a href={"#/reportbug/"+testDriveInstance.testDriveID}  title={Messages.REPORT_BUG_TITLE}>
                                             <span className="report"></span>
                                         </a>
                                         <a href="javascript:;" title={Messages.SEND_EMAIL_TITLE}

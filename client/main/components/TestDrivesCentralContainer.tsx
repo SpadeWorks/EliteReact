@@ -201,8 +201,14 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                         draftedTestDrivesIRunLoading={draftedTestDrivesIRunLoading}
                         upcommingTestDrivesIRun={upcommingTestDrivesIRun}
                         upcommingTestDrivesIRunLoading={upcommingTestDrivesIRunLoading}
+                        inProgressTestDrivesIRun={inProgressTestDrivesIRun}
+                        inProgressTestDrivesIRunLoading={inProgressTestDrivesIRunLoading}
+                        completedTestDrivesIRunLoading={completedTestDrivesIRunLoading}
+                        completedTestDrivesIRun={completedTestDrivesIRun}
                         loadUpcommingTestDrivesIRun={(skip, top) => dispatch(loadUpcommingTestDrivesIRun(skip, top))}
                         loadDraftedTestDrivesIRun={(skip, top) => dispatch(loadDraftedTestDrivesIRun(skip, top))}
+                        loadInProgressTestDrivesIRun={(skip, top) => dispatch(loadInProgressTestDrivesIRun(skip, top))}
+                        loadCompletedTestDrivesIRun={(skip, top) => dispatch(loadCompletedTestDrivesIRun(skip, top))}
                         ui={ui}
                         updateUI={updateUI}
                       />

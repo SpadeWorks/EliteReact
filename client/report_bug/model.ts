@@ -5,6 +5,7 @@ export type ReportBug = {
     attachments: string;
     files: any[];
     testDriveID: number;
+    reportedBy: number;
 }
 
 export type IState = {
