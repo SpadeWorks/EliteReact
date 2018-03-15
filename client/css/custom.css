@@ -7826,6 +7826,16 @@ padding-top: 5px;}
 
 
 
+.report_bugbox li.files-list-item{margin-left:12px;}
+
+.report_bugbox .files-list-item-content-item{overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 78px;}
+
+    .report_bugbox .files-list-item-content-item-1{font-size: 16px;}
+
+
 .black_box .nav-tabs>li.active>a, .black_box .nav-tabs>li.active>a:focus,
  .black_box .nav-tabs>li.active>a:hover,
  .small_leaderbox .nav-tabs>li.active>a,.small_leaderbox .nav-tabs>li.active>a:focus,
