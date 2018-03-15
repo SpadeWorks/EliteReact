@@ -1203,7 +1203,7 @@ export class Services {
             var d = new Date();
             var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             var filter = "TestDriveOwner eq " + ownerID +
-                " and TestDriveStatus eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'" +
+                " and TestDriveStatus eq '" + Constants.ColumnsValues.ACTIVE + "'" +
                 " and TestDriveStartDate le datetime'" + todayDate + "T00:00:00.000Z'" +
                 " and TestDriveEndDate ge datetime'" + todayDate + "T00:00:00.000Z'";
             Services.getTestDrivesByFilter(filter, skip, top)
@@ -1214,14 +1214,21 @@ export class Services {
                     });
                     Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
                         var testDrivesResults = [];
-                        testDrives.map((testDrive, index) => {
-                            testDrivesResults.push({
-                                participants: participants[index],
-                                testDrive: testDrive
+                        Services.getTestDrivesReport(testDrivesIDs).then((report: any) => {
+                            testDrives.map((testDrive, index) => {
+                                testDrive.participants = participants[index];
+                                testDrive.report = report[index];
+                                testDrivesResults.push({
+                                    participants: participants[index],
+                                    testDrive: testDrive,
+                                    report: report[index]
+                                })
                             })
-                        })
-                        resolve(testDrivesResults);
-                    })
+                            resolve(testDrivesResults);
+                        }) 
+                    });
+
+                    
 
                 }, error => {
                     Utils.clientLog(error);
@@ -1235,7 +1242,7 @@ export class Services {
             var d = new Date();
             var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             var filter = "TestDriveOwner eq " + ownerID +
-                " and TestDriveStatus eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'" +
+                " and TestDriveStatus eq '" + Constants.ColumnsValues.ACTIVE + "'" +
                 " and TestDriveEndDate lt datetime'" + todayDate + "T00:00:00.000Z'";
             Services.getTestDrivesByFilter(filter, skip, top)
                 .then((testDrives: any) => {
@@ -1245,13 +1252,18 @@ export class Services {
                     });
                     Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
                         var testDrivesResults = [];
-                        testDrives.map((testDrive, index) => {
-                            testDrivesResults.push({
-                                participants: participants[index],
-                                testDrive: testDrive
+                        Services.getTestDrivesReport(testDrivesIDs).then((report: any) => {
+                            testDrives.map((testDrive, index) => {
+                                testDrive.participants = participants[index];
+                                testDrive.report = report[index];
+                                testDrivesResults.push({
+                                    participants: participants[index],
+                                    testDrive: testDrive,
+                                    report: report[index]
+                                })
                             })
-                        })
-                        resolve(testDrivesResults);
+                            resolve(testDrivesResults);
+                        }) 
                     })
 
                 }, error => {
@@ -2554,6 +2566,87 @@ export class Services {
             }
         });
     }
+
+    static getTestDrivesReport(testDrivesID: any[]) {
+        return new Promise((resolve, reject) => {
+            if (testDrivesID.length) {
+                SP.SOD.executeFunc("sp.js", "SP.ClientContext", () => {
+                    let resultArr = [];
+                    let testDrivesCount = testDrivesID.length;
+                    var testDrives = [];
+                    var clientContext = new SP.ClientContext.get_current();
+                    var web = clientContext.get_web();
+                    var list = web.get_lists().getByTitle(Constants.Lists.TEST_CASE_RESPONSES);
+
+                    var passCamlQuery;
+                    var passCasesQuery;
+                    var passCases = [];
+                    var totalCases = [];
+                    var failCases = [];
+                    var failCamlQuery;
+                    var failCasesQuery;                    
+                    var totalCamlQuery;
+                    var totalCasesQuery;
+
+                    $.each(testDrivesID, function (index, testDriveID) {
+                        passCamlQuery = new SP.CamlQuery();
+                        passCasesQuery = "<View><Query><Where><And><And><Eq><FieldRef Name='TestDriveID' />" +
+                                    "<Value Type='Lookup'>" + testDriveID + 
+                                    "</Value></Eq><Eq><FieldRef Name='TestCaseResponseStatus' />" +
+                                    "<Value Type='Choice'>Complete</Value></Eq></And><Eq>" +
+                                    "<FieldRef Name='SelectedResponse' />" + 
+                                    "<Value Type='Text'>Pass</Value></Eq></And> </Where></Query></View>";
+                        passCamlQuery.set_viewXml(passCasesQuery);
+                        passCases[index] = list.getItems(passCamlQuery);
+                        clientContext.load(passCases[index], 'Include(Id)'); 
+                        
+                        failCamlQuery = new SP.CamlQuery();
+                        failCasesQuery = "<View><Query><Where><And><And><Eq><FieldRef Name='TestDriveID' />" +
+                                    "<Value Type='Lookup'>" + testDriveID + 
+                                    "</Value></Eq><Eq><FieldRef Name='TestCaseResponseStatus' />" +
+                                    "<Value Type='Choice'>Complete</Value></Eq></And><Eq>" +
+                                    "<FieldRef Name='SelectedResponse' />" + 
+                                    "<Value Type='Text'>Fail</Value></Eq></And> </Where></Query></View>";
+                        failCamlQuery.set_viewXml(failCasesQuery);
+                        failCases[index] = list.getItems(failCamlQuery);
+
+                        clientContext.load(failCases[index], 'Include(Id)');                     
+                        totalCamlQuery = new SP.CamlQuery();
+                        totalCasesQuery = "<View><Query><Where><And><Eq><FieldRef Name='TestDriveID' />" + 
+                            "<Value Type='Lookup'>" + testDriveID + 
+                            "</Value></Eq><Eq><FieldRef Name='TestCaseResponseStatus' />" +
+                            "<Value Type='Choice'>Complete</Value></Eq></And> </Where></Query></View>";
+                        totalCamlQuery.set_viewXml(totalCasesQuery);
+                        totalCases[index] = list.getItems(totalCamlQuery);
+                        clientContext.load(totalCases[index], 'Include(Id)');
+                    });
+                    clientContext.executeQueryAsync(
+                        Function.createDelegate(null, function () {
+                           var testDrives = [];
+                            testDrivesID.map((testDrive, index) =>{
+                                var passCount =  passCases[index].get_count();
+                                var totalCount = totalCases[index].get_count();
+                                var failCount = failCases[index].get_count();
+                                testDrives.push({
+                                    testDriveID: testDrive,
+                                    pass: passCount,
+                                    total: totalCount,
+                                    fail: failCount,
+                                    inProgress: totalCount - (passCount + failCount)
+                                });
+                           }) 
+                           resolve(testDrives);
+                        }),
+                        Function.createDelegate(null, function (err) {
+                            Utils.clientLog(err);
+                        }));
+                });
+            } else {
+                resolve(0);
+            }
+        });
+    }
+
 
     static getUserProfileData() {
         return new Promise((resolve, reject) => {

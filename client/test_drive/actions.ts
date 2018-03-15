@@ -270,15 +270,15 @@ const loadUpCommingTestDrives = createAction<any, number, number>(
 
 // Test Drives I Run related action //
 
-const loadInProgressTestDrivesIRun = createAction<any, number, number, number>(
+const loadInProgressTestDrivesIRun = createAction<any, number, number>(
   LOAD_InProgressTestDrivesIRun,
-  (ownerID: number, skip: number, top: number) => 
+  (skip: number, top: number) => 
     Services.getInProgressTestDrivesIRun(skip, top)
 );
 
-const loadCompletedTestDrivesIRun = createAction<any, number, number, number>(
+const loadCompletedTestDrivesIRun = createAction<any, number, number>(
   LOAD_CompletedTestDrivesIRun,
-  (ownerID: number, skip: number, top: number) => 
+  (skip: number, top: number) => 
     Services.getCompletedTestDriveIRun(skip, top)
 );
 

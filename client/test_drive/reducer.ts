@@ -110,7 +110,15 @@ const initialState: IState = {
         questions: [],
         status: 'Draft',
         level: 'Level1',
-        saveIsInProgress: false
+        saveIsInProgress: false,
+        report:{
+            total: 0,
+            fail: 0,
+            pass: 0,
+            inProgress: 0,
+            testDriveID: 0
+        },
+        participants: 0
     },
     testCase: {
         id: -1,
