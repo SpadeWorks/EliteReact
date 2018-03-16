@@ -980,7 +980,13 @@ export class Services {
     static getCars() {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
-                .select("FileRef/FileRef", "ID", "CarName", "PointsRequired", "CarLevel").get().then(car => {
+                .select(
+                "FileRef/FileRef", 
+                "ID", 
+                "CarName", 
+                "PointsRequired", 
+                "CarLevel",
+                "LevelName").get().then(car => {
                     resolve(car);
                 }, err => {
                     reject(err);
