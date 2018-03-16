@@ -270,7 +270,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                     <div className="profile_overviewbox">
                                         <div className="container">
                                             <div className="col-md-12 overview imp_points">
-                                                <div className="col-md-4 text-center">
+                                                <div className="col-md-4 text-center tpoints_earnedbox">
                                                     <div className="row">
                                                         <div className="col-md-12">
                                                             <div className="testd_box">
@@ -299,7 +299,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                                     </div>
                                                 </div>
 
-                                                <div className="col-md-4 text-center pull-right">
+                                                <div className="col-md-4 text-center pull-right tpoints_earnedbox">
                                                     <div className="row">
                                                         <div className="col-md-12">
                                                             <p>
@@ -337,17 +337,17 @@ class MyProfile extends React.Component<MyProfileProps> {
                                                         return (
                                                             <div data-p="170.00" className={index == 0 ? "car_pack" : ''} key={index}>
                                                                 <div className="row">
-                                                                    <div className="col-md-12 text-center">
+                                                                    <div className="col-md-12 text-center" style={{ marginTop: '-14px',color:'#fff'}}>
                                                                         <h4 className="text-center">{car.LevelName}</h4>
                                                                     </div>
 
-                                                                    <div className="col-md-12 text-center">
+                                                                    <div className="col-md-12 text-center" style={{ marginTop: '-10px'}}>
                                                                         <span className="orange"><i>{car.CarName}</i></span>
                                                                     </div>
                                                                 </div>
 
                                                                 <img data-u="image" className={totalPoints < car.PointsRequired ? 'car_bigview locked' : 'car_bigview'} src={car.FileRef} />
-
+                                                               {totalPoints < car.PointsRequired ? <div className="big_lock text-center"><img src="/Style%20Library/Elite/images/locked-car.png" data-events="auto" data-display="inline"/></div>:''}
                                                                 <img data-u="thumb" src={car.FileRef} />
                                                                 <div className="col-md-2 col-md-offset-5 jsOffset">
                                                                     {
@@ -372,20 +372,11 @@ class MyProfile extends React.Component<MyProfileProps> {
 
                                             <div data-u="arrowleft" className="jssora106" style={{ width: '55px', height: '55px', top: '162px', left: '30px' }}
                                                 data-scale="0.75">
-                                                <svg data-viewbox="0 0 16000 16000"
-                                                    style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%' }}>
-                                                    <circle className="c" cx="8000" cy="8000" r="6260.9"></circle>
-                                                    <polyline className="a" points="7930.4,5495.7 5426.1,8000 7930.4,10504.3 "></polyline>
-                                                    <line className="a" x1="10573.9" y1="8000" x2="5426.1" y2="8000"></line>
-                                                </svg>
+                                                <i className="material-icons">keyboard_arrow_left</i>
                                             </div>
                                             <div data-u="arrowright" className="jssora106"
                                                 style={{ width: '55px', height: '55px', top: '162px', right: '30px' }} data-scale="0.75">
-                                                <svg data-viewbox="0 0 16000 16000" style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%' }}>
-                                                    <circle className="c" cx="8000" cy="8000" r="6260.9"></circle>
-                                                    <polyline className="a" points="8069.6,5495.7 10573.9,8000 8069.6,10504.3 "></polyline>
-                                                    <line className="a" x1="5426.1" y1="8000" x2="10573.9" y2="8000"></line>
-                                                </svg>
+                                                <i className="material-icons">keyboard_arrow_right</i>
                                             </div>
 
 
