@@ -46,6 +46,28 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
         left: "900px"
     }
 
+    editorOptions = {
+        options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'emoji', 'image', 'remove', 'history'],
+        fontSize: {
+            options: [16, 18, 24, 30, 36, 48, 60, 72, 96],
+        },
+
+        inline: { inDropdown: true },
+        list: { inDropdown: true },
+        textAlign: { inDropdown: true },
+        link: { inDropdown: true },
+        history: { inDropdown: true },
+        image: {
+            className: 'image-uploader',
+            popupClassName: 'image-uploader-popup',
+            uploadCallback: this.uploadImageCallBack, alt: { present: true, mandatory: false },
+            defaultSize: {
+                height: '350px',
+                width: '500px',
+            }
+        },
+    }
+
     constructor(props, context) {
         super(props, context);
         this.onChange = this.onChange.bind(this);
@@ -260,15 +282,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                             wrapperClassName="rte-wrapper"
                                             editorClassName="rte-editor"
                                             onEditorStateChange={this.onScenarioChange}
-                                            toolbar={{
-                                                options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'link', 'emoji', 'image', 'remove', 'history'],
-                                                inline: { inDropdown: true },
-                                                list: { inDropdown: true },
-                                                textAlign: { inDropdown: true },
-                                                link: { inDropdown: true },
-                                                history: { inDropdown: true },
-                                                image: { uploadCallback: this.uploadImageCallBack, alt: { present: true, mandatory: false } },
-                                            }}
+                                            toolbar={this.editorOptions}
                                         />
                                     }
                                     <label className="disc_lable">Scenario</label>
@@ -285,19 +299,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                             wrapperClassName="rte-wrapper"
                                             editorClassName="rte-editor"
                                             onEditorStateChange={this.onExpectedOutcomeChange}
-                                            toolbar={{
-                                                options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'link', 'emoji', 'image', 'remove', 'history'],
-                                                fontSize: {
-                                                    options: [16, 18, 24, 30, 36, 48, 60, 72, 96],
-                                                },
-
-                                                inline: { inDropdown: true },
-                                                list: { inDropdown: true },
-                                                textAlign: { inDropdown: true },
-                                                link: { inDropdown: true },
-                                                history: { inDropdown: true },
-                                                image: { uploadCallback: this.uploadImageCallBack, alt: { present: true, mandatory: false } },
-                                            }}
+                                            toolbar={this.editorOptions}
                                         />
                                     }
                                     <label className="disc_lable">Test case expected outcome</label>
