@@ -18,7 +18,12 @@ class Popup extends React.Component<PopupProps> {
   componentDidMount() {
     $("#app").mouseup(function (e) {
       var container = $(".testrive_notification");
-      if ((!container.is(e.target) && container.has(e.target).length === 0 || (e.target.className && e.target.className.indexOf("closingModal") != -1)) && $(".modal").is(":visible")) {
+      var toolbar = $(".rte-toolbar")
+      if (((!container.is(e.target) && 
+            container.has(e.target).length === 0) || (!toolbar.is(e.target) && 
+            toolbar.has(e.target).length === 0) ||  
+            (e.target.className && e.target.className.indexOf("closingModal") != -1)) 
+            && $(".modal").is(":visible")) {
         $(".close-popup").trigger('click');
         $(".close-popup").trigger('click');
       }

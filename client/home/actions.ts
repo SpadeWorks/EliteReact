@@ -17,7 +17,8 @@ import {
   LOAD_EliteProfile,
   LOAD_Rank,
   LOAD_CurrentUser,
-  LOAD_Video
+  LOAD_Video,
+  LOAD_Prizes
 } from './constants/ActionTypes';
 
 // Test Drives action creators.
@@ -102,6 +103,11 @@ const loadCurrentUser = createAction<any>(
   LOAD_CurrentUser, 
   () => Services.getUserProfileProperties()  
 )
+
+const loadPrizes = createAction<any>(
+  LOAD_Prizes, 
+  () => Services.getPrizes()  
+)
 export {
   loadMyTestDrive,
   loadUpcomingTestDrive,
@@ -118,5 +124,6 @@ export {
   loadEliteProfile,
   getUserRank,
   loadCurrentUser,
-  loadVideo
+  loadVideo,
+  loadPrizes
 }
