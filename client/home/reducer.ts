@@ -41,7 +41,10 @@ import {
     LOAD_RegionLeaderBoard_REJECTED,
     LOAD_Video_PENDING,
     LOAD_Video_FULFILLED,
-    LOAD_Video_REJECTED
+    LOAD_Video_REJECTED,
+    LOAD_Prizes_FULFILLED,
+    LOAD_Prizes_PENDING,
+    LOAD_Prizes_REJECTED
 } from './constants/ActionTypes';
 import { access, stat } from 'fs';
 import { totalmem } from 'os';
@@ -92,10 +95,34 @@ const initialState: IState = {
     rank: -1,
     currentTestDrives: 0,
     avatars: [],
-    cars: []
+    cars: [],
+    prizes: [],
+    prizesLoading: false
 };
 
 export default handleActions<IState, any>({
+
+    
+    [LOAD_Prizes_PENDING]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            prizesLoading: true
+        }
+    },
+    [LOAD_Prizes_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            prizes: action.payload,
+            prizesLoading: false
+        }
+    },
+    [LOAD_Prizes_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            prizesLoading: false
+        }
+    },
+
     [LOAD_Video_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,

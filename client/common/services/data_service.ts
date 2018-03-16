@@ -56,6 +56,23 @@ pnp.setup({
 
 export class Services {
 
+    static getPrizes() {
+        return new Promise((resolve, reject) => {
+            var user = Services.getUserProfileProperties();
+            pnp.sp.web.lists.getByTitle(Constants.Lists.PRIZES).items
+                .select("Title", "PrizeName", "EliteDescription", "UserRegionText", "FileRef/FileRef")
+                //.filter("UserRegionText eq '" + user.region + "' or UserRegionText eq ''")
+                .orderBy("PrizeRank", false)
+                .get().then(prizes => {
+                    resolve(prizes);
+                }, error => {
+                    Utils.clientLog(error);
+                    reject(error);
+                })
+        });
+
+    }
+
     static reportAbug(email: string, testDriveTitle: string) {
         Services.mailto(email, 'A Bug from your Test Driver "' + testDriveTitle + '"', '');
     }
@@ -981,16 +998,16 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.CARMASTER).items
                 .select(
-                "FileRef/FileRef", 
-                "ID", 
-                "CarName", 
-                "PointsRequired", 
-                "CarLevel",
-                "LevelName").get().then(car => {
-                    resolve(car);
-                }, err => {
-                    reject(err);
-                })
+                    "FileRef/FileRef",
+                    "ID",
+                    "CarName",
+                    "PointsRequired",
+                    "CarLevel",
+                    "LevelName").get().then(car => {
+                        resolve(car);
+                    }, err => {
+                        reject(err);
+                    })
         });
     }
 
@@ -1231,10 +1248,10 @@ export class Services {
                                 })
                             })
                             resolve(testDrivesResults);
-                        }) 
+                        })
                     });
 
-                    
+
 
                 }, error => {
                     Utils.clientLog(error);
@@ -1269,7 +1286,7 @@ export class Services {
                                 })
                             })
                             resolve(testDrivesResults);
-                        }) 
+                        })
                     })
 
                 }, error => {
@@ -1680,22 +1697,22 @@ export class Services {
             }
             reportBugs.push(newReportBug);
             this.createOrUpdateListItemsInBatch(Constants.Lists.REPORT_BUG, reportBugs).then((data: ReportBug) => {
-                    data = data[0];
-                    var listItem = pnp.sp.web.lists.getByTitle(Constants.Lists.REPORT_BUG).items.getById(data.id);
-                    Services.saveBugAttachment(data.id, reportBug, listItem).then((attachments: any) => {
-                        reportBug.files = attachments;
-                        resolve({
-                            ...reportBug,
-                            id: data.id,
-                            files: attachments
-                        })
-                    }, (error) => {
-                        reject(error);
-                        Utils.clientLog(error);
-                    });
-                }, err => {
-                    reject(err);
-                })
+                data = data[0];
+                var listItem = pnp.sp.web.lists.getByTitle(Constants.Lists.REPORT_BUG).items.getById(data.id);
+                Services.saveBugAttachment(data.id, reportBug, listItem).then((attachments: any) => {
+                    reportBug.files = attachments;
+                    resolve({
+                        ...reportBug,
+                        id: data.id,
+                        files: attachments
+                    })
+                }, (error) => {
+                    reject(error);
+                    Utils.clientLog(error);
+                });
+            }, err => {
+                reject(err);
+            })
         });
     }
 
@@ -2592,36 +2609,36 @@ export class Services {
                     var totalCases = [];
                     var failCases = [];
                     var failCamlQuery;
-                    var failCasesQuery;                    
+                    var failCasesQuery;
                     var totalCamlQuery;
                     var totalCasesQuery;
 
                     $.each(testDrivesID, function (index, testDriveID) {
                         passCamlQuery = new SP.CamlQuery();
                         passCasesQuery = "<View><Query><Where><And><And><Eq><FieldRef Name='TestDriveID' />" +
-                                    "<Value Type='Lookup'>" + testDriveID + 
-                                    "</Value></Eq><Eq><FieldRef Name='TestCaseResponseStatus' />" +
-                                    "<Value Type='Choice'>Complete</Value></Eq></And><Eq>" +
-                                    "<FieldRef Name='SelectedResponse' />" + 
-                                    "<Value Type='Text'>Pass</Value></Eq></And> </Where></Query></View>";
+                            "<Value Type='Lookup'>" + testDriveID +
+                            "</Value></Eq><Eq><FieldRef Name='TestCaseResponseStatus' />" +
+                            "<Value Type='Choice'>Complete</Value></Eq></And><Eq>" +
+                            "<FieldRef Name='SelectedResponse' />" +
+                            "<Value Type='Text'>Pass</Value></Eq></And> </Where></Query></View>";
                         passCamlQuery.set_viewXml(passCasesQuery);
                         passCases[index] = list.getItems(passCamlQuery);
-                        clientContext.load(passCases[index], 'Include(Id)'); 
-                        
+                        clientContext.load(passCases[index], 'Include(Id)');
+
                         failCamlQuery = new SP.CamlQuery();
                         failCasesQuery = "<View><Query><Where><And><And><Eq><FieldRef Name='TestDriveID' />" +
-                                    "<Value Type='Lookup'>" + testDriveID + 
-                                    "</Value></Eq><Eq><FieldRef Name='TestCaseResponseStatus' />" +
-                                    "<Value Type='Choice'>Complete</Value></Eq></And><Eq>" +
-                                    "<FieldRef Name='SelectedResponse' />" + 
-                                    "<Value Type='Text'>Fail</Value></Eq></And> </Where></Query></View>";
+                            "<Value Type='Lookup'>" + testDriveID +
+                            "</Value></Eq><Eq><FieldRef Name='TestCaseResponseStatus' />" +
+                            "<Value Type='Choice'>Complete</Value></Eq></And><Eq>" +
+                            "<FieldRef Name='SelectedResponse' />" +
+                            "<Value Type='Text'>Fail</Value></Eq></And> </Where></Query></View>";
                         failCamlQuery.set_viewXml(failCasesQuery);
                         failCases[index] = list.getItems(failCamlQuery);
 
-                        clientContext.load(failCases[index], 'Include(Id)');                     
+                        clientContext.load(failCases[index], 'Include(Id)');
                         totalCamlQuery = new SP.CamlQuery();
-                        totalCasesQuery = "<View><Query><Where><And><Eq><FieldRef Name='TestDriveID' />" + 
-                            "<Value Type='Lookup'>" + testDriveID + 
+                        totalCasesQuery = "<View><Query><Where><And><Eq><FieldRef Name='TestDriveID' />" +
+                            "<Value Type='Lookup'>" + testDriveID +
                             "</Value></Eq><Eq><FieldRef Name='TestCaseResponseStatus' />" +
                             "<Value Type='Choice'>Complete</Value></Eq></And> </Where></Query></View>";
                         totalCamlQuery.set_viewXml(totalCasesQuery);
@@ -2630,9 +2647,9 @@ export class Services {
                     });
                     clientContext.executeQueryAsync(
                         Function.createDelegate(null, function () {
-                           var testDrives = [];
-                            testDrivesID.map((testDrive, index) =>{
-                                var passCount =  passCases[index].get_count();
+                            var testDrives = [];
+                            testDrivesID.map((testDrive, index) => {
+                                var passCount = passCases[index].get_count();
                                 var totalCount = totalCases[index].get_count();
                                 var failCount = failCases[index].get_count();
                                 testDrives.push({
@@ -2642,8 +2659,8 @@ export class Services {
                                     fail: failCount,
                                     inProgress: totalCount - (passCount + failCount)
                                 });
-                           }) 
-                           resolve(testDrives);
+                            })
+                            resolve(testDrives);
                         }),
                         Function.createDelegate(null, function (err) {
                             Utils.clientLog(err);

@@ -32,7 +32,8 @@ import {
     loadEliteProfile,
     getUserRank,
     loadCurrentUser,
-    loadVideo
+    loadVideo,
+    loadPrizes
 } from '../../home';
 import { constants } from 'zlib';
 import Footer from '../../common/components/Footer';
@@ -62,6 +63,8 @@ interface HomeProps {
     userRank: number;
     currentUser: any;
     videoUrl: string;
+    prizes: any[];
+    prizesLoading: boolean;
 
 };
 interface HomeState {
@@ -121,6 +124,7 @@ class Home extends React.Component<HomeProps, HomeState> {
             this.props.dispatch(loadTotalTasks());
             this.props.dispatch(loadUserPoints(user.eliteProfileID));
             this.props.dispatch(loadVideo());
+            
         }
     }
 
@@ -128,7 +132,8 @@ class Home extends React.Component<HomeProps, HomeState> {
         const { ui, updateUI, mytestDrive, testDriveThatIRun, upcomingTestDrive, activeTestDrive,
             leaders, regionLeaders, myTestDriveLoading, totalCount, totalPoints, totalTasks,
             testDrivesCompleted, totalTestDrives, userCarImage, testDriveThatIRunLoading,
-            activeTestDriveLoading, upcomingTestDriveLoading, eliteProfile, userRank, videoUrl } = this.props;
+            activeTestDriveLoading, upcomingTestDriveLoading, eliteProfile, userRank, videoUrl, 
+            prizes, prizesLoading } = this.props;
         return (
             <div className="col-md-12">
                 <div className="row">
@@ -200,7 +205,9 @@ const mapStateToProps = (state, ownProps) => {
         userCarImage: state.homeState.userCarImage,
         eliteProfile: state.homeState.eliteProfile,
         userRank: state.homeState.rank.rank,
-        videoUrl: state.homeState.videoUrl
+        videoUrl: state.homeState.videoUrl,
+        prizes: state.homeState.prizes,
+        prizesLoading: state.homeState.prizesLoading
     }
 };
 

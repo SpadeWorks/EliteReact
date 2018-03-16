@@ -7712,8 +7712,8 @@ div.td_namebox:hover h4 span::after
         z-index: 999 !important;
     }
     span.rdw-image-imagewrapper img {
-        width: 100% !important;
-        height: 1;
+        /* width: 100% !important; */
+        /* height: 1; */
         /* max-height: 400px; */
     }
     span.clsRemainingLength {
