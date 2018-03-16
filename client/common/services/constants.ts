@@ -134,8 +134,8 @@ export class Messages {
     static TEST_DRIVE_LOCATION_ERROR = 'This test drive is not available for your location.';
     static TEST_DRIVE_DEVICE_ERROR = 'You don\'t have the required device to participate in this test drive.';
     static TEST_DRIVE_OS_ERROR = 'You don\'t have the required OS to participate in this test drive.';
-    static NO_TEST_CASE_ERROR = 'Please add at least one test case before submiting for approval.';
-    static NO_QUESTION_ERROR = 'Please add atleast one question before submiting for approval.';
+    static NO_TEST_CASE_ERROR = 'Please add at least one test case before submitting for approval.';
+    static NO_QUESTION_ERROR = 'Please add atleast one question before submitting for approval.';
     static NO_OPTIONS_ERROR = 'Please add more than one question responses';
     static SURVEY_SUBMITTED = 'Survey submitted successfully.';
     static MAX_TEST_DRIVER_LIMIT_REACHED = 'You can’t participate in this test drive as maximum test drivers limit for this test drive is reached';

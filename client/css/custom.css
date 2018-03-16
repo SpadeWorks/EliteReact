@@ -6711,10 +6711,12 @@ ul.streetrace_indicator li span {
 
 .prize_description h2 {
     font-size: 45px;
+    color:#fff;
 }
 
 .prize_description p {
     font-family: titanium;
+    color:#fff;
 }
 
 .prize_model img {
