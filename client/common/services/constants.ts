@@ -92,6 +92,7 @@ export class ColumnsValues {
     static COMPLETE_STATUS = 'Complete';
     static ACTIVE = 'Active';
     static READY_FOR_LAUNCH = 'Ready for Launch';
+    static APPROVAL_PENDING = 'Approval Pending';
     static DRAFT = "Draft";
     static INPROGRESS = "Inprogress";
     static SUBMIT = "Submit";

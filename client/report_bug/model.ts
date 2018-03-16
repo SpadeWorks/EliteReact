@@ -6,6 +6,7 @@ export type ReportBug = {
     files: any[];
     testDriveID: number;
     reportedBy: number;
+    status: string;
 }
 
 export type IState = {

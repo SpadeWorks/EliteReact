@@ -6,11 +6,12 @@ import { validateControl, required, validateForm } from '../../common/components
 import { connect } from 'react-redux';
 import { Services } from '../../common/services/data_service';
 import { updateReportBug } from '../../report_bug'
-import { Messages } from '../../common/services/constants';
+import { Messages, ColumnsValues } from '../../common/services/constants';
 import Popup from '../../common/components/Popups';
 import * as $ from 'jquery';
 import Files from 'react-files';
 import ui from 'redux-ui';
+import Loader from 'react-loader-advanced';
 
 interface ReportBugHomeProps {
     id: number,
@@ -23,7 +24,8 @@ interface ReportBugHomeProps {
 @ui({
     state: {
         files: [],
-        saveReportIsInProgress: false
+        saveReportIsInProgress: false,
+        loading:false
     }
 })
 
@@ -37,6 +39,9 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
     }
 
     componentDidMount() {
+        this.props.reportBug.title = "";
+        this.props.reportBug.description = "";
+        this.props.reportBug.files = null;
         let user = Services.getUserProfileProperties();
         this.props.reportBug.reportedBy = user.eliteProfileID; 
         document.body.className = "black-bg";
@@ -84,13 +89,20 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
     saveReportBug(reportBug) {
         reportBug.testDriveID = this.props.id;
         reportBug.files = this.props.ui.files;
+        reportBug.status = ColumnsValues.APPROVAL_PENDING;        
         var isFormValid = validateForm("reportbug-form" + reportBug.id);
         if (isFormValid) {
             this.props.updateUI({
                 saveReportIsInProgress: true
             });
+            this.props.updateUI({
+                loading: true
+            });
             Services.createOrSaveReportBug(reportBug).then(() => {
-                $("#popupReportBugSuccess").trigger('click');
+                this.props.updateUI({
+                    loading: false
+                });
+                $("#popupReportBugSuccess").trigger('click');                
             });
         }
     }
@@ -103,7 +115,7 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
 
     render() {
         const { reportBug, ui, updateUI } = this.props;
-        const maxLimit = 500;
+        const maxLimit = 100;
         const butttonGroup = {
             float: 'right'
         }
@@ -120,6 +132,7 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
                 <h4 className="cancel-btn"><Link to={"/"}>CANCEL</Link></h4>
                 <div className="col-md-12 testdrive_createbox">
                     <div className="wrapper">
+                    <Loader show={ui.loading} message={'Loading...'}>
                         <div className={"row setup-content"} id="step-1" >
                             <div className="col-xs-11 form_box tab-container report_bugbox">
                                 <form className="registration_form" id={"reportbug-form" + reportBug.id}>
@@ -231,6 +244,7 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
                                 </form >
                             </div>
                         </div>
+                        </Loader>
                     </div>
                 </div>
             </div>
