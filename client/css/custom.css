@@ -6870,6 +6870,7 @@ ul.streetrace_indicator li span {
     height: 83%;
     border: none;
     opacity: .6;
+    cursor:pointer;
 }
 
 .jssort101 .pav .t,
