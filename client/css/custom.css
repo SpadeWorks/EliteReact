@@ -6959,8 +6959,48 @@ img.car_bigview {
 
 /*  Added by Swapnil  */
 
+.locked_ride img {
+    height: 25px;
+    width: 17px;
+}
+
+.photocradle-box {
+    width: 600px !important;
+float: left;
+}
+
+/*      .photocradle-box img {
+    height: 300px !important;
+    width: 500px !important;
+}*/
+
+.car_Container {
+    height: 350px !important;
+    width: 700px !important;
+
+}
+
+
+.preview {
+    width: 100% !important;
+
+}
+
+
+.car_Container div {
+    width: 100% !important;
+
+    height: 500px !important;
+}
+
+div.car_Container img{width: 500px !important;
+    height: 200px !important;}
+
+  
+.thumbnails{margin-top: 100px;}
+
 .jsTop {
-    position: absolute;
+    /* position: absolute; */
     top: 0px;
     left: 0px;
     width: 100%;
@@ -6997,10 +7037,12 @@ img.car_bigview {
 }
 
 .jsOffset {
-    height: 50px;
-    background: red;
+    height: 23px;
+    /* background: red; */
     position: relative;
-    /*top: 450px;*/
+    top: 120px;
+    left: 20px;
+    color: white;
 }
 
 .jsArrowLeft {
