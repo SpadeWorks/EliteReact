@@ -96,7 +96,7 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
                 saveReportIsInProgress: true
             });
             this.props.updateUI({
-                loading: true
+               loading: true
             });
             Services.createOrSaveReportBug(reportBug).then(() => {
                 this.props.updateUI({
@@ -193,9 +193,9 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
                                             <span className="bar "></span>
                                             <label className="disc_lable ">Description*</label>
                                         </div>
-                                        <div className="files" style={{ clear: 'both' }}>
+                                        <div className="files" style={{ clear: 'both'}}>
                                             {
-                                                (reportBug && reportBug.files && reportBug.files.length) ? <div className='files-list'>
+                                                (reportBug && reportBug.files && reportBug.files.length) ? <div className='files-list' style={{ display: 'none' }}>
                                                     <ul>{reportBug.files.map((file, index) => {
                                                         return (<li className='files-list-item' key={file.FileName + index}>
                                                             <div className='files-list-item-preview'>
