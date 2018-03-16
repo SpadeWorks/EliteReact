@@ -21,6 +21,7 @@ class Popup extends React.Component<PopupProps> {
       if ((!container.is(e.target) && container.has(e.target).length === 0 || (e.target.className && e.target.className.indexOf("closingModal") != -1)) && $(".modal").is(":visible")) {
         $(".close-popup").trigger('click');
         $(".close-popup").trigger('click');
+        //$("canvas#confettiCanvas").hide();
       }
     });
   }

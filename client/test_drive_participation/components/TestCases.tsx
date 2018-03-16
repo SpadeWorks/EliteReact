@@ -4,6 +4,7 @@ import ui from 'redux-ui';
 import { TestCaseInstance, TestDriveInstance } from '../../test_drive_participation/model';
 import TestCaseForm from './TestCaseForm';
 import * as $ from 'jquery';
+import '../../js/jquery.confetti.js';
 import Loader from 'react-loader-advanced';
 import * as Constants from '../../common/services/constants';
 //import Popup from 'react-popup';
@@ -34,6 +35,7 @@ class TestCases extends React.Component<TestCasesProps> {
         this.getPopUpBodyDataMissingOut = this.getPopUpBodyDataMissingOut.bind(this);
     }
     componentDidMount() {
+        //$JssorSlideshowRunner$.InitializeConfetti();    
         $('#carousel-example-vertical').bind('mousewheel', function (e) {
             if (e.originalEvent.wheelDelta / 120 > 0) {
                 $(this).carousel('prev');
@@ -68,12 +70,13 @@ class TestCases extends React.Component<TestCasesProps> {
         });
     }
 
-    showSubmitPopUp() {
+    showSubmitPopUp() {        
         if (this.props.testDriveInstance.numberOfTestCasesCompleted == this.props.testDriveInstance.testCaseIDs.length) {
             //Popup.plugins().prompt('', 'What do you want to do?');
             this.getPopUpBodyDataHighFive().then((data: any) => {
                 this.props.updateUI({ requirmentMessage: data.message });
-                 $("#popupHighFive").trigger("click");            
+                 $("#popupHighFive").trigger("click"); 
+                           
             });
             this.props.updateUI({ isSurveyPopUpVisiable: false });
         } else{

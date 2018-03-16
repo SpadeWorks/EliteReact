@@ -125,7 +125,7 @@ export class Messages {
     static LOADING_TESTDRIVE = 'Loading test drive...';
     static SAVING_TESTCASE = 'Saving test case...';
     static Saving_question = 'Saving questions...';
-    static REPORT_BUG_SUCCESS = 'Record submitted successfully.';
+    static REPORT_BUG_SUCCESS = 'Bug reported successfully.';
     static SAVING = 'Saving...';
     static LOADING = 'Loading...';
     static ERROR_IN_FORM = 'Please fill all the required fields and save again. Fields marked with * are mandatory.';
