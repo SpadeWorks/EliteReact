@@ -26,7 +26,7 @@ class Popup extends React.Component<PopupProps> {
             && $(".modal").is(":visible")) {
         $(".close-popup").trigger('click');
         $(".close-popup").trigger('click');
-        //$("canvas#confettiCanvas").hide();
+        $("canvas#confettiCanvas").hide();
       }
     });
   }

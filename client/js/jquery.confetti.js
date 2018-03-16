@@ -1,3 +1,7 @@
+export function InitializeConfettiInit()
+{
+    $.confetti.start();
+}
 (function($) {
   $.confetti = new function() {
     // globals
@@ -65,29 +69,8 @@
             H = window.innerHeight;
             canvas.width = W;
             canvas.height = H;
-        });
-
-    }
-
-    // $(document).ready(init());
-
-
-
-    $(document).ready(function(){
-    $("button.fireworx").click(function(){
-
-   InitializeConfetti();    
-    });
-
-    $("button.close").click(function(){
-    $("canvas#confettiCanvas").hide();
-
-    });
-
-
- 
-    });
-
+        });        
+    }    
  
     function SetGlobals() {
         $('body').append('<canvas id="confettiCanvas" style="position:absolute;top:0;left:0;display:none;z-index:99;"></canvas>');

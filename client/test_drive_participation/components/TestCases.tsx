@@ -12,7 +12,8 @@ import { Messages } from '../../common/services/constants';
 import Promise from "ts-promise";
 import Popup from '../../common/components/Popups';
 import { ToastContainer, toast } from 'react-toastify';
-
+let confetti = require("../../js/jquery.confetti.js");
+//declare var InitializeConfetti():any; 
 interface TestCasesProps {
     testDriveInstance: TestDriveInstance;
     testCases: TestCaseInstance[];
@@ -34,8 +35,7 @@ class TestCases extends React.Component<TestCasesProps> {
         this.getPopUpBodyDataHighFive = this.getPopUpBodyDataHighFive.bind(this);
         this.getPopUpBodyDataMissingOut = this.getPopUpBodyDataMissingOut.bind(this);
     }
-    componentDidMount() {
-        //$JssorSlideshowRunner$.InitializeConfetti();    
+    componentDidMount() {                                
         $('#carousel-example-vertical').bind('mousewheel', function (e) {
             if (e.originalEvent.wheelDelta / 120 > 0) {
                 $(this).carousel('prev');
@@ -76,7 +76,8 @@ class TestCases extends React.Component<TestCasesProps> {
             this.getPopUpBodyDataHighFive().then((data: any) => {
                 this.props.updateUI({ requirmentMessage: data.message });
                  $("#popupHighFive").trigger("click"); 
-                           
+                 $(".modal-backdrop.fade.in").hide();
+                 confetti.InitializeConfettiInit(); 
             });
             this.props.updateUI({ isSurveyPopUpVisiable: false });
         } else{
