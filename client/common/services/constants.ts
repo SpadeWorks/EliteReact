@@ -17,6 +17,7 @@ export class Lists {
     static TEST_CASE_RESPONSES = "Test Case Responses";
     static SURVEY_RESPONSES = "Survey Responses";
     static VIDEOS = "Videos";
+    static PRIZES = "Converted Prize"
 }
 
 export class CacheKeys {
