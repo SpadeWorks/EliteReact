@@ -342,7 +342,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                                                     </div>
 
                                                                     <div className="col-md-12 text-center" style={{ marginTop: '-10px'}}>
-                                                                        <span className="orange"><i>{car.CarName}</i></span>
+                                                                        <span className="orange" style={{ fontSize: '29px'}}><i>{car.CarName}</i></span>
                                                                     </div>
                                                                 </div>
 
