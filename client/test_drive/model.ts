@@ -13,6 +13,7 @@ export type TestCase = {
     points: number;
     reTest: boolean;
     newItem?: boolean;
+    
 }
 
 export type Question = {
@@ -51,6 +52,14 @@ export type TestDrive = {
     levelNumber?: number;
     ownerEmail?: string;
     saveIsInProgress?: boolean;
+    participants?: any;
+    report?: {
+        testDriveID: number,
+        pass: number,
+        total: number,
+        fail: number,
+        inProgress: number;
+    }; 
 };
 
 export type TestDriveIRun = {
@@ -75,6 +84,15 @@ export type TestDriveIRun = {
     level: string;
     owner?: string;
     newItem?: boolean;
+    participants: any;
+    report: {
+        testDriveID: number,
+        pass: number,
+        total: number,
+        fail: number,
+        inProgress: number;
+    }; 
+
 };
 
 export type MyTestDrive = {
