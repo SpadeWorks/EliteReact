@@ -65,7 +65,8 @@ var previousStatus = "";
     state: {
         activeTab: 0,
         requirmentMessage: '',
-        title: ""
+        title: "",
+        saveLoading:false
     }
 })
 
@@ -128,24 +129,26 @@ class ManageTestDrive extends React.Component<AppProps> {
             if (testCases && testCases.length &&
                 this.checkForUnsavedItems(testCases, Messages.SAVE_UNSAVED_TEST_CASE)) {
                 this.switchTab(1);
+                this.props.updateUI({ saveLoading : false });
                 return false;
             }
             if (questions && questions.length &&
                 this.checkForUnsavedItems(questions, Messages.SAVE_UNSAVED_QUESTION)) {
                 this.switchTab(2);
+                this.props.updateUI({ saveLoading : false });
                 return false;
             }
 
             if (testDrive.status == ColumnsValues.SUBMIT && testCases && testCases.length == 0) {
                 //Popup.alert(Messages.NO_TEST_CASE_ERROR);            
-                this.props.updateUI({ requirmentMessage: Messages.NO_TEST_CASE_ERROR, title: "Alert!" });
+                this.props.updateUI({ requirmentMessage: Messages.NO_TEST_CASE_ERROR, title: "Alert!", saveLoading : false });
                 $("#popupManageTestDriveAlert").trigger('click');
                 return false;
             }
 
             if (testDrive.status == ColumnsValues.SUBMIT && questions && questions.length == 0) {
                 //Popup.alert(Messages.NO_QUESTION_ERROR);
-                this.props.updateUI({ requirmentMessage: Messages.NO_QUESTION_ERROR, title: "Alert!" });
+                this.props.updateUI({ requirmentMessage: Messages.NO_QUESTION_ERROR, title: "Alert!", saveLoading : false });
                 $("#popupManageTestDriveAlert").trigger('click');
                 return false;
             }
@@ -161,7 +164,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                         //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
                         toast.success(Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
                         this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAVEDDRAFT_MSG, title: "Success!" });
-                        $("#popupManageTestDriveSuccess").trigger('click');
+                        $("#popupManageTestDriveSuccessSaveAsDraft").trigger('click');
                     }
                     else {
                         //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SUBMIT_MSG);
@@ -169,8 +172,9 @@ class ManageTestDrive extends React.Component<AppProps> {
                         $("#popupManageTestDriveSuccess").trigger('click');
                         toast.success(Messages.TEST_DRIVE_SUBMIT_MSG);
                     }
-                    this.props.dispatch(saveTestDrive(testDrive));
+                    this.props.dispatch(saveTestDrive(testDrive));                    
                 }
+                this.props.updateUI({ saveLoading : false });
                 //this.props.updateUI({ saveIsInProgress: false });
             });
 
@@ -178,8 +182,8 @@ class ManageTestDrive extends React.Component<AppProps> {
         else {
             this.switchTab(0);
             //Popup.alert(Messages.TEST_DRIVE_ERROR);
-            this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_ERROR, title: "Alert!" });
-            $("#popupManageTestDriveAlert").trigger('click');
+            this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_ERROR, title: "Alert!", saveLoading : false });
+            $("#popupManageTestDriveAlert").trigger('click');            
         }
     }
 
@@ -258,7 +262,17 @@ class ManageTestDrive extends React.Component<AppProps> {
     manageTestDriveSuccessButtons = [{
         name: 'Go to dashboard',
         link: '/'
-    }
+    },        
+    ]
+
+    manageTestDriveSaveSuccessButtons = [{
+        name: 'Go to dashboard',
+        link: '/'
+    },
+    {
+        name: 'Stay on test drive',
+        link: '#'
+    },    
     ]
 
     manageTestDriveAlertButtons = [{
@@ -287,6 +301,9 @@ class ManageTestDrive extends React.Component<AppProps> {
                 <Popup popupId="CreateTestDriveAlert" title={ui.title}
                     body={ui.requirmentMessage}
                     buttons={this.createTestDriveAlertButtons} />
+                <Popup popupId="ManageTestDriveSuccessSaveAsDraft" title={ui.title}
+                    body={ui.requirmentMessage}
+                    buttons={this.manageTestDriveSaveSuccessButtons} />
                 <h2 className="header_prevlink">
                     <Link to={"/"} >
                         <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>{this.props.id ? "Update Test Drive" : "Create test drive"}
