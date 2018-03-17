@@ -6534,6 +6534,7 @@ ul.dragrace_indicator li span {
 }
 
 .testdrive_I_runbox h4 {
+    color: #fff;
     margin-bottom: 20px;
     font-size: 24px;
     cursor: pointer;
