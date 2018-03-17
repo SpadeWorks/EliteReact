@@ -17,6 +17,7 @@ export class Lists {
     static TEST_CASE_RESPONSES = "Test Case Responses";
     static SURVEY_RESPONSES = "Survey Responses";
     static VIDEOS = "Videos";
+    static PRIZES = "Converted Prize"
 }
 
 export class CacheKeys {
@@ -92,6 +93,7 @@ export class ColumnsValues {
     static COMPLETE_STATUS = 'Complete';
     static ACTIVE = 'Active';
     static READY_FOR_LAUNCH = 'Ready for Launch';
+    static APPROVAL_PENDING = 'Approval Pending';
     static DRAFT = "Draft";
     static INPROGRESS = "Inprogress";
     static SUBMIT = "Submit";
@@ -124,7 +126,7 @@ export class Messages {
     static LOADING_TESTDRIVE = 'Loading test drive...';
     static SAVING_TESTCASE = 'Saving test case...';
     static Saving_question = 'Saving questions...';
-    static REPORT_BUG_SUCCESS = 'Record submitted successfully.';
+    static REPORT_BUG_SUCCESS = 'Bug reported successfully.';
     static SAVING = 'Saving...';
     static LOADING = 'Loading...';
     static ERROR_IN_FORM = 'Please fill all the required fields and save again. Fields marked with * are mandatory.';
@@ -132,8 +134,8 @@ export class Messages {
     static TEST_DRIVE_LOCATION_ERROR = 'This test drive is not available for your location.';
     static TEST_DRIVE_DEVICE_ERROR = 'You don\'t have the required device to participate in this test drive.';
     static TEST_DRIVE_OS_ERROR = 'You don\'t have the required OS to participate in this test drive.';
-    static NO_TEST_CASE_ERROR = 'Please add at least one test case before submiting for approval.';
-    static NO_QUESTION_ERROR = 'Please add atleast one question before submiting for approval.';
+    static NO_TEST_CASE_ERROR = 'Please add at least one test case before submitting for approval.';
+    static NO_QUESTION_ERROR = 'Please add atleast one question before submitting for approval.';
     static NO_OPTIONS_ERROR = 'Please add more than one question responses';
     static SURVEY_SUBMITTED = 'Survey submitted successfully.';
     static MAX_TEST_DRIVER_LIMIT_REACHED = 'You can’t participate in this test drive as maximum test drivers limit for this test drive is reached';
@@ -158,7 +160,7 @@ export class Messages {
     static SHARE_TITLE = 'Share';
     static START_GREATER_ERROR = 'Start date can not be greater than end date';
     static POP_THE_FIZZ_1 = "You have successfully completed this testdrive.";
-    static POP_THE_FIZZ_2 = "You have completed all the test cases and answered <span class='orange'>#0#</span> of #1# survey questions."
+    static POP_THE_FIZZ_2 = "You have completed all the test cases and survey questions."
     static POP_THE_FIZZ_3 = "You earned <span class='orange'>#0#</span> points.";
     static HIGH_FIVE_1 = "You have completed <span class='orange'>#0#</span> of #1# test cases successfully.";
     static HIGH_FIVE_2 = "You earned <span class='orange'>#0#</span> points."

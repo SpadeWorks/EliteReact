@@ -19,6 +19,8 @@ export type IState = {
     cars: string[];
     videoUrl?: string;
     profileState?: any;
+    prizes?: any[],
+    prizesLoading?: boolean
 }
 
 export type HomeTestDriveObj = {

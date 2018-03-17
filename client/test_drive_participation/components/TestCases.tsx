@@ -4,6 +4,7 @@ import ui from 'redux-ui';
 import { TestCaseInstance, TestDriveInstance } from '../../test_drive_participation/model';
 import TestCaseForm from './TestCaseForm';
 import * as $ from 'jquery';
+import '../../js/jquery.confetti.js';
 import Loader from 'react-loader-advanced';
 import * as Constants from '../../common/services/constants';
 //import Popup from 'react-popup';
@@ -11,7 +12,8 @@ import { Messages } from '../../common/services/constants';
 import Promise from "ts-promise";
 import Popup from '../../common/components/Popups';
 import { ToastContainer, toast } from 'react-toastify';
-
+let confetti = require("../../js/jquery.confetti.js");
+//declare var InitializeConfetti():any; 
 interface TestCasesProps {
     testDriveInstance: TestDriveInstance;
     testCases: TestCaseInstance[];
@@ -33,7 +35,7 @@ class TestCases extends React.Component<TestCasesProps> {
         this.getPopUpBodyDataHighFive = this.getPopUpBodyDataHighFive.bind(this);
         this.getPopUpBodyDataMissingOut = this.getPopUpBodyDataMissingOut.bind(this);
     }
-    componentDidMount() {
+    componentDidMount() {                                
         $('#carousel-example-vertical').bind('mousewheel', function (e) {
             if (e.originalEvent.wheelDelta / 120 > 0) {
                 $(this).carousel('prev');
@@ -68,12 +70,14 @@ class TestCases extends React.Component<TestCasesProps> {
         });
     }
 
-    showSubmitPopUp() {
+    showSubmitPopUp() {        
         if (this.props.testDriveInstance.numberOfTestCasesCompleted == this.props.testDriveInstance.testCaseIDs.length) {
             //Popup.plugins().prompt('', 'What do you want to do?');
             this.getPopUpBodyDataHighFive().then((data: any) => {
                 this.props.updateUI({ requirmentMessage: data.message });
-                 $("#popupHighFive").trigger("click");            
+                 $("#popupHighFive").trigger("click"); 
+                 $(".modal-backdrop.fade.in").hide();
+                 confetti.InitializeConfettiInit(); 
             });
             this.props.updateUI({ isSurveyPopUpVisiable: false });
         } else{

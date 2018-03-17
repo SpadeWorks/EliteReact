@@ -2905,7 +2905,7 @@ textarea.inputMaterial:focus {
 }
 
 .register_input {
-    height: 100px;
+    height: 130px;
 }
 
 
@@ -4196,7 +4196,7 @@ ul.task_circle li p {
     float: left;
     font-size: 27px;
     width: 80px;
-    opacity: 0.2;
+    opacity: 0.5;
 }
 
 ul.task_circle li.active p {
@@ -6477,6 +6477,7 @@ button {
     overflow: hidden;
     text-overflow: ellipsis;
     min-height: 20px;
+    cursor:text;
 }
 
 ul.dragrace_indicator {
@@ -6710,10 +6711,12 @@ ul.streetrace_indicator li span {
 
 .prize_description h2 {
     font-size: 45px;
+    color:#fff;
 }
 
 .prize_description p {
     font-family: titanium;
+    color:#fff;
 }
 
 .prize_model img {
@@ -6865,10 +6868,11 @@ ul.streetrace_indicator li span {
     position: absolute;
     top: 0;
     left: 30px;
-    width: 70%;
+    width: 85%;
     height: 83%;
     border: none;
     opacity: .6;
+    cursor:pointer;
 }
 
 .jssort101 .pav .t,
@@ -6879,9 +6883,10 @@ ul.streetrace_indicator li span {
 .jssort101 {
     height: 130px !important;
     position: relative;
-    z-index: 90;
     background: none !important;
     margin-top: -242px;
+    height:30px !important;
+    z-index:90;
 }
 
 .ride_staus {
@@ -6895,8 +6900,16 @@ ul.streetrace_indicator li span {
 }
 
 img.car_bigview {
-    width: 77%;
-    margin-left: 10%;
+    width: 66%;
+    margin-left: 17%;
+    margin-top: 47px;
+}
+
+
+.jssora106 i {
+    color: #fff;
+    font-size: 35px;
+    margin-top: 65px;
 }
 
 .jssort101 .p {
@@ -6959,8 +6972,49 @@ img.car_bigview {
 
 /*  Added by Swapnil  */
 
+.locked_ride img {
+    height: 15px;
+    width: 12px;
+    margin-right: 12px;
+}
+
+.photocradle-box {
+    width: 600px !important;
+float: left;
+}
+
+/*      .photocradle-box img {
+    height: 300px !important;
+    width: 500px !important;
+}*/
+
+.car_Container {
+    height: 350px !important;
+    width: 700px !important;
+
+}
+
+
+.preview {
+    width: 100% !important;
+
+}
+
+
+.car_Container div {
+    width: 100% !important;
+
+    height: 500px !important;
+}
+
+div.car_Container img{width: 500px !important;
+    height: 200px !important;}
+
+  
+.thumbnails{margin-top: 100px;}
+
 .jsTop {
-    position: absolute;
+    /* position: absolute; */
     top: 0px;
     left: 0px;
     width: 100%;
@@ -6997,10 +7051,12 @@ img.car_bigview {
 }
 
 .jsOffset {
-    height: 50px;
-    background: red;
-    position: relative;
-    /*top: 450px;*/
+    height: 23px;
+    /* background: red; */
+    position: absolute;
+    top: 450px;
+    left: 40px;
+    color: white;
 }
 
 .jsArrowLeft {
@@ -7670,8 +7726,8 @@ div.td_namebox:hover h4 span::after
         z-index: 999 !important;
     }
     span.rdw-image-imagewrapper img {
-        width: 100% !important;
-        height: 1;
+        /* width: 100% !important; */
+        /* height: 1; */
         /* max-height: 400px; */
     }
     span.clsRemainingLength {
@@ -7835,6 +7891,18 @@ padding-top: 5px;}
 
     .report_bugbox .files-list-item-content-item-1{font-size: 16px;}
 
+    .big_lock {margin-top: -190px;}
+
+    a.present_ride {
+        color: #fff;
+    }
+    a.present_ride img{margin-right:5px;}
+
+    .tpoints_earnedbox {
+        background: #181821;
+        position: relative;
+        z-index: 100;
+    }    
 
 .black_box .nav-tabs>li.active>a, .black_box .nav-tabs>li.active>a:focus,
  .black_box .nav-tabs>li.active>a:hover,

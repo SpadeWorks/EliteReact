@@ -99,7 +99,7 @@ class Survey extends React.Component<SurveyProps> {
                                         index={index} />)
                                 })
                             }
-                            <Popup popupId="PopTheFizz" title={"Congratrulations!"}
+                            <Popup popupId="PopTheFizz" title={"Congratulations!"}
                                         body={ui.requirmentMessage}
                                         buttons={this.popTheFizzButtons} />
                         </div>

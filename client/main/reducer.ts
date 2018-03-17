@@ -18,7 +18,7 @@ const rootReducer = asyncInitialState.outerReducer(combineReducers({
   participationState: participation,
   profileState: profile,
   ui: uiReducer,
-  reportBugState: reportBug
+  reportBugState: reportBug,
 }));
 
 export default rootReducer;

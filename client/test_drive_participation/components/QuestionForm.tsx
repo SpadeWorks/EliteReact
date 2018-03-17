@@ -11,6 +11,7 @@ import { Messages } from '../../common/services/constants';
 import Promise from "ts-promise";
 import { Services } from '../../common/services/data_service';
 import * as Constants from '../../common/services/constants';
+let confetti = require("../../js/jquery.confetti.js");
 
 interface QuestionFormProps {
     testDriveInstance: TestDriveInstance;
@@ -27,7 +28,7 @@ interface QuestionFormProps {
 @ui({
     state: {
         questionResponse: '',
-        selectedResponse: ''        
+        selectedResponse: ''
     }
 })
 class QuestionForm extends React.Component<QuestionFormProps> {
@@ -43,7 +44,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
     }
 
     componentDidMount() {
-    
+
     }
 
     onChange(e) {
@@ -77,18 +78,18 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         var completedQuestions = question && question.length && question.filter(question => {
             return question.responseStatus == Constants.ColumnsValues.COMPLETE_STATUS;
         });
-        if(completedQuestions)
+        if (completedQuestions)
             return completedQuestions.length;
         else
             return 0;
     }
 
     getPopUpBodyData() {
-        return new Promise((resolve, reject) => {        
-                var message = Messages.POP_THE_FIZZ_1 + '<br>';                
-                message += Messages.POP_THE_FIZZ_2.replace("#0#",this.getCompletedQuestionCount().toString()).replace("#1#",this.props.testDriveInstance.questionIDs.length.toString()) + '<br>';
-                message += Messages.POP_THE_FIZZ_3.replace("#0#",this.props.testDriveInstance.currentPoint.toString()) + '<br>';                
-                resolve({ message });            
+        return new Promise((resolve, reject) => {
+            var message = Messages.POP_THE_FIZZ_1 + '<br>';
+            message += Messages.POP_THE_FIZZ_2 + '<br>';
+            message += Messages.POP_THE_FIZZ_3.replace("#0#", this.props.testDriveInstance.currentPoint.toString()) + '<br>';
+            resolve({ message });
         });
     }
 
@@ -97,7 +98,9 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         this.getPopUpBodyData().then((data: any) => {
             this.props.updateUI({ requirmentMessage: data.message });
             $("#popupPopTheFizz").trigger("click");
-        })                
+            $(".modal-backdrop.fade.in").hide();
+            confetti.InitializeConfettiInit();
+        })
     }
 
     render() {
