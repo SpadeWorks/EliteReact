@@ -6477,7 +6477,7 @@ button {
     overflow: hidden;
     text-overflow: ellipsis;
     min-height: 20px;
-    cursor:text;
+    cursor:pointer;
 }
 
 ul.dragrace_indicator {
