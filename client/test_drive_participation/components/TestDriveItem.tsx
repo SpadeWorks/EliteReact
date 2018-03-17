@@ -22,7 +22,7 @@ class TestDriveItem extends React.Component<AppProps> {
         return (<div className="col-md-12 currtestdrive_list">
             <div className="row">
                 <div className="col-md-8">
-                    <h4>{testDrive.title}</h4>
+                <Link to={'/participation/' + testDrive.testDriveID}><h4>{testDrive.title}</h4></Link>
                 </div>
                 <div className="col-md-2">
                     <h4>

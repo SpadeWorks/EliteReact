@@ -17,7 +17,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
         const { testDrive, participants, isActive } = this.props;
         return (<div className="col-md-4">
             <div className="col-md-12 progress_drivebox">
-                <h4>{testDrive.title}</h4>
+            <Link to={'/participation/' + testDrive.id}><h4>{testDrive.title}</h4></Link>
                 <div className="col-md-12 pull-right">
                     <div className="row">
                         <div className="col-md-12 social_box">

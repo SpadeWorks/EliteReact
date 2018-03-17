@@ -26,7 +26,7 @@ class TestDrivesIRunCompletedItem extends React.Component<TestDrivesIRunComplete
         return (<div className="col-md-12 currtestdrive_list testdrive_I_runbox">
             <div className="row">
                 <div className="col-md-12">
-                    <h4>{testDrive.title}</h4>
+                <Link to={'/participation/' + testDrive.id}><h4>{testDrive.title}</h4></Link>
                 </div>
                 <div className="col-md-12">
                     <div className="row">
