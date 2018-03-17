@@ -259,13 +259,13 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                                     style={{ marginLeft: '40px' }}>
                                                     <input type="button"
                                                         disabled={ui.loading}
-                                                        value="Submit test case" onClick={() => this.submitTestCaseResponse(testCase, index)} />
+                                                        value="Submit" onClick={() => this.submitTestCaseResponse(testCase, index)} />
                                                 </div>
                                                 <div className="button type1 nextBtn btn-lg pull-right animated_button"
                                                 >
                                                     <input type="button"
                                                         disabled={ui.loading}
-                                                        value="Save" onClick={() => this.saveTestCaseResponse(testCase, index)} />
+                                                        value="Save as draft" onClick={() => this.saveTestCaseResponse(testCase, index)} />
                                                 </div>
 
                                             </div>
