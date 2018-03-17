@@ -15,13 +15,13 @@ interface LeaderBoardProps {
 class LeaderBoard extends React.Component<LeaderBoardProps> {
     render() {
         const { updateUI, ui, leaders, regionLeaders } = this.props;
-        return (<div className="col-md-3 pull-right location_box small_leaderbox">
+        return (<div className="col-md-4 pull-right location_box small_leaderbox">
          
                 <div className="row">
                     <div className="well">
                         <div>
                             <ul className="nav nav-tabs">
-                                <li className=""><a href="#regional" data-toggle="tab">REGIONAL LEADERBOARD</a></li>
+                                <li className=""><a href="#regional" data-toggle="tab">YOUR REGIONAL LEADERBOARD</a></li>
                                 <li className="active pull-right"><a href="#global" data-toggle="tab">GLOBAL LEADERBOARD</a></li>
                             </ul>
                             <div id="myTabContent" className="tab-content">

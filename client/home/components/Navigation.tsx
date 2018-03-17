@@ -44,10 +44,10 @@ class Navigation extends React.Component<NavigationProps> {
                         <img src={this.props.currentUserImage} />
                         <span>My Profile</span>
                     </Link>
-                    <Link className="maplinks" to={"/prizes"} id="link4">
+                    {/* <Link className="maplinks" to={"/prizes"} id="link4">
                         <img src="/Style%20Library/Elite/images/Prizes.png" />
                         <span>Prizes</span>
-                    </Link>
+                    </Link> */}
                     <Link className="maplinks" to={"/leaderboard"} id="link5">
                         <img src="/Style%20Library/Elite/images/leaderboard.png" />
                         <span>Leaderboard</span>

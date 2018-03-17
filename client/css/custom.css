@@ -6353,7 +6353,7 @@ button {
 
 .sample_text {
     font-family: titanium;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .participation_actionbox .button {
@@ -7055,8 +7055,9 @@ div.car_Container img{width: 500px !important;
     /* background: red; */
     position: absolute;
     top: 450px;
-    left: 40px;
+    left: -19px;
     color: white;
+    text-transform: uppercase;
 }
 
 .jsArrowLeft {
