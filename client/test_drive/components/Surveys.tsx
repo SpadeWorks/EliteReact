@@ -42,6 +42,7 @@ class Surveys extends React.Component<SurveysProps> {
     }
 
     onSubmit() {
+        this.props.updateUI({ saveLoading : true });
         var testDrive = this.props.testDrive;
         testDrive.status = ColumnsValues.SUBMIT;
         this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);
@@ -113,7 +114,7 @@ class Surveys extends React.Component<SurveysProps> {
                     </div>
 
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                        <input disabled={testDrive.status == ColumnsValues.ACTIVE} type="button" value="Submit"
+                        <input disabled={testDrive.status == ColumnsValues.ACTIVE || testDrive.saveIsInProgress ||  ui.saveLoading} type="button" value="Submit"
                             onClick={this.onSubmit} />
                     </div>
                 </div>
