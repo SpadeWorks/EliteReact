@@ -38,6 +38,7 @@ import {
 
 import ActiveTestDrivesContainer from '../../test_drive/components/ActiveTestDrivesContainer';
 import UpCommingTestdrivesContainer from '../../test_drive/components/UpCommingTestdrivesContainer';
+import Services from '../../common/services/data_service';
 
 interface AppProps {
   testDriveState: model.IState;
@@ -73,7 +74,8 @@ interface AppProps {
 @ui({
   state: {
     activeTab: 0,
-    isCreaseTestDriveVisible: false
+    isCreaseTestDriveVisible: false,
+    testDriveCarImage:""
   }
 })
 
@@ -153,9 +155,17 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
       ui
     } = this.props;
 
-    const role = Service.getUserProfileProperties().role;
+    let userProfileProperty = Service.getUserProfileProperties();
+
+    const role = userProfileProperty.role;    
     const isTestDriveIRunVisible = (role == "Test Drive Owner" ||
       role == "Site Owner");
+
+    Services.getEliteProfileByID(userProfileProperty.eliteProfileID).then((data:any)=>
+    { 
+      this.props.updateUI({ testDriveCarImage:data.carImage });
+    })
+
 
 
     const isApprover = (role == "Site Owner")
@@ -176,7 +186,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
           <div className="clearBoth"></div>
           <div className="col-md-12 total_testdrivebox">
             <div className="car_box">
-              <img src="/Style%20Library/Elite/images/car.png" />
+              <img src={ui.testDriveCarImage} style={{height:'45px'}}/>
             </div>
             <div className="row">
               <div className="well">
