@@ -57,6 +57,7 @@ interface AppProps {
     testCaseFields: object;
     surveyFields: object;
     testDriveFields: object;
+    view: string;
 };
 
 var previousStatus = "";
@@ -289,7 +290,7 @@ class ManageTestDrive extends React.Component<AppProps> {
 
     render() {
         const { testDrive, question, dispatch, loading, testCase, ui, updateUI,
-            testCaseFields, surveyFields, testDriveFields } = this.props;
+            testCaseFields, surveyFields, testDriveFields, view } = this.props;
         return (
             <div className="container header_part">
                 <Popup popupId="ManageTestDriveSuccess" title={ui.title}
@@ -329,6 +330,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                                 fieldDescriptions={testDriveFields}
                                                 ui={ui}
                                                 switchTab={this.switchTab}
+                                                view={view}
                                             />
                                         </div>
                                     </div>
@@ -352,6 +354,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                                 testCaseIds={testDrive.testCaseIDs}
                                                 fieldDescriptions={testCaseFields}
                                                 switchTab={this.switchTab}
+                                                view={view}
                                             />
                                         </div>
                                     </div>
@@ -373,6 +376,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                                 loadQuestions={(t) => dispatch(loadQuestions(t))}
                                                 questionIds={testDrive.questionIDs}
                                                 fieldDescriptions={surveyFields}
+                                                view={view}
                                             />
                                         </div>
                                     </div>
@@ -390,6 +394,7 @@ class ManageTestDrive extends React.Component<AppProps> {
 
 const mapStateToProps = (state, ownProps) => {
     let testDriveId = ownProps.match.params.id;
+    let view = ownProps.match.params.view;
     const testDriveState = state.testDriveState;
     let fieldDescriptions = testDriveState.configurations.fieldDescription || {}
     return {
@@ -403,6 +408,7 @@ const mapStateToProps = (state, ownProps) => {
         testCaseFields: fieldDescriptions.testCases,
         surveyFields: fieldDescriptions.survey,
         configurationLoaded: state.testDriveState.configurationLoaded,
+        view: view || 'edit'
     }
 };
 

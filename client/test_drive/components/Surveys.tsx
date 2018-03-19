@@ -27,6 +27,7 @@ interface SurveysProps {
     loadQuestions: (questionIds: number[]) => any
     questionIds: number[];
     fieldDescriptions: any;
+    view: string;
 };
 @ui({
     state: {
@@ -42,7 +43,7 @@ class Surveys extends React.Component<SurveysProps> {
     }
 
     onSubmit() {
-        this.props.updateUI({ saveLoading : true });
+        this.props.updateUI({ saveLoading: true });
         var testDrive = this.props.testDrive;
         testDrive.status = ColumnsValues.SUBMIT;
         this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);
@@ -75,7 +76,8 @@ class Surveys extends React.Component<SurveysProps> {
             saveTestDrive,
             ui,
             updateUI,
-            fieldDescriptions
+            fieldDescriptions,
+            view
         } = this.props;
         return (
             <div className="test-case-container col-xs-12">
@@ -108,15 +110,22 @@ class Surveys extends React.Component<SurveysProps> {
                     <div className="button type1 nextBtn btn-lg animated_button pull-left left_mnone">
                         <input type="button" value="Back" onClick={() => updateUI({ activeTab: ui.activeTab - 1 })} />
                     </div>
-                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                        <input type="button" value="Save as a draft"
-                            onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
-                    </div>
+                    {
+                        testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ? <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                            <input type="button" value="Save as a draft"
+                                onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
+                        </div> : ''
+                    }
 
-                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                        <input disabled={testDrive.status == ColumnsValues.ACTIVE || testDrive.saveIsInProgress ||  ui.saveLoading} type="button" value="Submit"
-                            onClick={this.onSubmit} />
-                    </div>
+                    {
+                        view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ?
+                            <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                <input disabled={testDrive.status == ColumnsValues.ACTIVE || testDrive.saveIsInProgress || ui.saveLoading} type="button" value="Submit"
+                                    onClick={this.onSubmit} />
+                            </div> : ''
+                    }
+
+
                 </div>
             </div>
         );

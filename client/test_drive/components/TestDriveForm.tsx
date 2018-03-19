@@ -31,6 +31,7 @@ interface TestDriveFormProps {
     updateUI: (any) => any;
     fieldDescriptions: any;
     ui: any;
+    view: string;
 }
 
 interface TestDriveFormState {
@@ -44,7 +45,7 @@ interface TestDriveFormState {
         endDate: "",
         rangePicker: null,
         showStartDatePicker: false,
-        showEndDatePicker: false,        
+        showEndDatePicker: false,
         saveTestDriveApprovalLoading: false
     }
 })
@@ -105,7 +106,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                 return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
-                options: options.slice(0, 5),
+                options: options,
                 complete: options.length <= 6,
             };
             callback(null, data);
@@ -119,7 +120,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                 return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
-                options: options.slice(0, 5),
+                options: options,
                 complete: options.length <= 6,
             };
             callback(null, data);
@@ -133,7 +134,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                 return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
-                options: options.slice(0, 5),
+                options: options,
                 complete: options.length <= 6,
             };
             callback(null, data);
@@ -147,7 +148,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                 return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
-                options: options.slice(0, 5),
+                options: options,
                 complete: options.length <= 6,
             };
             callback(null, data);
@@ -161,7 +162,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                 return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
-                options: options.slice(0, 5),
+                options: options,
                 complete: options.length <= 6,
             };
             callback(null, data);
@@ -179,9 +180,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         }
     }
 
-    saveValidate(testDrive) {     
-        this.props.updateUI({ saveLoading : true });   
-        this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);        
+    saveValidate(testDrive) {
+        this.props.updateUI({ saveLoading: true });
+        this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);
     }
 
 
@@ -259,7 +260,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
 
     render() {
         const isApprover = Service.getUserProfileProperties().role;
-        const { testDrive, saveTestDrive, submitTestDrive, updateMultiSelect, ui, updateUI, fieldDescriptions } = this.props;
+        const { view, testDrive, saveTestDrive, submitTestDrive, updateMultiSelect, ui, updateUI, fieldDescriptions } = this.props;
         const butttonGroup = {
             float: 'right'
         }
@@ -536,11 +537,14 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 <input type="button" value="Next"
                                     onClick={() => this.onSwitchTab(1)} />
                             </div>
-                            <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                <input disabled={testDrive.status == ColumnsValues.ACTIVE || testDrive.saveIsInProgress ||  ui.saveLoading                                  
-                                } type="button" value="Save as a draft"
-                                    onClick={() => { this.saveValidate(testDrive) }} />
-                            </div>
+                            {
+                                testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ?
+                                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                        <input disabled={testDrive.status == ColumnsValues.ACTIVE || testDrive.saveIsInProgress || ui.saveLoading
+                                        } type="button" value="Save as a draft"
+                                            onClick={() => { this.saveValidate(testDrive) }} />
+                                    </div> : ''
+                            }
                             {testDrive.status == ColumnsValues.SUBMIT && isApprover == ColumnsValues.SITE_OWNER ?
                                 <div className="button type1 nextBtn btn-lg pull-right animated_button">
                                     <input type="button" value="Approve"

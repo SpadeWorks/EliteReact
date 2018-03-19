@@ -41,6 +41,7 @@ export class Columns {
     static TEST_DRIVE_DEPARTMENT = 'TestDriveDepartment';
     static TEST_DRIVE_LOCATION = 'TestDriveLocation';
     static AVAILABLE_DEVICES = 'AvailableDevices';
+    static ELITE_USERDEPARTMENT = 'Elite_UserDepartment';
     static AVAILABLE_OS = 'AvailableOS';
     static MAX_TESTDRIVERS = 'MaxTestDrivers';
     static LEVEL_ID = 'LevelID';
@@ -105,6 +106,8 @@ export class ColumnsValues {
     static SITE_OWNER_DISPLAY_NAME = "Site Owner"
     static TEST_DRIVER_DISPLAY_NAME = "Test Drivers";
     static TEST_DRIVE_OWNER_DISPLAY_NAME = "Test Drive Owner";    
+    static EDIT_VIEW = "EDIT";
+    static DISPLAY_VIEW = "DISPLAY";
 }
 
 export class Globals {

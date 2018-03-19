@@ -34,6 +34,7 @@ interface TestCasesProps {
     testDrive: TestDrive;
     updateUI: (any) => any;
     ui: any;
+    view: string;
 };
 
 @ui({
@@ -97,6 +98,7 @@ class TestCases extends React.Component<TestCasesProps> {
             ui,
             updateUI,
             fieldDescriptions,
+            view
         } = this.props;
         return (
             <div className="test-case-container col-xs-12">
@@ -135,9 +137,9 @@ class TestCases extends React.Component<TestCasesProps> {
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <input type="button" value="Next" onClick={() => this.switchTab(1)} />
                     </div>
-                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                    {testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW  ? <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <input disabled={testDrive.status == ColumnsValues.ACTIVE} type="button" value="Save as a draft" onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
-                    </div>
+                    </div> : ''}
                 </div>
             </div>
         );

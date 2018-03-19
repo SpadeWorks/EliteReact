@@ -69,7 +69,7 @@ export type EliteProfile = {
     lastName: string;
     displayName: string;
     location: string;
-    department: string;
+    department: any;
     sipAddress: string;
     workEmail: string;
     languages: string;

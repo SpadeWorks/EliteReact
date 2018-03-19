@@ -721,6 +721,7 @@ export class Services {
                     Constants.Columns.USER_ROLE,
                     Constants.Columns.AVAILABLE_OS,
                     Constants.Columns.AVAILABLE_DEVICES,
+                    Constants.Columns.ELITE_USERDEPARTMENT,
                     Constants.Columns.ID,
                     Constants.Columns.USER_INFO_NAME,
                     Constants.Columns.ACCOUNT_NAME,
@@ -748,7 +749,8 @@ export class Services {
                         availableOS: profile.AvailableOS.results,
                         availableDevices: profile.AvailableDevices.results,
                         levelName: profile.CarID.CarLevel == null ? 0 : profile.CarID.CarLevel,
-                        avatarID: profile[Constants.Columns.AVATAR_ID][Constants.Columns.ID]
+                        avatarID: profile[Constants.Columns.AVATAR_ID][Constants.Columns.ID],
+                        department: profile.Elite_UserDepartment
                     });
                 }, err => {
                     Utils.clientLog(err);
@@ -1667,7 +1669,8 @@ export class Services {
                     AvatarName: eliteProfile.avatarName,
                     CarID_id: eliteProfile.carID,
                     CarImage: eliteProfile.carImage,
-                    CarName: eliteProfile.carName
+                    CarName: eliteProfile.carName,
+                    Elite_UserDepartment: eliteProfile.department
                 }
 
                 eliteProfiles.push(newEliteProfile);
