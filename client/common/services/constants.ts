@@ -105,6 +105,8 @@ export class ColumnsValues {
     static SITE_OWNER_DISPLAY_NAME = "Site Owner"
     static TEST_DRIVER_DISPLAY_NAME = "Test Drivers";
     static TEST_DRIVE_OWNER_DISPLAY_NAME = "Test Drive Owner";    
+    static EDIT_VIEW = "EDIT";
+    static DISPLAY_VIEW = "DISPLAY";
 }
 
 export class Globals {
