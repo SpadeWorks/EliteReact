@@ -6885,10 +6885,15 @@ ul.streetrace_indicator li span {
     height: 130px !important;
     position: relative;
     background: none !important;
-    margin-top: -160px;
+    margin-top: -190px;
     height: 30px !important;
     z-index: 90;
 }
+
+.jssort101 div{
+    height:90px !important;
+}
+
 
 .ride_staus {
     position: relative;
@@ -7056,7 +7061,7 @@ div.car_Container img{width: 500px !important;
     height: 23px;
     /* background: red; */
     position: absolute;
-    top: 531px;
+    top: 548px;
     left: -19px;
     color: white;
     text-transform: uppercase;

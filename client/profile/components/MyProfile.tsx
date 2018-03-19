@@ -101,6 +101,8 @@ class MyProfile extends React.Component<MyProfileProps> {
             this.props.dispatch(loadConfigurations());
         }
         this.props.dispatch(loadCars());
+      
+
     }
 
     componentDidUpdate() {
