@@ -37,7 +37,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
             matchedElement && matchedElement.length && matchedElements.push(matchedElement);
         });
         return matchedElements.length == array1.length;
-    }
+    }   
 
     isUserEligible() {
         return new Promise((resolve, reject) => {
@@ -47,6 +47,9 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                 var isUserEligible: boolean = true;
                 var matchedLocation = ctx.props.testDriveInstance.location.filter((location: any) => {
                     return location.Label == user.location;
+                });
+                var matchedDepartment = ctx.props.testDriveInstance.department.filter((department: any) => {
+                    return department.Label == user.department;
                 });
 
                 if ((ctx.props.testDriveInstance.location &&
@@ -70,6 +73,11 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                     isUserEligible = false;
                 }
 
+                if ((ctx.props.testDriveInstance.department && ctx.props.testDriveInstance.department.length > 0)
+                && (!matchedDepartment || !matchedDepartment.length)) {
+                    message += Messages.TEST_DRIVE_DEPARTMENT_ERROR + '<br>';
+                    isUserEligible = false;
+                }
                 resolve({ isUserEligible, message });
             })
         });
