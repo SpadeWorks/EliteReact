@@ -44,13 +44,13 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
     function labels(child, index) {
       let activeClass = (this.state.selected === index ? 'active' : '');
       return (
-        <li key={index} className={activeClass} data-index={index}>
+        (child && child.props && child.props.label) ? 
+          <li key={index} className={activeClass} data-index={index}>
           <a href="#"
             onClick={this.handleClick.bind(this, index)}>
             {child && child.props && child.props.label}
           </a>
-        </li>
-      );
+        </li>: '');
     }
     return (
       <ul className="nav nav-tabs">
