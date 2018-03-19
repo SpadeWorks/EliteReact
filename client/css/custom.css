@@ -6353,7 +6353,7 @@ button {
 
 .sample_text {
     font-family: titanium;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .participation_actionbox .button {
@@ -6477,7 +6477,7 @@ button {
     overflow: hidden;
     text-overflow: ellipsis;
     min-height: 20px;
-    cursor:text;
+    cursor:pointer;
 }
 
 ul.dragrace_indicator {
@@ -6534,6 +6534,7 @@ ul.dragrace_indicator li span {
 }
 
 .testdrive_I_runbox h4 {
+    color: #fff;
     margin-bottom: 20px;
     font-size: 24px;
     cursor: pointer;
@@ -6918,6 +6919,7 @@ img.car_bigview {
     background: none;
 }
 
+
 .car-selection {
     text-align: center;
 }
@@ -7055,8 +7057,9 @@ div.car_Container img{width: 500px !important;
     /* background: red; */
     position: absolute;
     top: 450px;
-    left: 40px;
+    left: -19px;
     color: white;
+    text-transform: uppercase;
 }
 
 .jsArrowLeft {

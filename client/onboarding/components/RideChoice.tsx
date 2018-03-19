@@ -27,7 +27,7 @@ class RideChoice extends React.Component<RideChoiceProps> {
 
     getBetterRide() {
        
-        this.props.updateUI({ nextScreen: this.props.ui.nextScreen + 1 })
+        this.props.updateUI({ nextScreen: this.props.ui.nextScreen + 2 })
     }
 
     goToDashboard() {
@@ -46,14 +46,18 @@ class RideChoice extends React.Component<RideChoiceProps> {
                 <div className="stroller_ridebox">
                      <img src="/Style%20Library/Elite/images/stroller.png" />
                 </div>
-                <div className="col-md-12 intro_actionbox testdrive_actionbox betterride_box">
-                   <div className="button type1 pull-right">
+                <div className="col-md-12 intro_actionbox testdrive_actionbox betterride_box" style={{marginLeft:"280px"}}>
+                   <div className="button type1 pull-left">
+                        <input onClick={() => this.getBetterRide()} type="button" value="Go to dashboard" className="better_ride" />
+                    </div>
+
+                    {/* <div className="button type1 pull-right">
                         <input onClick={() => this.goToDashboard()} type="button" value="Go to dashboard" className="better_ride" />
-                    </div>
+                    </div> */}
                    
-                     <div className="button type1 pull-right">
+                     {/* <div className="button type1 pull-right">
                         <input onClick={() => this.getBetterRide()} type="button" value="Get a better ride" className="better_ride" />
-                    </div>
+                    </div> */}
                 </div>
             </div>)
     }
