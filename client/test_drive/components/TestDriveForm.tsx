@@ -106,7 +106,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                 return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
-                options: options.slice(0, 5),
+                options: options,
                 complete: options.length <= 6,
             };
             callback(null, data);
@@ -120,7 +120,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                 return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
-                options: options.slice(0, 5),
+                options: options,
                 complete: options.length <= 6,
             };
             callback(null, data);
@@ -134,7 +134,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                 return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
-                options: options.slice(0, 5),
+                options: options,
                 complete: options.length <= 6,
             };
             callback(null, data);
@@ -148,7 +148,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                 return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
-                options: options.slice(0, 5),
+                options: options,
                 complete: options.length <= 6,
             };
             callback(null, data);
@@ -162,7 +162,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                 return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
-                options: options.slice(0, 5),
+                options: options,
                 complete: options.length <= 6,
             };
             callback(null, data);
