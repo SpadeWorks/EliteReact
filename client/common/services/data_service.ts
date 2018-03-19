@@ -1005,7 +1005,8 @@ export class Services {
                     "CarName",
                     "PointsRequired",
                     "CarLevel",
-                    "LevelName").get().then(car => {
+                    "LevelName")
+                    .orderBy("CarLevel").get().then(car => {
                         resolve(car);
                     }, err => {
                         reject(err);

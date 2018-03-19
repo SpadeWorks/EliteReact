@@ -90,7 +90,7 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                 return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
-                options: options.slice(0, 5),
+                options: options,
                 complete: options.length <= 6,
             };
 
@@ -114,7 +114,7 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                 return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
-                options: options.slice(0, 5),
+                options: options,
                 complete: options.length <= 6,
             };
 
@@ -138,7 +138,7 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                 return i.Label.toLowerCase().indexOf(input) > -1;
             });
             var data = {
-                options: options.slice(0, 5),
+                options: options,
                 complete: options.length <= 6,
             };
 
