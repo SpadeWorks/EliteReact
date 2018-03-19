@@ -14,6 +14,7 @@ import {
 import TestDrivesIRunUpcommingItem from './TestDrivesIRunUpcommingItem';
 import TestDrivesIRunCompletedItem from './TestDrivesIRunCompletedItem';
 import { Messages } from '../../common/services/constants';
+import Services from '../../common/services/services';
 
 interface TestDrivesIRunContainerProps {
     upcommingTestDrivesIRun: TestDrive[]
@@ -45,7 +46,15 @@ interface TestDrivesIRunContainerProps {
         inprogressItems: [],
         completedItems: [],
         visiblePages: 4,
-        visibleItems: []
+        visibleItems: [],
+        upcommingTestDrivesIRun: [],
+        upcommingTestDrivesIRunLoading: false,
+        draftedTestDrivesIRun: [],
+        draftedTestDrivesIRunLoading: false,
+        inProgressTestDrivesIRun: [],
+        inProgressTestDrivesIRunLoading: false,
+        completedTestDrivesIRun: [],
+        completedTestDrivesIRunLoading: false
     }
 })
 class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerProps> {
@@ -54,10 +63,44 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
     }
 
     componentDidMount() {
-        this.props.loadUpcommingTestDrivesIRun(0, 100);
-        this.props.loadDraftedTestDrivesIRun(0, 100);
-        this.props.loadCompletedTestDrivesIRun(0, 100);
-        this.props.loadInProgressTestDrivesIRun(0, 100);
+        var self = this;
+        this.props.updateUI({
+            upcommingTestDrivesIRunLoading: true,
+            draftedTestDrivesIRunLoading: true,
+            inProgressTestDrivesIRunLoading: true,
+            completedTestDrivesIRunLoading: true
+        });
+        Services.getUpCommingTestDriveIRun(0, 1000).then(data => {
+            self.props.updateUI({
+                upcommingTestDrivesIRun: data || [],
+                upcommingTestDrivesIRunLoading: false,
+            });
+            this.initialize();
+        });
+
+        Services.getDraftedTestDrivesIRun(0, 1000).then(data => {
+            self.props.updateUI({
+                draftedTestDrivesIRun: data || [],
+                draftedTestDrivesIRunLoading: false,
+            });
+            this.initialize();
+        });
+
+        Services.getCompletedTestDriveIRun(0, 1000).then(data => {
+            self.props.updateUI({
+                completedTestDrivesIRun: data || [],
+                completedTestDrivesIRunLoading: false
+            });
+            this.initialize();
+        });
+
+        Services.getInProgressTestDrivesIRun(0, 1000).then(data => {
+            self.props.updateUI({
+                inProgressTestDrivesIRun: data || [],
+                inProgressTestDrivesIRunLoading: false,
+            });
+            this.initialize();
+        });
     }
 
     getVisibleItems(newPage: number, array: any[], visibleItems: string, currentPage: string) {
@@ -71,6 +114,9 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
     initialize() {
         const {
             ui, updateUI,
+        } = this.props;
+
+        const {
             upcommingTestDrivesIRun,
             upcommingTestDrivesIRunLoading,
             draftedTestDrivesIRun,
@@ -79,7 +125,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
             inProgressTestDrivesIRunLoading,
             completedTestDrivesIRun,
             completedTestDrivesIRunLoading
-        } = this.props;
+        } = ui;
 
         if (!upcommingTestDrivesIRunLoading && upcommingTestDrivesIRun && upcommingTestDrivesIRun.length && !ui.upcommingItems.length) {
             var currentPage = ui.upcommingItemCurrent;
@@ -106,8 +152,8 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
 
         }
 
-        if (!completedTestDrivesIRunLoading && completedTestDrivesIRun 
-                && completedTestDrivesIRun.length && !ui.completedItems.length) {
+        if (!completedTestDrivesIRunLoading && completedTestDrivesIRun
+            && completedTestDrivesIRun.length && !ui.completedItems.length) {
             var currentPage = ui.completedItemsCurrent;
             if (ui.completedItemsCurrent.length < ui.completedItemsCurrent * ui.itemsPerPage) {
                 currentPage = currentPage - 1;
@@ -120,6 +166,9 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
     render() {
         const {
             ui, updateUI,
+        } = this.props;
+
+        const {
             upcommingTestDrivesIRun,
             upcommingTestDrivesIRunLoading,
             draftedTestDrivesIRun,
@@ -128,9 +177,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
             inProgressTestDrivesIRunLoading,
             completedTestDrivesIRun,
             completedTestDrivesIRunLoading
-        } = this.props;
-
-        this.initialize();
+        } = ui;
 
         return (
             <div>

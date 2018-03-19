@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 import Loader from 'react-loader-advanced';
 import ui from 'redux-ui';
 import Pager from 'react-pager';
+import Services from '../../common/services/services';
 import {
     TestDriveCardItem,
     loadUpCommingTestDrives,
@@ -28,6 +29,8 @@ interface UpCommingTestDrivesContainerProps {
         current: 0,
         visibleItems: [],
         visiblePages: 4,
+        upCommingTestDrives: [],
+        upCommingTestDrivesLoading: false
     }
 })
 class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesContainerProps> {
@@ -36,19 +39,33 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
     }
 
     componentDidMount() {
-        this.props.loadUpCommingTestDrives(0, 100);
+        var self = this;
+        self.props.updateUI({
+            upCommingTestDrivesLoading: true,
+        });
+        Services.getUpCommingTestDriveIRun(0, 1000).then(data => {
+            self.props.updateUI({
+                upCommingTestDrivesLoading: false,
+                upCommingTestDrives: data || [],
+            });
+            this.initialize();
+        })
     }
 
     getVisibleItems(newPage) {
         let skip = newPage * this.props.ui.itemsPerPage;
         this.props.updateUI({
             current: newPage,
-            visibleItems: this.props.upCommingTestDrives.slice(skip, skip + this.props.ui.itemsPerPage)
+            visibleItems: this.props.ui.upCommingTestDrives.slice(skip, skip + this.props.ui.itemsPerPage)
         });
     }
 
-    initialize(){
-        const { upCommingTestDrives, upCommingTestDrivesLoading, ui, updateUI } = this.props;
+    initialize() {
+        const { ui, updateUI } = this.props;
+        const {
+            upCommingTestDrives,
+            upCommingTestDrivesLoading
+        } = ui;
         if (!upCommingTestDrivesLoading && upCommingTestDrives && upCommingTestDrives.length && !ui.visibleItems.length) {
             var currentPage = ui.current;
             if ((ui.visibleItems.length < ui.visibleItems * ui.itemsPerPage) && ui.current != 0) {
@@ -59,18 +76,20 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
 
     }
 
-
-
     render() {
-        const { upCommingTestDrives, upCommingTestDrivesLoading, ui, updateUI } = this.props;
+        const {ui, updateUI } = this.props;
+        const {
+            upCommingTestDrives,
+            upCommingTestDrivesLoading
+        } = ui;
         this.initialize();
 
         return (<div>
             {ui.isCreaseTestDriveVisible ? <div className="centralbox_button row">
                 <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                  <Link to={"/testdrive"} >Create Test Drive</Link>
+                    <Link to={"/testdrive"} >Create Test Drive</Link>
                 </div>
-              </div> : ''}
+            </div> : ''}
             <Loader show={upCommingTestDrivesLoading} message={'Loading...'}>
                 {
                     (!upCommingTestDrivesLoading && ui.visibleItems && ui.visibleItems.length) ?
@@ -78,8 +97,8 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
                             return (<TestDriveCardItem
                                 key={index}
                                 participants={testDriveObj.participants}
-                                testDrive={testDriveObj.testDrive} 
-                                isActive={false}/>)
+                                testDrive={testDriveObj.testDrive}
+                                isActive={false} />)
                         }) : (!upCommingTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_UPCOMING_MSG}</div>)
                 }
                 {

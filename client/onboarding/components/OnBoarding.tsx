@@ -417,16 +417,16 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                 isUserCreated={isUserCreated}
                                 createEliteUserProfile={() => this.createUser()} />
                             }
-                            {
+                            {/* {
                                 ui.nextScreen == 2 &&
                                 <RideChoice ui={ui} updateUI={updateUI} />
                             }
                             {
                                 ui.nextScreen == 3 &&
                                 <CarAnimation ui={ui} updateUI={updateUI} />
-                            }
+                            } */}
                             {
-                                ui.nextScreen == 4 &&
+                                ui.nextScreen == 2 &&
                                 <CurrentRide ui={ui} updateUI={updateUI} />
                             }
 

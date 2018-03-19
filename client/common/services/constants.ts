@@ -174,4 +174,5 @@ export class Messages {
     static MISSING_OUT_2 = "You earned <span class='orange'>#0#</span> points."
     static MISSING_OUT_3 = "You are now <span class='orange'>#0#</span> on the leaderboard.";
     static MISSING_OUT_4 = "You are <span class='orange'>#0#</span> points away from getting a #1#";
+    static TEST_DRIVE_APPROVED = "Test drive approved successfully.";
 }
