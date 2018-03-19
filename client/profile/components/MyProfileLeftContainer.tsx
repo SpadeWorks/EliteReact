@@ -53,6 +53,16 @@ class MyProfileLeftContainer extends React.Component<MyProfileLeftContainerProps
                         </div>
                     </div>
                 </div>
+                <div className="row inforow">
+                    <div className="col-md-5">
+                        <span className="orange">Department :</span>
+                    </div>
+                    <div className="col-md-6">
+                        <div className="row">
+                            <h5>{eliteProfile.department}</h5>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

@@ -12,8 +12,7 @@ class MyProfileRightContainer extends React.Component<MyProfileRightContainerPro
     render() {
         const { eliteProfile } = this.props;
         return (
-            <div className="col-md-5 col-md-offset-1 device_box">
-
+            <div className="col-md-5 col-md-offset-1 device_box">                
                 <div className="row devicelist">
                     <div className="col-md-4">
                         <span className="orange">Devices :</span>
@@ -30,9 +29,7 @@ class MyProfileRightContainer extends React.Component<MyProfileRightContainerPro
                         </ul>
                         </div>
                     </div>
-                </div>
-
-                
+                </div>                
                 <div className="row devicelist">
                     <div className="col-md-4">
                         <span className="orange">os :</span>
@@ -50,8 +47,7 @@ class MyProfileRightContainer extends React.Component<MyProfileRightContainerPro
                         </ul>
                     </div>
                     </div>
-                </div>
-                
+                </div>                
             </div>
         )
     }
