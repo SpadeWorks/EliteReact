@@ -3317,6 +3317,7 @@ a.drive_name h4 {
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0px;
+    padding-right: 5px;
 }
 
 .leader_rank span {
