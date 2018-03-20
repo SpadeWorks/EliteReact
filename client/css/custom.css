@@ -3695,7 +3695,7 @@ width: 28px !important;
 
 .lc_containerclick {
     display: block;
-    width: 241%;
+    width: 168%;
     transition: 0.5s;
     opacity: 1;
     height: 124px;
@@ -3723,7 +3723,7 @@ width: 28px !important;
 
 .letest_driveboxclick {
     position: absolute;
-    left: 130% !important;
+    left: 124% !important;
     display: block;
     transition: 0.5s;
     width: 450px;
@@ -7502,7 +7502,7 @@ span.orange.big {
     }
     .letest_driveboxclick {
         position: absolute;
-        left: 136% !important;
+        left: 124% !important;
         display: block;
         transition: 0.5s;
         width: 450px;

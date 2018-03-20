@@ -17,9 +17,7 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
     }
 
     componentDidMount() {
-        $(".letest_drivebox").hide();
-        $(".letest_drivebox2").hide();
-    }
+          }
     render() {
         const { testDrive, checkPortion, participants, isActive } = this.props;
         return (<div className="col-md-12">
