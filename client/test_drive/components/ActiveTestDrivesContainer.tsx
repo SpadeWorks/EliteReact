@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 import Loader from 'react-loader-advanced';
 import Pager from 'react-pager';
 import ui from 'redux-ui';
+import Services from '../../common/services/services';
 import {
     TestDriveCardItem,
     model,
@@ -27,6 +28,8 @@ interface ActiveTestDrivesContainerProps {
         current: 0,
         visibleItems: [],
         visiblePages: 4,
+        activeTestDrives: [],
+        activeTestDrivesLoading: false
     }
 })
 class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContainerProps> {
@@ -35,19 +38,30 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
     }
 
     componentDidMount() {
-        this.props.loadActiveTestDrives(0, 100);
+        var self = this;
+        Services.getActiveTestDrives(0, 1000).then(data => {
+            self.props.updateUI({
+                activeTestDrives: data || [],
+                activeTestDrivesLoading: false
+            });
+            this.initialize();
+        })
     }
 
     getVisibleItems(newPage) {
         let skip = newPage * this.props.ui.itemsPerPage;
         this.props.updateUI({
             current: newPage,
-            visibleItems: this.props.activeTestDrives.slice(skip, skip + this.props.ui.itemsPerPage)
+            visibleItems: this.props.ui.activeTestDrives.slice(skip, skip + this.props.ui.itemsPerPage)
         });
     }
 
-    initialize(){
-        const { activeTestDrives, activeTestDrivesLoading, ui, updateUI } = this.props;
+    initialize() {
+        const { ui, updateUI } = this.props;
+        const {
+            activeTestDrivesLoading,
+            activeTestDrives
+        } = ui;
 
         if (!activeTestDrivesLoading && activeTestDrives && activeTestDrives.length && !ui.visibleItems.length) {
             var currentPage = ui.current;
@@ -60,8 +74,11 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
     }
 
     render() {
-        const { activeTestDrives, activeTestDrivesLoading, ui, updateUI } = this.props;
-
+        const { ui, updateUI } = this.props;
+        const {
+            activeTestDrivesLoading,
+            activeTestDrives
+        } = ui;
         this.initialize();
 
         return (<div>

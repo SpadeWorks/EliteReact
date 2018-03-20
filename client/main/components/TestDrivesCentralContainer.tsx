@@ -185,7 +185,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
 
           <div className="clearBoth"></div>
           <div className="col-md-12 total_testdrivebox">
-            <div className="car_box">
+            <div className="car_box first_place">
               <img src={ui.testDriveCarImage} style={{height:'45px'}}/>
             </div>
             <div className="row">

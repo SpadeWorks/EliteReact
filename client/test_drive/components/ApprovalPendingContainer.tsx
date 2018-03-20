@@ -5,7 +5,9 @@ import Loader from 'react-loader-advanced';
 import { Dispatch } from 'redux';
 import Pager from 'react-pager';
 import ui from 'redux-ui';
-
+import Services from '../../common/services/services';
+import Popup from '../../common/components/Popups';
+import * as $ from 'jquery';
 import {
     ApprovalPendingItem,
     model,
@@ -26,6 +28,8 @@ interface ApprovalPendingContainerProps {
 };
 @ui({
     state: {
+        title: "Approved",
+        approvedMessage: "Test drive approved successfully.",
         itemsPerPage: 5,
         total: 11,
         pendingItemCurrent: 0,
@@ -33,18 +37,67 @@ interface ApprovalPendingContainerProps {
         pendingItems: [],
         approvedItems: [],
         visiblePages: 4,
-        visibleItems: []
+        visibleItems: [],
+        approvedTestDrives: [],
+        approvedTestDrivesLoading: false,
+        testDrivesWaitingForApproval: [],
+        testDrivesWaitingForApprovalLoading: false
     }
 })
 class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerProps> {
     constructor(props, context) {
         super(props, context);
         this.getVisibleItems = this.getVisibleItems.bind(this);
+        this.getData = this.getData.bind(this);
     }
 
     componentDidMount() {
-        this.props.loadApprovedTestDrives(0, 100);
-        this.props.loadTestDrivesWaitingFormApproval(0, 100);
+        this.getData();
+    }
+
+    getData() {
+        var self = this;
+        self.props.updateUI({
+            approvedItems: [],
+            pendingItems: [],
+            approvedTestDrivesLoading: true,
+            testDrivesWaitingForApprovalLoading: true
+        });
+        Services.getApprovedTestDrives(0, 1000).then(data => {
+            self.props.updateUI({
+                approvedItems: [],
+                pendingItems: [],
+                approvedTestDrives: data || [],
+                approvedTestDrivesLoading: false,
+            });
+            this.initialize();
+        });
+
+        Services.getTestDrivesWaitingForApproval(0, 1000).then(data => {
+            self.props.updateUI({
+                approvedItems: [],
+                pendingItems: [],
+                testDrivesWaitingForApproval: data || [],
+                testDrivesWaitingForApprovalLoading: false
+            });
+            this.initialize();
+        });
+    }
+
+    approveTestDrive(id) {
+        var self = this;
+        this.props.updateUI({
+            approvedItems: [],
+            pendingItems: [],
+            approvedTestDrivesLoading: true,
+            testDrivesWaitingForApprovalLoading: true
+        });
+        Services.approveTestdrive(id).then(data => {
+            self.props.updateUI({ approvedMessage: Messages.TEST_DRIVE_APPROVED, title: "Success!" });    
+            this.getData();
+            $("#popupTestDriveApprovalSuccess").trigger('click');
+
+        })
     }
 
     getVisibleItems(newPage: number, array: any[], visibleItems: string, currentPage: string) {
@@ -55,25 +108,19 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
         });
     }
 
-    approveTestDrive(id) {
-        this.props.updateUI({
-            pendingItems: [],
-            approvedItems: [],
-        });
-        this.props.approveTestDrive(id);
-        window.location.href = window.location.href;
-    }
-
-    initialize(){
+    initialize() {
         const {
             ui, updateUI,
-            approvedTestDrives,
-            approvedTestDrivesLoading,
-            testDrivesWaitingForApproval,
-            testDrivesWaitingForApprovalLoading,
             approveTestDrive,
             saveTestDriveApprovalLoading
         } = this.props;
+
+        const {
+            approvedTestDrives,
+            approvedTestDrivesLoading,
+            testDrivesWaitingForApproval,
+            testDrivesWaitingForApprovalLoading
+        } = ui;
 
         if (!saveTestDriveApprovalLoading && approvedTestDrives && approvedTestDrives.length && !ui.approvedItems.length) {
             var currentPage = ui.approvedItemCurrent;
@@ -87,22 +134,31 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
             if (ui.pendingItems.length < ui.pendingItemCurrent * ui.itemsPerPage) {
                 currentPage = currentPage - 1;
             }
-            this.getVisibleItems(currentPage, this.props.testDrivesWaitingForApproval, 'pendingItems', 'pendingItemCurrent');
+            this.getVisibleItems(currentPage, testDrivesWaitingForApproval, 'pendingItems', 'pendingItemCurrent');
         }
 
     }
+
+    approvedAlertButtons = [{
+        name: 'Ok',
+        link: '#'
+    }]
+
     render() {
         const {
             ui, updateUI,
-            approvedTestDrives,
-            approvedTestDrivesLoading,
-            testDrivesWaitingForApproval,
-            testDrivesWaitingForApprovalLoading,
             approveTestDrive,
             saveTestDriveApprovalLoading
         } = this.props;
 
-        
+        const {
+            approvedTestDrives,
+            approvedTestDrivesLoading,
+            testDrivesWaitingForApproval,
+            testDrivesWaitingForApprovalLoading
+        } = ui;
+
+
         const loading = testDrivesWaitingForApprovalLoading || saveTestDriveApprovalLoading;
         this.initialize()
         return (
@@ -112,8 +168,9 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                         <Link to={"/testdrive"} >Create Test Drive</Link>
                     </div>
                 </div> : ''}
-                <Tabs selected={0}>
 
+
+                <Tabs selected={0}>
                     <Pane label="PENDING APPROVAL">
                         <div>
                             <Loader show={loading} message={'Loading...'}>
@@ -171,6 +228,9 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                         </div>
                     </Pane>
                 </Tabs >
+                <Popup popupId="TestDriveApprovalSuccess" title={ui.title}
+                    body={ui.approvedMessage}
+                    buttons={this.approvedAlertButtons} />
             </div>)
     }
 }

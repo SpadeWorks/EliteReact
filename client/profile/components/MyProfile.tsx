@@ -101,6 +101,8 @@ class MyProfile extends React.Component<MyProfileProps> {
             this.props.dispatch(loadConfigurations());
         }
         this.props.dispatch(loadCars());
+      
+
     }
 
     componentDidUpdate() {
@@ -143,7 +145,7 @@ class MyProfile extends React.Component<MyProfileProps> {
             $SlideshowOptions: {
                 $Class: $JssorSlideshowRunner$,
                 $Transitions: jssor_1_SlideshowTransitions,
-                $TransitionsOrder: 1
+                $TransitionsOrder: 0
             },
             $ArrowNavigatorOptions: {
                 $Class: $JssorArrowNavigator$

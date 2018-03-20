@@ -5,6 +5,7 @@ import Loader from 'react-loader-advanced';
 import ui from 'redux-ui';
 import Pager from 'react-pager';
 import Services from '../../common/services/services';
+import Promise from "ts-promise";
 import {
     model,
     loadMyCompletedTestDrives,
@@ -33,7 +34,11 @@ interface MyTestDrivesContainerProps {
         completedItems: [],
         inprogressItems: [],
         visiblePages: 4,
-        visibleItems: []
+        visibleItems: [],
+        myCompletedTestDrivesLoading: false,
+        myCompletedTestDrives: [],
+        myInprogressTestDrivesLoading: false,
+        myInprogressTestDrives: []
     }
 })
 class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> {
@@ -42,23 +47,47 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
     }
 
     componentDidMount() {
-        this.props.loadMyCompletedTestDrives(0, 1000);
-        this.props.loadMyInprogressTestDrives(0, 1000);
+        var self = this;
+        var Promisses = [];
+            self.props.updateUI({
+                myCompletedTestDrivesLoading: true,
+                myInprogressTestDrivesLoading: true,
+            });
+
+            Services.getMyCompletedTestDrives(0, 1000).then(data=>{
+                self.props.updateUI({
+                    myCompletedTestDrivesLoading: false,
+                    myCompletedTestDrives: data || [],
+                });
+                this.initialize();
+            });
+
+            Services.getMyInProgressTestDrives(0, 1000).then(data=>{
+                self.props.updateUI({
+                    myInprogressTestDrivesLoading: false,
+                    myInprogressTestDrives: data || []
+                });
+                this.initialize();
+            });
     }
 
 
     getVisibleItems(newPage: number, array: any[], visibleItems: string, currentPage: string) {
         let skip = newPage * this.props.ui.itemsPerPage;
         this.props.updateUI({
-            [currentPage]: newPage,
+            // [currentPage]: newPage,
             [visibleItems]: array.slice(skip, skip + this.props.ui.itemsPerPage)
         });
     }
 
     initialize() {
-        const { myCompletedTestDrives, myCompletedTestDrivesLoading, myInprogressTestDrives,
-            myInprogressTestDrivesLoading, ui, updateUI,
-            loadMyInprogressTestDrives, loadMyCompletedTestDrives } = this.props;
+        const { ui, updateUI } = this.props;
+        const {
+            myCompletedTestDrivesLoading,
+            myCompletedTestDrives,
+            myInprogressTestDrives,
+            myInprogressTestDrivesLoading
+        } = ui;
 
         if (!myCompletedTestDrivesLoading && myCompletedTestDrives && myCompletedTestDrives.length && !ui.completedItems.length) {
             var currentPage = ui.completedItemCurrent;
@@ -72,16 +101,22 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
             if (ui.inprogressItems.length < ui.inprogressItemCurrent * ui.itemsPerPage) {
                 currentPage = currentPage - 1;
             }
-            this.getVisibleItems(currentPage, this.props.myInprogressTestDrives, 'inprogressItems', 'inprogressItemCurrent');
+            this.getVisibleItems(currentPage, myInprogressTestDrives, 'inprogressItems', 'inprogressItemCurrent');
         }
     }
 
     render() {
-        const { myCompletedTestDrives, myCompletedTestDrivesLoading, myInprogressTestDrives,
-            myInprogressTestDrivesLoading, ui, updateUI,
+        const { ui, updateUI,
             loadMyInprogressTestDrives, loadMyCompletedTestDrives } = this.props;
-            const loading = myCompletedTestDrivesLoading && myInprogressTestDrivesLoading;
-            this.initialize();
+        const {
+            myCompletedTestDrivesLoading,
+            myCompletedTestDrives,
+            myInprogressTestDrives,
+            myInprogressTestDrivesLoading
+        } = ui;
+
+        const loading = myCompletedTestDrivesLoading && myInprogressTestDrivesLoading;
+        this.initialize();
         return (
             <div>
                 {ui.isCreaseTestDriveVisible ? <div className="centralbox_button">

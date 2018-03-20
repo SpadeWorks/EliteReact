@@ -25,11 +25,11 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
         return (<div className="col-md-12">
             <h3>{testDrive.title}</h3>
             <div className="col-md-12 social_box">
-                <div className="row">
-                    <a href={"#/reportbug/"+testDrive.id}
+            <div className="row">
+                    {/* <a href={"#/reportbug/"+testDrive.id}
                         title={Messages.REPORT_BUG_TITLE}>
                         <span className="report"></span>
-                    </a>
+                    </a> */}
                     <a href="javascript:;"
                         onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)} title={Messages.SEND_EMAIL_TITLE}>
                         <i className="material-icons">email</i>
@@ -37,12 +37,13 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                     {/* <a href="#">
                         <span className="teams"></span>
                     </a> */}
-                    <a href="javascript:;" title={Messages.SHARE_TITLE}
+                    {/* <a href="javascript:;" title={Messages.SHARE_TITLE}
                         onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
                         <i className="material-icons">share</i>
-                    </a>
-                </div>
+                    </a> */}
             </div>
+            </div>
+            <div className="row">
             <div className="col-md-12 popup_infocontainer">
                 <div className="row">
                     <div className="col-md-6 drive_info">
@@ -152,6 +153,7 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                 + testDrive.id}> {isActive ? 'Drive Through' : 'View Details'} </Link>                    
                     }
                 </div>
+            </div>
             </div>
         </div>)
     }

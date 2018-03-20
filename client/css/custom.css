@@ -6885,10 +6885,15 @@ ul.streetrace_indicator li span {
     height: 130px !important;
     position: relative;
     background: none !important;
-    margin-top: -242px;
-    height:30px !important;
-    z-index:90;
+    margin-top: -190px;
+    height: 30px !important;
+    z-index: 90;
 }
+
+.jssort101 div{
+    height:90px !important;
+}
+
 
 .ride_staus {
     position: relative;
@@ -7056,7 +7061,7 @@ div.car_Container img{width: 500px !important;
     height: 23px;
     /* background: red; */
     position: absolute;
-    top: 450px;
+    top: 548px;
     left: -19px;
     color: white;
     text-transform: uppercase;
@@ -7800,10 +7805,10 @@ div.td_namebox:hover h4 span::after
 
 
 .first_place{position:relative;left:0px; transition:all 0.5s;}
-.second_place{position:relative;left:190px;transition:all 0.5s;}
-.third_place{position:relative;left: 390px;transition:all 0.5s;}
-.fourth_place{position:relative;left: 620px;transition:all 0.5s;}
-.fifth_place{position:relative;left: 820px;transition:all 0.5s;}
+.second_place{position:relative;left:245px;transition:all 0.5s;}
+.third_place{position:relative;left: 490px;transition:all 0.5s;}
+.fourth_place{position:relative;left: 700px;transition:all 0.5s;}
+.fifth_place{position:relative;left: 930px;transition:all 0.5s;}
 
 
 
@@ -7949,7 +7954,7 @@ a {
 .testDrives .nav-tabs>li>a {
     color: #ffffff63;
     border: none;
-    font-size: 17px;
+    font-size: 16px;
     text-transform: uppercase;
 }
 
@@ -7958,7 +7963,7 @@ a {
     border: none;
     color: #ff8d00;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
     text-transform: uppercase;
 }
 
@@ -7976,11 +7981,12 @@ ul.streetrace_indicator{margin: 0 0 0 10px;}
 ul.soapbox_indicator {margin: 0 0 0 10px;}
 
 .total_testdrivebox .tab-pane ul.nav-tabs li a {
-    font-size: 14px !important;
+    font-size: 13px !important;
 }
 
 .total_testdrivebox .nav-tabs>li {
     margin-right: 17px;
+    width: 210px;
 }
 
 
