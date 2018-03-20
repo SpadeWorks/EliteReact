@@ -89,16 +89,16 @@ export class Services {
         window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
     }
 
-    static getLevelNameClass(levelNumber) {
+    static getLevelHtml(levelNumber) {
         switch (levelNumber) {
             case 1:
-                return 'soapbox_indicator';
+                return '<li><span></span></li>';
             case 2:
-                return 'streetrace_indicator'
+                return '<li><span></span></li><li><span></span></li>';
             case 3:
-                return 'dragrace_indicator'
+                return '<li><span></span></li><li><span></span></li><li><span></span></li>';
             default:
-                return 'streetrace_indicator';
+                return '<li><span></span></li><li>';
         }
     }
 
@@ -1877,7 +1877,7 @@ export class Services {
                         AvatarName: avatarDetails.AvatarName,
                         AvatarImage: baseUrl + avatarDetails.FileRef,
                         AvatarID_id: avatarDetails.ID,
-                        Elite_UserDepartment: user.department,
+                        Elite_UserDepartment: '',
                         UserInfoName: user.displayName,
                         UserRole: user.role,
                         [Constants.Columns.USER_EMAIL]: user.workEmail

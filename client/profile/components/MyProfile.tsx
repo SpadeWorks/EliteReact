@@ -181,6 +181,15 @@ class MyProfile extends React.Component<MyProfileProps> {
         $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
         /*#endregion responsive code end*/
 
+        var currentPosition = 0;
+        this.props.cars && this.props.eliteProfile && this.props.cars.map((car, index) => {
+            if (car.CarName == this.props.eliteProfile.carName) {
+                currentPosition = index;
+            }
+        });
+
+        jssor_1_slider.$GoTo(currentPosition);
+
     }
 
     getRideSelectionBox(car, eliteProfile, baseUrl) {
@@ -188,10 +197,13 @@ class MyProfile extends React.Component<MyProfileProps> {
             if (car.CarName == eliteProfile.carName) {
                 return <p><a href="javascript:;" className="present_ride">
                     <img src="/Style%20Library/Elite/images/done.png" />Your ride!</a></p>
-            } else {
+            } else if(car.CarLevel == eliteProfile.levelName) {
                 return <p><a href="javascript:;"
                     onClick={() => this.carSelected(car, baseUrl)}
                     className="present_ride"><img src="/Style%20Library/Elite/images/empty.png" />Get this ride</a></p>
+            } else{
+                return <p className="locked_ride orange">
+                    <img src="/Style%20Library/Elite/images/lock.png" />Level {car.CarLevel} ride</p>
             }
         } else {
             return <p className="locked_ride orange">
@@ -267,7 +279,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                 </div>
                             </div>
                             <MyProfileMiddleContainer eliteProfile={eliteProfile} currentTestDrives={currentTestDrives} />
-                            {(!this.props.id && this.props.id != -1) ?
+                            {(!this.props.id && this.props.id != -1 && eliteProfile) ?
                                 <div className="row car_sliderbox">
                                     <div className="profile_overviewbox">
                                         <div className="container">

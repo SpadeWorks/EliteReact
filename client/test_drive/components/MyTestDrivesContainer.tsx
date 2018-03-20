@@ -48,27 +48,28 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
 
     componentDidMount() {
         var self = this;
-        var Promisses = [];
+        self.props.updateUI({
+            myCompletedTestDrivesLoading: true,
+            myInprogressTestDrivesLoading: true,
+        });
+
+        Services.getMyCompletedTestDrives(0, 1000).then(data => {
+            this.initialize();
             self.props.updateUI({
-                myCompletedTestDrivesLoading: true,
-                myInprogressTestDrivesLoading: true,
+                myCompletedTestDrivesLoading: false,
+                myCompletedTestDrives: data || [],
             });
+            
+        });
 
-            Services.getMyCompletedTestDrives(0, 1000).then(data=>{
-                self.props.updateUI({
-                    myCompletedTestDrivesLoading: false,
-                    myCompletedTestDrives: data || [],
-                });
-                this.initialize();
+        Services.getMyInProgressTestDrives(0, 1000).then(data => {
+            this.initialize();
+            self.props.updateUI({
+                myInprogressTestDrivesLoading: false,
+                myInprogressTestDrives: data || []
             });
-
-            Services.getMyInProgressTestDrives(0, 1000).then(data=>{
-                self.props.updateUI({
-                    myInprogressTestDrivesLoading: false,
-                    myInprogressTestDrives: data || []
-                });
-                this.initialize();
-            });
+            
+        });
     }
 
 
@@ -106,8 +107,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
     }
 
     render() {
-        const { ui, updateUI,
-            loadMyInprogressTestDrives, loadMyCompletedTestDrives } = this.props;
+        const { ui, updateUI, loadMyInprogressTestDrives, loadMyCompletedTestDrives } = this.props;
         const {
             myCompletedTestDrivesLoading,
             myCompletedTestDrives,
@@ -115,8 +115,6 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
             myInprogressTestDrivesLoading
         } = ui;
 
-        const loading = myCompletedTestDrivesLoading && myInprogressTestDrivesLoading;
-        this.initialize();
         return (
             <div>
                 {ui.isCreaseTestDriveVisible ? <div className="centralbox_button">
@@ -127,7 +125,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                 <Tabs selected={0}>
                     <Pane label="TEST DRIVES IN PROGRESS">
                         <div>
-                            <Loader show={myCompletedTestDrivesLoading} message={'Loading...'}>
+                            <Loader show={myInprogressTestDrivesLoading} message={'Loading...'}>
                                 {
                                     (!myInprogressTestDrivesLoading && ui.inprogressItems && ui.inprogressItems.length) ?
                                         ui.inprogressItems.map((testDriveObj: any, index) => {
@@ -140,7 +138,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                                 index={index}
                                                 isCompleted={false}
                                             />)
-                                        }) : (!loading && <div className="no-data-message">{Messages.TEST_DRIVE_INPROGRESS_MSG}</div>)
+                                        }) : (!myInprogressTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_INPROGRESS_MSG}</div>)
                                 }
                                 {
                                     (!myInprogressTestDrivesLoading && ui.inprogressItems && ui.inprogressItems.length > 0) ?
@@ -162,7 +160,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                     </Pane>
                     <Pane label="COMPLETED TEST DRIVES">
                         <div>
-                            <Loader show={myCompletedTestDrivesLoading} message={'Loading...'}>
+                            <Loader show={myCompletedTestDrivesLoading} message={'Loading'}>
                                 <div className="row">{
                                     (!myCompletedTestDrivesLoading && ui.completedItems && ui.completedItems.length) ?
                                         ui.completedItems.map((testDriveObj, index) => {
@@ -175,7 +173,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                                 index={index}
                                                 isCompleted={true}
                                             />)
-                                        }) : (!loading && <div className="no-data-message">{Messages.TEST_DRIVE_COMPLETED_MSG}</div>)
+                                        }) : (!myCompletedTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_COMPLETED_MSG}</div>)
                                 } </div>
                                 {
                                     (!myCompletedTestDrivesLoading && ui.completedItems && ui.completedItems.length > 0) ?

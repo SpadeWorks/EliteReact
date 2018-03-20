@@ -43,7 +43,7 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
         this.getDevices = this.getDevices.bind(this);
         this.getOSes = this.getOSes.bind(this);   
         let self = this.props;     
-        if (this.props.ui.department.length == 0 && this.props.eliteProfile.department.length) {            
+        if (this.props.ui.department.length == 0 && this.props.eliteProfile.department && this.props.eliteProfile.department.length) {            
             // Service.getDevices().then((devices: Array<any>) => {
             //     if (self.ui.devices == '') {
             //         let selectedDevices = devices.filter(obj => {
@@ -176,7 +176,7 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
         this.props.updateMultiSelect(this.props.ui.OS, "availableOS", this.props.eliteProfile);
         this.props.updateMultiSelect(this.props.ui.devices, "availableDevices", this.props.eliteProfile);
         //this.props.updateMultiSelect(this.props.ui.department, "department", this.props.eliteProfile);
-        this.props.eliteProfile.department = this.props.ui.department.Label;
+        this.props.eliteProfile.department = this.props.ui.department ? this.props.ui.department.Label : '';
         this.props.updateMultiSelect(this.props.ui.avatarSelectedImage, "avatarImage", this.props.eliteProfile);
         this.props.eliteProfile.avatarID = this.props.ui.avatarSelectedID;
         this.props.eliteProfile.avatarImage = this.props.ui.avatarSelectedImage;
