@@ -74,10 +74,7 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                                 <div className="row">
                                                     <div className="col-md-12">
                                                         <div className="row">
-                                                            <ul className={Services.getLevelNameClass(testDrive.levelNumber)}>
-                                                                <li><span></span></li>
-                                                                <li><span></span></li>
-                                                                <li><span></span></li>
+                                                            <ul className="dragrace_indicator" dangerouslySetInnerHTML={{__html: Services.getLevelHtml(testDrive.levelNumber)}}>
                                                             </ul>
                                                         </div>
                                                         <div className="row">

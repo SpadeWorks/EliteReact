@@ -39,6 +39,9 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
 
     componentDidMount() {
         var self = this;
+        self.props.updateUI({
+            activeTestDrivesLoading: true
+        });
         Services.getActiveTestDrives(0, 1000).then(data => {
             self.props.updateUI({
                 activeTestDrives: data || [],

@@ -176,7 +176,7 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
         this.props.updateMultiSelect(this.props.ui.OS, "availableOS", this.props.eliteProfile);
         this.props.updateMultiSelect(this.props.ui.devices, "availableDevices", this.props.eliteProfile);
         //this.props.updateMultiSelect(this.props.ui.department, "department", this.props.eliteProfile);
-        this.props.eliteProfile.department = this.props.ui.department.Label;
+        this.props.eliteProfile.department = this.props.ui.department ? this.props.ui.department.Label : '';
         this.props.updateMultiSelect(this.props.ui.avatarSelectedImage, "avatarImage", this.props.eliteProfile);
         this.props.eliteProfile.avatarID = this.props.ui.avatarSelectedID;
         this.props.eliteProfile.avatarImage = this.props.ui.avatarSelectedImage;

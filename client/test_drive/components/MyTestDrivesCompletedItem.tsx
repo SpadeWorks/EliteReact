@@ -44,12 +44,12 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
 
         return (<div className="col-md-4">
             <div className="col-md-12 progress_drivebox">
-            <Link to={'/participation/' + testDrive.id}><h4>{testDrive.title}</h4></Link>
+                <Link to={'/participation/' + testDrive.id}><h4>{testDrive.title}</h4></Link>
                 <div className="col-md-12 pull-right">
                     <div className="row">
                         <div className="col-md-12 social_box">
                             <div className="row">
-                                <a href={"#/reportbug/"+testDrive.id} title={Messages.REPORT_BUG_TITLE}>
+                                <a href={"#/reportbug/" + testDrive.id} title={Messages.REPORT_BUG_TITLE}>
                                     <span className="report"></span>
                                 </a>
                                 <a href="javascript:;" title={Messages.SEND_EMAIL_TITLE}
@@ -138,11 +138,10 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                     </div>
                                     <div className="row race_type">
                                         <div className="col-md-12">
-                                            <ul className={Services.getLevelNameClass(testDrive.levelNumber)}>
-                                                <li><span></span></li>
-                                                <li><span></span></li>
-                                                <li><span></span></li>
-                                            </ul>
+                                            <div className="row">
+                                                <ul className="dragrace_indicator" dangerouslySetInnerHTML={{ __html: Services.getLevelHtml(testDrive.levelNumber) }}>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <div className="col-md-12">
                                             <h5>{testDrive.levelName}</h5>
