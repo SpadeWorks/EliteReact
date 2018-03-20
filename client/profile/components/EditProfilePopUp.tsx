@@ -43,7 +43,7 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
         this.getDevices = this.getDevices.bind(this);
         this.getOSes = this.getOSes.bind(this);   
         let self = this.props;     
-        if (this.props.ui.department.length == 0 && this.props.eliteProfile.department.length) {            
+        if (this.props.ui.department.length == 0 && this.props.eliteProfile.department && this.props.eliteProfile.department.length) {            
             // Service.getDevices().then((devices: Array<any>) => {
             //     if (self.ui.devices == '') {
             //         let selectedDevices = devices.filter(obj => {
