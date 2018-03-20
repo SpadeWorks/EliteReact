@@ -1260,7 +1260,7 @@ export class Services {
         });
     }
 
-    static getCompletedTestDriveIRun(number, skip = 0, top = 3) {
+    static getCompletedTestDriveIRun(skip = 0, top = 3) {
         return new Promise((resolve, reject) => {
             var ownerID = Services.getCurrentUserID();
             var d = new Date();

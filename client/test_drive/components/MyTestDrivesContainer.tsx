@@ -54,20 +54,22 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
         });
 
         Services.getMyCompletedTestDrives(0, 1000).then(data => {
-            this.initialize();
+            
             self.props.updateUI({
                 myCompletedTestDrivesLoading: false,
                 myCompletedTestDrives: data || [],
             });
+            this.initialize();
             
         });
 
         Services.getMyInProgressTestDrives(0, 1000).then(data => {
-            this.initialize();
+            
             self.props.updateUI({
                 myInprogressTestDrivesLoading: false,
                 myInprogressTestDrives: data || []
             });
+            this.initialize();
             
         });
     }
