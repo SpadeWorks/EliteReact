@@ -100,10 +100,8 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                     <div className="row race_type">
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <div className="row">
-                                                    <ul className="dragrace_indicator" dangerouslySetInnerHTML={{ __html: Services.getLevelHtml(testDrive.levelNumber) }}>
-                                                    </ul>
-                                                </div>
+                                                <ul className="dragrace_indicator" dangerouslySetInnerHTML={{ __html: Services.getLevelHtml(testDrive.levelNumber) }}>
+                                                </ul>
                                             </div>
                                             <div className="row">
                                                 <h5 className="race_neme">{testDrive.levelName}</h5>
