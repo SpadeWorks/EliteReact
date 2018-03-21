@@ -113,7 +113,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         link: '/'
     },
     {
-        name: 'Test drive central',
+        name: 'Test drive center',
         link: '/testdrives/'
     },
     {

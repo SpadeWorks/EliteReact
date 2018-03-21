@@ -162,7 +162,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                     </Pane>
                     <Pane label="COMPLETED TEST DRIVES">
                         <div>
-                            <Loader show={myCompletedTestDrivesLoading} message={'Loading'}>
+                            <Loader show={myCompletedTestDrivesLoading} message={'Loading...'}>
                                 <div className="row">{
                                     (!myCompletedTestDrivesLoading && ui.completedItems && ui.completedItems.length) ?
                                         ui.completedItems.map((testDriveObj, index) => {

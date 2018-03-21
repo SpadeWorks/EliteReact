@@ -203,7 +203,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                     className="present_ride"><img src="/Style%20Library/Elite/images/empty.png" />Get this ride</a></p>
             } else{
                 return <p className="locked_ride orange">
-                    <img src="/Style%20Library/Elite/images/lock.png" />Level {car.CarLevel} ride</p>
+                    <img src="/Style%20Library/Elite/images/lock.png" />{car.PointsRequired} points required</p>
             }
         } else {
             return <p className="locked_ride orange">
