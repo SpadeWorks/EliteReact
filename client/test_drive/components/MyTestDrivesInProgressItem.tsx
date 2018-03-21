@@ -116,10 +116,8 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
                                     </div>
                                     <div className="row race_type">
                                         <div className="col-md-12">
-                                            <div className="row">
-                                                <ul className="dragrace_indicator" dangerouslySetInnerHTML={{ __html: Services.getLevelHtml(testDrive.levelNumber) }}>
-                                                </ul>
-                                            </div>
+                                            <ul className="dragrace_indicator" dangerouslySetInnerHTML={{ __html: Services.getLevelHtml(testDrive.levelNumber) }}>
+                                            </ul>
                                         </div>
                                         <div className="col-md-12">
                                             <div className="row">

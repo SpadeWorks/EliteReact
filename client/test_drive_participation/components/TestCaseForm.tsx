@@ -147,7 +147,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         return (
             <div className={"item " + (active ? 'active' : '')} id={'test-case-form' + index}>
                 <div className="row">
-                    <Loader show={testDriveInstance.testCaseSaveInProgress || false} message={'Loading...'}>
+                    <Loader show={testDriveInstance.testCaseSaveInProgress || false} message={'Saving...'}>
                         <div className="container ">
                             <div className="col-md-12 ">
                                 <div className="row testcase_box ">

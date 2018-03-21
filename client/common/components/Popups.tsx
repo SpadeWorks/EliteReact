@@ -58,7 +58,7 @@ class Popup extends React.Component<PopupProps> {
             <div className="modal-buttons">{
               buttons && buttons.length > 0 ? buttons.map((button: any, index) => {
                 return (button.callBack ?
-                  <a href="javascript:;" className="button type1 closingModal"
+                  <a key = {index} href="javascript:;" className="button type1 closingModal"
                     onClick={() => { console.log("calling call back"); button.callBack() }} >{button.name}</a>
                   : <Link key={index} className="button type1 closingModal" to={button.link}>{button.name}</Link>)
               }) : ''

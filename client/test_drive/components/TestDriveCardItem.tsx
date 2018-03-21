@@ -22,9 +22,9 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                     <div className="row">
                         <div className="col-md-12 social_box">
                             <div className="row">
-                                <a href={"#/reportbug/" + testDrive.id} title={Messages.REPORT_BUG_TITLE}>
+                                {/* <a href={"#/reportbug/" + testDrive.id} title={Messages.REPORT_BUG_TITLE}>
                                     <span className="report"></span>
-                                </a>
+                                </a> */}
                                 <a href="javascript:;" title={Messages.SEND_EMAIL_TITLE}
                                     onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
                                     <i className="material-icons">email</i>
