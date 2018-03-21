@@ -361,7 +361,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                                                 </div>
 
                                                                 <img data-u="image" className={totalPoints < car.PointsRequired ? 'car_bigview locked' : 'car_bigview'} src={car.FileRef} />
-                                                               {totalPoints < car.PointsRequired ? <div className="big_lock text-center"><img src="/Style%20Library/Elite/images/locked-car.png" data-events="auto" data-display="inline"/></div>:''}
+                                                               {car.CarLevel != eliteProfile.levelName ? <div className="big_lock text-center"><img src="/Style%20Library/Elite/images/locked-car.png" data-events="auto" data-display="inline"/></div>:''}
                                                                 <img data-u="thumb" src={car.FileRef} />
                                                                 <div className="col-md-3 col-md-offset-5 jsOffset text-center">
                                                                     {

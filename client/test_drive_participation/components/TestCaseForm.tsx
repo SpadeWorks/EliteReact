@@ -163,7 +163,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                         <img src="/Style%20Library/Elite/images//i.png" />
                                         Guide me to solve this test case</span>
                                     </a>
-                                    <h4 className="testcase_title ">Select the test case status</h4>
+                                    <h4 className="testcase_title ">Select the test case status *</h4>
                                     <div className="row ">
                                         <div className="test_progress ">
                                             <div data-validations={[required]} data-value={ui.selectedResponse}
