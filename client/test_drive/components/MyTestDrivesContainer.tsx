@@ -144,7 +144,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                 }
                                 {
                                     (!myInprogressTestDrivesLoading && ui.inprogressItems && ui.inprogressItems.length > 0) ?
-                                        <div className="row">
+                                        <div className="col-md-12">
                                             <Pager
                                                 total={Math.ceil(myInprogressTestDrives.length / ui.itemsPerPage)}
                                                 current={ui.inprogressItemCurrent}
@@ -179,7 +179,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                 } </div>
                                 {
                                     (!myCompletedTestDrivesLoading && ui.completedItems && ui.completedItems.length > 0) ?
-                                        <div className="row">
+                                        <div className="col-md-12">
                                             <Pager
                                                 total={Math.ceil(myCompletedTestDrives.length / ui.itemsPerPage)}
                                                 current={ui.completedItemCurrent}
