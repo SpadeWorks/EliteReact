@@ -21,7 +21,7 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                     <div className="well">
                         <div>
                             <ul className="nav nav-tabs">
-                                <li className=""><a href="#regional" data-toggle="tab">YOUR REGIONAL</a></li>
+                                <li className=""><a href="#regional" data-toggle="tab">YOUR REGION</a></li>
                                 <li className="active pull-right"><a href="#global" data-toggle="tab">GLOBAL LEADERBOARD</a></li>
                             </ul>
                             <div id="myTabContent" className="tab-content">

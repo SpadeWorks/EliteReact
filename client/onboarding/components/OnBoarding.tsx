@@ -198,7 +198,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                         </div>
                                     </div>
                                     <div className="ride_image">
-                                        <img src="/Style%20Library/Elite/images/stroller-2.png" />
+                                        <img src="/Style%20Library/Elite/images/shoppingcart_Small.png" />
                                     </div>
 
 
