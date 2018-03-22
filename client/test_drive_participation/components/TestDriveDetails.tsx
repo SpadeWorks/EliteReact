@@ -113,11 +113,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         link: '/'
     },
     {
-<<<<<<< HEAD
-        name: 'Test drive center',
-=======
         name: 'Test Drive Center',
->>>>>>> 8889ac91dcc3dd307c45ef47b3ee2a87227e42e5
         link: '/testdrives/'
     },
     {
