@@ -60,8 +60,6 @@ interface AppProps {
     view: string;
 };
 
-var previousStatus = "";
-
 @ui({
     state: {
         activeTab: 0,
@@ -112,12 +110,11 @@ class ManageTestDrive extends React.Component<AppProps> {
                 selectedIndex = 0;
             }
             self.props.updateUI({ activeTab: selectedIndex });
-        });
-        previousStatus = this.props.testDrive.status;
+        });        
         /** Call the plugin */
     }
 
-    onTestDriveSave(testDrive, formID) {
+    onTestDriveSave(testDrive, formID, action) {
         var isFormValid = validateForm(formID);
         var testCases = this.props.testDrive.testCases;
         var questions = this.props.testDrive.questions;
@@ -154,20 +151,21 @@ class ManageTestDrive extends React.Component<AppProps> {
                 return false;
             }
             //this.props.updateUI({ saveIsInProgress: true });
-            Services.getTestDrivesByFilter("TestDriveName eq '" + testDrive.title + "' and (TestDriveStatus eq '" + ColumnsValues.SUBMIT + "' or TestDriveStatus eq '" + ColumnsValues.READY_FOR_LAUNCH + "' or TestDriveStatus eq '" + ColumnsValues.ACTIVE + "')").then((testDriveData: any) => {
-                if (testDriveData && testDriveData.length > 1 && previousStatus == ColumnsValues.DRAFT) {
+            Services.getTestDrivesByFilter("TestDriveName eq '" + testDrive.title.trim() + "' and ID ne '"+testDrive.id+"'").then((testDriveData: any) => {
+                if (testDriveData && testDriveData.length > 0) {
                     //Popup.alert(Messages.TEST_DRIVE_SAME_NAME_ERROR)
                     this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAME_NAME_ERROR, title: "Alert!" });
                     $("#popupCreateTestDriveAlert").trigger('click');
                 }
                 else {
-                    if (testDrive.status == ColumnsValues.DRAFT) {
+                    if (action == "save") {
                         //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
                         toast.success(Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
                         this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAVEDDRAFT_MSG, title: "Success!" });
                         $("#popupManageTestDriveSuccessSaveAsDraft").trigger('click');
                     }
-                    else {
+                    else {     
+                        testDrive.status = ColumnsValues.SUBMIT;                                                                
                         //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SUBMIT_MSG);
                         this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SUBMIT_MSG, title: "Success!" });
                         $("#popupManageTestDriveSuccess").trigger('click');
@@ -320,7 +318,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                         <div className="col-xs-12 form_box tab-container">
                                             <TestDriveForm
                                                 testDrive={testDrive}
-                                                saveTestDrive={(t, f) => this.onTestDriveSave(t, f)}
+                                                saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
                                                 submitTestDrive={(t) => dispatch(submitTestDrive(t))}
                                                 onChange={(e, testDrive) => dispatch(updateTestDrive(e, testDrive))}
                                                 updateMultiSelect={(value, control, testDrive) => dispatch(updateMultiSelect(value, control, testDrive))}
@@ -341,7 +339,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                             <TestCases testCases={testDrive.testCases}
                                                 newTestCase={testCase}
                                                 saveTestCase={(t, f) => this.onSaveTestCase(t, f)}
-                                                saveTestDrive={(t, f) => this.onTestDriveSave(t, f)}
+                                                saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
                                                 editTestCase={(t) => dispatch(editTestCase(t))}
                                                 deleteTestCase={(id) => dispatch(deleteTestCase(id))}
                                                 onChange={(e, testCase) => dispatch(updateTestCase(e, testCase))}
@@ -365,7 +363,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                             <Surveys questions={testDrive.questions}
                                                 newQuestion={question}
                                                 saveQuestion={(t, f) => this.onSaveQuestion(t, f)}
-                                                saveTestDrive={(t, f) => this.onTestDriveSave(t, f)}
+                                                saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
                                                 editQuestion={(t) => dispatch(editQuestion(t))}
                                                 deleteQuestion={(id) => dispatch(deleteQuestion(id))}
                                                 onChange={(e, question) => dispatch(updateQuestion(e, question))}

@@ -21,7 +21,7 @@ if ("default" in moment) {
 
 interface TestDriveFormProps {
     testDrive: TestDrive,
-    saveTestDrive: (testDrive: TestDrive, formID: string) => any;
+    saveTestDrive: (testDrive: TestDrive, formID: string, action: string) => any;
     submitTestDrive: (testDrive: TestDrive) => any;
     onChange: (event: any, testDrive: TestDrive) => any;
     updateMultiSelect: (value: any, control: string, testDrive: TestDrive) => any;
@@ -182,7 +182,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
 
     saveValidate(testDrive) {
         this.props.updateUI({ saveLoading: true });
-        this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);
+        this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save");
     }
 
 
@@ -255,8 +255,6 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         link: '/testdrives/pendingapprovals '
     }
     ]
-
-
 
     render() {
         const isApprover = Service.getUserProfileProperties().role;

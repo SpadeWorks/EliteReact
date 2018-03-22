@@ -20,7 +20,7 @@ interface SurveysProps {
     saveQuestion: (question: Question, formID: string) => any;
     editQuestion: (question: Question) => any;
     onChange: (event: any, question: Question) => any;
-    saveTestDrive: (testDrive: TestDrive, formID: string) => any;
+    saveTestDrive: (testDrive: TestDrive, formID: string, action: string) => any;
     testDrive: TestDrive;
     updateUI: (any) => any;
     ui: any;
@@ -44,9 +44,8 @@ class Surveys extends React.Component<SurveysProps> {
 
     onSubmit() {
         this.props.updateUI({ saveLoading: true });
-        var testDrive = this.props.testDrive;
-        testDrive.status = ColumnsValues.SUBMIT;
-        this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);
+        var testDrive = this.props.testDrive;                
+        this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "submit");
     }
 
     componentDidMount() {
@@ -113,7 +112,7 @@ class Surveys extends React.Component<SurveysProps> {
                     {
                         testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ? <div className="button type1 nextBtn btn-lg pull-right animated_button">
                             <input type="button" value="Save as a draft"
-                                onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
+                                onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save") }} />
                         </div> : ''
                     }
 
