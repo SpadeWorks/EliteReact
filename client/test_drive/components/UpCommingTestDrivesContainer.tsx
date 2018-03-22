@@ -102,7 +102,9 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
                         }) : (!upCommingTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_UPCOMING_MSG}</div>)
                 }
                 {
-                    (!upCommingTestDrivesLoading && ui.visibleItems && ui.visibleItems.length > 0) &&
+                   
+                    (!upCommingTestDrivesLoading && ui.visibleItems && ui.visibleItems.length > 0) ?
+                    <div className="col-md-12">
                     <Pager
                         total={Math.ceil(upCommingTestDrives.length / ui.itemsPerPage)}
                         current={ui.current}
@@ -111,6 +113,7 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
                         className="pagination-sm pull-right"
                         onPageChanged={(newPage) => this.getVisibleItems(newPage)}
                     />
+                    </div> : ''
                 }
             </Loader>
         </div>)

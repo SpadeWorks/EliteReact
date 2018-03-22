@@ -147,7 +147,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         return (
             <div className={"item " + (active ? 'active' : '')} id={'test-case-form' + index}>
                 <div className="row">
-                    <Loader show={testDriveInstance.testCaseSaveInProgress || false} message={'Loading...'}>
+                    <Loader show={testDriveInstance.testCaseSaveInProgress || false} message={'Saving...'}>
                         <div className="container ">
                             <div className="col-md-12 ">
                                 <div className="row testcase_box ">
@@ -163,7 +163,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                         <img src="/Style%20Library/Elite/images//i.png" />
                                         Guide me to solve this test case</span>
                                     </a>
-                                    <h4 className="testcase_title ">Select the test case status</h4>
+                                    <h4 className="testcase_title ">Select the test case status *</h4>
                                     <div className="row ">
                                         <div className="test_progress ">
                                             <div data-validations={[required]} data-value={ui.selectedResponse}

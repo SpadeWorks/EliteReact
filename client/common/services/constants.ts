@@ -108,6 +108,7 @@ export class ColumnsValues {
     static TEST_DRIVE_OWNER_DISPLAY_NAME = "Test Drive Owner";    
     static EDIT_VIEW = "EDIT";
     static DISPLAY_VIEW = "DISPLAY";
+    static TEST_DRIVE_COMPLETED = "Completed";
 }
 
 export class Globals {

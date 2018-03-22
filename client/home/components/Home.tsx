@@ -93,8 +93,10 @@ class Home extends React.Component<HomeProps, HomeState> {
             var videoContainer = $(".modal-content");
             var container = $(".letest_drivebox");
             var container2 = $(".letest_drivebox2");
+            var toolbar = $(".rte-toolbar")
             if (!container.is(e.target) && container.has(e.target).length === 0 &&
-                !container2.is(e.target) && container2.has(e.target).length === 0) {
+                !container2.is(e.target) && container2.has(e.target).length === 0 &&
+                !toolbar.is(e.target) && toolbar.has(e.target).length === 0) {
                 $(".lc_container").removeClass("lc_containerclick");
                 $(".letest_drivebox").removeClass("letest_driveboxclick");
                 $(".lc_container2").removeClass("lc_containerclick2");
@@ -103,7 +105,8 @@ class Home extends React.Component<HomeProps, HomeState> {
                 $(".letest_drivebox2").removeClass('box').hide();
             }
 
-            if (!videoContainer.is(e.target) && videoContainer.has(e.target).length === 0) {
+            if (!videoContainer.is(e.target) && videoContainer.has(e.target).length === 0 &&
+            !toolbar.is(e.target) && toolbar.has(e.target).length === 0) {
                 $(".close-popup").trigger('click');
                 $(".close-popup").trigger('click');
             }

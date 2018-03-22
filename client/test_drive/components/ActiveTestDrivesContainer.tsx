@@ -103,7 +103,9 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
                         }) : (!activeTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_ACTIVE_MSG}</div>)
                 }
                 {
-                    (!activeTestDrivesLoading && ui.visibleItems && ui.visibleItems.length > 0) &&
+                    
+                    (!activeTestDrivesLoading && ui.visibleItems && ui.visibleItems.length > 0) ?
+                    <div className="col-md-12">
                     <Pager
                         total={Math.ceil(activeTestDrives.length / ui.itemsPerPage)}
                         current={ui.current}
@@ -112,6 +114,7 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
                         className="pagination-sm pull-right"
                         onPageChanged={(newPage) => this.getVisibleItems(newPage)}
                     />
+                    </div>: ''
                 }
             </Loader>
         </div>)

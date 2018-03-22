@@ -21,13 +21,13 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                     <div className="well">
                         <div>
                             <ul className="nav nav-tabs">
-                                <li className=""><a href="#regional" data-toggle="tab">YOUR REGIONAL</a></li>
+                                <li className=""><a href="#regional" data-toggle="tab">YOUR REGION</a></li>
                                 <li className="active pull-right"><a href="#global" data-toggle="tab">GLOBAL LEADERBOARD</a></li>
                             </ul>
                             <div id="myTabContent" className="tab-content">
                                 <div className="tab-pane fade" id="regional">
                                     <div className="col-md-12">
-                                        <div className="row test_drive">
+                                      <div className="row test_drive">
                                             {
                                                 regionLeaders && regionLeaders.length ?
                                                     regionLeaders.slice(0, 3).map((leaderBoard, index) => {

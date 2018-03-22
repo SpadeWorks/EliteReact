@@ -12,6 +12,8 @@ import Promise from "ts-promise";
 import { Services } from '../../common/services/data_service';
 import * as Constants from '../../common/services/constants';
 let confetti = require("../../js/jquery.confetti.js");
+import { validateControl, required, validateForm } from '../../common/components/Validations';
+import Loader from 'react-loader-advanced';
 
 interface QuestionFormProps {
     testDriveInstance: TestDriveInstance;
@@ -53,7 +55,8 @@ class QuestionForm extends React.Component<QuestionFormProps> {
     onChangeSeletedResponseChange(value) {
         this.props.updateUI({ selectedResponse: value });
     }
-    saveQuestionResponse(question: QuestionInstance) {
+    saveQuestionResponse(question: QuestionInstance, ) {
+
         question = {
             ...question,
             responseStatus: ColumnsValues.DRAFT,
@@ -62,15 +65,21 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         }
         this.props.saveQuestionResponse(question);
     }
-    submitQuestionResponse(question: QuestionInstance) {
-        $('#carousel-question-vertical').carousel('next');
-        question = {
-            ...question,
-            responseStatus: ColumnsValues.COMPLETE_STATUS,
-            questionResponse: this.props.ui.questionResponse,
-            selectedResponse: this.props.ui.selectedResponse
+    submitQuestionResponse(question: QuestionInstance, formID) {
+        if (validateForm(formID)) {
+            $('#carousel-question-vertical').carousel('next');
+            question = {
+                ...question,
+                responseStatus: ColumnsValues.COMPLETE_STATUS,
+                questionResponse: this.props.ui.questionResponse,
+                selectedResponse: this.props.ui.selectedResponse
+            }
+            this.props.saveQuestionResponse(question);
+            return true;
+        } else {
+            return false;
         }
-        this.props.saveQuestionResponse(question);
+
     }
 
     getCompletedQuestionCount() {
@@ -93,77 +102,88 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         });
     }
 
-    submitSurvey(question) {
-        this.submitQuestionResponse(question);
-        this.getPopUpBodyData().then((data: any) => {
-            this.props.updateUI({ requirmentMessage: data.message });
-            $("#popupPopTheFizz").trigger("click");
-            $(".modal-backdrop.fade.in").hide();
-            confetti.InitializeConfettiInit();
-        })
+    submitSurvey(question, formID) {
+        if (this.submitQuestionResponse(question, formID)) {
+            this.getPopUpBodyData().then((data: any) => {
+                this.props.updateUI({ requirmentMessage: data.message });
+                $("#popupPopTheFizz").trigger("click");
+                $(".modal-backdrop.fade.in").hide();
+                confetti.InitializeConfettiInit();
+            })
+        };
+
     }
 
     render() {
-        const { question, saveQuestionResponse, ui, updateUI, active, isLast, index } = this.props;
-        return (<div className={"item " + (active ? 'active' : '')}>
-            <div className="container ">
-                <div className="col-md-12 ">
-                    <div className="row testcase_box ">
-                        <span className="orange">{"Question " + (index + 1)}</span>
-                        <h1>{question.title}</h1>
-                        <div className="row ">
-                            <div className="test_progress ">
-                                {
-                                    question.questionType == ColumnsValues.QUESTION_TYPE_OBJECTIVE &&
-                                    <Select
-                                        id="question-response"
-                                        onBlurResetsInput={false}
-                                        onSelectResetsInput={false}
-                                        options={question.options}
-                                        simpleValue
-                                        clearable={true}
-                                        name="selectedResponse"
-                                        value={ui.selectedResponse}
-                                        onChange={(value) => this.onChangeSeletedResponseChange(value)}
-                                        rtl={false}
-                                        searchable={false}
-                                    />
-                                }
-                                {
-                                    question.questionType != ColumnsValues.QUESTION_TYPE_OBJECTIVE &&
+        const { question, saveQuestionResponse, ui, updateUI, active, isLast, index, testDriveInstance } = this.props;
+        const formID = "question-form-" + index;
+        return (
 
-                                    <div className="col-md-12 comment_box ">
-                                        <textarea className="inputMaterial form-control"
-                                            onChange={(e) => this.onChange(e)}
-                                            name="questionResponse"
-                                            value={ui.questionResponse || ""}
-                                            required />
-                                        <span className="highlight "></span>
-                                        <span className="bar "></span>
-                                        <label className="disc_lable ">Description</label>
+            <div className={"item " + (active ? 'active' : '')} id={formID}>
+                <Loader show={testDriveInstance.questionSaveInProgress || false} message={'Saving...'}>
+                    <div className="container ">
+                        <div className="col-md-12 ">
+                            <div className="row testcase_box ">
+                                <span className="orange">{"Question " + (index + 1)}</span>
+                                <h1>{question.title}</h1>
+                                <div className="row ">
+                                    <div className="test_progress ">
+                                        {
+                                            question.questionType == ColumnsValues.QUESTION_TYPE_OBJECTIVE &&
+                                            <div data-validations={[required]} className="custom-select" id={"selectedResponse" + question.responseID}>
+                                                <Select
+                                                    id="question-response"
+                                                    onBlurResetsInput={false}
+                                                    onSelectResetsInput={false}
+                                                    options={question.options}
+                                                    simpleValue
+                                                    clearable={true}
+                                                    name="selectedResponse"
+                                                    value={ui.selectedResponse}
+                                                    onChange={(value) => this.onChangeSeletedResponseChange(value)}
+                                                    rtl={false}
+                                                    searchable={false}
+                                                />
+                                            </div>
+                                        }
+                                        {
+                                            question.questionType != ColumnsValues.QUESTION_TYPE_OBJECTIVE &&
 
+                                            <div className="col-md-12 comment_box ">
+                                                <textarea className="inputMaterial form-control"
+                                                    onChange={(e) => this.onChange(e)}
+                                                    name="questionResponse"
+                                                    value={ui.questionResponse || ""}
+                                                    data-validations={[required]}
+                                                    id={"comments" + question.responseID}
+                                                />
+                                                <span className="highlight "></span>
+                                                <span className="bar "></span>
+                                                <label className="disc_lable ">Description *</label>
+
+                                            </div>
+                                        }
+                                        {
+                                            !isLast && < div className="col-md-12 participation_actionbox">
+                                                <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                                    <input type="button" value="Done" onClick={() => this.submitQuestionResponse(question, formID)} />
+                                                </div>
+                                            </div>
+                                        }
+                                        {
+                                            isLast && <div className="col-md-12 participation_actionbox">
+                                                <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                                    <input disabled={ this.getCompletedQuestionCount() < testDriveInstance.questionIDs.length - 1} type="button" value="Submit survey" onClick={() => this.submitSurvey(question, formID)} />
+                                                </div>
+                                            </div>
+                                        }
                                     </div>
-                                }
-                                {
-                                    !isLast && < div className="col-md-12 participation_actionbox">
-                                        <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                            <input type="button" value="Done" onClick={() => this.submitQuestionResponse(question)} />
-                                        </div>
-                                    </div>
-                                }
-                                {
-                                    isLast && <div className="col-md-12 participation_actionbox">
-                                        <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                            <input type="button" value="Submit survey" onClick={() => this.submitSurvey(question)} />
-                                        </div>
-                                    </div>
-                                }
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div >)
+                </Loader>
+            </div >)
     }
 }
 

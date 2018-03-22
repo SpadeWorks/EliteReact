@@ -17,14 +17,14 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
         const { testDrive, participants, isActive } = this.props;
         return (<div className="col-md-4">
             <div className="col-md-12 progress_drivebox">
-            <Link to={'/participation/' + testDrive.id}><h4>{testDrive.title}</h4></Link>
+                <Link to={'/participation/' + testDrive.id}><h4>{testDrive.title}</h4></Link>
                 <div className="col-md-12 pull-right">
                     <div className="row">
                         <div className="col-md-12 social_box">
                             <div className="row">
-                                <a href={"#/reportbug/"+testDrive.id}  title={Messages.REPORT_BUG_TITLE}>
+                                {/* <a href={"#/reportbug/" + testDrive.id} title={Messages.REPORT_BUG_TITLE}>
                                     <span className="report"></span>
-                                </a>
+                                </a> */}
                                 <a href="javascript:;" title={Messages.SEND_EMAIL_TITLE}
                                     onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
                                     <i className="material-icons">email</i>
@@ -100,10 +100,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                     <div className="row race_type">
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <ul className={Services.getLevelNameClass(testDrive.levelNumber)}>
-                                                    <li><span></span></li>
-                                                    <li><span></span></li>
-                                                    <li><span></span></li>
+                                                <ul className="dragrace_indicator" dangerouslySetInnerHTML={{ __html: Services.getLevelHtml(testDrive.levelNumber) }}>
                                                 </ul>
                                             </div>
                                             <div className="row">

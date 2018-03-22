@@ -89,16 +89,16 @@ export class Services {
         window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
     }
 
-    static getLevelNameClass(levelNumber) {
+    static getLevelHtml(levelNumber) {
         switch (levelNumber) {
             case 1:
-                return 'soapbox_indicator';
+                return '<li><span></span></li>';
             case 2:
-                return 'streetrace_indicator'
+                return '<li><span></span></li><li><span></span></li>';
             case 3:
-                return 'dragrace_indicator'
+                return '<li><span></span></li><li><span></span></li><li><span></span></li>';
             default:
-                return 'streetrace_indicator';
+                return '<li><span></span></li><li>';
         }
     }
 
@@ -1229,9 +1229,7 @@ export class Services {
             var d = new Date();
             var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             var filter = "TestDriveOwner eq " + ownerID +
-                " and TestDriveStatus eq '" + Constants.ColumnsValues.ACTIVE + "'" +
-                " and TestDriveStartDate le datetime'" + todayDate + "T00:00:00.000Z'" +
-                " and TestDriveEndDate ge datetime'" + todayDate + "T00:00:00.000Z'";
+                " and TestDriveStatus eq '" + Constants.ColumnsValues.ACTIVE + "'";
             Services.getTestDrivesByFilter(filter, skip, top)
                 .then((testDrives: any) => {
                     var testDrivesIDs = [];
@@ -1262,14 +1260,13 @@ export class Services {
         });
     }
 
-    static getCompletedTestDriveIRun(number, skip = 0, top = 3) {
+    static getCompletedTestDriveIRun(skip = 0, top = 3) {
         return new Promise((resolve, reject) => {
             var ownerID = Services.getCurrentUserID();
             var d = new Date();
             var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             var filter = "TestDriveOwner eq " + ownerID +
-                " and TestDriveStatus eq '" + Constants.ColumnsValues.ACTIVE + "'" +
-                " and TestDriveEndDate lt datetime'" + todayDate + "T00:00:00.000Z'";
+                " and TestDriveStatus eq '" + Constants.ColumnsValues.TEST_DRIVE_COMPLETED + "'";
             Services.getTestDrivesByFilter(filter, skip, top)
                 .then((testDrives: any) => {
                     var testDrivesIDs = [];
@@ -1877,7 +1874,7 @@ export class Services {
                         AvatarName: avatarDetails.AvatarName,
                         AvatarImage: baseUrl + avatarDetails.FileRef,
                         AvatarID_id: avatarDetails.ID,
-                        Elite_UserDepartment: user.department,
+                        Elite_UserDepartment: '',
                         UserInfoName: user.displayName,
                         UserRole: user.role,
                         [Constants.Columns.USER_EMAIL]: user.workEmail
@@ -2342,9 +2339,7 @@ export class Services {
         var d = new Date();
         var userRegion = Services.getUserProfileProperties().region || '';
         var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-        var filter = "TestDriveStatus eq '" + Constants.ColumnsValues.ACTIVE + "'"
-        " and TestDriveStartDate le datetime'" + todayDate + "T00:00:00.000Z'" +
-            " and TestDriveEndDate ge datetime'" + todayDate + "T00:00:00.000Z'";
+        var filter = "TestDriveStatus eq '" + Constants.ColumnsValues.ACTIVE + "'";
         return new Promise((resolve, reject) => {
             Services.getTestDrivesByFilter(filter, skip, 1000, "TestDriveStartDate", true).then((testDriveInstances: TestDrive[]) => {
                 Services.getMyTestDriveIDs(0, 1000).then(mytestDrivs => {
@@ -2386,8 +2381,7 @@ export class Services {
         var d = new Date();
         var userRegion = Services.getUserProfileProperties().region || '';
         var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-        var filter = "TestDriveStatus eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'" +
-            " and TestDriveStartDate ge datetime'" + todayDate + "T00:00:00.000Z'";
+        var filter = "TestDriveStatus eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'";
         return new Promise((resolve, reject) => {
             Services.getTestDrivesByFilter(filter, skip, 1000, "TestDriveStartDate", true)
                 .then((testDriveInstances: TestDrive[]) => {
