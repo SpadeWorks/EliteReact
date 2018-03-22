@@ -12,11 +12,11 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
         super(props, context);
     }
     render() {
-        const { testDrive} = this.props;
+        const { testDrive } = this.props;
         return (<div className="col-md-12 currtestdrive_list testdrive_I_runbox">
             <div className="row">
                 <div className="col-md-12">
-                <Link to={'/testdrive/' + testDrive.id + '/display'}><h4>{testDrive.title}</h4></Link>
+                    <Link to={'/testdrive/' + testDrive.id + '/display'}><h4>{testDrive.title}</h4></Link>
                 </div>
                 <div className="col-md-12">
                     <div className="row">
@@ -72,10 +72,7 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                                 <div className="row">
                                                     <div className="col-md-12">
                                                         <div className="row">
-                                                            <ul className={Services.getLevelNameClass(testDrive.levelNumber)}>
-                                                                <li><span></span></li>
-                                                                <li><span></span></li>
-                                                                <li><span></span></li>
+                                                            <ul className="dragrace_indicator" dangerouslySetInnerHTML={{ __html: Services.getLevelHtml(testDrive.levelNumber) }}>
                                                             </ul>
                                                         </div>
                                                         <div className="row">
@@ -166,20 +163,20 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                             </div>
                         </div>
                         <div className="col-md-1">
-                         
-                                <div className="row social_box">
+
+                            <div className="row social_box">
                                 <div className="col-md-6">
                                     <Link to={"/testdrive/" + testDrive.id}>
                                         <i className="material-icons">mode_edit</i>
                                     </Link>
-                                    </div>
-                                    <div className="col-md-6">
+                                </div>
+                                <div className="col-md-6">
                                     <Link to={"/testdrive/" + testDrive.id + "/display"}>
                                         <i className="material-icons">remove_red_eye</i>
                                     </Link>
-                                    </div>
                                 </div>
-                            
+                            </div>
+
                         </div>
                     </div>
                 </div>

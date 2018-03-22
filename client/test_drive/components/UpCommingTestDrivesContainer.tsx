@@ -43,7 +43,7 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
         self.props.updateUI({
             upCommingTestDrivesLoading: true,
         });
-        Services.getUpCommingTestDriveIRun(0, 1000).then(data => {
+        Services.getUpcomingTestDrives(0, 1000).then(data => {
             self.props.updateUI({
                 upCommingTestDrivesLoading: false,
                 upCommingTestDrives: data || [],
