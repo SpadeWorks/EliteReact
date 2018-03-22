@@ -4605,7 +4605,7 @@ span.report:hover {
 
 .drive_completionbox {
     min-height: 250px;
-    padding-top: 20px;
+    padding-top: 10px;
     text-align: center;
 }
 
@@ -4971,7 +4971,7 @@ span.teams:hover {
 
 .drive_completionbox {
     min-height: 250px;
-    padding-top: 20px;
+    padding-top: 10px;
 }
 
 .col-md-12.earn_box #canvas2,
@@ -5422,7 +5422,7 @@ h1#dialogTitleSpan {
 
 .para {
     margin-bottom: 20px;
-    height: 90px !important;
+    height: 100px !important;
 }
 
 .para p {
@@ -7912,6 +7912,10 @@ padding-top: 5px;}
         position: relative;
         z-index: 100;
     }    
+
+    .header-title.person_name .next-text {
+        text-transform: uppercase;
+    }
 
 .black_box .nav-tabs>li.active>a, .black_box .nav-tabs>li.active>a:focus,
  .black_box .nav-tabs>li.active>a:hover,
