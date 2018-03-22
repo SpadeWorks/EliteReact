@@ -37,10 +37,10 @@ class CurrentRide extends React.Component<CurrentRideProps> {
                     <img src="/Style%20Library/Elite/images/shoppingcart.png" />
                 </div>
                 <div className="col-md-12 intro_actionbox testdrive_actionbox new_ride">
-                    <div className="button type1 pull-right">
+                    {/* <div className="button type1 pull-right">
                         <input onClick={() => this.goToDashboard()} type="button" value="Also Yes!" />
-                    </div>
-                    <div className="button type1 pull-right">
+                    </div> */}
+                    <div className="button type1 pull-right" style={{ position: "absolute",right:"311px",bottom:"0px" }}>
                         <input onClick={() => this.goToDashboard()} type="button" value="Yes!" />
                     </div>
                 </div>
