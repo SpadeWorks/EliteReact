@@ -27,7 +27,7 @@ interface TestCasesProps {
     saveTestCase: (testCase: TestCase, formID: string) => any;
     editTestCase: (TestCase: TestCase) => any;
     onChange: (event: any, TestCase: TestCase) => any;
-    saveTestDrive: (testDrive: TestDrive, formID: string) => any;
+    saveTestDrive: (testDrive: TestDrive, formID: string, action: string) => any;
     loadTestCases: (testCasesIds: number[]) => any
     switchTab: (tabName) => any;
     fieldDescriptions: any;
@@ -138,7 +138,7 @@ class TestCases extends React.Component<TestCasesProps> {
                         <input type="button" value="Next" onClick={() => this.switchTab(1)} />
                     </div>
                     {testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW  ? <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                        <input disabled={testDrive.status == ColumnsValues.ACTIVE} type="button" value="Save as a draft" onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
+                        <input disabled={testDrive.status == ColumnsValues.ACTIVE} type="button" value="Save as a draft" onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save") }} />
                     </div> : ''}
                 </div>
             </div>

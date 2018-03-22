@@ -1601,7 +1601,7 @@ export class Services {
                 let testDrives = [];
                 let newTestDrive = {
                     ID: testDrive.id,
-                    Title: testDrive.title,
+                    Title: testDrive.title.trim(),
                     EliteDescription: testDrive.description,
                     TestDriveStartDate: testDrive.startDate,
                     TestDriveEndDate: testDrive.endDate,
