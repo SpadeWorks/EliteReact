@@ -25,7 +25,7 @@ import {
 
 const loadMyTestDrive = createAction<any>(
   LOAD_MyTestDrive, 
-  () => Services.getMyTestDrives()
+  () => Services.getMyInProgressTestDrives()
 )
 
 const loadVideo = createAction(
