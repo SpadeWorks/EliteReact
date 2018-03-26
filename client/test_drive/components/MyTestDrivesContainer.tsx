@@ -123,7 +123,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <Link to={"/testdrive"} >Create Test Drive</Link>
                     </div>
-                </div> : <div className="centralbox_button row">
+                </div> : <div className="centralbox_button">
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <a href="javascript:;" onClick={() => Services.requestAccess()} >Become Drive Owner</a>
                     </div>
