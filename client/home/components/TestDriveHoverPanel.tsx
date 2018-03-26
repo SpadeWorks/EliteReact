@@ -34,6 +34,12 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                         onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)} title={Messages.SEND_EMAIL_TITLE}>
                         <i className="material-icons">email</i>
                     </a>
+                    {
+                            checkPortion == Globals.TEST_DRIVE_THAT_I_RUN && 
+                            <a target="_blank" href={"https://teams.microsoft.com/_?threadId=19:"+testDrive.teamsChannelID+"@thread.skype&ctx=channel"}>
+                                    <span className="teams"></span>
+                            </a>
+                    }
                     {/* <a href="#">
                         <span className="teams"></span>
                     </a> */}

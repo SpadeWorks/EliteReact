@@ -60,6 +60,7 @@ export type TestDrive = {
         fail: number,
         inProgress: number;
     }; 
+    teamsChannelID?:string;
 };
 
 export type TestDriveIRun = {

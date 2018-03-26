@@ -49,9 +49,9 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                         onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)} title={Messages.SEND_EMAIL_TITLE}>
                         <i className="material-icons">email</i>
                     </a>
-                    {/* <a href="#">
+                    <a target="_blank" href={"https://teams.microsoft.com/_?threadId=19:"+testDrive.teamsChannelID+"@thread.skype&ctx=channel"}>
                             <span className="teams"></span>
-                        </a> */}
+                    </a>
                     <a href="javascript:;" title={Messages.SHARE_TITLE}
                         onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
                         <i className="material-icons">share</i>
