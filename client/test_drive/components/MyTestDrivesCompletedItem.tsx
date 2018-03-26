@@ -138,8 +138,10 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                     </div>
                                     <div className="race_type">
                                         <div className="col-md-12">
+                                        <div className="row">
                                             <ul className="dragrace_indicator" dangerouslySetInnerHTML={{ __html: Services.getLevelHtml(testDrive.levelNumber) }}>
                                             </ul>
+                                            </div>
                                         </div>
                                         <div className="col-md-12">
                                         <div className="row">

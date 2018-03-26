@@ -13,6 +13,7 @@ import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import { unemojify } from "node-emoji";
 import * as Constants from '../../common/services/constants';
 import { validateControl, required, validateForm } from '../../common/components/Validations';
+import * as $ from 'jquery';
 
 interface TestCaseFormProps {
     testCase: TestCase,
@@ -76,6 +77,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
         this.onExpectedOutcomeChange = this.onExpectedOutcomeChange.bind(this);
         this.uploadImageCallBack = this.uploadImageCallBack.bind(this);
         this.deleteTestCase = this.deleteTestCase.bind(this);
+        this.waitForEl = this.waitForEl.bind(this);
     }
 
     onChange = (e) => {
@@ -175,8 +177,27 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
     }
 
     componentDidMount() {
+        var self = this;
         this.updateInitialEditorValue("scenario");
         this.updateInitialEditorValue("expectedOutcome");
+        
+        $(".custom-editor").click(function () {
+            self.waitForEl(".image-uploader-popup", function () {
+                $(".rdw-image-modal-upload-option-label").html("Click to upload");
+            });
+
+        })
+    }
+
+    waitForEl(selector, callback) {
+        var self = this;
+        if ($(selector).length) {
+            callback();
+        } else {
+            setTimeout(function () {
+                self.waitForEl(selector, callback);
+            }, 10);
+        }
     }
 
     render() {
@@ -277,7 +298,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                     {ui.scenario &&
                                         <Editor
                                             editorState={ui.scenario}
-                                            toolbarOnFocus
+
                                             toolbarClassName="rte-toolbar"
                                             wrapperClassName="rte-wrapper"
                                             editorClassName="rte-editor"
