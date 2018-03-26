@@ -1062,7 +1062,8 @@ export class Services {
                     Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
                     Constants.Columns.EXPECTED_BUSINESS_VALUE,
                     Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_EMAIL,
-                    Constants.Columns.USER_REGION
+                    Constants.Columns.USER_REGION,
+                    Constants.Columns.TestDriveMTCHID
                 ).skip(skip).top(top)
                 .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID, Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
                 .filter(filter)
@@ -1096,7 +1097,8 @@ export class Services {
                             testCases: null,
                             questions: null,
                             levelNumber: testDrive.LevelID[Constants.Columns.LevelNumber],
-                            ownerEmail: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_EMAIL]
+                            ownerEmail: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_EMAIL],
+                            teamsChannelID: testDrive.TestDriveMTCHID && testDrive.TestDriveMTCHID.replace("-","")
                         };
                     });
                     resolve(results);
