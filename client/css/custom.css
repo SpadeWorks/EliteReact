@@ -5809,7 +5809,7 @@ animation-delay: 10s;
     margin-left: 5px;
     margin-right: 10px;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
     margin-top: 4px;
 }
 
@@ -5855,7 +5855,7 @@ span.rdr-Day.is-selected {
 span.help-text {
     font-family: titanium;
     color: #f6981e;
-    font-size: 10px;
+    font-size: 14px;
 }
 
 .Select--multi .Select-value-icon {
@@ -7743,7 +7743,7 @@ div.td_namebox:hover h4 span::after
         float: right;
         font-family: titanium;
         color: orange;
-        font-size: 12px;
+        font-size: 14px;
     }
     .profile_box .nav-tabs>li.active>a:hover,
     .profile_box .nav-tabs>li.focus>a:hover {

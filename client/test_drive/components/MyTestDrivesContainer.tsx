@@ -78,7 +78,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
     getVisibleItems(newPage: number, array: any[], visibleItems: string, currentPage: string) {
         let skip = newPage * this.props.ui.itemsPerPage;
         this.props.updateUI({
-            // [currentPage]: newPage,
+            [currentPage]: newPage,
             [visibleItems]: array.slice(skip, skip + this.props.ui.itemsPerPage)
         });
     }

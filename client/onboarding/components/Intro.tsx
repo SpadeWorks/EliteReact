@@ -19,10 +19,20 @@ class Intro extends React.Component<IntroProps> {
     componentDidMount() {
 
         Services.getApplicationConfigurations().then((appConfig: any) => {
+            var actions = [];
+            var lines = appConfig.IntroductionText.split("\n");
+            lines.forEach((line, index) => {
+                actions.push({
+                    type: line + ' '
+                });
+                if(index < lines.length -1 && line && line.length > 0){
+                    actions.push({
+                        type: "<br>"
+                    });
+                }
+            });
             $('#typewriteText').typewrite({
-                actions: [
-                    { type: appConfig.IntroductionText }
-                ]
+                actions: actions
             });
         });
     }
