@@ -185,7 +185,11 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <Link to={"/testdrive"} >Create Test Drive</Link>
                     </div>
-                </div> : ''}
+                </div> : <div className="centralbox_button row">
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <a href="javascript:;" onClick={() => Services.requestAccess()} >Become Drive Owner</a>
+                    </div>
+                </div>}
                 <Tabs selected={0}>
                     <Pane label="TEST DRIVES IN PROGRESS">
                         <div>

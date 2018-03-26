@@ -56,6 +56,12 @@ pnp.setup({
 
 export class Services {
 
+    static requestAccess() {
+        Services.getApplicationConfigurations().then((appConfig: any)=>{
+            Services.mailto(appConfig.AccessProvider || '', 
+                appConfig.AccessEmailSubject || '', appConfig.AccessEmailBody.replace("\n", '%0d%0a') || '');
+        });
+    }
     static getPrizes() {
         return new Promise((resolve, reject) => {
             var user = Services.getUserProfileProperties();
@@ -1006,11 +1012,11 @@ export class Services {
                     "PointsRequired",
                     "CarLevel",
                     "LevelName")
-                    .orderBy("CarLevel").get().then(car => {
-                        resolve(car);
-                    }, err => {
-                        reject(err);
-                    })
+                .orderBy("CarLevel").get().then(car => {
+                    resolve(car);
+                }, err => {
+                    reject(err);
+                })
         });
     }
 
@@ -1098,7 +1104,7 @@ export class Services {
                             questions: null,
                             levelNumber: testDrive.LevelID[Constants.Columns.LevelNumber],
                             ownerEmail: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_EMAIL],
-                            teamsChannelID: testDrive.TestDriveMTCHID && testDrive.TestDriveMTCHID.replace("-","")
+                            teamsChannelID: testDrive.TestDriveMTCHID && testDrive.TestDriveMTCHID.replace("-", "")
                         };
                     });
                     resolve(results);
