@@ -197,14 +197,11 @@ class MyProfile extends React.Component<MyProfileProps> {
             if (car.CarName == eliteProfile.carName) {
                 return <p><a href="javascript:;" className="present_ride">
                     <img src="/Style%20Library/Elite/images/done.png" />Your ride!</a></p>
-            } else if(car.CarLevel == eliteProfile.levelName) {
+            } else {
                 return <p><a href="javascript:;"
                     onClick={() => this.carSelected(car, baseUrl)}
                     className="present_ride"><img src="/Style%20Library/Elite/images/empty.png" />Get this ride</a></p>
-            } else{
-                return <p className="locked_ride orange">
-                    <img src="/Style%20Library/Elite/images/lock.png" />{car.PointsRequired} points required</p>
-            }
+            } 
         } else {
             return <p className="locked_ride orange">
                 <img src="/Style%20Library/Elite/images/lock.png" />{car.PointsRequired} points required</p>
@@ -279,7 +276,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                 </div>
                             </div>
                             <MyProfileMiddleContainer eliteProfile={eliteProfile} currentTestDrives={currentTestDrives} />
-                            {(!this.props.id && this.props.id != -1 && eliteProfile) ?
+                            {(!this.props.id && this.props.id != -1 && eliteProfile.carName) ?
                                 <div className="row car_sliderbox">
                                     <div className="profile_overviewbox">
                                         <div className="container">
@@ -361,7 +358,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                                                 </div>
 
                                                                 <img data-u="image" className={totalPoints < car.PointsRequired ? 'car_bigview locked' : 'car_bigview'} src={car.FileRef} />
-                                                               {car.CarLevel != eliteProfile.levelName ? <div className="big_lock text-center"><img src="/Style%20Library/Elite/images/locked-car.png" data-events="auto" data-display="inline"/></div>:''}
+                                                               {totalPoints < car.PointsRequired ? <div className="big_lock text-center"><img src="/Style%20Library/Elite/images/locked-car.png" data-events="auto" data-display="inline"/></div>:''}
                                                                 <img data-u="thumb" src={car.FileRef} />
                                                                 <div className="col-md-3 col-md-offset-5 jsOffset text-center">
                                                                     {

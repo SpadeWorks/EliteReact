@@ -117,7 +117,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         link: '/testdrives/'
     },
     {
-        name: 'Edit profile',
+        name: 'Edit Profile',
         link: '/profile/'
     },
     ]
