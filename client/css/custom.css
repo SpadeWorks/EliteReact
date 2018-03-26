@@ -6607,7 +6607,7 @@ span.big_text {
 }
 
 .testdrive_I_runbox .social_box a i:hover {
-    color: red;
+    color: #5659b0;
 }
 
 .testdrive_I_runbox ul.dragrace_indicator li span {
@@ -8385,4 +8385,14 @@ input[type=button]:disabled,
 button:disabled {
     color: gray !important;
     cursor: not-allowed;
+}
+
+.green-flag {
+    color: green !important;
+    cursor: default;
+}
+
+.red-flag {
+    color: red !important;
+    cursor: default;
 }

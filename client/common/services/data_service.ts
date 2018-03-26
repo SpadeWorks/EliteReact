@@ -17,6 +17,7 @@ import { File, ListItem } from "@microsoft/microsoft-graph-types";
 import { error } from "util";
 import { Lists } from "sp-pnp-js/lib/sharepoint/lists";
 import { ReportBug } from "../../report_bug/model";
+import TestDriveItem from "../../test_drive/components/TestDriveItem";
 
 const delay = 100;
 declare var SP: any;
@@ -61,6 +62,42 @@ export class Services {
             Services.mailto(appConfig.AccessProvider || '', 
                 appConfig.AccessEmailSubject || '', appConfig.AccessEmailBody.replace("\n", '%0d%0a') || '');
         });
+    }
+
+
+    // http://elite-spuat.corp.equinix.com/_api/web/lists/GetByTitle('Test Drive Instances')/
+    // items?$Select=UserID/UserEMail&$expand=UserID&$filter=TestDriveID eq 156
+    static emailTestDrivers(testDrive: TestDrive){
+        Services.getApplicationConfigurations().then((appConfig: any)=>{
+            var subject = appConfig.TestDriveNotificationSubject.replace("#TestDriveName#", '"'+ testDrive.title +'"');
+            Services.getParticipantEmails(testDrive.id).then(emails=>{
+                Services.mailto(emails, subject, '');
+            })    
+        });
+        
+    }
+
+    
+
+    static getParticipantEmails(testDriveID : number) {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
+            .select("UserID/UserEMail")
+            .expand("UserID")
+            .filter("TestDriveID eq " + testDriveID)
+            .get().then(emails => {
+                var emailString = '';
+                emails && emails.length && emails.map(email =>{
+                    if(email.UserID && email.UserID.UserEMail){
+                        emailString += email.UserID.UserEMail + ";";
+                    } 
+                })
+                resolve(emailString);
+            }, error => {
+                Utils.clientLog(error);
+                reject(error);
+            })
+        })
     }
     static getPrizes() {
         return new Promise((resolve, reject) => {

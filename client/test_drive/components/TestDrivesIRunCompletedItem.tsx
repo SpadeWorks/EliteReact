@@ -16,7 +16,7 @@ class TestDrivesIRunCompletedItem extends React.Component<TestDrivesIRunComplete
 
         var completedPercent = testDrive.report.total == 0 ?
             0 : ((testDrive.report.total - testDrive.report.inProgress) / testDrive.report.total) * 100;
-            
+
         var passPercent = testDrive.report.total == 0 ?
             0 : (testDrive.report.pass / testDrive.report.total) * 100;
 
@@ -26,38 +26,39 @@ class TestDrivesIRunCompletedItem extends React.Component<TestDrivesIRunComplete
         return (<div className="col-md-12 currtestdrive_list testdrive_I_runbox">
             <div className="row">
                 <div className="col-md-12">
-                <Link to={'/testdrive/' + testDrive.id + '/display'}><h4>{testDrive.title}</h4></Link>
+                    <Link to={'/testdrive/' + testDrive.id + '/display'}><h4>{testDrive.title}</h4></Link>
                 </div>
                 <div className="col-md-12">
                     <div className="row">
-                        <div className="col-md-3">
+                        <div className="col-md-2">
                             <div className="col-md-12">
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="row inforow">
-                                            <div className="col-md-5">
+                                            <div className="col-md-6">
                                                 <div className="row">
-                                                    <span className="orange">Start Date :</span>
-                                                </div>
-                                            </div>
-                                            <div className="col-md-5">
-                                                <div className="row">
-                                                    <h5 style={{ marginTop: "0px" }}>
-                                                        {Services.formatDate(testDrive.startDate)}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12 enddate_line">
-                                        <div className="row inforow">
-                                            <div className="col-md-4">
-                                                <div className="row">
-                                                    <span className="orange">End date :</span>
+                                                    <span className="orange">Start Date : </span>
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="row">
-                                                    <h5>{Services.formatDate(testDrive.endDate)}</h5>
+                                                    <h5 style={{ marginTop: "0px" }}>
+                                                        {Services.formatDate(testDrive.startDate)}
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-12">
+                                        <div className="row inforow">
+                                            <div className="col-md-6">
+                                                <div className="row">
+                                                    <span className="orange">End date : </span>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="row">
+                                                    <h5> {Services.formatDate(testDrive.endDate)}</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -173,19 +174,21 @@ class TestDrivesIRunCompletedItem extends React.Component<TestDrivesIRunComplete
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-1">
+                        <div className="col-md-2">
 
                             <div className="row social_box">
-                                <div className="col-md-6">
-                                    <Link to={"/testdrive/" + testDrive.id}>
-                                        <i className="material-icons">edit</i>
-                                    </Link>
-                                </div>
-                                <div className="col-md-6">
-                                    <a target='_blank' href={"/Pages/TestCaseReport.aspx?FilterField1=TestDriveID&FilterValue1=" + testDrive.id } >
-                                        <i className="material-icons">remove_red_eye</i>
-                                    </a>
-                                </div>
+                                <a href="javascript:;"><i className={"material-icons" + (completedPercent >= 75 ?
+                                    ' green-flag' : ' red-flag')} >flag</i></a>
+                                <a href="javascript:;" onClick={() => Services.emailTestDrivers(testDrive)}><i className="material-icons">email</i></a>
+                                {/* <Link to={"/testdrive/" + testDrive.id}>
+                                    <i className="material-icons">edit</i>
+                                </Link> */}
+                                <a target="_blank" href={"https://teams.microsoft.com/_?threadId=19:" + testDrive.teamsChannelID + "@thread.skype&ctx=channel"}>
+                                    <span className="teams"></span>
+                                </a>
+                                <a target='_blank' href={"/Pages/TestCaseReport.aspx?FilterField1=TestDriveID&FilterValue1=" + testDrive.id} >
+                                    <i className="material-icons">remove_red_eye</i>
+                                </a>
                             </div>
                         </div>
                     </div>
