@@ -6588,17 +6588,17 @@ span.big_text {
 .testdrive_I_runbox .social_box {
     margin-top: 0px;
     position: relative;
-    right: 48px;
+    left:30px;
 }
 
 .testdrive_I_runbox .social_box a {
     float: left;
-    margin-left: 19px;
+    margin-left: 10px;
 }
 
 .testdrive_I_runbox .social_box a:first-child {
     margin-left: 0px;
-    margin-right: 10px;
+    margin-right: 0px;
 }
 
 .testdrive_I_runbox .social_box a i:hover {
@@ -7105,7 +7105,7 @@ div.car_Container img {
 
 .intro_actionbox.testdrive_actionbox {
     position: absolute;
-    bottom: 40px;
+    /* bottom: 40px; */
     left: 58px;
     background: none!important;
 }
@@ -7228,7 +7228,7 @@ p.go {
 
 .shoping_cartbox {
     position: absolute;
-    top: 220px;
+    top: 37%;
     left: 224px;
 }
 
@@ -7245,8 +7245,8 @@ p.go {
 }
 
 .col-md-12.intro_actionbox.testdrive_actionbox.new_ride {
-    position: absolute;
-    bottom: -202px;
+    position: relative;
+    bottom: -250px;
     left: -4px;
     background: none!important;
 }
@@ -8054,9 +8054,9 @@ ul.soapbox_indicator {
 /* Css for pop up */
 
 .letsgo {
-    position: absolute !important;
+    position: relative !important;
     right: 365px !important;
-    bottom: -249px;
+    /* bottom: -249px; */
 }
 
 .mm-popup {
@@ -8437,7 +8437,7 @@ button:disabled {
 
 .green-flag {
     color: green !important;
-    cursor: default;
+    cursor: pointer;
 }
 
 .red-flag {
@@ -8494,4 +8494,10 @@ button:disabled {
 
 .video_box button.close i {
     color: #fff;
+    cursor: pointer;
+}
+
+.test_progress .error-lable {
+    margin-left: 20px;
+    margin-top: 20px;
 }

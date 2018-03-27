@@ -138,7 +138,7 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-2">
+                        <div className="col-md-1">
                             <div className="col-md-12">
                                 <div className="row">
                                     <div className="col-md-12">

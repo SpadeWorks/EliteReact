@@ -30,12 +30,12 @@ class TestDrivesIRunCompletedItem extends React.Component<TestDrivesIRunComplete
                 </div>
                 <div className="col-md-12">
                     <div className="row">
-                        <div className="col-md-2">
+                        <div className="col-md-3">
                             <div className="col-md-12">
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="row inforow">
-                                            <div className="col-md-6">
+                                            <div className="col-md-5">
                                                 <div className="row">
                                                     <span className="orange">Start Date : </span>
                                                 </div>
@@ -49,9 +49,9 @@ class TestDrivesIRunCompletedItem extends React.Component<TestDrivesIRunComplete
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-12">
+                                    <div className="col-md-12 enddate_line">
                                         <div className="row inforow">
-                                            <div className="col-md-6">
+                                            <div className="col-md-4">
                                                 <div className="row">
                                                     <span className="orange">End date : </span>
                                                 </div>
@@ -148,8 +148,8 @@ class TestDrivesIRunCompletedItem extends React.Component<TestDrivesIRunComplete
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-2">
-                            <div className="col-md-12">
+                        <div className="col-md-1">
+                            
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="row inforow">
@@ -172,7 +172,7 @@ class TestDrivesIRunCompletedItem extends React.Component<TestDrivesIRunComplete
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                          
                         </div>
                         <div className="col-md-2">
 
