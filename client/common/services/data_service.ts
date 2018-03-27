@@ -257,12 +257,14 @@ export class Services {
 
     static getVideoUrl() {
         return new Promise((resolve, reject) => {
-            pnp.sp.web.lists.getByTitle(Constants.Lists.APPLICATION_CONFIGURATIONS).items
-                .select('AppConfigKey, AppConfigValue')
-                .filter("AppConfigKey eq 'Video'").get().then((video: any) => {
-                    const videoUrl = video[0].AppConfigValue;
-                    resolve(videoUrl);
-                })
+            Services.getApplicationConfigurations().then((appConfig: any) => {
+                resolve({
+                    video: appConfig.Video, 
+                    videoPoster: appConfig.VideoPoster
+                });
+            },err=>{
+                Utils.clientLog("Video not configured");
+            })
         })
     }
 
