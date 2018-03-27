@@ -75,7 +75,7 @@ class MyProfile extends React.Component<MyProfileProps> {
             carSelectedName: car.CarName
         })
         updateMultiSelect(this.props.ui.carSelectedImage, "carImage", this.props.eliteProfile);
-        this.props.eliteProfile.carID = car.ID;
+        // this.props.eliteProfile.carID = car.ID;
         this.props.eliteProfile.carImage = baseUrl + car.FileRef;
         this.props.eliteProfile.carName = car.CarName;
         saveEliteProfile(this.props.eliteProfile)
