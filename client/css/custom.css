@@ -8450,13 +8450,6 @@ button:disabled {
     border: 1px solid black;
 }
 
-.wrapper {
-    display: table;
-    width: auto;
-    position: relative;
-    width: 50%;
-}
-
 .playpause {
     width: 100%;
     height: 100%;
@@ -8470,7 +8463,7 @@ button:disabled {
     background-position: center;
     text-align: center;
     /* top: -7%; */
-    padding-top: 25%;
+    padding-top: 24%;
 }
 
 .modal-dialog.video_box .modal-content {
