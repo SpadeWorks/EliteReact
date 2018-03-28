@@ -7789,7 +7789,7 @@ div.td_namebox:hover h4 span::after
     .editpro_box item.active   {margin-top:30px}
 
     .col-md-6.register_input.readonly input {
-        color: #656565 !important;
+        color: #a2a2a2 !important;
         letter-spacing: 1px;
         font-size: 12px;
         padding-bottom: 0px;
@@ -7798,7 +7798,7 @@ div.td_namebox:hover h4 span::after
     .modal-content.editpro_box .modal-footer.testdrive_actionbox .button {position:relative;
     right:154px;}
 
-    .col-md-12.register_input.readonly input{color: #656565 !important;}
+    .col-md-12.register_input.readonly input{color: #a2a2a2 !important;}
 
     .partcipant_Section .race_type h5{text-transform:uppercase;}
 
