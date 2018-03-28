@@ -8452,7 +8452,7 @@ button:disabled {
 
 .playpause {
     width: 100%;
-    height: 100%;
+    height: 80%;
     position: absolute;
     left: 0%;
     right: 0%;
@@ -8463,7 +8463,7 @@ button:disabled {
     background-position: center;
     text-align: center;
     /* top: -7%; */
-    padding-top: 24%;
+    padding-top: 18%;
 }
 
 .modal-dialog.video_box .modal-content {

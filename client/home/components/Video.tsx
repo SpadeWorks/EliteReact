@@ -13,27 +13,38 @@ class Video extends React.Component<VideoProps> {
         var self = this;
         var video: any = document.getElementById('introVideo');
 
-        $("#app").mouseup(function (e) {
+        $("#link6").click(function (e) {
             var videoContainer = $(".modal-content");
-            if (!videoContainer.is(e.target) && videoContainer.has(e.target).length === 0) {
-                video.setAttribute('poster', self.props.videoInfo.videoPoster);
-                video.pause();
-                video.currentTime = 0;
-                video.play();
-                $(".playpause").fadeOut();
-            }
+            video.setAttribute('poster', self.props.videoInfo.videoPoster);
+            video.pause();
+            video.currentTime = 0;
+            $(".playpause").fadeOut();
+            video.play();
         });
 
 
-        $('.video').parent().click(function () {
-            if ($(this).children(".video").get(0).paused) {
-                $(this).children(".video").get(0).play();
-                $(this).children(".playpause").fadeOut();
-            } else {
-                $(this).children(".video").get(0).pause();
-                $(this).children(".playpause").fadeIn();
-            }
-        });
+        if (navigator.userAgent.toLowerCase().indexOf('firefox') == -1) {
+            video.onpause = function () {
+                $(".modal-content").children(".playpause").fadeIn();
+
+            };
+
+            video.onplay = function () {
+                $(".modal-content").children(".playpause").fadeOut();
+            };
+
+            $('.video').parent().click(function () {
+                if ($(this).children(".video").get(0).paused) {
+                    $(this).children(".video").get(0).play();
+                    $(this).children(".playpause").fadeOut();
+                } else {
+                    $(this).children(".video").get(0).pause();
+                    $(this).children(".playpause").fadeIn();
+                }
+            });
+        }
+
+
 
 
         $('#introVideo').hover(function toggleControls() {
@@ -48,7 +59,7 @@ class Video extends React.Component<VideoProps> {
         return (
             <div className="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog video_box" role="document">
-                    <div className="modal-header" style={{display:'none'}}>
+                    <div className="modal-header" style={{ display: 'none' }}>
                         <button type="button" className="close close-popup" data-dismiss="modal"><i className="material-icons">close</i></button>
                     </div>
                     <div className="modal-content">

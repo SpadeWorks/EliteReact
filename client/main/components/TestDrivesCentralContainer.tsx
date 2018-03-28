@@ -89,23 +89,23 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
     this.props.dispatch(loadTestDrives(services.getCurrentUserID()));
 
     $(document).ready(function () {
-      $(".total_testdrivebox li:first-child").click(function () {
+      $(".total_testdrivebox ul:first li:first-child").click(function () {
         $(".car_box").attr('class', 'car_box first_place');
       });
 
-      $(".total_testdrivebox li:nth-child(2)").click(function () {
+      $(".total_testdrivebox ul:first li:nth-child(2)").click(function () {
         $(".car_box ").attr('class', 'car_box second_place');
       });
 
-      $(".total_testdrivebox li:nth-child(3)").click(function () {
+      $(".total_testdrivebox ul:first li:nth-child(3)").click(function () {
         $(".car_box ").attr('class', 'car_box third_place');
       });
 
-      $(".total_testdrivebox li:nth-child(4)").click(function () {
+      $(".total_testdrivebox ul:first li:nth-child(4)").click(function () {
         $(".car_box ").attr('class', 'car_box fourth_place');
       });
 
-      $(".total_testdrivebox li:nth-child(5)").click(function () {
+      $(".total_testdrivebox ul:first li:nth-child(5)").click(function () {
         $(".car_box ").attr('class', 'car_box fifth_place');
       });
     });
