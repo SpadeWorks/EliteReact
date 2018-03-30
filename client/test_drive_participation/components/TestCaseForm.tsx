@@ -223,7 +223,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                                         <ul>{testCase.files.map((file, index) => {
                                                             return (<li className='files-list-item' key={file.FileName + index}>
                                                                 <div className='files-list-item-preview'>
-                                                                    <img className='files-list-item-preview-image' src={file.ServerRelativeUrl} />
+                                                                    <img className='files-list-item-preview-image' src={file.ServerRelativeUrl || "/Style%20Library/Elite/images/file-empty-icon.png"} />
                                                                 </div>
                                                                 <div className='files-list-item-content'>
                                                                     <div className='files-list-item-content-item files-list-item-content-item-1'>{file.FileName}</div>
@@ -238,7 +238,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                                         (ui.files && ui.files.length) ? ui.files.map((file) => {
                                                             return <li className='files-list-item' key={file.id}>
                                                                 <div className='files-list-item-preview'>
-                                                                    <img className='files-list-item-preview-image' src={file.preview.url} />
+                                                                    <img className='files-list-item-preview-image' src={file.preview.url || "/Style%20Library/Elite/images/file-empty-icon.png"} />
                                                                 </div>
                                                                 <div className='files-list-item-content'>
                                                                     <div className='files-list-item-content-item files-list-item-content-item-1'>{file.name}</div>

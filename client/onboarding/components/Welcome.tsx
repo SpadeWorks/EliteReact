@@ -27,10 +27,21 @@ class Welcome extends React.Component<WelcomeProps> {
     }
     componentDidMount() {
         Services.getApplicationConfigurations().then((appConfig: any) => {
+            var actions = [];
+            var lines = appConfig.WelcomeText.split("\n");
+            lines.forEach((line, index) => {
+                actions.push({
+                    type: line + ' '
+                });
+                if(index < lines.length -1 && line && line.length > 0){
+                    actions.push({
+                        type: "<br>"
+                    });
+                }
+            });
+            
             $('#typewriteText').typewrite({
-                actions: [
-                    { type: appConfig.WelcomeText }
-                ]
+                actions: actions
             });
         })
     }

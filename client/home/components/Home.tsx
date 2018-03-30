@@ -62,7 +62,7 @@ interface HomeProps {
     eliteProfile: EliteProfile;
     userRank: number;
     currentUser: any;
-    videoUrl: string;
+    videoInfo: any;
     prizes: any[];
     prizesLoading: boolean;
 
@@ -106,7 +106,7 @@ class Home extends React.Component<HomeProps, HomeState> {
             }
 
             if (!videoContainer.is(e.target) && videoContainer.has(e.target).length === 0 &&
-            !toolbar.is(e.target) && toolbar.has(e.target).length === 0) {
+                !toolbar.is(e.target) && toolbar.has(e.target).length === 0) {
                 $(".close-popup").trigger('click');
                 $(".close-popup").trigger('click');
             }
@@ -127,7 +127,7 @@ class Home extends React.Component<HomeProps, HomeState> {
             this.props.dispatch(loadTotalTasks());
             this.props.dispatch(loadUserPoints(user.eliteProfileID));
             this.props.dispatch(loadVideo());
-            
+
         }
     }
 
@@ -135,7 +135,7 @@ class Home extends React.Component<HomeProps, HomeState> {
         const { ui, updateUI, mytestDrive, testDriveThatIRun, upcomingTestDrive, activeTestDrive,
             leaders, regionLeaders, myTestDriveLoading, totalCount, totalPoints, totalTasks,
             testDrivesCompleted, totalTestDrives, userCarImage, testDriveThatIRunLoading,
-            activeTestDriveLoading, upcomingTestDriveLoading, eliteProfile, userRank, videoUrl, 
+            activeTestDriveLoading, upcomingTestDriveLoading, eliteProfile, userRank, videoInfo,
             prizes, prizesLoading } = this.props;
         return (
             <div className="col-md-12">
@@ -178,7 +178,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                             </OverallPointsDashboard>
                         </div>
                         <UserRank userName={eliteProfile.displayName} userRank={userRank} />
-                        <Video videoUrl={videoUrl} />
+                        {videoInfo ? <Video videoInfo={videoInfo} /> : ''}
                         <Footer />
                     </div>
                 </div>
@@ -208,7 +208,7 @@ const mapStateToProps = (state, ownProps) => {
         userCarImage: state.homeState.userCarImage,
         eliteProfile: state.homeState.eliteProfile,
         userRank: state.homeState.rank.rank,
-        videoUrl: state.homeState.videoUrl,
+        videoInfo: state.homeState.videoUrl,
         prizes: state.homeState.prizes,
         prizesLoading: state.homeState.prizesLoading
     }

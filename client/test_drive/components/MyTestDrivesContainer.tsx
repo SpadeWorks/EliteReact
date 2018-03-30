@@ -78,7 +78,7 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
     getVisibleItems(newPage: number, array: any[], visibleItems: string, currentPage: string) {
         let skip = newPage * this.props.ui.itemsPerPage;
         this.props.updateUI({
-            // [currentPage]: newPage,
+            [currentPage]: newPage,
             [visibleItems]: array.slice(skip, skip + this.props.ui.itemsPerPage)
         });
     }
@@ -123,7 +123,11 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <Link to={"/testdrive"} >Create Test Drive</Link>
                     </div>
-                </div> : ''}
+                </div> : <div className="centralbox_button">
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <a href="javascript:;" onClick={() => Services.requestAccess()} >Become Drive Owner</a>
+                    </div>
+                </div>}
                 <Tabs selected={0}>
                     <Pane label="TEST DRIVES IN PROGRESS">
                         <div>

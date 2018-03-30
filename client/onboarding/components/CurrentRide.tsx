@@ -13,10 +13,20 @@ class CurrentRide extends React.Component<CurrentRideProps> {
 
     componentDidMount() {
         Services.getApplicationConfigurations().then((appConfig: any) => {
+            var actions = [];
+            var lines = appConfig.CurrentRideText.split("\n");
+            lines.forEach((line, index) => {
+                actions.push({
+                    type: line + ' '
+                });
+                if(index < lines.length -1 && line && line.length > 0){
+                    actions.push({
+                        type: "<br>"
+                    });
+                }
+            });
             $('#typewriteText').typewrite({
-                actions: [
-                    { type: appConfig.CurrentRideText }
-                ]
+                actions: actions
             });
         });
 

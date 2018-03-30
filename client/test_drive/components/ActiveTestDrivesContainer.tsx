@@ -89,7 +89,12 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
                 <div className="button type1 nextBtn btn-lg pull-right animated_button">
                     <Link to={"/testdrive"} >Create Test Drive</Link>
                 </div>
-            </div> : ''}
+            </div> : <div className="centralbox_button row">
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <a href="javascript:;" onClick={() => Services.requestAccess()} >Become Drive Owner</a>
+                    </div>
+                </div>
+            }
 
             <Loader show={activeTestDrivesLoading || false} message={'Loading...'}>
                 {
@@ -103,18 +108,18 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
                         }) : (!activeTestDrivesLoading && <div className="no-data-message">{Messages.TEST_DRIVE_ACTIVE_MSG}</div>)
                 }
                 {
-                    
+
                     (!activeTestDrivesLoading && ui.visibleItems && ui.visibleItems.length > 0) ?
-                    <div className="col-md-12">
-                    <Pager
-                        total={Math.ceil(activeTestDrives.length / ui.itemsPerPage)}
-                        current={ui.current}
-                        visiblePages={ui.visiblePages}
-                        titles={{ first: '<', last: '>' }}
-                        className="pagination-sm pull-right"
-                        onPageChanged={(newPage) => this.getVisibleItems(newPage)}
-                    />
-                    </div>: ''
+                        <div className="col-md-12">
+                            <Pager
+                                total={Math.ceil(activeTestDrives.length / ui.itemsPerPage)}
+                                current={ui.current}
+                                visiblePages={ui.visiblePages}
+                                titles={{ first: '<', last: '>' }}
+                                className="pagination-sm pull-right"
+                                onPageChanged={(newPage) => this.getVisibleItems(newPage)}
+                            />
+                        </div> : ''
                 }
             </Loader>
         </div>)
