@@ -1923,7 +1923,7 @@ export class Services {
                         AvatarID_id: avatarDetails.ID,
                         Elite_UserDepartment: '',
                         UserInfoName: user.displayName,
-                        UserRole: user.role,
+                        UserRole: user.role || Constants.ColumnsValues.TEST_DRIVER,
                         [Constants.Columns.USER_EMAIL]: user.workEmail
                     }])
                         .then((users: any) => {

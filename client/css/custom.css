@@ -7245,9 +7245,9 @@ p.go {
 }
 
 .col-md-12.intro_actionbox.testdrive_actionbox.new_ride {
-    position: relative;
-    bottom: -250px;
-    left: -4px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
     background: none!important;
 }
 
