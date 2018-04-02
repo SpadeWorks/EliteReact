@@ -305,7 +305,10 @@ class ManageTestDrive extends React.Component<AppProps> {
                     buttons={this.manageTestDriveSaveSuccessButtons} />
                 <h2 className="header_prevlink">
                     <Link to={"/testdrives"} >
-                        <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>{this.props.id ? "Update Test Drive" : "Create test drive"}
+                        <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                            {this.props.id ? 
+                                (this.props.view == 'edit'? "Update Test Drive" : "View Test Drive" ) : 
+                                "Create test drive"}
                     </Link>
                 </h2>
                 <h4 className="cancel-btn"><Link to={"/testdrives"}>CANCEL</Link></h4>
