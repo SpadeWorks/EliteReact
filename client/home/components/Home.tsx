@@ -113,10 +113,6 @@ class Home extends React.Component<HomeProps, HomeState> {
                 $(".playpause").fadeOut();
                 $(".close-popup").trigger('click');
                 $(".close-popup").trigger('click');
-                var video: any = document.getElementById('introVideo');
-                video.pause();
-                video.currentTime = 0;
-                $(".playpause").fadeOut();
             }
         });
 
