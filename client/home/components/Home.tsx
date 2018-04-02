@@ -109,6 +109,10 @@ class Home extends React.Component<HomeProps, HomeState> {
                 !toolbar.is(e.target) && toolbar.has(e.target).length === 0) {
                 $(".close-popup").trigger('click');
                 $(".close-popup").trigger('click');
+                var video: any = document.getElementById('introVideo');
+                video.pause();
+                video.currentTime = 0;
+                $(".playpause").fadeOut();
             }
         });
 

@@ -298,7 +298,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                     {ui.scenario &&
                                         <Editor
                                             editorState={ui.scenario}
-
+                                            toolbarOnFocus
                                             toolbarClassName="rte-toolbar"
                                             wrapperClassName="rte-wrapper"
                                             editorClassName="rte-editor"

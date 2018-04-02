@@ -22,7 +22,6 @@ class Video extends React.Component<VideoProps> {
             video.play();
         });
 
-
         if (navigator.userAgent.toLowerCase().indexOf('firefox') == -1) {
             video.onpause = function () {
                 $(".modal-content").children(".playpause").fadeIn();
@@ -43,9 +42,6 @@ class Video extends React.Component<VideoProps> {
                 }
             });
         }
-
-
-
 
         $('#introVideo').hover(function toggleControls() {
             if (video.hasAttribute("controls")) {
