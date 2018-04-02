@@ -125,11 +125,29 @@ export class Services {
     }
 
     static shareTestDrive(email: string, testDriveTitle: string) {
-        Services.mailto('', 'Check out this cool test drive "' + testDriveTitle + '"', '');
+        Services.getEmailTemplate('TestDriveShareEmail').then((emailConfig: any)=>{
+            Services.mailto('', emailConfig.subject.replace(/##testdriveName##/ig, testDriveTitle), encodeURIComponent(emailConfig.body.replace(/##testdriveName##/ig, testDriveTitle)));
+        });
     }
 
     static mailto(to, subject, body) {
         window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
+    }
+
+    static getEmailTemplate(key: string){
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle("Email Templates").items
+            .filter('TemplateKey eq \'' + key + '\'')
+            .select('TemplateKey, EmailTempBody, EmailTempSubject')
+            .get().then(data=>{
+                resolve({
+                    subject: data[0].EmailTempSubject || '',
+                    body: data[0].EmailTempBody || ''
+                })
+            }, err =>{
+                Utils.clientLog(err);
+            });   
+        });
     }
 
     static getLevelHtml(levelNumber) {

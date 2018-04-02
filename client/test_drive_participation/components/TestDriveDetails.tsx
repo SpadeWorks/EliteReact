@@ -159,9 +159,9 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                 <div className="col-md-3 pull-right">
 
                                     <div className="row social_box">
-                                        <a href={"#/reportbug/"+testDriveInstance.testDriveID} title={Messages.REPORT_BUG_TITLE}                                            >
+                                        {/* <a href={"#/reportbug/"+testDriveInstance.testDriveID} title={Messages.REPORT_BUG_TITLE}                                            >
                                             <span className="report"></span>
-                                        </a>
+                                        </a> */}
                                         <a href="javascript:;" title={Messages.SEND_EMAIL_TITLE}
                                             onClick={() => Services.emailOwner(testDriveInstance.ownerEmail, testDriveInstance.title)}>
                                             <i className="material-icons">email</i>
