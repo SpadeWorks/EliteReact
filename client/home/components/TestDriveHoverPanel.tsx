@@ -19,9 +19,35 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
     componentDidMount() {
         $(".letest_drivebox").hide();
         $(".letest_drivebox2").hide();
+        $('[data-toggle="popover"]').popover(); 
+    }
+
+    getTabLinks(items: any[]) {
+        var moreLink = '', maxItems = 2, maxLength = 23;
+        return (<div>
+            {
+                items && items.slice(0, maxItems).map((item: any, index) => {
+                    return (<li key={index} className="select2-selection__choice" title={item.Label}>
+                        {(item.Label && item.Label.length > maxLength) ? item.Label.slice(0, maxLength) + "..." : item.Label}
+                    </li>)
+                })
+            }
+            {
+                items && items.length > maxItems && items.slice(0, maxItems).map((item: any, index) => {
+                    moreLink += index < items.slice(0, maxItems).length -1 ? (item.Label + ", ") : item.Label;
+                })
+            }
+            {
+                items && items.length > maxItems ? 
+                <li className="more">
+                    <a href="javascript:;" title="" data-toggle="popover" data-trigger="focus hover" data-placement="right" data-content={moreLink}><span className="orange">More</span></a>
+                </li> : ''
+            }
+        </div>)
     }
     render() {
         const { testDrive, checkPortion, participants, isActive } = this.props;
+        var moreDevices = '', moreOs = '';
         return (<div className="col-md-12">
             <h3>{testDrive.title}</h3>
             <div className="col-md-12 social_box">
@@ -35,10 +61,10 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                         <i className="material-icons">email</i>
                     </a>
                     {
-                            checkPortion == Globals.TEST_DRIVE_THAT_I_RUN && 
-                            <a target="_blank" href={"https://teams.microsoft.com/_?threadId=19:"+testDrive.teamsChannelID+"@thread.skype&ctx=channel"}>
-                                    <span className="teams"></span>
-                            </a>
+                        checkPortion == Globals.TEST_DRIVE_THAT_I_RUN &&
+                        <a target="_blank" href={"https://teams.microsoft.com/_?threadId=19:" + testDrive.teamsChannelID + "@thread.skype&ctx=channel"}>
+                            <span className="teams"></span>
+                        </a>
                     }
                     {/* <a href="#">
                         <span className="teams"></span>
@@ -73,13 +99,7 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                     <div className="col-md-12 para">
                                         <div className="row">
                                             <ul className="select2-selection__rendered">
-                                                {
-                                                    testDrive && testDrive.requiredDevices.map((device: any, index) => {
-                                                        return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                                            {device.Label}
-                                                        </li>)
-                                                    })
-                                                }
+                                                {testDrive && testDrive.requiredDevices ? this.getTabLinks(testDrive.requiredDevices) : ''}
                                                 {
                                                     (!testDrive.requiredDevices || testDrive.requiredDevices.length == 0) && <p>{Messages.ALL_DEVICES_MSG}</p>
                                                 }
@@ -94,13 +114,7 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                             <div className="col-md-12 para">
                                                 <div className="row">
                                                     <ul className="select2-selection__rendered">
-                                                        {
-                                                            testDrive && testDrive.requiredOs.map((os: any, index) => {
-                                                                return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                                                    {os.Label}
-                                                                </li>)
-                                                            })
-                                                        }
+                                                        {testDrive && testDrive.requiredOs ? this.getTabLinks(testDrive.requiredOs) : ''}
                                                         {
                                                             (!testDrive.requiredOs || testDrive.requiredOs.length == 0) && <p>{Messages.ALL_OS_MSG}</p>
                                                         }

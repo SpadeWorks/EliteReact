@@ -6588,7 +6588,7 @@ span.big_text {
 .testdrive_I_runbox .social_box {
     margin-top: 0px;
     position: relative;
-    left:30px;
+    left: 30px;
 }
 
 .testdrive_I_runbox .social_box a {
@@ -7245,9 +7245,9 @@ p.go {
 }
 
 .col-md-12.intro_actionbox.testdrive_actionbox.new_ride {
-    position: relative;
-    bottom: -250px;
-    left: -4px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
     background: none!important;
 }
 
@@ -7756,7 +7756,7 @@ span.orange.big {
         font-family: titanium !important;
     }
     .progress_drivebox ul.select2-selection__rendered {
-        margin-left: 15px;
+        margin-left: 10px;
     }
     .col-md-12.text-center.create_new {
         position: relative;
@@ -8493,4 +8493,19 @@ button:disabled {
 .test_progress .error-lable {
     margin-left: 20px;
     margin-top: 20px;
+}
+
+.popover {
+    background: black !important;
+    min-width: 350px;
+    border: solid 1px #ff8d00;
+}
+
+.popover-title {
+    background: #000;
+}
+
+.para li.more {
+    float: left;
+    padding-top: 5px;
 }

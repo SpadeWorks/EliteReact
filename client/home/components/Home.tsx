@@ -107,6 +107,10 @@ class Home extends React.Component<HomeProps, HomeState> {
 
             if (!videoContainer.is(e.target) && videoContainer.has(e.target).length === 0 &&
                 !toolbar.is(e.target) && toolbar.has(e.target).length === 0) {
+                var video: any = document.getElementById('introVideo');
+                video.pause();
+                video.currentTime = 0;
+                $(".playpause").fadeOut();
                 $(".close-popup").trigger('click');
                 $(".close-popup").trigger('click');
                 var video: any = document.getElementById('introVideo');

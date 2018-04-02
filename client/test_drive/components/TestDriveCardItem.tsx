@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { TestDrive } from '../model';
 import Services from '../../common/services/services';
 import { Messages } from '../../common/services/constants';
+import * as $ from 'jquery';
 
 interface TestDriveCardItemProps {
     testDrive: TestDrive;
@@ -13,6 +14,35 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
     constructor(props, context) {
         super(props, context);
     }
+
+    componentDidMount() {
+        $('[data-toggle="popover"]').popover();
+    }
+
+    getTabLinks(items: any[]) {
+        var moreLink = '', maxItems = 2, maxLength = 13;
+        return (<div>
+            {
+                items && items.slice(0, maxItems).map((item: any, index) => {
+                    return (<li key={index} className="select2-selection__choice" title={item.Label}>
+                        {(item.Label && item.Label.length > maxLength) ? item.Label.slice(0, maxLength) + "..." : item.Label}
+                    </li>)
+                })
+            }
+            {
+                items && items.length > maxItems && items.slice(0, maxItems).map((item: any, index) => {
+                    moreLink += index < items.slice(0, maxItems).length - 1 ? (item.Label + ", ") : item.Label;
+                })
+            }
+            {
+                items && items.length > maxItems ?
+                    <li className="more">
+                        <a href="javascript:;" title="" data-toggle="popover" data-trigger="focus hover" data-placement="right" data-content={moreLink}><span className="orange">More</span></a>
+                    </li> : ''
+            }
+        </div>)
+    }
+
     render() {
         const { testDrive, participants, isActive } = this.props;
         return (<div className="col-md-4">
@@ -29,11 +59,11 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                     onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
                                     <i className="material-icons">email</i>
                                 </a>
-                                {                            
-                            <a target="_blank" href={"https://teams.microsoft.com/_?threadId=19:"+testDrive.teamsChannelID+"@thread.skype&ctx=channel"}>
-                                    <span className="teams"></span>
-                            </a>
-                    }
+                                {
+                                    <a target="_blank" href={"https://teams.microsoft.com/_?threadId=19:" + testDrive.teamsChannelID + "@thread.skype&ctx=channel"}>
+                                        <span className="teams"></span>
+                                    </a>
+                                }
                                 <a href="javascript:;" title={Messages.SHARE_TITLE}
                                     onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
                                     <i className="material-icons">share</i>
@@ -127,13 +157,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
 
                                             <div className="row">
                                                 <ul className="select2-selection__rendered">
-                                                    {(testDrive.requiredDevices && testDrive.requiredDevices.length) ?
-                                                        testDrive.requiredDevices.map((device: any, index) => {
-                                                            return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                                                {device.Label || ''}
-                                                            </li>)
-                                                        }) : ''
-                                                    }
+                                                    {testDrive && testDrive.requiredDevices ? this.getTabLinks(testDrive.requiredDevices) : ''}
                                                     {
                                                         (!testDrive.requiredDevices || testDrive.requiredDevices.length == 0) && <p>{Messages.ALL_DEVICES_MSG}</p>
                                                     }
@@ -143,30 +167,20 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
 
 
                                     </div>
-                                    <div className="col-md-12 para">
+                                    <div className="para">
                                         <div className="row">
-
-                                            <div className="row">
-                                                <div className="para">
-                                                    <span className="orange">
-                                                        OS REQUIRED
-                                                    </span>
-                                                    <div className="row">
-                                                        <ul className="select2-selection__rendered">
-                                                            {(testDrive.requiredOs && testDrive.requiredOs.length) ?
-                                                                testDrive.requiredOs.map((os: any, index) => {
-                                                                    return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                                                        {os.Label || ''}
-                                                                    </li>)
-                                                                }) : ''
-                                                            }
-                                                            {
-                                                                (!testDrive.requiredOs || testDrive.requiredOs.length == 0) && <p>{Messages.ALL_OS_MSG}</p>
-                                                            }
-                                                        </ul>
-                                                    </div>
+                                            <div className="para">
+                                                <span className="orange">
+                                                    OS REQUIRED
+                                                </span>
+                                                <div className="row">
+                                                    <ul className="select2-selection__rendered">
+                                                        {testDrive && testDrive.requiredOs ? this.getTabLinks(testDrive.requiredOs) : ''}
+                                                        {
+                                                            (!testDrive.requiredOs || testDrive.requiredOs.length == 0) && <p>{Messages.ALL_OS_MSG}</p>
+                                                        }
+                                                    </ul>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>

@@ -172,7 +172,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                                     <a href="javascript:void(0)"
                                                         className={ui.selectedResponse == "Inprogress" ? "status_pass" : "status_inprogress"}
                                                         onClick={(e) => updateUI({ selectedResponse: "Inprogress" })}>
-                                                        Inprogress
+                                                        In progress
                                         {ui.selectedResponse == "Inprogress" && <i className="material-icons ">done</i>}</a>
                                                 </div>
                                                 <div className="col-md-3 ">
