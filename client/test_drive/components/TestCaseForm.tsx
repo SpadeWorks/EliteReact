@@ -204,7 +204,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
         const { testCase, editTestCase, saveTestCase, deleteTestCase, ui, updateUI, fieldDescriptions } = this.props;
         testCase.isInEditMode = testCase.isInEditMode === undefined ? false : testCase.isInEditMode;
         const checkBoxStyle = {
-            color: "green"
+            color: "#a4de40"
         }
         return (
             <div className="card">
