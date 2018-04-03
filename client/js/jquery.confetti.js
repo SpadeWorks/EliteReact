@@ -1,6 +1,7 @@
 export function InitializeConfettiInit()
 {
-    $.confetti.start();
+    $.confetti.restart();
+
 }
 (function($) {
   $.confetti = new function() {
@@ -90,6 +91,7 @@ export function InitializeConfettiInit()
             var particleColor = particleColors.getColor();
             particles.push(new confettiParticle(particleColor));
         }
+
         StartConfetti();
     }
 

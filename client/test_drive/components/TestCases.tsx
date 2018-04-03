@@ -32,6 +32,8 @@ interface TestCasesProps {
     switchTab: (tabName) => any;
     fieldDescriptions: any;
     testDrive: TestDrive;
+    currentUserRole: string;
+    approveTestDrive: (any) => any;
     updateUI: (any) => any;
     ui: any;
     view: string;
@@ -98,7 +100,9 @@ class TestCases extends React.Component<TestCasesProps> {
             ui,
             updateUI,
             fieldDescriptions,
-            view
+            view,
+            currentUserRole,
+            approveTestDrive
         } = this.props;
         return (
             <div className="test-case-container col-xs-12">
@@ -137,9 +141,17 @@ class TestCases extends React.Component<TestCasesProps> {
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <input type="button" value="Next" onClick={() => this.switchTab(1)} />
                     </div>
-                    {testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW  ? <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                    {testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ? <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <input disabled={testDrive.status == ColumnsValues.ACTIVE} type="button" value="Save as a draft" onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save") }} />
                     </div> : ''}
+                    {testDrive.status == ColumnsValues.SUBMIT && currentUserRole == ColumnsValues.SITE_OWNER ?
+                        <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                            <input type="button" value="Approve"
+                                disabled={ui.saveTestDriveApprovalLoading}
+                                onClick={() => approveTestDrive(testDrive.id)} />
+                        </div>
+                        : ''
+                    }
                 </div>
             </div>
         );

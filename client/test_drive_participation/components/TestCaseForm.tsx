@@ -107,7 +107,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
 
     submitTestCaseResponse(testCase: TestCaseInstance, index) {
         var isFormValid = validateForm('test-case-form' + index);
-        if (isFormValid) {
+        if (isFormValid && this.props.ui.selectedResponse !== Constants.ColumnsValues.INPROGRESS) {
             this.props.updateUI({ loading: true });
             testCase = {
                 ...testCase,
@@ -124,6 +124,8 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                     this.props.updateUI({ loading: false });
                     $('#carousel-example-vertical').carousel('next');
                 })
+        } else {
+            this.saveTestCaseResponse(testCase, index);
         }
         // this.props.updateUI({ showSurveyPopUp: true })
         // $('#test-drive-completion-btn').trigger('click');
@@ -172,7 +174,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                                     <a href="javascript:void(0)"
                                                         className={ui.selectedResponse == "Inprogress" ? "status_pass" : "status_inprogress"}
                                                         onClick={(e) => updateUI({ selectedResponse: "Inprogress" })}>
-                                                        In progress
+                                                        Skip for now
                                         {ui.selectedResponse == "Inprogress" && <i className="material-icons ">done</i>}</a>
                                                 </div>
                                                 <div className="col-md-3 ">

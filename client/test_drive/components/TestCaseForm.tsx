@@ -306,7 +306,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                             toolbar={this.editorOptions}
                                         />
                                     }
-                                    <label className="disc_lable">Scenario</label>
+                                    <label className="disc_lable">Scenario*</label>
                                     <span className="help-text">
                                         {fieldDescriptions && fieldDescriptions[Constants.Columns.SCENARIO]}
                                     </span>
@@ -323,7 +323,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                                             toolbar={this.editorOptions}
                                         />
                                     }
-                                    <label className="disc_lable">Test case expected outcome</label>
+                                    <label className="disc_lable">Test case expected outcome*</label>
                                     <span className="help-text">
                                         {fieldDescriptions && fieldDescriptions[Constants.Columns.TEST_CASE_OUTCOME]}
                                     </span>

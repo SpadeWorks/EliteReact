@@ -32,6 +32,8 @@ interface TestDriveFormProps {
     fieldDescriptions: any;
     ui: any;
     view: string;
+    currentUserRole: string;
+    approveTestDrive: (any) => any;
 }
 
 interface TestDriveFormState {
@@ -46,7 +48,6 @@ interface TestDriveFormState {
         rangePicker: null,
         showStartDatePicker: false,
         showEndDatePicker: false,
-        saveTestDriveApprovalLoading: false
     }
 })
 class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormState> {
@@ -232,14 +233,6 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         return moment(this.props.testDrive.startDate).add(1, 'days')
     }
 
-    approveTestDrive(testDriveId) {
-        this.props.updateUI({ saveTestDriveApprovalLoading: true });
-        Services.approveTestdrive(testDriveId).then(() => {
-            this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_APPROVE_MSG, title: "Success!" });
-            $("#popupCreateTestDriveApprove").trigger('click');
-        });
-    }
-
     createTestDriveSuccessButtons = [{
         name: 'Go to dashboard',
         link: '/'
@@ -258,7 +251,16 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
 
     render() {
         const isApprover = Service.getUserProfileProperties().role;
-        const { view, testDrive, saveTestDrive, submitTestDrive, updateMultiSelect, ui, updateUI, fieldDescriptions } = this.props;
+        const { view,
+            testDrive,
+            saveTestDrive,
+            submitTestDrive,
+            updateMultiSelect,
+            ui,
+            updateUI,
+            fieldDescriptions,
+            currentUserRole,
+            approveTestDrive } = this.props;
         const butttonGroup = {
             float: 'right'
         }
@@ -543,13 +545,14 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                             onClick={() => { this.saveValidate(testDrive) }} />
                                     </div> : ''
                             }
-                            {testDrive.status == ColumnsValues.SUBMIT && isApprover == ColumnsValues.SITE_OWNER ?
-                                <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                    <input type="button" value="Approve"
-                                        disabled={ui.saveTestDriveApprovalLoading}
-                                        onClick={() => this.approveTestDrive(testDrive.id)} />
-                                </div>
-                                : ''
+                            {
+                                testDrive.status == ColumnsValues.SUBMIT && currentUserRole == ColumnsValues.SITE_OWNER ?
+                                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                        <input type="button" value="Approve"
+                                            disabled={ui.saveTestDriveApprovalLoading}
+                                            onClick={() => approveTestDrive(testDrive.id)} />
+                                    </div>
+                                    : ''
                             }
                         </div>
                     </div>

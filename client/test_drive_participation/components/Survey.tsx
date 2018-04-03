@@ -33,9 +33,6 @@ class Survey extends React.Component<SurveyProps> {
         $('#carousel-question-vertical').bind('mousewheel', function (e) {
             if (e.originalEvent.wheelDelta / 120 > 0) {
                 $(this).carousel('prev');
-                // $('#carousel-question-vertical').carousel({
-                //     interval: 3000
-                // });
             }
             else {
                 $(this).carousel('next');
@@ -46,7 +43,7 @@ class Survey extends React.Component<SurveyProps> {
             wrap: false
         });
 
-    }   
+    }
 
     popTheFizzButtons = [{
         name: 'Home',
@@ -61,7 +58,7 @@ class Survey extends React.Component<SurveyProps> {
     render() {
         const { questions, saveQuestionResponse, ui, updateUI, testDriveInstance } = this.props;
         return (
-            <div className="col-md-12">            
+            <div className="col-md-12">
                 {this.isTestDriveCompleted() && <div>
                     <div id="carousel-question-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
                         <div className="testcase_no " id="questions">
@@ -87,7 +84,7 @@ class Survey extends React.Component<SurveyProps> {
                                 questions.length &&
                                 questions.map((question, index) => {
                                     return (<QuestionForm
-                                        testDriveInstance= {testDriveInstance}
+                                        testDriveInstance={testDriveInstance}
                                         isLast={index == questions.length - 1}
                                         key={index}
                                         active={index == 0 ? true : false}
@@ -100,30 +97,25 @@ class Survey extends React.Component<SurveyProps> {
                                 })
                             }
                             <Popup popupId="PopTheFizz" title={"Congratulations!"}
-                                        body={ui.requirmentMessage}
-                                        buttons={this.popTheFizzButtons} />
+                                body={ui.requirmentMessage}
+                                buttons={this.popTheFizzButtons} />
                         </div>
                     </div>
                 </div>
                 }
                 {
                     !this.isTestDriveCompleted() && <div>
-                         <div className="text-center holdon_msgbox">
-     
-                         <img src="/Style%20Library/Elite/images/signal.png" />
-     
-     <h5>Hold on there, Cowboy !</h5>
-     
-     <p> Survey questions will be unlocked once you submit your test case result.</p>
-     
-     
-     
-     
-     
-             
-           </div>
+                        <div className="text-center holdon_msgbox">
+
+                            <img src="/Style%20Library/Elite/images/signal.png" />
+
+                            <h5>Hold on there, Cowboy !</h5>
+
+                            <p> Survey questions will be unlocked once you submit your test case result.</p>
+
+                        </div>
                     </div>
-                }                                 
+                }
             </div>
         )
     }

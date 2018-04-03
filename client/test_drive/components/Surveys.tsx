@@ -28,6 +28,8 @@ interface SurveysProps {
     questionIds: number[];
     fieldDescriptions: any;
     view: string;
+    currentUserRole: string;
+    approveTestDrive: (any) => any;
 };
 @ui({
     state: {
@@ -44,7 +46,7 @@ class Surveys extends React.Component<SurveysProps> {
 
     onSubmit() {
         this.props.updateUI({ saveLoading: true });
-        var testDrive = this.props.testDrive;                
+        var testDrive = this.props.testDrive;
         this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "submit");
     }
 
@@ -76,7 +78,9 @@ class Surveys extends React.Component<SurveysProps> {
             ui,
             updateUI,
             fieldDescriptions,
-            view
+            view,
+            currentUserRole,
+            approveTestDrive
         } = this.props;
         return (
             <div className="test-case-container col-xs-12">
@@ -122,6 +126,15 @@ class Surveys extends React.Component<SurveysProps> {
                                 <input disabled={testDrive.status == ColumnsValues.ACTIVE || testDrive.saveIsInProgress || ui.saveLoading} type="button" value="Submit"
                                     onClick={this.onSubmit} />
                             </div> : ''
+                    }
+
+                    {testDrive.status == ColumnsValues.SUBMIT && currentUserRole == ColumnsValues.SITE_OWNER ?
+                        <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                            <input type="button" value="Approve"
+                                disabled={ui.saveTestDriveApprovalLoading}
+                                onClick={() => approveTestDrive(testDrive.id)} />
+                        </div>
+                        : ''
                     }
 
 

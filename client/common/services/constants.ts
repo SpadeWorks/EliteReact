@@ -152,7 +152,7 @@ export class Messages {
     static TEST_DRIVE_ACTIVE_MSG = 'There are no active test drives.';
     static TEST_DRIVE_PENDING_MSG = 'There are no test drives waiting for approval.';
     static TEST_DRIVE_APPROVED_MSG = 'There are no approved test drives.';
-    static TEST_DRIVE_SAVEDDRAFT_MSG = 'Test drive saved as draft.';
+    static TEST_DRIVE_SAVEDDRAFT_MSG = 'Test drive saved as draft. This will be available under "DRAFTED TEST DRIVES" in "TEST DRIVE I RUN" tab in test drive center';
     static TEST_DRIVE_SUBMIT_MSG = 'Test drive submitted successfully.';
     static LEADERBOARD_GLOBAL_MSG = 'There are no global leaders to show here.';
     static LEADERBOARD_REGIONAL_MSG = 'There are no regional leaders to show here.';

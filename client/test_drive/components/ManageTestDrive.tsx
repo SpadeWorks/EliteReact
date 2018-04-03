@@ -65,7 +65,8 @@ interface AppProps {
         activeTab: 0,
         requirmentMessage: '',
         title: "",
-        saveLoading:false
+        saveLoading: false,
+        saveTestDriveApprovalLoading: false
     }
 })
 
@@ -80,6 +81,7 @@ class ManageTestDrive extends React.Component<AppProps> {
         this.onSaveTestCase = this.onSaveTestCase.bind(this);
         this.checkForUnsavedItems = this.checkForUnsavedItems.bind(this);
         this.getSelectedTab = this.getSelectedTab.bind(this);
+        this.approveTestDrive = this.approveTestDrive.bind(this);
     }
 
 
@@ -110,7 +112,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                 selectedIndex = 0;
             }
             self.props.updateUI({ activeTab: selectedIndex });
-        });        
+        });
         /** Call the plugin */
     }
 
@@ -127,31 +129,31 @@ class ManageTestDrive extends React.Component<AppProps> {
             if (testCases && testCases.length &&
                 this.checkForUnsavedItems(testCases, Messages.SAVE_UNSAVED_TEST_CASE)) {
                 this.switchTab(1);
-                this.props.updateUI({ saveLoading : false });
+                this.props.updateUI({ saveLoading: false });
                 return false;
             }
             if (questions && questions.length &&
                 this.checkForUnsavedItems(questions, Messages.SAVE_UNSAVED_QUESTION)) {
                 this.switchTab(2);
-                this.props.updateUI({ saveLoading : false });
+                this.props.updateUI({ saveLoading: false });
                 return false;
             }
 
             if (testDrive.status == ColumnsValues.SUBMIT && testCases && testCases.length == 0) {
                 //Popup.alert(Messages.NO_TEST_CASE_ERROR);            
-                this.props.updateUI({ requirmentMessage: Messages.NO_TEST_CASE_ERROR, title: "Alert!", saveLoading : false });
+                this.props.updateUI({ requirmentMessage: Messages.NO_TEST_CASE_ERROR, title: "Alert!", saveLoading: false });
                 $("#popupManageTestDriveAlert").trigger('click');
                 return false;
             }
 
             if (testDrive.status == ColumnsValues.SUBMIT && questions && questions.length == 0) {
                 //Popup.alert(Messages.NO_QUESTION_ERROR);
-                this.props.updateUI({ requirmentMessage: Messages.NO_QUESTION_ERROR, title: "Alert!", saveLoading : false });
+                this.props.updateUI({ requirmentMessage: Messages.NO_QUESTION_ERROR, title: "Alert!", saveLoading: false });
                 $("#popupManageTestDriveAlert").trigger('click');
                 return false;
             }
             //this.props.updateUI({ saveIsInProgress: true });
-            Services.getTestDrivesByFilter("TestDriveName eq '" + testDrive.title.trim() + "' and ID ne '"+testDrive.id+"'").then((testDriveData: any) => {
+            Services.getTestDrivesByFilter("TestDriveName eq '" + testDrive.title.trim() + "' and ID ne '" + testDrive.id + "'").then((testDriveData: any) => {
                 if (testDriveData && testDriveData.length > 0) {
                     //Popup.alert(Messages.TEST_DRIVE_SAME_NAME_ERROR)
                     this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAME_NAME_ERROR, title: "Alert!" });
@@ -164,16 +166,16 @@ class ManageTestDrive extends React.Component<AppProps> {
                         this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAVEDDRAFT_MSG, title: "Success!" });
                         $("#popupManageTestDriveSuccessSaveAsDraft").trigger('click');
                     }
-                    else {     
-                        testDrive.status = ColumnsValues.SUBMIT;                                                                
+                    else {
+                        testDrive.status = ColumnsValues.SUBMIT;
                         //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SUBMIT_MSG);
                         this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SUBMIT_MSG, title: "Success!" });
                         $("#popupManageTestDriveSuccess").trigger('click');
                         toast.success(Messages.TEST_DRIVE_SUBMIT_MSG);
                     }
-                    this.props.dispatch(saveTestDrive(testDrive));                    
+                    this.props.dispatch(saveTestDrive(testDrive));
                 }
-                this.props.updateUI({ saveLoading : false });
+                this.props.updateUI({ saveLoading: false });
                 //this.props.updateUI({ saveIsInProgress: false });
             });
 
@@ -181,8 +183,8 @@ class ManageTestDrive extends React.Component<AppProps> {
         else {
             this.switchTab(0);
             //Popup.alert(Messages.TEST_DRIVE_ERROR);
-            this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_ERROR, title: "Alert!", saveLoading : false });
-            $("#popupManageTestDriveAlert").trigger('click');            
+            this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_ERROR, title: "Alert!", saveLoading: false });
+            $("#popupManageTestDriveAlert").trigger('click');
         }
     }
 
@@ -258,20 +260,32 @@ class ManageTestDrive extends React.Component<AppProps> {
         return this.props.ui.activeTab;
     }
 
+    approveTestDrive(testDriveId) {
+        this.props.updateUI({ saveLoading: true, saveTestDriveApprovalLoading: true });
+        Services.approveTestdrive(testDriveId).then(() => {
+            this.props.updateUI({ 
+                requirmentMessage: Messages.TEST_DRIVE_APPROVE_MSG, 
+                title: "Success!",
+                saveLoading: false
+             });
+            $("#popupApprovalSuccess").trigger('click');
+        });
+    }
+
     manageTestDriveSuccessButtons = [{
-        name: 'Go to dashboard',
-        link: '/'
-    },        
+        name: 'Test drive center',
+        link: '/testdrives'
+    },
     ]
 
     manageTestDriveSaveSuccessButtons = [{
-        name: 'Go to dashboard',
-        link: '/'
+        name: 'Test drive center',
+        link: '/testdrives'
     },
     {
         name: 'Stay on test drive',
         link: '#'
-    },    
+    },
     ]
 
     manageTestDriveAlertButtons = [{
@@ -286,14 +300,28 @@ class ManageTestDrive extends React.Component<AppProps> {
     }
     ]
 
+    ApprovalButtons = [{
+        name: 'Test drive center',
+        link: '/testdrives'
+    },
+    {
+        name: 'Stay on test drive',
+        link: '#'
+    }]
+
     render() {
         const { testDrive, question, dispatch, loading, testCase, ui, updateUI,
             testCaseFields, surveyFields, testDriveFields, view } = this.props;
+
+        const currentUserRole = Services.getUserProfileProperties().role;
         return (
             <div className="container header_part">
                 <Popup popupId="ManageTestDriveSuccess" title={ui.title}
                     body={ui.requirmentMessage}
                     buttons={this.manageTestDriveSuccessButtons} />
+                <Popup popupId="ApprovalSuccess" title={ui.title}
+                    body={ui.requirmentMessage}
+                    buttons={this.ApprovalButtons} />
                 <Popup popupId="ManageTestDriveAlert" title={ui.title}
                     body={ui.requirmentMessage}
                     buttons={this.manageTestDriveAlertButtons} />
@@ -306,15 +334,15 @@ class ManageTestDrive extends React.Component<AppProps> {
                 <h2 className="header_prevlink">
                     <Link to={"/testdrives"} >
                         <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-                            {this.props.id ? 
-                                (this.props.view == 'edit'? "Update Test Drive" : "View Test Drive" ) : 
-                                "Create test drive"}
+                        {this.props.id ?
+                            (this.props.view == 'edit' ? "Update Test Drive" : "View Test Drive") :
+                            "Create test drive"}
                     </Link>
                 </h2>
                 <h4 className="cancel-btn"><Link to={"/testdrives"}>CANCEL</Link></h4>
                 <div className="col-md-12 testdrive_createbox">
                     <div className="wrapper">
-                        <Loader show={loading} message={'Loading...'}>
+                        <Loader show={loading || ui.saveLoading} message={'Loading...'}>
                             <Tabs selected={this.getSelectedTab() || 0}>
                                 <Pane label="REGISTER A TEST DRIVE">
                                     <div className={"row setup-content"} id="step-1" >
@@ -332,6 +360,8 @@ class ManageTestDrive extends React.Component<AppProps> {
                                                 ui={ui}
                                                 switchTab={this.switchTab}
                                                 view={view}
+                                                currentUserRole={currentUserRole}
+                                                approveTestDrive={this.approveTestDrive}
                                             />
                                         </div>
                                     </div>
@@ -355,6 +385,8 @@ class ManageTestDrive extends React.Component<AppProps> {
                                                 testCaseIds={testDrive.testCaseIDs}
                                                 fieldDescriptions={testCaseFields}
                                                 switchTab={this.switchTab}
+                                                currentUserRole={currentUserRole}
+                                                approveTestDrive={this.approveTestDrive}
                                                 view={view}
                                             />
                                         </div>
@@ -378,6 +410,8 @@ class ManageTestDrive extends React.Component<AppProps> {
                                                 questionIds={testDrive.questionIDs}
                                                 fieldDescriptions={surveyFields}
                                                 view={view}
+                                                currentUserRole={currentUserRole}
+                                                approveTestDrive={this.approveTestDrive}
                                             />
                                         </div>
                                     </div>

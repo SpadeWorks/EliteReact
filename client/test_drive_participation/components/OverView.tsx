@@ -110,7 +110,8 @@ class OverView extends React.Component<OverViewProps> {
                     <div className="row ">
                         <div className="col-md-6 pull-left">
                             <a className="up carousel-control" href="javascript: void(0);"
-                                onClick={() => $('#carousel-example-vertical').carousel('prev')} role="button" data-slide="prev ">
+                                onClick={() => $(ui.activeTab == 'test_Cases' ? '#carousel-example-vertical' : '#carousel-question-vertical').carousel('prev')} 
+                                    role="button" data-slide="prev ">
                                 <span className="glyphicon glyphicon-chevron-up " aria-hidden="true "></span>
                                 <span className="sr-only ">Previous</span>
                             </a>
@@ -118,7 +119,7 @@ class OverView extends React.Component<OverViewProps> {
                     </div>
                     <div className="col-md-6 pull-right">
                         <a className="down carousel-control" href="javascript: void(0);"
-                            onClick={() => $('#carousel-example-vertical').carousel('next')} role="button" data-slide="next ">
+                            onClick={() => $(ui.activeTab == 'test_Cases' ? '#carousel-example-vertical' : '#carousel-question-vertical').carousel('next')} role="button" data-slide="next ">
                             <span className="glyphicon glyphicon-chevron-down " aria-hidden="true "></span>
                             <span className="sr-only ">Next</span>
                         </a>
