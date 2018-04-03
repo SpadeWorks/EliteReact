@@ -121,12 +121,14 @@ export class Services {
     }
 
     static emailOwner(email: string, testDriveTitle: string) {
-        Services.mailto(email, 'A Question from your Test Driver "' + testDriveTitle + '"', '');
+        Services.getEmailTemplate('TestDriveQuestionEmail').then((emailConfig: any)=>{
+            Services.mailto(email, emailConfig.subject.replace(/##testdriveName##/ig, testDriveTitle), encodeURIComponent(emailConfig.body.replace(/##testdriveName##/ig, testDriveTitle)));
+        });
     }
 
     static shareTestDrive(email: string, testDriveTitle: string) {
         Services.getEmailTemplate('TestDriveShareEmail').then((emailConfig: any)=>{
-            Services.mailto('', emailConfig.subject.replace(/##testdriveName##/ig, testDriveTitle), encodeURIComponent(emailConfig.body.replace(/##testdriveName##/ig, testDriveTitle)));
+            Services.mailto(email, emailConfig.subject.replace(/##testdriveName##/ig, testDriveTitle), encodeURIComponent(emailConfig.body.replace(/##testdriveName##/ig, testDriveTitle)));
         });
     }
 

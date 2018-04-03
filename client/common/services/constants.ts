@@ -165,7 +165,7 @@ export class Messages {
     static SEND_EMAIL_TITLE = 'Send an email to TEST drive owner';
     static SHARE_TITLE = 'Share';
     static START_GREATER_ERROR = 'Start date can not be greater than end date';
-    static POP_THE_FIZZ_1 = "You have successfully completed this testdrive.";
+    static POP_THE_FIZZ_1 = "You have successfully completed this test drive.";
     static POP_THE_FIZZ_2 = "You have completed all the test cases and survey questions."
     static POP_THE_FIZZ_3 = "You earned <span class='orange'>#0#</span> points.";
     static HIGH_FIVE_1 = "You have completed <span class='orange'>#0#</span> of #1# test cases successfully.";

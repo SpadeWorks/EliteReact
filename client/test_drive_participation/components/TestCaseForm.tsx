@@ -161,7 +161,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                             </a> : ''}</p>
                                     <a href="javascript:;" onClick={() => this.openPopUp(index)}> <span className="red">
                                         <img src="/Style%20Library/Elite/images//i.png" />
-                                        Guide me to solve this test case</span>
+                                        Show me all test case details</span>
                                     </a>
                                     <h4 className="testcase_title ">Select the test case status *</h4>
                                     <div className="row ">
