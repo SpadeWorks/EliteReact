@@ -47,9 +47,6 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
         $("#test-case-details" + id)
             .css({ "position": "fixed", "right": "-700px", "transition": "0.5s" });
     }
-
-
-
     missingOutButtons = [{
         name: 'Go to survey',
         callBack: function(){

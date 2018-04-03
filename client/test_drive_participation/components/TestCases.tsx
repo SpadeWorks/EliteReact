@@ -13,6 +13,7 @@ import Promise from "ts-promise";
 import Popup from '../../common/components/Popups';
 import { ToastContainer, toast } from 'react-toastify';
 let confetti = require("../../js/jquery.confetti.js");
+import Services from '../../common/services/services';
 //declare var InitializeConfetti():any; 
 interface TestCasesProps {
     testDriveInstance: TestDriveInstance;
@@ -70,7 +71,7 @@ class TestCases extends React.Component<TestCasesProps> {
         });
     }
 
-    showSubmitPopUp() {        
+    showSubmitPopUp(testCase) {        
         if (this.props.testDriveInstance.numberOfTestCasesCompleted == this.props.testDriveInstance.testCaseIDs.length) {
             //Popup.plugins().prompt('', 'What do you want to do?');
             this.getPopUpBodyDataHighFive().then((data: any) => {
@@ -81,7 +82,14 @@ class TestCases extends React.Component<TestCasesProps> {
             });
             this.props.updateUI({ isSurveyPopUpVisiable: false });
         } else{
-            toast.success("Test Case Responses Submitted Successfully!");
+            var self = this;
+            Services.getTestPointConfiguration(Constants.Lists.POINTS_CONFIGURATIONS).then(testCasePoinsts=>{
+                if(testCase.responseStatus === Constants.ColumnsValues.COMPLETE_STATUS){
+                    toast.success("Test Case Responses Submitted Successfully! You just got " + testCasePoinsts +" points for submission.");
+                } else{
+                    toast.success("Test Case Responses Submitted Successfully!");
+                }
+            });    
         }
     }    
 
@@ -118,7 +126,7 @@ class TestCases extends React.Component<TestCasesProps> {
                                 testCases.map((testCase, index) => {
                                     return (
                                         <TestCaseForm       
-                                            showSubmitPopUp = {() => this.showSubmitPopUp()}                                 
+                                            showSubmitPopUp = {() => this.showSubmitPopUp(testCase)}                                 
                                             isLast={index == testCases.length - 1}
                                             testDriveInstance={testDriveInstance}
                                             key={index}
