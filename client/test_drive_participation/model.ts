@@ -76,6 +76,9 @@ export type TestDriveInstance = {
     participants: number;
     ownerEmail: string;
     testDriveStatus: string;
+    surveyStatus: string;
+    joiningBonus: number;
+    completionBonus: number;
 };
 
 export type Configurations = {

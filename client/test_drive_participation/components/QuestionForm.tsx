@@ -14,7 +14,6 @@ import * as Constants from '../../common/services/constants';
 let confetti = require("../../js/jquery.confetti.js");
 import { validateControl, required, validateForm } from '../../common/components/Validations';
 import Loader from 'react-loader-advanced';
-
 interface QuestionFormProps {
     testDriveInstance: TestDriveInstance;
     showSurvey: boolean;
@@ -24,7 +23,8 @@ interface QuestionFormProps {
     updateUI: (any) => any;
     ui: any;
     isLast: boolean;
-    index: number
+    index: number;
+    updatePoints: (testDriveInstance: TestDriveInstance) => any;
 };
 
 @ui({
@@ -43,10 +43,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
             questionResponse: this.props.question.questionResponse,
             selectedResponse: this.props.question.selectedResponse
         });
-    }
-
-    componentDidMount() {
-
+        this.openCompletionPopUp = this.openCompletionPopUp.bind(this);
     }
 
     onChange(e) {
@@ -97,21 +94,35 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         return new Promise((resolve, reject) => {
             var message = Messages.POP_THE_FIZZ_1 + '<br>';
             message += Messages.POP_THE_FIZZ_2 + '<br>';
-            message += Messages.POP_THE_FIZZ_3.replace("#0#", this.props.testDriveInstance.currentPoint.toString()) + '<br>';
+            message += Messages.POP_THE_FIZZ_3.replace("#0#", this.props.testDriveInstance.completionBonus.toString()) + '<br>';
             resolve({ message });
         });
     }
 
     submitSurvey(question, formID) {
         if (this.submitQuestionResponse(question, formID)) {
-            this.getPopUpBodyData().then((data: any) => {
-                this.props.updateUI({ requirmentMessage: data.message });
-                $("#popupPopTheFizz").trigger("click");
-                $(".modal-backdrop.fade.in").hide();
-                confetti.InitializeConfettiInit();
-            })
+            this.openCompletionPopUp();
         };
+    }
 
+    openCompletionPopUp() {
+        var interval, self = this;
+        Services.submitSurvey(this.props.testDriveInstance).then((testDriveInstance: TestDriveInstance) => {
+            this.props.updatePoints(testDriveInstance);
+            if (testDriveInstance.status === Constants.ColumnsValues.COMPLETE_STATUS) {
+                if (interval) {
+                    clearInterval(interval);
+                }
+                self.getPopUpBodyData().then((data: any) => {
+                    this.props.updateUI({ requirmentMessage: data.message });
+                    $("#popupPopTheFizz").trigger("click");
+                    $(".modal-backdrop.fade.in").hide();
+                    confetti.InitializeConfettiInit();
+                });
+            } else {
+                interval = setTimeout(this.openCompletionPopUp(), 1000);
+            }
+        });
     }
 
     render() {
@@ -173,7 +184,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                         {
                                             isLast && <div className="col-md-12 participation_actionbox">
                                                 <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                                    <input disabled={ this.getCompletedQuestionCount() < testDriveInstance.questionIDs.length - 1} type="button" value="Submit survey" onClick={() => this.submitSurvey(question, formID)} />
+                                                    <input disabled={this.getCompletedQuestionCount() < testDriveInstance.questionIDs.length - 1} type="button" value="Submit survey" onClick={() => this.submitSurvey(question, formID)} />
                                                 </div>
                                             </div>
                                         }

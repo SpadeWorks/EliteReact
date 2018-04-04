@@ -62,8 +62,10 @@ const initialState: IState = {
         isSumbitInProgress: false,
         participants: 0,
         ownerEmail: '',
-        testDriveStatus: ''
-
+        testDriveStatus: '',
+        surveyStatus: '',
+        joiningBonus: 0,
+        completionBonus: 0
     },
     loading: true,
 };
@@ -233,6 +235,9 @@ export default handleActions<IState, any>({
                 numberOfTestCasesCompleted: action.payload.numberOfTestCasesCompleted,
                 isTestDriveSubmissionCompleted: true,
                 status: action.payload.status,
+                joiningBonus: action.payload.joiningBonus,
+                completionBonus: action.payload.completionBonus,
+                surveyStatus: action.payload.surveyStatus,
                 isSumbitInProgress: false
             },
             loading: false

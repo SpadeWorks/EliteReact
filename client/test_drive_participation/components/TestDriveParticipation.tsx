@@ -126,7 +126,8 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                                 loadQuestions(testDriveID, questionIDs, userID)}
                                             ui={ui}
                                             updateUI={updateUI}
-                                            testDriveInstance={testDriveInstance} />
+                                            testDriveInstance={testDriveInstance}
+                                            updatePoints={(t) => updatePoints(t)} />
 
                                     </div>
                                     <div className="tab-pane fade " id="Description">

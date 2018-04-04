@@ -13,6 +13,7 @@ interface SurveyProps {
     loadQuestions: (testDriveID: number, questionIDs: number[], userID: number) => any;
     updateUI: (any) => any;
     ui: any;
+    updatePoints: (testDriveInstance: TestDriveInstance) => any;
 };
 class Survey extends React.Component<SurveyProps> {
     constructor(props, context) {
@@ -56,7 +57,7 @@ class Survey extends React.Component<SurveyProps> {
     ]
 
     render() {
-        const { questions, saveQuestionResponse, ui, updateUI, testDriveInstance } = this.props;
+        const { questions, saveQuestionResponse, ui, updateUI, testDriveInstance, updatePoints} = this.props;
         return (
             <div className="col-md-12">
                 {this.isTestDriveCompleted() && <div>
@@ -93,7 +94,8 @@ class Survey extends React.Component<SurveyProps> {
                                         ui={ui}
                                         updateUI={updateUI}
                                         showSurvey={this.isTestDriveCompleted()}
-                                        index={index} />)
+                                        index={index}
+                                        updatePoints={(t) => updatePoints(t)} />)
                                 })
                             }
                             <Popup popupId="PopTheFizz" title={"Congratulations!"}

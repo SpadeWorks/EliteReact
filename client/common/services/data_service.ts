@@ -57,6 +57,30 @@ pnp.setup({
 
 export class Services {
 
+    static submitSurvey(testDriveInstance: TestDriveInstance){
+        return new Promise((resolve, reject) => {
+            testDriveInstance.surveyStatus = Constants.ColumnsValues.COMPLETE_STATUS;
+            Services.createOrSaveTestDriveInstance(testDriveInstance).then(data => {
+                Services.getTestDriveResponse(testDriveInstance.testDriveID, Services.getCurrentUserID()).then((instance: any) => {
+                    resolve({
+                        ...testDriveInstance,
+                        currentPoint: instance[Constants.Columns.CURRENT_POINTS] || 0,
+                        numberOfTestCasesCompleted: instance[Constants.Columns.TEST_CASE_COMPLETED] || 0,
+                        status: instance[Constants.Columns.STATUS] || '',
+                        surveyStatus: instance[Constants.Columns.SURVEY_STATUS] || 0,
+                        completionBonus: instance[Constants.Columns.COMPLETION_BONUS] || 0,
+                        joiningBonus: instance[Constants.Columns.JOINING_BONUS] || 0
+                    })
+                }, err => {
+                    Utils.clientLog(err);
+                })
+            }, error => {
+                Utils.clientLog(error);
+                reject(error);
+            })
+        }); 
+    }
+
     static requestAccess() {
         Services.getApplicationConfigurations().then((appConfig: any)=>{
             Services.mailto(appConfig.AccessProvider || '', 
@@ -319,12 +343,15 @@ export class Services {
                         return testCase.testCaseId == result.testCaseInstance.testCaseId ? result.testCaseInstance : testCase;
                     })
 
-                Services.getTestDriveInstance(testDriveInstance.testDriveID, Services.getCurrentUserID()).then((instance: any) => {
+                Services.getTestDriveResponse(testDriveInstance.testDriveID, Services.getCurrentUserID()).then((instance: any) => {
                     resolve({
                         ...testDriveInstance,
-                        currentPoint: instance.currentPoint,
-                        numberOfTestCasesCompleted: instance.numberOfTestCasesCompleted,
-                        status: instance.status
+                        currentPoint: instance[Constants.Columns.CURRENT_POINTS] || 0,
+                        numberOfTestCasesCompleted: instance[Constants.Columns.TEST_CASE_COMPLETED] || 0,
+                        status: instance[Constants.Columns.STATUS] || '',
+                        surveyStatus: instance[Constants.Columns.SURVEY_STATUS] || 0,
+                        completionBonus: instance[Constants.Columns.COMPLETION_BONUS] || 0,
+                        joiningBonus: instance[Constants.Columns.JOINING_BONUS] || 0
                     })
                 }, err => {
                     Utils.clientLog(err);
@@ -378,7 +405,8 @@ export class Services {
                 [Constants.Columns.TEST_DRIVE_ID]: testDriveInstance.testDriveID,
                 [Constants.Columns.USER_ID]: Services.getCurrentUserID(),
                 [Constants.Columns.TEST_CASE_COMPLETED]: testDriveInstance.numberOfTestCasesCompleted,
-                [Constants.Columns.CURRENT_POINTS]: testDriveInstance.currentPoint
+                [Constants.Columns.CURRENT_POINTS]: testDriveInstance.currentPoint,
+                [Constants.Columns.SURVEY_STATUS]: testDriveInstance.surveyStatus || Constants.ColumnsValues.DRAFT
             }]).then(newTestDrives => {
                 let newTestDrive = newTestDrives[0];
                 resolve(<TestDriveInstance>{
@@ -523,7 +551,10 @@ export class Services {
                     Constants.Columns.STATUS,
                     Constants.Columns.DATE_JOINED,
                     Constants.Columns.TEST_CASE_COMPLETED,
-                    Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID
+                    Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.JOINING_BONUS,
+                    Constants.Columns.COMPLETION_BONUS,
+                    Constants.Columns.SURVEY_STATUS,
                 )
                 .filter(Constants.Columns.USER_ID + ' eq ' + userId +
                     ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)

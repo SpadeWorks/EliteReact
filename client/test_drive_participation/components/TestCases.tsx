@@ -36,13 +36,13 @@ class TestCases extends React.Component<TestCasesProps> {
         this.getPopUpBodyDataHighFive = this.getPopUpBodyDataHighFive.bind(this);
         this.getPopUpBodyDataMissingOut = this.getPopUpBodyDataMissingOut.bind(this);
     }
-    componentDidMount() {                                
+    componentDidMount() {
         $('#carousel-example-vertical').bind('mousewheel', function (e) {
             if (e.originalEvent.wheelDelta / 120 > 0) {
                 $(this).carousel('prev');
             }
             else {
-                $(this).carousel('next'); 
+                $(this).carousel('next');
             }
         });
 
@@ -52,51 +52,48 @@ class TestCases extends React.Component<TestCasesProps> {
     }
 
     getPopUpBodyDataMissingOut() {
-        return new Promise((resolve, reject) => {        
-                var message = Messages.MISSING_OUT_1.replace("#0#", this.props.testDriveInstance.numberOfTestCasesCompleted.toString()).replace("#1#", this.props.testDriveInstance.testCases.length.toString()) + '<br>';                
-                message += Messages.MISSING_OUT_2.replace("#0#", this.props.testDriveInstance.currentPoint.toString()) + '<br>';
-                message += Messages.MISSING_OUT_3.replace("#0#", "5th") + '<br>';
-                message += Messages.MISSING_OUT_4.replace("#0#", (this.props.testDriveInstance.maxPoints - this.props.testDriveInstance.currentPoint).toString()).replace("#1#", "Supercar") + '<br>';                
-                resolve({ message });            
-        });
-    }    
-
-    getPopUpBodyDataHighFive() {
-        return new Promise((resolve, reject) => {        
-                var message = Messages.HIGH_FIVE_1.replace("#0#", this.props.testDriveInstance.numberOfTestCasesCompleted.toString()).replace("#1#", this.props.testDriveInstance.testCases.length.toString()) + '<br>';                
-                message += Messages.HIGH_FIVE_2.replace("#0#", this.props.testDriveInstance.currentPoint.toString()) + '<br>';
-                // message += Messages.HIGH_FIVE_3.replace("#0#", "5th") + '<br>';
-                // message += Messages.HIGH_FIVE_4.replace("#0#", (this.props.testDriveInstance.maxPoints - this.props.testDriveInstance.currentPoint).toString()).replace("#1#", "Supercar") + '<br>';                
-                resolve({ message });            
+        return new Promise((resolve, reject) => {
+            var message = Messages.MISSING_OUT_1.replace("#0#", this.props.testDriveInstance.numberOfTestCasesCompleted.toString()).replace("#1#", this.props.testDriveInstance.testCases.length.toString()) + '<br>';
+            message += Messages.MISSING_OUT_2.replace("#0#", this.props.testDriveInstance.currentPoint.toString()) + '<br>';
+            message += Messages.MISSING_OUT_3.replace("#0#", "5th") + '<br>';
+            message += Messages.MISSING_OUT_4.replace("#0#", (this.props.testDriveInstance.maxPoints - this.props.testDriveInstance.currentPoint).toString()).replace("#1#", "Supercar") + '<br>';
+            resolve({ message });
         });
     }
 
-    showSubmitPopUp(testCase) {        
+    getPopUpBodyDataHighFive() {
+        var message = Messages.HIGH_FIVE_1.replace("#0#", this.props.testDriveInstance.numberOfTestCasesCompleted.toString()).replace("#1#", this.props.testDriveInstance.testCases.length.toString()) + '<br>';
+        message += Messages.HIGH_FIVE_2.replace("#0#", (this.props.testDriveInstance.currentPoint - this.props.testDriveInstance.joiningBonus - this.props.testDriveInstance.completionBonus).toString()) + '<br>';
+        message += Messages.HIGH_FIVE_3.replace("#0#", this.props.testDriveInstance.joiningBonus.toString()) + '<br>';
+        // message += Messages.HIGH_FIVE_3.replace("#0#", "5th") + '<br>';
+        // message += Messages.HIGH_FIVE_4.replace("#0#", (this.props.testDriveInstance.maxPoints - this.props.testDriveInstance.currentPoint).toString()).replace("#1#", "Supercar") + '<br>';                
+        return { message };
+    }
+
+    showSubmitPopUp(testCase) {
         if (this.props.testDriveInstance.numberOfTestCasesCompleted == this.props.testDriveInstance.testCaseIDs.length) {
             //Popup.plugins().prompt('', 'What do you want to do?');
-            this.getPopUpBodyDataHighFive().then((data: any) => {
-                this.props.updateUI({ requirmentMessage: data.message });
-                 $("#popupHighFive").trigger("click"); 
-                 $(".modal-backdrop.fade.in").hide();
-                 confetti.InitializeConfettiInit(); 
-            });
+            this.props.updateUI({ requirmentMessage: this.getPopUpBodyDataHighFive().message });
+            $("#popupHighFive").trigger("click");
+            $(".modal-backdrop.fade.in").hide();
+            confetti.InitializeConfettiInit();
             this.props.updateUI({ isSurveyPopUpVisiable: false });
-        } else{
+        } else {
             var self = this;
-            Services.getTestPointConfiguration(Constants.Lists.POINTS_CONFIGURATIONS).then(testCasePoinsts=>{
-                if(testCase.responseStatus === Constants.ColumnsValues.COMPLETE_STATUS){
-                    toast.success("Test Case Responses Submitted Successfully! You just got " + testCasePoinsts +" points for submission.");
-                } else{
+            Services.getTestPointConfiguration(Constants.Lists.POINTS_CONFIGURATIONS).then(testCasePoinsts => {
+                if (testCase.responseStatus === Constants.ColumnsValues.COMPLETE_STATUS) {
+                    toast.success("Test Case Responses Submitted Successfully! You just got " + testCasePoinsts + " points for submission.");
+                } else {
                     toast.success("Test Case Responses Submitted Successfully!");
                 }
-            });    
+            });
         }
-    }    
+    }
 
     render() {
         const { testCases, saveTestCaseResponse, updatePoints, ui, updateUI, testDriveInstance } = this.props;
         return (
-            <div className="col-md-12">            
+            <div className="col-md-12">
                 {/* {this.showSubmitPopUp()} */}
                 <Loader show={ui.loading || false} message={'Loading...'}>
                     <div id="carousel-example-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
@@ -125,8 +122,8 @@ class TestCases extends React.Component<TestCasesProps> {
                                 testCases.length &&
                                 testCases.map((testCase, index) => {
                                     return (
-                                        <TestCaseForm       
-                                            showSubmitPopUp = {() => this.showSubmitPopUp(testCase)}                                 
+                                        <TestCaseForm
+                                            showSubmitPopUp={() => this.showSubmitPopUp(testCase)}
                                             isLast={index == testCases.length - 1}
                                             testDriveInstance={testDriveInstance}
                                             key={index}
