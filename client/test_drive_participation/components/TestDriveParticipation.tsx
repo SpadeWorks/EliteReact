@@ -41,6 +41,13 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                 container.css({ "position": "fixed", "right": "-700px", "transition": "0.5s" });
             }
         });
+
+
+        $('.testdrive_completionbox').click(e => {
+            if (e.target.src) {
+                window.open(e.target.src);
+            }
+        })
     }
 
     closePopUp(id) {
@@ -49,7 +56,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
     }
     missingOutButtons = [{
         name: 'Go to survey',
-        callBack: function(){
+        callBack: function () {
             $(".close-popup").trigger('click');
             $(".close-popup").trigger('click');
             $("a[href='#Servay_q']").trigger('click');
@@ -63,7 +70,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
 
     highFiveButtons = [{
         name: 'Go to survey',
-        callBack: function(){
+        callBack: function () {
             $(".close-popup").trigger('click');
             $(".close-popup").trigger('click');
             $("a[href='#Servay_q']").trigger('click');
