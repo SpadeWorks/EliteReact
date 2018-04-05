@@ -86,6 +86,7 @@ class Home extends React.Component<HomeProps, HomeState> {
 
         let user = Services.getUserProfileProperties();
         Services.getApplicationConfigurations().then(function (data: any) {
+            data.HomePageMiddleText = data.HomePageMiddleText ? data.HomePageMiddleText.replace(/\n/g, "<br />") : '';
             $("#homeMiddleText").html(data.HomePageMiddleText);
         });
 
