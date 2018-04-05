@@ -43,7 +43,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
         });
 
 
-        $('.testdrive_completionbox').click(e => {
+        $('.write_testdrivebox').click(e => {
             if (e.target.src) {
                 window.open(e.target.src);
             }
