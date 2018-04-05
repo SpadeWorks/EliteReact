@@ -7697,7 +7697,6 @@ span.orange.big {
         position: relative;
         right: 154px;
     }
-    
     .partcipant_Section .race_type h5 {
         text-transform: uppercase;
     }
@@ -8414,4 +8413,12 @@ button:disabled {
 .para li.more {
     float: left;
     padding-top: 5px;
+}
+
+.big_lock.text-center img {
+    display: inline;
+    margin:0 !important;
+    position: absolute;
+    top: 25%;
+    left: 45%;
 }
