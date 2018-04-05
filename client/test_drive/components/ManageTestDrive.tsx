@@ -122,10 +122,6 @@ class ManageTestDrive extends React.Component<AppProps> {
         var questions = this.props.testDrive.questions;
         var maxTestDrivers = parseInt(testDrive.maxTestDrivers) || 0;
         if (isFormValid) {
-            // if (maxTestDrivers < 1) {
-            //     Popup.alert('Max Test Drivers value should be greater than 1.');
-            //     return false;
-            // }
             if (testCases && testCases.length &&
                 this.checkForUnsavedItems(testCases, Messages.SAVE_UNSAVED_TEST_CASE)) {
                 this.switchTab(1);
@@ -139,14 +135,14 @@ class ManageTestDrive extends React.Component<AppProps> {
                 return false;
             }
 
-            if (testDrive.status == ColumnsValues.SUBMIT && testCases && testCases.length == 0) {
+            if (action == "submit" && testCases && testCases.length == 0) {
                 //Popup.alert(Messages.NO_TEST_CASE_ERROR);            
                 this.props.updateUI({ requirmentMessage: Messages.NO_TEST_CASE_ERROR, title: "Alert!", saveLoading: false });
                 $("#popupManageTestDriveAlert").trigger('click');
                 return false;
             }
 
-            if (testDrive.status == ColumnsValues.SUBMIT && questions && questions.length == 0) {
+            if (action == "submit" && questions && questions.length == 0) {
                 //Popup.alert(Messages.NO_QUESTION_ERROR);
                 this.props.updateUI({ requirmentMessage: Messages.NO_QUESTION_ERROR, title: "Alert!", saveLoading: false });
                 $("#popupManageTestDriveAlert").trigger('click');
@@ -263,11 +259,11 @@ class ManageTestDrive extends React.Component<AppProps> {
     approveTestDrive(testDriveId) {
         this.props.updateUI({ saveLoading: true, saveTestDriveApprovalLoading: true });
         Services.approveTestdrive(testDriveId).then(() => {
-            this.props.updateUI({ 
-                requirmentMessage: Messages.TEST_DRIVE_APPROVE_MSG, 
+            this.props.updateUI({
+                requirmentMessage: Messages.TEST_DRIVE_APPROVE_MSG,
                 title: "Success!",
                 saveLoading: false
-             });
+            });
             $("#popupApprovalSuccess").trigger('click');
         });
     }
@@ -332,12 +328,12 @@ class ManageTestDrive extends React.Component<AppProps> {
                     body={ui.requirmentMessage}
                     buttons={this.manageTestDriveSaveSuccessButtons} />
                 <h2 className="header_prevlink">
-                    <Link to={"/testdrives"} >
+                    <a href="javascript:;" onClick={() => Services.goBack()}>
                         <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                         {this.props.id ?
                             (this.props.view == 'edit' ? "Update Test Drive" : "View Test Drive") :
                             "Create test drive"}
-                    </Link>
+                    </a>
                 </h2>
                 <h4 className="cancel-btn"><Link to={"/testdrives"}>CANCEL</Link></h4>
                 <div className="col-md-12 testdrive_createbox">

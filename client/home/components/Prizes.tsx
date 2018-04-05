@@ -3,6 +3,7 @@ import Loader from 'react-loader-advanced';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Link } from "react-router-dom";
+import Services from '../../common/services/services';
 
 import {
     model,
@@ -29,10 +30,10 @@ class Prizes extends React.Component<PrizesProps> {
         return (<div>
             <Loader show={prizesLoading} message={'Loading prizes...'}>
                 <div className="container header_part">
-                    <h2 className="header_prevlink"> <Link to={"/"} >
+                    <h2 className="header_prevlink"> <a href="javascript:;" onClick={() => Services.goBack()}>
                         <span className="glyphicon glyphicon-menu-left" aria-hidden="true">
                         </span> Prizes
-                    </Link>
+                    </a>
                     </h2>
                     <h4 className="cancel-btn"><Link to={"/"}>CANCEL</Link></h4>
                 </div>

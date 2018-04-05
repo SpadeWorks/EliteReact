@@ -221,10 +221,10 @@ class MyProfile extends React.Component<MyProfileProps> {
                     eliteProfile &&
                     <div className="row">
                         <div className="container header_part">
-                            <h2 className="header_prevlink"> <Link to={"/"} >
+                            <h2 className="header_prevlink">  <a href="javascript:;" onClick={() => Services.goBack()}>
                                 <span className="glyphicon glyphicon-menu-left" aria-hidden="true">
                                 </span> {(!this.props.id && this.props.id != -1) ? "My Profile" : "Profile"}
-                            </Link>
+                            </a>
                             </h2>
                             <h4 className="cancel-btn"><Link to={"/"}>CANCEL</Link></h4>
                         </div>

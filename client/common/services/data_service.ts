@@ -57,6 +57,9 @@ pnp.setup({
 
 export class Services {
 
+    static goBack(){
+        window.history.back();
+    }
     static submitSurvey(testDriveInstance: TestDriveInstance){
         return new Promise((resolve, reject) => {
             testDriveInstance.surveyStatus = Constants.ColumnsValues.COMPLETE_STATUS;

@@ -88,9 +88,9 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
             <div className="row">
                 <div className="container header_part">
                     <h2>
-                        <Link to={"/testdrives"}><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                        <a href="javascript:;" onClick={() => Services.goBack()}><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                             {testDriveInstance.title}
-                        </Link>
+                        </a>
                     </h2>
                 </div>
                 <div className="container participation_container">

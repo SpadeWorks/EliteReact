@@ -25,7 +25,7 @@ interface ReportBugHomeProps {
     state: {
         files: [],
         saveReportIsInProgress: false,
-        loading:false
+        loading: false
     }
 })
 
@@ -43,7 +43,7 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
         this.props.reportBug.description = "";
         this.props.reportBug.files = null;
         let user = Services.getUserProfileProperties();
-        this.props.reportBug.reportedBy = user.eliteProfileID; 
+        this.props.reportBug.reportedBy = user.eliteProfileID;
         document.body.className = "black-bg";
     }
     onFilesChange(files) {
@@ -89,20 +89,20 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
     saveReportBug(reportBug) {
         reportBug.testDriveID = this.props.id;
         reportBug.files = this.props.ui.files;
-        reportBug.status = ColumnsValues.APPROVAL_PENDING;        
+        reportBug.status = ColumnsValues.APPROVAL_PENDING;
         var isFormValid = validateForm("reportbug-form" + reportBug.id);
         if (isFormValid) {
             this.props.updateUI({
                 saveReportIsInProgress: true
             });
             this.props.updateUI({
-               loading: true
+                loading: true
             });
             Services.createOrSaveReportBug(reportBug).then(() => {
                 this.props.updateUI({
                     loading: false
                 });
-                $("#popupReportBugSuccess").trigger('click');                
+                $("#popupReportBugSuccess").trigger('click');
             });
         }
     }
@@ -125,36 +125,36 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
                     body={Messages.REPORT_BUG_SUCCESS}
                     buttons={this.reportBugSuccessButtons} />
                 <h2 className="header_prevlink">
-                    <Link to={"/"} >
+                    <a href="javascript:;" onClick={() => Services.goBack()}>
                         <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Report a bug
-                    </Link>
+                    </a>
                 </h2>
                 <h4 className="cancel-btn"><Link to={"/"}>CANCEL</Link></h4>
                 <div className="col-md-12 testdrive_createbox">
                     <div className="wrapper">
-                    <Loader show={ui.loading} message={'Loading...'}>
-                        <div className={"row setup-content"} id="step-1" >
-                            <div className="col-xs-11 form_box tab-container report_bugbox">
-                                <form className="registration_form" id={"reportbug-form" + reportBug.id}>
-                                    <div className="col-xs-12 testdrive_creationbox form_box ">
-                                        <div className="col-md-12 register_input">
-                                            <div className="group">
-                                                <input className="inputMaterial"
-                                                    type="text"
-                                                    onChange={this.onChange}
-                                                    name="title"
-                                                    value={reportBug.title || ""}
-                                                    id={"reportbug-title" + reportBug.id}
-                                                    data-validations={[required]}
-                                                    maxLength={maxLimit}
-                                                />
-                                                <span className="highlight"></span>
-                                                <span className="bar"></span>
-                                                <label className="disc_lable">Title*</label>
-                                                <span className="clsRemainingLength">Remaining: {maxLimit - reportBug.title.length}</span>
+                        <Loader show={ui.loading} message={'Loading...'}>
+                            <div className={"row setup-content"} id="step-1" >
+                                <div className="col-xs-11 form_box tab-container report_bugbox">
+                                    <form className="registration_form" id={"reportbug-form" + reportBug.id}>
+                                        <div className="col-xs-12 testdrive_creationbox form_box ">
+                                            <div className="col-md-12 register_input">
+                                                <div className="group">
+                                                    <input className="inputMaterial"
+                                                        type="text"
+                                                        onChange={this.onChange}
+                                                        name="title"
+                                                        value={reportBug.title || ""}
+                                                        id={"reportbug-title" + reportBug.id}
+                                                        data-validations={[required]}
+                                                        maxLength={maxLimit}
+                                                    />
+                                                    <span className="highlight"></span>
+                                                    <span className="bar"></span>
+                                                    <label className="disc_lable">Title*</label>
+                                                    <span className="clsRemainingLength">Remaining: {maxLimit - reportBug.title.length}</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        {/* <div className="col-md-12 register_input textarea-custom">
+                                            {/* <div className="col-md-12 register_input textarea-custom">
                                             <div className="group">
                                                 <textarea className="inputMaterial"
                                                     onChange={this.onChange}
@@ -168,82 +168,82 @@ class ReportBugHome extends React.Component<ReportBugHomeProps> {
                                                 <label className="disc_lable">Description*</label>
                                             </div>
                                         </div> */}
-                                        <div className="col-md-12 comment_box ">
-                                            <Files
-                                                ref='files'
-                                                className='files-dropzone-list'
-                                                onChange={this.onFilesChange}
-                                                onError={this.onFilesError}
-                                                multiple
-                                                maxFiles={10}
-                                                maxFileSize={10000000}
-                                                minFileSize={0}
-                                                clickable
-                                            ><i className="material-icons pull-right">attachment</i>
-                                            </Files>
+                                            <div className="col-md-12 comment_box ">
+                                                <Files
+                                                    ref='files'
+                                                    className='files-dropzone-list'
+                                                    onChange={this.onFilesChange}
+                                                    onError={this.onFilesError}
+                                                    multiple
+                                                    maxFiles={10}
+                                                    maxFileSize={10000000}
+                                                    minFileSize={0}
+                                                    clickable
+                                                ><i className="material-icons pull-right">attachment</i>
+                                                </Files>
 
-                                            <textarea className="inputMaterial form-control"
-                                                onChange={(e: any) => this.onChange(e)}
-                                                name="description"
-                                                value={reportBug.description}
-                                                id={"reportbug-description" + reportBug.id}
-                                                data-validations={[required]} />
+                                                <textarea className="inputMaterial form-control"
+                                                    onChange={(e: any) => this.onChange(e)}
+                                                    name="description"
+                                                    value={reportBug.description}
+                                                    id={"reportbug-description" + reportBug.id}
+                                                    data-validations={[required]} />
 
-                                            <span className="highlight "></span>
-                                            <span className="bar "></span>
-                                            <label className="disc_lable ">Description*</label>
-                                        </div>
-                                        <div className="files" style={{ clear: 'both'}}>
-                                            {
-                                                (reportBug && reportBug.files && reportBug.files.length) ? <div className='files-list' style={{ display: 'none' }}>
-                                                    <ul>{reportBug.files.map((file, index) => {
-                                                        return (<li className='files-list-item' key={file.FileName + index}>
-                                                            <div className='files-list-item-preview'>
-                                                                <img className='files-list-item-preview-image' src={file.ServerRelativeUrl} />
-                                                            </div>
-                                                            <div className='files-list-item-content'>
-                                                                <div className='files-list-item-content-item files-list-item-content-item-1'>{file.FileName}</div>
-                                                            </div>
-                                                        </li>)
-                                                    }
-                                                    )}</ul>
-                                                </div>: ''
-                                            }
-                                            <div className='files-list'>
-                                                <ul>{
-                                                    (ui.files && ui.files.length) ? ui.files.map((file) => {
-                                                        return <li className='files-list-item' key={file.id}>
-                                                            <div className='files-list-item-preview'>
-                                                                <img className='files-list-item-preview-image' src={file.preview.url} />
-                                                            </div>
-                                                            <div className='files-list-item-content'>
-                                                                <div className='files-list-item-content-item files-list-item-content-item-1'>{file.name}</div>
-                                                            </div>
-                                                            <div
-                                                                id={file.id}
-                                                                className='files-list-item-remove'
-                                                                onClick={this.filesRemoveOne.bind(this, file)} // eslint-disable-line
-                                                            ></div>
-                                                        </li>
-                                                    }) : ''}</ul>
+                                                <span className="highlight "></span>
+                                                <span className="bar "></span>
+                                                <label className="disc_lable ">Description*</label>
+                                            </div>
+                                            <div className="files" style={{ clear: 'both' }}>
+                                                {
+                                                    (reportBug && reportBug.files && reportBug.files.length) ? <div className='files-list' style={{ display: 'none' }}>
+                                                        <ul>{reportBug.files.map((file, index) => {
+                                                            return (<li className='files-list-item' key={file.FileName + index}>
+                                                                <div className='files-list-item-preview'>
+                                                                    <img className='files-list-item-preview-image' src={file.ServerRelativeUrl} />
+                                                                </div>
+                                                                <div className='files-list-item-content'>
+                                                                    <div className='files-list-item-content-item files-list-item-content-item-1'>{file.FileName}</div>
+                                                                </div>
+                                                            </li>)
+                                                        }
+                                                        )}</ul>
+                                                    </div> : ''
+                                                }
+                                                <div className='files-list'>
+                                                    <ul>{
+                                                        (ui.files && ui.files.length) ? ui.files.map((file) => {
+                                                            return <li className='files-list-item' key={file.id}>
+                                                                <div className='files-list-item-preview'>
+                                                                    <img className='files-list-item-preview-image' src={file.preview.url} />
+                                                                </div>
+                                                                <div className='files-list-item-content'>
+                                                                    <div className='files-list-item-content-item files-list-item-content-item-1'>{file.name}</div>
+                                                                </div>
+                                                                <div
+                                                                    id={file.id}
+                                                                    className='files-list-item-remove'
+                                                                    onClick={this.filesRemoveOne.bind(this, file)} // eslint-disable-line
+                                                                ></div>
+                                                            </li>
+                                                        }) : ''}</ul>
+                                                </div>
+
                                             </div>
 
-                                        </div>
-
-                                        <div className="col-md-12 testdrive_actionbox">
-                                            <div style={butttonGroup}>
-                                                <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                                    <input disabled={ui.saveReportIsInProgress} type="button" value="Submit"
-                                                        onClick={() => {
-                                                            this.saveReportBug(reportBug)
-                                                        }} />
+                                            <div className="col-md-12 testdrive_actionbox">
+                                                <div style={butttonGroup}>
+                                                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                                        <input disabled={ui.saveReportIsInProgress} type="button" value="Submit"
+                                                            onClick={() => {
+                                                                this.saveReportBug(reportBug)
+                                                            }} />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form >
+                                    </form >
+                                </div>
                             </div>
-                        </div>
                         </Loader>
                     </div>
                 </div>

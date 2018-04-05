@@ -5,6 +5,7 @@ import { Dispatch } from 'redux';
 import GlobalLeaderBoard from './GlobalLeaderBoard';
 import RegionalLeaderBoard from './RegionalLeaderBoard'
 import { Tabs, Pane } from '../../common/components/Tabs';
+import Services from '../../common/services/services';
 import {
   model,
   loadGlobalLeaderBoard,
@@ -45,9 +46,9 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
     return (<div className="col-md-12">
       <div className="row">
         <div className="container header_part">
-          <h2 className="header_prevlink"> <Link to={"/"} >
+          <h2 className="header_prevlink"> <a href="javascript:;" onClick={() => Services.goBack()}>
             <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Leaderboard
-                 </Link>
+                 </a>
           </h2>
           <h4 className="cancel-btn"><Link to={"/"}>CANCEL</Link></h4>
         </div>

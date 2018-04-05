@@ -144,7 +144,10 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
 
                 <div className="container header_part">
                     <h2 className="header_prevlink">
-                        <Link to={"/testdrives"}><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>{testDriveInstance.title}  </Link></h2>
+                    <a href="javascript:;" onClick={() => Services.goBack()}><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    {testDriveInstance.title}  
+                    </a>
+                    </h2>
                     <h4 className="cancel-btn"><Link to={"/"}>CANCEL</Link></h4>
                 </div>
                 <div className="container-fluid testdrive-detail_first-time">
