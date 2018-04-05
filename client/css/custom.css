@@ -2168,9 +2168,7 @@ h1 {
     }
 }
 
-
 /*custom style starts here --------------------------------------------------------------------*/
-
 
 /*welcome and landing text starts here*/
 
@@ -2326,12 +2324,10 @@ h1 {
 .intro_actionbox.testdrive_actionbox.letsgo {
     bottom: -152px;
     left: -184px;
-    background: none!important;
+    background: none !important;
 }
 
-
 /*welcome and landing text ends here*/
-
 
 /*equiliser style starts here*/
 
@@ -2555,9 +2551,7 @@ h1 {
     }
 }
 
-
 /*equiliser ends here*/
-
 
 /*counter starts here*/
 
@@ -2569,9 +2563,7 @@ span.counter {
     text-transform: uppercase;
 }
 
-
 /*counter ends here*/
-
 
 /*wizard style starts here*/
 
@@ -2800,9 +2792,7 @@ fieldset[disabled] .btn {
 
 .setup-content .btn-group {}
 
-
 /*wizard style ends here*/
-
 
 /*material design effect starts here*/
 
@@ -2826,7 +2816,6 @@ textarea.inputMaterial {
     outline: none;
 }
 
-
 /* LABEL ======================================= */
 
 label {
@@ -2844,9 +2833,7 @@ label {
     color: #fff;
 }
 
-
 /* active state */
-
 
 /*
 .inputMaterial:focus~label,
@@ -2862,7 +2849,6 @@ textarea.inputMaterial:focus {
     overflow: inherit !important;
 }*/
 
-
 /*textarea.inputMaterial:focus~label {
     top: -21px;
 }*/
@@ -2871,7 +2857,6 @@ textarea.inputMaterial:focus {
     position: absolute;
     top: 15px;
 }
-
 
 /* BOTTOM BARS ================================= */
 
@@ -2883,14 +2868,12 @@ textarea.inputMaterial:focus {
     right: 50%;
 }
 
-
 /* active state */
 
 .inputMaterial:focus~.bar:before,
 .inputMaterial:focus~.bar:after {
     width: 50%;
 }
-
 
 /* active state */
 
@@ -2904,17 +2887,13 @@ textarea.inputMaterial:focus {
     min-height: 130px;
 }
 
-
 /*.registration_form {
 margin-top: 130px;
 }*/
 
-
 /* ANIMATIONS ================ */
 
-
 /*material design effects ends here*/
-
 
 /*scrollbar style starts here*/
 
@@ -2940,7 +2919,6 @@ margin-top: 130px;
     background-color: #333;
     border-radius: 10px;
 }
-
 
 /*scrollbar style ends here*/
 
@@ -3162,7 +3140,6 @@ span.select2-selection__choice__remove {
     margin-top: 30px;
 }
 
-
 /*.line_box {
 height: 200px;
 background: url(/Style%20Library/Elite/images/line.png) no-repeat;
@@ -3176,7 +3153,6 @@ margin-top: -90px;
     font-size: 14px;
     color: #545454;
 }
-
 
 /*
 .letest_drivebox {
@@ -3484,7 +3460,6 @@ span.l_count {
 .tuser_count h4 {
     font-size: 14px;
 }
-
 
 /*.therm.outer-therm.vertical {
 background: url(/Style%20Library/Elite/images/graph.png) no-repeat bottom left;
@@ -3874,7 +3849,6 @@ a#link6 span {
     letter-spacing: 2px;
 }
 
-
 /*profile css starts here*/
 
 .user_name h2 {
@@ -3969,9 +3943,7 @@ a#link6 span {
     border: solid 1px #333;
 }
 
-
 /*profile css ends here*/
-
 
 /*laderboard list styles starts here*/
 
@@ -4051,9 +4023,7 @@ a#link6 span {
     margin-top: 100px;
 }
 
-
 /*leaderboard list styles ends here*/
-
 
 /*test case for user starts here*/
 
@@ -4140,6 +4110,7 @@ a.status_fail {
 
 .col-md-12.comment_box textarea {
     height: 50px;
+    color: white;
 }
 
 .overview {
@@ -4236,7 +4207,6 @@ ul.task_circle li p.inactive_task {
     width: 28px !important;
 }
 
-
 /*test case for user ends here*/
 
 .car_box {
@@ -4310,7 +4280,6 @@ label.rdw-image-modal-upload-option-label {
     pointer-events: auto;
     position: relative;
 }
-
 
 /*modifications start on registration//////////////////////////////*/
 
@@ -4499,7 +4468,6 @@ div#s4-ribbonrow {
     z-index: 1;
 }
 
-
 /*modifications ends on registration//////////////////////////////*/
 
 .location_box {
@@ -4529,7 +4497,6 @@ div#s4-ribbonrow {
     height: 300px;
     z-index: 1;
 }
-
 
 /*test case popup starts here*/
 
@@ -4638,9 +4605,7 @@ span.report:hover {
     margin-left: 100px;
 }
 
-
 /*test case popup ends here*/
-
 
 /*profile css starts here*/
 
@@ -4723,9 +4688,7 @@ span.increase_or_decreased {
     border: solid 1px #333;
 }
 
-
 /*profile css ends here*/
-
 
 /*laderboard list styles starts here*/
 
@@ -4803,9 +4766,7 @@ span.increase_or_decreased {
     margin-top: 100px;
 }
 
-
 /*leaderboard list styles ends here*/
-
 
 /*test case for user starts here*/
 
@@ -4915,9 +4876,7 @@ ul.task_circle li p.inactive_task {
     color: #333;
 }
 
-
 /*test case for user ends here*/
-
 
 /*test case popup starts here*/
 
@@ -5003,9 +4962,7 @@ span.teams:hover {
     margin-left: 100px;
 }
 
-
 /*test case popup ends here*/
-
 
 /*video box styles starts here*/
 
@@ -5018,9 +4975,7 @@ span.teams:hover {
     width: 800px;
 }
 
-
 /*video box styling ends here*/
-
 
 /*new profile ui starts here*/
 
@@ -5095,16 +5050,13 @@ a.edit_profile {
     text-transform: uppercase;
 }
 
-
 /*for car slider start*/
 
 #carousel-example-generic {
     display: inline-block;
 }
 
-
 /*****************************/
-
 
 /* Plugin styles */
 
@@ -5259,9 +5211,7 @@ li.active-thumbnail {
     margin-top: -10px;
 }
 
-
 /* Removed to fixes avatar carousel issue. */
-
 
 /* .avatar_box .item {
     padding-left: 60px;
@@ -5291,7 +5241,6 @@ li.active-thumbnail {
     float: left;
     width: 100%;
 }
-
 
 /*.inputMaterial:valid~label {
     top: -3px;
@@ -5325,12 +5274,9 @@ select {
     opacity: 1;
 }
 
-
 /*for car slider ends*/
 
-
 /*new profile ui ends here */
-
 
 /* style for referal pop up start here*/
 
@@ -5362,7 +5308,6 @@ h1#dialogTitleSpan {
     font-family: "HemiHeadRg-BoldItalic" !important;
 }
 
-
 /* Fix for Leader Boards */
 
 .leader-image {
@@ -5386,7 +5331,6 @@ h1#dialogTitleSpan {
     left: 28px;
     top: 150px;
 }
-
 
 /*testdrive details starts here*/
 
@@ -5439,9 +5383,7 @@ h1#dialogTitleSpan {
     width: 100%;
 }
 
-
 /*testdrive details ends here*/
-
 
 /*test drive participation starts here*/
 
@@ -5714,15 +5656,11 @@ ul.task_circle li p.inactive_task {
     color: #ff8d00 !important;
 }
 
-
 /* Fix for Leader Boards End*/
-
 
 /* style for referal pop up ends here */
 
-
 /* Added for on boarding fix */
-
 
 /* .red-box-container{
 height: 50px;
@@ -5760,9 +5698,7 @@ border-bottom: 5px solid #ee1d23;
 animation-delay: 10s;
 } */
 
-
 /* Added for on boarding fix end*/
-
 
 /* Fix for home page */
 
@@ -5789,7 +5725,6 @@ animation-delay: 10s;
     float: right;
 }
 
-
 /*Should be changed by Shreyas, Added for now to work well*/
 
 .col-md-12.end_date {
@@ -5808,9 +5743,7 @@ animation-delay: 10s;
     margin-top: 4px;
 }
 
-
 /* Fix for home page ends here */
-
 
 /*added by shreyas after 8Feb//////////////////////////////////////*/
 
@@ -5855,8 +5788,8 @@ span.help-text {
 
 .Select--multi .Select-value-icon {
     float: right;
-    border: none!important;
-    font-size: 18px!important;
+    border: none !important;
+    font-size: 18px !important;
 }
 
 .Select--multi .Select-value-icon:hover,
@@ -6072,7 +6005,6 @@ h1.testcase_name {
     font-family: titanium;
 }
 
-
 /* .testcase_box .inputMaterial:valid~label {
     top: -6px;
     font-size: 18px;
@@ -6086,7 +6018,6 @@ h1.testcase_name {
 .error {
     color: red;
 }
-
 
 /*participation_box starts here*/
 
@@ -6122,12 +6053,9 @@ h1.testcase_name {
     height: 100%;
 }
 
-
 /* file uploader */
 
-
 /* LIST */
-
 
 /* ================== */
 
@@ -6268,7 +6196,6 @@ h1.testcase_name {
     float: right;
 }
 
-
 /* file uploader ends here */
 
 .testdrive-detail_first-time .earn_box span.small,
@@ -6328,8 +6255,8 @@ button {
     min-width: 6em;
     padding: 7px 10px;
     border: none !important;
-    background: none!important;
-    background: none!important;
+    background: none !important;
+    background: none !important;
     margin-left: 0px !important;
     font-family: inherit !important;
     font-size: 15px !important;
@@ -6372,8 +6299,8 @@ button {
     min-width: 6em;
     padding: 7px 10px;
     border: none !important;
-    background: none!important;
-    background: none!important;
+    background: none !important;
+    background: none !important;
     margin-left: 0px !important;
     font-family: inherit !important;
     font-size: 15px !important;
@@ -6386,7 +6313,6 @@ button {
 .pariciation_time_details .earn_box {
     border: none;
 }
-
 
 /*testdrive central style starts here*/
 
@@ -6691,9 +6617,7 @@ ul.streetrace_indicator li span {
     z-index: 100;
 }
 
-
 /*testdrive central style ends here*/
-
 
 /*prize style start here*/
 
@@ -6722,7 +6646,6 @@ ul.streetrace_indicator li span {
     animation-direction: alternate;
 }
 
-
 /* Safari 4.0 - 8.0 */
 
 @-webkit-keyframes prize_rorate {
@@ -6733,7 +6656,6 @@ ul.streetrace_indicator li span {
         top: 200px;
     }
 }
-
 
 /* Standard syntax */
 
@@ -6751,7 +6673,6 @@ ul.streetrace_indicator li span {
     margin-left: 88px;
     font-family: titanium;
 }
-
 
 /*jssor slider arrow skin 106 css*/
 
@@ -6793,7 +6714,6 @@ ul.streetrace_indicator li span {
     opacity: .3;
     pointer-events: none;
 }
-
 
 /*jssor slider thumbnail skin 101 css*/
 
@@ -6967,7 +6887,6 @@ img.car_bigview {
     z-index: 50
 }
 
-
 /*  Added by Swapnil  */
 
 .locked_ride img {
@@ -6980,7 +6899,6 @@ img.car_bigview {
     width: 600px !important;
     float: left;
 }
-
 
 /*      .photocradle-box img {
     height: 300px !important;
@@ -7107,7 +7025,7 @@ div.car_Container img {
     position: absolute;
     /* bottom: 40px; */
     left: 58px;
-    background: none!important;
+    background: none !important;
 }
 
 .intro_actionbox.testdrive_actionbox input[type=button],
@@ -7117,8 +7035,8 @@ button {
     min-width: 6em;
     padding: 7px 10px;
     border: none !important;
-    background: none!important;
-    background: none!important;
+    background: none !important;
+    background: none !important;
     margin-left: 0px !important;
     font-family: inherit !important;
     font-size: 24px !important;
@@ -7130,10 +7048,10 @@ button {
 
 .red_box.red-box-container {
     height: 50px !important;
-    margin-top: -75px!important;
-    width: 25%!important;
-    position: absolute!important;
-    left: -72px!important;
+    margin-top: -75px !important;
+    width: 25% !important;
+    position: absolute !important;
+    left: -72px !important;
 }
 
 .bar {
@@ -7141,7 +7059,6 @@ button {
     width: 9px;
     animation: equalize 1.25s steps(25, end) 3s infinite;
 }
-
 
 /*my ride styeles starts here*/
 
@@ -7248,7 +7165,7 @@ p.go {
     position: absolute;
     bottom: 0px;
     left: 0px;
-    background: none!important;
+    background: none !important;
 }
 
 a {
@@ -7259,7 +7176,7 @@ a {
     position: absolute;
     bottom: -186px;
     left: 70px;
-    background: none!important;
+    background: none !important;
 }
 
 .stroller_ridebox {
@@ -7316,7 +7233,6 @@ span.orange.big {
     margin-bottom: 0px !important;
 }
 
-
 /*my ride styles ends here*/
 
 @media screen and (min-width: 1280px) {
@@ -7342,7 +7258,7 @@ span.orange.big {
     }
     a#link1 {
         position: absolute;
-        left: 33%!important;
+        left: 33% !important;
         color: red;
         font-family: titanium;
         text-decoration: none;
@@ -7415,7 +7331,7 @@ span.orange.big {
     }
     .overall_box {
         margin-top: 48px;
-        position: relative!important;
+        position: relative !important;
         /*top: -20px !important;*/
     }
     .player_box {
@@ -7768,19 +7684,20 @@ span.orange.big {
     .editpro_box item.active {
         margin-top: 30px
     }
-    .col-md-6.register_input.readonly input {
-        color: #a2a2a2 !important;
+    .register_input.readonly input {
+        color: #c8c8d8 !important;
         letter-spacing: 1px;
-        font-size: 12px;
+        font-size: 14px;
         padding-bottom: 0px;
     }
+    /* .register_input.readonly input {
+        color: #656565 !important;
+    } */
     .modal-content.editpro_box .modal-footer.testdrive_actionbox .button {
         position: relative;
         right: 154px;
     }
-    .col-md-12.register_input.readonly input {
-        color: #656565 !important;
-    }
+    
     .partcipant_Section .race_type h5 {
         text-transform: uppercase;
     }
@@ -7818,7 +7735,6 @@ span.orange.big {
 .currtestdrive_list ul.streetrace_indicator {
     margin-left: 0px;
 }
-
 
 /*all popups starts here*/
 
@@ -7902,7 +7818,6 @@ h4.notification_heading {
     width: 28%;
 }
 
-
 /*all popups ends here*/
 
 .testcase_detiled img {
@@ -7984,13 +7899,12 @@ a.present_ride img {
 }
 
 span.s4-clust {
-    margin-left: -20px!important;
+    margin-left: -20px !important;
 }
 
 a {
     cursor: pointer !important;
 }
-
 
 /*testdrive central styling starts here*/
 
@@ -8044,12 +7958,9 @@ ul.soapbox_indicator {
     width: 210px;
 }
 
-
 /*testdrive central styling ends here*/
 
-
 /*my ride styles ends here*/
-
 
 /* Css for pop up */
 
@@ -8265,9 +8176,7 @@ h1.title:before {
     }
 }
 
-
 /* Pop up css ends here */
-
 
 /*attachment feature style in creation of testdrive starts here */
 
@@ -8291,7 +8200,6 @@ h1.title:before {
     margin-top: 26px;
     width: 100%;
 }
-
 
 /*attachment feature style in creation of testdrive ends here */
 
@@ -8324,7 +8232,6 @@ h1.title:before {
     margin-left: 50px;
     width: 103px;
 }
-
 
 /* 
 #carousel-example-vertical .carousel-indicators{
@@ -8400,7 +8307,6 @@ span.clsRemainingLength {
 .ms-dlgLoadingTextDiv {
     display: none;
 }
-
 
 /* fix for leader board select control */
 

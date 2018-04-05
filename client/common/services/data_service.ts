@@ -1084,7 +1084,8 @@ export class Services {
     static getAvatars() {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.AVATAR).items
-                .select("FileRef/FileRef", "ID", "AvatarName").get().then(avatar => {
+                .select("FileRef/FileRef", "ID", "AvatarName")
+                .orderBy("AvatarName").get().then(avatar => {
                     resolve(avatar);
                 }, err => {
                     reject(err);
