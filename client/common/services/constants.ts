@@ -96,6 +96,7 @@ export class Columns {
 
 export class ColumnsValues {
     static COMPLETE_STATUS = 'Complete';
+    static PARTIAL_COMPLETE = 'PartialComplete';
     static ACTIVE = 'Active';
     static READY_FOR_LAUNCH = 'Ready for Launch';
     static APPROVAL_PENDING = 'Approval Pending';

@@ -2586,7 +2586,8 @@ export class Services {
     static getMyInProgressTestDrives(skip = 0, top = 3) {
         return new Promise((resolve, reject) => {
             var filter = Constants.Columns.USER_ID + ' eq ' + Services.getCurrentUserID() + ' and ' +
-                Constants.Columns.STATUS + " eq '" + Constants.ColumnsValues.DRAFT + "'";
+                "( " + Constants.Columns.STATUS + " eq '" + Constants.ColumnsValues.DRAFT + "' or " +
+                Constants.Columns.STATUS + " eq '" + Constants.ColumnsValues.PARTIAL_COMPLETE + "')";
             Services.getMyTestDrivesByFilter(filter, skip, top).then(testDrives => {
                 resolve(testDrives);
             }, error => {
