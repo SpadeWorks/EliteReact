@@ -79,6 +79,7 @@ export type TestDriveInstance = {
     surveyStatus: string;
     joiningBonus: number;
     completionBonus: number;
+    teamsChannelID?:string;
 };
 
 export type Configurations = {

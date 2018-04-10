@@ -426,6 +426,25 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             {fieldDescriptions && fieldDescriptions.ExpectedBusinessValue}
                         </span>
                     </div>
+
+                    <div className="col-md-12 register_input" >
+                        <input className="inputMaterial"
+                            type="number"
+                            onChange={this.onChange}
+                            name="passPercentageToDeploy"
+                            value={testDrive.passPercentageToDeploy || ""}
+                            data-validations={[required]}
+                            id={"testDrive-passPercentageToDeploy" + testDrive.id.toString()}
+                        />
+                        <span className="highlight"></span>
+                        <span className="bar"></span>
+                        <label>Pass percentage to deploy*</label>
+                        <span className="help-text">
+                            {fieldDescriptions && fieldDescriptions.passPercentageToDeploy}
+                        </span>
+                    </div>
+
+
                     <div className="col-md-12 register_input">
                         <Select.Async multi={true}
                             value={testDrive.region}

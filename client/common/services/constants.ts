@@ -90,7 +90,8 @@ export class Columns {
     static USER_EMAIL = "UserEMail";
     static SURVEY_STATUS = "SurveyStatus";
     static JOINING_BONUS = "JoiningBonus";
-    static COMPLETION_BONUS = "CompletionBonus" 
+    static COMPLETION_BONUS = "CompletionBonus";
+    static PASS_PERCENTAGE_TO_DEPLOY = "PassPercentageToDeploy";
 
 }
 
@@ -109,7 +110,7 @@ export class ColumnsValues {
     static TEST_DRIVER = "Test Drivers";
     static TEST_DRIVE_OWNER = "Test Drive Owner";
     static SITE_OWNER_DISPLAY_NAME = "Site Owner"
-    static TEST_DRIVER_DISPLAY_NAME = "Test Drivers";
+    static TEST_DRIVER_DISPLAY_NAME = "Test Driver";
     static TEST_DRIVE_OWNER_DISPLAY_NAME = "Test Drive Owner";    
     static EDIT_VIEW = "EDIT";
     static DISPLAY_VIEW = "DISPLAY";
@@ -181,4 +182,7 @@ export class Messages {
     static MISSING_OUT_3 = "You are now <span class='orange'>#0#</span> on the leaderboard.";
     static MISSING_OUT_4 = "You are <span class='orange'>#0#</span> points away from getting a #1#";
     static TEST_DRIVE_APPROVED = "Test drive approved successfully.";
+    static SENARIO_EMPTY = "Senario can not be empty";
+    static EXPECTED_OUTCOME_EMPTY = "Ecpected outcome can not be empty."
+
 }

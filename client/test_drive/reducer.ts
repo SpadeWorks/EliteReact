@@ -118,7 +118,8 @@ const initialState: IState = {
             inProgress: 0,
             testDriveID: 0
         },
-        participants: 0
+        participants: 0,
+        passPercentageToDeploy: 0
     },
     testCase: {
         id: -1,

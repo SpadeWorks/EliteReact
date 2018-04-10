@@ -57,10 +57,10 @@ pnp.setup({
 
 export class Services {
 
-    static goBack(){
+    static goBack() {
         window.history.back();
     }
-    static submitSurvey(testDriveInstance: TestDriveInstance){
+    static submitSurvey(testDriveInstance: TestDriveInstance) {
         return new Promise((resolve, reject) => {
             testDriveInstance.surveyStatus = Constants.ColumnsValues.COMPLETE_STATUS;
             Services.createOrSaveTestDriveInstance(testDriveInstance).then(data => {
@@ -81,12 +81,12 @@ export class Services {
                 Utils.clientLog(error);
                 reject(error);
             })
-        }); 
+        });
     }
 
     static requestAccess() {
-        Services.getApplicationConfigurations().then((appConfig: any)=>{
-            Services.mailto(appConfig.AccessProvider || '', 
+        Services.getApplicationConfigurations().then((appConfig: any) => {
+            Services.mailto(appConfig.AccessProvider || '',
                 appConfig.AccessEmailSubject || '', appConfig.AccessEmailBody.replace("\n", '%0d%0a') || '');
         });
     }
@@ -94,36 +94,36 @@ export class Services {
 
     // http://elite-spuat.corp.equinix.com/_api/web/lists/GetByTitle('Test Drive Instances')/
     // items?$Select=UserID/UserEMail&$expand=UserID&$filter=TestDriveID eq 156
-    static emailTestDrivers(testDrive: TestDrive){
-        Services.getApplicationConfigurations().then((appConfig: any)=>{
-            var subject = appConfig.TestDriveNotificationSubject.replace("#TestDriveName#", '"'+ testDrive.title +'"');
-            Services.getParticipantEmails(testDrive.id).then(emails=>{
+    static emailTestDrivers(testDrive: TestDrive) {
+        Services.getApplicationConfigurations().then((appConfig: any) => {
+            var subject = appConfig.TestDriveNotificationSubject.replace("#TestDriveName#", '"' + testDrive.title + '"');
+            Services.getParticipantEmails(testDrive.id).then(emails => {
                 Services.mailto(emails, subject, '');
-            })    
+            })
         });
-        
+
     }
 
-    
 
-    static getParticipantEmails(testDriveID : number) {
+
+    static getParticipantEmails(testDriveID: number) {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVE_INSTANCES).items
-            .select("UserID/UserEMail")
-            .expand("UserID")
-            .filter("TestDriveID eq " + testDriveID)
-            .get().then(emails => {
-                var emailString = '';
-                emails && emails.length && emails.map(email =>{
-                    if(email.UserID && email.UserID.UserEMail){
-                        emailString += email.UserID.UserEMail + ";";
-                    } 
+                .select("UserID/UserEMail")
+                .expand("UserID")
+                .filter("TestDriveID eq " + testDriveID)
+                .get().then(emails => {
+                    var emailString = '';
+                    emails && emails.length && emails.map(email => {
+                        if (email.UserID && email.UserID.UserEMail) {
+                            emailString += email.UserID.UserEMail + ";";
+                        }
+                    })
+                    resolve(emailString);
+                }, error => {
+                    Utils.clientLog(error);
+                    reject(error);
                 })
-                resolve(emailString);
-            }, error => {
-                Utils.clientLog(error);
-                reject(error);
-            })
         })
     }
     static getPrizes() {
@@ -148,13 +148,13 @@ export class Services {
     }
 
     static emailOwner(email: string, testDriveTitle: string) {
-        Services.getEmailTemplate('TestDriveQuestionEmail').then((emailConfig: any)=>{
+        Services.getEmailTemplate('TestDriveQuestionEmail').then((emailConfig: any) => {
             Services.mailto(email, emailConfig.subject.replace(/##testdriveName##/ig, testDriveTitle), encodeURIComponent(emailConfig.body.replace(/##testdriveName##/ig, testDriveTitle)));
         });
     }
 
     static shareTestDrive(email: string, testDriveTitle: string) {
-        Services.getEmailTemplate('TestDriveShareEmail').then((emailConfig: any)=>{
+        Services.getEmailTemplate('TestDriveShareEmail').then((emailConfig: any) => {
             Services.mailto('', emailConfig.subject.replace(/##testdriveName##/ig, testDriveTitle), encodeURIComponent(emailConfig.body.replace(/##testdriveName##/ig, testDriveTitle)));
         });
     }
@@ -163,19 +163,19 @@ export class Services {
         window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
     }
 
-    static getEmailTemplate(key: string){
+    static getEmailTemplate(key: string) {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle("Email Templates").items
-            .filter('TemplateKey eq \'' + key + '\'')
-            .select('TemplateKey, EmailTempBody, EmailTempSubject')
-            .get().then(data=>{
-                resolve({
-                    subject: data[0].EmailTempSubject || '',
-                    body: data[0].EmailTempBody || ''
-                })
-            }, err =>{
-                Utils.clientLog(err);
-            });   
+                .filter('TemplateKey eq \'' + key + '\'')
+                .select('TemplateKey, EmailTempBody, EmailTempSubject')
+                .get().then(data => {
+                    resolve({
+                        subject: data[0].EmailTempSubject || '',
+                        body: data[0].EmailTempBody || ''
+                    })
+                }, err => {
+                    Utils.clientLog(err);
+                });
         });
     }
 
@@ -306,10 +306,10 @@ export class Services {
         return new Promise((resolve, reject) => {
             Services.getApplicationConfigurations().then((appConfig: any) => {
                 resolve({
-                    video: appConfig.Video, 
+                    video: appConfig.Video,
                     videoPoster: appConfig.VideoPoster
                 });
-            },err=>{
+            }, err => {
                 Utils.clientLog("Video not configured");
             })
         })
@@ -558,7 +558,7 @@ export class Services {
                     Constants.Columns.JOINING_BONUS,
                     Constants.Columns.COMPLETION_BONUS,
                     Constants.Columns.SURVEY_STATUS,
-                )
+            )
                 .filter(Constants.Columns.USER_ID + ' eq ' + userId +
                     ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                 .expand(Constants.Columns.TEST_DRIVE_ID)
@@ -706,6 +706,7 @@ export class Services {
                         selectedResponse: response ? response.selectedResponse : '',
                         testCaseResponse: response ? response.testCaseResponse : '',
                         files: response ? (response.files && response.files.files) : [],
+                        
                     });
                 })
 
@@ -737,8 +738,8 @@ export class Services {
                     expectedBusinessValue: testDrive.expectedBusinessValue,
                     region: testDrive.region,
                     participants: participants,
-                    ownerEmail: testDrive.ownerEmail
-
+                    ownerEmail: testDrive.ownerEmail,
+                    teamsChannelID: testDrive.teamsChannelID
                 };
 
                 resolve(instance)
@@ -844,7 +845,7 @@ export class Services {
                         completedTestDrives: profile.CompletedTestDrives == null ? 0 : profile.CompletedTestDrives,
                         completedTestCases: profile.CompletedTestCases == null ? 0 : profile.CompletedTestCases,
                         dateJoined: this.formatDate(profile.DateJoined),
-                        role: profile.UserRole,
+                        role: Services.getUserRole(profile.UserRole),
                         availableOS: profile.AvailableOS.results,
                         availableDevices: profile.AvailableDevices.results,
                         levelName: profile.CarID.CarLevel == null ? 0 : profile.CarID.CarLevel,
@@ -979,6 +980,17 @@ export class Services {
             return userProfile;
         } catch (e) {
             return null;
+        }
+    }
+
+    static getUserRole(role) {
+        switch (role) {
+            case Constants.ColumnsValues.SITE_OWNER:
+                return Constants.ColumnsValues.SITE_OWNER_DISPLAY_NAME;
+            case Constants.ColumnsValues.TEST_DRIVE_OWNER:
+                return Constants.ColumnsValues.TEST_DRIVE_OWNER_DISPLAY_NAME;
+            default:
+                return Constants.ColumnsValues.TEST_DRIVER_DISPLAY_NAME;
         }
     }
 
@@ -1163,7 +1175,8 @@ export class Services {
                     Constants.Columns.EXPECTED_BUSINESS_VALUE,
                     Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_EMAIL,
                     Constants.Columns.USER_REGION,
-                    Constants.Columns.TestDriveMTCHID
+                    Constants.Columns.TestDriveMTCHID,
+                    Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY
                 ).skip(skip).top(top)
                 .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID, Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
                 .filter(filter)
@@ -1198,7 +1211,8 @@ export class Services {
                             questions: null,
                             levelNumber: testDrive.LevelID[Constants.Columns.LevelNumber],
                             ownerEmail: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_EMAIL],
-                            teamsChannelID: testDrive.TestDriveMTCHID && testDrive.TestDriveMTCHID.replace("-", "")
+                            teamsChannelID: testDrive.TestDriveMTCHID && testDrive.TestDriveMTCHID.replace("-", ""),
+                            passPercentageToDeploy: testDrive[Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY] || 0
                         };
                     });
                     resolve(results);
@@ -1451,7 +1465,10 @@ export class Services {
                     questions: [],
                     region: [],
                     status: Constants.ColumnsValues.DRAFT,
-                    level: ''
+                    level: '',
+                    passPercentageToDeploy: 0,
+                    ownerEmail: '',
+                    teamsChannelID: '',
                 });
             } else {
                 pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items.getById(testDriveID)
@@ -1475,7 +1492,10 @@ export class Services {
                         Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_EMAIL,
                         Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
                         Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
-                        Constants.Columns.EXPECTED_BUSINESS_VALUE
+                        Constants.Columns.EXPECTED_BUSINESS_VALUE,
+                        Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY,
+                        Constants.Columns.TestDriveMTCHID,
+
                     )
                     .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID,
                         Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
@@ -1509,7 +1529,9 @@ export class Services {
                             testCaseIDs: testCases,
                             questionIDs: questions,
                             expectedBusinessValue: testDrive.ExpectedBusinessValue,
-                            ownerEmail: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_EMAIL]
+                            ownerEmail: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_EMAIL],
+                            passPercentageToDeploy: testDrive[Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY] || 0,
+                            teamsChannelID: testDrive.TestDriveMTCHID && testDrive.TestDriveMTCHID.replace("-", ""),
                         };
                         resolve(testDriveObj);
 
@@ -1715,7 +1737,8 @@ export class Services {
                     MaxTestDrivers: testDrive.maxTestDrivers,
                     TestDriveName: testDrive.title,
                     TestDriveStatus: testDrive.status,
-                    TestDriveOwner_id: this.getCurrentUserID()
+                    TestDriveOwner_id: this.getCurrentUserID(),
+                    PassPercentageToDeploy: testDrive.passPercentageToDeploy
                 }
                 if (questions.length > 0) {
                     let ids = [];
@@ -2378,6 +2401,19 @@ export class Services {
             pnp.sp.web.lists.getByTitle(listName).get().then(function (result) {
                 resolve(result.ItemCount);
             });
+        });
+    }
+
+    static getActiveTestDriveCount() {
+        return new Promise((resolve, reject) => {
+            pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items
+                .filter("TestDriveStatus eq '" + Constants.ColumnsValues.ACTIVE +
+                    "' or TestDriveStatus eq '" + Constants.ColumnsValues.TEST_DRIVE_COMPLETED + "'").get().then(function (result) {
+                        var itemCount = result ? result.length : 0;
+                        resolve(itemCount);
+                    }, err => {
+                        Utils.clientLog(err);
+                    });
         });
     }
 

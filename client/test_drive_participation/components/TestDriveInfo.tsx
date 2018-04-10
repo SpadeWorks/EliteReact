@@ -35,16 +35,16 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                             <div className="col-md-4 pull-right">
                                 <div className="col-md-12 social_box">
                                     <div className="row">
-                                        <a href={"#/reportbug/"+testDriveInstance.testDriveID}  title={Messages.REPORT_BUG_TITLE}>
+                                        <a href={"#/reportbug/" + testDriveInstance.testDriveID} title={Messages.REPORT_BUG_TITLE}>
                                             <span className="report"></span>
                                         </a>
                                         <a href="javascript:;" title={Messages.SEND_EMAIL_TITLE}
                                             onClick={() => Services.emailOwner(testDriveInstance.ownerEmail, testDriveInstance.title)}>
                                             <i className="material-icons">email</i>
                                         </a>
-                                        {/* <a href="#">
+                                        <a target="_blank" href={"https://teams.microsoft.com/_?threadId=19:" + testDriveInstance.teamsChannelID + "@thread.skype&ctx=channel"}>
                                             <span className="teams"></span>
-                                        </a> */}
+                                        </a>
                                         <a href="javascript:;" title={Messages.SHARE_TITLE}
                                             onClick={() => Services.shareTestDrive(testDriveInstance.ownerEmail, testDriveInstance.title)}>
                                             <i className="material-icons">share</i>
@@ -139,7 +139,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                 </div>
                                 <div className="col-md-6">
                                     <div className="row">
-                                        <h5 style={{"position" : "relative", "right" : "10px"}}>{testDriveInstance.levelName}</h5>
+                                        <h5 style={{ "position": "relative", "right": "10px" }}>{testDriveInstance.levelName}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -151,7 +151,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                 </div>
                                 <div className="col-md-6">
                                     <div className="row">
-                                        <h5 style={{"position" : "relative", "right" : "40px"}}>{testDriveInstance.participants || "0"}</h5>
+                                        <h5 style={{ "position": "relative", "right": "40px" }}>{testDriveInstance.participants || "0"}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -162,35 +162,35 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                         <p>{testDriveInstance.expectedBusinessValue}</p>
                     </div>
                     <div className="col-md-12 para">
-                        <span className="orange">ELIGIBLE DRIVER REGION :</span>                        
-                            <ul className="select2-selection__rendered">
-                                {
-                                    testDriveInstance.region && testDriveInstance.region.map((region, index) => {
-                                        return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                            {region}
-                                        </li>)
-                                    })
-                                }
-                                {
-                                    (!testDriveInstance.region || testDriveInstance.region.length == 0) && <p>{Messages.ALL_REGION_MSG}</p>
-                                }
-                            </ul>                        
+                        <span className="orange">ELIGIBLE DRIVER REGION :</span>
+                        <ul className="select2-selection__rendered">
+                            {
+                                testDriveInstance.region && testDriveInstance.region.map((region, index) => {
+                                    return (<li key={index} className="select2-selection__choice" title="iwatch">
+                                        {region}
+                                    </li>)
+                                })
+                            }
+                            {
+                                (!testDriveInstance.region || testDriveInstance.region.length == 0) && <p>{Messages.ALL_REGION_MSG}</p>
+                            }
+                        </ul>
                     </div>
                     <div className="col-md-12 para">
-                            <span className="orange">ELIGIBLE DRIVER FUNCTION :</span>
+                        <span className="orange">ELIGIBLE DRIVER FUNCTION :</span>
 
-                            <ul className="select2-selection__rendered">
-                                {
-                                    testDriveInstance.department && testDriveInstance.department.map((department: any, index) => {
-                                        return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                            {department.Label}
-                                        </li>)
-                                    })
-                                }
-                                {
-                                    (!testDriveInstance.department || testDriveInstance.department.length == 0) && <p>{Messages.ALL_DEPARTMENT_MSG}</p>
-                                }
-                            </ul>
+                        <ul className="select2-selection__rendered">
+                            {
+                                testDriveInstance.department && testDriveInstance.department.map((department: any, index) => {
+                                    return (<li key={index} className="select2-selection__choice" title="iwatch">
+                                        {department.Label}
+                                    </li>)
+                                })
+                            }
+                            {
+                                (!testDriveInstance.department || testDriveInstance.department.length == 0) && <p>{Messages.ALL_DEPARTMENT_MSG}</p>
+                            }
+                        </ul>
 
                     </div>
                     <div className="col-md-12 para">

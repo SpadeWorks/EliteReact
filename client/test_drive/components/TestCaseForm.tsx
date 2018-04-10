@@ -86,7 +86,6 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
     }
 
     selectControlChange = (value, id, name) => {
-
         let e = {
             target: {
                 type: 'custom-select',
@@ -124,6 +123,21 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
         this.props.updateUI({
             scenario: value
         })
+
+        if (!$(value).text().replace(/[\n\r]+/g, '').trim() && !this.haveImage(value)) {
+            $('#scenario-validation').remove();
+        }
+    }
+
+    haveImage(html) {
+        var haveImage = false;
+        $(html).each(function () {
+            if (this.tagName && this.tagName.toLowerCase() === "img") {
+                haveImage = true;
+                return false;
+            }
+        });
+        return haveImage;
     }
     onExpectedOutcomeChange(value) {
         let e = {
@@ -144,6 +158,12 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
         this.props.updateUI({
             expectedOutcome: value
         })
+
+        if (!$(value).text().replace(/[\n\r]+/g, '').trim() && !this.haveImage(value)) {
+            $('#expectedOutcome-validation').remove();
+        }
+
+        
     }
 
     uploadImageCallBack(file) {
@@ -180,7 +200,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
         var self = this;
         this.updateInitialEditorValue("scenario");
         this.updateInitialEditorValue("expectedOutcome");
-        
+
         $(".custom-editor").click(function () {
             self.waitForEl(".image-uploader-popup", function () {
                 $(".rdw-image-modal-upload-option-label").html("Click to upload");
@@ -200,12 +220,11 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
         }
     }
 
+
+
     render() {
         const { testCase, editTestCase, saveTestCase, deleteTestCase, ui, updateUI, fieldDescriptions } = this.props;
         testCase.isInEditMode = testCase.isInEditMode === undefined ? false : testCase.isInEditMode;
-        const checkBoxStyle = {
-            color: "#a4de40"
-        }
         return (
             <div className="card">
                 <div className="card-header" data-role="tab" id="headingOne">
@@ -219,7 +238,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                             onClick={() => editTestCase(testCase)}>
                             {testCase.title || "New test case " + testCase.id}
                         </a>
-                        <div className="pull-right">
+                        <div className="pull-right button-container">
                             <a href="javascript:;"><i className="material-icons"
                                 onClick={() => this.deleteTestCase(testCase.id)}>delete</i></a>
                             {!testCase.isInEditMode &&
@@ -229,7 +248,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                             {testCase.isInEditMode &&
                                 <a href="javascript:;" className="check_ico"
                                     onClick={() => saveTestCase(testCase, "test-case-form" + testCase.id)}>
-                                    <i className="material-icons" style={checkBoxStyle}>check</i>
+                                    <i className="material-icons check-mark" >check</i><i className="btn-save-textbox">Save</i>
                                 </a>}
                         </div>
                     </h5>

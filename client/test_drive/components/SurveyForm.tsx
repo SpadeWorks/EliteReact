@@ -45,12 +45,12 @@ class SurveyForm extends React.Component<SurveyFormProps> {
         { value: 'Yes', label: 'Yes' },
         { value: 'No', label: 'No' },
         { value: 'Satisfied', label: 'Satisfied' },
-        { Value: 'Highly satisfied', label: 'Highly satisfied'},
+        { Value: 'Highly satisfied', label: 'Highly satisfied' },
         { value: 'Unsatisfied', label: 'Unsatisfied' },
-        { Value: 'Highly unsatisfied', label: 'Highly unsatisfied'},
-        { Value: 'Neutral', label: 'Neutral'},
-        { Value: 'N/A', label: 'N/A'},
-        
+        { Value: 'Highly unsatisfied', label: 'Highly unsatisfied' },
+        { Value: 'Neutral', label: 'Neutral' },
+        { Value: 'N/A', label: 'N/A' },
+
     ]
 
     selectControlChange = (value, id, name) => {
@@ -86,7 +86,7 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                             {question.title || "Question " + question.id}
 
                         </a>
-                        <div className="pull-right">
+                        <div className="pull-right button-container">
                             <a href="javascript:;"><i className="material-icons"
                                 onClick={() => deleteQuestion(question.id)}>delete</i></a>
                             {!question.isInEditMode &&
@@ -96,7 +96,7 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                             {question.isInEditMode &&
                                 <a href="javascript:;" className="check_ico"
                                     onClick={() => saveQuestion(question, "question-form" + question.id)}>
-                                    <i className="material-icons" style={checkBoxStyle}>check</i>
+                                    <i className="material-icons check-mark" >check</i><i className="btn-save-textbox">Save</i>
                                 </a>}
                         </div>
                     </h5>

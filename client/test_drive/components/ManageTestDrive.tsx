@@ -204,7 +204,20 @@ class ManageTestDrive extends React.Component<AppProps> {
 
     onSaveTestCase(testCase, formID) {
         var isFormValid = validateForm(formID);
-        if (isFormValid) {
+        var editorEmpty = false;
+        if (!$(testCase.scenario).text().replace(/[\n\r]+/g, '').trim() && !this.haveImage(testCase.scenario)) {
+            $('#scenario-validation').remove();
+            $("#scenario .rdw-editor-wrapper").after('<div class="error-container" id="scenario-validation"><span class="error-lable">This field is required</spand></div>');
+            editorEmpty = true;
+        }
+
+        if (!$(testCase.expectedOutcome).text().replace(/[\n\r]+/g, '').trim() && !this.haveImage(testCase.expectedOutcome)) {
+            $('#expectedOutcome-validation').remove();
+            $("#expectedOutcome .rdw-editor-wrapper").after('<div class="error-container" id="expectedOutcome-validation"><span class="error-lable">This field is required</spand></div>');
+            editorEmpty = true;
+        }
+
+        if (!editorEmpty && isFormValid) {
             this.props.dispatch(saveTestCase(testCase));
             toast.success("Test Case Saved Successfully!");
         } else {
@@ -212,6 +225,18 @@ class ManageTestDrive extends React.Component<AppProps> {
             this.props.updateUI({ requirmentMessage: Messages.TEST_CASE_ERROR, title: "Alert!" });
             $("#popupManageTestDriveAlert").trigger('click');
         }
+
+    }
+
+    haveImage(html) {
+        var haveImage = false;
+        $(html).each(function () {
+            if (this.tagName && this.tagName.toLowerCase() === "img") {
+                haveImage = true;
+                return false;
+            }
+        });
+        return haveImage;
     }
 
     checkForUnsavedItems(items, message) {
@@ -268,6 +293,11 @@ class ManageTestDrive extends React.Component<AppProps> {
         });
     }
 
+
+    closePopUp(){
+        console.log("popup closed.");
+    }
+
     manageTestDriveSuccessButtons = [{
         name: 'Test drive center',
         link: '/testdrives'
@@ -286,7 +316,8 @@ class ManageTestDrive extends React.Component<AppProps> {
 
     manageTestDriveAlertButtons = [{
         name: 'Ok',
-        link: '#'
+        link: '#',
+        callBack: this.closePopUp
     }
     ]
 

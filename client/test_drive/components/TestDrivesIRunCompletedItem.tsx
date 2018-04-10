@@ -155,7 +155,7 @@ class TestDrivesIRunCompletedItem extends React.Component<TestDrivesIRunComplete
                                         <div className="row inforow">
                                             <div className="col-md-12">
                                                 <div className="row">
-                                                    <span className="orange">FAILED CASES</span>
+                                                    <span className="orange">% TO DEPLOY</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -165,7 +165,7 @@ class TestDrivesIRunCompletedItem extends React.Component<TestDrivesIRunComplete
                                             <div className="col-md-12">
                                                 <div className="row">
                                                     <span className="big_text">
-                                                        {failPercent.toFixed(0)} %
+                                                        {testDrive.passPercentageToDeploy.toFixed(0)} %
                                                     </span>
                                                 </div>
                                             </div>

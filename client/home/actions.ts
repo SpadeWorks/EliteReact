@@ -76,7 +76,7 @@ const loadUserPoints = createAction<any, number>(
 
 const loadTotalTestDrives = createAction<any>(
   LOAD_TotalTestDrives, 
-  () => Services.getListItemCount(GlobalConstants.Lists.TEST_DRIVES)  
+  () => Services.getActiveTestDriveCount()  
 )
 
 const loadTestDrivesCompleted = createAction<any>(

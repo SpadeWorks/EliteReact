@@ -61,6 +61,7 @@ export type TestDrive = {
         inProgress: number;
     }; 
     teamsChannelID?:string;
+    passPercentageToDeploy: number;
 };
 
 export type TestDriveIRun = {
@@ -93,6 +94,7 @@ export type TestDriveIRun = {
         fail: number,
         inProgress: number;
     }; 
+    passPercentageToDeploy: number;
 
 };
 
