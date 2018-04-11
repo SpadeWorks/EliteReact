@@ -183,9 +183,9 @@ class TestDrivesIRunCompletedItem extends React.Component<TestDrivesIRunComplete
                                 {/* <Link to={"/testdrive/" + testDrive.id}>
                                     <i className="material-icons">edit</i>
                                 </Link> */}
-                                {/* <a target="_blank" href={Services.getTeamSiteUrl(testDrive.teamsChannelID)}>
+                                <a target="_blank" href={Services.getTeamSiteUrl(testDrive.teamsChannelID)}>
                                     <span className="teams"></span>
-                                </a> */}
+                                </a>
                                 <a target='_blank' href={"/Pages/TestCaseReport.aspx?FilterField1=TestDriveID&FilterValue1=" + testDrive.id} >
                                     <i className="material-icons">remove_red_eye</i>
                                 </a>
