@@ -53,7 +53,7 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                         <span className="teams"></span>
                     </a>
                     <a href="javascript:;" title={Messages.SHARE_TITLE}
-                        onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
+                        onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive)}>
                         <i className="material-icons">share</i>
                     </a>
                 </div>

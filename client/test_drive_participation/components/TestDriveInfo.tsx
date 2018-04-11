@@ -46,7 +46,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                             <span className="teams"></span>
                                         </a>
                                         <a href="javascript:;" title={Messages.SHARE_TITLE}
-                                            onClick={() => Services.shareTestDrive(testDriveInstance.ownerEmail, testDriveInstance.title)}>
+                                            onClick={() => Services.shareTestDrive(testDriveInstance.ownerEmail, testDriveInstance)}>
                                             <i className="material-icons">share</i>
                                         </a>
                                     </div>

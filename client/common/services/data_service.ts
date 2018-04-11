@@ -169,15 +169,23 @@ export class Services {
         Services.mailto(email, 'A Bug from your Test Driver "' + testDriveTitle + '"', '');
     }
 
-    static emailOwner(email: string, testDriveTitle: string) {
+    static emailOwner(email: string, testDriveTitle: any) {
         Services.getEmailTemplate('TestDriveQuestionEmail').then((emailConfig: any) => {
             Services.mailto(email, emailConfig.subject.replace(/##testdriveName##/ig, testDriveTitle), encodeURIComponent(emailConfig.body.replace(/##testdriveName##/ig, testDriveTitle)));
         });
     }
 
-    static shareTestDrive(email: string, testDriveTitle: string) {
+    static shareTestDrive(email: string, testDrive: any) {
+        var user = <User>Services.getUserProfileProperties();
         Services.getEmailTemplate('TestDriveShareEmail').then((emailConfig: any) => {
-            Services.mailto('', emailConfig.subject.replace(/##testdriveName##/ig, testDriveTitle), encodeURIComponent(emailConfig.body.replace(/##testdriveName##/ig, testDriveTitle)));
+            var emailSubject = emailConfig.subject.replace(/##testdriveName##/ig, testDrive.title);
+                emailSubject = emailSubject.replace(/##referrer##/ig, user.displayName);
+
+            var emailBody = emailConfig.body.replace(/##testdriveName##/ig, testDrive.title);
+                emailBody = emailBody.replace(/##referrer##/ig, user.displayName);
+                emailBody = emailBody.replace(/##testDriveDescription##/ig, testDrive.description);
+
+            Services.mailto('', encodeURIComponent(emailSubject), encodeURIComponent(emailBody));
         });
     }
 
