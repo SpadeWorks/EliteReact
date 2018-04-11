@@ -71,13 +71,23 @@ class TestCases extends React.Component<TestCasesProps> {
     }
 
     showSubmitPopUp(testCase) {
+        var interval, self=this;
         if (this.props.testDriveInstance.numberOfTestCasesCompleted == this.props.testDriveInstance.testCaseIDs.length) {
-            //Popup.plugins().prompt('', 'What do you want to do?');
-            this.props.updateUI({ requirmentMessage: this.getPopUpBodyDataHighFive().message });
-            $("#popupHighFive").trigger("click");
-            $(".modal-backdrop.fade.in").hide();
-            confetti.InitializeConfettiInit();
-            this.props.updateUI({ isSurveyPopUpVisiable: false });
+            this.props.updatePoints({...this.props.testDriveInstance, isSumbitInProgress: true});
+            Services.getTestDriveInstanceData(this.props.testDriveInstance).then((newTestDriveInstance: any) => {
+                if (newTestDriveInstance.joiningBonus > 0) {
+                    if (interval) {
+                        clearInterval(interval);
+                    }
+                    this.props.updatePoints({...newTestDriveInstance, isSumbitInProgress: false});
+                    this.props.updateUI({ requirmentMessage: this.getPopUpBodyDataHighFive().message });
+                    $("#popupHighFive").trigger("click");
+                    $(".modal-backdrop.fade.in").hide();
+                    confetti.InitializeConfettiInit();
+                } else{
+                    interval = setInterval(self.showSubmitPopUp(testCase), 500);
+                }
+            });
         } else {
             var self = this;
             Services.getTestPointConfiguration(Constants.Lists.POINTS_CONFIGURATIONS).then(testCasePoinsts => {
@@ -88,6 +98,7 @@ class TestCases extends React.Component<TestCasesProps> {
                 }
             });
         }
+
     }
 
     render() {

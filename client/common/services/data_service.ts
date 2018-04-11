@@ -57,6 +57,10 @@ pnp.setup({
 
 export class Services {
 
+    static getTeamSiteUrl(id){
+        return "https://teams.microsoft.com/_#/conversations/General?threadId=19:" + ( id ? id.replace(/-/ig, '') : '') + "@thread.skype&ctx=channel";
+    }
+
     static goBack() {
         window.history.back();
     }
@@ -80,6 +84,24 @@ export class Services {
             }, error => {
                 Utils.clientLog(error);
                 reject(error);
+            })
+        });
+    }
+
+    static getTestDriveInstanceData(testDriveInstance: TestDriveInstance) {
+        return new Promise((resolve, reject) => {
+            Services.getTestDriveResponse(testDriveInstance.testDriveID, Services.getCurrentUserID()).then((instance: any) => {
+                resolve({
+                    ...testDriveInstance,
+                    currentPoint: instance[Constants.Columns.CURRENT_POINTS] || 0,
+                    numberOfTestCasesCompleted: instance[Constants.Columns.TEST_CASE_COMPLETED] || 0,
+                    status: instance[Constants.Columns.STATUS] || '',
+                    surveyStatus: instance[Constants.Columns.SURVEY_STATUS] || 0,
+                    completionBonus: instance[Constants.Columns.COMPLETION_BONUS] || 0,
+                    joiningBonus: instance[Constants.Columns.JOINING_BONUS] || 0
+                })
+            }, err => {
+                Utils.clientLog(err);
             })
         });
     }
@@ -706,7 +728,7 @@ export class Services {
                         selectedResponse: response ? response.selectedResponse : '',
                         testCaseResponse: response ? response.testCaseResponse : '',
                         files: response ? (response.files && response.files.files) : [],
-                        
+
                     });
                 })
 
@@ -1496,7 +1518,7 @@ export class Services {
                         Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY,
                         Constants.Columns.TestDriveMTCHID,
 
-                    )
+                )
                     .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID,
                         Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
                     .get().then(testDrive => {
@@ -2628,7 +2650,7 @@ export class Services {
             var filter = Constants.Columns.USER_ID + ' eq ' + Services.getCurrentUserID() + ' and ' +
                 "( " + Constants.Columns.STATUS + " eq '" + Constants.ColumnsValues.DRAFT + "' or " +
                 Constants.Columns.STATUS + " eq '" + Constants.ColumnsValues.PARTIAL_COMPLETE + "')";
-            Services.getMyTestDrivesByFilter(filter, skip, top).then(testDrives => {
+            Services.getMyInProgressTestDrivesByFilter(filter, skip, top).then(testDrives => {
                 resolve(testDrives);
             }, error => {
                 reject(error);
@@ -2643,6 +2665,53 @@ export class Services {
                 resolve(testDrives);
             }, error => {
                 reject(error);
+            })
+        });
+    }
+
+    static getMyInProgressTestDrivesByFilter(filter, skip = 0, top = 3) {
+        return new Promise((resolve, reject) => {
+            Services.getTestDriveResponsesWithFilter(filter, skip, top).then((testDriveInstances: any) => {
+                if (testDriveInstances && testDriveInstances.length > 0) {
+                    var myTestDriveArr: HomeTestDrive[] = [];
+                    var testDrivesIDs = [];
+                    testDriveInstances.map((value, index) => {
+                        testDrivesIDs.push(value.TestDriveID.ID);
+                    });
+                    Promise.all([Services.getTestDrivesByIDs(testDrivesIDs),
+                    Services.getTestDrivesParticipantCount(testDrivesIDs)]).then(results => {
+                        let testDrives: any = results[0];
+                        let participants = results[1];
+
+                        testDriveInstances.map((testDriveInstances, index) => {
+                            var testDrive = testDrives.filter(testdrive => {
+                                return testdrive.id == testDriveInstances.TestDriveID.ID;
+                            })
+                            testDrive = testDrive.length && testDrive[0];
+
+                            if(testDrive.status == Constants.ColumnsValues.ACTIVE){
+                                myTestDriveArr.push({
+                                    id: testDrive.id,
+                                    title: testDrive.title,
+                                    enddate: testDrive.endDate,
+                                    participants: parseInt(participants[index]),
+                                    testDrive: testDrive,
+                                    testDriveResponse: (<TestDriveResponse>{
+                                        instanceID: testDriveInstances.ID,
+                                        status: testDriveInstances.Status,
+                                        currentPoint: testDriveInstances.CurrentPoints,
+                                        dateJoined: testDriveInstances.DateJoined,
+                                        numberOfTestCasesCompleted: testDriveInstances.TestCaseCompleted
+                                    })
+                                });
+                            }
+                        });
+                        resolve(myTestDriveArr);
+                    }, err => reject(err))
+                } else {
+                    resolve(testDriveInstances);
+                }
+
             })
         });
     }

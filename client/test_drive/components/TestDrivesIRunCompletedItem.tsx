@@ -149,30 +149,30 @@ class TestDrivesIRunCompletedItem extends React.Component<TestDrivesIRunComplete
                             </div>
                         </div>
                         <div className="col-md-1">
-                            
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="row inforow">
-                                            <div className="col-md-12">
-                                                <div className="row">
-                                                    <span className="orange">% TO DEPLOY</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <div className="row inforow">
-                                            <div className="col-md-12">
-                                                <div className="row">
-                                                    <span className="big_text">
-                                                        {testDrive.passPercentageToDeploy.toFixed(0)} %
-                                                    </span>
-                                                </div>
+
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div className="row inforow">
+                                        <div className="col-md-12">
+                                            <div className="row">
+                                                <span className="orange">% TO DEPLOY</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                          
+                                <div className="col-md-12">
+                                    <div className="row inforow">
+                                        <div className="col-md-12">
+                                            <div className="row">
+                                                <span className="big_text">
+                                                    {testDrive.passPercentageToDeploy.toFixed(0)} %
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <div className="col-md-2">
 
@@ -183,9 +183,9 @@ class TestDrivesIRunCompletedItem extends React.Component<TestDrivesIRunComplete
                                 {/* <Link to={"/testdrive/" + testDrive.id}>
                                     <i className="material-icons">edit</i>
                                 </Link> */}
-                                <a target="_blank" href={"https://teams.microsoft.com/_?threadId=19:" + testDrive.teamsChannelID + "@thread.skype&ctx=channel"}>
+                                {/* <a target="_blank" href={Services.getTeamSiteUrl(testDrive.teamsChannelID)}>
                                     <span className="teams"></span>
-                                </a>
+                                </a> */}
                                 <a target='_blank' href={"/Pages/TestCaseReport.aspx?FilterField1=TestDriveID&FilterValue1=" + testDrive.id} >
                                     <i className="material-icons">remove_red_eye</i>
                                 </a>

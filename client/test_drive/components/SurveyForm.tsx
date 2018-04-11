@@ -45,11 +45,11 @@ class SurveyForm extends React.Component<SurveyFormProps> {
         { value: 'Yes', label: 'Yes' },
         { value: 'No', label: 'No' },
         { value: 'Satisfied', label: 'Satisfied' },
-        { Value: 'Highly satisfied', label: 'Highly satisfied' },
+        { value: 'Highly satisfied', label: 'Highly satisfied' },
         { value: 'Unsatisfied', label: 'Unsatisfied' },
-        { Value: 'Highly unsatisfied', label: 'Highly unsatisfied' },
-        { Value: 'Neutral', label: 'Neutral' },
-        { Value: 'N/A', label: 'N/A' },
+        { value: 'Highly unsatisfied', label: 'Highly unsatisfied' },
+        { value: 'Neutral', label: 'Neutral' },
+        { value: 'N/A', label: 'N/A' },
 
     ]
 

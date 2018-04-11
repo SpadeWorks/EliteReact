@@ -56,9 +56,9 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                     onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
                                     <i className="material-icons">email</i>
                                 </a>
-                                <a target="_blank" href={"https://teams.microsoft.com/_?threadId=19:" + testDrive.teamsChannelID + "@thread.skype&ctx=channel"}>
+                                {/* <a target="_blank" href={Services.getTeamSiteUrl(testDrive.teamsChannelID)}>
                                     <span className="teams"></span>
-                                </a>
+                                </a> */}
                                 <a href="javascript:;" title={Messages.SHARE_TITLE}
                                     onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
                                     <i className="material-icons">share</i>
@@ -77,7 +77,7 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                         </div>
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <h5>{Services.formatDate(testDrive.startDate)}</h5>
+                                                <h5>{Services.formatDate(testDrive.endDate)}</h5>
                                             </div>
                                         </div>
                                     </div>

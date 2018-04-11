@@ -101,15 +101,21 @@ class QuestionForm extends React.Component<QuestionFormProps> {
 
     submitSurvey(question, formID) {
         if (this.submitQuestionResponse(question, formID)) {
-            this.openCompletionPopUp();
+            var self = this;
+            $("#submitSurvey").attr('disabled', true);
+            Services.submitSurvey(this.props.testDriveInstance).then((testDriveInstance: TestDriveInstance) => {
+                this.props.updatePoints({...testDriveInstance, isSumbitInProgress: true});
+                self.openCompletionPopUp(testDriveInstance);
+            });
         };
     }
 
-    openCompletionPopUp() {
-        var interval, self = this;
-        Services.submitSurvey(this.props.testDriveInstance).then((testDriveInstance: TestDriveInstance) => {
-            this.props.updatePoints(testDriveInstance);
-            if (testDriveInstance.status === Constants.ColumnsValues.COMPLETE_STATUS) {
+    openCompletionPopUp(testDriveInstance: any) { 
+        var interval, self=this;
+
+        Services.getTestDriveInstanceData(testDriveInstance).then((newTestDriveInstance : any) => {
+            if (newTestDriveInstance.status === Constants.ColumnsValues.COMPLETE_STATUS) {
+                this.props.updatePoints({...newTestDriveInstance, isSumbitInProgress: false});
                 if (interval) {
                     clearInterval(interval);
                 }
@@ -119,10 +125,13 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                     $(".modal-backdrop.fade.in").hide();
                     confetti.InitializeConfettiInit();
                 });
+                $("#submitSurvey").attr('disabled', false);
+                
             } else {
-                interval = setTimeout(this.openCompletionPopUp(), 1000);
+                interval = setInterval(self.openCompletionPopUp(newTestDriveInstance), 500);
             }
         });
+        
     }
 
     render() {
@@ -184,7 +193,9 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                         {
                                             isLast && <div className="col-md-12 participation_actionbox">
                                                 <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                                    <input disabled={this.getCompletedQuestionCount() < testDriveInstance.questionIDs.length - 1} type="button" value="Submit survey" onClick={() => this.submitSurvey(question, formID)} />
+                                                    <input disabled={this.getCompletedQuestionCount() < testDriveInstance.questionIDs.length - 1} 
+                                                    type="button" value="Submit survey" onClick={() => this.submitSurvey(question, formID)}
+                                                    id="submitSurvey" />
                                                 </div>
                                             </div>
                                         }
