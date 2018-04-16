@@ -122,7 +122,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                     this.props.updatePoints(testDriveInstance);
                     this.props.showSubmitPopUp();
                     this.props.updateUI({ loading: false });
-                    $('#carousel-example-vertical').carousel('next');
+                    // $('#carousel-example-vertical').carousel('next');
                 })
         } else {
             this.saveTestCaseResponse(testCase, index);

@@ -62,9 +62,11 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         }
         this.props.saveQuestionResponse(question);
     }
-    submitQuestionResponse(question: QuestionInstance, formID) {
+    submitQuestionResponse(question: QuestionInstance, formID, isLast = false) {
         if (validateForm(formID)) {
-            $('#carousel-question-vertical').carousel('next');
+            if(isLast){
+                $('#carousel-question-vertical').carousel('next');
+            }
             question = {
                 ...question,
                 responseStatus: ColumnsValues.COMPLETE_STATUS,
@@ -100,11 +102,12 @@ class QuestionForm extends React.Component<QuestionFormProps> {
     }
 
     submitSurvey(question, formID) {
-        if (this.submitQuestionResponse(question, formID)) {
+        if (this.submitQuestionResponse(question, formID, true)) {
             var self = this;
             $("#submitSurvey").attr('disabled', true);
+            this.props.updatePoints({...this.props.testDriveInstance, questionSaveInProgress: true});
             Services.submitSurvey(this.props.testDriveInstance).then((testDriveInstance: TestDriveInstance) => {
-                this.props.updatePoints({...testDriveInstance, isSumbitInProgress: true});
+                this.props.updatePoints({...testDriveInstance, questionSaveInProgress: true});
                 self.openCompletionPopUp(testDriveInstance);
             });
         };
@@ -112,10 +115,9 @@ class QuestionForm extends React.Component<QuestionFormProps> {
 
     openCompletionPopUp(testDriveInstance: any) { 
         var interval, self=this;
-
         Services.getTestDriveInstanceData(testDriveInstance).then((newTestDriveInstance : any) => {
             if (newTestDriveInstance.status === Constants.ColumnsValues.COMPLETE_STATUS) {
-                this.props.updatePoints({...newTestDriveInstance, isSumbitInProgress: false});
+                this.props.updatePoints({...newTestDriveInstance, questionSaveInProgress: false});
                 if (interval) {
                     clearInterval(interval);
                 }

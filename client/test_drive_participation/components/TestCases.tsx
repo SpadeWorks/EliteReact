@@ -73,13 +73,13 @@ class TestCases extends React.Component<TestCasesProps> {
     showSubmitPopUp(testCase) {
         var interval, self=this;
         if (this.props.testDriveInstance.numberOfTestCasesCompleted == this.props.testDriveInstance.testCaseIDs.length) {
-            this.props.updatePoints({...this.props.testDriveInstance, isSumbitInProgress: true});
+            this.props.updatePoints({...this.props.testDriveInstance, questionSaveInProgress: true});
             Services.getTestDriveInstanceData(this.props.testDriveInstance).then((newTestDriveInstance: any) => {
                 if (newTestDriveInstance.joiningBonus > 0) {
                     if (interval) {
                         clearInterval(interval);
                     }
-                    this.props.updatePoints({...newTestDriveInstance, isSumbitInProgress: false});
+                    this.props.updatePoints({...newTestDriveInstance, questionSaveInProgress: false});
                     this.props.updateUI({ requirmentMessage: this.getPopUpBodyDataHighFive().message });
                     $("#popupHighFive").trigger("click");
                     $(".modal-backdrop.fade.in").hide();
@@ -96,6 +96,7 @@ class TestCases extends React.Component<TestCasesProps> {
                 } else {
                     toast.success("Test Case Responses Submitted Successfully!");
                 }
+                $('#carousel-example-vertical').carousel('next');
             });
         }
 
@@ -106,7 +107,7 @@ class TestCases extends React.Component<TestCasesProps> {
         return (
             <div className="col-md-12">
                 {/* {this.showSubmitPopUp()} */}
-                <Loader show={ui.loading || false} message={'Loading...'}>
+                <Loader show={ui.loading || testDriveInstance.questionSaveInProgress || false} message={'Loading...'}>
                     <div id="carousel-example-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
                         <div className="testcase_no " id="test_Cases">
                             <ul className="task_circle carousel-indicators">

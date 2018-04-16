@@ -238,7 +238,8 @@ export default handleActions<IState, any>({
                 joiningBonus: action.payload.joiningBonus,
                 completionBonus: action.payload.completionBonus,
                 surveyStatus: action.payload.surveyStatus,
-                isSumbitInProgress: false
+                isSumbitInProgress: false,
+                questionSaveInProgress: action.payload.questionSaveInProgress
             },
             loading: false
         }

@@ -3294,7 +3294,7 @@ a.drive_name h4 {
 
 .leader_rank span {
     color: white;
-    position: absolute;
+    /* position: absolute; */
     box-sizing: border-box;
     /*-webkit-transform: skewX(25deg) !important;
     -moz-transform: skewX(45deg);
@@ -4711,9 +4711,10 @@ span.increase_or_decreased {
     height: 65px;
     background: #ed1b24;
     transform: skewX(-20deg);
-    position: relative;
+    /* position: relative; */
     left: 23px;
     z-index: 99;
+    text-align: center;
 }
 
 .leader_namenphoto,
@@ -7462,6 +7463,7 @@ span.orange.big {
     }
     .container.big_leaderbox .leader_listbox .leader_rank {
         width: 6% !important;
+        padding-top:20px;
     }
     .container.big_leaderbox .leader_listbox .leader_rank.my_rank {
         background: #004b8d;
@@ -7469,14 +7471,11 @@ span.orange.big {
     .container.big_leaderbox .leader_listbox .leader_rank span {
         transform: skewX(25deg) !important;
         color: white;
-        position: absolute;
+        /* position: absolute; */
         box-sizing: border-box;
-        /*-moz-transform: skewX(45deg);
-        -ms-transform: skewX(45deg);
-        -webkit-transform: skewX(45deg);*/
-        left: 6px;
-        font-size: 23px;
-        padding-left: 16px !important;
+        /* left: 6px; */
+        font-size: 18px;
+        /* padding-left: 16px !important; */
         top: 17px;
     }
     .location_box {
