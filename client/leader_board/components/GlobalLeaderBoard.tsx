@@ -95,12 +95,12 @@ class GlobalLeaderBoard extends React.Component<GlobalLeaderBoardProps> {
                             /> : ''
                     }
 
-                </Loader>
-                <Loader show={currentUserPositionLoading} message={'Loading...'}>
                     {(currentUser.rank && currentUser.rank != -1) ? <LeaderItem
                         isCurrentUser={true}
                         leader={currentUser} /> : ''}
+
                 </Loader>
+
             </div>
         )
     }

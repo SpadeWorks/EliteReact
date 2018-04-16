@@ -145,9 +145,6 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
                             onPageChanged={this.handlePageChanged}
                         />
                     }
-                </Loader>
-
-                <Loader show={currentUserPositionLoading} message={'Loading...'}>
                     {
                         (currentUser.rank && currentUser.rank != -1 && currentUser.region == ui.region.Label) ? <LeaderItem
                             isCurrentUser={true}
