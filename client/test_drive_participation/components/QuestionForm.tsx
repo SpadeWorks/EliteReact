@@ -30,7 +30,8 @@ interface QuestionFormProps {
 @ui({
     state: {
         questionResponse: '',
-        selectedResponse: ''
+        selectedResponse: '',
+        submitInProgress: false
     }
 })
 class QuestionForm extends React.Component<QuestionFormProps> {
@@ -64,7 +65,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
     }
     submitQuestionResponse(question: QuestionInstance, formID, isLast = false) {
         if (validateForm(formID)) {
-            if(isLast){
+            if(!isLast){
                 $('#carousel-question-vertical').carousel('next');
             }
             question = {
@@ -105,8 +106,9 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         if (this.submitQuestionResponse(question, formID, true)) {
             var self = this;
             $("#submitSurvey").attr('disabled', true);
-            this.props.updatePoints({...this.props.testDriveInstance, questionSaveInProgress: true});
+            this.props.updateUI({submitInProgress: true});
             Services.submitSurvey(this.props.testDriveInstance).then((testDriveInstance: TestDriveInstance) => {
+                this.props.updateUI({submitInProgress: false});
                 this.props.updatePoints({...testDriveInstance, questionSaveInProgress: true});
                 self.openCompletionPopUp(testDriveInstance);
             });
@@ -142,7 +144,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         return (
 
             <div className={"item " + (active ? 'active' : '')} id={formID}>
-                <Loader show={testDriveInstance.questionSaveInProgress || false} message={'Saving...'}>
+                <Loader show={testDriveInstance.questionSaveInProgress ||  ui.submitInProgress || false} message={'Saving...'}>
                     <div className="container ">
                         <div className="col-md-12 ">
                             <div className="row testcase_box ">

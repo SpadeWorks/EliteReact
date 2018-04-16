@@ -60,7 +60,7 @@ class TestDriveParticipationContainer extends React.Component<AppProps> {
     const { dispatch, testDriveInstance, loading, ui, updateUI } = this.props;
     return (
       <div className="test-drive-participation">
-        <Loader show={loading} message={'loading'}>
+        <Loader show={loading} message={'Loading...'}>
           {
             !loading && testDriveInstance.instanceID == -1 &&
             <TestDriveDetails
