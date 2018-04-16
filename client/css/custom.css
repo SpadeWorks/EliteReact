@@ -3858,8 +3858,8 @@ a#link6 span {
 .testd_box span.glyphicon-triangle-top {
     font-size: 22px;
     color: green;
-    left: 49px;
-    position: absolute;
+    /* left: 49px;
+    position: absolute; */
 }
 
 .testd_box p {
@@ -4620,7 +4620,8 @@ span.increase_or_decreased {
 .testd_box span.glyphicon-triangle-top {
     font-size: 12px;
     color: green;
-    left: 64px;
+    /* left: 64px; */
+    float:left;
 }
 
 .orange {
@@ -5098,7 +5099,10 @@ ul.thumbnails-carousel li {
     padding-right: 0px;
     transform: none;
 }
-
+.arrow_outof {
+    float: left;
+    margin-left: 11px;
+}
 .profile_overviewbox .imp_points h4 {
     margin-top: 0px !important;
     margin-bottom: 0px !important;
@@ -7500,16 +7504,20 @@ span.orange.big {
         outline: none;
     }
     span.increase_num {
-        position: absolute;
-        left: 59px;
+        /* position: absolute; */
+        /* left: 59px; */
         font-size: 15px;
         top: 5px;
         color: green;
+        float:left;
     }
     .outof_count {
-        position: absolute;
-        left: 55px;
-        top: 18px;
+            /* position: absolute; */
+    /* left: 55px; */
+    /* top: 18px; */
+    float: left;
+    /* margin-left: 10px; */
+    margin-top: 19px;
     }
     .profile_overviewbox .testd_box {
         position: relative;
@@ -7518,11 +7526,11 @@ span.orange.big {
         bottom: 5px;
     }
     .profile_overviewbox .testd_box span.glyphicon-triangle-top {
-        font-size: 9px;
-        color: green;
-        left: 49px;
-        position: absolute;
-        top: 11px;
+        /* font-size: 9px;  */
+        /* color: green; */
+        /* left: 49px; */
+        /* position: absolute; */
+        /* top: 11px; */
     }
     .testdrive_actionbox .back_btn {}
     .rdw-image-modal-upload-option {

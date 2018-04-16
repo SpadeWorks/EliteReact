@@ -287,9 +287,13 @@ class MyProfile extends React.Component<MyProfileProps> {
                                                             <div className="testd_box">
                                                                 <div className="row">
                                                                     <p>
+                                                                        <div className="my_position">
                                                                         <span className="testd_count">
                                                                             {rank}
                                                                         </span>
+                                                                        </div>
+
+                                                                        <div className="arrow_outof">
                                                                         <span className="toplevel">
 
                                                                             <span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
@@ -300,6 +304,7 @@ class MyProfile extends React.Component<MyProfileProps> {
                                                                             <span className="of">of </span>
                                                                             {totalCount}
                                                                         </span>
+                                                                        </div>
                                                                     </p>
                                                                 </div>
                                                             </div>
