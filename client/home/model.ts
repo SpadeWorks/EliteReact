@@ -18,6 +18,9 @@ export type IState = {
     avatars: string[];
     cars: string[];
     videoUrl?: string;
+    profileState?: any;
+    prizes?: any[],
+    prizesLoading?: boolean
 }
 
 export type HomeTestDriveObj = {
@@ -66,7 +69,7 @@ export type EliteProfile = {
     lastName: string;
     displayName: string;
     location: string;
-    department: string;
+    department: any;
     sipAddress: string;
     workEmail: string;
     languages: string;
@@ -84,6 +87,7 @@ export type EliteProfile = {
     availableOS: string[];
     availableDevices: string[];
     isInEditMode: boolean;
+    levelName: string;
 }
 export type TestDrive = {
     id: number;
@@ -93,7 +97,7 @@ export type TestDrive = {
     startDate: string;
     endDate: string;
     expectedBusinessValue: string;
-    department?: string;
+    department?: string[];
     region: string[];
     location: string[];
     requiredDevices: string[];
@@ -105,6 +109,9 @@ export type TestDrive = {
     questionIDs?: number[];
     status: string;
     level: string;
+    levelName?: string;
     owner?: string;
     newItem?: boolean;
+    ownerEmail?: string;
+    teamsChannelID?:string;
 };

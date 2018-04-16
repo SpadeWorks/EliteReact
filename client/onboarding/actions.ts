@@ -3,7 +3,8 @@ import Services from '../common/services/services';
 import * as GlobalConstants from '../common/services/constants';
 import {
   LOAD_OnBoardingDetails,
-  CompleteIntro
+  CompleteIntro,
+  CREATE_EliteProfile
 } from './constants/ActionTypes';
 
 import {User} from './model';
@@ -14,9 +15,9 @@ const loadOnBoardingDetails = createAction<any>(
   () => Services.getOnboardingDetails()
 )
 
-const createEliteUserProfile = createAction<any, User>(
-  LOAD_OnBoardingDetails, 
-  (user: User) => Services.createEliteUserProfile(user)
+const createEliteUserProfile = createAction<any, User, string>(
+  CREATE_EliteProfile, 
+  (user: User, referrerID: string) => Services.createEliteUserProfile(user, referrerID)
 )
 
 const completeIntro = createAction<any>(

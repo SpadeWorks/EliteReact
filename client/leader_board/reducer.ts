@@ -16,7 +16,8 @@ import {
     LOAD_CurrentUserRegionalPosition,
     LOAD_CurrentUserRegionalPosition_PENDING,
     LOAD_CurrentUserRegionalPosition_FULFILLED,
-    LOAD_CurrentUserRegionalPosition_REJECTED
+    LOAD_CurrentUserRegionalPosition_REJECTED,
+    LOAD_CurrentUserPosition_REJECTED
 } from './constants/ActionTypes';
 import { loadCurrentLeaderBoardPosition } from './index';
 
@@ -31,8 +32,10 @@ const initialState: IState = {
             completedTestDrives: 0,
             car: "",
             rank: 0,
+            region: ''
         },
-        loading: false
+        loading: false,
+        currentUserPositionLoading: false
     },
 
     regionalLeaderBoard: {
@@ -45,10 +48,12 @@ const initialState: IState = {
             completedTestDrives: 0,
             car: "",
             rank: 0,
+            region: ''
         },
         loading: false,
         regions: [],
-        selectedRegion: ''
+        selectedRegion: '',
+        currentUserPositionLoading: false
     }
 };
 
@@ -75,7 +80,7 @@ export default handleActions<IState, any>({
     [LOAD_RegionLeaderBoard_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            regionalLeaderBoard: { ...state.regionalLeaderBoard, loading: true }
+            regionalLeaderBoard: { ...state.regionalLeaderBoard, regionalLeaders: [], loading: true }
         }
     },
     [LOAD_RegionLeaderBoard_FULFILLED]: (state: IState, action: Action<any>): IState => {
@@ -92,14 +97,14 @@ export default handleActions<IState, any>({
     [LOAD_RegionLeaderBoard_REJECTED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            regionalLeaderBoard: { ...state.regionalLeaderBoard, loading: true }
+            regionalLeaderBoard: { ...state.regionalLeaderBoard, loading: false }
         }
     },
 
     [LOAD_CurrentUserPosition_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            globalLeaderBoard: { ...state.globalLeaderBoard, loading: true }
+            globalLeaderBoard: { ...state.globalLeaderBoard, currentUserPositionLoading: true }
         }
     },
     [LOAD_CurrentUserPosition_FULFILLED]: (state: IState, action: Action<any>): IState => {
@@ -108,8 +113,15 @@ export default handleActions<IState, any>({
             globalLeaderBoard: {
                 ...state.globalLeaderBoard,
                 currentUserPosition: action.payload,
-                loading: false
+                currentUserPositionLoading: false
             }
+        }
+    },
+
+    [LOAD_CurrentUserPosition_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            globalLeaderBoard: { ...state.globalLeaderBoard, currentUserPositionLoading: true }
         }
     },
 
@@ -124,7 +136,7 @@ export default handleActions<IState, any>({
     [LOAD_CurrentUserRegionalPosition_PENDING]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            regionalLeaderBoard: { ...state.regionalLeaderBoard, loading: true }
+            regionalLeaderBoard: { ...state.regionalLeaderBoard, currentUserPositionLoading: true }
         }
     },
     [LOAD_CurrentUserRegionalPosition_FULFILLED]: (state: IState, action: Action<any>): IState => {
@@ -133,7 +145,7 @@ export default handleActions<IState, any>({
             regionalLeaderBoard: {
                 ...state.regionalLeaderBoard,
                 currentUserPosition: action.payload,
-                loading: false
+                currentUserPositionLoading: false
             }
         }
     },
@@ -141,7 +153,7 @@ export default handleActions<IState, any>({
     [LOAD_CurrentUserRegionalPosition_REJECTED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            regionalLeaderBoard: { ...state.regionalLeaderBoard, loading: false }
+            regionalLeaderBoard: { ...state.regionalLeaderBoard, currentUserPositionLoading: false }
         }
     },
 

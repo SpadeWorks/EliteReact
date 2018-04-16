@@ -32,7 +32,8 @@ import {
     loadEliteProfile,
     getUserRank,
     loadCurrentUser,
-    loadVideo
+    loadVideo,
+    loadPrizes
 } from '../../home';
 import { constants } from 'zlib';
 import Footer from '../../common/components/Footer';
@@ -61,7 +62,9 @@ interface HomeProps {
     eliteProfile: EliteProfile;
     userRank: number;
     currentUser: any;
-    videoUrl: string;
+    videoInfo: any;
+    prizes: any[];
+    prizesLoading: boolean;
 
 };
 interface HomeState {
@@ -82,13 +85,48 @@ class Home extends React.Component<HomeProps, HomeState> {
         Services.loadProgressBar("total-task-canvas");
 
         let user = Services.getUserProfileProperties();
+        Services.getApplicationConfigurations().then(function (data: any) {
+            data.HomePageMiddleText = data.HomePageMiddleText ? data.HomePageMiddleText.replace(/\n/g, "<br />") : '';
+            $("#homeMiddleText").html(data.HomePageMiddleText);
+        });
+
+        $("#app").mouseup(function (e) {
+            var videoContainer = $(".modal-content");
+            var container = $(".letest_drivebox");
+            var container2 = $(".letest_drivebox2");
+            var toolbar = $(".rte-toolbar")
+            if (!container.is(e.target) && container.has(e.target).length === 0 &&
+                !container2.is(e.target) && container2.has(e.target).length === 0 &&
+                !toolbar.is(e.target) && toolbar.has(e.target).length === 0) {
+                $(".lc_container").removeClass("lc_containerclick");
+                $(".letest_drivebox").removeClass("letest_driveboxclick");
+                $(".lc_container2").removeClass("lc_containerclick2");
+                $(".letest_drivebox2").removeClass("letest_driveboxclick_right");
+                $(".letest_drivebox").removeClass('box').hide();
+                $(".letest_drivebox2").removeClass('box').hide();
+            }
+
+            if (!videoContainer.is(e.target) && videoContainer.has(e.target).length === 0 &&
+                !toolbar.is(e.target) && toolbar.has(e.target).length === 0) {
+                var video: any = document.getElementById('introVideo');
+                if(video){
+                    video.pause();
+                    video.currentTime = 0;
+                    $(".playpause").fadeOut();
+                }
+                
+                $(".close-popup").trigger('click');
+                $(".close-popup").trigger('click');
+            }
+        });
+
         if (user.eliteProfileID) {
             this.props.dispatch(loadEliteProfile(user.eliteProfileID));
             this.props.dispatch(loadLeaderBoard(0, 3));
             this.props.dispatch(loadRegionLeaderBoard(user.region, 0, 3));
             this.props.dispatch(getUserRank(user.eliteProfileID));
             this.props.dispatch(loadMyTestDrive());
-            this.props.dispatch(loadTestDriveThatIRun(user.eliteProfileID, 0, 3));
+            this.props.dispatch(loadTestDriveThatIRun(0, 3));
             this.props.dispatch(loadUpcomingTestDrive());
             this.props.dispatch(loadActiveTestDrive());
             this.props.dispatch(loadTotalUserCount());
@@ -97,29 +135,25 @@ class Home extends React.Component<HomeProps, HomeState> {
             this.props.dispatch(loadTotalTasks());
             this.props.dispatch(loadUserPoints(user.eliteProfileID));
             this.props.dispatch(loadVideo());
+
         }
-        $("a#link1").show(4200);
-        $("a#link2").show(4200);
-        $("a#link3").show(4200);
-        $("a#link4").show(4200);
-        $("a#link5").show(4200);
-        $("a#link6").show(4200);
     }
 
     render() {
         const { ui, updateUI, mytestDrive, testDriveThatIRun, upcomingTestDrive, activeTestDrive,
             leaders, regionLeaders, myTestDriveLoading, totalCount, totalPoints, totalTasks,
             testDrivesCompleted, totalTestDrives, userCarImage, testDriveThatIRunLoading,
-            activeTestDriveLoading, upcomingTestDriveLoading, eliteProfile, userRank, videoUrl } = this.props;
+            activeTestDriveLoading, upcomingTestDriveLoading, eliteProfile, userRank, videoInfo,
+            prizes, prizesLoading } = this.props;
         return (
             <div className="col-md-12">
                 <div className="row">
-                    <div className="container">
-                        <h2><img src="/sites/elite/Style%20Library/Elite/images/logo.png" className="img-responsive" /> </h2>
+                    <div className="col-md-12">
+                        <h2><img src="/Style%20Library/Elite/images/logo.png" className="img-responsive" /> </h2>
                     </div>
                     <div className="col-md-12">
                         <div className="col-md-12">
-                            <Navigation />
+                            <Navigation currentUserImage={eliteProfile.avatarImage} />
                             <LeaderBoard updateUI={updateUI}
                                 ui={ui}
                                 leaders={leaders}
@@ -131,11 +165,11 @@ class Home extends React.Component<HomeProps, HomeState> {
                                 mytestDrive={mytestDrive}
                                 myTestDriveLoading={myTestDriveLoading}
                                 testDriveThatIRun={testDriveThatIRun}
-                                testDriveThatIRunLoading={testDriveThatIRunLoading}                                
+                                testDriveThatIRunLoading={testDriveThatIRunLoading}
                             />
 
-                            <div className="col-md-4">
-                                <h2 className="text-center skills_heading">Skills.Speed.Smarts. Brind it all.</h2>
+                            <div className="col-md-5">
+                                <h2 className="text-center skills_heading" id="homeMiddleText"></h2>
                             </div>
                             <HomeRightTestDrives
                                 ui={ui}
@@ -152,7 +186,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                             </OverallPointsDashboard>
                         </div>
                         <UserRank userName={eliteProfile.displayName} userRank={userRank} />
-                        <Video videoUrl={videoUrl}/>
+                        {videoInfo ? <Video videoInfo={videoInfo} /> : ''}
                         <Footer />
                     </div>
                 </div>
@@ -182,7 +216,9 @@ const mapStateToProps = (state, ownProps) => {
         userCarImage: state.homeState.userCarImage,
         eliteProfile: state.homeState.eliteProfile,
         userRank: state.homeState.rank.rank,
-        videoUrl: state.homeState.videoUrl
+        videoInfo: state.homeState.videoUrl,
+        prizes: state.homeState.prizes,
+        prizesLoading: state.homeState.prizesLoading
     }
 };
 

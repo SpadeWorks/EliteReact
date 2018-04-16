@@ -17,14 +17,15 @@ import {
   LOAD_EliteProfile,
   LOAD_Rank,
   LOAD_CurrentUser,
-  LOAD_Video
+  LOAD_Video,
+  LOAD_Prizes
 } from './constants/ActionTypes';
 
 // Test Drives action creators.
 
 const loadMyTestDrive = createAction<any>(
   LOAD_MyTestDrive, 
-  () => Services.getMyTestDrives()
+  () => Services.getMyInProgressTestDrives()
 )
 
 const loadVideo = createAction(
@@ -33,9 +34,9 @@ const loadVideo = createAction(
 )
 
 
-const loadTestDriveThatIRun = createAction<any, number, number, number>(
+const loadTestDriveThatIRun = createAction<any, number, number>(
   LOAD_TestDriveIRun, 
-  (owernID: number, skip: number, top: number) => Services.getTestDrivesByOwerneID(owernID, skip, top)
+  (skip: number, top: number) => Services.getActiveTestDrivesIRun(skip, top)
 )
 
 const loadUpcomingTestDrive = createAction<any>(
@@ -75,7 +76,7 @@ const loadUserPoints = createAction<any, number>(
 
 const loadTotalTestDrives = createAction<any>(
   LOAD_TotalTestDrives, 
-  () => Services.getListItemCount(GlobalConstants.Lists.TEST_DRIVES)  
+  () => Services.getActiveTestDriveCount()  
 )
 
 const loadTestDrivesCompleted = createAction<any>(
@@ -102,6 +103,11 @@ const loadCurrentUser = createAction<any>(
   LOAD_CurrentUser, 
   () => Services.getUserProfileProperties()  
 )
+
+const loadPrizes = createAction<any>(
+  LOAD_Prizes, 
+  () => Services.getPrizes()  
+)
 export {
   loadMyTestDrive,
   loadUpcomingTestDrive,
@@ -118,5 +124,6 @@ export {
   loadEliteProfile,
   getUserRank,
   loadCurrentUser,
-  loadVideo
+  loadVideo,
+  loadPrizes
 }

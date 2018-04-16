@@ -1,4 +1,5 @@
 import { handleActions, Action } from 'redux-actions';
+import * as Constants from '../common/services/constants';
 import { TestDriveInstance, TestCaseInstance, QuestionInstance, IState } from './model';
 import {
     LOAD_TestDriveInstanceByID_PENDING,
@@ -18,9 +19,14 @@ import {
     CREATE_QuestionInstance_PENDING,
     CREATE_QuestionInstance_REJECTED,
     DELETE_Attachment,
-    DELETE_Attachment_FULFILLED
+    DELETE_Attachment_FULFILLED,
+    UPDATE_Points_PENDING,
+    UPDATE_Points_FULFILLED,
+    UPDATE_Points_REJECTED,
+    UPDATE_Points
 
 } from './constants/ActionTypes';
+import { submitTestDrive } from '../test_drive/index';
 
 const initialState: IState = {
     testDriveInstance: {
@@ -39,11 +45,12 @@ const initialState: IState = {
         maxTestDrivers: 5000,
         testCases: [],
         questions: [],
-        status: 'Draft',
+        status: Constants.ColumnsValues.INPROGRESS,
         level: 'Level1',
+        levelName: 'Level1',
         currentPoint: 0,
         dateJoined: "",
-        department: "",
+        department: [],
         numberOfTestCasesCompleted: 0,
         questionIDs: [],
         testCaseIDs: [],
@@ -51,8 +58,14 @@ const initialState: IState = {
         loading: false,
         loadingMessage: 'Loading...',
         questionSaveInProgress: false,
-        testCaseSaveInProgress: false
-
+        testCaseSaveInProgress: false,
+        isSumbitInProgress: false,
+        participants: 0,
+        ownerEmail: '',
+        testDriveStatus: '',
+        surveyStatus: '',
+        joiningBonus: 0,
+        completionBonus: 0
     },
     loading: true,
 };
@@ -201,6 +214,47 @@ export default handleActions<IState, any>({
             }
         }
     },
+
+    // [UPDATE_Points_PENDING]: (state: IState, action: Action<any>): IState => {
+    //     return {
+    //         ...state,
+    //         testDriveInstance: {
+    //             ...state.testDriveInstance,
+    //             isTestDriveSubmissionCompleted: false,
+    //             isSumbitInProgress: true
+                
+    //         }
+    //     }
+    // },
+    [UPDATE_Points]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            testDriveInstance: {
+                ...state.testDriveInstance,
+                currentPoint: action.payload.currentPoint,
+                numberOfTestCasesCompleted: action.payload.numberOfTestCasesCompleted,
+                isTestDriveSubmissionCompleted: true,
+                status: action.payload.status,
+                joiningBonus: action.payload.joiningBonus,
+                completionBonus: action.payload.completionBonus,
+                surveyStatus: action.payload.surveyStatus,
+                isSumbitInProgress: false,
+                questionSaveInProgress: action.payload.questionSaveInProgress
+            },
+            loading: false
+        }
+    },
+
+    // [UPDATE_Points_REJECTED]: (state: IState, action: Action<any>): IState => {
+    //     return {
+    //         ...state,
+    //         testDriveInstance: {
+    //             ...state.testDriveInstance,
+    //             isTestDriveSubmissionCompleted: true,
+    //             isSumbitInProgress: false
+    //         }
+    //     }
+    // },
 
     [DELETE_Attachment_FULFILLED]: (state: IState, action: Action<any>): IState => {
         return {

@@ -42,7 +42,7 @@ class MyTestDrives extends React.Component<LeftContainer> {
             $('#' + letest_driveboxID + ' ' + ".white_circle").addClass("white_circleclick");
             $('#' + letest_driveboxID + ' ' + ".lc_container").addClass("lc_containerclick");
             $('#' + letest_driveboxID + ' ' + ".letest_drivebox").addClass("letest_driveboxclick");
-            
+
             popUpContainer.addClass("box");
         } else {
             popUpContainer.removeClass("box");
@@ -54,19 +54,23 @@ class MyTestDrives extends React.Component<LeftContainer> {
     render() {
         const { checkPortion, participants, testDrive, testDriveResponse, index } = this.props
         const driveID = checkPortion + index;
+
         return (<div>{
             <div className="row test_drive" id={driveID}>
                 <div className="modal-backdrop in hidden"></div>
-                <div className="col-md-10">
+                <div className="col-md-10 td_containerbox">
+                <div className="td_namebox">
                     <a className="drive_name">
+                        
                         <h4 onClick={() => this.openMyTestDriveDialog(driveID)}>
                             {testDrive.title}
                             <span className={"glyphicon glyphicon-triangle-right hidden"} aria-hidden="true">
                             </span>
                         </h4>
                     </a>
-                    <p><span className="end_date">END DATE :</span>{Service.formatDate(testDrive.endDate)}</p>
-                    <p><span className="participants">PARTICIPANTS :</span> {participants}</p>
+                    </div>
+                    <p><span className="end_date">END DATE : </span>{Service.formatDate(testDrive.endDate)}</p>
+                    <p><span className="participants">PARTICIPANTS : </span> {participants}</p>
                 </div>
                 <div className="col-md-2 pull-right">
                     <div className="lc_container">
@@ -90,7 +94,8 @@ class MyTestDrives extends React.Component<LeftContainer> {
                         <TestDriveHoverPanel
                             participants={participants}
                             checkPortion={checkPortion}
-                            testDrive={testDrive} />
+                            testDrive={testDrive}
+                            isActive={false} />
                     }
                 </div>
             </div>

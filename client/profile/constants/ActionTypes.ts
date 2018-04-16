@@ -18,6 +18,7 @@ export const LOAD_CurrentTestDrives_PENDING = 'LOAD_CurrentTestDrives_PENDING';
 export const LOAD_CurrentTestDrives_FULFILLED = 'LOAD_CurrentTestDrives_FULFILLED';
 
 export const UPDATE_EliteProfile = 'UPDATE_EliteProfile';
+export const RESET_EliteProfile = 'RESET_EliteProfile';
 export const LOAD_Configurations = 'LOAD_Configurations';
 export const LOAD_SetEditMode = 'LOAD_SetEditMode';
 

@@ -45,7 +45,12 @@ class SurveyForm extends React.Component<SurveyFormProps> {
         { value: 'Yes', label: 'Yes' },
         { value: 'No', label: 'No' },
         { value: 'Satisfied', label: 'Satisfied' },
-        { value: 'unsatisfied', label: 'unsatisfied' }
+        { value: 'Highly satisfied', label: 'Highly satisfied' },
+        { value: 'Unsatisfied', label: 'Unsatisfied' },
+        { value: 'Highly unsatisfied', label: 'Highly unsatisfied' },
+        { value: 'Neutral', label: 'Neutral' },
+        { value: 'N/A', label: 'N/A' },
+
     ]
 
     selectControlChange = (value, id, name) => {
@@ -81,18 +86,17 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                             {question.title || "Question " + question.id}
 
                         </a>
-
-                        <div className="pull-right">
-                            <a href="javascript:void(0);"><i className="material-icons"
+                        <div className="pull-right button-container">
+                            <a href="javascript:;"><i className="material-icons"
                                 onClick={() => deleteQuestion(question.id)}>delete</i></a>
                             {!question.isInEditMode &&
-                                <a href="javascript:void(0);"><i className="material-icons"
+                                <a href="javascript:;"><i className="material-icons"
                                     onClick={() => editQuestion(question)}>mode_edit</i></a>
                             }
                             {question.isInEditMode &&
-                                <a href="javascript:void(0);" className="check_ico"
+                                <a href="javascript:;" className="check_ico"
                                     onClick={() => saveQuestion(question, "question-form" + question.id)}>
-                                    <i className="material-icons" style={checkBoxStyle}>check</i>
+                                    <i className="material-icons check-mark" >check</i><i className="btn-save-textbox">Save</i>
                                 </a>}
                         </div>
                     </h5>
@@ -102,11 +106,11 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                     className={question.isInEditMode ? "collapse in" : "collapse"}
                     aria-labelledby="headingOne" data-parent="#accordion">
                     <div className="card-body">
-                        
+
 
                         <form id={"question-form" + question.id}>
                             <div className="col-md-12 register_input">
-                                <input className="inputMaterial" 
+                                <input className="inputMaterial"
                                     type="text"
                                     onChange={this.onChange}
                                     name="title"
@@ -152,7 +156,7 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                                             value={question.options}
                                         />
                                     </div>
-                                    <label className="disc_lable">Responses</label>
+                                    <label className="disc_lable">Response</label>
                                     <span className="help-text">
                                         {fieldDescriptions && fieldDescriptions[Constants.Columns.RESPONSES]}
                                     </span>

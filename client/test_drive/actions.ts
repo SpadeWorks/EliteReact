@@ -29,9 +29,22 @@ import {
   DATE_FocusChange,
   UPDATE_Question,
   LOAD_Configurations,
-  UPDATE_MaxPoints
+  UPDATE_MaxPoints,
+  LOAD_ActiveTestDrives,
+  LOAD_UpCommingTestDrives,
+  LOAD_TestDrivesWaitingFormApproval,
+  LOAD_ApprovedTestDrives,
+  LOAD_InProgressTestDrivesIRun,
+  LOAD_UpcommingTestDrivesIRun,
+  LOAD_CompletedTestDrivesIRun,
+  LOAD_DraftedTestDrivesIRun,
+  LOAD_SubmittedTestDrivesIRun,
+  LOAD_MyCompletedTestDrives,
+  LOAD_MyInprogressTestDrives,
+  SAVE_TestDriveApproval
 
 } from './constants/ActionTypes';
+import { LOAD_ActiveTestDrive, LOAD_UpcomingTestDrive } from '../home/constants/ActionTypes';
 
 // Test Drives action creators.
 
@@ -222,6 +235,90 @@ const onDateFocusChange = createAction<any, any>(
 )
 
 
+// Approval related actions //
+
+const loadTestDrivesWaitingForApproval = createAction<any, number, number>(
+  LOAD_TestDrivesWaitingFormApproval,
+  (skip: number, top: number) => Services.getTestDrivesWaitingForApproval(skip, top)
+);
+
+const loadApprovedTestDrives = createAction<any, number, number>(
+  LOAD_ApprovedTestDrives,
+  (skip: number, top: number) => Services.getApprovedTestDrives(skip, top)
+);
+
+const approveTestDrive = createAction<any, number>(
+  SAVE_TestDriveApproval,
+  (id: number) => Services.approveTestdrive(id)
+);
+
+// Approval related actions ends here//
+
+// Active Test drives related action //
+const loadActiveTestDrives = createAction<any, number, number>(
+  LOAD_ActiveTestDrives,
+  (skip: number, top: number) => Services.getActiveTestDrives(skip, top)
+);
+// Active Test drives related action ends here//
+
+// Upcomming Test drives related action //
+const loadUpCommingTestDrives = createAction<any, number, number>(
+  LOAD_UpCommingTestDrives,
+  (skip: number, top: number) => Services.getUpcomingTestDrives(skip, top)
+);
+// Active Test drives related action ends here//
+
+// Test Drives I Run related action //
+
+const loadInProgressTestDrivesIRun = createAction<any, number, number>(
+  LOAD_InProgressTestDrivesIRun,
+  (skip: number, top: number) => 
+    Services.getInProgressTestDrivesIRun(skip, top)
+);
+
+const loadCompletedTestDrivesIRun = createAction<any, number, number>(
+  LOAD_CompletedTestDrivesIRun,
+  (skip: number, top: number) => 
+    Services.getCompletedTestDriveIRun(skip, top)
+);
+
+const loadUpcommingTestDrivesIRun = createAction<any, number, number>(
+  LOAD_UpcommingTestDrivesIRun,
+  (skip: number, top: number) => 
+    Services.getUpCommingTestDriveIRun(skip, top)
+);
+
+const loadDraftedTestDrivesIRun = createAction<any, number, number>(
+  LOAD_DraftedTestDrivesIRun,
+  (skip: number, top: number) => 
+    Services.getDraftedTestDrivesIRun(skip, top)
+);
+
+const loadSubmittedTestDrivesIRun = createAction<any, number, number, number>(
+  LOAD_SubmittedTestDrivesIRun,
+  (ownerID: number, skip: number, top: number) => 
+    Services.getDraftedTestDrivesIRun(skip, top)
+);
+
+// Active Test drives related action ends here//
+
+// My Test Drives related action //
+
+const loadMyCompletedTestDrives = createAction<any, number, number>(
+  LOAD_MyCompletedTestDrives,
+  (skip: number, top: number) => 
+    Services.getMyCompletedTestDrives(skip, top)
+);
+
+const loadMyInprogressTestDrives = createAction<any, number, number>(
+  LOAD_MyInprogressTestDrives,
+  (skip: number, top: number) => 
+    Services.getMyInProgressTestDrives(skip, top)
+);
+
+// My Test Drives related action ends here//
+
+
 export {
 
   deleteTestDrive,
@@ -248,5 +345,17 @@ export {
   loadTestCases,
   loadQuestions,
   loadConfigurations,
-  updateMaxPoints
+  updateMaxPoints,
+  loadMyCompletedTestDrives,
+  loadMyInprogressTestDrives,
+  loadInProgressTestDrivesIRun,
+  loadUpcommingTestDrivesIRun,
+  loadCompletedTestDrivesIRun,
+  loadDraftedTestDrivesIRun,
+  loadSubmittedTestDrivesIRun,
+  loadActiveTestDrives,
+  loadUpCommingTestDrives,
+  loadApprovedTestDrives,
+  loadTestDrivesWaitingForApproval,
+  approveTestDrive
 }

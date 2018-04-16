@@ -6,6 +6,7 @@ import profile from '../profile';
 import leaderBoard from '../leader_board';
 import { reducer as uiReducer } from 'redux-ui';
 import onBoarding from '../onboarding';
+import reportBug from '../report_bug';
 import participation from '../test_drive_participation';
 
 const rootReducer = asyncInitialState.outerReducer(combineReducers({
@@ -16,7 +17,8 @@ const rootReducer = asyncInitialState.outerReducer(combineReducers({
   onBoardingState: onBoarding,
   participationState: participation,
   profileState: profile,
-  ui: uiReducer
+  ui: uiReducer,
+  reportBugState: reportBug,
 }));
 
 export default rootReducer;

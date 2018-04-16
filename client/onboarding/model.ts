@@ -21,4 +21,5 @@ export type User = {
     workEmail: string;
     languages: string;
     region: string;
+    role: string;
 } 

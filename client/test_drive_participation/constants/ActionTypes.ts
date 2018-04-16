@@ -27,3 +27,10 @@ export const DELETE_Attachment = 'DELETE_Attachment';
 export const DELETE_Attachment_PENDING = 'DELETE_Attachment_PENDING';
 export const DELETE_Attachment_FULFILLED = 'DELETE_Attachment_FULFILLED';
 export const DELETE_Attachment_REJECTED = 'DELETE_Attachment_REJECTED';
+
+export const UPDATE_Points = 'UPDATE_Points';
+export const UPDATE_Points_PENDING = 'UPDATE_Points_PENDING';
+export const UPDATE_Points_FULFILLED = 'UPDATE_Points_FULFILLED';
+export const UPDATE_Points_REJECTED = 'UPDATE_Points_REJECTED';
+
+

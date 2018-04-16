@@ -53,10 +53,10 @@ export const LOAD_UserCarImage = 'LOAD_UserCarImage';
 export const LOAD_UserCarImage_PENDING = 'LOAD_UserCarImage_PENDING';
 export const LOAD_UserCarImage_FULFILLED = 'LOAD_UserCarImage_FULFILLED';
 
-export const LOAD_EliteProfile = 'LOAD_EliteProfile';
-export const LOAD_EliteProfile_PENDING = 'LOAD_EliteProfile_PENDING';
-export const LOAD_EliteProfile_FULFILLED = 'LOAD_EliteProfile_FULFILLED';
-export const LOAD_EliteProfile_REJECTED = 'LOAD_EliteProfile_REJECTED';
+export const LOAD_EliteProfile = 'LOAD_MyEliteProfile';
+export const LOAD_EliteProfile_PENDING = 'LOAD_MyEliteProfile_PENDING';
+export const LOAD_EliteProfile_FULFILLED = 'LOAD_MyEliteProfile_FULFILLED';
+export const LOAD_EliteProfile_REJECTED = 'LOAD_MyEliteProfile_REJECTED';
 
 export const LOAD_Rank = 'LOAD_Rank';
 export const LOAD_Rank_PENDING = 'LOAD_Rank_PENDING';
@@ -69,3 +69,10 @@ export const LOAD_Video = 'LOAD_Video';
 export const LOAD_Video_PENDING = 'LOAD_Video_PENDING';
 export const LOAD_Video_FULFILLED = 'LOAD_Video_FULFILLED';
 export const LOAD_Video_REJECTED = 'LOAD_Video_REJECTED';
+
+export const LOAD_Prizes = 'LOAD_Prizes';
+export const LOAD_Prizes_PENDING = 'LOAD_Prizes_PENDING';
+export const LOAD_Prizes_FULFILLED = 'LOAD_Prizes_FULFILLED';
+export const LOAD_Prizes_REJECTED = 'LOAD_Prizes_REJECTED';
+
+export const RESET_STATE = 'RESET_STATE';

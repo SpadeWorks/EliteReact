@@ -9,7 +9,8 @@ import {
   CREATE_TestDriveInstance,
   CREATE_QuestionInstance,
   CREATE_TestCaseInstance,
-  DELETE_Attachment
+  DELETE_Attachment,
+  UPDATE_Points
 
 } from './constants/ActionTypes';
 import { TestCase } from '../test_drive/model';
@@ -43,6 +44,13 @@ const createOrSaveTestCaseInstance = createAction<any, TestCaseInstance, TestDri
     Services.createOrSaveTestCaseInstance(testCaseInstance, testDriveInstance)
 )
 
+const updatePoints = createAction<any, TestDriveInstance>(
+  UPDATE_Points,
+  (testDriveInstance) => testDriveInstance
+  
+    
+)
+
 const deleteAttachment = createAction(DELETE_Attachment)
 
 export {
@@ -51,5 +59,6 @@ export {
   createOrSaveTestDriveInstance,
   createOrSaveQuestionInstance,
   createOrSaveTestCaseInstance,
-  deleteAttachment
+  deleteAttachment,
+  updatePoints
 }

@@ -18,6 +18,8 @@ export type TestCaseInstance = {
     responseStatus: string;   
     files?: any[];
     saveInProgress?: boolean;
+    participants: number;
+    testDriveStatus: string;
 }
 
 export type QuestionInstance = {
@@ -46,7 +48,7 @@ export type TestDriveInstance = {
     startDate: string;
     endDate: string;
     expectedBusinessValue: string;
-    department?: string;
+    department?: string[];
     region: string[];
     location: string[];
     requiredDevices: string[];
@@ -58,6 +60,7 @@ export type TestDriveInstance = {
     questionIDs?: number[];
     status: string;
     level: string;
+    levelName: string;
     owner?: string;
     newItem?: boolean;
     currentPoint: number;
@@ -68,6 +71,15 @@ export type TestDriveInstance = {
     loadingMessage: string;
     testCaseSaveInProgress?: boolean;
     questionSaveInProgress?: boolean;
+    isTestDriveSubmissionCompleted?: boolean;
+    isSumbitInProgress: boolean;
+    participants: number;
+    ownerEmail: string;
+    testDriveStatus: string;
+    surveyStatus: string;
+    joiningBonus: number;
+    completionBonus: number;
+    teamsChannelID?:string;
 };
 
 export type Configurations = {

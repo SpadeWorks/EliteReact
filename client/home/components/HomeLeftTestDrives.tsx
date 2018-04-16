@@ -4,7 +4,8 @@ import MyTestDrives from './LeftContainer';
 import Loader from 'react-loader-advanced';
 import { HomeTestDrive, TestDrive } from '../../home/model';
 import LeftContainer from './LeftContainer';
-import {Globals} from '../../common/services/constants';
+import { Globals, ColumnsValues } from '../../common/services/constants';
+import Service from '../../common/services/services';
 interface HomeLeftTestDrivesProps {
     updateUI: (any) => any;
     ui: any;
@@ -28,19 +29,26 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
             testDriveThatIRunLoading,
         } = this.props;
 
+        const role = Service.getUserProfileProperties().role;
+        const isTestDriveIRunVisible = (role == "Site Owner" ||
+            role == "Test Drive Owner")
+
         return (<div className="col-md-3 black_box black_box_left pull-left">
             <div className="row">
                 <div className="well">
                     <ul className="nav nav-tabs">
                         <li className="active"><a href="#home" data-toggle="tab">MY TEST DRIVES</a></li>
-                        <li className="pull-right"><a href="#profile" data-toggle="tab">TEST DRIEVES I RUN</a></li>
+                        {isTestDriveIRunVisible ?
+                            <li className="pull-right">
+                                <a href="#profile" data-toggle="tab">TEST DRIVES I RUN</a>
+                            </li> : ''}
                     </ul>
                     <div id="myTabContent" className="tab-content">
                         <div className="tab-pane active in" id="home">
-                            <Loader show={myTestDriveLoading} message={'Loading test drives...'}>
-                                <div className="col-md-12">
+                            <div className="col-md-12">
+                                <Loader show={myTestDriveLoading} message={'Loading test drives...'}>
                                     {
-                                        mytestDrive && mytestDrive.map((testDrive, index) => {
+                                        (!myTestDriveLoading && mytestDrive && mytestDrive.length) ? mytestDrive.map((testDrive, index) => {
                                             return (testDrive && <LeftContainer
                                                 key={index}
                                                 participants={testDrive.participants}
@@ -49,36 +57,49 @@ class HomeLeftTestDrives extends React.Component<HomeLeftTestDrivesProps> {
                                                 testDriveResponse={testDrive.testDriveResponse}
                                                 index={index + 1}
                                             />)
-                                        })
+                                        }) : ''
                                     }
-                                    {(!myTestDriveLoading) && mytestDrive.length == 0 && <p>You have not participated in any test dirve yet.</p>}
-                                    <Link className="read_morelink" to={"/testdrives/mytestDrive"}>
-                                        MORE >>
-                                    </Link>
-                                </div>
-                            </Loader>
-                        </div>
-                        <div className="tab-pane fade" id="profile">
-                            <Loader show={testDriveThatIRunLoading} message={'Loading test drives...'}>
-                                <div className="col-md-12">
+                                    {(!myTestDriveLoading && mytestDrive.length == 0) ? <p>You are not currently participating in any test drives.</p> : ''}
                                     {
-                                        testDriveThatIRun && testDriveThatIRun.map((testDrive, index) => {
-                                            return (testDrive && <LeftContainer
-                                                key={index}
-                                                participants={testDrive.participants}
-                                                checkPortion={Globals.TEST_DRIVE_THAT_I_RUN}
-                                                testDrive={testDrive.testDrive}
-                                                testDriveResponse={undefined}
-                                                index={index + 1} />)
-                                        })
+                                        (!myTestDriveLoading && mytestDrive && mytestDrive.length >= 3) ? <Link className="read_morelink more" to={"/testdrives/mytestDrive"}>
+                                            MORE >>
+                                        </Link> : ''
                                     }
-                                    {(!testDriveThatIRunLoading) && testDriveThatIRun.length == 0 && <p>You have not created any test dive yet.</p>}
-                                    <Link className="pull-right" to={"/testdrives/testDriveThatIRun"}>
-                                        MORE >>
-                                    </Link>
-                                </div>
-                            </Loader>
+                                </Loader>
+                            </div>
                         </div>
+
+                        {
+                            isTestDriveIRunVisible ? <div className="tab-pane fade" id="profile">
+                                <div className="col-md-12">
+                                    <Loader show={testDriveThatIRunLoading} message={'Loading test drives...'}>
+                                        {
+                                            ( !testDriveThatIRunLoading && testDriveThatIRun && testDriveThatIRun.length) ? testDriveThatIRun.map((testDrive, index) => {
+                                                return (testDrive && <LeftContainer
+                                                    key={index}
+                                                    participants={testDrive.participants}
+                                                    checkPortion={Globals.TEST_DRIVE_THAT_I_RUN}
+                                                    testDrive={testDrive.testDrive}
+                                                    testDriveResponse={undefined}
+                                                    index={index + 1} />)
+                                            }) : ''
+                                        }
+                                        {(!testDriveThatIRunLoading && !testDriveThatIRun.length) ? <div>
+                                            <p>You have not created any test drive yet.</p>
+                                            <div className="col-md-12 text-center create_new">
+                                                <Link className="button type1" to={"/testdrive"}>Create Test Drive </Link>
+                                            </div>
+                                        </div> : ''}
+                                        {
+                                            (!testDriveThatIRunLoading && testDriveThatIRun && testDriveThatIRun.length >= 3) ?
+                                                <Link className="more" to={"/testdrives/testDriveThatIRun"}>
+                                                    MORE >>
+                                        </Link> : ''
+                                        }
+                                    </Loader>
+                                </div>
+                            </div> : ''
+                        }
                     </div>
                 </div>
             </div>

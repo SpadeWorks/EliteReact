@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import GlobalLeaderBoard from './GlobalLeaderBoard';
 import RegionalLeaderBoard from './RegionalLeaderBoard'
-import Loader from 'react-loader-advanced';
+import { Tabs, Pane } from '../../common/components/Tabs';
+import Services from '../../common/services/services';
 import {
   model,
   loadGlobalLeaderBoard,
@@ -19,6 +20,7 @@ interface LeaderBoardContainerProps {
   ui: any;
   globalLeaderBoard: model.globalLeaderBoard
   regionalLeaderBoard: model.regionalLeaderBoard,
+  activeTab: string;
 
 };
 
@@ -30,52 +32,54 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
     document.body.className = "plane_back";
   }
 
+  getSelectedTab() {
+    switch (this.props.activeTab.toLowerCase()) {
+      case 'global':
+        return 0;
+      case 'regional':
+        return 1;
+    }
+  }
+
   render() {
     const { dispatch, globalLeaderBoard, regionalLeaderBoard, ui, updateUI } = this.props;
     return (<div className="col-md-12">
       <div className="row">
         <div className="container header_part">
-          <Link to={"/"} >
-            <h2 className="header_prevlink">
-             <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Leaderboard</h2>
-          </Link>
+          <h2 className="header_prevlink"> <a href="javascript:;" onClick={() => Services.goBack()}>
+            <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Leaderboard
+                 </a>
+          </h2>
+          <h4 className="cancel-btn"><Link to={"/"}>CANCEL</Link></h4>
         </div>
-        <div className="col-md-12" style={{ overflow: "auto" }}>
-          <div className="col-md-12" style={{ height: "900px"}}>
-            <div className="col-md-12 profile_box" style={{ height: "500px" }}>
+        <div className="col-md-12">
+          <div className="container big_leaderbox">
+            <div className="col-md-12 profile_box">
               <div className="well count_box">
-                <ul className="nav nav-tabs">
-                  <li className="active">
-                    <a href="#global" data-toggle="tab">Global Leaderboard</a>
-                  </li>
-                  <li>
-                    <a href="#regional" data-toggle="tab">Regional Leaderboard</a>
-                  </li>
-                </ul>
-                <div id="myTabContent" className="tab-content">
-                  <div className="tab-pane active in leadership_box" id="global">
-                    <Loader show={globalLeaderBoard.loading} message={'Loading...'}>
-                      <GlobalLeaderBoard
-                        leaders={globalLeaderBoard.globalLeaders}
-                        loadGlobalLeaderBoard={(skip, top) => dispatch(loadGlobalLeaderBoard(skip, top))}
-                        loadCurrentLeaderBoardPosition={() => dispatch(loadCurrentLeaderBoardPosition())}
-                        ui={ui}
-                        updateUI={updateUI}
-                        currentUser={globalLeaderBoard.currentUserPosition} />
-                    </Loader>
-                  </div>
-                  <div className="tab-pane fade" id="regional">
-                    <Loader show={regionalLeaderBoard.loading} message={'Loading...'}>
-                      <RegionalLeaderBoard
-                        leaders={regionalLeaderBoard.regionalLeaders}
-                        loadRegionalLeaderBoard={(region: string, skip: number, top: number) => dispatch(loadRegionalLeaderBoard(region, skip, top))}
-                        ui={ui}
-                        updateUI={updateUI}
-                        currentUser={regionalLeaderBoard.currentUserPosition}
-                        loadCurrentRegionalPosition={(region: string) => dispatch(loadCurrentRegionalPosition(region))} />
-                    </Loader>
-                  </div>
-                </div>
+                <Tabs selected={this.getSelectedTab()}>
+                  <Pane label="Global Leaderboard">
+                    <GlobalLeaderBoard
+                      loading={globalLeaderBoard.loading}
+                      leaders={globalLeaderBoard.globalLeaders}
+                      loadGlobalLeaderBoard={(skip, top) => dispatch(loadGlobalLeaderBoard(skip, top))}
+                      loadCurrentLeaderBoardPosition={() => dispatch(loadCurrentLeaderBoardPosition())}
+                      ui={ui}
+                      updateUI={updateUI}
+                      currentUser={globalLeaderBoard.currentUserPosition}
+                      currentUserPositionLoading = {globalLeaderBoard.currentUserPositionLoading} />
+                  </Pane>
+                  <Pane label="Regional Leaderboard">
+                    <RegionalLeaderBoard
+                      loading={regionalLeaderBoard.loading}
+                      leaders={regionalLeaderBoard.regionalLeaders}
+                      loadRegionalLeaderBoard={(region: string, skip: number, top: number) => dispatch(loadRegionalLeaderBoard(region, skip, top))}
+                      ui={ui}
+                      updateUI={updateUI}
+                      currentUser={regionalLeaderBoard.currentUserPosition}
+                      loadCurrentRegionalPosition={(region: string) => dispatch(loadCurrentRegionalPosition(region))} 
+                      currentUserPositionLoading = {globalLeaderBoard.currentUserPositionLoading}/>
+                  </Pane>
+                </Tabs>
               </div>
             </div>
           </div>
@@ -90,9 +94,11 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
 
 
 const mapStateToProps = (state, ownProps) => {
+  let activeTab = ownProps.match.params.activeTab;
   return {
     globalLeaderBoard: state.leaderBoardState.globalLeaderBoard,
-    regionalLeaderBoard: state.leaderBoardState.regionalLeaderBoard
+    regionalLeaderBoard: state.leaderBoardState.regionalLeaderBoard,
+    activeTab: activeTab || 'global'
   }
 };
 

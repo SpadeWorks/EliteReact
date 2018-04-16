@@ -2,7 +2,7 @@
     $.fn.typewrite = function(options){
         // setup defaults
         var settings = $.extend({
-            speed: 30,
+            speed: 50,
             blinkSpeed: 2,
             delay: 15,
             showCursor: true,
@@ -178,7 +178,7 @@
             chars.forEach(function(char, index){
                 $(settings.el).delay(settings.speed).queue(function (next){
                     var text = $(this).html() + char;
-                    $(this).html(text);
+                    $(this).html(text);                                      
                     next();
 
                     // we are done, remove from queue
@@ -213,3 +213,5 @@
         }
     };
 }(jQuery));
+
+

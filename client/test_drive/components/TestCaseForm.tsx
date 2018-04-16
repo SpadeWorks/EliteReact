@@ -13,6 +13,7 @@ import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import { unemojify } from "node-emoji";
 import * as Constants from '../../common/services/constants';
 import { validateControl, required, validateForm } from '../../common/components/Validations';
+import * as $ from 'jquery';
 
 interface TestCaseFormProps {
     testCase: TestCase,
@@ -46,6 +47,28 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
         left: "900px"
     }
 
+    editorOptions = {
+        options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'emoji', 'image', 'remove', 'history'],
+        fontSize: {
+            options: [16, 18, 24, 30, 36, 48, 60, 72, 96],
+        },
+
+        inline: { inDropdown: true },
+        list: { inDropdown: true },
+        textAlign: { inDropdown: true },
+        link: { inDropdown: true },
+        history: { inDropdown: true },
+        image: {
+            className: 'image-uploader',
+            popupClassName: 'image-uploader-popup',
+            uploadCallback: this.uploadImageCallBack, alt: { present: true, mandatory: false },
+            defaultSize: {
+                height: '350px',
+                width: '500px',
+            }
+        },
+    }
+
     constructor(props, context) {
         super(props, context);
         this.onChange = this.onChange.bind(this);
@@ -54,6 +77,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
         this.onExpectedOutcomeChange = this.onExpectedOutcomeChange.bind(this);
         this.uploadImageCallBack = this.uploadImageCallBack.bind(this);
         this.deleteTestCase = this.deleteTestCase.bind(this);
+        this.waitForEl = this.waitForEl.bind(this);
     }
 
     onChange = (e) => {
@@ -62,7 +86,6 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
     }
 
     selectControlChange = (value, id, name) => {
-
         let e = {
             target: {
                 type: 'custom-select',
@@ -100,6 +123,21 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
         this.props.updateUI({
             scenario: value
         })
+
+        if (!$(value).text().replace(/[\n\r]+/g, '').trim() && !this.haveImage(value)) {
+            $('#scenario-validation').remove();
+        }
+    }
+
+    haveImage(html) {
+        var haveImage = false;
+        $(html).each(function () {
+            if (this.tagName && this.tagName.toLowerCase() === "img") {
+                haveImage = true;
+                return false;
+            }
+        });
+        return haveImage;
     }
     onExpectedOutcomeChange(value) {
         let e = {
@@ -120,6 +158,12 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
         this.props.updateUI({
             expectedOutcome: value
         })
+
+        if (!$(value).text().replace(/[\n\r]+/g, '').trim() && !this.haveImage(value)) {
+            $('#expectedOutcome-validation').remove();
+        }
+
+        
     }
 
     uploadImageCallBack(file) {
@@ -153,16 +197,34 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
     }
 
     componentDidMount() {
+        var self = this;
         this.updateInitialEditorValue("scenario");
         this.updateInitialEditorValue("expectedOutcome");
+
+        $(".custom-editor").click(function () {
+            self.waitForEl(".image-uploader-popup", function () {
+                $(".rdw-image-modal-upload-option-label").html("Click to upload");
+            });
+
+        })
     }
+
+    waitForEl(selector, callback) {
+        var self = this;
+        if ($(selector).length) {
+            callback();
+        } else {
+            setTimeout(function () {
+                self.waitForEl(selector, callback);
+            }, 10);
+        }
+    }
+
+
 
     render() {
         const { testCase, editTestCase, saveTestCase, deleteTestCase, ui, updateUI, fieldDescriptions } = this.props;
         testCase.isInEditMode = testCase.isInEditMode === undefined ? false : testCase.isInEditMode;
-        const checkBoxStyle = {
-            color: "green"
-        }
         return (
             <div className="card">
                 <div className="card-header" data-role="tab" id="headingOne">
@@ -176,17 +238,17 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                             onClick={() => editTestCase(testCase)}>
                             {testCase.title || "New test case " + testCase.id}
                         </a>
-                        <div className="pull-right">
-                            <a href="javascript:void(0);"><i className="material-icons"
+                        <div className="pull-right button-container">
+                            <a href="javascript:;"><i className="material-icons"
                                 onClick={() => this.deleteTestCase(testCase.id)}>delete</i></a>
                             {!testCase.isInEditMode &&
-                                <a href="javascript:void(0);"><i className="material-icons"
+                                <a href="javascript:;"><i className="material-icons"
                                     onClick={() => editTestCase(testCase)}>mode_edit</i></a>
                             }
                             {testCase.isInEditMode &&
-                                <a href="javascript:void(0);" className="check_ico"
+                                <a href="javascript:;" className="check_ico"
                                     onClick={() => saveTestCase(testCase, "test-case-form" + testCase.id)}>
-                                    <i className="material-icons" style={checkBoxStyle}>check</i>
+                                    <i className="material-icons check-mark" >check</i><i className="btn-save-textbox">Save</i>
                                 </a>}
                         </div>
                     </h5>
@@ -195,112 +257,99 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                     data-role="tabpanel"
                     className={testCase.isInEditMode ? "collapse in" : "collapse"}
                     aria-labelledby="headingOne" data-parent="#accordion">
-                    <div className="card-body">  
+                    <div className="card-body">
                         <div className="testcase_details">
-                        <form id={"test-case-form" + testCase.id}>
-                            <div className="col-md-12 register_input">
-                                <input className="inputMaterial" type="text"
-                                    onChange={this.onChange} name="title"
-                                    value={testCase.title || ""}
-                                    data-validations={[required]}
-                                    data-container-name="test-case-title"
-                                    id={"test-case-title" + testCase.id}
-                                />
-                                <span className="highlight"></span>
-                                <span className="bar"></span>
-                                <label>Test case title*</label>
-                                <span className="help-text">
-                                    {fieldDescriptions && fieldDescriptions[Constants.Columns.TITLE]}
-                                </span>
-                            </div>
-                            <div className="col-md-12 register_input textarea-custom">
-                                <textarea className="inputMaterial"
-                                    onChange={this.onChange}
-                                    name="description"
-                                    id={"test-case-description" + testCase.id}
-                                    value={testCase.description || ""}
-                                    data-validations={[required]} />
-                                <span className="highlight"></span>
-                                <span className="bar"></span>
-                                <label className="disc_lable">Description*</label>
-                                <span className="help-text">
-                                    {fieldDescriptions && fieldDescriptions[Constants.Columns.ELITE_DESCRIPTION]}
-                                </span>
-                            </div>
-                            <div className="col-md-12 register_input">
-                                <div data-validations={[required]} className="custom-select" id={"test-case-type" + testCase.id}>
-                                    <Select
-                                        id={"test-case-type" + testCase.id}
-                                        onBlurResetsInput={false}
-                                        onSelectResetsInput={false}
-                                        autoFocus
-                                        options={this.testCaseTypes}
-                                        simpleValue
-                                        clearable={true}
-                                        name="testCaseType"
-                                        value={testCase.testCaseType}
-                                        onChange={(value) => this.selectControlChange(value, "test-case-type" + testCase.id, "testCaseType")}
-                                        rtl={false}
-                                        searchable={false}
+                            <form id={"test-case-form" + testCase.id}>
+                                <div className="col-md-12 register_input">
+                                    <input className="inputMaterial" type="text"
+                                        onChange={this.onChange} name="title"
+                                        value={testCase.title || ""}
+                                        data-validations={[required]}
+                                        data-container-name="test-case-title"
+                                        id={"test-case-title" + testCase.id}
                                     />
+                                    <span className="highlight"></span>
+                                    <span className="bar"></span>
+                                    <label>Test case title*</label>
+                                    <span className="help-text">
+                                        {fieldDescriptions && fieldDescriptions[Constants.Columns.TITLE]}
+                                    </span>
                                 </div>
-                                <span className="help-text">
-                                    {fieldDescriptions && fieldDescriptions[Constants.Columns.TYPE]}
-                                </span>
-                                <label className="disc_lable">Question type*</label>
-                            </div>
+                                <div className="col-md-12 register_input textarea-custom">
+                                    <textarea className="inputMaterial"
+                                        onChange={this.onChange}
+                                        name="description"
+                                        id={"test-case-description" + testCase.id}
+                                        value={testCase.description || ""}
+                                        data-validations={[required]} />
+                                    <span className="highlight"></span>
+                                    <span className="bar"></span>
+                                    <label className="disc_lable">Description*</label>
+                                    <span className="help-text">
+                                        {fieldDescriptions && fieldDescriptions[Constants.Columns.ELITE_DESCRIPTION]}
+                                    </span>
+                                </div>
+                                <div className="col-md-12 register_input">
+                                    <div data-validations={[required]} className="custom-select" id={"test-case-type" + testCase.id}>
+                                        <Select
 
-                            <div className="col-md-12 custom-editor" id="scenario">
-                                {ui.scenario &&
-                                    <Editor
-                                        editorState={ui.scenario}
-                                        toolbarOnFocus
-                                        toolbarClassName="rte-toolbar"
-                                        wrapperClassName="rte-wrapper"
-                                        editorClassName="rte-editor"
-                                        onEditorStateChange={this.onScenarioChange}
-                                        toolbar={{
-                                            inline: { inDropdown: true },
-                                            list: { inDropdown: true },
-                                            textAlign: { inDropdown: true },
-                                            link: { inDropdown: true },
-                                            history: { inDropdown: true },
-                                            image: { uploadCallback: this.uploadImageCallBack, alt: { present: true, mandatory: false } },
-                                        }}
-                                    />
-                                }
-                                <label className="disc_lable">Scenario</label>
-                                <span className="help-text">
-                                    {fieldDescriptions && fieldDescriptions[Constants.Columns.SCENARIO]}
-                                </span>
-                            </div>
-                            <div className="col-md-12 custom-editor" id="expectedOutcome">
-                                {ui.expectedOutcome &&
-                                    <Editor
-                                        editorState={ui.expectedOutcome}
-                                        toolbarOnFocus
-                                        toolbarClassName="rte-toolbar"
-                                        wrapperClassName="rte-wrapper"
-                                        editorClassName="rte-editor"
-                                        onEditorStateChange={this.onExpectedOutcomeChange}
-                                        toolbar={{
-                                            inline: { inDropdown: true },
-                                            list: { inDropdown: true },
-                                            textAlign: { inDropdown: true },
-                                            link: { inDropdown: true },
-                                            history: { inDropdown: true },
-                                            image: { uploadCallback: this.uploadImageCallBack, alt: { present: true, mandatory: false } },
-                                        }}
-                                    />
-                                }
-                                <label className="disc_lable">Expected outcome</label>
-                                <span className="help-text">
-                                    {fieldDescriptions && fieldDescriptions[Constants.Columns.TEST_CASE_OUTCOME]}
-                                </span>
-                            </div>
-                        </form>
+                                            id={"test-case-type" + testCase.id}
+                                            onBlurResetsInput={false}
+                                            onSelectResetsInput={false}
+                                            autoFocus
+                                            options={this.testCaseTypes}
+                                            simpleValue
+                                            clearable={true}
+                                            name="testCaseType"
+                                            value={testCase.testCaseType}
+                                            onChange={(value) => this.selectControlChange(value, "test-case-type" + testCase.id, "testCaseType")}
+                                            rtl={false}
+                                            searchable={false}
+                                        />
+                                    </div>
+                                    <span className="help-text">
+                                        {fieldDescriptions && fieldDescriptions[Constants.Columns.TYPE]}
+                                    </span>
+                                    <label className="disc_lable">Test case type*</label>
+                                </div>
+
+                                <div className="col-md-12 custom-editor" id="scenario">
+                                    {ui.scenario &&
+                                        <Editor
+                                            editorState={ui.scenario}
+                                            toolbarOnFocus
+                                            toolbarClassName="rte-toolbar"
+                                            wrapperClassName="rte-wrapper"
+                                            editorClassName="rte-editor"
+                                            onEditorStateChange={this.onScenarioChange}
+                                            toolbar={this.editorOptions}
+                                        />
+                                    }
+                                    <label className="disc_lable">Scenario*</label>
+                                    <span className="help-text">
+                                        {fieldDescriptions && fieldDescriptions[Constants.Columns.SCENARIO]}
+                                    </span>
+                                </div>
+                                <div className="col-md-12 custom-editor" id="expectedOutcome">
+                                    {ui.expectedOutcome &&
+                                        <Editor
+                                            editorState={ui.expectedOutcome}
+                                            toolbarOnFocus
+                                            toolbarClassName="rte-toolbar"
+                                            wrapperClassName="rte-wrapper"
+                                            editorClassName="rte-editor"
+                                            onEditorStateChange={this.onExpectedOutcomeChange}
+                                            toolbar={this.editorOptions}
+                                        />
+                                    }
+                                    <label className="disc_lable">Test case expected outcome*</label>
+                                    <span className="help-text">
+                                        {fieldDescriptions && fieldDescriptions[Constants.Columns.TEST_CASE_OUTCOME]}
+                                    </span>
+                                </div>
+                            </form>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

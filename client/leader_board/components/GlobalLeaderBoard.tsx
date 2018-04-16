@@ -4,7 +4,8 @@ import { Leader } from '../model';
 import LeaderItem from './LeaderItem';
 import Pager from 'react-pager';
 import ui from 'redux-ui';
-
+import { Messages } from '../../common/services/constants';
+import Loader from 'react-loader-advanced';
 interface GlobalLeaderBoardProps {
     loadGlobalLeaderBoard: (skip: number, top: number) => any;
     loadCurrentLeaderBoardPosition: (region?: string) => any
@@ -12,6 +13,8 @@ interface GlobalLeaderBoardProps {
     currentUser: Leader;
     updateUI: (any) => any;
     ui: any;
+    loading: boolean;
+    currentUserPositionLoading: boolean;
 };
 
 @ui({
@@ -48,43 +51,58 @@ class GlobalLeaderBoard extends React.Component<GlobalLeaderBoardProps> {
     }
 
     render() {
-        const { leaders, ui, updateUI, currentUser } = this.props;
+        const { leaders, ui, updateUI, currentUser, loading, currentUserPositionLoading } = this.props;
         if (leaders && leaders.length && !ui.visibleItems) {
             this.getVisibleItems(ui.current);
         }
         return (
+
             <div className="col-md-12">
-                {
-                    ui.visibleItems && ui.visibleItems.map((leader, index) => {
-                        return (<LeaderItem
-                            key={index}
-                            leader={leader} />)
-                    })
-                }
+                <Loader show={loading} message={'Loading...'}>
+                    {
+                        ui.visibleItems && ui.visibleItems.map((leader, index) => {
+                            return (<LeaderItem
+                                key={index}
+                                isCurrentUser={leader.id == currentUser.id}
+                                leader={leader} />)
+                        })
+                    }
 
-                {
-                    ui.visibleItems.length == 0 && leaders && leaders.slice(0, ui.itemsPerPage).map((leader, index) => {
-                        return (<LeaderItem
-                            key={index}
-                            leader={leader} />)
-                    })
-                }
-                {
-                    leaders.length > 0 &&
-                    <Pager
-                        total={Math.ceil(leaders.length / ui.itemsPerPage)}
-                        current={ui.current}
-                        visiblePages={ui.visiblePage}
-                        titles={{ first: '<', last: '>' }}
-                        className="pagination-sm pull-right"
-                        onPageChanged={this.handlePageChanged}
-                    />
-                }
+                    {
+                        ui.visibleItems.length == 0 && leaders &&
+                        leaders.slice(0, ui.itemsPerPage).map((leader, index) => {
+                            return (<LeaderItem
+                                key={index}
+                                isCurrentUser={leader.id == currentUser.id}
+                                leader={leader} />)
+                        })
+                    }
 
+                    {
+                        !loading && ui.visibleItems && ui.visibleItems.length == 0 && leaders && leaders.length == 0 ?
+                            (<div className="no-data-message">{Messages.LEADERBOARD_GLOBAL_MSG}</div>) : ''
+                    }
 
-                {currentUser.rank && currentUser.rank != -1 && <LeaderItem
-                    leader={currentUser} />}
-            </div>)
+                    {
+                        leaders.length > 0 ?
+                            <Pager
+                                total={Math.ceil(leaders.length / ui.itemsPerPage)}
+                                current={ui.current}
+                                visiblePages={ui.visiblePage}
+                                titles={{ first: '<', last: '>' }}
+                                className="pagination-sm pull-right"
+                                onPageChanged={this.handlePageChanged}
+                            /> : ''
+                    }
+
+                </Loader>
+                <Loader show={currentUserPositionLoading} message={'Loading...'}>
+                    {(currentUser.rank && currentUser.rank != -1) ? <LeaderItem
+                        isCurrentUser={true}
+                        leader={currentUser} /> : ''}
+                </Loader>
+            </div>
+        )
     }
 }
 
