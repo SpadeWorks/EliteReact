@@ -14,6 +14,7 @@ interface GlobalLeaderBoardProps {
     updateUI: (any) => any;
     ui: any;
     loading: boolean;
+    currentUserPositionLoading: boolean;
 };
 
 @ui({
@@ -50,7 +51,7 @@ class GlobalLeaderBoard extends React.Component<GlobalLeaderBoardProps> {
     }
 
     render() {
-        const { leaders, ui, updateUI, currentUser, loading } = this.props;
+        const { leaders, ui, updateUI, currentUser, loading, currentUserPositionLoading } = this.props;
         if (leaders && leaders.length && !ui.visibleItems) {
             this.getVisibleItems(ui.current);
         }
@@ -94,7 +95,8 @@ class GlobalLeaderBoard extends React.Component<GlobalLeaderBoardProps> {
                             /> : ''
                     }
 
-
+                </Loader>
+                <Loader show={currentUserPositionLoading} message={'Loading...'}>
                     {(currentUser.rank && currentUser.rank != -1) ? <LeaderItem
                         isCurrentUser={true}
                         leader={currentUser} /> : ''}

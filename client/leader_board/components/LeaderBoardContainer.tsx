@@ -65,7 +65,8 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
                       loadCurrentLeaderBoardPosition={() => dispatch(loadCurrentLeaderBoardPosition())}
                       ui={ui}
                       updateUI={updateUI}
-                      currentUser={globalLeaderBoard.currentUserPosition} />
+                      currentUser={globalLeaderBoard.currentUserPosition}
+                      currentUserPositionLoading = {globalLeaderBoard.currentUserPositionLoading} />
                   </Pane>
                   <Pane label="Regional Leaderboard">
                     <RegionalLeaderBoard
@@ -75,7 +76,8 @@ class LeaderBoardContainer extends React.Component<LeaderBoardContainerProps> {
                       ui={ui}
                       updateUI={updateUI}
                       currentUser={regionalLeaderBoard.currentUserPosition}
-                      loadCurrentRegionalPosition={(region: string) => dispatch(loadCurrentRegionalPosition(region))} />
+                      loadCurrentRegionalPosition={(region: string) => dispatch(loadCurrentRegionalPosition(region))} 
+                      currentUserPositionLoading = {globalLeaderBoard.currentUserPositionLoading}/>
                   </Pane>
                 </Tabs>
               </div>

@@ -17,6 +17,7 @@ interface RegionalLeaderBoardProps {
     loading: boolean;
     updateUI: (any) => any;
     ui: any;
+    currentUserPositionLoading: boolean;
 };
 
 @ui({
@@ -94,62 +95,64 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
     }
 
     render() {
-        const { leaders, currentUser, ui, loading} = this.props;
+        const { leaders, currentUser, ui, loading, currentUserPositionLoading } = this.props;
         return (
             <div className="col-md-12">
-            <Loader show={loading} message={'Loading...'}>
-                <Select.Async multi={false}
-                    value={ui.region}
-                    onChange={this.regionChange}
-                    valueKey="TermGuid"
-                    labelKey="Label"
-                    loadOptions={this.getRegions}
-                    type="select-multiple"
-                    clearable={false}
-                />
-                <br></br>
-
-                {
-                    (ui.visibleItems && ui.visibleItems.length > 0) ? ui.visibleItems.map((leader, index) => {
-                        return (<LeaderItem
-                            key={index}
-                            isCurrentUser={leader.id == currentUser.id}
-                            leader={leader} />)
-                    }) : ''
-                }
-
-
-                {
-                    (ui.visibleItems && ui.visibleItems.length == 0 && leaders && leaders.length) ? leaders.slice(0, ui.itemsPerPage).map((leader, index) => {
-                        return (<LeaderItem
-                            key={index}
-                            isCurrentUser={leader.id == currentUser.id}
-                            leader={leader} />)
-                    }) : ''
-                }
-
-                {
-                    !loading && ui.visibleItems && ui.visibleItems.length == 0 && leaders && leaders.length == 0 ? 
-                        (<div className="no-data-message">{Messages.LEADERBOARD_REGIONAL_MSG}</div>) : ''
-                }
-
-                {
-                    leaders.length > 0 &&
-                    <Pager
-                        total={Math.ceil(leaders.length / ui.itemsPerPage)}
-                        current={ui.current}
-                        visiblePages={ui.visiblePage}
-                        titles={{ first: '<', last: '>' }}
-                        className="pagination-sm pull-right"
-                        onPageChanged={this.handlePageChanged}
+                <Loader show={loading} message={'Loading...'}>
+                    <Select.Async multi={false}
+                        value={ui.region}
+                        onChange={this.regionChange}
+                        valueKey="TermGuid"
+                        labelKey="Label"
+                        loadOptions={this.getRegions}
+                        type="select-multiple"
+                        clearable={false}
                     />
-                }
+                    <br></br>
 
-                {
-                    (currentUser.rank && currentUser.rank != -1 && currentUser.region == ui.region.Label) ? <LeaderItem
-                        isCurrentUser={true}
-                        leader={currentUser} /> : ''
-                }
+                    {
+                        (ui.visibleItems && ui.visibleItems.length > 0) ? ui.visibleItems.map((leader, index) => {
+                            return (<LeaderItem
+                                key={index}
+                                isCurrentUser={leader.id == currentUser.id}
+                                leader={leader} />)
+                        }) : ''
+                    }
+
+
+                    {
+                        (ui.visibleItems && ui.visibleItems.length == 0 && leaders && leaders.length) ? leaders.slice(0, ui.itemsPerPage).map((leader, index) => {
+                            return (<LeaderItem
+                                key={index}
+                                isCurrentUser={leader.id == currentUser.id}
+                                leader={leader} />)
+                        }) : ''
+                    }
+
+                    {
+                        !loading && ui.visibleItems && ui.visibleItems.length == 0 && leaders && leaders.length == 0 ?
+                            (<div className="no-data-message">{Messages.LEADERBOARD_REGIONAL_MSG}</div>) : ''
+                    }
+
+                    {
+                        leaders.length > 0 &&
+                        <Pager
+                            total={Math.ceil(leaders.length / ui.itemsPerPage)}
+                            current={ui.current}
+                            visiblePages={ui.visiblePage}
+                            titles={{ first: '<', last: '>' }}
+                            className="pagination-sm pull-right"
+                            onPageChanged={this.handlePageChanged}
+                        />
+                    }
+                </Loader>
+
+                <Loader show={currentUserPositionLoading} message={'Loading...'}>
+                    {
+                        (currentUser.rank && currentUser.rank != -1 && currentUser.region == ui.region.Label) ? <LeaderItem
+                            isCurrentUser={true}
+                            leader={currentUser} /> : ''
+                    }
                 </Loader>
             </div >)
     }

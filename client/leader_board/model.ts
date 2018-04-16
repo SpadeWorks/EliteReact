@@ -7,6 +7,7 @@ export type globalLeaderBoard = {
     globalLeaders: Leader[];
     currentUserPosition: Leader;
     loading: boolean;
+    currentUserPositionLoading: boolean
 }
 
 export type regionalLeaderBoard = {
@@ -15,6 +16,7 @@ export type regionalLeaderBoard = {
     selectedRegion: string;
     regions: string[]; 
     currentUserPosition: Leader;
+    currentUserPositionLoading: boolean
 }
 
 export type Leader = {
