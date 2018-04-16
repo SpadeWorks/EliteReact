@@ -14,6 +14,7 @@ class RideChoice extends React.Component<RideChoiceProps> {
     }
     componentDidMount() {
         Services.getApplicationConfigurations().then((appConfig: any) => {
+<<<<<<< HEAD
             var actions = [];
             var lines = appConfig.RideChoiceText.split("\n");
             lines.forEach((line, index) => {
@@ -28,6 +29,12 @@ class RideChoice extends React.Component<RideChoiceProps> {
             });
             $('#typewriteText').typewrite({
                 actions: actions
+=======
+            $('#typewriteText').typewrite({
+                actions: [
+                    { type: appConfig.RideChoiceText }
+                ]
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
             });
         });
     }
@@ -37,7 +44,11 @@ class RideChoice extends React.Component<RideChoiceProps> {
 
     getBetterRide() {
        
+<<<<<<< HEAD
         this.props.updateUI({ nextScreen: this.props.ui.nextScreen + 2 })
+=======
+        this.props.updateUI({ nextScreen: this.props.ui.nextScreen + 1 })
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 
     goToDashboard() {
@@ -54,6 +65,7 @@ class RideChoice extends React.Component<RideChoiceProps> {
                 <div id="typewriteText"></div>
 
                 <div className="stroller_ridebox">
+<<<<<<< HEAD
                      <img src="/Style%20Library/Elite/images/stroller.png" />
                 </div>
                 <div className="col-md-12 intro_actionbox testdrive_actionbox betterride_box" style={{marginLeft:"280px"}}>
@@ -68,6 +80,18 @@ class RideChoice extends React.Component<RideChoiceProps> {
                      {/* <div className="button type1 pull-right">
                         <input onClick={() => this.getBetterRide()} type="button" value="Get a better ride" className="better_ride" />
                     </div> */}
+=======
+                     <img src="/sites/elite/Style%20Library/Elite/images/stroller.png" />
+                </div>
+                <div className="col-md-12 intro_actionbox testdrive_actionbox betterride_box">
+                   <div className="button type1 pull-right">
+                        <input onClick={() => this.goToDashboard()} type="button" value="Go to dashboard" className="better_ride" />
+                    </div>
+                   
+                     <div className="button type1 pull-right">
+                        <input onClick={() => this.getBetterRide()} type="button" value="Get a better ride" className="better_ride" />
+                    </div>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                 </div>
             </div>)
     }

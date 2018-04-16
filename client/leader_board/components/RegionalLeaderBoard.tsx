@@ -47,10 +47,13 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
             region: value
         });
         this.props.loadRegionalLeaderBoard(value.Label, 0, 100);
+<<<<<<< HEAD
         this.props.updateUI({
             current: 0,
             visibleItems: []
         });
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 
     componentDidMount() {
@@ -98,6 +101,7 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
         const { leaders, currentUser, ui, loading, currentUserPositionLoading } = this.props;
         return (
             <div className="col-md-12">
+<<<<<<< HEAD
                 <Loader show={loading} message={'Loading...'}>
                     <Select.Async multi={false}
                         value={ui.region}
@@ -107,6 +111,44 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
                         loadOptions={this.getRegions}
                         type="select-multiple"
                         clearable={false}
+=======
+                <Select.Async multi={false}
+                    value={ui.region}
+                    onChange={this.regionChange}
+                    valueKey="TermGuid"
+                    labelKey="Label"
+                    loadOptions={this.getRegions}
+                    type="select-multiple"
+                />
+                <br></br>
+
+                {
+                    ui.visibleItems && ui.visibleItems.map((leader, index) => {
+                        return (<LeaderItem
+                            key={index}
+                            isCurrentUser={leader.id == currentUser.id}
+                            leader={leader} />)
+                    })
+                }
+
+                {
+                    ui.visibleItems.length == 0 && leaders && leaders.slice(0, ui.itemsPerPage).map((leader, index) => {
+                        return (<LeaderItem
+                            key={index}
+                            isCurrentUser={leader.id == currentUser.id}
+                            leader={leader} />)
+                    })
+                }
+                {
+                    leaders.length > 0 &&
+                    <Pager
+                        total={Math.ceil(leaders.length / ui.itemsPerPage)}
+                        current={ui.current}
+                        visiblePages={ui.visiblePage}
+                        titles={{ first: '<', last: '>' }}
+                        className="pagination-sm pull-right"
+                        onPageChanged={this.handlePageChanged}
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                     />
                     <br></br>
 
@@ -134,6 +176,7 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
                             (<div className="no-data-message">{Messages.LEADERBOARD_REGIONAL_MSG}</div>) : ''
                     }
 
+<<<<<<< HEAD
                     {
                         leaders.length > 0 &&
                         <Pager
@@ -154,6 +197,13 @@ class RegionalLeaderBoard extends React.Component<RegionalLeaderBoardProps> {
                             leader={currentUser} /> : ''
                     }
                 </Loader>
+=======
+                {
+                    (currentUser.rank && currentUser.rank != -1) ? <LeaderItem
+                        isCurrentUser={true}
+                        leader={currentUser} /> : ''
+                }
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
             </div >)
     }
 }

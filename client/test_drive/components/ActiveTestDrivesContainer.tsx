@@ -4,12 +4,18 @@ import { Dispatch } from 'redux';
 import Loader from 'react-loader-advanced';
 import Pager from 'react-pager';
 import ui from 'redux-ui';
+<<<<<<< HEAD
 import Services from '../../common/services/services';
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 import {
     TestDriveCardItem,
     model,
 } from '../../test_drive';
+<<<<<<< HEAD
 import { Messages } from '../../common/services/constants';
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 
 
 interface ActiveTestDrivesContainerProps {
@@ -28,8 +34,11 @@ interface ActiveTestDrivesContainerProps {
         current: 0,
         visibleItems: [],
         visiblePages: 4,
+<<<<<<< HEAD
         activeTestDrives: [],
         activeTestDrivesLoading: false
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 })
 class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContainerProps> {
@@ -38,6 +47,7 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
     }
 
     componentDidMount() {
+<<<<<<< HEAD
         var self = this;
         self.props.updateUI({
             activeTestDrivesLoading: true
@@ -49,12 +59,16 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
             });
             this.initialize();
         })
+=======
+        this.props.loadActiveTestDrives(0, 100);
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 
     getVisibleItems(newPage) {
         let skip = newPage * this.props.ui.itemsPerPage;
         this.props.updateUI({
             current: newPage,
+<<<<<<< HEAD
             visibleItems: this.props.ui.activeTestDrives.slice(skip, skip + this.props.ui.itemsPerPage)
         });
     }
@@ -65,6 +79,14 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
             activeTestDrivesLoading,
             activeTestDrives
         } = ui;
+=======
+            visibleItems: this.props.activeTestDrives.slice(skip, skip + this.props.ui.itemsPerPage)
+        });
+    }
+
+    render() {
+        const { activeTestDrives, activeTestDrivesLoading, ui, updateUI } = this.props;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 
         if (!activeTestDrivesLoading && activeTestDrives && activeTestDrives.length && !ui.visibleItems.length) {
             var currentPage = ui.current;
@@ -74,6 +96,7 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
             this.getVisibleItems(currentPage);
         }
 
+<<<<<<< HEAD
     }
 
     render() {
@@ -121,6 +144,30 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
                                 onPageChanged={(newPage) => this.getVisibleItems(newPage)}
                             />
                         </div> : ''
+=======
+        return (<div>
+            <Loader show={activeTestDrivesLoading || false} message={'Loading...'}>
+                {
+                    (ui.visibleItems && ui.visibleItems.length) ?
+                        ui.visibleItems.map((testDriveObj, index) => {
+                            return (<TestDriveCardItem
+                                key={index}
+                                participants={testDriveObj.participents}
+                                testDrive={testDriveObj.testDrive}
+                                isActive={true} />)
+                        }) : (!activeTestDrivesLoading && 'There are no active test drives.')
+                }
+                {
+                    ui.visibleItems && ui.visibleItems.length > 0 &&
+                    <Pager
+                        total={Math.ceil(activeTestDrives.length / ui.itemsPerPage)}
+                        current={ui.current}
+                        visiblePages={ui.visiblePages}
+                        titles={{ first: '<', last: '>' }}
+                        className="pagination-sm pull-right"
+                        onPageChanged={(newPage) => this.getVisibleItems(newPage)}
+                    />
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                 }
             </Loader>
         </div>)

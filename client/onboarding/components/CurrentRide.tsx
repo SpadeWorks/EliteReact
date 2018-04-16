@@ -13,6 +13,7 @@ class CurrentRide extends React.Component<CurrentRideProps> {
 
     componentDidMount() {
         Services.getApplicationConfigurations().then((appConfig: any) => {
+<<<<<<< HEAD
             var actions = [];
             var lines = appConfig.CurrentRideText.split("\n");
             lines.forEach((line, index) => {
@@ -27,6 +28,12 @@ class CurrentRide extends React.Component<CurrentRideProps> {
             });
             $('#typewriteText').typewrite({
                 actions: actions
+=======
+            $('#typewriteText').typewrite({
+                actions: [
+                    { type: appConfig.CurrentRideText }
+                ]
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
             });
         });
 
@@ -44,6 +51,7 @@ class CurrentRide extends React.Component<CurrentRideProps> {
 
                 <div id="typewriteText" className="currentride_text" style={{ animationDelay: "10s" }}></div>
                 <div className="shoping_cartbox">
+<<<<<<< HEAD
                     <img src="/Style%20Library/Elite/images/shoppingcart.png" />
                 </div>
                 <div className="col-md-12 intro_actionbox testdrive_actionbox new_ride">
@@ -52,6 +60,16 @@ class CurrentRide extends React.Component<CurrentRideProps> {
                     </div> */}
                     <div className="button type1 pull-right" style={{ position: "absolute",right:"311px",bottom:"0px" }}>
                         <input onClick={() => this.goToDashboard()} type="button" value="Yes!" />
+=======
+                    <img src="/sites/elite/Style%20Library/Elite/images/shoppingcart.png" />
+                </div>
+                <div className="col-md-12 intro_actionbox testdrive_actionbox new_ride">
+                    <div className="button type1 pull-right">
+                        <input onClick={() => this.goToDashboard()} type="button" value="Also Yes" />
+                    </div>
+                    <div className="button type1 pull-right">
+                        <input onClick={() => this.goToDashboard()} type="button" value="Yes" />
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                     </div>
                 </div>
             </div>)

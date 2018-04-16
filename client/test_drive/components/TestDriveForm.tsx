@@ -10,6 +10,7 @@ import { validateControl, required, validateForm } from '../../common/components
 import { updateDate } from '../index';
 import { ToastContainer, toast } from 'react-toastify';
 import { css, active } from 'glamor';
+<<<<<<< HEAD
 import { Messages, ColumnsValues } from '../../common/services/constants';
 import Popup from '../../common/components/Popups';
 import { Services } from '../../common/services/data_service';
@@ -18,6 +19,10 @@ let moment = require("moment");
 if ("default" in moment) {
     moment = moment["default"];
 }
+=======
+import { Messages } from '../../common/services/constants';
+import Popup from 'react-popup';
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 
 interface TestDriveFormProps {
     testDrive: TestDrive,
@@ -56,9 +61,12 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         this.onChange = this.onChange.bind(this);
         this.selectControlChange = this.selectControlChange.bind(this);
         this.onSwitchTab = this.onSwitchTab.bind(this);
+<<<<<<< HEAD
         this.saveValidate = this.saveValidate.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.getEndDate = this.getEndDate.bind(this);
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 
     onChange = (e) => {
@@ -181,9 +189,19 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         }
     }
 
+<<<<<<< HEAD
     saveValidate(testDrive) {
         this.props.updateUI({ saveLoading: true });
         this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save");
+=======
+    onSwitchTab(direction) {
+        var isFormValid = validateForm("test-drive-form" + this.props.testDrive.id);
+        if (isFormValid) {
+            this.props.updateUI({ activeTab: this.props.ui.activeTab + direction });
+        } else {
+            Popup.alert(Messages.TEST_DRIVE_ERROR);
+        }
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 
 
@@ -284,7 +302,10 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 value={testDrive.title || ""}
                                 id={"testDrive-title" + testDrive.id}
                                 data-validations={[required]}
+<<<<<<< HEAD
                                 maxLength={maxLimit}
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                             />
                             <span className="highlight"></span>
                             <span className="bar"></span>
@@ -292,9 +313,13 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             <span className="help-text">
                                 {fieldDescriptions && fieldDescriptions.TestDriveName}
                             </span>
+<<<<<<< HEAD
                             <span className="clsRemainingLength">Remaining: {maxLimit - testDrive.title.length}</span>
                         </div>
 
+=======
+                        </div>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                     </div>
                     <div className="col-md-12 register_input textarea-custom">
                         <div className="group">
@@ -322,16 +347,23 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                     name="startDate"
                                     placeholder="Start Date"
                                     type="text"
+<<<<<<< HEAD
                                     value={testDrive.startDate && Services.formatDate(testDrive.startDate) || ""}
                                     // onFocus={() => { updateUI({ showStartDatePicker: true }) }}
                                     readOnly
                                     data-validations={[required]}
+=======
+                                    value={Service.formatDate(testDrive.startDate) || ''}
+                                    onFocus={() => { updateUI({ showDatePicker: true }) }}
+                                    readOnly
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                 />
                                 <label className="disc_lable">Start date*</label>
                                 <span className="help-text">
                                     {fieldDescriptions && fieldDescriptions.TestDriveStartDate}
                                 </span>
                             </div>
+<<<<<<< HEAD
                             <div className={"startDate " + (ui.showStartDatePicker ? "show-tab" : "hide-tab")}>
                                 <Calendar
                                     minDate={now => { return now.add(0, 'days') }}
@@ -341,6 +373,8 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                     onFocus={() => { updateUI({ showDatePicker: true }) }}
                                 />
                             </div>
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                         </div>
                     </div>
 
@@ -373,6 +407,24 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                     </div>
                     <div className="col-md-6 register_input">
                         <div className="form-group">
+                            <input className="form-control inputMaterial date_box"
+                                id="maxPoints"
+                                name="maxPoints"
+                                placeholder="Max Points"
+                                type="text"
+                                value={testDrive.maxPoints.toString() || '0'}
+                                readOnly
+                                disabled
+                            />
+                            <label className="disc_lable">Points Awarded</label>
+                            <span className="help-text">
+                                {fieldDescriptions && fieldDescriptions.TotalPoints}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="col-md-6 register_input">
+                        <div className="form-group">
                             <div data-validations={[required]} className="custom-select" id={"test-drive-type-" + testDrive.id}>
                                 <Select
                                     onBlurResetsInput={false}
@@ -393,6 +445,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             </span>
                         </div>
                     </div>
+<<<<<<< HEAD
                     <div className="col-md-6 register_input">
                         <div className="form-group">
                             <input className="form-control inputMaterial date_box"
@@ -410,6 +463,8 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             </span>
                         </div>
                     </div>
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 
 
                     <div className="col-md-12 register_input textarea-custom">
@@ -461,6 +516,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         </span>
                     </div>
                     <div className="col-md-12 register_input">
+<<<<<<< HEAD
                         <div className="custom-select" id={"testDrive-department" + testDrive.id}>
                             <Select.Async multi={true}
                                 value={testDrive.department}
@@ -476,6 +532,18 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         </div>
                         <label className="disc_lable">Eligible driver function</label>
 
+=======
+                        <Select.Async multi={true}
+                            value={testDrive.region}
+                            onChange={(value) => this.selectControlChange(value, "test-drive-region-" + testDrive.id, "region")}
+                            valueKey="TermGuid"
+                            labelKey="Label"
+                            name="region"
+                            loadOptions={this.getRegions}
+                            type="select-multiple"
+                        />
+                        <label className="disc_lable">Allowed Regions</label>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.TestDriveLocation}
                         </span>
@@ -512,7 +580,11 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 name="requiredDevices"
                             />
                         </div>
+<<<<<<< HEAD
                         <label className="disc_lable">Required devices</label>
+=======
+                        <label className="disc_lable">Required devices*</label>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.AvailableDevices}
                         </span>
@@ -529,7 +601,11 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 name="requiredOs"
                             />
                         </div>
+<<<<<<< HEAD
                         <label className="disc_lable">Required OS</label>
+=======
+                        <label className="disc_lable">Required os*</label>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                         <span className="help-text">
                             {fieldDescriptions && fieldDescriptions.AvailableOS}
                         </span>
@@ -556,6 +632,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 <input type="button" value="Next"
                                     onClick={() => this.onSwitchTab(1)} />
                             </div>
+<<<<<<< HEAD
                             {
                                 testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ?
                                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
@@ -573,6 +650,12 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                     </div>
                                     : ''
                             }
+=======
+                            <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                <input type="button" value="Save as a draft"
+                                    onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
+                            </div>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                         </div>
                     </div>
                 </div>

@@ -12,11 +12,19 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
         super(props, context);
     }
     render() {
+<<<<<<< HEAD
         const { testDrive } = this.props;
         return (<div className="col-md-12 currtestdrive_list testdrive_I_runbox">
             <div className="row">
                 <div className="col-md-12">
                     <Link to={'/testdrive/' + testDrive.id + '/display'}><h4>{testDrive.title}</h4></Link>
+=======
+        const { testDrive} = this.props;
+        return (<div className="col-md-12 currtestdrive_list testdrive_I_runbox">
+            <div className="row">
+                <div className="col-md-12">
+                    <h4>{testDrive.title}</h4>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                 </div>
                 <div className="col-md-12">
                     <div className="row">
@@ -72,11 +80,22 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                                 <div className="row">
                                                     <div className="col-md-12">
                                                         <div className="row">
+<<<<<<< HEAD
                                                             <ul className="dragrace_indicator" dangerouslySetInnerHTML={{ __html: Services.getLevelHtml(testDrive.levelNumber) }}>
                                                             </ul>
                                                         </div>
                                                         <div className="row">
                                                             <h5 className="race_neme">{testDrive.levelName}</h5>
+=======
+                                                            <ul className={Services.getLevelNameClass(testDrive.levelNumber)}>
+                                                                <li></li>
+                                                                <li></li>
+                                                                <li></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="row">
+                                                            <h5 className="race_neme">{testDrive.level}</h5>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                                         </div>
                                                     </div>
                                                 </div>
@@ -138,7 +157,11 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                 </div>
                             </div>
                         </div>
+<<<<<<< HEAD
                         <div className="col-md-1">
+=======
+                        <div className="col-md-2">
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                             <div className="col-md-12">
                                 <div className="row">
                                     <div className="col-md-12">
@@ -163,12 +186,18 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                             </div>
                         </div>
                         <div className="col-md-1">
+<<<<<<< HEAD
 
                             <div className="row social_box">
+=======
+                         
+                                <div className="row social_box">
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                 <div className="col-md-6">
                                     <Link to={"/testdrive/" + testDrive.id}>
                                         <i className="material-icons">mode_edit</i>
                                     </Link>
+<<<<<<< HEAD
                                 </div>
                                 <div className="col-md-6">
                                     <Link to={"/testdrive/" + testDrive.id + "/display"}>
@@ -177,6 +206,16 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                 </div>
                             </div>
 
+=======
+                                    </div>
+                                    <div className="col-md-6">
+                                    <Link to={"/testdrive/" + testDrive.id}>
+                                        <i className="material-icons">remove_red_eye</i>
+                                    </Link>
+                                    </div>
+                                </div>
+                            
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                         </div>
                     </div>
                 </div>

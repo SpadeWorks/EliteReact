@@ -45,9 +45,15 @@ class Surveys extends React.Component<SurveysProps> {
     }
 
     onSubmit() {
+<<<<<<< HEAD
         this.props.updateUI({ saveLoading: true });
         var testDrive = this.props.testDrive;
         this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "submit");
+=======
+        var testDrive = this.props.testDrive;
+        testDrive.status = ColumnsValues.SUBMIT;
+        this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id);
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 
     componentDidMount() {
@@ -84,11 +90,19 @@ class Surveys extends React.Component<SurveysProps> {
         } = this.props;
         return (
             <div className="test-case-container col-xs-12">
+<<<<<<< HEAD
                 <div className="col-md-10 sample_text">
                     <p>{ui.helpText}</p>
                 </div>
                 <div className="add-button col-md-2 add_test pull-right text-right">
                     <a href="javascript:;" onClick={addQuestion}> + ADD QUESTION </a>
+=======
+                <div className="col-md-8 sample_text">
+                    <p>{ui.helpText}</p>
+                </div>
+                <div className="add-button col-md-2 add_test pull-right text-right">
+                    <a href="javascript:void(0);" onClick={addQuestion}> + ADD QUESTION </a>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                 </div>
                 <div className="col-md-12">
                     {
@@ -110,6 +124,7 @@ class Surveys extends React.Component<SurveysProps> {
                 </div>
 
                 <div className="col-md-12 testdrive_actionbox">
+<<<<<<< HEAD
                     <div className="button type1 nextBtn btn-lg animated_button pull-left left_mnone">
                         <input type="button" value="Back" onClick={() => updateUI({ activeTab: ui.activeTab - 1 })} />
                     </div>
@@ -138,6 +153,20 @@ class Surveys extends React.Component<SurveysProps> {
                     }
 
 
+=======
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button back_btn">
+                        <input type="button" value="Back" onClick={() => updateUI({ activeTab: ui.activeTab - 1 })} />
+                    </div>
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <input type="button" value="Save as a draft"
+                            onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
+                    </div>
+
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <input type="button" value="Submit"
+                            onClick={this.onSubmit} />
+                    </div>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                 </div>
             </div>
         );

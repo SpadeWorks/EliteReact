@@ -5,14 +5,21 @@ import Loader from 'react-loader-advanced';
 import { Dispatch } from 'redux';
 import Pager from 'react-pager';
 import ui from 'redux-ui';
+<<<<<<< HEAD
 import Services from '../../common/services/services';
 import Popup from '../../common/components/Popups';
 import * as $ from 'jquery';
+=======
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 import {
     ApprovalPendingItem,
     model,
 } from '../../test_drive';
+<<<<<<< HEAD
 import { Messages } from '../../common/services/constants';
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 
 interface ApprovalPendingContainerProps {
     approvedTestDrives: model.TestDrive[];
@@ -28,8 +35,11 @@ interface ApprovalPendingContainerProps {
 };
 @ui({
     state: {
+<<<<<<< HEAD
         title: "Approved",
         approvedMessage: "Test drive approved successfully.",
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         itemsPerPage: 5,
         total: 11,
         pendingItemCurrent: 0,
@@ -37,17 +47,22 @@ interface ApprovalPendingContainerProps {
         pendingItems: [],
         approvedItems: [],
         visiblePages: 4,
+<<<<<<< HEAD
         visibleItems: [],
         approvedTestDrives: [],
         approvedTestDrivesLoading: false,
         testDrivesWaitingForApproval: [],
         testDrivesWaitingForApprovalLoading: false
+=======
+        visibleItems: []
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 })
 class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerProps> {
     constructor(props, context) {
         super(props, context);
         this.getVisibleItems = this.getVisibleItems.bind(this);
+<<<<<<< HEAD
         this.getData = this.getData.bind(this);
     }
 
@@ -98,6 +113,13 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
             $("#popupTestDriveApprovalSuccess").trigger('click');
 
         })
+=======
+    }
+
+    componentDidMount() {
+        this.props.loadApprovedTestDrives(0, 100);
+        this.props.loadTestDrivesWaitingFormApproval(0, 100);
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 
     getVisibleItems(newPage: number, array: any[], visibleItems: string, currentPage: string) {
@@ -108,6 +130,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
         });
     }
 
+<<<<<<< HEAD
     initialize() {
         const {
             ui, updateUI,
@@ -126,11 +149,37 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
             var currentPage = ui.approvedItemCurrent;
             if (ui.approvedItems.length < ui.approvedItemCurrent * ui.itemsPerPage) {
                 currentPage = currentPage - 1;
+=======
+    approveTestDrive(id){
+        this.props.updateUI({
+            pendingItems: [],
+            approvedItems: [],
+        });
+        this.props.approveTestDrive(id);
+        window.location.href = window.location.href;
+    }
+    render() {
+        const {
+            ui, updateUI,
+            approvedTestDrives,
+            approvedTestDrivesLoading,
+            testDrivesWaitingForApproval,
+            testDrivesWaitingForApprovalLoading,
+            approveTestDrive,
+            saveTestDriveApprovalLoading
+        } = this.props;
+
+        if (!saveTestDriveApprovalLoading && approvedTestDrives && approvedTestDrives.length && !ui.approvedItems.length) {
+            var currentPage = ui.approvedItemCurrent;
+            if(ui.approvedItems.length < ui.approvedItemCurrent * ui.itemsPerPage ){
+                currentPage = currentPage - 1;      
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
             }
             this.getVisibleItems(currentPage, approvedTestDrives, 'approvedItems', 'approvedItemCurrent');
         }
         if (!saveTestDriveApprovalLoading && testDrivesWaitingForApproval && testDrivesWaitingForApproval.length && !ui.pendingItems.length) {
             var currentPage = ui.pendingItemCurrent;
+<<<<<<< HEAD
             if (ui.pendingItems.length < ui.pendingItemCurrent * ui.itemsPerPage) {
                 currentPage = currentPage - 1;
             }
@@ -238,6 +287,74 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                     body={ui.approvedMessage}
                     buttons={this.approvedAlertButtons} />
             </div>)
+=======
+            if(ui.pendingItems.length < ui.pendingItemCurrent * ui.itemsPerPage ){
+                currentPage = currentPage - 1;      
+            }
+            this.getVisibleItems(currentPage, this.props.testDrivesWaitingForApproval, 'pendingItems', 'pendingItemCurrent');
+        }
+        
+        const loading = testDrivesWaitingForApprovalLoading || saveTestDriveApprovalLoading;
+        return (<Tabs selected={0}>
+
+            <Pane label="PENDING APPROVAL">
+                <div>
+                    <Loader show={loading} message={'Loading...'}>
+                        {
+                            (ui.pendingItems && ui.pendingItems.length) ?
+                                ui.pendingItems.map((testDrive, index) => {
+                                    return (<ApprovalPendingItem
+                                        key={index}
+                                        testDrive={testDrive}
+                                        saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
+                                        approveTestDrive={(id) => this.approveTestDrive(id)} />)
+                                }) : (!loading && 'There are no items waiting for approval.')
+                        }
+                        {
+                            ui.pendingItems && ui.pendingItems.length > 0 &&
+                            <Pager
+                                total={Math.ceil(testDrivesWaitingForApproval.length / ui.itemsPerPage)}
+                                current={ui.pendingItemCurrent}
+                                visiblePages={ui.visiblePages}
+                                titles={{ first: '<', last: '>' }}
+                                className="pagination-sm pull-right"
+                                onPageChanged={(newPage) => this.getVisibleItems(newPage, testDrivesWaitingForApproval, 'pendingItems', 'pendingItemCurrent')}
+                            />
+                        }
+
+                    </Loader>
+                </div>
+            </Pane>
+            <Pane label="APPROVED TEST DRIVES">
+                <div>
+                    <Loader show={loading} message={'Loading...'}>
+                        {
+                            (ui.approvedItems && ui.approvedItems.length) ?
+                                ui.approvedItems.map((testDrive, index) => {
+                                    return (<ApprovalPendingItem
+                                        key={index}
+                                        testDrive={testDrive}
+                                        saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
+                                        approveTestDrive={(id) => approveTestDrive(id)} />)
+                                }) : (!loading && 'There are no items waiting for approval.')
+                        }
+                        {
+                            ui.approvedItems && ui.approvedItems.length > 0 &&
+                            <Pager
+                                total={Math.ceil(approvedTestDrives.length / ui.itemsPerPage)}
+                                current={ui.approvedItemCurrent}
+                                visiblePages={ui.visiblePages}
+                                titles={{ first: '<', last: '>' }}
+                                className="pagination-sm pull-right"
+                                onPageChanged={(newPage) => this.getVisibleItems(newPage, approvedTestDrives, 'approvedItems', 'approvedItemCurrent')}
+                            />
+                        }
+
+                    </Loader>
+                </div>
+            </Pane>
+        </Tabs >)
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 }
 

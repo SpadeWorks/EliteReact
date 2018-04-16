@@ -85,6 +85,7 @@ class Home extends React.Component<HomeProps, HomeState> {
         Services.loadProgressBar("total-task-canvas");
 
         let user = Services.getUserProfileProperties();
+<<<<<<< HEAD
         Services.getApplicationConfigurations().then(function (data: any) {
             data.HomePageMiddleText = data.HomePageMiddleText ? data.HomePageMiddleText.replace(/\n/g, "<br />") : '';
             $("#homeMiddleText").html(data.HomePageMiddleText);
@@ -120,6 +121,11 @@ class Home extends React.Component<HomeProps, HomeState> {
             }
         });
 
+=======
+        Services.getApplicationConfigurations().then(function(data:any){
+            $("#homeMiddleText").html(data.HomePageMiddleText);
+        });
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         if (user.eliteProfileID) {
             this.props.dispatch(loadEliteProfile(user.eliteProfileID));
             this.props.dispatch(loadLeaderBoard(0, 3));
@@ -149,7 +155,11 @@ class Home extends React.Component<HomeProps, HomeState> {
             <div className="col-md-12">
                 <div className="row">
                     <div className="col-md-12">
+<<<<<<< HEAD
                         <h2><img src="/Style%20Library/Elite/images/logo.png" className="img-responsive" /> </h2>
+=======
+                        <h2><img src="/sites/elite/Style%20Library/Elite/images/logo.png" className="img-responsive" /> </h2>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                     </div>
                     <div className="col-md-12">
                         <div className="col-md-12">
@@ -168,7 +178,11 @@ class Home extends React.Component<HomeProps, HomeState> {
                                 testDriveThatIRunLoading={testDriveThatIRunLoading}
                             />
 
+<<<<<<< HEAD
                             <div className="col-md-5">
+=======
+                            <div className="col-md-6">
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                 <h2 className="text-center skills_heading" id="homeMiddleText"></h2>
                             </div>
                             <HomeRightTestDrives
@@ -186,7 +200,11 @@ class Home extends React.Component<HomeProps, HomeState> {
                             </OverallPointsDashboard>
                         </div>
                         <UserRank userName={eliteProfile.displayName} userRank={userRank} />
+<<<<<<< HEAD
                         {videoInfo ? <Video videoInfo={videoInfo} /> : ''}
+=======
+                        <Video videoUrl={videoUrl} />
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                         <Footer />
                     </div>
                 </div>

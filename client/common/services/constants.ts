@@ -30,7 +30,6 @@ export class CacheKeys {
 export class Columns {
     static TITLE = 'Title';
     static USER_REGION = 'Elite_UserRegion';
-    static TestDriveMTCHID = 'TestDriveMTCHID';
     static USER_REGION_TEXT = 'UserRegionText';
     static ID = 'ID';
     static TEST_DRIVE_NAME = 'TestDriveName';
@@ -88,19 +87,27 @@ export class Columns {
     static RESPONSE_ATTACHMENTS = "ResponseAttachments";
     static LevelNumber = "LevelNumber";
     static USER_EMAIL = "UserEMail";
+<<<<<<< HEAD
     static SURVEY_STATUS = "SurveyStatus";
     static JOINING_BONUS = "JoiningBonus";
     static COMPLETION_BONUS = "CompletionBonus";
     static PASS_PERCENTAGE_TO_DEPLOY = "PassPercentageToDeploy";
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 
 }
 
 export class ColumnsValues {
     static COMPLETE_STATUS = 'Complete';
+<<<<<<< HEAD
     static PARTIAL_COMPLETE = 'PartialComplete';
     static ACTIVE = 'Active';
     static READY_FOR_LAUNCH = 'Ready for Launch';
     static APPROVAL_PENDING = 'Approval Pending';
+=======
+    static ACTIVE = 'Active';
+    static READY_FOR_LAUNCH = 'Ready for Launch';
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     static DRAFT = "Draft";
     static INPROGRESS = "Inprogress";
     static SUBMIT = "Submit";
@@ -110,6 +117,7 @@ export class ColumnsValues {
     static TEST_DRIVER = "Test Drivers";
     static TEST_DRIVE_OWNER = "Test Drive Owner";
     static SITE_OWNER_DISPLAY_NAME = "Site Owner"
+<<<<<<< HEAD
     static TEST_DRIVER_DISPLAY_NAME = "Test Driver";
     static TEST_DRIVE_OWNER_DISPLAY_NAME = "Test Drive Owner";    
     static EDIT_VIEW = "EDIT";
@@ -119,6 +127,15 @@ export class ColumnsValues {
 
 export class Globals {
     static IMAGE_BASE_URL = '/Style%20Library/Elite/images';
+=======
+    static TEST_DRIVER_DISPLAY_NAME = "Test Drivers";
+    static TEST_DRIVE_OWNER_DISPLAY_NAME = "Test Drive Owner";
+
+}
+
+export class Globals {
+    static IMAGE_BASE_URL = '/sites/elite/Style%20Library/Elite/images';
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     static TEST_DRIVE_THAT_I_RUN = "testDriveThatIRun";
     static UPCOMMING_Test_Drive = "upTestDrive";
 }
@@ -139,6 +156,7 @@ export class Messages {
     static REPORT_BUG_SUCCESS = 'Bug reported successfully.';
     static SAVING = 'Saving...';
     static LOADING = 'Loading...';
+<<<<<<< HEAD
     static ERROR_IN_FORM = 'Please fill all the required fields and save again. Fields marked with * are mandatory.';
     static TEST_DRIVE_PARTICIPATION_ERROR = 'You can\'t participate in this test drive as : ';
     static TEST_DRIVE_LOCATION_ERROR = 'This test drive is not available for your location.';
@@ -185,4 +203,16 @@ export class Messages {
     static SENARIO_EMPTY = "Senario can not be empty";
     static EXPECTED_OUTCOME_EMPTY = "Ecpected outcome can not be empty."
 
+=======
+    static ERROR_IN_FORM = 'Please fill all the required fields and save again. Fields marked with * are mandetory.';
+    static TEST_DRIVE_PARTICIPATION_ERROR = 'You can\'t participate in this test drive as : ';
+    static TEST_DRIVE_LOCATION_ERROR = 'This test drive is not available for your location.';
+    static TEST_DRIVE_DEVICE_ERROR = 'You don\'t have the required device to participate in this test drive.';
+    static TEST_DRIVE_OS_ERROR = 'You don\'t have the required os to participate in this test drive.';
+    static NO_TEST_CASE_ERROR = 'Please add atleast one test case before submiting for approval.';
+    static NO_QUESTION_ERROR = 'Please add atleast one question before submiting for approval.';
+    static NO_OPTIONS_ERROR = 'Please add more that one question responses';
+    static SURVEY_SUBMITTED = 'Survey submitted successfully.';
+    static MAX_TEST_DRIVER_LIMIT_REACHED = 'You can’t participate in this test drive as maximum test drivers limit for this test drive is reached';
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }

@@ -38,6 +38,7 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                     <div id="myTabContent" className="tab-content">
 
                         <div className="tab-pane fade" id="up_drives">
+<<<<<<< HEAD
                             <div className="col-md-12">
                                 <Loader show={upcomingTestDriveLoading} message={'Loading test drives...'}>
                                     {
@@ -52,6 +53,21 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                                         index={index + 1}
                                                     ></RightContainer>)
                                             }) : ''
+=======
+                            <Loader show={upcomingTestDriveLoading} message={'Loading test drives...'}>
+                                <div className="col-md-12">
+                                    {
+                                        upcomingTestDrive && upcomingTestDrive.map((testDrive, index) => {
+                                            return (testDrive &&
+                                                <RightContainer
+                                                    key={index}
+                                                    participants={testDrive.participants}
+                                                    checkPortion={Globals.UPCOMMING_Test_Drive}
+                                                    testDrive={testDrive.testDrive}
+                                                    index={index + 1}
+                                                ></RightContainer>)
+                                        })
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                     }
                                     {(!upcomingTestDriveLoading) && upcomingTestDrive.length == 0 && <p>There are no upcoming test drives.</p>}
                                     {
@@ -59,6 +75,7 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                             MORE >>
                                         </Link>
                                     }
+<<<<<<< HEAD
                                 </Loader>
                             </div>
                         </div>
@@ -68,6 +85,16 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                     {
                                         (!activeTestDriveLoading && activeTestDrive && activeTestDrive.length) ? 
                                             activeTestDrive.map((testDrive, index) => {
+=======
+                                </div>
+                            </Loader>
+                        </div>
+                        <div className="tab-pane active in" id="active_drives">
+                            <Loader show={activeTestDriveLoading} message={'Loading test drives...'}>
+                                <div className="col-md-12">
+                                    {
+                                        activeTestDrive && activeTestDrive.map((testDrive, index) => {
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                             return (testDrive &&
                                                 <RightContainer
                                                     key={index}
@@ -75,7 +102,11 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                                     checkPortion={"activeTestDrive"}
                                                     testDrive={testDrive.testDrive}
                                                     index={index + 1}></RightContainer>)
+<<<<<<< HEAD
                                         }) : ''
+=======
+                                        })
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                     }
                                     {(!activeTestDriveLoading) && activeTestDrive.length == 0 && <p>There are no active test drives.</p>}
                                     {
@@ -83,8 +114,13 @@ class HomeRightTestDrives extends React.Component<HomeRightTestDrivesProps> {
                                             MORE >>
                                     </Link>
                                     }
+<<<<<<< HEAD
                                 </Loader>
                             </div>
+=======
+                                </div>
+                            </Loader>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                         </div>
                     </div>
                 </div>

@@ -10,9 +10,14 @@ import TestDriveInfo from './TestDriveInfo';
 import * as $ from 'jquery';
 import * as Constants from '../../common/services/constants';
 import ui from 'redux-ui';
+<<<<<<< HEAD
 import { ToastContainer, toast } from 'react-toastify';
 import Popup from '../../common/components/Popups';
 
+=======
+import Popup from 'react-popup';
+import { ToastContainer, toast } from 'react-toastify';
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 interface TestDriveParticipationProps {
     testDriveInstance: TestDriveInstance;
     saveTestCaseResponse: (testCase: TestCaseInstance, testDrive: TestDriveInstance) => any;
@@ -93,8 +98,13 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                         </a>
                     </h2>
                 </div>
+<<<<<<< HEAD
                 <div className="container participation_container">
                     <div className="wrapper" style={{ height: "784px" }}>
+=======
+                <div className="container participation_container" style={{ overflow: "auto" }}>
+                    <div className="wrapper" style={{ height: "544px" }}>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                         <div className="col-md-11 profile_box">
                             <div className="well count_box">
                                 <ul className="nav nav-tabs">
@@ -151,14 +161,44 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                 return (<div className="col-md-8 write_testdrivebox" id={"test-case-details" + index} key={index}>
                                     <div className="col-md-12">
                                         <i onClick={() => this.closePopUp(index)}
+<<<<<<< HEAD
                                             className="material-icons pull-right close-btn"
                                             id={"close_discription" + index}>close</i>
                                     </div>
                                     <div className="col-md-12 testdrive_completionbox testcase_detiled">
+=======
+                                            className="material-icons pull-right"
+                                            id={"close_discription" + index}>close</i>
+                                    </div>
+                                    <div className="col-md-12 testdrive_completionbox">
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                         <div className="col-md-11 pull-left"><h3>Description</h3></div>
                                         <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.description }}>
                                         </div>
 
+<<<<<<< HEAD
+=======
+                                        <div className="col-md-11 pull-left"><h3>Scenario</h3></div>
+                                        <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.scenario }}>
+                                        </div>
+                                        <div className="col-md-11 pull-left"><h3>Expected Outcome</h3></div>
+                                        <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.expectedOutcome }}>
+                                        </div>
+                                    </div>
+                                </div>)
+                            })
+                        }
+                    </div>
+                    <div>
+                        {
+                            testDriveInstance.testCases && testDriveInstance.testCases.length &&
+                            testDriveInstance.testCases.map((testCase, index) => {
+                                return (<div className="col-md-8 write_testdrivebox" id={"test-case-details" + testCase.responseID}>
+                                    <div className="col-md-12">
+                                        <i onClick={() => this.closePopUp(testCase.responseID)} className="material-icons pull-right" id={"close_discription" + testCase.responseID}>close</i>
+                                    </div>
+                                    <div className="col-md-12 testdrive_completionbox">
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                         <div className="col-md-11 pull-left"><h3>Scenario</h3></div>
                                         <div className="col-md-12" dangerouslySetInnerHTML={{ __html: testCase.scenario }}>
                                         </div>
@@ -172,6 +212,10 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
+=======
+            <Popup />
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
             <ToastContainer />
             <Overview testDriveInstance={testDriveInstance} ui={ui} updateUI={updateUI} />
         </div>)

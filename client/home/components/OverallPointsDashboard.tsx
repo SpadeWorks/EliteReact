@@ -2,7 +2,10 @@ import * as React from 'react';
 import ui from 'redux-ui';
 import * as $ from 'jquery';
 import '../../js/jqmeter.js';
+<<<<<<< HEAD
 import Services from '../../common/services/services';
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 
 interface OverallPointsDashboardProps {
     totalUsers: number;
@@ -19,6 +22,7 @@ interface OverallPointsDashboardState {
 class OverallPointsDashboard extends React.Component<OverallPointsDashboardProps> {
 
     componentDidUpdate() {
+<<<<<<< HEAD
         var self = this;
         Services.getApplicationConfigurations().then((appConfig: any) => {
             var jqmeter = $("#totalUsers");
@@ -34,6 +38,18 @@ class OverallPointsDashboard extends React.Component<OverallPointsDashboardProps
         });
 
 
+=======
+        /*var jqmeter = $("#jqmeter-vertical2");
+            if (jqmeter.length) {
+        $('#jqmeter-vertical2').jQMeter({
+            goal: '$1,000',
+            raised: '$200',
+            meterOrientation: 'vertical',
+            width: '50px',
+            height: '200px'
+        });    
+    }*/
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 
     render() {
@@ -49,7 +65,13 @@ class OverallPointsDashboard extends React.Component<OverallPointsDashboardProps
                     </div>
                 </div>
                 <div className="col-md-1 meter text-center">
+<<<<<<< HEAD
                     <div id="totalUsers"></div>
+=======
+                    {/* <div id="jqmeter-vertical2"></div> */}
+
+                    <img src="/sites/elite/Style%20Library/Elite/images/meter.png" />
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                 </div>
                 <div className="col-md-6">
                     <div className="c_ride">

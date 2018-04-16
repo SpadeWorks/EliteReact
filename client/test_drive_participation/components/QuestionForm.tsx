@@ -6,6 +6,7 @@ import { ColumnsValues } from '../../common/services/constants';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import * as $ from 'jquery';
+<<<<<<< HEAD
 import Popup from '../../common/components/Popups';
 import { Messages } from '../../common/services/constants';
 import Promise from "ts-promise";
@@ -14,6 +15,10 @@ import * as Constants from '../../common/services/constants';
 let confetti = require("../../js/jquery.confetti.js");
 import { validateControl, required, validateForm } from '../../common/components/Validations';
 import Loader from 'react-loader-advanced';
+=======
+import Popup from 'react-popup';
+import { Messages } from '../../common/services/constants';
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 interface QuestionFormProps {
     testDriveInstance: TestDriveInstance;
     showSurvey: boolean;
@@ -45,6 +50,11 @@ class QuestionForm extends React.Component<QuestionFormProps> {
             selectedResponse: this.props.question.selectedResponse
         });
         this.openCompletionPopUp = this.openCompletionPopUp.bind(this);
+    }
+
+    componentDidMount(){
+
+       
     }
 
     onChange(e) {
@@ -82,6 +92,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
 
     }
 
+<<<<<<< HEAD
     getCompletedQuestionCount() {
         var question = this.props.testDriveInstance.questions
         var completedQuestions = question && question.length && question.filter(question => {
@@ -136,6 +147,32 @@ class QuestionForm extends React.Component<QuestionFormProps> {
             }
         });
         
+=======
+    submitSurvey(question) {
+        this.submitQuestionResponse(question);
+        var popUpMessage = Messages.SURVEY_SUBMITTED;
+        Popup.registerPlugin('success', function (defaultValue, placeholder, callback) {
+            let promptValue = null;
+            let promptChange = function (value) {
+                promptValue = value;
+            };
+
+            this.create({
+                title: 'Success',
+                content: 'Survey Submitted Successfully!',
+                buttons: {
+                    right: [{
+                        text: 'Go to Dashboard',
+                        action: function () {
+                            window.location.href = "#";
+                            Popup.close();
+                        }
+                    }]
+                }
+            });
+        });
+        Popup.plugins().success('', 'What do you want to do?');
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 
     render() {
@@ -173,6 +210,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                         {
                                             question.questionType != ColumnsValues.QUESTION_TYPE_OBJECTIVE &&
 
+<<<<<<< HEAD
                                             <div className="col-md-12 comment_box ">
                                                 <textarea className="inputMaterial form-control"
                                                     onChange={(e) => this.onChange(e)}
@@ -184,6 +222,34 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                                 <span className="highlight "></span>
                                                 <span className="bar "></span>
                                                 <label className="disc_lable ">Description *</label>
+=======
+                                    <div className="col-md-12 comment_box ">
+                                        <textarea className="inputMaterial form-control"
+                                            onChange={(e) => this.onChange(e)}
+                                            name="questionResponse"
+                                            value={ui.questionResponse}
+                                            required />
+                                        <span className="highlight "></span>
+                                        <span className="bar "></span>
+                                        <label className="disc_lable ">Description</label>
+                             
+                                    </div>
+                                }
+                                {
+                                    !isLast && < div className="col-md-12 participation_actionbox">
+                                        <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                            <input type="button" value="Done" onClick={() => this.submitQuestionResponse(question)} />
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    isLast && <div className="col-md-12 participation_actionbox">
+                                        <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                            <input type="button" value="Submit survey" onClick={() => this.submitSurvey(question)} />
+                                        </div>
+                                    </div>
+                                }
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 
                                             </div>
                                         }

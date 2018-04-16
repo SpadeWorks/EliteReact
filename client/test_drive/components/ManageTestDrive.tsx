@@ -12,10 +12,16 @@ import { Link } from "react-router-dom";
 import { validateControl, required, validateForm } from '../../common/components/Validations';
 import { Messages } from '../../common/services/constants';
 import { ToastContainer, toast } from 'react-toastify';
+<<<<<<< HEAD
 import { ColumnsValues } from '../../common/services/constants';
 import { Tabs, Pane } from '../../common/components/Tabs';
 import * as $ from 'jquery';
 import Popup from '../../common/components/Popups';
+=======
+import Popup from 'react-popup';
+import { ColumnsValues } from '../../common/services/constants';
+import { Tabs, Pane } from '../../common/components/Tabs';
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 import {
     model,
     saveTestDrive,
@@ -62,11 +68,15 @@ interface AppProps {
 
 @ui({
     state: {
+<<<<<<< HEAD
         activeTab: 0,
         requirmentMessage: '',
         title: "",
         saveLoading: false,
         saveTestDriveApprovalLoading: false
+=======
+        activeTab:  0,
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 })
 
@@ -81,10 +91,14 @@ class ManageTestDrive extends React.Component<AppProps> {
         this.onSaveTestCase = this.onSaveTestCase.bind(this);
         this.checkForUnsavedItems = this.checkForUnsavedItems.bind(this);
         this.getSelectedTab = this.getSelectedTab.bind(this);
+<<<<<<< HEAD
         this.approveTestDrive = this.approveTestDrive.bind(this);
     }
 
 
+=======
+    }
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 
     getTestDriveById(testDrives, testDriveId) {
         const testDrive = testDrives.filter(testDrive => testDrive.id == testDriveId);
@@ -103,6 +117,7 @@ class ManageTestDrive extends React.Component<AppProps> {
         }
         this.props.dispatch(loadTestDrive(this.props.id || -1));
 
+<<<<<<< HEAD
         $('.nav.nav-tabs li').click(function () {
             var selectedIndex = $(this).attr('data-index');
             try {
@@ -113,6 +128,36 @@ class ManageTestDrive extends React.Component<AppProps> {
             }
             self.props.updateUI({ activeTab: selectedIndex });
         });
+=======
+        /** Prompt plugin */
+        Popup.registerPlugin('prompt', function (defaultValue, placeholder, callback) {
+            let promptValue = null;
+            let promptChange = function (value) {
+                promptValue = value;
+            };
+
+            this.create({
+                title: 'Success',
+                content: 'Data Saved Successfully!',
+                buttons: {
+                    left: [{
+                        text: 'Go Back and Edit',
+                        action: function () {
+                            Popup.close();
+                        }
+                    }],
+                    right: [{
+                        text: 'Go to Dashboard',
+                        action: function () {
+                            window.location.href = "#";
+                            Popup.close();
+                        }
+                    }]
+                }
+            });
+        });
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         /** Call the plugin */
     }
 
@@ -122,15 +167,23 @@ class ManageTestDrive extends React.Component<AppProps> {
         var questions = this.props.testDrive.questions;
         var maxTestDrivers = parseInt(testDrive.maxTestDrivers) || 0;
         if (isFormValid) {
+            if (maxTestDrivers < 1) {
+                Popup.alert('Max Test Drivers value should be greater than 1.');
+                return false;
+            }
             if (testCases && testCases.length &&
                 this.checkForUnsavedItems(testCases, Messages.SAVE_UNSAVED_TEST_CASE)) {
                 this.switchTab(1);
+<<<<<<< HEAD
                 this.props.updateUI({ saveLoading: false });
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                 return false;
             }
             if (questions && questions.length &&
                 this.checkForUnsavedItems(questions, Messages.SAVE_UNSAVED_QUESTION)) {
                 this.switchTab(2);
+<<<<<<< HEAD
                 this.props.updateUI({ saveLoading: false });
                 return false;
             }
@@ -181,6 +234,28 @@ class ManageTestDrive extends React.Component<AppProps> {
             //Popup.alert(Messages.TEST_DRIVE_ERROR);
             this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_ERROR, title: "Alert!", saveLoading: false });
             $("#popupManageTestDriveAlert").trigger('click');
+=======
+                return false;
+            }
+
+            if (testDrive.status == ColumnsValues.SUBMIT && testCases && testCases.length == 0) {
+                Popup.alert(Messages.NO_TEST_CASE_ERROR);
+                return false;
+            }
+
+            if (testDrive.status == ColumnsValues.SUBMIT && questions && questions.length == 0) {
+                Popup.alert(Messages.NO_QUESTION_ERROR);
+                return false;
+            }
+
+            this.props.dispatch(saveTestDrive(testDrive));
+            Popup.plugins().prompt('', 'What do you want to do?');
+            toast.success("Test Drive Saved Successfully!");
+        }
+        else {
+            this.switchTab(0);
+            Popup.alert(Messages.TEST_DRIVE_ERROR);
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         }
     }
 
@@ -188,17 +263,25 @@ class ManageTestDrive extends React.Component<AppProps> {
         var isFormValid = validateForm(formID);
         if (isFormValid) {
             if (question.questionType == "Objective" && question.options.length < 2) {
+<<<<<<< HEAD
                 //Popup.alert(Messages.NO_OPTIONS_ERROR);
                 this.props.updateUI({ requirmentMessage: Messages.NO_OPTIONS_ERROR, title: "Alert!" });
                 $("#popupManageTestDriveAlert").trigger('click');
+=======
+                Popup.alert(Messages.NO_OPTIONS_ERROR);
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
             } else {
                 this.props.dispatch(saveQuestion(question));
                 toast.success("Question Saved Successfully!");
             }
         } else {
+<<<<<<< HEAD
             //Popup.alert(Messages.QUESTION_ERROR);
             this.props.updateUI({ requirmentMessage: Messages.QUESTION_ERROR, title: "Alert!" });
             $("#popupManageTestDriveAlert").trigger('click');
+=======
+            Popup.alert(Messages.QUESTION_ERROR);
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         }
     }
 
@@ -221,9 +304,13 @@ class ManageTestDrive extends React.Component<AppProps> {
             this.props.dispatch(saveTestCase(testCase));
             toast.success("Test Case Saved Successfully!");
         } else {
+<<<<<<< HEAD
             //Popup.alert(Messages.TEST_CASE_ERROR);
             this.props.updateUI({ requirmentMessage: Messages.TEST_CASE_ERROR, title: "Alert!" });
             $("#popupManageTestDriveAlert").trigger('click');
+=======
+            Popup.alert(Messages.TEST_CASE_ERROR);
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         }
 
     }
@@ -245,9 +332,13 @@ class ManageTestDrive extends React.Component<AppProps> {
         });
 
         if (unsaveTestCase.length) {
+<<<<<<< HEAD
             //Popup.alert(message);
             this.props.updateUI({ requirmentMessage: Messages.TEST_CASE_ERROR, title: "Alert!" });
             $("#popupManageTestDriveAlert").trigger('click');
+=======
+            Popup.alert(message);
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
             return true;
         } else {
             return false;
@@ -277,6 +368,7 @@ class ManageTestDrive extends React.Component<AppProps> {
         }
     }
 
+<<<<<<< HEAD
     getSelectedTab() {
         return this.props.ui.activeTab;
     }
@@ -336,6 +428,12 @@ class ManageTestDrive extends React.Component<AppProps> {
         link: '#'
     }]
 
+=======
+    getSelectedTab(){
+        return this.props.ui.activeTab;
+    }
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     render() {
         const { testDrive, question, dispatch, loading, testCase, ui, updateUI,
             testCaseFields, surveyFields, testDriveFields, view } = this.props;
@@ -343,6 +441,7 @@ class ManageTestDrive extends React.Component<AppProps> {
         const currentUserRole = Services.getUserProfileProperties().role;
         return (
             <div className="container header_part">
+<<<<<<< HEAD
                 <Popup popupId="ManageTestDriveSuccess" title={ui.title}
                     body={ui.requirmentMessage}
                     buttons={this.manageTestDriveSuccessButtons} />
@@ -370,13 +469,30 @@ class ManageTestDrive extends React.Component<AppProps> {
                 <div className="col-md-12 testdrive_createbox">
                     <div className="wrapper">
                         <Loader show={loading || ui.saveLoading} message={'Loading...'}>
+=======
+                <Popup />
+
+                <h2 className="header_prevlink">
+                    <Link to={"/"} >
+                        <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Create test drive
+                        </Link>
+                </h2>
+                <h4 className="cancel-btn"><Link to={"/testdrives"}>Cancel</Link></h4>
+                <div className="col-md-12">
+                    <div className="wrapper">
+                        <Loader show={loading} message={'Loading...'}>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                             <Tabs selected={this.getSelectedTab() || 0}>
                                 <Pane label="REGISTER A TEST DRIVE">
                                     <div className={"row setup-content"} id="step-1" >
                                         <div className="col-xs-12 form_box tab-container">
                                             <TestDriveForm
                                                 testDrive={testDrive}
+<<<<<<< HEAD
                                                 saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
+=======
+                                                saveTestDrive={(t, f) => this.onTestDriveSave(t, f)}
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                                 submitTestDrive={(t) => dispatch(submitTestDrive(t))}
                                                 onChange={(e, testDrive) => dispatch(updateTestDrive(e, testDrive))}
                                                 updateMultiSelect={(value, control, testDrive) => dispatch(updateMultiSelect(value, control, testDrive))}
@@ -386,9 +502,12 @@ class ManageTestDrive extends React.Component<AppProps> {
                                                 fieldDescriptions={testDriveFields}
                                                 ui={ui}
                                                 switchTab={this.switchTab}
+<<<<<<< HEAD
                                                 view={view}
                                                 currentUserRole={currentUserRole}
                                                 approveTestDrive={this.approveTestDrive}
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                             />
                                         </div>
                                     </div>
@@ -399,7 +518,11 @@ class ManageTestDrive extends React.Component<AppProps> {
                                             <TestCases testCases={testDrive.testCases}
                                                 newTestCase={testCase}
                                                 saveTestCase={(t, f) => this.onSaveTestCase(t, f)}
+<<<<<<< HEAD
                                                 saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
+=======
+                                                saveTestDrive={(t, f) => this.onTestDriveSave(t, f)}
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                                 editTestCase={(t) => dispatch(editTestCase(t))}
                                                 deleteTestCase={(id) => dispatch(deleteTestCase(id))}
                                                 onChange={(e, testCase) => dispatch(updateTestCase(e, testCase))}
@@ -412,9 +535,12 @@ class ManageTestDrive extends React.Component<AppProps> {
                                                 testCaseIds={testDrive.testCaseIDs}
                                                 fieldDescriptions={testCaseFields}
                                                 switchTab={this.switchTab}
+<<<<<<< HEAD
                                                 currentUserRole={currentUserRole}
                                                 approveTestDrive={this.approveTestDrive}
                                                 view={view}
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                             />
                                         </div>
                                     </div>
@@ -425,7 +551,11 @@ class ManageTestDrive extends React.Component<AppProps> {
                                             <Surveys questions={testDrive.questions}
                                                 newQuestion={question}
                                                 saveQuestion={(t, f) => this.onSaveQuestion(t, f)}
+<<<<<<< HEAD
                                                 saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
+=======
+                                                saveTestDrive={(t, f) => this.onTestDriveSave(t, f)}
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                                 editQuestion={(t) => dispatch(editQuestion(t))}
                                                 deleteQuestion={(id) => dispatch(deleteQuestion(id))}
                                                 onChange={(e, question) => dispatch(updateQuestion(e, question))}
@@ -436,9 +566,12 @@ class ManageTestDrive extends React.Component<AppProps> {
                                                 loadQuestions={(t) => dispatch(loadQuestions(t))}
                                                 questionIds={testDrive.questionIDs}
                                                 fieldDescriptions={surveyFields}
+<<<<<<< HEAD
                                                 view={view}
                                                 currentUserRole={currentUserRole}
                                                 approveTestDrive={this.approveTestDrive}
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                             />
                                         </div>
                                     </div>

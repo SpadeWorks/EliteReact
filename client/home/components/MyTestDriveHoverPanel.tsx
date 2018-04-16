@@ -4,7 +4,10 @@ import Service from '../../common/services/services';
 import { TestDrive, TestDriveResponse } from '../../home/model';
 import * as $ from 'jquery';
 import Services from '../../common/services/services';
+<<<<<<< HEAD
 import { Messages } from '../../common/services/constants';
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 interface MyTestDriveHoverPanelProps {
     participants: number;
     checkPortion: string;
@@ -42,6 +45,7 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
             <h3>{testDrive.title}</h3>
             <div className="col-md-12 social_box">
                 <div className="row">
+<<<<<<< HEAD
                     <a href={"#/reportbug/" + testDrive.id} title={Messages.REPORT_BUG_TITLE}>
                         <span className="report"></span>
                     </a>
@@ -54,6 +58,21 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                     </a>
                     <a href="javascript:;" title={Messages.SHARE_TITLE}
                         onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive)}>
+=======
+                    <a href="javascript:void(0);"
+                        onClick={() => Services.reportAbug(testDrive.ownerEmail, testDrive.title)}>
+                        <span className="report"></span>
+                    </a>
+                    <a href="javascript:void(0);"
+                        onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
+                        <i className="material-icons">email</i>
+                    </a>
+                    {/* <a href="#">
+                            <span className="teams"></span>
+                        </a> */}
+                    <a href="javascript:void(0);"
+                        onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive.title)}>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                         <i className="material-icons">share</i>
                     </a>
                 </div>

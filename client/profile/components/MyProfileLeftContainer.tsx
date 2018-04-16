@@ -12,7 +12,11 @@ class MyProfileLeftContainer extends React.Component<MyProfileLeftContainerProps
     render() {
         const { eliteProfile } = this.props;
         return (
+<<<<<<< HEAD
             <div className="col-md-6  profileinfo_box" style={{ borderRight: "solid 1px #3c3c3c" }}>
+=======
+            <div className="col-md-6  profileinfo_box" style={{ borderRight: "solid 1px #3c3c3c"}}>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                 <div className="row inforow">
                     <div className="col-md-5">
                         <span className="orange">Role :</span>

@@ -21,7 +21,11 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                     <div className="well">
                         <div>
                             <ul className="nav nav-tabs">
+<<<<<<< HEAD
                                 <li className=""><a href="#regional" data-toggle="tab">YOUR REGION</a></li>
+=======
+                                <li className=""><a href="#regional" data-toggle="tab">REGIONAL LEADERBOARD</a></li>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                 <li className="active pull-right"><a href="#global" data-toggle="tab">GLOBAL LEADERBOARD</a></li>
                             </ul>
                             <div id="myTabContent" className="tab-content">
@@ -39,9 +43,12 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                                                             points={leaderBoard.totalPoints} userId={leaderBoard.id}></LeaderBoardUser>)
                                                     }) : ''
                                             }
+<<<<<<< HEAD
                                             {(!regionLeaders && !regionLeaders.length) ? <div>
                                             <p>{Messages.LEADERBOARD_REGIONAL_MSG}</p>                                            
                                             </div> : ''}
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                             {
                                                 (regionLeaders && regionLeaders.length >= 3) && <Link className="pull-right more" to={"/leaderboard/regional"}>
                                                     MORE >>
@@ -63,9 +70,12 @@ class LeaderBoard extends React.Component<LeaderBoardProps> {
                                                         points={leaderBoard.totalPoints} userId={leaderBoard.id}></LeaderBoardUser>)
                                                 }) : ''
                                             }
+<<<<<<< HEAD
                                             {(!leaders && !leaders.length) ? <div>
                                             <p>{Messages.LEADERBOARD_GLOBAL_MSG}</p>                                            
                                             </div> : ''}
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                             {
                                                 (leaders && leaders.length >= 3) && <Link className="pull-right more" to={"/leaderboard/global"}>
                                                     MORE >>

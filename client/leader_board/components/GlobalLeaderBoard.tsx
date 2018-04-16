@@ -58,6 +58,7 @@ class GlobalLeaderBoard extends React.Component<GlobalLeaderBoardProps> {
         return (
 
             <div className="col-md-12">
+<<<<<<< HEAD
                 <Loader show={loading} message={'Loading...'}>
                     {
                         ui.visibleItems && ui.visibleItems.map((leader, index) => {
@@ -82,6 +83,37 @@ class GlobalLeaderBoard extends React.Component<GlobalLeaderBoardProps> {
                         !loading && ui.visibleItems && ui.visibleItems.length == 0 && leaders && leaders.length == 0 ?
                             (<div className="no-data-message">{Messages.LEADERBOARD_GLOBAL_MSG}</div>) : ''
                     }
+=======
+                {
+                    ui.visibleItems && ui.visibleItems.map((leader, index) => {
+                        return (<LeaderItem
+                            key={index}
+                            isCurrentUser={leader.id == currentUser.id}
+                            leader={leader} />)
+                    })
+                }
+
+                {
+                    ui.visibleItems.length == 0 && leaders && 
+                    leaders.slice(0, ui.itemsPerPage).map((leader, index) => {
+                        return (<LeaderItem
+                            key={index}
+                            isCurrentUser={leader.id == currentUser.id}
+                            leader={leader} />)
+                    })
+                }
+                {
+                    leaders.length > 0 ?
+                    <Pager
+                        total={Math.ceil(leaders.length / ui.itemsPerPage)}
+                        current={ui.current}
+                        visiblePages={ui.visiblePage}
+                        titles={{ first: '<', last: '>' }}
+                        className="pagination-sm pull-right"
+                        onPageChanged={this.handlePageChanged}
+                    /> : ''
+                }
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 
                     {
                         leaders.length > 0 ?
@@ -95,6 +127,7 @@ class GlobalLeaderBoard extends React.Component<GlobalLeaderBoardProps> {
                             /> : ''
                     }
 
+<<<<<<< HEAD
                 </Loader>
                 <Loader show={currentUserPositionLoading} message={'Loading...'}>
                     {(currentUser.rank && currentUser.rank != -1) ? <LeaderItem
@@ -103,6 +136,12 @@ class GlobalLeaderBoard extends React.Component<GlobalLeaderBoardProps> {
                 </Loader>
             </div>
         )
+=======
+                {(currentUser.rank && currentUser.rank != -1) ? <LeaderItem
+                    isCurrentUser={true}
+                    leader={currentUser} /> : ''}
+            </div>)
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 }
 

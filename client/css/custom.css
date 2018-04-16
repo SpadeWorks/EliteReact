@@ -1,6 +1,10 @@
 @font-face {
     font-family: "HemiHeadRg-BoldItalic";
+<<<<<<< HEAD
     src: url("/Style%20Library/Elite/fonts/hemi_head_bd_it.eot?") format("eot"), url("/Style%20Library/Elite/fonts/hemi_head_bd_it.woff") format("woff"), url("/Style%20Library/Elite/fonts/hemi_head_bd_it.ttf") format("truetype"), url("/Style%20Library/Elite/fonts/hemi_head_bd_it.svg#HemiHeadRg-BoldItalic") format("svg");
+=======
+    src: url("/sites/elite/Style%20Library/Elite/fonts/hemi_head_bd_it.eot?") format("eot"), url("/sites/elite/Style%20Library/Elite/fonts/hemi_head_bd_it.woff") format("woff"), url("/sites/elite/Style%20Library/Elite/fonts/hemi_head_bd_it.ttf") format("truetype"), url("/sites/elite/Style%20Library/Elite/fonts/hemi_head_bd_it.svg#HemiHeadRg-BoldItalic") format("svg");
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     font-weight: normal;
     font-style: normal;
     letter-spacing: 1px;
@@ -8,13 +12,22 @@
 
 @font-face {
     font-family: titanium;
+<<<<<<< HEAD
     src: url("/Style%20Library/Elite/fonts/TitilliumWeb-Regular.ttf"), url("/Style%20Library/Elite/fonts/TitilliumWeb-Regular.eot") format("eot"), url("/Style%20Library/Elite/fonts/TitilliumWeb-Regular.woff") format("woff"), url("/Style%20Library/Elite/fonts/TitilliumWeb-Regular.svg") format("svg");
+=======
+    src: url("/sites/elite/Style%20Library/Elite/fonts/TitilliumWeb-Regular.ttf");
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 @font-face {
     font-family: 'Glyphicons Halflings';
+<<<<<<< HEAD
     src: url('/Style%20Library/Elite/fonts/glyphicons-halflings-regular.eot');
     src: url('/Style%20Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/Style%20Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/Style%20Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/Style%20Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/Style%20Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+=======
+    src: url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.eot');
+    src: url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/sites/elite/Style%20Library/Elite/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/sites/elite/Style%20Library/Elite/fonts//glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 body {
@@ -27,7 +40,11 @@ body.starts {
     height: 100vh;
     -webkit-transform: opacity 0.3s linear;
     transform: opacity 0.3s linear;
+<<<<<<< HEAD
     background: url('/Style%20Library/Elite/images/bg-stars.gif');
+=======
+    background: url('/sites/elite/Style%20Library/Elite/images/bg-stars.gif');
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     width: 30%;
     height: auto;
     /* width: 100%; */
@@ -2322,10 +2339,19 @@ h1 {
 }
 
 .intro_actionbox.testdrive_actionbox.letsgo {
+<<<<<<< HEAD
     bottom: -152px;
     left: -184px;
     background: none !important;
 }
+=======
+    position: fixed;
+    bottom: -152px;
+    left: -184px;
+    background: none!important;
+}
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 
 /*welcome and landing text ends here*/
 
@@ -2333,7 +2359,10 @@ h1 {
 
 .equilizer {
     transform: rotate(180deg);
+<<<<<<< HEAD
     -ms-transform: rotate(180deg);
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     width: 183px;
 }
 
@@ -2835,6 +2864,10 @@ label {
 
 /* active state */
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /*
 .inputMaterial:focus~label,
 .inputMaterial:valid~label {
@@ -2849,6 +2882,10 @@ textarea.inputMaterial:focus {
     overflow: inherit !important;
 }*/
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /*textarea.inputMaterial:focus~label {
     top: -21px;
 }*/
@@ -3062,14 +3099,29 @@ li.select2-selection__choice {
     position: relative;
     top: 0px;
     background: #27272f;
+<<<<<<< HEAD
+=======
+    padding-left: 10px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     border-radius: 50px;
     float: left;
     font-family: titanium !important;
+<<<<<<< HEAD
     font-size: 14px;
     color: #fff;
     margin: 0 6px 0 0;
     padding: 4px 9px;
     margin-bottom: 10px;
+=======
+    font-size: 15px;
+    padding-bottom: 4px;
+    margin-left: 0px;
+    padding-right: 10px;
+    margin-right: 10px;
+    color: #fff;
+    margin-top: 0px;
+    margin-left: 2px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 ul.select2-results__options {
@@ -3243,8 +3295,12 @@ border: solid 1px#fff;
     border: none;
     color: #ff8d00;
     font-weight: bold;
+<<<<<<< HEAD
     font-size: 68%;
     /*letter-spacing: 1px;*/
+=======
+    font-size: 75%;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .nav-tabs>li>a:hover {
@@ -3289,7 +3345,10 @@ a.drive_name h4 {
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0px;
+<<<<<<< HEAD
     padding-right: 5px;
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .leader_rank span {
@@ -3482,6 +3541,7 @@ width: 28px !important;
 }
 
 #outer {
+<<<<<<< HEAD
     height: 90px;
     width: 90px;
     background: url('/Style%20Library/Elite/images/dash-loader-out.png') no-repeat center;
@@ -3506,6 +3566,25 @@ width: 28px !important;
 
 #inner img {
     display: none;
+=======
+    height: 100px;
+    width: 100px;
+    background: url('/sites/elite/Style%20Library/Elite/images/dash-loader-out.png');
+    -webkit-animation: rotation 30s infinite;
+    animation-play-state: running;
+}
+
+#inner {
+    height: 80px;
+    width: 80px;
+    background: url(/sites/elite/Style%20Library/Elite/images/dash-loader-in.png);
+    -webkit-animation: rotation 50s infinite;
+    /* margin-top: 11px; */
+    position: absolute;
+    top: 9px;
+    left: 11px;
+    border-radius: 50%;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .tdrivecount {
@@ -3544,7 +3623,10 @@ width: 28px !important;
     border-left: solid 2px #fff;
     opacity: 0;
     margin-top: -41px;
+<<<<<<< HEAD
     position: relative;
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .white_circle2 {
@@ -3670,7 +3752,11 @@ width: 28px !important;
 
 .lc_containerclick {
     display: block;
+<<<<<<< HEAD
     width: 168%;
+=======
+    width: 241%;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     transition: 0.5s;
     opacity: 1;
     height: 124px;
@@ -3846,7 +3932,11 @@ a#link6 span {
     padding-left: 25px;
     padding-right: 18px;
     text-transform: uppercase;
+<<<<<<< HEAD
     letter-spacing: 2px;
+=======
+    letter-spacing: 1px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 /*profile css starts here*/
@@ -3858,8 +3948,13 @@ a#link6 span {
 .testd_box span.glyphicon-triangle-top {
     font-size: 22px;
     color: green;
+<<<<<<< HEAD
     /* left: 49px;
     position: absolute; */
+=======
+    left: 49px;
+    position: absolute;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .testd_box p {
@@ -4166,7 +4261,11 @@ ul.task_circle li p {
     float: left;
     font-size: 27px;
     width: 80px;
+<<<<<<< HEAD
     opacity: 0.5;
+=======
+    opacity: 0.2;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 ul.task_circle li.active p {
@@ -4180,8 +4279,11 @@ ul.task_circle li img {
     float: right;
     padding-left: 10px;
     padding-top: 10px;
+<<<<<<< HEAD
     height: 30px;
     width: 30px;
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 ul.task_circle li p.inactive_task {
@@ -4537,6 +4639,20 @@ span.report:hover {
     float: left;
 }
 
+span.report {
+    background: url("/sites/elite/Style%20Library/Elite/images/bug.png") no-repeat;
+    height: 23px;
+    width: 23px;
+    float: left;
+}
+
+span.report:hover {
+    background: url("/sites/elite/Style%20Library/Elite/images/bug2.png") no-repeat;
+    height: 23px;
+    width: 23px;
+    float: left;
+}
+
 .social_box a i {
     color: #828282;
 }
@@ -4570,7 +4686,11 @@ span.report:hover {
 
 .drive_completionbox {
     min-height: 250px;
+<<<<<<< HEAD
     padding-top: 10px;
+=======
+    padding-top: 20px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     text-align: center;
 }
 
@@ -4620,8 +4740,12 @@ span.increase_or_decreased {
 .testd_box span.glyphicon-triangle-top {
     font-size: 12px;
     color: green;
+<<<<<<< HEAD
     /* left: 64px; */
     float:left;
+=======
+    left: 64px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .orange {
@@ -5044,7 +5168,10 @@ a.edit_profile {
 
 .profile_overviewbox img {
     max-height: 55px;
+<<<<<<< HEAD
     width: auto;
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .profile_overviewbox h4.testcase_title {
@@ -5098,10 +5225,13 @@ ul.thumbnails-carousel li {
     font-size: 38px;
     padding-right: 0px;
     transform: none;
+<<<<<<< HEAD
 }
 .arrow_outof {
     float: left;
     margin-left: 11px;
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 .profile_overviewbox .imp_points h4 {
     margin-top: 0px !important;
@@ -5157,7 +5287,11 @@ li.active-thumbnail {
 }
 
 .editpro_box .carousel-inner {
+<<<<<<< HEAD
     bottom: 30px;
+=======
+    padding: 30px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .editpro_box .modal-title {
@@ -5203,7 +5337,19 @@ li.active-thumbnail {
 .carousel-inner.avatar_box a:hover img {
     height: 80px;
     width: 80px;
+<<<<<<< HEAD
     border: solid 2px white;
+=======
+    border: solid 2px orange;
+    MARGIN-LEFT: -10PX;
+    margin-top: -10px;
+}
+
+.carousel-inner.avatar_box a:focus img {
+    height: 80px;
+    width: 80px;
+    border: solid 2px orange;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     MARGIN-LEFT: -10PX;
     margin-top: -10px;
 }
@@ -5247,6 +5393,10 @@ li.active-thumbnail {
     width: 100%;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /*.inputMaterial:valid~label {
     top: -3px;
     font-size: 14px;
@@ -5279,6 +5429,10 @@ select {
     opacity: 1;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /*for car slider ends*/
 
 /*new profile ui ends here */
@@ -5366,7 +5520,11 @@ h1#dialogTitleSpan {
 
 .para {
     margin-bottom: 20px;
+<<<<<<< HEAD
     height: 100px !important;
+=======
+    height: 80px !important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .para p {
@@ -5456,8 +5614,13 @@ a.status_fail:hover {
 
 .overview {
     margin-top: 0px;
+<<<<<<< HEAD
     padding-bottom: 20px;
     padding-top: 20px;
+=======
+    padding-bottom: 40px;
+    padding-top: 40px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     background: #1f1f28;
 }
 
@@ -5748,6 +5911,7 @@ animation-delay: 10s;
     margin-top: 4px;
 }
 
+
 /* Fix for home page ends here */
 
 /*added by shreyas after 8Feb//////////////////////////////////////*/
@@ -5973,6 +6137,7 @@ a:hover {
 }
 
 .overview .col-md-3.start_date p {
+<<<<<<< HEAD
     font-size: 29px;
 }
 
@@ -5982,6 +6147,13 @@ a:hover {
 
 .testdrive_completionbox p {
     font-family: titanium;
+=======
+    font-size: 32px;
+}
+
+.overview .col-md-3.end_date p {
+    font-size: 32px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .navigation_box a span {
@@ -6010,7 +6182,11 @@ h1.testcase_name {
     font-family: titanium;
 }
 
+<<<<<<< HEAD
 /* .testcase_box .inputMaterial:valid~label {
+=======
+.testcase_box .inputMaterial:valid~label {
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     top: -6px;
     font-size: 18px;
     color: #909090;
@@ -6023,6 +6199,7 @@ h1.testcase_name {
 .error {
     color: red;
 }
+
 
 /*participation_box starts here*/
 
@@ -6058,10 +6235,18 @@ h1.testcase_name {
     height: 100%;
 }
 
+
 /* file uploader */
+
+<<<<<<< HEAD
+/* LIST */
+
+=======
 
 /* LIST */
 
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /* ================== */
 
 .files-dropzone {
@@ -6190,7 +6375,11 @@ h1.testcase_name {
     float: right;
     cursor: pointer;
     background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4IiB3aWR0aD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTM4IDEyLjgzbC0yLjgzLTIuODMtMTEuMTcgMTEuMTctMTEuMTctMTEuMTctMi44MyAyLjgzIDExLjE3IDExLjE3LTExLjE3IDExLjE3IDIuODMgMi44MyAxMS4xNy0xMS4xNyAxMS4xNyAxMS4xNyAyLjgzLTIuODMtMTEuMTctMTEuMTd6Ii8+PHBhdGggZD0iTTAgMGg0OHY0OGgtNDh6IiBmaWxsPSJub25lIi8+PC9zdmc+) no-repeat center center;
+<<<<<<< HEAD
     background-size: 23px 35px;
+=======
+    background-size: 30px 30px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .files-list-item-remove-image {
@@ -6200,7 +6389,23 @@ h1.testcase_name {
     margin-right: 10px;
     float: right;
 }
+<<<<<<< HEAD
 
+/* file uploader ends here */
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
+
+.testdrive-detail_first-time .earn_box span.small,
+.testdrive-detail_first-time .drive_completionbox span.small {
+    position: relative;
+    position: relative;
+    top: 60px;
+    font-family: titanium;
+    font-size: 14px;
+}
+
+<<<<<<< HEAD
+=======
 /* file uploader ends here */
 
 .testdrive-detail_first-time .earn_box span.small,
@@ -6212,6 +6417,7 @@ h1.testcase_name {
     font-size: 14px;
 }
 
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 .col-md-12.earn_box span.small,
 .drive_completionbox span.small {
     position: relative;
@@ -6248,6 +6454,10 @@ h1.testcase_name {
 }
 
 .testdrive_actionbox {
+<<<<<<< HEAD
+=======
+    position: fixed;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     bottom: 0px;
     left: 0px;
     background: #181821;
@@ -6260,8 +6470,13 @@ button {
     min-width: 6em;
     padding: 7px 10px;
     border: none !important;
+<<<<<<< HEAD
     background: none !important;
     background: none !important;
+=======
+    background: none!important;
+    background: none!important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     margin-left: 0px !important;
     font-family: inherit !important;
     font-size: 15px !important;
@@ -6281,7 +6496,11 @@ button {
 
 .sample_text {
     font-family: titanium;
+<<<<<<< HEAD
     font-size: 14px;
+=======
+    font-size: 11px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .participation_actionbox .button {
@@ -6304,8 +6523,13 @@ button {
     min-width: 6em;
     padding: 7px 10px;
     border: none !important;
+<<<<<<< HEAD
     background: none !important;
     background: none !important;
+=======
+    background: none!important;
+    background: none!important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     margin-left: 0px !important;
     font-family: inherit !important;
     font-size: 15px !important;
@@ -6319,6 +6543,10 @@ button {
     border: none;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /*testdrive central style starts here*/
 
 .tdrive_center_box .carousel-control.left {
@@ -6362,7 +6590,11 @@ button {
     font-family: titanium;
     color: #fff;
     padding-left: 10px;
+<<<<<<< HEAD
     font-size: 18px;
+=======
+    font-size: 20px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .testcase_completionbox {
@@ -6370,6 +6602,7 @@ button {
     min-height: 105px;
 }
 
+<<<<<<< HEAD
 .therm .inner-therm {
     background: url(/Style%20Library/Elite/images/guage_2.png) no-repeat !important;
 }
@@ -6379,6 +6612,14 @@ button {
     width: 100%;
     background: url(/Style%20Library/Elite/images/guage_1.png) no-repeat !important;
     margin-left: 40px;
+=======
+#jqmeter-horizontal {
+    background: url(/sites/elite/Style%20Library/Elite/images/guage_1.png) no-repeat !important;
+}
+
+.therm .inner-therm {
+    background: url(/sites/elite/Style%20Library/Elite/images/guage_2.png)no-repeat !important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .progress_drivebox {
@@ -6395,6 +6636,10 @@ button {
 .progress_drivebox .button {
     position: relative;
     top: 21px;
+<<<<<<< HEAD
+=======
+    left: 48px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .progress_drivebox h4 {
@@ -6404,7 +6649,10 @@ button {
     overflow: hidden;
     text-overflow: ellipsis;
     min-height: 20px;
+<<<<<<< HEAD
     cursor: pointer;
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 ul.dragrace_indicator {
@@ -6417,8 +6665,13 @@ ul.dragrace_indicator li {
 }
 
 ul.dragrace_indicator li span {
+<<<<<<< HEAD
     height: 15px;
     width: 15px;
+=======
+    height: 20px;
+    width: 20px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     background: red;
     border-radius: 50%;
     float: left;
@@ -6461,7 +6714,10 @@ ul.dragrace_indicator li span {
 }
 
 .testdrive_I_runbox h4 {
+<<<<<<< HEAD
     color: #fff;
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     margin-bottom: 20px;
     font-size: 24px;
     cursor: pointer;
@@ -6519,16 +6775,25 @@ span.big_text {
 .testdrive_I_runbox .social_box {
     margin-top: 0px;
     position: relative;
+<<<<<<< HEAD
     left: 30px;
+=======
+    right: 48px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .testdrive_I_runbox .social_box a {
     float: left;
+<<<<<<< HEAD
     margin-left: 10px;
+=======
+    margin-left: 19px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .testdrive_I_runbox .social_box a:first-child {
     margin-left: 0px;
+<<<<<<< HEAD
     margin-right: 0px;
 }
 
@@ -6539,6 +6804,18 @@ span.big_text {
 .testdrive_I_runbox ul.dragrace_indicator li span {
     height: 15px !important;
     width: 15px !important;
+=======
+    margin-right: 10px;
+}
+
+.testdrive_I_runbox .social_box a i:hover {
+    color: red;
+}
+
+.testdrive_I_runbox ul.dragrace_indicator li span {
+    height: 20px !important;
+    width: 20px !important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     background: red;
     border-radius: 50%;
     float: left;
@@ -6550,7 +6827,20 @@ ul.streetrace_indicator {
     padding-left: 0px;
 }
 
+<<<<<<< HEAD
 .testdrive_I_runbox ul.streetrace_indicator li {
+=======
+.testdrive_I_runbox ul.streetrace_indicator li span {
+    height: 15px !important;
+    width: 15px !important;
+    background: red;
+    border-radius: 50%;
+    float: left;
+    /* margin-left: 5px; */
+}
+
+.testdrive_I_runbox ul.streetrace_indicator li span {
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     height: 15px !important;
     width: 15px !important;
     background: #f8971d;
@@ -6560,12 +6850,21 @@ ul.streetrace_indicator {
 }
 
 ul.streetrace_indicator li {
+<<<<<<< HEAD
     height: 15px;
     width: 15px;
     background: #f8971d;
     border-radius: 50%;
     float: left;
     margin-right: 5px;
+=======
+    height: 20px;
+    width: 20px;
+    background: #f8971d;
+    border-radius: 50%;
+    float: left;
+    margin-left: 5px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 ul.soapbox_indicator {
@@ -6574,12 +6873,21 @@ ul.soapbox_indicator {
 }
 
 ul.soapbox_indicator li {
+<<<<<<< HEAD
     height: 15px;
     width: 15px;
     background: green;
     border-radius: 50%;
     float: left;
     margin-right: 5px;
+=======
+    height: 20px;
+    width: 20px;
+    background: green;
+    border-radius: 50%;
+    float: left;
+    margin-left: 5px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 ul.streetrace_indicator li span {
@@ -6588,8 +6896,12 @@ ul.streetrace_indicator li span {
 
 .testdrive_I_runbox ul.dragrace_indicator {
     margin-top: 2px;
+<<<<<<< HEAD
     margin-bottom: 2px;
     margin-left: 0px;
+=======
+    margin-bottom: 2px
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .testdrive_I_runbox ul.dragrace_indicator li:first-child span {
@@ -6622,8 +6934,15 @@ ul.streetrace_indicator li span {
     z-index: 100;
 }
 
+<<<<<<< HEAD
 /*testdrive central style ends here*/
 
+=======
+
+/*testdrive central style ends here*/
+
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /*prize style start here*/
 
 .prize_description span.orange {
@@ -6635,12 +6954,18 @@ ul.streetrace_indicator li span {
 
 .prize_description h2 {
     font-size: 45px;
+<<<<<<< HEAD
     color: #fff;
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .prize_description p {
     font-family: titanium;
+<<<<<<< HEAD
     color: #fff;
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .prize_model img {
@@ -6651,6 +6976,10 @@ ul.streetrace_indicator li span {
     animation-direction: alternate;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /* Safari 4.0 - 8.0 */
 
 @-webkit-keyframes prize_rorate {
@@ -6662,6 +6991,10 @@ ul.streetrace_indicator li span {
     }
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /* Standard syntax */
 
 @keyframes prize_rorate {
@@ -6679,6 +7012,10 @@ ul.streetrace_indicator li span {
     font-family: titanium;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /*jssor slider arrow skin 106 css*/
 
 .jssora106 {
@@ -6720,6 +7057,10 @@ ul.streetrace_indicator li span {
     pointer-events: none;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /*jssor slider thumbnail skin 101 css*/
 
 .jssort101 .p {
@@ -6788,11 +7129,18 @@ ul.streetrace_indicator li span {
     position: absolute;
     top: 0;
     left: 30px;
+<<<<<<< HEAD
     width: 85%;
     height: 83%;
     border: none;
     opacity: .6;
     cursor: pointer;
+=======
+    width: 70%;
+    height: 83%;
+    border: none;
+    opacity: .6;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .jssort101 .pav .t,
@@ -6803,6 +7151,7 @@ ul.streetrace_indicator li span {
 .jssort101 {
     height: 130px !important;
     position: relative;
+<<<<<<< HEAD
     background: none !important;
     margin-top: -190px;
     height: 30px !important;
@@ -6811,6 +7160,11 @@ ul.streetrace_indicator li span {
 
 .jssort101 div {
     height: 90px !important;
+=======
+    z-index: 90;
+    background: none !important;
+    margin-top: -242px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .ride_staus {
@@ -6824,6 +7178,7 @@ ul.streetrace_indicator li span {
 }
 
 img.car_bigview {
+<<<<<<< HEAD
     width: 66%;
     margin-left: 17%;
     margin-top: 47px;
@@ -6833,6 +7188,10 @@ img.car_bigview {
     color: #fff;
     font-size: 35px;
     margin-top: 65px;
+=======
+    width: 77%;
+    margin-left: 10%;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .jssort101 .p {
@@ -6892,6 +7251,7 @@ img.car_bigview {
     z-index: 50
 }
 
+<<<<<<< HEAD
 /*  Added by Swapnil  */
 
 .locked_ride img {
@@ -6935,6 +7295,13 @@ div.car_Container img {
 
 .jsTop {
     /* position: absolute; */
+=======
+
+/*  Added by Swapnil  */
+
+.jsTop {
+    position: absolute;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     top: 0px;
     left: 0px;
     width: 100%;
@@ -6971,6 +7338,7 @@ div.car_Container img {
 }
 
 .jsOffset {
+<<<<<<< HEAD
     height: 23px;
     /* background: red; */
     position: absolute;
@@ -6978,6 +7346,12 @@ div.car_Container img {
     left: -19px;
     color: white;
     text-transform: uppercase;
+=======
+    height: 50px;
+    background: red;
+    position: relative;
+    /*top: 450px;*/
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .jsArrowLeft {
@@ -7027,10 +7401,17 @@ div.car_Container img {
 }
 
 .intro_actionbox.testdrive_actionbox {
+<<<<<<< HEAD
     position: absolute;
     /* bottom: 40px; */
     left: 58px;
     background: none !important;
+=======
+    position: fixed;
+    bottom: 40px;
+    left: 0px;
+    background: none!important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .intro_actionbox.testdrive_actionbox input[type=button],
@@ -7040,8 +7421,13 @@ button {
     min-width: 6em;
     padding: 7px 10px;
     border: none !important;
+<<<<<<< HEAD
     background: none !important;
     background: none !important;
+=======
+    background: none!important;
+    background: none!important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     margin-left: 0px !important;
     font-family: inherit !important;
     font-size: 24px !important;
@@ -7053,10 +7439,17 @@ button {
 
 .red_box.red-box-container {
     height: 50px !important;
+<<<<<<< HEAD
     margin-top: -75px !important;
     width: 25% !important;
     position: absolute !important;
     left: -72px !important;
+=======
+    margin-top: -33px!important;
+    width: 25%!important;
+    position: absolute!important;
+    left: -72px!important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .bar {
@@ -7065,21 +7458,34 @@ button {
     animation: equalize 1.25s steps(25, end) 3s infinite;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /*my ride styeles starts here*/
 
 .outer_ride img {
     position: absolute;
     left: 123px;
+<<<<<<< HEAD
     top: 23px;
     -webkit-animation: rotate 30s infinite;
     -ms-animation: rotation 30s infinite;
+=======
+    top: -21px;
+    -webkit-animation: rotate 30s infinite;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     animation-play-state: running;
 }
 
 .ride_ring img {
     position: absolute;
     left: 138px;
+<<<<<<< HEAD
     top: 36px;
+=======
+    top: -9px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     -webkit-animation: rotate 5s infinite;
     animation-direction: reverse;
 }
@@ -7093,7 +7499,11 @@ p.next-text.go_text {
 .ride_image img {
     position: relative;
     left: 168px;
+<<<<<<< HEAD
     top: 58px;
+=======
+    bottom: 34px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 @-webkit-keyframes rotate {
@@ -7127,7 +7537,11 @@ p.next-text.go_text {
     border-bottom: solid;
     margin-top: 200px;
     margin-left: 73px;
+<<<<<<< HEAD
     background: url('/Style%20Library/Elite/images/track.png') no-repeat;
+=======
+    background: url(http://intranet.spdev.equinix.com/sites/elite/Style%20Library/Elite/images/track.png) no-repeat;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     border: none;
 }
 
@@ -7150,7 +7564,11 @@ p.go {
 
 .shoping_cartbox {
     position: absolute;
+<<<<<<< HEAD
     top: 37%;
+=======
+    top: 220px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     left: 224px;
 }
 
@@ -7160,6 +7578,7 @@ p.go {
 
 .count_box.current_ridename {
     width: 500px;
+<<<<<<< HEAD
     position: absolute;
     left: 255px;
     top: 36px;
@@ -7171,6 +7590,17 @@ p.go {
     bottom: 0px;
     left: 0px;
     background: none !important;
+=======
+    margin-left: 250px;
+    margin-top: -7px;
+}
+
+.col-md-12.intro_actionbox.testdrive_actionbox.new_ride {
+    position: fixed;
+    bottom: -123px;
+    left: -57px;
+    background: none!important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 a {
@@ -7178,15 +7608,23 @@ a {
 }
 
 .col-md-12.intro_actionbox.testdrive_actionbox.betterride_box {
+<<<<<<< HEAD
     position: absolute;
     bottom: -186px;
     left: 70px;
     background: none !important;
+=======
+    position: fixed;
+    bottom: -123px;
+    left: 0px;
+    background: none!important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .stroller_ridebox {
     position: absolute;
     top: 222px;
+<<<<<<< HEAD
     left: 230px;
 }
 
@@ -7198,6 +7636,17 @@ a {
 
 .red_text {
     color: #ee1d23;
+=======
+    left: 223px;
+}
+
+.stroller_ridebox img {
+    height: 250px;
+}
+
+.red_text {
+    color: red !important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .currentride_text {
@@ -7210,7 +7659,10 @@ a.more {
     padding-top: 0px;
     color: #ff0000;
     margin-top: 0px;
+<<<<<<< HEAD
     float: left;
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .point_board h3 {
@@ -7223,10 +7675,14 @@ a.more {
 
 p.my_allpoints {
     text-align: center;
+<<<<<<< HEAD
 }
 
 .therm.inner-therm span {
     display: none !important;
+=======
+    margin-top: 30px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 span.orange.big {
@@ -7238,6 +7694,10 @@ span.orange.big {
     margin-bottom: 0px !important;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /*my ride styles ends here*/
 
 @media screen and (min-width: 1280px) {
@@ -7250,8 +7710,12 @@ span.orange.big {
         height: 100vh;
         -webkit-transform: opacity 0.3s linear;
         transform: opacity 0.3s linear;
+<<<<<<< HEAD
         -ms-transform: opacity 0.3s linear;
         background: url('/Style%20Library/Elite/images/dash_back_big.jpg') bottom center no-repeat !important;
+=======
+        background: url('/sites/elite/Style%20Library/Elite/images/dash_back_big.jpg') no-repeat !important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         width: 100%;
         height: auto;
         width: 100%;
@@ -7263,7 +7727,11 @@ span.orange.big {
     }
     a#link1 {
         position: absolute;
+<<<<<<< HEAD
         left: 33% !important;
+=======
+        left: 33%!important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         color: red;
         font-family: titanium;
         text-decoration: none;
@@ -7318,13 +7786,19 @@ span.orange.big {
     .map_container {
         width: 86%;
         float: left;
+<<<<<<< HEAD
         /* margin-left: 154px !important;*/
         margin-top: 0px;
+=======
+        /* margin-left: 154px !important;
+        margin-top: 42px; */
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         position: relative;
         left: 10%;
     }
     img.map_image {
         width: 86%;
+<<<<<<< HEAD
         height: 100%;
     }
     .line_box {
@@ -7341,12 +7815,38 @@ span.orange.big {
     }
     .player_box {
         display: inline-block;
+=======
+    }
+    .line_box {
+        background: url(/sites/elite/Style%20Library/Elite/images/line.png) no-repeat;
+        width: 100%;
+        background-size: contain;
+        margin-top: -135px;
+        /* height: 145px !important; */
+    }
+    .overall_box {
+        margin-top: 48px;
+        position: relative!important;
+        top: -35px !important;
+    }
+    .player_box {
+        width: 30%;
+        margin: 0 auto;
+        height: 50px;
+        position: relative;
+        text-align: center;
+        word-break: break-word;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
     .skills_heading {
         position: relative;
         font-size: 35px;
         top: 103px;
+<<<<<<< HEAD
         width: 100%;
+=======
+        width: 70%;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
     .leader_name {
         height: 50px;
@@ -7372,6 +7872,7 @@ span.orange.big {
         z-index: 99;
         text-align: center;
     }
+<<<<<<< HEAD
     .increase_or_decreased {
         /* position: absolute;
         left: 51px; */
@@ -7396,6 +7897,34 @@ span.orange.big {
         margin-top: 8px;
     }
     .testd_count {
+=======
+    span.increase_or_decreased {
+        position: absolute;
+        left: 51px;
+        font-size: 25px;
+    }
+    .testd_box {
+        position: relative;
+    }
+    .testd_box span.glyphicon-triangle-top {
+        font-size: 16px;
+        color: green;
+        left: 46px;
+        position: absolute;
+        top: 11px;
+    }
+    span.testd_count {
+        background: red;
+        padding: 5px;
+        margin-right: 7px;
+        /* border-radius: 5px; */
+        padding-right: 8px;
+        font-size: 19px;
+        color: #fff;
+        padding-left: 9px;
+    }
+    span.testd_count {
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         background: red;
         padding: 5px;
         margin-right: 7px;
@@ -7404,6 +7933,7 @@ span.orange.big {
         font-size: 19px;
         color: #fff;
         padding-left: 8px;
+<<<<<<< HEAD
         float: left;
         height: 33px;
         transform: skewX(-20deg);
@@ -7414,6 +7944,19 @@ span.orange.big {
     .letest_driveboxclick {
         position: absolute;
         left: 124% !important;
+=======
+        position: absolute;
+        float: left;
+        height: 33px;
+        transform: skewX(-20deg);
+        position: absolute;
+        left: 9px;
+        z-index: 99;
+    }
+    .letest_driveboxclick {
+        position: absolute;
+        left: 130% !important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         display: block;
         transition: 0.5s;
         width: 450px;
@@ -7438,7 +7981,11 @@ span.orange.big {
     }
     .letest_driveboxclick_right {
         position: absolute;
+<<<<<<< HEAD
         right: 125% !important;
+=======
+        right: 118% !important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         transition: 0.5s;
         width: 450px;
         opacity: 1;
@@ -7447,8 +7994,13 @@ span.orange.big {
         display: block;
     }
     .test_drive {
+<<<<<<< HEAD
         margin-top: 10px;
         min-height: 70px;
+=======
+        margin-bottom: 5px;
+        height: 76px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
     .black_box.black_box_left.pull-left {
         z-index: 1;
@@ -7467,12 +8019,16 @@ span.orange.big {
     }
     .container.big_leaderbox .leader_listbox .leader_rank {
         width: 6% !important;
+<<<<<<< HEAD
         padding-top:20px;
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
     .container.big_leaderbox .leader_listbox .leader_rank.my_rank {
         background: #004b8d;
     }
     .container.big_leaderbox .leader_listbox .leader_rank span {
+<<<<<<< HEAD
         transform: skewX(25deg) !important;
         color: white;
         /* position: absolute; */
@@ -7480,6 +8036,18 @@ span.orange.big {
         /* left: 6px; */
         font-size: 18px;
         /* padding-left: 16px !important; */
+=======
+        -webkit-transform: skewX(25deg) !important;
+        color: white;
+        position: absolute;
+        box-sizing: border-box;
+        -moz-transform: skewX(45deg);
+        -ms-transform: skewX(45deg);
+        -webkit-transform: skewX(45deg);
+        left: 6px;
+        font-size: 23px;
+        padding-left: 16px !important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         top: 17px;
     }
     .location_box {
@@ -7499,6 +8067,7 @@ span.orange.big {
         font-size: 14px;
     }
     /* extra added */
+<<<<<<< HEAD
     .nav>li>a:focus {
         background: none;
         outline: none;
@@ -7518,10 +8087,24 @@ span.orange.big {
     float: left;
     /* margin-left: 10px; */
     margin-top: 19px;
+=======
+    span.increase_num {
+        position: absolute;
+        left: 59px;
+        font-size: 15px;
+        top: 5px;
+        color: green;
+    }
+    .outof_count {
+        position: absolute;
+        left: 55px;
+        top: 18px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
     .profile_overviewbox .testd_box {
         position: relative;
         height: 65px;
+<<<<<<< HEAD
         left: -0px;
         bottom: 5px;
     }
@@ -7533,6 +8116,22 @@ span.orange.big {
         /* top: 11px; */
     }
     .testdrive_actionbox .back_btn {}
+=======
+        left: -15px;
+        bottom: 5px;
+    }
+    .profile_overviewbox .testd_box span.glyphicon-triangle-top {
+        font-size: 9px;
+        color: green;
+        left: 49px;
+        position: absolute;
+        top: 11px;
+    }
+    .testdrive_actionbox .back_btn {
+        position: relative;
+        left: 154px;
+    }
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     .rdw-image-modal-upload-option {
         width: 100%;
         color: gray;
@@ -7549,7 +8148,11 @@ span.orange.big {
         padding: 9px 0;
         word-wrap: break-word;
         word-break: break-all;
+<<<<<<< HEAD
         padding: 17px 23px 10px 1px !important;
+=======
+        padding: 20px 11px 10px 1px !important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
     .popup_infocontainer li.select2-selection__choice {
         margin-bottom: 10px;
@@ -7558,6 +8161,7 @@ span.orange.big {
         font-family: titanium;
         color: #fff;
     }
+<<<<<<< HEAD
     .player_name {
         display: inline-block;
         margin-left: 20px;
@@ -7906,12 +8510,22 @@ a.present_ride img {
 
 span.s4-clust {
     margin-left: -20px !important;
+=======
+}
+
+span.s4-clust {
+    margin-left: -20px!important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 a {
     cursor: pointer !important;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /*testdrive central styling starts here*/
 
 .testDrives .nav-tabs {
@@ -7923,9 +8537,15 @@ a {
 }
 
 .testDrives .nav-tabs>li>a {
+<<<<<<< HEAD
     color: #ffffff63;
     border: none;
     font-size: 16px;
+=======
+    color: #505050;
+    border: none;
+    font-size: 17px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     text-transform: uppercase;
 }
 
@@ -7934,7 +8554,11 @@ a {
     border: none;
     color: #ff8d00;
     font-weight: bold;
+<<<<<<< HEAD
     font-size: 16px;
+=======
+    font-size: 18px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     text-transform: uppercase;
 }
 
@@ -7943,6 +8567,7 @@ a {
     margin-bottom: 30px;
 }
 
+<<<<<<< HEAD
 ul.dragrace_indicator {
     margin: 0 0 0 5px;
 }
@@ -7974,6 +8599,29 @@ ul.soapbox_indicator {
     position: relative !important;
     right: 365px !important;
     /* bottom: -249px; */
+=======
+.total_testdrivebox .tab-pane ul.nav-tabs li a {
+    font-size: 14px !important;
+}
+
+.total_testdrivebox .nav-tabs>li {
+    margin-right: 30px;
+}
+
+
+/*testdrive central styling ends here*/
+
+
+/*my ride styles ends here*/
+
+
+/* Css for pop up */
+
+.letsgo {
+    position: absolute !important;
+    right: 380px !important;
+    bottom: -152px;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }
 
 .mm-popup {
@@ -8043,6 +8691,10 @@ h1.title:before {
     margin: 0;
     line-height: 32px;
     height: 32px;
+<<<<<<< HEAD
+=======
+    border: 1px solid #666 !important;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     text-align: center;
     display: inline-block;
     font-size: 12px;
@@ -8182,8 +8834,15 @@ h1.title:before {
     }
 }
 
+<<<<<<< HEAD
 /* Pop up css ends here */
 
+=======
+
+/* Pop up css ends here */
+
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /*attachment feature style in creation of testdrive starts here */
 
 .rdw-link-modal {
@@ -8207,6 +8866,10 @@ h1.title:before {
     width: 100%;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /*attachment feature style in creation of testdrive ends here */
 
 .black_box_left .nav-tabs,
@@ -8239,6 +8902,10 @@ h1.title:before {
     width: 103px;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 /* 
 #carousel-example-vertical .carousel-indicators{
     background: none;
@@ -8282,6 +8949,7 @@ h1.title:before {
     margin-left: -30%;
     text-align: center;
     list-style: none;
+<<<<<<< HEAD
 }
 
 span.clsRemainingLength {
@@ -8447,4 +9115,6 @@ button:disabled {
 
 .button-container a {
     margin-right: 20px !important;
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 }

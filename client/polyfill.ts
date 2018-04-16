@@ -14,7 +14,6 @@ import 'core-js/es6/math';
 import 'core-js/es6/date';
 import 'core-js/es6/array';
 import 'core-js/es6/regexp';
-import 'core-js/es7/array';
 
 require('es6-promise/auto');
 

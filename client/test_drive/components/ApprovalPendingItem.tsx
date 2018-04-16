@@ -20,7 +20,11 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
         return (<div className="col-md-12 currtestdrive_list testdrive_I_runbox">
             <div className="row">
                 <div className="col-md-12">
+<<<<<<< HEAD
                 <Link to={'/participation/' + testDrive.id}><h4>{testDrive.title}</h4></Link>
+=======
+                    <h4>{testDrive.title}</h4>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                 </div>
                 <div className="col-md-12">
                     <div className="row">
@@ -63,9 +67,17 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="row inforow">
+<<<<<<< HEAD
                                         
                                         <span className="orange">Difficulty Level:</span>
                                                
+=======
+                                            <div className="col-md-12">
+                                                <div className="row">
+                                                    <span className="orange">Difficulty Level:</span>
+                                                </div>
+                                            </div>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                         </div>
                                     </div>
                                     <div className="col-md-12">
@@ -74,11 +86,22 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                                 <div className="row">
                                                     <div className="col-md-12">
                                                         <div className="row">
+<<<<<<< HEAD
                                                             <ul className="dragrace_indicator" dangerouslySetInnerHTML={{__html: Services.getLevelHtml(testDrive.levelNumber)}}>
                                                             </ul>
                                                         </div>
                                                         <div className="row">
                                                             <h5 className="race_neme">{testDrive.levelName}</h5>
+=======
+                                                            <ul className={Services.getLevelNameClass(testDrive.levelNumber)}>
+                                                                <li><span></span></li>
+                                                                <li><span></span></li>
+                                                                <li><span></span></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="row">
+                                                            <h5 className="race_neme">{testDrive.level}</h5>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                                         </div>
                                                     </div>
                                                 </div>
@@ -152,7 +175,11 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                             </div>
                                         </div>
                                     </div>
+<<<<<<< HEAD
                                     <div className="col-md-12  enddate_line">
+=======
+                                    <div className="col-md-12">
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                         <div className="row inforow">
                                             <div className="col-md-12">
                                                 <div className="row">
@@ -183,6 +210,7 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                         </div>
 
 
+<<<<<<< HEAD
                         <div className="col-md-1" style={{marginLeft:"27px",marginTop:"10px"}}>
                         
                         <div className="row social_box" style={{position:"relative",right:"-60px"}}>
@@ -192,6 +220,17 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                     {/* <Link to={"/testdrive/" + testDrive.id}>
                                         <i className="material-icons">remove_red_eye</i>
                                     </Link> */}
+=======
+                        <div className="col-md-1" style={{marginLeft:"55px;"}}>
+                        
+                        <div className="row social_box" style={{position:"relative",right:"-60px"}}>
+{/*<Link to={"/testdrive/" + testDrive.id}>
+                                        <i className="material-icons">mode_edit</i>
+                                </Link>*/}
+                                    <Link to={"/testdrive/" + testDrive.id}>
+                                        <i className="material-icons">remove_red_eye</i>
+                                    </Link>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                             </div>
                         </div>
                     </div>

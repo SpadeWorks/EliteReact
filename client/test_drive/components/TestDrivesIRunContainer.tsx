@@ -12,21 +12,27 @@ import {
     deleteTestDrive
 } from '../index';
 import TestDrivesIRunUpcommingItem from './TestDrivesIRunUpcommingItem';
+<<<<<<< HEAD
 import TestDrivesIRunCompletedItem from './TestDrivesIRunCompletedItem';
 import { Messages } from '../../common/services/constants';
 import Services from '../../common/services/services';
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 
 interface TestDrivesIRunContainerProps {
     upcommingTestDrivesIRun: TestDrive[]
     upcommingTestDrivesIRunLoading: boolean;
     draftedTestDrivesIRun: TestDrive[];
     draftedTestDrivesIRunLoading: boolean;
+<<<<<<< HEAD
     inProgressTestDrivesIRun: TestDrive[];
     inProgressTestDrivesIRunLoading: boolean;
     completedTestDrivesIRun: TestDrive[];
     completedTestDrivesIRunLoading: boolean;
     loadInProgressTestDrivesIRun: (skip: number, top: number) => any;
     loadCompletedTestDrivesIRun: (skp: number, top: number) => any;
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     loadUpcommingTestDrivesIRun: (skip: number, top: number) => any;
     loadDraftedTestDrivesIRun: (skip: number, top: number) => any;
     updateUI: (any) => any;
@@ -39,6 +45,7 @@ interface TestDrivesIRunContainerProps {
         total: 11,
         draftedItemCurrent: 0,
         upcommingItemCurrent: 0,
+<<<<<<< HEAD
         inprogressItemCurrent: 0,
         completedItemsCurrent: 0,
         draftedItems: [],
@@ -55,6 +62,12 @@ interface TestDrivesIRunContainerProps {
         inProgressTestDrivesIRunLoading: false,
         completedTestDrivesIRun: [],
         completedTestDrivesIRunLoading: false
+=======
+        draftedItems: [],
+        upcommingItems: [],
+        visiblePages: 4,
+        visibleItems: []
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 })
 class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerProps> {
@@ -63,6 +76,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
     }
 
     componentDidMount() {
+<<<<<<< HEAD
         var self = this;
         this.props.updateUI({
             upcommingTestDrivesIRunLoading: true,
@@ -101,6 +115,10 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
             });
             this.initialize();
         });
+=======
+        this.props.loadUpcommingTestDrivesIRun(0, 100);
+        this.props.loadDraftedTestDrivesIRun(0, 100);
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 
     getVisibleItems(newPage: number, array: any[], visibleItems: string, currentPage: string) {
@@ -111,6 +129,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
         });
     }
 
+<<<<<<< HEAD
     initialize() {
         const {
             ui, updateUI,
@@ -131,11 +150,27 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
             var currentPage = ui.upcommingItemCurrent;
             if (ui.upcommingItems.length < ui.upcommingItems * ui.itemsPerPage) {
                 currentPage = currentPage - 1;
+=======
+    render() {
+        const {
+            ui, updateUI,
+            upcommingTestDrivesIRun,
+            upcommingTestDrivesIRunLoading,
+            draftedTestDrivesIRun,
+            draftedTestDrivesIRunLoading
+        } = this.props;
+
+        if (!upcommingTestDrivesIRunLoading && upcommingTestDrivesIRun && upcommingTestDrivesIRun.length && !ui.upcommingItems.length) {
+            var currentPage = ui.upcommingItemCurrent;
+            if(ui.upcommingItems.length < ui.upcommingItemCurrent * ui.itemsPerPage ){
+                currentPage = currentPage - 1;      
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
             }
             this.getVisibleItems(currentPage, upcommingTestDrivesIRun, 'upcommingItems', 'upcommingItemCurrent');
         }
         if (!draftedTestDrivesIRunLoading && draftedTestDrivesIRun && draftedTestDrivesIRun.length && !ui.draftedItems.length) {
             var currentPage = ui.draftedItemCurrent;
+<<<<<<< HEAD
             if (ui.draftedItemCurrent.length < ui.draftedItemCurrent * ui.itemsPerPage) {
                 currentPage = currentPage - 1;
             }
@@ -223,16 +258,43 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                     </Pane>
 
 
+=======
+            if(ui.draftedItems.length < ui.draftedItemCurrent * ui.itemsPerPage ){
+                currentPage = currentPage - 1;      
+            }
+            this.getVisibleItems(currentPage, draftedTestDrivesIRun, 'draftedItems', 'draftedItemCurrent');
+        }
+        
+
+
+        return (
+            <div>
+                <div className="centralbox_button">
+               <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                    <Link to={"/testdrive"} >Create Test Drive</Link>
+                </div>
+                </div>
+                <Tabs selected={0}>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                     <Pane label="UPCOMING TEST DRIVES">
                         <div>
                             <Loader show={upcommingTestDrivesIRunLoading} message={'Loading...'}>
                                 {
+<<<<<<< HEAD
                                     (!upcommingTestDrivesIRunLoading && ui.upcommingItems && ui.upcommingItems.length) ?
                                         ui.upcommingItems.map((testDriveObj, index) => {
                                             return (<TestDrivesIRunUpcommingItem
                                                 key={index}
                                                 testDrive={testDriveObj.testDrive} />)
                                         }) : (!upcommingTestDrivesIRunLoading && <div className="no-data-message">{Messages.TEST_DRIVE_UPCOMING_MSG}</div>)
+=======
+                                    (ui.upcommingItems && ui.upcommingItems.length) ?
+                                        ui.upcommingItems.map((testDriveObj, index) => {
+                                            return (<TestDrivesIRunUpcommingItem
+                                                key={index}
+                                                testDrive={testDriveObj.testDrive}/>)
+                                        }) : (!upcommingTestDrivesIRunLoading && 'There are no items waiting for approval.')
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                 }
                                 {
                                     ui.upcommingItems && ui.upcommingItems.length > 0 &&
@@ -249,6 +311,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                             </Loader>
                         </div>
                     </Pane>
+<<<<<<< HEAD
                     <Pane label="COMPLETED TEST DRIVES">
                         <div>
                             <Loader show={completedTestDrivesIRunLoading} message={'Loading...'}>
@@ -276,10 +339,13 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                             </Loader>
                         </div>
                     </Pane>
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                     <Pane label="DRAFTED TEST DRIVES">
                         <div>
                             <Loader show={draftedTestDrivesIRunLoading} message={'Loading...'}>
                                 {
+<<<<<<< HEAD
                                     (!draftedTestDrivesIRunLoading && ui.draftedItems && ui.draftedItems.length) ?
                                         ui.draftedItems.map((testDriveObj, index) => {
                                             return (<TestDrivesIRunUpcommingItem
@@ -289,6 +355,17 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                                 }
                                 {
                                     !draftedTestDrivesIRunLoading && ui.draftedItems && ui.draftedItems.length > 0 &&
+=======
+                                    (ui.draftedItems && ui.draftedItems.length) ?
+                                        ui.draftedItems.map((testDriveObj, index) => {
+                                            return (<TestDrivesIRunUpcommingItem
+                                                key={index}
+                                                testDrive={testDriveObj.testDrive}/>)
+                                        }) : (!draftedTestDrivesIRunLoading && 'There are no items in this view.')
+                                }
+                                {
+                                    ui.draftedItems && ui.draftedItems.length > 0 &&
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                     <Pager
                                         total={Math.ceil(draftedTestDrivesIRun.length / ui.itemsPerPage)}
                                         current={ui.draftedItemCurrent}

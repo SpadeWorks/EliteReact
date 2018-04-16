@@ -10,7 +10,10 @@ import { Link } from "react-router-dom";
 import { Tabs, Pane } from '../../common/components/Tabs';
 import Service from '../../common/services/services';
 import * as Constants from '../../common/services/constants';
+<<<<<<< HEAD
 import * as $ from 'jquery';
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 
 import {
   ApprovalPendingContainer,
@@ -38,7 +41,10 @@ import {
 
 import ActiveTestDrivesContainer from '../../test_drive/components/ActiveTestDrivesContainer';
 import UpCommingTestdrivesContainer from '../../test_drive/components/UpCommingTestdrivesContainer';
+<<<<<<< HEAD
 import Services from '../../common/services/data_service';
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 
 interface AppProps {
   testDriveState: model.IState;
@@ -73,9 +79,13 @@ interface AppProps {
 }
 @ui({
   state: {
+<<<<<<< HEAD
     activeTab: 0,
     isCreaseTestDriveVisible: false,
     testDriveCarImage:""
+=======
+    activeTab: 0
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
   }
 })
 
@@ -87,6 +97,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
   componentDidMount() {
     document.body.className = "black-bg";
     this.props.dispatch(loadTestDrives(services.getCurrentUserID()));
+<<<<<<< HEAD
 
     $(document).ready(function () {
       $(".total_testdrivebox ul:first li:first-child").click(function () {
@@ -109,6 +120,8 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
         $(".car_box ").attr('class', 'car_box fifth_place');
       });
     });
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
   }
 
   getSelectedTab() {
@@ -118,11 +131,17 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
       case 'testdrivethatirun':
         return 1;
       case 'activetestdrive':
+<<<<<<< HEAD
         return 3;
       case 'uptestdrive':
         return 2;
       case 'pendingapprovals':
         return 4;
+=======
+        return 2;
+      case 'uptestdrive':
+        return 3;
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
   }
 
@@ -155,6 +174,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
       ui
     } = this.props;
 
+<<<<<<< HEAD
     let userProfileProperty = Service.getUserProfileProperties();
 
     const role = userProfileProperty.role;    
@@ -171,26 +191,47 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
     const isApprover = (role == "Site Owner")
 
     this.props.updateUI({ isCreaseTestDriveVisible: isTestDriveIRunVisible })
+=======
+    const role = Service.getUserProfileProperties().role;
+    const isTestDriveIRunVisible = (role == "Test Drive Owner" ||
+      role == "Site Owner");
+    const isApprover = (role == "Site Owner")
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     return (
       <div className="testDrives container">
         <div>
 
           <div className="container header_part">
+<<<<<<< HEAD
             <h2 className="header_prevlink"> <Link to={"/"} >
               <span className="glyphicon glyphicon-menu-left" aria-hidden="true">
               </span> Test Drive Center</Link>
             </h2>
             <h4 className="cancel-btn"><Link to={"/"}>CANCEL</Link></h4>
+=======
+            <h2> <Link to={"/"} >
+              <span className="glyphicon glyphicon-menu-left" aria-hidden="true">
+              </span> Test Drives</Link>
+            </h2>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
           </div>
 
           <div className="clearBoth"></div>
           <div className="col-md-12 total_testdrivebox">
+<<<<<<< HEAD
             <div className="car_box first_place">
               <img src={ui.testDriveCarImage} style={{height:'45px'}}/>
             </div>
             <div className="row">
               <div className="well">
 
+=======
+            <div className="car_box">
+              <img src="/sites/elite/Style%20Library/Elite/images/car.png" />
+            </div>
+            <div className="row">
+              <div className="well">
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                 <Tabs selected={this.getSelectedTab()}>
                   <Pane label="MY TEST DRIVES">
                     <MyTestDrivesContainer
@@ -211,6 +252,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                         draftedTestDrivesIRunLoading={draftedTestDrivesIRunLoading}
                         upcommingTestDrivesIRun={upcommingTestDrivesIRun}
                         upcommingTestDrivesIRunLoading={upcommingTestDrivesIRunLoading}
+<<<<<<< HEAD
                         inProgressTestDrivesIRun={inProgressTestDrivesIRun}
                         inProgressTestDrivesIRunLoading={inProgressTestDrivesIRunLoading}
                         completedTestDrivesIRunLoading={completedTestDrivesIRunLoading}
@@ -219,12 +261,20 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                         loadDraftedTestDrivesIRun={(skip, top) => dispatch(loadDraftedTestDrivesIRun(skip, top))}
                         loadInProgressTestDrivesIRun={(skip, top) => dispatch(loadInProgressTestDrivesIRun(skip, top))}
                         loadCompletedTestDrivesIRun={(skip, top) => dispatch(loadCompletedTestDrivesIRun(skip, top))}
+=======
+                        loadUpcommingTestDrivesIRun={(skip, top) => dispatch(loadUpcommingTestDrivesIRun(skip, top))}
+                        loadDraftedTestDrivesIRun={(skip, top) => dispatch(loadDraftedTestDrivesIRun(skip, top))}
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                         ui={ui}
                         updateUI={updateUI}
                       />
                     </Pane> : ''
                   }
+<<<<<<< HEAD
 
+=======
+                  
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                   <Pane label="Upcoming Test Drive">
                     <UpCommingTestdrivesContainer
                       upCommingTestDrives={upCommingTestDrives}
@@ -234,7 +284,11 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                       updateUI={updateUI} />
                   </Pane>
 
+<<<<<<< HEAD
                   <Pane label="Active Test Drives">
+=======
+                  <Pane label="Active Test Drive">
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                     <ActiveTestDrivesContainer
                       activeTestDrives={activeTestDrives}
                       activeTestDrivesLoading={activeTestDrivesLoading}
@@ -242,7 +296,11 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                       ui={ui}
                       updateUI={updateUI} />
                   </Pane>
+<<<<<<< HEAD
 
+=======
+                  
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                   {
                     isApprover ? <Pane label="PENDING APPROVALS">
                       <ApprovalPendingContainer
@@ -261,7 +319,10 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                   }
                 </Tabs>
               </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
             </div>
           </div>
         </div>

@@ -8,11 +8,16 @@ import * as $ from 'jquery';
 import { validateControl, required, validateForm } from '../../common/components/Validations';
 import Files from 'react-files';
 import Loader from 'react-loader-advanced';
+<<<<<<< HEAD
 import Popup from '../../common/components/Popups';
 import { ToastContainer, toast } from 'react-toastify';
 import { Messages } from '../../common/services/constants';
 import Promise from "ts-promise";
 
+=======
+import Popup from 'react-popup';
+import { ToastContainer, toast } from 'react-toastify';
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 interface TestCaseFormProps {
     showSubmitPopUp: () => any;
     testDriveInstance: TestDriveInstance;
@@ -60,7 +65,7 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         })
 
         if (duplicateFiles.length) {
-            alert("Files with following names are alredy attached:" + '\n' + duplicateFiles.join(', '));
+            Popup.alert("Files with following names are alredy attached:" + '\n' + duplicateFiles.join(', '));
         } else {
             this.props.updateUI({
                 files: files
@@ -101,11 +106,16 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
             toast.success("Test Case Response Saved Successfully!");
             $('#carousel-example-vertical').carousel('next');
         } else {
+<<<<<<< HEAD
             //Popup.alert(Constants.Messages.ERROR_IN_FORM);
+=======
+            Popup.alert(Constants.Messages.ERROR_IN_FORM);
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         }
     }
 
     submitTestCaseResponse(testCase: TestCaseInstance, index) {
+<<<<<<< HEAD
         var isFormValid = validateForm('test-case-form' + index);
         if (isFormValid && this.props.ui.selectedResponse !== Constants.ColumnsValues.INPROGRESS) {
             this.props.updateUI({ loading: true });
@@ -127,6 +137,9 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
         } else {
             this.saveTestCaseResponse(testCase, index);
         }
+=======
+        this.props.submitTestDriveInstance(this.props.testDriveInstance);
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         // this.props.updateUI({ showSurveyPopUp: true })
         // $('#test-drive-completion-btn').trigger('click');
     }
@@ -144,6 +157,8 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
             .css({ "position": "fixed", "right": "0px", "height": "100%", "transition": "0.5s" });
     }
 
+
+
     render() {
         const { testCase, active, saveTestCaseResponse, ui, updateUI, index, testDriveInstance, isLast } = this.props;
         return (
@@ -158,12 +173,21 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                     <p>{testCase.description && testCase.description.length > 200 ?
                                         testCase.description.slice(0, 200) + '...   ' : testCase.description}
                                         {testCase.description && testCase.description.length > 200 ?
+<<<<<<< HEAD
                                             <a href="javascript:;" onClick={() => this.openPopUp(index)}>
                                                 <span className="read-more">Read more</span>
                                             </a> : ''}</p>
                                     <a href="javascript:;" onClick={() => this.openPopUp(index)}> <span className="red">
                                         <img src="/Style%20Library/Elite/images//i.png" />
                                         Show me all test case details</span>
+=======
+                                            <a href="javascript:void(0);" onClick={() => this.openPopUp(index)}>
+                                                <span className="read-more">Read more</span>
+                                        </a> : ''}</p>
+                                    <a href="javascript:void(0);" onClick={() => this.openPopUp(index)}> <span className="red">
+                                        <img src="/sites/elite/Style%20Library/Elite/images//i.png" />
+                                        Guide me to solve this test case</span>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                     </a>
                                     <h4 className="testcase_title ">Select the test case status *</h4>
                                     <div className="row ">
@@ -255,6 +279,14 @@ class TestCaseForm extends React.Component<TestCaseFormProps> {
                                                 </div>
 
                                             </div>
+<<<<<<< HEAD
+=======
+                                            <div className="col-md-12 participation_actionbox">
+                                                <div className="button type1 nextBtn btn-lg pull-left animated_button">
+                                                    <input type="button" value="Save" onClick={() => this.saveTestCaseResponse(testCase, index)} />
+                                                </div>
+                                            </div>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 
                                             <div className="col-md-12 participation_actionbox pull-right">
                                                 <div className="button type1 nextBtn btn-lg pull-right animated_button"

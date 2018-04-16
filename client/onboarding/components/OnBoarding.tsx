@@ -22,7 +22,10 @@ interface OnBoardingProps {
     introComplete: boolean;
     isUserCreated: boolean;
     updateUI: (any) => any;
+<<<<<<< HEAD
     referrerID: string;
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     ui: any;
 };
 
@@ -53,7 +56,11 @@ class OnBoarding extends React.Component<OnBoardingProps> {
         this.props.updateUI({
             nextScreen: 2
         });
+<<<<<<< HEAD
         this.props.dispatch(createEliteUserProfile(this.props.currentUser, this.props.referrerID));
+=======
+        this.props.dispatch(createEliteUserProfile(this.props.currentUser));
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 
     render() {
@@ -63,7 +70,11 @@ class OnBoarding extends React.Component<OnBoardingProps> {
             <section>
                 <div className="col-md-12 top_bar" style={{ height: "50px", background: "black" }}>
                     <div className="logo">
+<<<<<<< HEAD
                         <img src="/Style%20Library/Elite/images/logo.png" alt="Equnixlogo" />
+=======
+                        <img src="/sites/elite/Style%20Library/Elite/images/logo.png" alt="Equnixlogo" />
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                     </div>
                 </div>
             </section>
@@ -155,6 +166,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                             <rect className="bar" transform="translate(65,0)" y="15"></rect>
                                             <rect className="bar" transform="translate(39,0)" y="15"></rect>
                                             <rect className="bar" transform="translate(78,0)" y="15"></rect>
+<<<<<<< HEAD
 
 
                                             <rect className="bar" transform="translate(0,0)" y="15"></rect>
@@ -175,6 +187,12 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                     </svg>
                                 </div>
                                 <div className="count_box count-box-container activeuser_box" >
+=======
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div className="count_box count-box-container" >
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                     <p>
                                         <span className="counter">{totalUsers}</span>
                                         <span className="white">ACTIVE </span>
@@ -187,9 +205,15 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                             {ui.nextScreen == 2 ?
                                 <div className="red_box red-box-container">
                                     <div className="outer_ride">
+<<<<<<< HEAD
                                         <img src="/Style%20Library/Elite/images/loader2.png" />
                                         <div className="ride_ring">
                                             <img src="/Style%20Library/Elite/images/loader1.png" />
+=======
+                                        <img src="/sites/elite/Style%20Library/Elite/images/loader2.png" />
+                                        <div className="ride_ring">
+                                            <img src="/sites/elite/Style%20Library/Elite/images/loader1.png" />
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                             <div className="count_box current_ridename">
 
                                                 <p> <span className="white">YOUR CURRENT</span> <span className="red">RIDE</span></p>
@@ -198,7 +222,11 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                         </div>
                                     </div>
                                     <div className="ride_image">
+<<<<<<< HEAD
                                         <img src="/Style%20Library/Elite/images/shoppingcart_Small.png" />
+=======
+                                        <img src="/sites/elite/Style%20Library/Elite/images/stroller-2.png" />
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                     </div>
 
 
@@ -211,9 +239,15 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                             {ui.nextScreen == 3 ?
                                 <div className="red_box red-box-container">
                                     <div className="outer_ride">
+<<<<<<< HEAD
                                         <img src="/Style%20Library/Elite/images/loader2.png" />
                                         <div className="ride_ring">
                                             <img src="/Style%20Library/Elite/images/loader1.png" />
+=======
+                                        <img src="/sites/elite/Style%20Library/Elite/images/loader2.png" />
+                                        <div className="ride_ring">
+                                            <img src="/sites/elite/Style%20Library/Elite/images/loader1.png" />
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                             <div className="count_box current_ridename">
 
                                                 <p> <span className="white">READY PLAYER</span> <span className="red">ONE</span></p>
@@ -222,7 +256,11 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                         </div>
                                     </div>
                                     <div className="ride_image">
+<<<<<<< HEAD
                                         <img src="/Style%20Library/Elite/images/stroller-2.png" />
+=======
+                                        <img src="/sites/elite/Style%20Library/Elite/images/stroller-2.png" />
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                     </div>
 
 
@@ -235,9 +273,15 @@ class OnBoarding extends React.Component<OnBoardingProps> {
 
                             {ui.nextScreen == 4 && <div className="red_box red-box-container">
                                 <div className="outer_ride">
+<<<<<<< HEAD
                                     <img src="/Style%20Library/Elite/images/loader2.png" />
                                     <div className="ride_ring">
                                         <img src="/Style%20Library/Elite/images/loader1.png" />
+=======
+                                    <img src="/sites/elite/Style%20Library/Elite/images/loader2.png" />
+                                    <div className="ride_ring">
+                                        <img src="/sites/elite/Style%20Library/Elite/images/loader1.png" />
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                         <div className="count_box current_ridename">
 
                                             <p> <span className="white">YOUR CURRENT</span> <span className="red">RIDE</span></p>
@@ -246,7 +290,11 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                     </div>
                                 </div>
                                 <div className="ride_image">
+<<<<<<< HEAD
                                     <img src="/Style%20Library/Elite/images/shoppingcart_Small.png" />
+=======
+                                    <img src="/sites/elite/Style%20Library/Elite/images/shoppingcart_Small.png" />
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                 </div>
 
 
@@ -416,6 +464,7 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                                 currentUser={currentUser}
                                 isUserCreated={isUserCreated}
                                 createEliteUserProfile={() => this.createUser()} />
+<<<<<<< HEAD
                             }
                             {/* {
                                 ui.nextScreen == 2 &&
@@ -427,6 +476,19 @@ class OnBoarding extends React.Component<OnBoardingProps> {
                             } */}
                             {
                                 ui.nextScreen == 2 &&
+=======
+                            }
+                            {
+                                ui.nextScreen == 2 &&
+                                <RideChoice ui={ui} updateUI={updateUI} />
+                            }
+                            {
+                                ui.nextScreen == 3 &&
+                                <CarAnimation ui={ui} updateUI={updateUI} />
+                            }
+                            {
+                                ui.nextScreen == 4 &&
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                 <CurrentRide ui={ui} updateUI={updateUI} />
                             }
 

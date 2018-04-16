@@ -2,7 +2,10 @@ import * as React from 'react';
 import { Link } from "react-router-dom";
 import { TestDrive } from '../model';
 import Services from '../../common/services/services';
+<<<<<<< HEAD
 import { Messages } from '../../common/services/constants';
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 interface MyTestDrivesInProgressItemProps {
     testDrive: TestDrive;
     participants: number;
@@ -15,14 +18,22 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
         super(props, context);
     }
     render() {
+<<<<<<< HEAD
         const { testDrive, participants } = this.props;
         return (<div className="col-md-4">
             <div className="col-md-12 progress_drivebox">
                 <Link to={'/participation/' + testDrive.id}><h4>{testDrive.title}</h4></Link>
+=======
+        const { testDrive, participants} = this.props;
+        return (<div className="col-md-4">
+            <div className="col-md-12 progress_drivebox">
+                <h4>{testDrive.title}</h4>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                 <div className="col-md-12 pull-right">
                     <div className="row">
                         <div className="col-md-12 social_box">
                             <div className="row">
+<<<<<<< HEAD
                                 <a href={"#/reportbug/" + testDrive.id} title={Messages.REPORT_BUG_TITLE}>
                                     <span className="report"></span>
                                 </a>
@@ -37,6 +48,12 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
                                     onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive)}>
                                     <i className="material-icons">share</i>
                                 </a>
+=======
+                                <a href="#"><i className="material-icons">bug_report</i></a>
+                                <a href="#"><i className="material-icons">email</i></a>
+                                <a href="#"><span className="teams"></span></a>
+                                <a href="#"><i className="material-icons">share</i></a>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                             </div>
                         </div>
                         <div className="col-md-12 partcipant_enddate">
@@ -46,12 +63,20 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
                                         <div className="col-md-12">
                                             <div className="row">
                                                 <span className="orange"><i>End Date</i>
+<<<<<<< HEAD
                                                     <img src="/Style%20Library/Elite/images/flag.png" /></span>
+=======
+                                                    <img src="/sites/elite/Style%20Library/Elite/images/flag.png" /></span>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                             </div>
                                         </div>
                                         <div className="col-md-12">
                                             <div className="row">
+<<<<<<< HEAD
                                                 <h5>{Services.formatDate(testDrive.endDate)}</h5>
+=======
+                                                <h5>{Services.formatDate(testDrive.startDate)}</h5>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                             </div>
                                         </div>
                                     </div>
@@ -61,7 +86,11 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
                                         <div className="col-md-12">
                                             <div className="row">
                                                 <span className="orange"><i>participants</i>
+<<<<<<< HEAD
                                                     <img src="/Style%20Library/Elite/images/helmet.png" /></span>
+=======
+                                                    <img src="/sites/elite/Style%20Library/Elite/images/helmet.png" /></span>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                             </div>
                                         </div>
                                         <div className="col-md-12">
@@ -117,13 +146,24 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
                                     <div className="row race_type">
                                         <div className="col-md-12">
                                             <div className="row">
+<<<<<<< HEAD
                                                 <ul className="dragrace_indicator" dangerouslySetInnerHTML={{ __html: Services.getLevelHtml(testDrive.levelNumber) }}>
+=======
+                                                <ul className="dragrace_indicator">
+                                                    <li><span></span></li>
+                                                    <li><span></span></li>
+                                                    <li><span></span></li>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                                 </ul>
                                             </div>
                                         </div>
                                         <div className="col-md-12">
                                             <div className="row">
+<<<<<<< HEAD
                                                 <h5>{testDrive.levelName}</h5>
+=======
+                                                <h5>{testDrive.level}</h5>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                                             </div>
                                         </div>
                                     </div>

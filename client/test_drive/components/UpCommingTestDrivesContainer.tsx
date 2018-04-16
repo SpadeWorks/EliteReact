@@ -4,13 +4,19 @@ import { Dispatch } from 'redux';
 import Loader from 'react-loader-advanced';
 import ui from 'redux-ui';
 import Pager from 'react-pager';
+<<<<<<< HEAD
 import Services from '../../common/services/services';
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 import {
     TestDriveCardItem,
     loadUpCommingTestDrives,
     model,
 } from '../../test_drive';
+<<<<<<< HEAD
 import { Messages } from '../../common/services/constants';
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 
 
 interface UpCommingTestDrivesContainerProps {
@@ -29,8 +35,11 @@ interface UpCommingTestDrivesContainerProps {
         current: 0,
         visibleItems: [],
         visiblePages: 4,
+<<<<<<< HEAD
         upCommingTestDrives: [],
         upCommingTestDrivesLoading: false
+=======
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 })
 class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesContainerProps> {
@@ -39,6 +48,7 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
     }
 
     componentDidMount() {
+<<<<<<< HEAD
         var self = this;
         self.props.updateUI({
             upCommingTestDrivesLoading: true,
@@ -50,12 +60,16 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
             });
             this.initialize();
         })
+=======
+        this.props.loadUpCommingTestDrives(0, 100);
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 
     getVisibleItems(newPage) {
         let skip = newPage * this.props.ui.itemsPerPage;
         this.props.updateUI({
             current: newPage,
+<<<<<<< HEAD
             visibleItems: this.props.ui.upCommingTestDrives.slice(skip, skip + this.props.ui.itemsPerPage)
         });
     }
@@ -66,6 +80,15 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
             upCommingTestDrives,
             upCommingTestDrivesLoading
         } = ui;
+=======
+            visibleItems: this.props.upCommingTestDrives.slice(skip, skip + this.props.ui.itemsPerPage)
+        });
+    }
+
+    render() {
+        const { upCommingTestDrives, upCommingTestDrivesLoading, ui, updateUI } = this.props;
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         if (!upCommingTestDrivesLoading && upCommingTestDrives && upCommingTestDrives.length && !ui.visibleItems.length) {
             var currentPage = ui.current;
             if ((ui.visibleItems.length < ui.visibleItems * ui.itemsPerPage) && ui.current != 0) {
@@ -74,6 +97,7 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
             this.getVisibleItems(currentPage);
         }
 
+<<<<<<< HEAD
     }
 
     render() {
@@ -123,6 +147,34 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
                 }
             </Loader>
         </div >)
+=======
+
+        return (<div>
+            <Loader show={upCommingTestDrivesLoading} message={'Loading...'}>
+                {
+                    (ui.visibleItems && ui.visibleItems.length) ?
+                        ui.visibleItems.map((testDriveObj, index) => {
+                            return (<TestDriveCardItem
+                                key={index}
+                                participants={testDriveObj.participents}
+                                testDrive={testDriveObj.testDrive} 
+                                isActive={false}/>)
+                        }) : (!upCommingTestDrivesLoading && 'There are no upcoming items.')
+                }
+                {
+                    ui.visibleItems && ui.visibleItems.length > 0 &&
+                    <Pager
+                        total={Math.ceil(upCommingTestDrives.length / ui.itemsPerPage)}
+                        current={ui.current}
+                        visiblePages={ui.visiblePages}
+                        titles={{ first: '<', last: '>' }}
+                        className="pagination-sm pull-right"
+                        onPageChanged={(newPage) => this.getVisibleItems(newPage)}
+                    />
+                }
+            </Loader>
+        </div>)
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 }
 

@@ -5,8 +5,12 @@ import Services from '../../common/services/services';
 import ui from 'redux-ui';
 import { validateControl, required, validateForm } from '../../common/components/Validations';
 import { ToastContainer, toast } from 'react-toastify';
+<<<<<<< HEAD
 import * as $ from 'jquery';
 import Popup from '../../common/components/Popups';
+=======
+import Popup from 'react-popup';
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
 import { ColumnsValues } from '../../common/services/constants';
 import { Messages } from '../../common/services/constants';
 import {
@@ -41,9 +45,13 @@ interface TestCasesProps {
 
 @ui({
     state: {
+<<<<<<< HEAD
         helpText: '',
         requirmentMessage: '',
         title: ""
+=======
+        helpText: ''
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
 })
 class TestCases extends React.Component<TestCasesProps> {
@@ -59,9 +67,13 @@ class TestCases extends React.Component<TestCasesProps> {
         if (isFormValid) {
             this.props.updateUI({ activeTab: this.props.ui.activeTab + direction });
         } else {
+<<<<<<< HEAD
             //Popup.alert(Messages.TEST_DRIVE_ERROR);
             this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_ERROR, title: "Alert!" });
             $("#popupTestCasesAlert").trigger('click');
+=======
+            Popup.alert(Messages.TEST_DRIVE_ERROR);
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
         }
 
     }
@@ -72,6 +84,14 @@ class TestCases extends React.Component<TestCasesProps> {
             this.props.loadTestCases(this.props.testCaseIds);
         }
         this.getHelpText();
+<<<<<<< HEAD
+=======
+    }
+    getHelpText() {
+        Services.getApplicationConfigurations().then((appConfig: any) => {
+            this.props.updateUI({ helpText: appConfig.TestCaseHelpText });
+        })
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
     getHelpText() {
         Services.getApplicationConfigurations().then((appConfig: any) => {
@@ -113,7 +133,11 @@ class TestCases extends React.Component<TestCasesProps> {
                     <p>{ui.helpText}</p>
                 </div>
                 <div className="add-button col-md-2 add_test pull-right text-right">
+<<<<<<< HEAD
                     <a href="javascript:;" onClick={addTestCase}> + ADD TEST CASE </a>
+=======
+                    <a href="javascript:void(0);" onClick={addTestCase}> + ADD TEST CASE </a>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                 </div>
                 <div className="col-md-12">
                     {
@@ -135,11 +159,22 @@ class TestCases extends React.Component<TestCasesProps> {
                 </div>
 
                 <div className="col-md-12 testdrive_actionbox">
+<<<<<<< HEAD
                     <div className="button type1 nextBtn btn-lg animated_button pull-left left_mnone">
                         <input type="button" value="Back" onClick={() => this.switchTab(-1)} />
                     </div>
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <input type="button" value="Next" onClick={() => this.switchTab(1)} />
+=======
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button back_btn">
+                        <input type="button" value="Back" onClick={() => this.switchTab(-1)} />
+                    </div>
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <input type="button" value="Next" onClick={() => this.switchTab(1)} />
+                    </div>
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <input type="button" value="Save as a draft" onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id) }} />
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                     </div>
                     {testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ? <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <input disabled={testDrive.status == ColumnsValues.ACTIVE} type="button" value="Save as a draft" onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save") }} />

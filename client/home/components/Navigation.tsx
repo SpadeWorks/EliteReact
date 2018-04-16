@@ -11,6 +11,7 @@ class Navigation extends React.Component<NavigationProps> {
 
     openPopUp() {
         var options = {
+<<<<<<< HEAD
             url: '/pages/referral.aspx',
             title: 'Refer friends, earn points',
             width: 600,
@@ -24,15 +25,34 @@ class Navigation extends React.Component<NavigationProps> {
                 }, 6000)
         });   
              
+=======
+            url: 'referral.aspx',
+            title: 'User Referral',
+            width: 600,
+            height: 600,
+        };
+        SP.UI.ModalDialog.showModalDialog(options);
+        // let dialog = SP.UI.ModalDialog.showWaitScreenWithNoClose('Operation in progress...', 'Please wait...', 350, 550);
+        // setTimeout(() => {
+        //     dialog.close(SP.UI.DialogResult.OK);
+        // }, 4000)
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
     }
     render() {
         return (<div className="col-md-8 location_box">
             <div className="map_container">
                 <object>
+<<<<<<< HEAD
                     <img src="/Style%20Library/Elite/images/track.svg" className="map_image" />
                     <Link className="maplinks" to={"/testdrives"} id="link1">
                         <img src="/Style%20Library/Elite/images/testdrivecenter.png" />
                         <span>Test Drive Center</span>
+=======
+                    <img src="/sites/elite/Style%20Library/Elite/images/track.svg" className="map_image"/>
+                    <Link className="maplinks" to={"/testdrives"} id="link1">
+                        <img src="/sites/elite/Style%20Library/Elite/images/testdrivecenter.png" />
+                        <span>test drives central</span>
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                     </Link>
 
                     <a className="maplinks" id="link2" href="javascript:;" onClick={this.openPopUp}>
@@ -41,7 +61,11 @@ class Navigation extends React.Component<NavigationProps> {
                     </a>
 
                     <Link className="maplinks" to={"/profile/"} id="link3">
+<<<<<<< HEAD
                         <img src={this.props.currentUserImage} />
+=======
+                        <img src="/sites/elite/Style%20Library/Elite/images/refer.png" />
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                         <span>My Profile</span>
                     </Link>
                     {/* <Link className="maplinks" to={"/prizes"} id="link4">

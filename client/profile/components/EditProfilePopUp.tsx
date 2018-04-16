@@ -160,6 +160,7 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
         })
     }
 
+<<<<<<< HEAD
     deviceChange = (value) => {
         this.props.updateUI({
             devices: value
@@ -191,6 +192,15 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                 {/* <!-- Modal content--> */}
                 <div className="modal-content editpro_box">
                     <div className="wrapper">
+=======
+        render() {
+            const { eliteProfile, fieldDescriptions, saveEliteProfile, updateUI, ui, avatars } = this.props;
+            return (
+                <div className="modal-dialog edit_profile">
+                    {/* <!-- Modal content--> */}
+                    <div className="modal-content editpro_box">
+                        <div className="wrapper">
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                         <div className="modal-header">
                             <button type="button" className="close" data-dismiss="modal">
                                 <i className="material-icons pull-right">close</i>
@@ -307,9 +317,23 @@ class EditProfilePopUp extends React.Component<EditProfilePopUpProps> {
                             </div>
                         </div>
                         <div className="modal-footer testdrive_actionbox">
+<<<<<<< HEAD
                             <div className="button type1 nextBtn btn-lg pull-right animated_button" >
                                 <input type="button" value="All Set"
                                     onClick={() => { this.onSave() }} data-dismiss="modal" />
+=======
+                          <div className="button type1 nextBtn btn-lg pull-right animated_button" >
+                                <input type="button" value="All Set"
+                                    onClick={() => { this.onSave() }} data-dismiss="modal"/>
+                         </div>
+
+
+
+                       
+
+
+
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                             </div>
 
 

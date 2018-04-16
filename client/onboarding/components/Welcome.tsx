@@ -27,6 +27,7 @@ class Welcome extends React.Component<WelcomeProps> {
     }
     componentDidMount() {
         Services.getApplicationConfigurations().then((appConfig: any) => {
+<<<<<<< HEAD
             var actions = [];
             var lines = appConfig.WelcomeText.split("\n");
             lines.forEach((line, index) => {
@@ -42,6 +43,12 @@ class Welcome extends React.Component<WelcomeProps> {
             
             $('#typewriteText').typewrite({
                 actions: actions
+=======
+            $('#typewriteText').typewrite({
+                actions: [
+                    { type: appConfig.WelcomeText }
+                ]
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
             });
         })
     }
@@ -54,7 +61,11 @@ class Welcome extends React.Component<WelcomeProps> {
             <div id="typewriteText" style={{ animationDelay: "10s" }}></div>
             <div className="col-md-12 intro_actionbox testdrive_actionbox">
                 <div className="button type1 pull-right animated_button letsgo">
+<<<<<<< HEAD
                     <input value="Let's go!" type="button" onClick={() => createEliteUserProfile(currentUser)} />
+=======
+                    <input value="Let's go" type="button" onClick={() => createEliteUserProfile(currentUser)} />
+>>>>>>> 526be23a3863531322114b1396c62b6fc68d77cc
                 </div>
             </div>
         </div>)
