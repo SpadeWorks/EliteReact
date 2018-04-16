@@ -89,11 +89,13 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
                 <div className="button type1 nextBtn btn-lg pull-right animated_button">
                     <Link to={"/testdrive"} >Create Test Drive</Link>
                 </div>
-            </div> : <div className="centralbox_button row">
-                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                        <a href="javascript:;" onClick={() => Services.requestAccess()} >Become Drive Owner</a>
-                    </div>
-                </div>}
+            </div> : ''
+                // < div className="centralbox_button row">
+                //             <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                //         <a href="javascript:;" onClick={() => Services.requestAccess()} >Become Drive Owner</a>
+                //     </div>
+                // </div>
+            }
             <Loader show={upCommingTestDrivesLoading} message={'Loading...'}>
                 {
                     (!upCommingTestDrivesLoading && ui.visibleItems && ui.visibleItems.length) ?
@@ -120,7 +122,7 @@ class UpCommingTestDrivesContainer extends React.Component<UpCommingTestDrivesCo
                         </div> : ''
                 }
             </Loader>
-        </div>)
+        </div >)
     }
 }
 

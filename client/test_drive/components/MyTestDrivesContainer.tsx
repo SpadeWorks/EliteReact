@@ -54,23 +54,23 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
         });
 
         Services.getMyCompletedTestDrives(0, 1000).then(data => {
-            
+
             self.props.updateUI({
                 myCompletedTestDrivesLoading: false,
                 myCompletedTestDrives: data || [],
             });
             this.initialize();
-            
+
         });
 
         Services.getMyInProgressTestDrives(0, 1000).then(data => {
-            
+
             self.props.updateUI({
                 myInprogressTestDrivesLoading: false,
                 myInprogressTestDrives: data || []
             });
             this.initialize();
-            
+
         });
     }
 
@@ -123,11 +123,13 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <Link to={"/testdrive"} >Create Test Drive</Link>
                     </div>
-                </div> : <div className="centralbox_button">
-                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                        <a href="javascript:;" onClick={() => Services.requestAccess()} >Become Drive Owner</a>
-                    </div>
-                </div>}
+                </div> : ''
+                    // <div className="centralbox_button">
+                    //     <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                    //         <a href="javascript:;" onClick={() => Services.requestAccess()} >Become Drive Owner</a>
+                    //     </div>
+                    // </div>
+                }
                 <Tabs selected={0}>
                     <Pane label="TEST DRIVES IN PROGRESS">
                         <div>
