@@ -57,8 +57,8 @@ pnp.setup({
 
 export class Services {
 
-    static getTeamSiteUrl(id){
-        return "https://teams.microsoft.com/_#/conversations/General?threadId=19:" + ( id ? id.replace(/-/ig, '') : '') + "@thread.skype&ctx=channel";
+    static getTeamSiteUrl(id) {
+        return "https://teams.microsoft.com/_#/conversations/General?threadId=19:" + (id ? id.replace(/-/ig, '') : '') + "@thread.skype&ctx=channel";
     }
 
     static goBack() {
@@ -179,11 +179,11 @@ export class Services {
         var user = <User>Services.getUserProfileProperties();
         Services.getEmailTemplate('TestDriveShareEmail').then((emailConfig: any) => {
             var emailSubject = emailConfig.subject.replace(/##testdriveName##/ig, testDrive.title);
-                emailSubject = emailSubject.replace(/##referrer##/ig, user.displayName);
+            emailSubject = emailSubject.replace(/##referrer##/ig, user.displayName);
 
             var emailBody = emailConfig.body.replace(/##testdriveName##/ig, testDrive.title);
-                emailBody = emailBody.replace(/##referrer##/ig, user.displayName);
-                emailBody = emailBody.replace(/##testDriveDescription##/ig, testDrive.description);
+            emailBody = emailBody.replace(/##referrer##/ig, user.displayName);
+            emailBody = emailBody.replace(/##testDriveDescription##/ig, testDrive.description);
 
             Services.mailto('', encodeURIComponent(emailSubject), encodeURIComponent(emailBody));
         });
@@ -890,24 +890,28 @@ export class Services {
 
     static getUserRank(userID: number) { //TODO Update logic for more that 5000 users.
         return new Promise((resolve, reject) => {
-            pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
-                .select(Constants.Columns.ID,
-                    Constants.Columns.POINTS,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID)
-                .expand(Constants.Columns.USER_ID)
-                .orderBy(Constants.Columns.POINTS, false)
-                .get().then(results => {
-                    let rank;
-                    let points;
-                    results.forEach((item, index) => {
-                        if (item[Constants.Columns.USER_ID][Constants.Columns.ID] == userID) {
-                            rank = index + 1;
-                            points = item[Constants.Columns.POINTS];
-                            return false;
-                        }
-                    })
-                    resolve({ rank, points });
-                }, err => reject(err))
+            Services.getListItemCount(Constants.Lists.POINTS).then((itemCount: number) => {
+                pnp.sp.web.lists.getByTitle(Constants.Lists.POINTS).items
+                    .skip(0).top(itemCount)
+                    .select(Constants.Columns.ID,
+                        Constants.Columns.POINTS,
+                        Constants.Columns.USER_ID + '/' + Constants.Columns.ID)
+                    .expand(Constants.Columns.USER_ID)
+                    .orderBy(Constants.Columns.POINTS, false)
+                    .orderBy("Modified", true)
+                    .get().then(results => {
+                        let rank;
+                        let points;
+                        results.forEach((item, index) => {
+                            if (item[Constants.Columns.USER_ID][Constants.Columns.ID] == userID) {
+                                rank = index + 1;
+                                points = item[Constants.Columns.POINTS];
+                                return false;
+                            }
+                        })
+                        resolve({ rank, points });
+                    }, err => reject(err))
+            });
         })
     }
 
@@ -2262,7 +2266,7 @@ export class Services {
     //                         id: index + 1,
     //                         name: testDrive.UserID.UserInfoName,
     //                         points: testDrive.Points,
-    //                         avatar: "/sites/elite/Style%20Library/Elite/images/masc1.png"
+    //                         avatar: "/Style%20Library/Elite/images/masc1.png"
     //                     });
     //                 });
     //                 resolve(leaderBoardArr);
@@ -2292,7 +2296,7 @@ export class Services {
     //                                 id: index + 1,
     //                                 name: testDrive.UserID.UserInfoName,
     //                                 points: testDrive.Points,
-    //                                 avatar: "/sites/elite/Style%20Library/Elite/images/masc1.png"
+    //                                 avatar: "/Style%20Library/Elite/images/masc1.png"
     //                             });
     //                         });
     //                         resolve(regionLeaderBoardArr);
@@ -2324,6 +2328,7 @@ export class Services {
                 )
                 .expand("UserID").top(100)
                 .orderBy('Points', false)
+                .orderBy("Modified", true)
                 .filter("PointsEarnedOnDate gt datetime'" + lastYear + "T23:59:59.000Z'")
                 .skip(skip).top(count)
                 .get().then(leaders => {
@@ -2366,6 +2371,7 @@ export class Services {
             )
                 .expand("UserID").top(top).skip(skip)
                 .orderBy('Points', false)
+                .orderBy("Modified", true)
                 .filter("PointsEarnedOnDate gt datetime'" +
                     lastYear + "T23:59:59.000Z' and " + Constants.Columns.USER_ID + '/' + Constants.Columns.USER_REGION_TEXT + " eq '" + region + "'")
                 .get().then(leaders => {
@@ -2697,7 +2703,7 @@ export class Services {
                             })
                             testDrive = testDrive.length && testDrive[0];
 
-                            if(testDrive.status == Constants.ColumnsValues.ACTIVE){
+                            if (testDrive.status == Constants.ColumnsValues.ACTIVE) {
                                 myTestDriveArr.push({
                                     id: testDrive.id,
                                     title: testDrive.title,
