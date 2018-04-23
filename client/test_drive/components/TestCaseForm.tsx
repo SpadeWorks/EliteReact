@@ -63,8 +63,8 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
             popupClassName: 'image-uploader-popup',
             uploadCallback: this.uploadImageCallBack, alt: { present: true, mandatory: false },
             defaultSize: {
-                height: '350px',
-                width: '500px',
+                height: 'auto',
+                width: '600px',
             }
         },
     }
