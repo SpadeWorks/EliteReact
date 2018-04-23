@@ -120,7 +120,7 @@ export class Services {
         Services.getApplicationConfigurations().then((appConfig: any) => {
             var subject = appConfig.TestDriveNotificationSubject.replace("#TestDriveName#", '"' + testDrive.title + '"');
             Services.getParticipantEmails(testDrive.id).then(emails => {
-                Services.mailto(emails, subject, '');
+                Services.mailto(testDrive.ownerEmail || '', subject, '', emails);
             })
         });
 
@@ -189,8 +189,13 @@ export class Services {
         });
     }
 
-    static mailto(to, subject, body) {
-        window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
+    static mailto(to, subject, body, bcc?, cc?) {
+        if(bcc){
+            window.location.href = 'mailto:' + to + '?bcc=' + bcc + '&subject=' + subject + '&body=' + body;
+        } else {
+            window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
+        }
+        
     }
 
     static getEmailTemplate(key: string) {
