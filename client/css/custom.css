@@ -4268,7 +4268,7 @@ ul.task_circle li p.inactive_task {
 }
 
 .rte-wrapper {
-    color: blue;
+    color: #ed1b24;
 }
 
 .rich-text-editor {
@@ -8188,25 +8188,77 @@ h1.title:before {
 
 /*attachment feature style in creation of testdrive starts here */
 
-.rdw-link-modal {
-    background: #000;
+.rdw-link-modal,
+.rdw-image-modal {
+    position: absolute;
+    top: 35px;
+    left: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 235px;
+    height: auto !important;
+    border: 1px solid #3c3c3c !important;
+    padding: 15px;
+    border-radius: 2px;
+    z-index: 100;
+    box-shadow: none !important;
 }
 
-.rdw-link-modal-input {
+.rdw-link-modal label,
+.rdw-image-modal label {
+    position: initial;
+    color: red;
+}
+
+.rdw-link-modal-buttonsection,
+.rdw-image-modal-buttonsection {
+    float: left;
+    margin: 0px;
+}
+
+button.rdw-link-modal-btn,
+button.rdw-image-modal-btn {
+    width: 40% !important;
+    float: left;
+    margin-right: 22px;
+}
+
+button.rdw-link-modal-btn,
+button.rdw-image-modal-btn {
+    width: 35% !important;
+    float: left !important;
+}
+
+.rdw-link-modal-btn,
+.rdw-image-modal-btn {
+    font-size: 12px !important;
+    background: #ffffff !important;
+    float: left !important;
+    color: #ed1b24;
+    border: solid 1px #ed1b24 !important;
+}
+
+.rdw-link-modal-input,
+.rdw-image-modal-input {
     margin-top: 5px;
     border-radius: 2px;
-    border: 1px solid #f89f19;
+    border: 1px solid #F1F1F1 !important;
+    ;
     height: 25px;
     margin-bottom: 15px;
-    padding: 0 5px;
+    padding: 0 5px !important;
+    ;
+    border: solid 1px #d6d6d6 !important;
+    font-family: titanium;
 }
 
-.rdw-link-modal-label {
-    /* font-size: 15px; */
-    /* margin-top: 16px; */
-    margin-left: 10px;
-    margin-top: 26px;
-    width: 100%;
+
+.rdw-embedded-wrapper {
+    display: none !important;
+}
+
+.rdw-link-modal-target-option{
+    display: none !important;
 }
 
 /*attachment feature style in creation of testdrive ends here */
@@ -8456,6 +8508,6 @@ button:disabled {
     margin-top: 5px !important;
 }
 
-.write_testdrivebox img{
+.write_testdrivebox img {
     cursor: pointer;
 }

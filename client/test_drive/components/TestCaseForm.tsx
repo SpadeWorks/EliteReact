@@ -48,15 +48,19 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
     }
 
     editorOptions = {
-        options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'emoji', 'image', 'remove', 'history'],
+        options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'link', 'embedded', 'emoji', 'image', 'remove', 'history'],
         fontSize: {
-            options: [16, 18, 24, 30, 36, 48, 60, 72, 96],
+            options: [16, 18, 24, 30, 36, 48, 60, 72, 96]
         },
-
         inline: { inDropdown: true },
         list: { inDropdown: true },
         textAlign: { inDropdown: true },
-        link: { inDropdown: true },
+        link: {
+            popupClassName: 'demo-popup-custom',
+            showOpenOptionOnHover: false,
+            defaultTargetOption: '_blank',
+            options: ['link'],
+        },
         history: { inDropdown: true },
         image: {
             className: 'image-uploader',
@@ -66,8 +70,10 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                 height: 'auto',
                 width: '600px',
             }
-        },
+        }
     }
+
+
 
     constructor(props, context) {
         super(props, context);
@@ -163,7 +169,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
             $('#expectedOutcome-validation').remove();
         }
 
-        
+
     }
 
     uploadImageCallBack(file) {
@@ -207,6 +213,10 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
             });
 
         })
+
+        $(".custom-editor").on('click', '.rdw-link-decorator-wrapper a', function (e) {
+            window.open($(this).attr('href'), '_blank');
+        });
     }
 
     waitForEl(selector, callback) {
