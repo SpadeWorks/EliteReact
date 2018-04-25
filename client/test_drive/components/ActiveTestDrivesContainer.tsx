@@ -116,7 +116,12 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
                                 total={Math.ceil(activeTestDrives.length / ui.itemsPerPage)}
                                 current={ui.current}
                                 visiblePages={ui.visiblePages}
-                                titles={{ first: '<', last: '>' }}
+                                titles={{
+                                    first:   '<<',
+                                    prev:    '<',
+                                    next:    '>',
+                                    last:    '>>'
+                                }}
                                 className="pagination-sm pull-right"
                                 onPageChanged={(newPage) => this.getVisibleItems(newPage)}
                             />

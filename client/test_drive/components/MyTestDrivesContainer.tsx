@@ -155,7 +155,12 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                                 total={Math.ceil(myInprogressTestDrives.length / ui.itemsPerPage)}
                                                 current={ui.inprogressItemCurrent}
                                                 visiblePages={ui.visiblePages}
-                                                titles={{ first: '<', last: '>' }}
+                                                titles={{
+                                                    first:   '<<',
+                                                    prev:    '<',
+                                                    next:    '>',
+                                                    last:    '>>'
+                                                }}
                                                 className="pagination-sm pull-right"
                                                 onPageChanged={(newPage) => this.getVisibleItems(newPage, myInprogressTestDrives, 'inprogressItems', 'inprogressItemCurrent')}
                                             />
@@ -190,7 +195,12 @@ class MyTestDrivesContainer extends React.Component<MyTestDrivesContainerProps> 
                                                 total={Math.ceil(myCompletedTestDrives.length / ui.itemsPerPage)}
                                                 current={ui.completedItemCurrent}
                                                 visiblePages={ui.visiblePages}
-                                                titles={{ first: '<', last: '>' }}
+                                                titles={{
+                                                    first:   '<<',
+                                                    prev:    '<',
+                                                    next:    '>',
+                                                    last:    '>>'
+                                                }}
                                                 className="pagination-sm pull-right"
                                                 onPageChanged={(newPage) => this.getVisibleItems(newPage, myCompletedTestDrives, 'completedItems', 'completedItemCurrent')}
                                             />

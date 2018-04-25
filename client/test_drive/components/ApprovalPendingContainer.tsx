@@ -196,7 +196,12 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                                         total={Math.ceil(testDrivesWaitingForApproval.length / ui.itemsPerPage)}
                                         current={ui.pendingItemCurrent}
                                         visiblePages={ui.visiblePages}
-                                        titles={{ first: '<', last: '>' }}
+                                        titles={{
+                                            first:   '<<',
+                                            prev:    '<',
+                                            next:    '>',
+                                            last:    '>>'
+                                        }}
                                         className="pagination-sm pull-right"
                                         onPageChanged={(newPage) => this.getVisibleItems(newPage, testDrivesWaitingForApproval, 'pendingItems', 'pendingItemCurrent')}
                                     />
@@ -224,7 +229,12 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                                         total={Math.ceil(approvedTestDrives.length / ui.itemsPerPage)}
                                         current={ui.approvedItemCurrent}
                                         visiblePages={ui.visiblePages}
-                                        titles={{ first: '<', last: '>' }}
+                                        titles={{
+                                            first:   '<<',
+                                            prev:    '<',
+                                            next:    '>',
+                                            last:    '>>'
+                                        }}
                                         className="pagination-sm pull-right"
                                         onPageChanged={(newPage) => this.getVisibleItems(newPage, approvedTestDrives, 'approvedItems', 'approvedItemCurrent')}
                                     />

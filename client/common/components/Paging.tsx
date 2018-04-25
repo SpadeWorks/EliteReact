@@ -74,7 +74,12 @@ class Paging extends React.Component<PagingProps, PagingState> {
                     total={Math.ceil(this.state.visibleItems.length / itemsPerPage)}
                     current={this.state.currentPage}
                     visiblePages={visiblePages}
-                    titles={{ first: '<', last: '>' }}
+                    titles={{
+                        first:   '<<',
+                        prev:    '<',
+                        next:    '>',
+                        last:    '>>'
+                    }}
                     className="pagination-sm pull-right"
                     onPageChanged={this.handlePageChanged} />
             }

@@ -211,7 +211,12 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                                         total={Math.ceil(inProgressTestDrivesIRun.length / ui.itemsPerPage)}
                                         current={ui.inprogressItemCurrent}
                                         visiblePages={ui.visiblePages}
-                                        titles={{ first: '<', last: '>' }}
+                                        titles={{
+                                            first:   '<<',
+                                            prev:    '<',
+                                            next:    '>',
+                                            last:    '>>'
+                                        }}
                                         className="pagination-sm pull-right"
                                         onPageChanged={(newPage) =>
                                             this.getVisibleItems(newPage, inProgressTestDrivesIRun, 'inprogressItems', 'inprogressItemCurrent')}
@@ -240,7 +245,12 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                                         total={Math.ceil(upcommingTestDrivesIRun.length / ui.itemsPerPage)}
                                         current={ui.upcommingItemCurrent}
                                         visiblePages={ui.visiblePages}
-                                        titles={{ first: '<', last: '>' }}
+                                        titles={{
+                                            first:   '<<',
+                                            prev:    '<',
+                                            next:    '>',
+                                            last:    '>>'
+                                        }}
                                         className="pagination-sm pull-right"
                                         onPageChanged={(newPage) => this.getVisibleItems(newPage, upcommingTestDrivesIRun, 'upcommingItems', 'upcommingItemCurrent')}
                                     />
@@ -267,7 +277,12 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                                         total={Math.ceil(completedTestDrivesIRun.length / ui.itemsPerPage)}
                                         current={ui.completedItemsCurrent}
                                         visiblePages={ui.visiblePages}
-                                        titles={{ first: '<', last: '>' }}
+                                        titles={{
+                                            first:   '<<',
+                                            prev:    '<',
+                                            next:    '>',
+                                            last:    '>>'
+                                        }}
                                         className="pagination-sm pull-right"
                                         onPageChanged={(newPage) => this.getVisibleItems(newPage, completedTestDrivesIRun,
                                             'completedItems', 'completedItemsCurrent')}
@@ -293,7 +308,12 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
                                         total={Math.ceil(draftedTestDrivesIRun.length / ui.itemsPerPage)}
                                         current={ui.draftedItemCurrent}
                                         visiblePages={ui.visiblePages}
-                                        titles={{ first: '<', last: '>' }}
+                                        titles={{
+                                            first:   '<<',
+                                            prev:    '<',
+                                            next:    '>',
+                                            last:    '>>'
+                                        }}
                                         className="pagination-sm pull-right"
                                         onPageChanged={(newPage) => this.getVisibleItems(newPage, draftedTestDrivesIRun, 'draftedItems', 'draftedItemCurrent')}
                                     />

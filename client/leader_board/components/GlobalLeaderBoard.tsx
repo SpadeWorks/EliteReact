@@ -89,7 +89,12 @@ class GlobalLeaderBoard extends React.Component<GlobalLeaderBoardProps> {
                                 total={Math.ceil(leaders.length / ui.itemsPerPage)}
                                 current={ui.current}
                                 visiblePages={ui.visiblePage}
-                                titles={{ first: '<', last: '>' }}
+                                titles={{
+                                    first:   '<<',
+                                    prev:    '<',
+                                    next:    '>',
+                                    last:    '>>'
+                                }}
                                 className="pagination-sm pull-right"
                                 onPageChanged={this.handlePageChanged}
                             /> : ''
