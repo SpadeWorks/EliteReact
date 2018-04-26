@@ -2805,6 +2805,8 @@ fieldset[disabled] .btn {
     border-bottom: 1px solid #575757;
     background: none;
     height: 50px;
+    min-width: 100%;
+    max-width: 100%;
 }
 
 textarea.inputMaterial {
@@ -3130,7 +3132,7 @@ span.select2-selection__choice__remove {
 }
 
 .card-body .register_input {
-    height: 100px;
+    height: auto !important;
     font-size: 14px;
     position: relaive;
     z-index: 100;
@@ -5971,7 +5973,8 @@ a:hover {
 }
 
 .textarea-custom {
-    height: 148px !important;
+    /* height: 148px !important; */
+    margin-bottom: 25px;
 }
 
 .overview .col-md-3.start_date p {
@@ -6279,6 +6282,7 @@ button {
     /* border: solid 1px #272727; */
     height: 430px;
     overflow: auto;
+    width: 100%;
 }
 
 .sample_text {
@@ -8252,12 +8256,11 @@ button.rdw-image-modal-btn {
     font-family: titanium;
 }
 
-
 .rdw-embedded-wrapper {
     display: none !important;
 }
 
-.rdw-link-modal-target-option{
+.rdw-link-modal-target-option {
     display: none !important;
 }
 
@@ -8510,4 +8513,14 @@ button:disabled {
 
 .write_testdrivebox img {
     cursor: pointer;
+}
+
+::-moz-selection { /* Code for Firefox */
+    color: white;
+    background: #f6981e;
+}
+
+::selection {
+    color: white; 
+    background: #f6981e;
 }

@@ -177,6 +177,8 @@ export class Services {
 
     static shareTestDrive(email: string, testDrive: any) {
         var user = <User>Services.getUserProfileProperties();
+        var testDriveLink = _spPageContextInfo.siteAbsoluteUrl + 
+                                "/Pages/default.aspx#/participation/" + testDrive.id;
         Services.getEmailTemplate('TestDriveShareEmail').then((emailConfig: any) => {
             var emailSubject = emailConfig.subject.replace(/##testdriveName##/ig, testDrive.title);
             emailSubject = emailSubject.replace(/##referrer##/ig, user.displayName);
@@ -184,7 +186,8 @@ export class Services {
             var emailBody = emailConfig.body.replace(/##testdriveName##/ig, testDrive.title);
             emailBody = emailBody.replace(/##referrer##/ig, user.displayName);
             emailBody = emailBody.replace(/##testDriveDescription##/ig, testDrive.description);
-
+            emailBody = emailBody.replace(/##testDriveLink##/ig, testDriveLink);
+            emailBody = emailBody.replace(/##testdriveName##/ig, testDrive.title);
             Services.mailto('', encodeURIComponent(emailSubject), encodeURIComponent(emailBody));
         });
     }
