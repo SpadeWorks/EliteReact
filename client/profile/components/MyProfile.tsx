@@ -294,12 +294,6 @@ class MyProfile extends React.Component<MyProfileProps> {
                                                                         </div>
 
                                                                         <div className="arrow_outof">
-                                                                        <span className="toplevel">
-
-                                                                            <span className="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
-                                                                            <span className="increase_num">+1</span>
-                                                                        </span>
-
                                                                         <span className="outof_count">
                                                                             <span className="of">of </span>
                                                                             {totalCount}

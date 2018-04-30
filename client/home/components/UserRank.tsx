@@ -16,7 +16,7 @@ class UserRank extends React.Component<UserRankProps> {
                 <div className="col-md-offset-4 col-md-4">
                     <div className="testd_box">
                             <div className="player_box">
-                                <div className="testd_count">{userRank} </div> <div className="glyphicon glyphicon-triangle-top" aria-hidden="true"></div><div className="increase_or_decreased"> +1 </div>
+                                <div className="testd_count">{userRank}</div>
                             </div>
                         <div className="player_name text-left">
                             <h2>{userName}</h2>
