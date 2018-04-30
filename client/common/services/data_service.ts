@@ -1253,6 +1253,7 @@ export class Services {
                             questions: null,
                             levelNumber: testDrive.LevelID[Constants.Columns.LevelNumber],
                             ownerEmail: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_EMAIL],
+                            ownerID: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.ID],
                             teamsChannelID: testDrive.TestDriveMTCHID && testDrive.TestDriveMTCHID.replace("-", ""),
                             passPercentageToDeploy: testDrive[Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY] || 0
                         };
@@ -1510,6 +1511,7 @@ export class Services {
                     level: '',
                     passPercentageToDeploy: 0,
                     ownerEmail: '',
+                    ownerID: '',
                     teamsChannelID: '',
                 });
             } else {
@@ -1566,6 +1568,7 @@ export class Services {
                             level: testDrive.LevelID.ID,
                             levelName: testDrive.LevelID.LevelName,
                             owner: testDrive.TestDriveOwner.UserInfoName,
+                            ownerID: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.ID],
                             testCases: null,
                             questions: null,
                             testCaseIDs: testCases,
@@ -1779,7 +1782,7 @@ export class Services {
                     MaxTestDrivers: testDrive.maxTestDrivers,
                     TestDriveName: testDrive.title,
                     TestDriveStatus: testDrive.status,
-                    TestDriveOwner_id: this.getCurrentUserID(),
+                    TestDriveOwner_id: parseInt(testDrive.ownerID) || this.getCurrentUserID(),
                     PassPercentageToDeploy: testDrive.passPercentageToDeploy
                 }
                 if (questions.length > 0) {

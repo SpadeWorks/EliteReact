@@ -62,6 +62,7 @@ export type TestDrive = {
     }; 
     teamsChannelID?:string;
     passPercentageToDeploy: number;
+    ownerID: string;
 };
 
 export type TestDriveIRun = {
@@ -95,6 +96,7 @@ export type TestDriveIRun = {
         inProgress: number;
     }; 
     passPercentageToDeploy: number;
+    ownerID: ''
 
 };
 
@@ -120,6 +122,7 @@ export type MyTestDrive = {
     level: string;
     owner?: string;
     newItem?: boolean;
+    ownerID: ''
 };
 
 export type Configurations = {

@@ -119,7 +119,8 @@ const initialState: IState = {
             testDriveID: 0
         },
         participants: 0,
-        passPercentageToDeploy: 0
+        passPercentageToDeploy: 0,
+        ownerID: ''
     },
     testCase: {
         id: -1,
@@ -161,7 +162,7 @@ const initialState: IState = {
     upCommingTestDrivesLoading: false,
     approvedTestDrivesLoading: false,
     testDrivesWaitingForApprovalLoading: false,
-    saveTestDriveApprovalLoading: false
+    saveTestDriveApprovalLoading: false,
 };
 
 export default handleActions<IState, any>({

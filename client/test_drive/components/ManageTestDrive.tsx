@@ -50,7 +50,7 @@ interface AppProps {
     loading: boolean;
     updateUI: (any) => any;
     ui: any;
-    dispatch: Dispatch<{}>;
+    dispatch: any;
     questions: model.Question[];
     question: model.Question;
     configurationLoaded: boolean;
@@ -157,22 +157,37 @@ class ManageTestDrive extends React.Component<AppProps> {
                 }
                 else {
                     if (action == "save") {
-                        //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
-                        toast.success(Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
-                        this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAVEDDRAFT_MSG, title: "Success!" });
-                        $("#popupManageTestDriveSuccessSaveAsDraft").trigger('click');
+                        var self = this;
+                        this.props.dispatch(saveTestDrive(testDrive)).then(() => {
+                            // toast.success(Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
+                            this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAVEDDRAFT_MSG, title: "Success!" });
+                            $("#popupManageTestDriveSuccessSaveAsDraft").trigger('click');
+                            this.props.updateUI({ saveLoading: false });
+                        });
+                    } else if (action == "approve") {
+                        testDrive.status = ColumnsValues.READY_FOR_LAUNCH;
+                        this.props.dispatch(saveTestDrive(testDrive)).then(() => {
+                            this.props.updateUI({
+                                requirmentMessage: Messages.TEST_DRIVE_APPROVE_MSG,
+                                title: "Success!",
+                                saveLoading: false
+                            });
+                            $("#popupApprovalSuccess").trigger('click');
+                            this.props.updateUI({ saveLoading: false });
+                        });
                     }
                     else {
                         testDrive.status = ColumnsValues.SUBMIT;
-                        //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SUBMIT_MSG);
-                        this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SUBMIT_MSG, title: "Success!" });
-                        $("#popupManageTestDriveSuccess").trigger('click');
-                        toast.success(Messages.TEST_DRIVE_SUBMIT_MSG);
+                        this.props.dispatch(saveTestDrive(testDrive)).then(() => {
+                            //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SUBMIT_MSG);
+                            this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SUBMIT_MSG, title: "Success!" });
+                            $("#popupManageTestDriveSuccess").trigger('click');
+                            // toast.success(Messages.TEST_DRIVE_SUBMIT_MSG);
+                            this.props.updateUI({ saveLoading: false });
+                        });
                     }
-                    this.props.dispatch(saveTestDrive(testDrive));
+
                 }
-                this.props.updateUI({ saveLoading: false });
-                //this.props.updateUI({ saveIsInProgress: false });
             });
 
         }
@@ -294,7 +309,7 @@ class ManageTestDrive extends React.Component<AppProps> {
     }
 
 
-    closePopUp(){
+    closePopUp() {
         console.log("popup closed.");
     }
 

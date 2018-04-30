@@ -132,7 +132,7 @@ class Surveys extends React.Component<SurveysProps> {
                         <div className="button type1 nextBtn btn-lg pull-right animated_button">
                             <input type="button" value="Approve"
                                 disabled={ui.saveTestDriveApprovalLoading}
-                                onClick={() => approveTestDrive(testDrive.id)} />
+                                onClick={() => this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "approve")} />
                         </div>
                         : ''
                     }
