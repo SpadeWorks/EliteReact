@@ -17,7 +17,8 @@ interface TestDriveDetailsProps {
 @ui({
     state: {
         showPopUp: false,
-        requirmentMessage: ''
+        requirmentMessage: '',
+        goForDriveDisabled: false
     }
 })
 class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
@@ -36,7 +37,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
             })
             matchedElement && matchedElement.length && matchedElements.push(matchedElement);
         });
-        return matchedElements.length == array1.length;
+        return matchedElements.length > 0;
     }   
 
     isUserEligible() {
@@ -85,16 +86,21 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
 
     participate() {
         var ctx = this;
+        this.props.updateUI({goForDriveDisabled: true});
         const { maxTestDrivers, participants } = this.props.testDriveInstance;
         if (maxTestDrivers && maxTestDrivers < participants + 1) {
             $("#popupMaxTestDrivers").trigger('click');
+            this.props.updateUI({goForDriveDisabled: false});
         } else {
             this.isUserEligible().then((data: any) => {
                 this.props.updateUI({ requirmentMessage: data.message });
                 if (data.isUserEligible) {
-                    ctx.props.createTestDriveInstance(this.props.testDriveInstance)
+                    ctx.props.createTestDriveInstance(this.props.testDriveInstance).then(()=>{
+                        this.props.updateUI({goForDriveDisabled: false});
+                    })
                 } else {
                     $("#popupHitTheBreaks").trigger('click');
+                    this.props.updateUI({goForDriveDisabled: false});
                 }
             })
         }
@@ -381,7 +387,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                         <div className="col-md-12 participation_actionbox">
                             {
                                 (testDriveInstance.testDriveStatus == ColumnsValues.ACTIVE) ? <div className="button type1 nextBtn btn-lg pull-left animated_button">
-                                    <input onClick={this.participate} type="button" value="Go for a drive" />
+                                    <input disabled={ui.goForDriveDisabled} onClick={this.participate} type="button" value="Go for a drive" />
                                 </div> : ""
                             }
 
