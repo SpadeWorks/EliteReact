@@ -2455,7 +2455,7 @@ export class Services {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items
                 .filter("TestDriveStatus eq '" + Constants.ColumnsValues.ACTIVE +
-                    "' or TestDriveStatus eq '" + Constants.ColumnsValues.TEST_DRIVE_COMPLETED + "'").get().then(function (result) {
+                    "' or TestDriveStatus eq '" + Constants.ColumnsValues.TEST_DRIVE_COMPLETED + "'").top(10000).get().then(function (result) {
                         var itemCount = result ? result.length : 0;
                         resolve(itemCount);
                     }, err => {
