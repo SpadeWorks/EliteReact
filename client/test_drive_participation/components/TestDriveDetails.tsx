@@ -33,12 +33,12 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         var matchedElement;
         array1.filter((item1: any) => {
             matchedElement = array2.filter((item2: any) => {
-                return item1.Label == item2.Label;
+                return item1 && item2 && item1.Label.toUpperCase() == item2.Label.toUpperCase();
             })
             matchedElement && matchedElement.length && matchedElements.push(matchedElement);
         });
         return matchedElements.length > 0;
-    }   
+    }
 
     isUserEligible() {
         return new Promise((resolve, reject) => {
@@ -47,14 +47,17 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                 var message = Messages.TEST_DRIVE_PARTICIPATION_ERROR + '<br>';
                 var isUserEligible: boolean = true;
                 var matchedLocation = ctx.props.testDriveInstance.location.filter((location: any) => {
-                    return location.Label == user.location;
+                    return location.Label && user.location &&
+                        location.Label.toUpperCase() == user.location.toUpperCase();
                 });
                 var matchedDepartment = ctx.props.testDriveInstance.department.filter((department: any) => {
-                    return department.Label == user.department;
+                    return department.Label && user.department &&
+                        department.Label.toUpperCase() == user.department.toUpperCase();
                 });
 
                 if ((ctx.props.testDriveInstance.location &&
-                    ctx.props.testDriveInstance.location.length > 0) && (!matchedLocation || !matchedLocation.length)) {
+                    ctx.props.testDriveInstance.location.length > 0) &&
+                    (!matchedLocation || !matchedLocation.length)) {
                     message += Messages.TEST_DRIVE_LOCATION_ERROR + '<br>';
                     isUserEligible = false;
                 }
@@ -75,7 +78,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                 }
 
                 if ((ctx.props.testDriveInstance.department && ctx.props.testDriveInstance.department.length > 0)
-                && (!matchedDepartment || !matchedDepartment.length)) {
+                    && (!matchedDepartment || !matchedDepartment.length)) {
                     message += Messages.TEST_DRIVE_DEPARTMENT_ERROR + '<br>';
                     isUserEligible = false;
                 }
@@ -86,21 +89,21 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
 
     participate() {
         var ctx = this;
-        this.props.updateUI({goForDriveDisabled: true});
+        this.props.updateUI({ goForDriveDisabled: true });
         const { maxTestDrivers, participants } = this.props.testDriveInstance;
         if (maxTestDrivers && maxTestDrivers < participants + 1) {
             $("#popupMaxTestDrivers").trigger('click');
-            this.props.updateUI({goForDriveDisabled: false});
+            this.props.updateUI({ goForDriveDisabled: false });
         } else {
             this.isUserEligible().then((data: any) => {
                 this.props.updateUI({ requirmentMessage: data.message });
                 if (data.isUserEligible) {
-                    ctx.props.createTestDriveInstance(this.props.testDriveInstance).then(()=>{
-                        this.props.updateUI({goForDriveDisabled: false});
+                    ctx.props.createTestDriveInstance(this.props.testDriveInstance).then(() => {
+                        this.props.updateUI({ goForDriveDisabled: false });
                     })
                 } else {
                     $("#popupHitTheBreaks").trigger('click');
-                    this.props.updateUI({goForDriveDisabled: false});
+                    this.props.updateUI({ goForDriveDisabled: false });
                 }
             })
         }
@@ -150,9 +153,9 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
 
                 <div className="container header_part">
                     <h2 className="header_prevlink">
-                    <a href="javascript:;" onClick={() => Services.goBack()}><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-                    {testDriveInstance.title}  
-                    </a>
+                        <a href="javascript:;" onClick={() => Services.goBack()}><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                            {testDriveInstance.title}
+                        </a>
                     </h2>
                     <h4 className="cancel-btn"><Link to={"/"}>CANCEL</Link></h4>
                 </div>
