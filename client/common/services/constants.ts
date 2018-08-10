@@ -4,6 +4,8 @@ export class Lists {
     static TEST_DRIVES = 'Test Drives';
     static TEST_CASES = 'Test Cases';
     static SURVEY_QUESTIONS = 'Survey Questions';
+    static REGISTRATION_QUESTIONS = 'RegistrationQuestions';
+    static REGISTRATION_RESPONSES = 'RegistrationResponses';
     static RACE_LEVELS = 'Race Levels';
     static POINTS_CONFIGURATIONS = 'Points Configurations'
     static USER_INFORMATION = 'User Information';
@@ -38,6 +40,8 @@ export class Columns {
     static TESTDRIVE_STATUS = 'TestDriveStatus';
     static TEST_DRIVE_START_DATE = 'TestDriveStartDate';
     static TESTDRIVE_END_DATE = 'TestDriveEndDate';
+    static REGISTRATION_START_DATE = 'RegistrationStartDate';
+    static REGISTRATION_END_DATE = 'RegistrationEndDate';
     static TOTAL_POINTS = 'TotalPoints';
     static TEST_DRIVE_DEPARTMENT = 'TestDriveDepartment';
     static TEST_DRIVE_LOCATION = 'TestDriveLocation';
@@ -51,6 +55,8 @@ export class Columns {
     static USER_NAME = 'UserInfoName';
     static TESTCASE_ID = 'TestCaseID';
     static QUESTION_ID = 'QuestionID';
+    static REGISTRATION_QUESTIONS = 'RegistrationQuestions';
+    static HAS_REGISTRATION = 'HasRegistration';
     static EXPECTED_BUSINESS_VALUE = 'ExpectedBusinessValue';
     static CAR_IMAGE = 'CarImage';
     static CAR_NAME = 'CarName';
@@ -125,6 +131,7 @@ export class Globals {
 
 export class Messages {
     static SAVE_UNSAVED_QUESTION = 'Please save the unsaved question(Click on green check mark) and then try saving test drive again.';
+    static SAVE_UNSAVED_RegistrationQuestion = 'Please save the unsaved question(Click on green check mark) and then try saving test drive again.';
     static SAVE_UNSAVED_TEST_CASE = 'Please save the unsaved test case(Click on green check mark) and then try saving test drive again.';
     static TEST_CASE_ERROR = 'Please fill all the required fields and save again.';
     static TEST_DRIVE_ERROR = 'Please fill all the required fields and save again.';
@@ -183,6 +190,6 @@ export class Messages {
     static MISSING_OUT_4 = "You are <span class='orange'>#0#</span> points away from getting a #1#";
     static TEST_DRIVE_APPROVED = "Test drive approved successfully.";
     static SENARIO_EMPTY = "Senario can not be empty";
-    static EXPECTED_OUTCOME_EMPTY = "Ecpected outcome can not be empty."
-
+    static EXPECTED_OUTCOME_EMPTY = "Ecpected outcome can not be empty.";
+    static TEST_DRIVE_OPTION_MESSAGE = "You can create this test drive with survey quesions for the test drive users or you can simply go for test drive without registrations.";
 }

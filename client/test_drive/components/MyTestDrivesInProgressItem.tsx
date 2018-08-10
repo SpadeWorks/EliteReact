@@ -30,9 +30,9 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
                                     onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
                                     <i className="material-icons">email</i>
                                 </a>
-                                <a target="_blank" href={Services.getTeamSiteUrl(testDrive.teamsChannelID)}>
+                                {/* <a target="_blank" href={Services.getTeamSiteUrl(testDrive.teamsChannelID)}>
                                     <span className="teams"></span>
-                                </a>
+                                </a> */}
                                 <a href="javascript:;" title={Messages.SHARE_TITLE}
                                     onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive)}>
                                     <i className="material-icons">share</i>

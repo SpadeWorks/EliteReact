@@ -36,7 +36,7 @@ export const SAVE_TestCase = 'SAVE_TestCase';
 export const SUBMIT_TestCase = 'SUBMIT_TestCase';
 export const UPDATE_TestCase = 'UPDATE_TestCase';
 
-// Question Actions.
+// RegistrationQuestion Actions.
 export const LOAD_Questions = 'LOAD_Questions';
 export const LOAD_Questions_PENDING = 'LOAD_Questions_PENDING';
 export const LOAD_Questions_FULFILLED = 'LOAD_Questions_FULFILLED'; 
@@ -46,6 +46,19 @@ export const EDIT_Question = 'EDITQuestion';
 export const SAVE_Question = 'SAVEQuestion';
 export const SUBMIT_Question = 'SUBMITQuestion';
 export const UPDATE_Question = 'UPDATE_Question';
+
+
+// Registration Question Actions.
+export const LOAD_RegistrationQuestions = 'LOAD_RegistrationQuestions';
+export const LOAD_RegistrationQuestions_PENDING = 'LOAD_RegistrationQuestions_PENDING';
+export const LOAD_RegistrationQuestions_FULFILLED = 'LOAD_RegistrationQuestions_FULFILLED'; 
+export const ADD_RegistrationQuestion = 'ADDRegistrationQuestion';
+export const DELETE_RegistrationQuestion = 'DELETERegistrationQuestion';
+export const EDIT_RegistrationQuestion = 'EDITRegistrationQuestion';
+export const SAVE_RegistrationQuestion = 'SAVERegistrationQuestion';
+export const SUBMIT_RegistrationQuestion = 'SUBMITRegistrationQuestion';
+export const UPDATE_RegistrationQuestion = 'UPDATE_RegistrationQuestion';
+
 
 
 //Approval related actions

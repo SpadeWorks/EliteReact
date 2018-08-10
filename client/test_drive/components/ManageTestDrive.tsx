@@ -35,12 +35,19 @@ import {
     deleteQuestion,
     addQuestion,
     updateQuestion,
+    loadQuestions,
+    saveRegistrationQuestion,
+    editRegistrationQuestion,
+    deleteRegistrationQuestion,
+    addRegistrationQuestion,
+    updateRegistrationQuestion,
+    loadRegistrationQuestions,
     loadTestDrives,
     loadTestCases,
-    loadQuestions,
     loadConfigurations,
     updateMaxPoints
 } from '../../test_drive';
+import Registration from './Registration';
 
 interface AppProps {
     id: number,
@@ -52,12 +59,15 @@ interface AppProps {
     ui: any;
     dispatch: any;
     questions: model.Question[];
+    registrationQuestion?: model.RegistrationQuestion;
+    registrationQuestions?: model.RegistrationQuestion[];
     question: model.Question;
     configurationLoaded: boolean;
     testCaseFields: object;
     surveyFields: object;
     testDriveFields: object;
     view: string;
+    registration: boolean;
 };
 
 @ui({
@@ -76,12 +86,17 @@ class ManageTestDrive extends React.Component<AppProps> {
         this.switchTab = this.switchTab.bind(this);
         this.onTestDriveSave = this.onTestDriveSave.bind(this);
         this.onAddQuestion = this.onAddQuestion.bind(this);
-        this.onAddTestCase = this.onAddTestCase.bind(this);
         this.onSaveQuestion = this.onSaveQuestion.bind(this);
+        this.onAddRegistrationQuestion = this.onAddRegistrationQuestion.bind(this);
+        this.onSaveRegistrationQuestion = this.onSaveRegistrationQuestion.bind(this);
+
+        this.onAddTestCase = this.onAddTestCase.bind(this);
+
         this.onSaveTestCase = this.onSaveTestCase.bind(this);
         this.checkForUnsavedItems = this.checkForUnsavedItems.bind(this);
         this.getSelectedTab = this.getSelectedTab.bind(this);
         this.approveTestDrive = this.approveTestDrive.bind(this);
+        this.onSwitchTab = this.onSwitchTab.bind(this);
     }
 
 
@@ -93,7 +108,24 @@ class ManageTestDrive extends React.Component<AppProps> {
     }
 
     switchTab(key) {
-        this.props.updateUI({ activeTab: key });
+        var tabIndex = $("[data-label='" + key + "']").attr("data-index");
+        this.props.updateUI({ activeTab: tabIndex });
+    }
+
+    onSwitchTab(direction: number, formID: string) {
+        var isFormValid = validateForm(formID);
+        if (isFormValid) {
+            if($('.nav.nav-tabs li[data-index=' + (this.props.ui.activeTab + direction) + ']').length){
+                this.props.updateUI({ activeTab: (this.props.ui.activeTab + direction) });  
+            } else{
+                this.props.updateUI({ activeTab: (this.props.ui.activeTab + direction + direction) });  
+            }
+            
+        } else {
+            //Popup.alert(Messages.TEST_DRIVE_ERROR);
+            this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_ERROR, title: "Alert!" });
+            $("#popupCreateTestDriveAlert").trigger('click');
+        }
     }
 
     componentDidMount() {
@@ -121,16 +153,18 @@ class ManageTestDrive extends React.Component<AppProps> {
         var testCases = this.props.testDrive.testCases;
         var questions = this.props.testDrive.questions;
         var maxTestDrivers = parseInt(testDrive.maxTestDrivers) || 0;
+
+        testDrive.hasRegistration = this.props.registration || false;
         if (isFormValid) {
             if (testCases && testCases.length &&
                 this.checkForUnsavedItems(testCases, Messages.SAVE_UNSAVED_TEST_CASE)) {
-                this.switchTab(1);
+                this.switchTab("TEST CASES");
                 this.props.updateUI({ saveLoading: false });
                 return false;
             }
             if (questions && questions.length &&
                 this.checkForUnsavedItems(questions, Messages.SAVE_UNSAVED_QUESTION)) {
-                this.switchTab(2);
+                this.switchTab("SURVEY QUESTIONS");
                 this.props.updateUI({ saveLoading: false });
                 return false;
             }
@@ -192,7 +226,7 @@ class ManageTestDrive extends React.Component<AppProps> {
 
         }
         else {
-            this.switchTab(0);
+            this.switchTab("REGISTER A TEST DRIVE");
             //Popup.alert(Messages.TEST_DRIVE_ERROR);
             this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_ERROR, title: "Alert!", saveLoading: false });
             $("#popupManageTestDriveAlert").trigger('click');
@@ -208,6 +242,25 @@ class ManageTestDrive extends React.Component<AppProps> {
                 $("#popupManageTestDriveAlert").trigger('click');
             } else {
                 this.props.dispatch(saveQuestion(question));
+                toast.success("Question Saved Successfully!");
+            }
+        } else {
+            //Popup.alert(Messages.QUESTION_ERROR);
+            this.props.updateUI({ requirmentMessage: Messages.QUESTION_ERROR, title: "Alert!" });
+            $("#popupManageTestDriveAlert").trigger('click');
+        }
+    }
+
+    onSaveRegistrationQuestion(question, formID) {
+        var isFormValid = validateForm(formID);
+        if (isFormValid) {
+            if ((question.questionType === "SingleSelect" ||
+                question.questionType === "MultiSelect") && question.options.length < 2) {
+                //Popup.alert(Messages.NO_OPTIONS_ERROR);
+                this.props.updateUI({ requirmentMessage: Messages.NO_OPTIONS_ERROR, title: "Alert!" });
+                $("#popupManageTestDriveAlert").trigger('click');
+            } else {
+                this.props.dispatch(saveRegistrationQuestion(question));
                 toast.success("Question Saved Successfully!");
             }
         } else {
@@ -261,7 +314,7 @@ class ManageTestDrive extends React.Component<AppProps> {
 
         if (unsaveTestCase.length) {
             //Popup.alert(message);
-            this.props.updateUI({ requirmentMessage: Messages.TEST_CASE_ERROR, title: "Alert!" });
+            this.props.updateUI({ requirmentMessage: message, title: "Alert!" });
             $("#popupManageTestDriveAlert").trigger('click');
             return true;
         } else {
@@ -275,6 +328,17 @@ class ManageTestDrive extends React.Component<AppProps> {
         isUnsavedItem = this.checkForUnsavedItems(questions, Messages.SAVE_UNSAVED_QUESTION);
         if (!isUnsavedItem) {
             this.props.dispatch(addQuestion());
+        } else {
+            this.switchTab(2);
+        }
+    }
+
+    onAddRegistrationQuestion() {
+        var RegistrationQuestions = this.props.testDrive.registrationQuestions;
+        var isUnsavedItem = true;
+        isUnsavedItem = this.checkForUnsavedItems(RegistrationQuestions, Messages.SAVE_UNSAVED_RegistrationQuestion);
+        if (!isUnsavedItem) {
+            this.props.dispatch(addRegistrationQuestion());
         } else {
             this.switchTab(2);
         }
@@ -353,7 +417,8 @@ class ManageTestDrive extends React.Component<AppProps> {
 
     render() {
         const { testDrive, question, dispatch, loading, testCase, ui, updateUI,
-            testCaseFields, surveyFields, testDriveFields, view } = this.props;
+            testCaseFields, surveyFields, testDriveFields, view, registration,
+            registrationQuestion, registrationQuestions } = this.props;
 
         const currentUserRole = Services.getUserProfileProperties().role;
         return (
@@ -400,14 +465,40 @@ class ManageTestDrive extends React.Component<AppProps> {
                                                 updateUI={updateUI}
                                                 fieldDescriptions={testDriveFields}
                                                 ui={ui}
-                                                switchTab={this.switchTab}
+                                                switchTab={this.onSwitchTab}
                                                 view={view}
                                                 currentUserRole={currentUserRole}
                                                 approveTestDrive={this.approveTestDrive}
+                                                registration={registration}
                                             />
                                         </div>
                                     </div>
                                 </Pane>
+                                {registration && <Pane label= { registration ? "REGISTRATION QUESTIONS" : null}>
+                                    <div className={"row setup-content"} id="step-4">
+                                        <div className="col-xs-12 form_box tab-container">
+                                            <Registration registrationQuestions={testDrive.registrationQuestions}
+                                                newRegistrationQuestion={registrationQuestion}
+                                                saveRegistrationQuestion={(t, f) => this.onSaveRegistrationQuestion(t, f)}
+                                                saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
+                                                editRegistrationQuestion={(t) => dispatch(editRegistrationQuestion(t))}
+                                                deleteRegistrationQuestion={(id) => dispatch(deleteRegistrationQuestion(id))}
+                                                onChange={(e, registrationQuestion) => dispatch(updateRegistrationQuestion(e, registrationQuestion))}
+                                                addRegistrationQuestion={this.onAddRegistrationQuestion}
+                                                testDrive={testDrive}
+                                                updateUI={updateUI}
+                                                ui={ui}
+                                                loadRegistrationQuestions={(t) => dispatch(loadRegistrationQuestions(t))}
+                                                registrationQuestionIds={testDrive.registrationQuestionIDs}
+                                                fieldDescriptions={surveyFields}
+                                                currentUserRole={currentUserRole}
+                                                approveTestDrive={this.approveTestDrive}
+                                                view={view}
+                                                switchTab={this.onSwitchTab}
+                                            />
+                                        </div>
+                                    </div>
+                                </Pane> }
                                 <Pane label="TEST CASES">
                                     <div className={"row setup-content"} id="step-2">
                                         <div className="col-xs-12 form_box tab-container">
@@ -426,7 +517,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                                 loadTestCases={(t) => dispatch(loadTestCases(t))}
                                                 testCaseIds={testDrive.testCaseIDs}
                                                 fieldDescriptions={testCaseFields}
-                                                switchTab={this.switchTab}
+                                                switchTab={this.onSwitchTab}
                                                 currentUserRole={currentUserRole}
                                                 approveTestDrive={this.approveTestDrive}
                                                 view={view}
@@ -454,6 +545,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                                 view={view}
                                                 currentUserRole={currentUserRole}
                                                 approveTestDrive={this.approveTestDrive}
+                                                switchTab={this.onSwitchTab}
                                             />
                                         </div>
                                     </div>
@@ -468,9 +560,15 @@ class ManageTestDrive extends React.Component<AppProps> {
     }
 }
 
-
 const mapStateToProps = (state, ownProps) => {
     let testDriveId = ownProps.match.params.id;
+    testDriveId = isNaN(parseInt(testDriveId)) ? "" : testDriveId;  
+
+    let registration = ownProps.match.params.id ?
+        ownProps.match.params.id.toLowerCase() === "with_registration" : false;
+
+    
+
     let view = ownProps.match.params.view;
     const testDriveState = state.testDriveState;
     let fieldDescriptions = testDriveState.configurations.fieldDescription || {}
@@ -481,12 +579,15 @@ const mapStateToProps = (state, ownProps) => {
         loading: testDriveState.loading || state.asyncInitialState.loading,
         testCase: testDriveState.testCase,
         question: testDriveState.question,
+        registrationQuestion: testDriveState.registrationQuestion,
         testDriveFields: fieldDescriptions.testDrives,
         testCaseFields: fieldDescriptions.testCases,
         surveyFields: fieldDescriptions.survey,
         configurationLoaded: state.testDriveState.configurationLoaded,
-        view: view || 'edit'
+        view: view || 'edit',
+        registration: testDriveState.testDrive.hasRegistration || registration
     }
 };
 
 export default connect(mapStateToProps)(ManageTestDrive);
+

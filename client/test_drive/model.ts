@@ -25,12 +25,22 @@ export type Question = {
     newItem?: boolean;
 }
 
+export type RegistrationQuestion = {
+    id: number;
+    title: string;
+    questionType: string;
+    options: Array<string>;
+    isInEditMode?: boolean;
+    newItem?: boolean;
+}
 
 export type TestDrive = {
     id: number;
     title: string;
     description?: string;
     maxPoints?: number;
+    registrationStartDate?: string;
+    registrationEndDate?: string;
     startDate: string;
     endDate: string;
     expectedBusinessValue: string;
@@ -44,6 +54,8 @@ export type TestDrive = {
     testCaseIDs?: number[];
     questions: Question[];
     questionIDs?: number[];
+    registrationQuestions?: RegistrationQuestion[];
+    registrationQuestionIDs?: number[];
     status: string;
     level: string;
     levelName?: string;
@@ -63,6 +75,7 @@ export type TestDrive = {
     teamsChannelID?:string;
     passPercentageToDeploy: number;
     ownerID: string;
+    hasRegistration: boolean;
 };
 
 export type TestDriveIRun = {
@@ -96,7 +109,8 @@ export type TestDriveIRun = {
         inProgress: number;
     }; 
     passPercentageToDeploy: number;
-    ownerID: ''
+    ownerID: '';
+    hasRegistration: boolean;
 
 };
 
@@ -136,6 +150,7 @@ export type IState = {
     testDrive: TestDrive,
     testCase: TestCase,
     question: Question,
+    registrationQuestion?: RegistrationQuestion,
     loading: boolean,
     activeTab: string,
     configurations: Configurations;

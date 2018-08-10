@@ -27,13 +27,14 @@ interface TestDriveFormProps {
     updateMultiSelect: (value: any, control: string, testDrive: TestDrive) => any;
     updateMaxPoints: () => any;
     updateDates: (dates: any) => any;
-    switchTab: (tabName) => any;
+    switchTab: (tabName, formID: string) => any;
     updateUI: (any) => any;
     fieldDescriptions: any;
     ui: any;
     view: string;
     currentUserRole: string;
     approveTestDrive: (any) => any;
+    registration: boolean;
 }
 
 interface TestDriveFormState {
@@ -48,6 +49,8 @@ interface TestDriveFormState {
         rangePicker: null,
         showStartDatePicker: false,
         showEndDatePicker: false,
+        showRegistrationStartDatePicker: false,
+        showRegistrationEndDatePicker: false,
     }
 })
 class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormState> {
@@ -55,10 +58,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         super(props, state);
         this.onChange = this.onChange.bind(this);
         this.selectControlChange = this.selectControlChange.bind(this);
-        this.onSwitchTab = this.onSwitchTab.bind(this);
         this.saveValidate = this.saveValidate.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.getEndDate = this.getEndDate.bind(this);
+        this.getFirstEnabledDate = this.getFirstEnabledDate.bind(this);
     }
 
     onChange = (e) => {
@@ -170,17 +172,6 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         })
     }
 
-    onSwitchTab(direction) {
-        var isFormValid = validateForm("test-drive-form" + this.props.testDrive.id);
-        if (isFormValid) {
-            this.props.updateUI({ activeTab: this.props.ui.activeTab + direction });
-        } else {
-            //Popup.alert(Messages.TEST_DRIVE_ERROR);
-            this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_ERROR, title: "Alert!" });
-            $("#popupCreateTestDriveAlert").trigger('click');
-        }
-    }
-
     saveValidate(testDrive) {
         this.props.updateUI({ saveLoading: true });
         this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save");
@@ -190,29 +181,8 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     componentDidMount() {
         document.body.className = "black-bg";
         $(document).mouseup((e) => {
-            var startDateContainer = $(".startDate .rdr-Calendar");
 
-            // if the target of the click isn't the container nor a descendant of the container
-            if ($("#endDate").is(e.target)) {
-                this.props.updateUI({ showEndDatePicker: true });
-            }
-
-            if ($("#startDate").is(e.target)) {
-                this.props.updateUI({ showStartDatePicker: true });
-            }
-
-
-            // if the target of the click isn't the container nor a descendant of the container
-            if (!$("#startDate").is(e.target) && !startDateContainer.is(e.target) && startDateContainer.has(e.target).length === 0) {
-                this.props.updateUI({ showStartDatePicker: false });
-            }
-
-            var endDateContainer = $(".endDate .rdr-Calendar");
-
-
-            if (!$("#endDate").is(e.target) && !endDateContainer.is(e.target) && endDateContainer.has(e.target).length === 0) {
-                this.props.updateUI({ showEndDatePicker: false });
-            }
+            this.hideShowCalander(e);
 
             /* for car*/
             $(".test_cases a").click(function () {
@@ -229,8 +199,49 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         });
     }
 
-    getEndDate() {
-        return moment(this.props.testDrive.startDate).add(1, 'days')
+
+    hideShowCalander(e) {
+        if ($("#startDate").is(e.target)) {
+            this.props.updateUI({ showStartDatePicker: true });
+        } 
+        if ($("#endDate").is(e.target)) {
+            this.props.updateUI({ showEndDatePicker: true });
+        } 
+        if ($("#registrationStartDate").is(e.target)) {
+            this.props.updateUI({ showRegistrationStartDatePicker: true });
+        } 
+        if ($("#registrationEndDate").is(e.target)) {
+            this.props.updateUI({ showRegistrationEndDatePicker: true });
+        }
+
+        var startDateContainer = $(".startDate .rdr-Calendar");
+        var endDateContainer = $(".endDate .rdr-Calendar");
+        var registrationStartDateContainer = $(".registrationStartDate .rdr-Calendar");
+        var registrationEndDateContainer = $(".registrationEndDate .rdr-Calendar");
+        // if the target of the click isn't the container nor a descendant of the container
+        if (!$("#startDate").is(e.target) && !startDateContainer.is(e.target) &&
+            startDateContainer.has(e.target).length === 0) {
+            this.props.updateUI({ showStartDatePicker: false });
+        }
+
+        if (!$("#endDate").is(e.target) && !endDateContainer.is(e.target) &&
+            endDateContainer.has(e.target).length === 0) {
+            this.props.updateUI({ showEndDatePicker: false });
+        }
+
+        if (!$("#registrationStartDate").is(e.target) &&
+            !registrationStartDateContainer.is(e.target) && registrationStartDateContainer.has(e.target).length === 0) {
+            this.props.updateUI({ showRegistrationStartDatePicker: false });
+        }
+
+        if (!$("#registrationEndDate").is(e.target) && !registrationEndDateContainer.is(e.target) &&
+            registrationEndDateContainer.has(e.target).length === 0) {
+            this.props.updateUI({ showRegistrationEndDatePicker: false });
+        }
+    }
+
+    getFirstEnabledDate(date) {
+        return moment(date).add(1, 'days')
     }
 
     createTestDriveSuccessButtons = [{
@@ -260,7 +271,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
             updateUI,
             fieldDescriptions,
             currentUserRole,
-            approveTestDrive } = this.props;
+            approveTestDrive,
+            registration,
+            switchTab } = this.props;
         const butttonGroup = {
             float: 'right'
         }
@@ -313,7 +326,71 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             </span>
                         </div>
                     </div>
+                    <div id="registration-date-container">
+                        {
+                            registration ?
+                                <div>
+                                    <div className="col-md-6 register_input">
+                                        <div className="group">
+                                            <div className="form-group">
+                                                <input className="form-control inputMaterial date_box"
+                                                    id="registrationStartDate"
+                                                    name="registrationStartDate"
+                                                    placeholder="Registration Start Date"
+                                                    type="text"
+                                                    value={testDrive.registrationStartDate && Services.formatDate(testDrive.registrationStartDate) || ""}
+                                                    // onFocus={() => { updateUI({ showRegistrationStartDatePicker: true }) }}
+                                                    readOnly
+                                                    data-validations={[required]}
+                                                />
+                                                <label className="disc_lable">Registration Start date*</label>
+                                                <span className="help-text">
+                                                    {fieldDescriptions && fieldDescriptions.TestDriveStartDate}
+                                                </span>
+                                            </div>
+                                            <div className={"registrationStartDate " + (ui.showRegistrationStartDatePicker ? "show-tab" : "hide-tab")}>
+                                                <Calendar
+                                                    minDate={now => { return now.add(0, 'days') }}
+                                                    // date={now => { return now.add(0, 'days') }}
+                                                    //onInit={this.handleChange.bind(this, 'startDate')}
+                                                    onChange={this.handleChange.bind(this, 'registrationStartDate')}
+                                                    onFocus={() => { updateUI({ showDatePicker: true }) }}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    <div className="col-md-6 register_input">
+                                        <div className="form-group">
+                                            <input className="form-control inputMaterial date_box"
+                                                id="registrationEndDate"
+                                                name="registrationEndDate"
+                                                placeholder="Registration End Date"
+                                                type="text"
+                                                value={testDrive.registrationEndDate && Services.formatDate(testDrive.registrationEndDate) || ""}
+                                                // onFocus={() => { updateUI({ showEndDatePicker: true }) }}
+                                                readOnly
+                                                data-validations={[required]}
+                                            />
+                                            <label className="disc_lable">Registration End date*</label>
+                                            <span className="help-text">
+                                                {fieldDescriptions && fieldDescriptions.TestDriveEndDate}
+                                            </span>
+                                        </div>
+                                        <div className={"registrationEndDate " + (ui.showRegistrationEndDatePicker ? "show-tab" : "hide-tab")}>
+                                            <Calendar
+                                                // date={now => { return now.add(1, 'days') }}
+                                                minDate={this.getFirstEnabledDate(testDrive.registrationStartDate)}
+                                                //onInit={this.handleChange.bind(this, 'endDate')}
+                                                onChange={this.handleChange.bind(this, 'registrationEndDate')}
+                                                onFocus={() => { updateUI({ showDatePicker: true }) }}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                : ''
+                        }
+                    </div>
                     <div className="col-md-6 register_input">
                         <div className="group">
                             <div className="form-group">
@@ -327,14 +404,15 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                     readOnly
                                     data-validations={[required]}
                                 />
-                                <label className="disc_lable">Start date*</label>
+                                <label className="disc_lable">Test Drive Start date*</label>
                                 <span className="help-text">
                                     {fieldDescriptions && fieldDescriptions.TestDriveStartDate}
                                 </span>
                             </div>
                             <div className={"startDate " + (ui.showStartDatePicker ? "show-tab" : "hide-tab")}>
                                 <Calendar
-                                    minDate={now => { return now.add(0, 'days') }}
+                                    minDate={testDrive.registrationEndDate ? this.getFirstEnabledDate(testDrive.registrationEndDate): 
+                                        now => { return now.add(0, 'days') }}
                                     // date={now => { return now.add(0, 'days') }}
                                     //onInit={this.handleChange.bind(this, 'startDate')}
                                     onChange={this.handleChange.bind(this, 'startDate')}
@@ -356,7 +434,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 readOnly
                                 data-validations={[required]}
                             />
-                            <label className="disc_lable">End date*</label>
+                            <label className="disc_lable">Test Drive End date*</label>
                             <span className="help-text">
                                 {fieldDescriptions && fieldDescriptions.TestDriveEndDate}
                             </span>
@@ -364,7 +442,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         <div className={"endDate " + (ui.showEndDatePicker ? "show-tab" : "hide-tab")}>
                             <Calendar
                                 // date={now => { return now.add(1, 'days') }}
-                                minDate={this.getEndDate()}
+                                minDate={this.getFirstEnabledDate(testDrive.startDate)}
                                 //onInit={this.handleChange.bind(this, 'endDate')}
                                 onChange={this.handleChange.bind(this, 'endDate')}
                                 onFocus={() => { updateUI({ showDatePicker: true }) }}
@@ -554,7 +632,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         <div style={butttonGroup}>
                             <div className="button type1 nextBtn btn-lg pull-right animated_button back_btn">
                                 <input type="button" value="Next"
-                                    onClick={() => this.onSwitchTab(1)} />
+                                    onClick={() => switchTab(1, "test-drive-form" + this.props.testDrive.id)} />
                             </div>
                             {
                                 testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ?

@@ -29,7 +29,7 @@ interface TestCasesProps {
     onChange: (event: any, TestCase: TestCase) => any;
     saveTestDrive: (testDrive: TestDrive, formID: string, action: string) => any;
     loadTestCases: (testCasesIds: number[]) => any
-    switchTab: (tabName) => any;
+    switchTab: (tabName, formID: string) => any;
     fieldDescriptions: any;
     testDrive: TestDrive;
     currentUserRole: string;
@@ -102,7 +102,8 @@ class TestCases extends React.Component<TestCasesProps> {
             fieldDescriptions,
             view,
             currentUserRole,
-            approveTestDrive
+            approveTestDrive,
+            switchTab
         } = this.props;
         return (
             <div className="test-case-container col-xs-12">
@@ -136,10 +137,10 @@ class TestCases extends React.Component<TestCasesProps> {
 
                 <div className="col-md-12 testdrive_actionbox">
                     <div className="button type1 nextBtn btn-lg animated_button pull-left left_mnone">
-                        <input type="button" value="Back" onClick={() => this.switchTab(-1)} />
+                        <input type="button" value="Back" onClick={() => switchTab(-1, "test-drive-form" + this.props.testDrive.id)} />
                     </div>
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                        <input type="button" value="Next" onClick={() => this.switchTab(1)} />
+                        <input type="button" value="Next" onClick={() => switchTab(1, "test-drive-form" + this.props.testDrive.id)} />
                     </div>
                     {testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ? <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <input disabled={testDrive.status == ColumnsValues.ACTIVE} type="button" value="Save as a draft" onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save") }} />

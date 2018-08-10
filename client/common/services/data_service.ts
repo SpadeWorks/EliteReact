@@ -177,8 +177,8 @@ export class Services {
 
     static shareTestDrive(email: string, testDrive: any) {
         var user = <User>Services.getUserProfileProperties();
-        var testDriveLink = _spPageContextInfo.siteAbsoluteUrl + 
-                                "/Pages/default.aspx#/participation/" + testDrive.id;
+        var testDriveLink = _spPageContextInfo.siteAbsoluteUrl +
+            "/Pages/default.aspx#/participation/" + testDrive.id;
         Services.getEmailTemplate('TestDriveShareEmail').then((emailConfig: any) => {
             var emailSubject = emailConfig.subject.replace(/##testdriveName##/ig, testDrive.title);
             emailSubject = emailSubject.replace(/##referrer##/ig, user.displayName);
@@ -193,12 +193,12 @@ export class Services {
     }
 
     static mailto(to, subject, body, bcc?, cc?) {
-        if(bcc){
+        if (bcc) {
             window.location.href = 'mailto:' + to + '?bcc=' + bcc + '&subject=' + subject + '&body=' + body;
         } else {
             window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
         }
-        
+
     }
 
     static getEmailTemplate(key: string) {
@@ -698,19 +698,36 @@ export class Services {
         });
     }
 
-    static getTestDriveWithTestCases(testDriveID: number) {
+    static getTestDriveWithTestCasesAndRegistarionQuestions(testDriveID: number, questionRequied: boolean) {
         return new Promise((resolve, reject) => {
             Services.getTestDriveById(testDriveID).then((testDrive: any) => {
-                Services.getTestCasesByIds(testDrive.testCaseIDs).then(testCases => {
-                    resolve({ ...testDrive, testCases: testCases });
-                }, err => reject(err))
+                if (questionRequied && testDrive.HasRegistration) {
+                    Services.getRegistrationQuestonsByIds(testDrive.RegistrationQuestions)
+                        .then(registrationQuestions => {
+                            Services.getTestCasesByIds(testDrive.testCaseIDs).then(testCases => {
+                                resolve({
+                                    ...testDrive,
+                                    testCases: testCases,
+                                    registrationQuestions: registrationQuestions
+                                });
+                            }, err => reject(err))
+                        }, err => reject(err))
+                } else {
+                    Services.getTestCasesByIds(testDrive.testCaseIDs).then(testCases => {
+                        resolve({
+                            ...testDrive,
+                            testCases: testCases,
+                            registrationQuestions: []
+                        });
+                    }, err => reject(err))
+                }
             }, err => reject(err));
         });
     }
 
     static getTestDriveInstance(testDriveID: number, userID: number) {
         return new Promise((resolve, reject) => {
-            let testDrive = Services.getTestDriveWithTestCases(testDriveID);
+            let testDrive = Services.getTestDriveWithTestCasesAndRegistarionQuestions(testDriveID, true);
             let testCaseResponses = Services.getTestCaseResponses(testDriveID, userID);
             let testDriveResponse = Services.getTestDriveResponse(testDriveID, userID);
             let getParticipatCount = Services.getTestDrivesParticipantCount([testDriveID]);
@@ -1495,6 +1512,8 @@ export class Services {
                     maxPoints: 0,
                     startDate: "",
                     endDate: "",
+                    registrationEndDate: "",
+                    registrationStartDate: "",
                     expectedBusinessValue: "",
                     function: [],
                     department: [],
@@ -1506,6 +1525,8 @@ export class Services {
                     testCases: [],
                     questionIDs: [],
                     questions: [],
+                    registrationQuestionIDs: [],
+                    registrationQuestions: [],
                     region: [],
                     status: Constants.ColumnsValues.DRAFT,
                     level: '',
@@ -1513,6 +1534,7 @@ export class Services {
                     ownerEmail: '',
                     ownerID: '',
                     teamsChannelID: '',
+                    hasRegistration: false
                 });
             } else {
                 pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items.getById(testDriveID)
@@ -1523,6 +1545,8 @@ export class Services {
                         Constants.Columns.TESTDRIVE_STATUS,
                         Constants.Columns.TEST_DRIVE_START_DATE,
                         Constants.Columns.TESTDRIVE_END_DATE,
+                        Constants.Columns.REGISTRATION_START_DATE,
+                        Constants.Columns.REGISTRATION_END_DATE,
                         Constants.Columns.TOTAL_POINTS,
                         Constants.Columns.TEST_DRIVE_DEPARTMENT,
                         Constants.Columns.TEST_DRIVE_LOCATION,
@@ -1536,17 +1560,23 @@ export class Services {
                         Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_EMAIL,
                         Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
                         Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
+                        Constants.Columns.REGISTRATION_QUESTIONS + '/' + Constants.Columns.ID,
                         Constants.Columns.EXPECTED_BUSINESS_VALUE,
                         Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY,
                         Constants.Columns.TestDriveMTCHID,
-
-                )
+                        Constants.Columns.HAS_REGISTRATION
+                    )
                     .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID,
-                        Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
+                        Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID,
+                        Constants.Columns.REGISTRATION_QUESTIONS)
                     .get().then(testDrive => {
                         let questions = testDrive.QuestionID.results.map((question) => {
                             return question.ID;
                         });
+                        let registrationQuestions = testDrive[Constants.Columns.REGISTRATION_QUESTIONS]
+                            .results.map((registrationQuestion) => {
+                                return registrationQuestion.ID;
+                            });
                         let testCases = testDrive.TestCaseID.results.map((testCase) => {
                             return testCase.ID;
                         });
@@ -1557,6 +1587,8 @@ export class Services {
                             status: testDrive.TestDriveStatus,
                             startDate: testDrive.TestDriveStartDate,
                             endDate: testDrive.TestDriveEndDate,
+                            registrationStartDate: testDrive[Constants.Columns.REGISTRATION_START_DATE],
+                            registrationEndDate: testDrive[Constants.Columns.REGISTRATION_END_DATE],
                             maxPoints: testDrive.TotalPoints,
                             department: testDrive.TestDriveDepartment.results,
                             function: [], //testDrive.TestDriveFunction.results,
@@ -1573,10 +1605,12 @@ export class Services {
                             questions: null,
                             testCaseIDs: testCases,
                             questionIDs: questions,
+                            registrationQuestionIDs: registrationQuestions,
                             expectedBusinessValue: testDrive.ExpectedBusinessValue,
                             ownerEmail: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_EMAIL],
                             passPercentageToDeploy: testDrive[Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY] || 0,
                             teamsChannelID: testDrive.TestDriveMTCHID && testDrive.TestDriveMTCHID.replace("-", ""),
+                            hasRegistration: testDrive[Constants.Columns.HAS_REGISTRATION] || false
                         };
                         resolve(testDriveObj);
 
@@ -1688,6 +1722,42 @@ export class Services {
         });
     }
 
+    static getRegistrationQuestonsByIds(questionIDs: number[]) {
+        return new Promise((resolve, reject) => {
+            let filter = '';
+            if (!questionIDs || questionIDs.length == 0) {
+                resolve([]);
+            } else {
+                questionIDs.map((id, index) => {
+                    filter += 'ID eq ' + id + (questionIDs.length - 1 != index ? ' or ' : '');
+                });
+                pnp.sp.web.lists.getByTitle(Constants.Lists.REGISTRATION_QUESTIONS).items
+                    .select(
+                        Constants.Columns.TITLE,
+                        Constants.Columns.ID,
+                        Constants.Columns.QUESTION,
+                        Constants.Columns.RESPONSES,
+                        Constants.Columns.RESPONSETYPE
+                    )
+                    .filter(filter)
+                    .get().then(questions => {
+                        let questionArray: Question[] = [];
+                        questions.map(q => {
+                            questionArray.push({
+                                id: q.ID,
+                                title: q.Question,
+                                questionType: q.ResponseType,
+                                options: JSON.parse(q.Responses),
+                                isInEditMode: false
+                            })
+                        });
+                        resolve(questionArray);
+                    }, error => {
+                        reject(error);
+                    });
+            }
+        });
+    }
     static getFieldMetadata(listName, columns) {
         return new Promise((resolve, reject) => {
             pnp.sp.web.lists.getByTitle(listName).fields
@@ -1760,10 +1830,12 @@ export class Services {
             var promises = [];
             promises.push(this.createTestCase(testDrive.testCases));
             promises.push(this.createQuestions(testDrive.questions));
+            promises.push(this.createRegistrationQuestions(testDrive.registrationQuestions));
 
             Promise.all(promises).then((results) => {
                 let testCases = results[0];
                 let questions = results[1];
+                let registrationQuestions = results[2];
                 let testDrives = [];
                 let newTestDrive = {
                     ID: testDrive.id,
@@ -1771,6 +1843,7 @@ export class Services {
                     EliteDescription: testDrive.description,
                     TestDriveStartDate: testDrive.startDate,
                     TestDriveEndDate: testDrive.endDate,
+                    HasRegistration: testDrive.hasRegistration,
                     TotalPoints: testDrive.maxPoints,
                     LevelID_id: testDrive.level,
                     ExpectedBusinessValue: testDrive.expectedBusinessValue,
@@ -1794,6 +1867,22 @@ export class Services {
                         results: ids || []
                     }
                 }
+
+                if(testDrive.hasRegistration){
+                    newTestDrive[Constants.Columns.REGISTRATION_START_DATE] =  testDrive.registrationStartDate;
+                    newTestDrive[Constants.Columns.REGISTRATION_END_DATE]= testDrive.registrationEndDate;
+                    if (registrationQuestions.length > 0) {
+                        let ids = [];
+                        registrationQuestions.map(question => {
+                            ids.push(question.id);
+                        })
+                        newTestDrive[Constants.Columns.REGISTRATION_QUESTIONS + "_id"] = {
+                            results: ids || []
+                        }
+                    }
+    
+                }
+
                 if (testCases.length > 0) {
                     let ids = [];
                     testCases.map(testCase => {
@@ -1962,6 +2051,41 @@ export class Services {
             }
         });
     }
+
+    static createRegistrationQuestions(questions: Question[]) {
+        return new Promise((resolve, reject) => {
+            var questionsArray = [];
+            if (questions && questions.length > 0) {
+                questions.forEach((question, index) => {
+                    questionsArray.push({
+                        ID: question.newItem ? -1 : question.id,
+                        Question: question.title,
+                        Responses: JSON.stringify(question.options),
+                        ResponseType: question.questionType
+                    });
+                });
+                this.createOrUpdateListItemsInBatch(Constants.Lists.REGISTRATION_QUESTIONS, questionsArray).
+                    then((questions: any) => {
+                        var data = questions && questions.length && questions.map(question => {
+                            return {
+                                id: question.id,
+                                ID: questions.ID,
+                                options: (question.Responses && question.Responses.length) ? 
+                                    Utils.tryParseJSON(question.Responses) : [],
+                                questionType: question.ResponseType,
+                                title: question.Question
+                            }
+                        });
+                        resolve(data);
+                    }, err => {
+                        reject(err);
+                    })
+            } else {
+                resolve([]);
+            }
+        });
+    }
+
 
     static getDefaultCarDetails() {
         return new Promise((resolve, reject) => {

@@ -45,7 +45,7 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
       let activeClass = (this.state.selected === index ? 'active' : '');
       return (
         (child && child.props && child.props.label) ? 
-          <li key={index} className={activeClass} data-index={index}>
+          <li key={index} className={activeClass} data-index={index} data-label={child.props.label} >
           <a href="#"
             onClick={this.handleClick.bind(this, index)}>
             {child && child.props && child.props.label}

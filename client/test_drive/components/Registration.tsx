@@ -1,31 +1,32 @@
 import * as React from 'react';
-import { TestDrive, IState, Question } from '../model';
-import SurveyForm from './SurveyForm';
+import { TestDrive, IState, RegistrationQuestion } from '../model';
 import { ColumnsValues } from '../../common/services/constants';
 import Services from '../../common/services/services';
 import ui from 'redux-ui';
 import {
     model,
-    saveQuestion,
-    editQuestion,
-    deleteQuestion,
-    updateQuestion
+    saveRegistrationQuestion,
+    editRegistrationQuestion,
+    deleteRegistrationQuestion,
+    updateRegistrationQuestion,
+    switchTab
 } from '../../test_drive';
+import RegistrationForm from './RegistrationForm';
 
-interface SurveysProps {
-    questions: Question[];
-    newQuestion: Question;
-    addQuestion: () => any;
-    deleteQuestion: (id: number) => any;
-    saveQuestion: (question: Question, formID: string) => any;
-    editQuestion: (question: Question) => any;
-    onChange: (event: any, question: Question) => any;
+interface RegistrationProps {
+    registrationQuestions: RegistrationQuestion[];
+    newRegistrationQuestion: RegistrationQuestion;
+    addRegistrationQuestion: () => any;
+    deleteRegistrationQuestion: (id: number) => any;
+    saveRegistrationQuestion: (registrationQuestion: RegistrationQuestion, formID: string) => any;
+    editRegistrationQuestion: (registrationQuestion: RegistrationQuestion) => any;
+    onChange: (event: any, RegistrationQuestion: RegistrationQuestion) => any;
     saveTestDrive: (testDrive: TestDrive, formID: string, action: string) => any;
     testDrive: TestDrive;
     updateUI: (any) => any;
     ui: any;
-    loadQuestions: (questionIds: number[]) => any
-    questionIds: number[];
+    loadRegistrationQuestions: (registrationQuestionIds: number[]) => any
+    registrationQuestionIds: number[];
     fieldDescriptions: any;
     view: string;
     currentUserRole: string;
@@ -37,7 +38,7 @@ interface SurveysProps {
         helpText: ''
     }
 })
-class Surveys extends React.Component<SurveysProps> {
+class Registration extends React.Component<RegistrationProps> {
     constructor(props, context) {
         super(props, context);
         this.onSubmit = this.onSubmit.bind(this);
@@ -52,9 +53,9 @@ class Surveys extends React.Component<SurveysProps> {
     }
 
     componentDidMount() {
-        const questions = this.props.questions;
-        if (!questions || questions.length == 0) {
-            this.props.loadQuestions(this.props.questionIds);
+        const registrationQuestions = this.props.registrationQuestions;
+        if (!registrationQuestions || registrationQuestions.length == 0) {
+            this.props.loadRegistrationQuestions(this.props.registrationQuestionIds);
         }
         this.getHelpText();
     }
@@ -68,13 +69,13 @@ class Surveys extends React.Component<SurveysProps> {
     render() {
         const {
             testDrive,
-            questions,
-            saveQuestion,
-            editQuestion,
+            registrationQuestions,
+            saveRegistrationQuestion,
+            editRegistrationQuestion,
             onChange,
-            newQuestion,
-            deleteQuestion,
-            addQuestion,
+            newRegistrationQuestion,
+            deleteRegistrationQuestion,
+            addRegistrationQuestion,
             saveTestDrive,
             ui,
             updateUI,
@@ -90,21 +91,21 @@ class Surveys extends React.Component<SurveysProps> {
                     <p>{ui.helpText}</p>
                 </div>
                 <div className="add-button col-md-2 add_test pull-right text-right">
-                    <a href="javascript:;" onClick={addQuestion}> + ADD QUESTION </a>
+                    <a href="javascript:;" onClick={addRegistrationQuestion}> + ADD Question </a>
                 </div>
                 <div className="col-md-12">
                     {
-                        questions && questions.map(question => {
-                            return <SurveyForm
-                                question={(question && question.isInEditMode) ?
-                                    { ...newQuestion, isInEditMode: true } : question}
-                                saveQuestion={saveQuestion}
-                                editQuestion={editQuestion}
-                                deleteQuestion={deleteQuestion}
+                        registrationQuestions && registrationQuestions.map(registrationQuestion => {
+                            return <RegistrationForm
+                                registrationQuestion={(registrationQuestion && registrationQuestion.isInEditMode) ?
+                                    { ...newRegistrationQuestion, isInEditMode: true } : registrationQuestion}
+                                saveRegistrationQuestion={saveRegistrationQuestion}
+                                editRegistrationQuestion={editRegistrationQuestion}
+                                deleteRegistrationQuestion={deleteRegistrationQuestion}
                                 onChange={onChange}
                                 updateUI={updateUI}
                                 ui={ui}
-                                key={question.id}
+                                key={registrationQuestion.id}
                                 fieldDescriptions={fieldDescriptions}
                             />
                         })
@@ -113,21 +114,16 @@ class Surveys extends React.Component<SurveysProps> {
 
                 <div className="col-md-12 testdrive_actionbox">
                     <div className="button type1 nextBtn btn-lg animated_button pull-left left_mnone">
-                        <input type="button" value="Back" onClick={() => switchTab(-1, "test-drive-form" + this.props.testDrive.id)} />
+                        <input type="button" value="Back" onClick={() => switchTab(-1, "test-drive-form" + testDrive.id)} />
+                    </div>
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <input type="button" value="Next" onClick={() => switchTab(1, "test-drive-form" + this.props.testDrive.id)} />
                     </div>
                     {
                         testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ? <div className="button type1 nextBtn btn-lg pull-right animated_button">
                             <input type="button" value="Save as a draft"
                                 onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save") }} />
                         </div> : ''
-                    }
-
-                    {
-                        view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ?
-                            <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                <input disabled={testDrive.status == ColumnsValues.ACTIVE || testDrive.saveIsInProgress || ui.saveLoading} type="button" value="Submit"
-                                    onClick={this.onSubmit} />
-                            </div> : ''
                     }
 
                     {testDrive.status == ColumnsValues.SUBMIT && currentUserRole == ColumnsValues.SITE_OWNER ?
@@ -146,4 +142,4 @@ class Surveys extends React.Component<SurveysProps> {
     }
 }
 
-export default Surveys;
+export default Registration;

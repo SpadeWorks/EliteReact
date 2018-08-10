@@ -11,6 +11,7 @@ import { Tabs, Pane } from '../../common/components/Tabs';
 import Service from '../../common/services/services';
 import * as Constants from '../../common/services/constants';
 import * as $ from 'jquery';
+import Popup from '../../common/components/Popups';
 
 import {
   ApprovalPendingContainer,
@@ -75,7 +76,7 @@ interface AppProps {
   state: {
     activeTab: 0,
     isCreaseTestDriveVisible: false,
-    testDriveCarImage:""
+    testDriveCarImage: ""
   }
 })
 
@@ -126,6 +127,8 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
     }
   }
 
+
+
   render() {
     const { testDriveState, testDriveIRun, dispatch,
       myCompletedTestDrives,
@@ -157,16 +160,13 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
 
     let userProfileProperty = Service.getUserProfileProperties();
 
-    const role = userProfileProperty.role;    
+    const role = userProfileProperty.role;
     const isTestDriveIRunVisible = (role == "Test Drive Owner" ||
       role == "Site Owner");
 
-    Services.getEliteProfileByID(userProfileProperty.eliteProfileID).then((data:any)=>
-    { 
-      this.props.updateUI({ testDriveCarImage:data.carImage });
+    Services.getEliteProfileByID(userProfileProperty.eliteProfileID).then((data: any) => {
+      this.props.updateUI({ testDriveCarImage: data.carImage });
     })
-
-
 
     const isApprover = (role == "Site Owner")
 
@@ -186,7 +186,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
           <div className="clearBoth"></div>
           <div className="col-md-12 total_testdrivebox">
             <div className="car_box first_place">
-              <img src={ui.testDriveCarImage} style={{height:'45px'}}/>
+              <img src={ui.testDriveCarImage} style={{ height: '45px' }} />
             </div>
             <div className="row">
               <div className="well">
@@ -231,7 +231,8 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                       upCommingTestDrivesLoading={upCommingTestDrivesLoading}
                       loadUpCommingTestDrives={(skip, top) => dispatch(loadUpCommingTestDrives(skip, top))}
                       ui={ui}
-                      updateUI={updateUI} />
+                      updateUI={updateUI}
+                    />
                   </Pane>
 
                   <Pane label="Active Test Drives">

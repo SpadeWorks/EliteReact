@@ -16,7 +16,7 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
         return (<div className="col-md-12 currtestdrive_list testdrive_I_runbox">
             <div className="row">
                 <div className="col-md-12">
-                    <Link to={'/testdrive/' + testDrive.id + '/display'}><h4>{testDrive.title}</h4></Link>
+                    <Link to={'/testdrive/' + testDrive.id}><h4>{testDrive.title}</h4></Link>
                 </div>
                 <div className="col-md-12">
                     <div className="row">

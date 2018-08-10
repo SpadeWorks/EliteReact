@@ -10,6 +10,7 @@ import {
     model,
 } from '../../test_drive';
 import { Messages } from '../../common/services/constants';
+import CreateButton from './CreateButton';
 
 
 interface ActiveTestDrivesContainerProps {
@@ -85,17 +86,7 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
         this.initialize();
 
         return (<div>
-            {ui.isCreaseTestDriveVisible ? <div className="centralbox_button row">
-                <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                    <Link to={"/testdrive"} >Create Test Drive</Link>
-                </div>
-            </div> : ''  
-            // <div className="centralbox_button row">
-            //         <div className="button type1 nextBtn btn-lg pull-right animated_button">
-            //             <a href="javascript:;" onClick={() => Services.requestAccess()} >Become Drive Owner</a>
-            //         </div>
-            //     </div>
-            }
+            <CreateButton show={ui.isCreaseTestDriveVisible} />
 
             <Loader show={activeTestDrivesLoading || false} message={'Loading...'}>
                 {

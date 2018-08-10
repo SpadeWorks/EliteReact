@@ -15,6 +15,7 @@ import TestDrivesIRunUpcommingItem from './TestDrivesIRunUpcommingItem';
 import TestDrivesIRunCompletedItem from './TestDrivesIRunCompletedItem';
 import { Messages } from '../../common/services/constants';
 import Services from '../../common/services/services';
+import CreateButton from './CreateButton';
 
 interface TestDrivesIRunContainerProps {
     upcommingTestDrivesIRun: TestDrive[]
@@ -181,17 +182,7 @@ class TestDrivesIRunContainer extends React.Component<TestDrivesIRunContainerPro
 
         return (
             <div>
-                {ui.isCreaseTestDriveVisible ? <div className="centralbox_button">
-                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                        <Link to={"/testdrive"} >Create Test Drive</Link>
-                    </div>
-                </div> : ''
-                    // <div className="centralbox_button">
-                    //     <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                    //         <a href="javascript:;" onClick={() => Services.requestAccess()} >Become Drive Owner</a>
-                    //     </div>
-                    // </div>
-                }
+                <CreateButton show={ui.isCreaseTestDriveVisible} />
                 <Tabs selected={0}>
                     <Pane label="TEST DRIVES IN PROGRESS">
                         <div>

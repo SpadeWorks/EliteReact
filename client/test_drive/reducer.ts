@@ -1,5 +1,5 @@
 import { handleActions, Action } from 'redux-actions';
-import { TestDrive, TestCase, Question, IState } from './model';
+import { TestDrive, TestCase, Question, IState, RegistrationQuestion } from './model';
 import { ColumnsValues } from '../common/services/constants';
 import {
     LOAD_TestDrive_PENDING,
@@ -38,6 +38,17 @@ import {
     SAVE_Question,
     SUBMIT_Question,
     UPDATE_Question,
+
+    LOAD_RegistrationQuestions_PENDING,
+    LOAD_RegistrationQuestions_FULFILLED,
+    ADD_RegistrationQuestion,
+    DELETE_RegistrationQuestion,
+    EDIT_RegistrationQuestion,
+    SAVE_RegistrationQuestion,
+    SUBMIT_RegistrationQuestion,
+    UPDATE_RegistrationQuestion,
+
+
     SWITCH_Tab,
     UPDATE_Date,
     DATE_FocusChange,
@@ -88,7 +99,12 @@ import {
 
 
 } from './constants/ActionTypes';
-import { LOAD_ActiveTestDrive_PENDING, LOAD_ActiveTestDrive_FULFILLED, LOAD_ActiveTestDrive_REJECTED, LOAD_UpcomingTestDrive_PENDING } from '../home/constants/ActionTypes';
+import {
+    LOAD_ActiveTestDrive_PENDING,
+    LOAD_ActiveTestDrive_FULFILLED,
+    LOAD_UpcomingTestDrive_PENDING
+} from '../home/constants/ActionTypes';
+
 import { UPDATE_Points_FULFILLED } from '../test_drive_participation/constants/ActionTypes';
 
 const initialState: IState = {
@@ -108,10 +124,11 @@ const initialState: IState = {
         maxTestDrivers: 5000,
         testCases: [],
         questions: [],
+        registrationQuestions: [],
         status: 'Draft',
         level: 'Level1',
         saveIsInProgress: false,
-        report:{
+        report: {
             total: 0,
             fail: 0,
             pass: 0,
@@ -120,7 +137,8 @@ const initialState: IState = {
         },
         participants: 0,
         passPercentageToDeploy: 0,
-        ownerID: ''
+        ownerID: '',
+        hasRegistration: false
     },
     testCase: {
         id: -1,
@@ -137,6 +155,13 @@ const initialState: IState = {
     },
     testDrives: [],
     question: {
+        id: -1,
+        title: '',
+        questionType: '',
+        options: [],
+        isInEditMode: false
+    },
+    registrationQuestion: {
         id: -1,
         title: '',
         questionType: '',
@@ -252,7 +277,7 @@ export default handleActions<IState, any>({
             ...state,
             loading: true,
             isTestDriveSaveComplet: false,
-            testDrive: {...state.testDrive, saveIsInProgress: true}
+            testDrive: { ...state.testDrive, saveIsInProgress: true }
         }
     },
 
@@ -271,7 +296,7 @@ export default handleActions<IState, any>({
             testDrive: { ...state.testDrive, ...newTestDrive, saveIsInProgress: false },
             testDrives: testDrives || [],
             loading: false,
-            isTestDriveSaveComplet: true            
+            isTestDriveSaveComplet: true
         }
     },
 
@@ -315,25 +340,10 @@ export default handleActions<IState, any>({
         }
     },
 
-    [LOAD_Questions_PENDING]: (state: IState, action: Action<Question>): IState => {
-        return {
-            ...state,
-            loading: true
-        }
-    },
-
-    [LOAD_Questions_FULFILLED]: (state: IState, action: Action<Question[]>): IState => {
-        return {
-            ...state,
-            testDrive: { ...state.testDrive, questions: action.payload },
-            loading: false
-        }
-    },
-
     [UPDATE_MaxPoints]: (state: IState, action: Action<any>): IState => {
         let poinstForLevle = state.configurations.testDriveLevelsConfig[state.testDrive.level] ?
             state.configurations.testDriveLevelsConfig[state.testDrive.level].points : 0;
-            
+
         let numberOfTestCases = state.testDrive.testCases && state.testDrive.testCases.length;
         numberOfTestCases = numberOfTestCases == undefined ?
             state.testDrive.testCaseIDs && state.testDrive.testCaseIDs.length : numberOfTestCases;
@@ -427,7 +437,23 @@ export default handleActions<IState, any>({
         }
     },
 
-    /////////////////
+    ///////////////// Question reducers start ///////////
+
+    [LOAD_Questions_PENDING]: (state: IState, action: Action<Question>): IState => {
+        return {
+            ...state,
+            loading: true
+        }
+    },
+
+    [LOAD_Questions_FULFILLED]: (state: IState, action: Action<Question[]>): IState => {
+        return {
+            ...state,
+            testDrive: { ...state.testDrive, questions: action.payload },
+            loading: false
+        }
+    },
+
     [ADD_Question]: (state: IState, action: Action<any>): IState => {
         const question = {
             id: state.testDrive.questions.length + 1,
@@ -505,7 +531,105 @@ export default handleActions<IState, any>({
             }
         }
     },
-    /////////////////
+    ///////////////// Question reducers End ///////////
+
+    ///////////////// Registration Question reducers End ///////////
+
+    [LOAD_RegistrationQuestions_PENDING]: (state: IState, action: Action<RegistrationQuestion>): IState => {
+        return {
+            ...state,
+            loading: true
+        }
+    },
+
+    [LOAD_RegistrationQuestions_FULFILLED]: (state: IState, action: Action<RegistrationQuestion[]>): IState => {
+        return {
+            ...state,
+            testDrive: { ...state.testDrive, registrationQuestions: action.payload },
+            loading: false
+        }
+    },
+
+    [ADD_RegistrationQuestion]: (state: IState, action: Action<any>): IState => {
+        const registrationQuestion = {
+            id: state.testDrive.registrationQuestions.length + 1,
+            title: '',
+            questionType: '',
+            options: [],
+            isInEditMode: true,
+            newItem: true
+        }
+        return {
+            ...state,
+            testDrive: {
+                ...state.testDrive, registrationQuestions: state.testDrive.registrationQuestions.map(registrationQuestion => {
+                    return { ...registrationQuestion, isInEditMode: false }
+                }).concat(registrationQuestion)
+            },
+            registrationQuestion: registrationQuestion,
+            loading: false
+        }
+    },
+
+    [EDIT_RegistrationQuestion]: (state: IState, action: Action<RegistrationQuestion>): IState => {
+        const testDrive = state.testDrive;
+        return {
+            ...state,
+            testDrive: {
+                ...testDrive, registrationQuestions: testDrive.registrationQuestions.map(registrationQuestion => {
+                    return registrationQuestion.id === action.payload.id ?
+                        { ...registrationQuestion, isInEditMode: true } :
+                        { ...registrationQuestion, isInEditMode: false }
+                })
+            },
+            registrationQuestion: { ...action.payload, isInEditMode: true }
+        }
+    },
+    [UPDATE_RegistrationQuestion]: (state: IState, action: Action<RegistrationQuestion>): IState => {
+        return {
+            ...state,
+            registrationQuestion: { ...state.registrationQuestion, ...action.payload }
+        }
+    },
+
+    [SAVE_RegistrationQuestion]: (state: IState, action: Action<RegistrationQuestion>): IState => {
+        const testDrive = state.testDrive;
+        return {
+            ...state,
+            testDrive: {
+                ...testDrive, registrationQuestions: testDrive.registrationQuestions.map(registrationQuestion => {
+                    return registrationQuestion.id === action.payload.id ?
+                        <RegistrationQuestion>{
+                            isInEditMode: false,
+                            questionType: action.payload.questionType,
+                            id: action.payload.id,
+                            newItem: action.payload.newItem,
+                            options: action.payload.options,
+                            title: action.payload.title,
+                        } : registrationQuestion;
+                })
+            }
+        }
+    },
+
+    [DELETE_RegistrationQuestion]: (state: IState, action: Action<number>): IState => {
+        const testDrive = state.testDrive;
+        return {
+            ...state,
+            testDrive: {
+                ...testDrive,
+                questions: testDrive.questions.filter(question => {
+                    return question.id !== action.payload
+                }),
+                questionIDs: testDrive.questionIDs.filter(id => {
+                    return id !== action.payload
+                })
+            }
+        }
+    },
+    ///////////////// Registration Question reducers End ///////////
+
+
     [UPDATE_Date]: (state: IState, action: Action<any>): IState => {
         const testDrive = state.testDrive;
         return {

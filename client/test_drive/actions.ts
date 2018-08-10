@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import { TestDrive, TestCase, Question } from './model';
+import { TestDrive, TestCase, Question, RegistrationQuestion } from './model';
 import Services from '../common/services/services';
 
 import {
@@ -23,11 +23,21 @@ import {
   EDIT_Question,
   SAVE_Question,
   SUBMIT_Question,
+  UPDATE_Question,
+
+  LOAD_RegistrationQuestions,
+  ADD_RegistrationQuestion,
+  DELETE_RegistrationQuestion,
+  EDIT_RegistrationQuestion,
+  SAVE_RegistrationQuestion,
+  SUBMIT_RegistrationQuestion,
+  UPDATE_RegistrationQuestion,
+
   UPDATE_TestCase,
   SWITCH_Tab,
   UPDATE_Date,
   DATE_FocusChange,
-  UPDATE_Question,
+  
   LOAD_Configurations,
   UPDATE_MaxPoints,
   LOAD_ActiveTestDrives,
@@ -211,6 +221,49 @@ const updateQuestion = createAction<Question, any, Question>(
 
 /////////
 
+/////// Registration Questions///////////
+
+const loadRegistrationQuestions = createAction<any, number[]>(
+  LOAD_RegistrationQuestions,
+  (registrationQuestionIds: number[]) => Services.getRegistrationQuestonsByIds(registrationQuestionIds)
+);
+
+const addRegistrationQuestion = createAction(
+  ADD_RegistrationQuestion
+);
+
+const editRegistrationQuestion = createAction<RegistrationQuestion, RegistrationQuestion>(
+  EDIT_RegistrationQuestion,
+  (registrationQuestion: RegistrationQuestion) => {
+    return registrationQuestion;
+  }
+)
+
+const saveRegistrationQuestion = createAction<RegistrationQuestion, RegistrationQuestion>(
+  SAVE_RegistrationQuestion,
+  (registrationQuestion: RegistrationQuestion) => {
+    return registrationQuestion;
+  }
+)
+
+const deleteRegistrationQuestion = createAction<number, number>(
+  DELETE_RegistrationQuestion,
+  (id: number) => {
+    return id;
+  }
+)
+
+const updateRegistrationQuestion = createAction<RegistrationQuestion, any, RegistrationQuestion>(
+  UPDATE_RegistrationQuestion,
+  (e: any, registrationQuestion: RegistrationQuestion) => {
+    registrationQuestion[e.target.name] = e.target.value;
+    return registrationQuestion;
+  }
+)
+
+/////////
+
+
 
 
 const switchTab = createAction<string, string>(
@@ -341,9 +394,16 @@ export {
   deleteQuestion,
   addQuestion,
   updateQuestion,
+  loadQuestions,
+
+  editRegistrationQuestion,
+  saveRegistrationQuestion,
+  deleteRegistrationQuestion,
+  addRegistrationQuestion,
+  updateRegistrationQuestion,
+  loadRegistrationQuestions,
   loadTestDrives,
   loadTestCases,
-  loadQuestions,
   loadConfigurations,
   updateMaxPoints,
   loadMyCompletedTestDrives,

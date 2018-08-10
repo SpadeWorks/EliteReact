@@ -13,6 +13,7 @@ import {
     model,
 } from '../../test_drive';
 import { Messages } from '../../common/services/constants';
+import CreateButton from './CreateButton';
 
 interface ApprovalPendingContainerProps {
     approvedTestDrives: model.TestDrive[];
@@ -163,19 +164,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
         this.initialize()
         return (
             <div>
-                {ui.isCreaseTestDriveVisible ? <div className="centralbox_button">
-                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                        <Link to={"/testdrive"} >Create Test Drive</Link>
-                    </div>
-                </div> : ''
-                // <div className="centralbox_button">
-                //     <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                //         <a href="javascript:;" onClick={() => Services.requestAccess()} >Become Drive Owner</a>
-                //     </div>
-                // </div>
-                }
-
-
+                <CreateButton show={ui.isCreaseTestDriveVisible} />
                 <Tabs selected={0}>
                     <Pane label="PENDING APPROVAL">
                         <div>
