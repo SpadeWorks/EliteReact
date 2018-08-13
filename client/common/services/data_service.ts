@@ -1084,6 +1084,12 @@ export class Services {
             // if (cachedConfig) {
             //     resolve(cachedConfig);
             // } else {
+
+            let configObj = Cache.getCache(Constants.CacheKeys.CONFIGURATIONS);
+            if (configObj) {
+                resolve(configObj);
+            }
+
             let testDriveFields = Services.getFieldMetadata(Constants.Lists.TEST_DRIVES, [
                 Constants.Columns.ID,
                 Constants.Columns.TEST_DRIVE_NAME,
@@ -1868,9 +1874,9 @@ export class Services {
                     }
                 }
 
-                if(testDrive.hasRegistration){
-                    newTestDrive[Constants.Columns.REGISTRATION_START_DATE] =  testDrive.registrationStartDate;
-                    newTestDrive[Constants.Columns.REGISTRATION_END_DATE]= testDrive.registrationEndDate;
+                if (testDrive.hasRegistration) {
+                    newTestDrive[Constants.Columns.REGISTRATION_START_DATE] = testDrive.registrationStartDate;
+                    newTestDrive[Constants.Columns.REGISTRATION_END_DATE] = testDrive.registrationEndDate;
                     if (registrationQuestions.length > 0) {
                         let ids = [];
                         registrationQuestions.map(question => {
@@ -1880,7 +1886,7 @@ export class Services {
                             results: ids || []
                         }
                     }
-    
+
                 }
 
                 if (testCases.length > 0) {
@@ -1980,39 +1986,41 @@ export class Services {
         return new Promise((resolve, reject) => {
             var testCasesArray = [];
             if (testCases && testCases.length > 0) {
-                testCases.forEach((testCase, index) => {
-                    testCasesArray.push({
-                        ID: testCase.newItem ? -1 : testCase.id,
-                        Title: testCase.title,
-                        EliteDescription: testCase.description,
-                        TestCaseOutcome: testCase.expectedOutcome,
-                        Type: testCase.testCaseType,
-                        Scenario: testCase.scenario,
-                        TestCasePriority: testCase.priority,
-                        Points: testCase.points,
-                        ReTest: testCase.reTest
+                Services.getTestPointConfiguration(Constants.Lists.POINTS_CONFIGURATIONS).then(testCasePoints => {
+                    testCases.forEach((testCase, index) => {
+                        testCasesArray.push({
+                            ID: testCase.newItem ? -1 : testCase.id,
+                            Title: testCase.title,
+                            EliteDescription: testCase.description,
+                            TestCaseOutcome: testCase.expectedOutcome,
+                            Type: testCase.testCaseType,
+                            Scenario: testCase.scenario,
+                            TestCasePriority: testCase.priority,
+                            Points: testCasePoints || 10,
+                            ReTest: testCase.reTest
+                        });
                     });
-                });
 
-                this.createOrUpdateListItemsInBatch(Constants.Lists.TEST_CASES, testCasesArray)
-                    .then((data: any) => {
-                        var testCases = data && data.length && data.map(testCase => {
-                            return (<TestCase>{
-                                id: testCase.id,
-                                title: testCase.Title,
-                                description: testCase.EliteDescription,
-                                expectedOutcome: testCase.TestCaseOutcome,
-                                points: testCase.Points,
-                                reTest: testCase.ReTest,
-                                testCaseType: testCase.Type,
-                                scenario: testCase.Scenario,
-                                priority: testCase.TestCasePriority
+                    this.createOrUpdateListItemsInBatch(Constants.Lists.TEST_CASES, testCasesArray)
+                        .then((data: any) => {
+                            var testCases = data && data.length && data.map(testCase => {
+                                return (<TestCase>{
+                                    id: testCase.id,
+                                    title: testCase.Title,
+                                    description: testCase.EliteDescription,
+                                    expectedOutcome: testCase.TestCaseOutcome,
+                                    points: testCase.Points,
+                                    reTest: testCase.ReTest,
+                                    testCaseType: testCase.Type,
+                                    scenario: testCase.Scenario,
+                                    priority: testCase.TestCasePriority
+                                })
                             })
-                        })
-                        resolve(testCases);
-                    }, err => {
-                        reject(err);
-                    });
+                            resolve(testCases);
+                        }, err => {
+                            reject(err);
+                        });
+                });
             } else {
                 resolve([]);
             }
@@ -2070,7 +2078,7 @@ export class Services {
                             return {
                                 id: question.id,
                                 ID: questions.ID,
-                                options: (question.Responses && question.Responses.length) ? 
+                                options: (question.Responses && question.Responses.length) ?
                                     Utils.tryParseJSON(question.Responses) : [],
                                 questionType: question.ResponseType,
                                 title: question.Question

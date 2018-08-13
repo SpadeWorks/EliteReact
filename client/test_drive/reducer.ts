@@ -150,7 +150,7 @@ const initialState: IState = {
         scenario: "",
         priority: "High",
         reTest: false,
-        points: 100
+        points: 10
 
     },
     testDrives: [],

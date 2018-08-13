@@ -95,7 +95,7 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
                             aria-controls="collapseOne"
                             className="pull-left"
                             onClick={() => editRegistrationQuestion(registrationQuestion)}>
-                            {registrationQuestion.title || "registrationQuestion " + registrationQuestion.id}
+                            {registrationQuestion.title || "Registration Question " + registrationQuestion.id}
 
                         </a>
                         <div className="pull-right button-container">

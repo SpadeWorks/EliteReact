@@ -4,6 +4,7 @@ build/
 node_modules/
 typings/
 npm-debug.log
+package-lock.json
 tmp/
 dist/
 .sw[a-z]

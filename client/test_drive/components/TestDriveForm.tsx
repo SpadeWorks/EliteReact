@@ -631,7 +631,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                     <div className="col-md-12 testdrive_actionbox">
                         <div style={butttonGroup}>
                             <div className="button type1 nextBtn btn-lg pull-right animated_button back_btn">
-                                <input type="button" value="Next"
+                                <input type="button" value="Next" disabled={ui.saveLoading}
                                     onClick={() => switchTab(1, "test-drive-form" + this.props.testDrive.id)} />
                             </div>
                             {

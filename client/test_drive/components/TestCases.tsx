@@ -137,14 +137,19 @@ class TestCases extends React.Component<TestCasesProps> {
 
                 <div className="col-md-12 testdrive_actionbox">
                     <div className="button type1 nextBtn btn-lg animated_button pull-left left_mnone">
-                        <input type="button" value="Back" onClick={() => switchTab(-1, "test-drive-form" + this.props.testDrive.id)} />
+                        <input type="button" value="Back" disabled={ui.saveLoading}
+                            onClick={() => switchTab(-1, "test-drive-form" + this.props.testDrive.id)} />
                     </div>
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                        <input type="button" value="Next" onClick={() => switchTab(1, "test-drive-form" + this.props.testDrive.id)} />
+                        <input type="button" value="Next" disabled={ui.saveLoading}
+                            onClick={() => switchTab(1, "test-drive-form" + this.props.testDrive.id)} />
                     </div>
-                    {testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ? <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                        <input disabled={testDrive.status == ColumnsValues.ACTIVE} type="button" value="Save as a draft" onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save") }} />
-                    </div> : ''}
+                    {testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ?
+                        <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                            <input disabled={ui.saveLoading || testDrive.status == ColumnsValues.ACTIVE}
+                                type="button" value="Save as a draft" 
+                                onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save") }} />
+                        </div> : ''}
                     {testDrive.status == ColumnsValues.SUBMIT && currentUserRole == ColumnsValues.SITE_OWNER ?
                         <div className="button type1 nextBtn btn-lg pull-right animated_button">
                             <input type="button" value="Approve"

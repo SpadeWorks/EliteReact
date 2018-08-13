@@ -113,19 +113,24 @@ class Surveys extends React.Component<SurveysProps> {
 
                 <div className="col-md-12 testdrive_actionbox">
                     <div className="button type1 nextBtn btn-lg animated_button pull-left left_mnone">
-                        <input type="button" value="Back" onClick={() => switchTab(-1, "test-drive-form" + this.props.testDrive.id)} />
+                        <input type="button" value="Back" disabled={ui.saveLoading}
+                            onClick={() => switchTab(-1, "test-drive-form" + this.props.testDrive.id)} />
                     </div>
                     {
-                        testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ? <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                            <input type="button" value="Save as a draft"
-                                onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save") }} />
-                        </div> : ''
+                        testDrive.status == ColumnsValues.DRAFT &&
+                            view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ?
+                            <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                <input type="button" value="Save as a draft" disabled={ui.saveLoading}
+                                    onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save") }} />
+                            </div> : ''
                     }
 
                     {
                         view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ?
                             <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                <input disabled={testDrive.status == ColumnsValues.ACTIVE || testDrive.saveIsInProgress || ui.saveLoading} type="button" value="Submit"
+                                <input
+                                    disabled={testDrive.status == ColumnsValues.ACTIVE || testDrive.saveIsInProgress || ui.saveLoading}
+                                    type="button" value="Submit"
                                     onClick={this.onSubmit} />
                             </div> : ''
                     }
