@@ -20,6 +20,7 @@ import {
 } from '../../test_drive_participation';
 import { create } from 'domain';
 import * as $ from "jQuery";
+import Registration from '../../test_drive/components/Registration';
 
 
 interface AppProps {
@@ -87,7 +88,6 @@ class TestDriveParticipationContainer extends React.Component<AppProps> {
             ui={ui}
           />
         }
-
         <Footer />
       </div>
     );

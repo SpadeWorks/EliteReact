@@ -65,7 +65,9 @@ const initialState: IState = {
         testDriveStatus: '',
         surveyStatus: '',
         joiningBonus: 0,
-        completionBonus: 0
+        completionBonus: 0,
+        hasRegistration: false,
+        isRegistrationComplete: true,
     },
     loading: true,
 };

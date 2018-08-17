@@ -618,10 +618,10 @@ export default handleActions<IState, any>({
             ...state,
             testDrive: {
                 ...testDrive,
-                questions: testDrive.questions.filter(question => {
-                    return question.id !== action.payload
+                registrationQuestions: testDrive.registrationQuestions.filter(registrationQuestion => {
+                    return registrationQuestion.id !== action.payload
                 }),
-                questionIDs: testDrive.questionIDs.filter(id => {
+                registrationQuestionIDs: testDrive.registrationQuestionIDs.filter(id => {
                     return id !== action.payload
                 })
             }

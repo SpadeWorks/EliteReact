@@ -36,6 +36,24 @@ export type QuestionInstance = {
     selectedResponse: string;
     userID: number;
     saveInProgress: boolean;
+    
+}
+
+export type RegistrationQuestionInstance = {
+    questionID: number;
+    responseID: number;
+    testDriveID?: number;
+    title: string;
+    questionType: string;
+    options: Array<string>;
+    isInEditMode?: boolean;
+    newItem?: boolean
+    responseStatus: string;
+    questionResponse: string;
+    selectedResponse: string;
+    userID: number;
+    saveInProgress: boolean;
+    files?: any[];
 }
 
 
@@ -80,6 +98,15 @@ export type TestDriveInstance = {
     joiningBonus: number;
     completionBonus: number;
     teamsChannelID?:string;
+    hasRegistration: boolean;
+    registrationStartDate?: string;
+    registrationEndDate?: string;
+    registrationQuestions?: RegistrationQuestionInstance[];
+    registrationQuestionIDs?: number[];
+    registrationQuestionSaveInProgress?: boolean;
+    isRegistrationComplete?: boolean; 
+
+
 };
 
 export type Configurations = {

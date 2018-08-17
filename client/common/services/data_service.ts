@@ -12,7 +12,7 @@ import { resolve } from "path";
 import { Columns } from "./constants";
 import { Util } from "sp-pnp-js/lib/utils/util";
 import index from "../../home/index";
-import { TestDriveInstance, QuestionInstance, TestCaseInstance } from '../../test_drive_participation/model';
+import { TestDriveInstance, QuestionInstance, TestCaseInstance, RegistrationQuestionInstance } from '../../test_drive_participation/model';
 import { File, ListItem } from "@microsoft/microsoft-graph-types";
 import { error } from "util";
 import { Lists } from "sp-pnp-js/lib/sharepoint/lists";
@@ -490,6 +490,32 @@ export class Services {
         })
     }
 
+    static createOrSaveRegistrationQuestionInstance(questionInstance: RegistrationQuestionInstance) {
+        return new Promise((resolve, reject) => {
+            Services.createOrUpdateListItemsInBatch(Constants.Lists.SURVEY_RESPONSES, [{
+                [Constants.Columns.ID]: questionInstance.responseID || -1,
+                [Constants.Columns.TEST_DRIVE_ID + '_id']: questionInstance.testDriveID,
+                [Constants.Columns.QUESTION_ID + '_id']: questionInstance.questionID,
+                [Constants.Columns.STATUS]: questionInstance.responseStatus,
+                [Constants.Columns.USER_ID + '_id']: questionInstance.userID,
+                [Constants.Columns.SURVEY_RESPONSE]: questionInstance.questionResponse,
+                [Constants.Columns.Selected_Response]: questionInstance.selectedResponse
+            }]).then((newResponses: any) => {
+                const newResponse = newResponses[0];
+                resolve(<RegistrationQuestionInstance>{
+                    ...questionInstance,
+                    responseID: newResponse.id,
+                    testDriveID: newResponse[Constants.Columns.TEST_DRIVE_ID + '_id'],
+                    questionID: newResponse[Constants.Columns.QUESTION_ID + '_id'],
+                    responseStatus: newResponse[Constants.Columns.STATUS],
+                    userID: newResponse[Constants.Columns.USER_ID + '_id'],
+                    response: newResponse[Constants.Columns.SURVEY_RESPONSE],
+                    selectedResponse: newResponse[Constants.Columns.Selected_Response]
+                });
+            }, err => reject(err))
+        })
+    }
+
     static createOrSaveTestCaseInstance(testCasesInstance: TestCaseInstance,
         testDriveInstance: TestDriveInstance) {
         return new Promise((resolve, reject) => {
@@ -701,7 +727,7 @@ export class Services {
     static getTestDriveWithTestCasesAndRegistarionQuestions(testDriveID: number, questionRequied: boolean) {
         return new Promise((resolve, reject) => {
             Services.getTestDriveById(testDriveID).then((testDrive: any) => {
-                if (questionRequied && testDrive.HasRegistration) {
+                if (questionRequied && testDrive.hasRegistration) {
                     Services.getRegistrationQuestonsByIds(testDrive.RegistrationQuestions)
                         .then(registrationQuestions => {
                             Services.getTestCasesByIds(testDrive.testCaseIDs).then(testCases => {
@@ -761,7 +787,6 @@ export class Services {
                         selectedResponse: response ? response.selectedResponse : '',
                         testCaseResponse: response ? response.testCaseResponse : '',
                         files: response ? (response.files && response.files.files) : [],
-
                     });
                 })
 
@@ -794,7 +819,12 @@ export class Services {
                     region: testDrive.region,
                     participants: participants,
                     ownerEmail: testDrive.ownerEmail,
-                    teamsChannelID: testDrive.teamsChannelID
+                    teamsChannelID: testDrive.teamsChannelID,
+                    hasRegistration: testDrive.hasRegistration,
+                    registrationStartDate: testDrive.registrationStartDate,
+                    registrationEndDate: testDrive.registrationEndDate,
+                    registrationQuestionIDs: testDrive.registrationQuestionIDs,
+                    registrationQuestions: testDrive.registrationQuestion 
                 };
 
                 resolve(instance)

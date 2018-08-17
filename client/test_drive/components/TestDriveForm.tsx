@@ -79,12 +79,29 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                 //id: which
             }
         };
+        var errorMessage = '';
+        var hasError = false;
         //validateControl(e.target.id, e.target.value);
-        if (which == 'startDate' && this.props.testDrive.endDate && payload > moment(this.props.testDrive.endDate)) {
-            //Popup.alert(Messages.START_GREATOR_ERROR);
-            this.props.updateUI({ requirmentMessage: Messages.START_GREATER_ERROR, title: "Alert!" });
+        if(which == 'registrationStartDate' && 
+            (this.props.testDrive.registrationEndDate && payload >= moment(this.props.testDrive.registrationEndDate) ||
+            this.props.testDrive.startDate && payload >= moment(this.props.testDrive.startDate) || 
+            this.props.testDrive.endDate && payload >= moment(this.props.testDrive.endDate))) {
+            errorMessage = "Registration start date must be earlier than registration end date, test drive start date, test drive end date.";
+            hasError = true;
+        } else if(which == 'registrationEndDate' && 
+        (this.props.testDrive.startDate && payload >= moment(this.props.testDrive.startDate) ||
+        this.props.testDrive.endDate && payload >= moment(this.props.testDrive.endDate))) {
+            errorMessage = "Registration end date must be earlier than test drive start date, test drive end date";
+            hasError = true;
+        } else if (which == 'startDate' && this.props.testDrive.endDate && payload >= moment(this.props.testDrive.endDate)) {
+            errorMessage = "Test drive start date must be less than test drive end date.";
+            hasError = true;
+        } 
+        
+        if(hasError) {
+            this.props.updateUI({ requirmentMessage: errorMessage, title: "Alert!" });
             $("#popupCreateTestDriveAlert").trigger('click');
-        } else {
+        }else {
             this.onChange(e);
         }
     }

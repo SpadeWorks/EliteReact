@@ -84,6 +84,10 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
 
     render() {
         const { testDriveInstance, saveTestCaseResponse, updatePoints, loadQuestions, saveQuestionResponse, ui, updateUI } = this.props;
+
+        const registrationComplet = testDriveInstance.hasRegistration && 
+        testDriveInstance.isRegistrationComplete || !testDriveInstance.hasRegistration;
+
         return (<div className="col-md-12">
             <div className="row">
                 <div className="container header_part">
@@ -98,15 +102,33 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                         <div className="col-md-11 profile_box">
                             <div className="well count_box">
                                 <ul className="nav nav-tabs">
-                                    <li className="active">
-                                        <a href="#test_Cases" data-toggle="tab" onClick={() => updateUI({ activeTab: 'test_Cases' })}>Test Cases</a>
-                                    </li>
-                                    <li>
-                                        <a href="#Servay_q" data-toggle="tab" onClick={() => updateUI({ activeTab: 'Servay_q' })}>Survey</a>
-                                    </li>
-                                    <li>
-                                        <a href="#Description" data-toggle="tab" onClick={() => updateUI({ activeTab: 'Description' })}>Description</a>
-                                    </li>
+                                    {testDriveInstance.hasRegistration && !testDriveInstance.isRegistrationComplete ?
+                                        <li className="active">
+                                            <a href="#Registration"
+                                                data-toggle="tab"
+                                                onClick={() => updateUI({ activeTab: 'Registration' })}>
+                                                Registration
+                                        </a>
+                                        </li> : ''}
+                                    {
+                                        registrationComplet ?
+                                            <li className="active">
+                                                <a href="#test_Cases" data-toggle="tab" onClick={() => updateUI({ activeTab: 'test_Cases' })}>Test Cases</a>
+                                            </li> : ''
+                                    }
+                                    {
+                                        registrationComplet ?
+                                            <li>
+                                                <a href="#Servay_q" data-toggle="tab" onClick={() => updateUI({ activeTab: 'Servay_q' })}>Survey</a>
+                                            </li> : ''
+                                    }
+                                    {
+                                        registrationComplet ?
+                                            <li>
+                                                <a href="#Description" data-toggle="tab" onClick={() => updateUI({ activeTab: 'Description' })}>Description</a>
+                                            </li> : ''
+                                    }
+
                                 </ul>
                                 <div id="myTabContent" className="tab-content">
                                     <div className="tab-pane active in" id="test_Cases">
