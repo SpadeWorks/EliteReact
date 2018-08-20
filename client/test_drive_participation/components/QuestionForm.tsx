@@ -54,25 +54,26 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         this.props.updateUI({ selectedResponse: value });
     }
     saveQuestionResponse(question: QuestionInstance, ) {
-
         question = {
             ...question,
             responseStatus: ColumnsValues.DRAFT,
             questionResponse: this.props.ui.questionResponse,
-            selectedResponse: this.props.ui.selectedResponse
+            selectedResponse: question.questionType === ColumnsValues.QUESTION_TYPE_OBJECTIVE ?
+                this.props.ui.selectedResponse : ""
         }
         this.props.saveQuestionResponse(question);
     }
     submitQuestionResponse(question: QuestionInstance, formID, isLast = false) {
         if (validateForm(formID)) {
-            if(!isLast){
+            if (!isLast) {
                 $('#carousel-question-vertical').carousel('next');
             }
             question = {
                 ...question,
                 responseStatus: ColumnsValues.COMPLETE_STATUS,
                 questionResponse: this.props.ui.questionResponse,
-                selectedResponse: this.props.ui.selectedResponse
+                selectedResponse: question.questionType === ColumnsValues.QUESTION_TYPE_OBJECTIVE ?
+                    this.props.ui.selectedResponse : ""
             }
             this.props.saveQuestionResponse(question);
             return true;
@@ -106,20 +107,20 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         if (this.submitQuestionResponse(question, formID, true)) {
             var self = this;
             $("#submitSurvey").attr('disabled', true);
-            this.props.updateUI({submitInProgress: true});
+            this.props.updateUI({ submitInProgress: true });
             Services.submitSurvey(this.props.testDriveInstance).then((testDriveInstance: TestDriveInstance) => {
-                this.props.updateUI({submitInProgress: false});
-                this.props.updatePoints({...testDriveInstance, questionSaveInProgress: true});
+                this.props.updateUI({ submitInProgress: false });
+                this.props.updatePoints({ ...testDriveInstance, questionSaveInProgress: true });
                 self.openCompletionPopUp(testDriveInstance);
             });
         };
     }
 
-    openCompletionPopUp(testDriveInstance: any) { 
-        var interval, self=this;
-        Services.getTestDriveInstanceData(testDriveInstance).then((newTestDriveInstance : any) => {
+    openCompletionPopUp(testDriveInstance: any) {
+        var interval, self = this;
+        Services.getTestDriveInstanceData(testDriveInstance).then((newTestDriveInstance: any) => {
             if (newTestDriveInstance.status === Constants.ColumnsValues.COMPLETE_STATUS) {
-                this.props.updatePoints({...newTestDriveInstance, questionSaveInProgress: false});
+                this.props.updatePoints({ ...newTestDriveInstance, questionSaveInProgress: false });
                 if (interval) {
                     clearInterval(interval);
                 }
@@ -130,12 +131,12 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                     confetti.InitializeConfettiInit();
                 });
                 $("#submitSurvey").attr('disabled', false);
-                
+
             } else {
                 interval = setInterval(self.openCompletionPopUp(newTestDriveInstance), 500);
             }
         });
-        
+
     }
 
     render() {
@@ -144,7 +145,7 @@ class QuestionForm extends React.Component<QuestionFormProps> {
         return (
 
             <div className={"item " + (active ? 'active' : '')} id={formID}>
-                <Loader show={testDriveInstance.questionSaveInProgress ||  ui.submitInProgress || false} message={'Saving...'}>
+                <Loader show={testDriveInstance.questionSaveInProgress || ui.submitInProgress || false} message={'Saving...'}>
                     <div className="container ">
                         <div className="col-md-12 ">
                             <div className="row testcase_box ">
@@ -197,9 +198,9 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                                         {
                                             isLast && <div className="col-md-12 participation_actionbox">
                                                 <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                                    <input disabled={this.getCompletedQuestionCount() < testDriveInstance.questionIDs.length - 1} 
-                                                    type="button" value="Submit survey" onClick={() => this.submitSurvey(question, formID)}
-                                                    id="submitSurvey" />
+                                                    <input disabled={this.getCompletedQuestionCount() < testDriveInstance.questionIDs.length - 1}
+                                                        type="button" value="Submit survey" onClick={() => this.submitSurvey(question, formID)}
+                                                        id="submitSurvey" />
                                                 </div>
                                             </div>
                                         }
