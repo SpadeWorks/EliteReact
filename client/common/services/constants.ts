@@ -20,6 +20,7 @@ export class Lists {
     static SURVEY_RESPONSES = "Survey Responses";
     static VIDEOS = "Videos";
     static PRIZES = "Converted Prize"
+    
 }
 
 export class CacheKeys {
@@ -88,6 +89,7 @@ export class Columns {
     static TEST_CASE_RESPONSE = "TestCaseResponse";
     static TEST_CASE_RESPONSE_STATUS = "TestCaseResponseStatus";
     static SURVEY_RESPONSE = "SurveyResponse";
+    static REGISTRATION_RESPONSE = "RegistrationResponse";
     static Selected_Response = "SelectedResponse";
     static USER_INFO_NAME = "UserInfoName"
     static ACCOUNT_NAME = "AccountName";
@@ -98,6 +100,7 @@ export class Columns {
     static JOINING_BONUS = "JoiningBonus";
     static COMPLETION_BONUS = "CompletionBonus";
     static PASS_PERCENTAGE_TO_DEPLOY = "PassPercentageToDeploy";
+    static REGISTRATION_QUESTION = "RegistrationQuestion";
 
 }
 

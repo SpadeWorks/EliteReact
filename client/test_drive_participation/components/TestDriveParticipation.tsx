@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from "react-router-dom";
 import Services from '../../common/services/services';
 import { Lists } from '../../common/services/constants';
-import { TestDriveInstance, QuestionInstance, TestCaseInstance } from '../../test_drive_participation/model';
+import { TestDriveInstance, QuestionInstance, TestCaseInstance, RegistrationQuestionInstance } from '../../test_drive_participation/model';
 import TestCases from '../../test_drive_participation/components/TestCases';
 import Overview from './OverView';
 import Survey from './Survey';
@@ -12,13 +12,16 @@ import * as Constants from '../../common/services/constants';
 import ui from 'redux-ui';
 import { ToastContainer, toast } from 'react-toastify';
 import Popup from '../../common/components/Popups';
+import Registration from './Registration';
 
 interface TestDriveParticipationProps {
     testDriveInstance: TestDriveInstance;
     saveTestCaseResponse: (testCase: TestCaseInstance, testDrive: TestDriveInstance) => any;
     updatePoints: (testDriveInstance: TestDriveInstance) => any;
     saveQuestionResponse: (question: QuestionInstance) => any;
+    saveRegistrationQuestionResponse: (question: RegistrationQuestionInstance) => any;
     loadQuestions: (testDriveID: number, questions: number[], userID: number) => any;
+    loadRegistrationQuestions: (testDriveID: number, questions: number[], userID: number) => any;
     updateUI: (any) => any;
     ui: any;
 };
@@ -83,10 +86,20 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
     ]
 
     render() {
-        const { testDriveInstance, saveTestCaseResponse, updatePoints, loadQuestions, saveQuestionResponse, ui, updateUI } = this.props;
+        const { testDriveInstance,
+            saveTestCaseResponse,
+            updatePoints,
+            loadQuestions,
+            saveQuestionResponse,
+            ui,
+            updateUI,
+            saveRegistrationQuestionResponse,
+            loadRegistrationQuestions } = this.props;
 
-        const registrationComplet = testDriveInstance.hasRegistration && 
-        testDriveInstance.isRegistrationComplete || !testDriveInstance.hasRegistration;
+        const registrationComplet = testDriveInstance.hasRegistration &&
+            testDriveInstance.isRegistrationComplete || !testDriveInstance.hasRegistration;
+
+        const showRegistration = testDriveInstance.hasRegistration && !testDriveInstance.isRegistrationComplete;
 
         return (<div className="col-md-12">
             <div className="row">
@@ -102,7 +115,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                         <div className="col-md-11 profile_box">
                             <div className="well count_box">
                                 <ul className="nav nav-tabs">
-                                    {testDriveInstance.hasRegistration && !testDriveInstance.isRegistrationComplete ?
+                                    {showRegistration ?
                                         <li className="active">
                                             <a href="#Registration"
                                                 data-toggle="tab"
@@ -112,7 +125,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                         </li> : ''}
                                     {
                                         registrationComplet ?
-                                            <li className="active">
+                                            <li className={registrationComplet ? "active" : ""}>
                                                 <a href="#test_Cases" data-toggle="tab" onClick={() => updateUI({ activeTab: 'test_Cases' })}>Test Cases</a>
                                             </li> : ''
                                     }
@@ -131,7 +144,18 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
 
                                 </ul>
                                 <div id="myTabContent" className="tab-content">
-                                    <div className="tab-pane active in" id="test_Cases">
+                                    <div className={showRegistration ? "tab-pane active in" : "tab-pane fade"} id="registration_questions">
+                                        <Registration
+                                            questions={testDriveInstance.registrationQuestions}
+                                            testDriveInstance={testDriveInstance}
+                                            saveQuestionResponse={(q) => saveRegistrationQuestionResponse(q)}
+                                            updateUI={updateUI}
+                                            ui={ui}
+                                        />
+                                    </div>
+
+
+                                    <div className={registrationComplet ? "tab-pane active in" : "tab-pane fade"} id="test_Cases">
                                         <TestCases
                                             testDriveInstance={testDriveInstance}
                                             testCases={testDriveInstance.testCases}

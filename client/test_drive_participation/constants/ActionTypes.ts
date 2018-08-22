@@ -18,10 +18,20 @@ export const CREATE_QuestionInstance_PENDING = 'CREATE_QuestionInstance_PENDING'
 export const CREATE_QuestionInstance_FULFILLED = 'CREATE_QuestionInstance_FULFILLED';
 export const CREATE_QuestionInstance_REJECTED = 'CREATE_QuestionInstance_REJECTED';
 
+export const CREATE_RegistrationQuestionInstance = 'CREATE_QuestionInstance';
+export const CREATE_RegistrationQuestionInstance_PENDING = 'CREATE_QuestionInstance_PENDING';
+export const CREATE_RegistrationQuestionInstance_FULFILLED = 'CREATE_QuestionInstance_FULFILLED';
+export const CREATE_RegistrationQuestionInstance_REJECTED = 'CREATE_QuestionInstance_REJECTED';
+
 export const LOAD_Questions = 'LOAD_Questions';
 export const LOAD_Questions_PENDING = 'LOAD_Questions_PENDING';
 export const LOAD_Questions_FULFILLED = 'LOAD_Questions_FULFILLED';
 export const LOAD_Questions_REJECTED = 'LOAD_Questions_REJECTED';
+
+export const LOAD_RegistrationQuestions = 'LOAD_Questions';
+export const LOAD_RegistrationQuestions_PENDING = 'LOAD_Questions_PENDING';
+export const LOAD_RegistrationQuestions_FULFILLED = 'LOAD_Questions_FULFILLED';
+export const LOAD_RegistrationQuestions_REJECTED = 'LOAD_Questions_REJECTED';
 
 export const DELETE_Attachment = 'DELETE_Attachment';
 export const DELETE_Attachment_PENDING = 'DELETE_Attachment_PENDING';

@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import { TestDriveInstance, TestCaseInstance, QuestionInstance } from './model';
+import { TestDriveInstance, TestCaseInstance, QuestionInstance, RegistrationQuestionInstance } from './model';
 import Services from '../common/services/services';
 
 import {
@@ -10,7 +10,10 @@ import {
   CREATE_QuestionInstance,
   CREATE_TestCaseInstance,
   DELETE_Attachment,
-  UPDATE_Points
+  UPDATE_Points,
+  CREATE_RegistrationQuestionInstance,
+  LOAD_RegistrationQuestions,
+
 
 } from './constants/ActionTypes';
 import { TestCase } from '../test_drive/model';
@@ -38,6 +41,12 @@ const createOrSaveQuestionInstance = createAction<any, QuestionInstance>(
   (QuestionInstance: QuestionInstance) => Services.createOrSaveQuestionInstance(QuestionInstance)
 )
 
+const createOrSaveRegistrationQuestionInstance = createAction<any, RegistrationQuestionInstance>(
+  CREATE_RegistrationQuestionInstance,
+  (registrationQuestionInstance: RegistrationQuestionInstance) => 
+    Services.createOrSaveRegistrationQuestionInstance(registrationQuestionInstance)
+)
+
 const createOrSaveTestCaseInstance = createAction<any, TestCaseInstance, TestDriveInstance>(
   CREATE_TestCaseInstance,
   (testCaseInstance: TestCaseInstance, testDriveInstance: TestDriveInstance) => 
@@ -60,5 +69,6 @@ export {
   createOrSaveQuestionInstance,
   createOrSaveTestCaseInstance,
   deleteAttachment,
-  updatePoints
+  updatePoints,
+  createOrSaveRegistrationQuestionInstance
 }

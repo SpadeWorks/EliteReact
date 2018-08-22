@@ -23,7 +23,14 @@ import {
     UPDATE_Points_PENDING,
     UPDATE_Points_FULFILLED,
     UPDATE_Points_REJECTED,
-    UPDATE_Points
+    UPDATE_Points,
+    LOAD_RegistrationQuestions,
+    LOAD_RegistrationQuestions_PENDING,
+    LOAD_RegistrationQuestions_FULFILLED,
+    LOAD_RegistrationQuestions_REJECTED,
+    CREATE_RegistrationQuestionInstance_PENDING,
+    CREATE_RegistrationQuestionInstance_FULFILLED,
+    CREATE_RegistrationQuestionInstance_REJECTED
 
 } from './constants/ActionTypes';
 import { submitTestDrive } from '../test_drive/index';
@@ -212,7 +219,41 @@ export default handleActions<IState, any>({
             ...state,
             testDriveInstance: {
                 ...state.testDriveInstance,
-                questionSaveInProgress: false
+                registrationQuestionSaveInProgress: false
+            }
+        }
+    },
+
+    [CREATE_RegistrationQuestionInstance_PENDING]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            testDriveInstance: {
+                ...state.testDriveInstance,
+                registrationQuestionSaveInProgress: true
+            }
+        }
+    },
+    [CREATE_RegistrationQuestionInstance_FULFILLED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            testDriveInstance: {
+                ...state.testDriveInstance,
+                registrationQuestionSaveInProgress: false,
+                registrationQuestions: state.testDriveInstance.registrationQuestions.map(question => {
+                    return question.questionID == action.payload.questionID ?
+                        action.payload : question;
+                })
+            },
+            loading: false
+        }
+    },
+
+    [CREATE_RegistrationQuestionInstance_REJECTED]: (state: IState, action: Action<any>): IState => {
+        return {
+            ...state,
+            testDriveInstance: {
+                ...state.testDriveInstance,
+                registrationQuestionSaveInProgress: false
             }
         }
     },

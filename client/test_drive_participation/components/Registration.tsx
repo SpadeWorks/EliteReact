@@ -11,10 +11,8 @@ interface RegistrationProps {
     questions: QuestionInstance[];
     testDriveInstance: TestDriveInstance;
     saveQuestionResponse: (question: QuestionInstance) => any;
-    loadQuestions: (testDriveID: number, questionIDs: number[], userID: number) => any;
     updateUI: (any) => any;
     ui: any;
-    updatePoints: (testDriveInstance: TestDriveInstance) => any;
 };
 class Registration extends React.Component<RegistrationProps> {
     constructor(props, context) {
@@ -22,10 +20,10 @@ class Registration extends React.Component<RegistrationProps> {
     }
 
     componentDidMount() {
-        let question = this.props.testDriveInstance.questions;
+        let question = this.props.testDriveInstance.registrationQuestions;
         let testDrive = this.props.testDriveInstance;
         let userID = Services.getCurrentUserID();
-        this.props.loadQuestions(testDrive.testDriveID, testDrive.questionIDs, userID);
+        
         $('#carousel-question-vertical').bind('mousewheel', function (e) {
             if (e.originalEvent.wheelDelta / 120 > 0) {
                 $(this).carousel('prev');
@@ -52,12 +50,12 @@ class Registration extends React.Component<RegistrationProps> {
     ]
 
     render() {
-        const { questions, saveQuestionResponse, ui, updateUI, testDriveInstance, updatePoints} = this.props;
+        const { questions, saveQuestionResponse, ui, updateUI, testDriveInstance} = this.props;
         return (
             <div className="col-md-12">
                 <div>
                     <div id="carousel-question-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
-                        <div className="testcase_no " id="questions">
+                        <div className="testcase_no " id="registration-questions">
                             <ul className="task_circle carousel-indicators">
                                 {
                                     questions &&

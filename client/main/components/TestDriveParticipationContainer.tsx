@@ -16,6 +16,8 @@ import {
   createOrSaveTestDriveInstance,
   createOrSaveTestCaseInstance,
   createOrSaveQuestionInstance,
+  createOrSaveRegistrationQuestionInstance,
+  loadRegistrationQuestions,
   updatePoints
 } from '../../test_drive_participation';
 import { create } from 'domain';
@@ -43,18 +45,6 @@ class TestDriveParticipationContainer extends React.Component<AppProps> {
     document.body.className = "black-bg";
     let userID = Services.getCurrentUserID();
     this.props.dispatch(loadTestDriveInstanceByID(this.props.testDriveID, userID));
-    // $("#app").mouseup(function (e) {
-    //   //   var container = $(".testrive_notification");        
-    //   //   if (!container.is(e.target) && container.has(e.target).length === 0 && "Submit survey" != e.target)
-    //   // {
-    //   //   for(var i = 0 ; i <=$(".modal-backdrop.fade.in").length;i++)
-    //   //   $(".modal-backdrop.fade.in").remove();            
-    //   // } 
-    //   //$modal.on('hidden', function () {
-    //     $('.modal-backdrop').remove();
-        
-    //   //});
-    // });
   }
 
   render() {
@@ -79,9 +69,14 @@ class TestDriveParticipationContainer extends React.Component<AppProps> {
             testDriveInstance={testDriveInstance}
             saveTestCaseResponse={(testcaseInstance, testDriveInstance) =>
               dispatch(createOrSaveTestCaseInstance(testcaseInstance, testDriveInstance))}
+
             updatePoints={(testDriveInstance) => dispatch(updatePoints(testDriveInstance))}
             saveQuestionResponse={(questionInstance) =>
               dispatch(createOrSaveQuestionInstance(questionInstance))}
+            saveRegistrationQuestionResponse={(questionInstance) =>
+              dispatch(createOrSaveRegistrationQuestionInstance(questionInstance))}
+            loadRegistrationQuestions={(testDriveID: number, questionIDs: number[], userID: number) =>
+              dispatch(loadRegistrationQuestions(testDriveID, questionIDs, userID))}
             loadQuestions={(testDriveID: number, questionIDs: number[], userID: number) =>
               dispatch(loadQuestions(testDriveID, questionIDs, userID))}
             updateUI={updateUI}

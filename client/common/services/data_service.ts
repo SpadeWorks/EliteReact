@@ -402,40 +402,6 @@ export class Services {
             });
         });
     }
-    // static submitTestDriveResponse(testDriveInstance: TestDriveInstance) {
-    //     return new Promise((resolve, reject) => {
-    //         var testCaseArray = [];
-    //         testDriveInstance.testCases.map(testCasesInstance => {
-    //             if (testCasesInstance.responseStatus == Constants.ColumnsValues.DRAFT) {
-    //                 testCaseArray.push({
-    //                     [Constants.Columns.ID]: testCasesInstance.responseID,
-    //                     [Constants.Columns.TEST_CASE_RESPONSE_STATUS]: Constants.ColumnsValues.COMPLETE_STATUS,
-    //                 })
-    //                 testCasesInstance.responseStatus = Constants.ColumnsValues.COMPLETE_STATUS
-    //             }
-    //         });
-    //         Services.createOrUpdateListItemsInBatch(Constants.Lists.TEST_CASE_RESPONSES, testCaseArray)
-    //             .then((newResponses: any) => {
-    //                 testDriveInstance.testCases.map(testCasesInstance => {
-    //                     if (testCasesInstance.responseStatus == Constants.ColumnsValues.DRAFT) {
-    //                         testCasesInstance.responseStatus = Constants.ColumnsValues.COMPLETE_STATUS
-    //                     }
-    //                 });
-
-    //                 Services.getTestDriveInstance(testDriveInstance.testDriveID, Services.getCurrentUserID()).then((instance: any) => {
-    //                     resolve({
-    //                         ...testDriveInstance,
-    //                         currentPoint: instance.currentPoint,
-    //                         numberOfTestCasesCompleted: instance.numberOfTestCasesCompleted,
-    //                         status: instance.status
-    //                     })
-    //                 })
-    //             }, err => {
-    //                 Utils.clientLog(err);
-    //             });
-
-    //     });
-    // }
 
     static createOrSaveTestDriveInstance(testDriveInstance: TestDriveInstance) {
         return new Promise((resolve, reject) => {
@@ -492,13 +458,13 @@ export class Services {
 
     static createOrSaveRegistrationQuestionInstance(questionInstance: RegistrationQuestionInstance) {
         return new Promise((resolve, reject) => {
-            Services.createOrUpdateListItemsInBatch(Constants.Lists.SURVEY_RESPONSES, [{
+            Services.createOrUpdateListItemsInBatch(Constants.Lists.REGISTRATION_RESPONSES, [{
                 [Constants.Columns.ID]: questionInstance.responseID || -1,
                 [Constants.Columns.TEST_DRIVE_ID + '_id']: questionInstance.testDriveID,
-                [Constants.Columns.QUESTION_ID + '_id']: questionInstance.questionID,
+                [Constants.Columns.REGISTRATION_QUESTION + '_id']: questionInstance.questionID,
                 [Constants.Columns.STATUS]: questionInstance.responseStatus,
                 [Constants.Columns.USER_ID + '_id']: questionInstance.userID,
-                [Constants.Columns.SURVEY_RESPONSE]: questionInstance.questionResponse,
+                [Constants.Columns.REGISTRATION_RESPONSE]: questionInstance.questionResponse,
                 [Constants.Columns.Selected_Response]: questionInstance.selectedResponse
             }]).then((newResponses: any) => {
                 const newResponse = newResponses[0];
@@ -506,10 +472,10 @@ export class Services {
                     ...questionInstance,
                     responseID: newResponse.id,
                     testDriveID: newResponse[Constants.Columns.TEST_DRIVE_ID + '_id'],
-                    questionID: newResponse[Constants.Columns.QUESTION_ID + '_id'],
+                    questionID: newResponse[Constants.Columns.REGISTRATION_QUESTION + '_id'],
                     responseStatus: newResponse[Constants.Columns.STATUS],
                     userID: newResponse[Constants.Columns.USER_ID + '_id'],
-                    response: newResponse[Constants.Columns.SURVEY_RESPONSE],
+                    response: newResponse[Constants.Columns.REGISTRATION_RESPONSE],
                     selectedResponse: newResponse[Constants.Columns.Selected_Response]
                 });
             }, err => reject(err))
@@ -724,11 +690,55 @@ export class Services {
         });
     }
 
-    static getTestDriveWithTestCasesAndRegistarionQuestions(testDriveID: number, questionRequied: boolean) {
+
+    static getRegistrationQuestionWithResponses(testDriveID: number, questionIDs: number[], userID: number) {
+        if (testDriveID == 0)  return null;
+        return new Promise((resolve, reject) => {
+            Services.getRegistrationQuestonsByIds(questionIDs).then((questions: any) => {
+                pnp.sp.web.lists.getByTitle(Constants.Lists.REGISTRATION_RESPONSES).items
+                    .select(
+                        Constants.Columns.ID,
+                        Constants.Columns.REGISTRATION_RESPONSE,
+                        Constants.Columns.Selected_Response,
+                        Constants.Columns.STATUS,
+                        Constants.Columns.REGISTRATION_QUESTION + '/' + Constants.Columns.ID,
+                        Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                        Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
+                )
+                    .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
+                    .expand(Constants.Columns.USER_ID, Constants.Columns.TEST_DRIVE_ID, Constants.Columns.REGISTRATION_QUESTION)
+                    .get().then(questionResponses => {
+                        let questionsArray: RegistrationQuestionInstance[] = [];
+                        questions.map(question => {
+                            let response = questionResponses.filter(response => {
+                                return response[Constants.Columns.REGISTRATION_QUESTION][Constants.Columns.ID] == question.id;
+                            })
+                            response = response[0];
+                            questionsArray.push(<RegistrationQuestionInstance>{
+                                ...question,
+                                responseID: response ? response.Id : -1,
+                                responseStatus: response ? response[Constants.Columns.STATUS] : Constants.ColumnsValues.DRAFT,
+                                questionResponse: response ? response[Constants.Columns.REGISTRATION_RESPONSE] : '',
+                                selectedResponse: response ? response[Constants.Columns.Selected_Response] : '',
+                                testDriveID: testDriveID,
+                                questionID: question.id,
+                                options: question.options,
+                                userID: userID
+                            })
+                        })
+                        resolve(questionsArray);
+                    }, error => {
+                        reject(error);
+                    });
+            })
+        });
+    }
+
+    static getTestDriveWithTestCasesAndRegistarionQuestions(testDriveID: number, questionRequied: boolean, userID) {
         return new Promise((resolve, reject) => {
             Services.getTestDriveById(testDriveID).then((testDrive: any) => {
                 if (questionRequied && testDrive.hasRegistration) {
-                    Services.getRegistrationQuestonsByIds(testDrive.RegistrationQuestions)
+                    Services.getRegistrationQuestionWithResponses(testDriveID, testDrive.registrationQuestionIDs, userID)
                         .then(registrationQuestions => {
                             Services.getTestCasesByIds(testDrive.testCaseIDs).then(testCases => {
                                 resolve({
@@ -753,7 +763,7 @@ export class Services {
 
     static getTestDriveInstance(testDriveID: number, userID: number) {
         return new Promise((resolve, reject) => {
-            let testDrive = Services.getTestDriveWithTestCasesAndRegistarionQuestions(testDriveID, true);
+            let testDrive = Services.getTestDriveWithTestCasesAndRegistarionQuestions(testDriveID, true, userID);
             let testCaseResponses = Services.getTestCaseResponses(testDriveID, userID);
             let testDriveResponse = Services.getTestDriveResponse(testDriveID, userID);
             let getParticipatCount = Services.getTestDrivesParticipantCount([testDriveID]);
@@ -824,7 +834,7 @@ export class Services {
                     registrationStartDate: testDrive.registrationStartDate,
                     registrationEndDate: testDrive.registrationEndDate,
                     registrationQuestionIDs: testDrive.registrationQuestionIDs,
-                    registrationQuestions: testDrive.registrationQuestion 
+                    registrationQuestions: testDrive.registrationQuestions 
                 };
 
                 resolve(instance)
