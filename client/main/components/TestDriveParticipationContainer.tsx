@@ -17,7 +17,6 @@ import {
   createOrSaveTestCaseInstance,
   createOrSaveQuestionInstance,
   createOrSaveRegistrationQuestionInstance,
-  loadRegistrationQuestions,
   updatePoints
 } from '../../test_drive_participation';
 import { create } from 'domain';
@@ -75,8 +74,6 @@ class TestDriveParticipationContainer extends React.Component<AppProps> {
               dispatch(createOrSaveQuestionInstance(questionInstance))}
             saveRegistrationQuestionResponse={(questionInstance) =>
               dispatch(createOrSaveRegistrationQuestionInstance(questionInstance))}
-            loadRegistrationQuestions={(testDriveID: number, questionIDs: number[], userID: number) =>
-              dispatch(loadRegistrationQuestions(testDriveID, questionIDs, userID))}
             loadQuestions={(testDriveID: number, questionIDs: number[], userID: number) =>
               dispatch(loadQuestions(testDriveID, questionIDs, userID))}
             updateUI={updateUI}

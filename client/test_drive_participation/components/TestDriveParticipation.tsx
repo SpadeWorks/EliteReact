@@ -21,7 +21,6 @@ interface TestDriveParticipationProps {
     saveQuestionResponse: (question: QuestionInstance) => any;
     saveRegistrationQuestionResponse: (question: RegistrationQuestionInstance) => any;
     loadQuestions: (testDriveID: number, questions: number[], userID: number) => any;
-    loadRegistrationQuestions: (testDriveID: number, questions: number[], userID: number) => any;
     updateUI: (any) => any;
     ui: any;
 };
@@ -68,8 +67,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
     {
         name: 'Complete test cases',
         link: '#'
-    }
-    ]
+    }]
 
     highFiveButtons = [{
         name: 'Go to survey',
@@ -82,8 +80,12 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
     {
         name: 'Dashboard',
         link: '/'
-    }
-    ]
+    }]
+
+    registrationPopupButtons = [{
+        name: 'Take me to dashboard',
+        link: '/home'
+    }]
 
     render() {
         const { testDriveInstance,
@@ -94,7 +96,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
             ui,
             updateUI,
             saveRegistrationQuestionResponse,
-            loadRegistrationQuestions } = this.props;
+        } = this.props;
 
         const registrationComplet = testDriveInstance.hasRegistration &&
             testDriveInstance.isRegistrationComplete || !testDriveInstance.hasRegistration;
@@ -145,6 +147,9 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                 </ul>
                                 <div id="myTabContent" className="tab-content">
                                     <div className={showRegistration ? "tab-pane active in" : "tab-pane fade"} id="registration_questions">
+                                        <Popup popupId="registrationCompletion" title={"Pole position!"}
+                                            body={ui.requirmentMessage}
+                                            buttons={this.registrationPopupButtons} />
                                         <Registration
                                             questions={testDriveInstance.registrationQuestions}
                                             testDriveInstance={testDriveInstance}

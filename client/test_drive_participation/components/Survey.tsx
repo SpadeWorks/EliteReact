@@ -30,7 +30,11 @@ class Survey extends React.Component<SurveyProps> {
         let question = this.props.testDriveInstance.questions;
         let testDrive = this.props.testDriveInstance;
         let userID = Services.getCurrentUserID();
-        this.props.loadQuestions(testDrive.testDriveID, testDrive.questionIDs, userID);
+
+        const questions = this.props.questions;
+        if (!questions || questions.length == 0) {
+            this.props.loadQuestions(testDrive.testDriveID, testDrive.questionIDs, userID);
+        }
         $('#carousel-question-vertical').bind('mousewheel', function (e) {
             if (e.originalEvent.wheelDelta / 120 > 0) {
                 $(this).carousel('prev');

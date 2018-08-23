@@ -62,7 +62,7 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
     submitQuestionResponse(question: RegistrationQuestionInstance, formID, isLast = false) {
         if (validateForm(formID)) {
             if (!isLast) {
-                $('#carousel-question-vertical').carousel('next');
+                $('#carousel-registration-question-vertical').carousel('next');
             }
             question = {
                 ...question,
@@ -94,7 +94,7 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
             var self = this;
             $("#submitSurvey").attr('disabled', true);
             this.props.updateUI({ submitInProgress: true });
-            Services.submitSurvey(this.props.testDriveInstance).then((testDriveInstance: TestDriveInstance) => {
+            Services.submitRegistration(this.props.testDriveInstance).then((testDriveInstance: TestDriveInstance) => {
                 this.props.updateUI({ submitInProgress: false });
                 self.openCompletionPopUp(testDriveInstance);
             });
@@ -102,22 +102,11 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
     }
 
     openCompletionPopUp(testDriveInstance: any) {
-        var interval, self = this;
-        Services.getTestDriveInstanceData(testDriveInstance).then((newTestDriveInstance: any) => {
-            if (newTestDriveInstance.status === Constants.ColumnsValues.COMPLETE_STATUS) {
-                if (interval) {
-                    clearInterval(interval);
-                }
-                this.props.updateUI({ requirmentMessage: "Registration completed successfully. You will be notified once test drive is started." });
-                $("#popupPopTheFizz").trigger("click");
-                $(".modal-backdrop.fade.in").hide();
-                confetti.InitializeConfettiInit();
-                $("#submitSurvey").attr('disabled', false);
-            } else {
-                interval = setInterval(self.openCompletionPopUp(newTestDriveInstance), 500);
-            }
-        });
-
+        this.props.updateUI({ requirmentMessage: Constants.Messages.REGISTRATION_COMPLETED + Services.formatDate(this.props.testDriveInstance.startDate)});
+        $("#popupregistrationCompletion").trigger("click");
+        $(".modal-backdrop.fade.in").hide();
+        confetti.InitializeConfettiInit();
+        $("#submitSurvey").attr('disabled', false);
     }
 
     render() {
@@ -135,7 +124,7 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
                                 <div className="row ">
                                     <div className="test_progress ">
                                         {
-                                            question.questionType == ColumnsValues.QUESTION_TYPE_OBJECTIVE &&
+                                            question.questionType == ColumnsValues.QUESTION_TYPE_SINGLE_SELECT &&
                                             <div data-validations={[required]} className="custom-select" id={"selectedResponse" + question.responseID}>
                                                 <Select
                                                     id="question-response"
@@ -153,7 +142,27 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
                                             </div>
                                         }
                                         {
-                                            question.questionType != ColumnsValues.QUESTION_TYPE_OBJECTIVE &&
+                                            question.questionType == ColumnsValues.QUESTION_TYPE_MULTI_SELECT &&
+                                            <div data-validations={[required]} className="custom-select" id={"selectedResponse" + question.responseID}>
+                                                <Select
+                                                    id="question-response"
+                                                    onBlurResetsInput={false}
+                                                    onSelectResetsInput={false}
+                                                    options={question.options}
+                                                    simpleValue
+                                                    clearable={true}
+                                                    name="selectedResponse"
+                                                    value={ui.selectedResponse}
+                                                    onChange={(value) => this.onChangeSeletedResponseChange(value)}
+                                                    rtl={false}
+                                                    searchable={false}
+                                                    type="select-multiple"
+                                                    multi={true}
+                                                />
+                                            </div>
+                                        }
+                                        {
+                                            question.questionType == ColumnsValues.QUESTION_TYPE_SUBJECTIVE &&
 
                                             <div className="col-md-12 comment_box ">
                                                 <textarea className="inputMaterial form-control"

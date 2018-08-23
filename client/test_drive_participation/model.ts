@@ -105,8 +105,6 @@ export type TestDriveInstance = {
     registrationQuestionIDs?: number[];
     registrationQuestionSaveInProgress?: boolean;
     isRegistrationComplete?: boolean; 
-
-
 };
 
 export type Configurations = {

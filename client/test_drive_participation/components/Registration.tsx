@@ -24,7 +24,7 @@ class Registration extends React.Component<RegistrationProps> {
         let testDrive = this.props.testDriveInstance;
         let userID = Services.getCurrentUserID();
         
-        $('#carousel-question-vertical').bind('mousewheel', function (e) {
+        $('#carousel-registration-question-vertical').bind('mousewheel', function (e) {
             if (e.originalEvent.wheelDelta / 120 > 0) {
                 $(this).carousel('prev');
             }
@@ -33,7 +33,7 @@ class Registration extends React.Component<RegistrationProps> {
             }
         });
 
-        $('#carousel-question-vertical').carousel({
+        $('#carousel-registration-question-vertical').carousel({
             wrap: false
         });
 
@@ -54,14 +54,14 @@ class Registration extends React.Component<RegistrationProps> {
         return (
             <div className="col-md-12">
                 <div>
-                    <div id="carousel-question-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
+                    <div id="carousel-registration-question-vertical" className="carousel vertical slide" data-ride="carousel" data-interval="false">
                         <div className="testcase_no " id="registration-questions">
                             <ul className="task_circle carousel-indicators">
                                 {
                                     questions &&
                                     questions.length &&
                                     questions.map((question, index) => {
-                                        return (<li key={index} data-target="#carousel-question-vertical" data-slide-to={index} className={index == 0 ? 'active' : ''}>
+                                        return (<li key={index} data-target="#carousel-registration-question-vertical" data-slide-to={index} className={index == 0 ? 'active' : ''}>
                                             <p> {index + 1}. {question.responseStatus == Constants.ColumnsValues.DRAFT &&
                                                 <img src={Constants.Globals.IMAGE_BASE_URL + "/empty.png"} className="img-responsive" />}
                                                 {question.responseStatus == Constants.ColumnsValues.COMPLETE_STATUS &&
@@ -90,9 +90,6 @@ class Registration extends React.Component<RegistrationProps> {
                                         />)
                                 })
                             }
-                            <Popup popupId="PopTheFizz" title={"Congratulations!"}
-                                body={ui.requirmentMessage}
-                                buttons={this.popTheFizzButtons} />
                         </div>
                     </div>
                 </div>

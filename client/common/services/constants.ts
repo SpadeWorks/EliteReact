@@ -101,6 +101,7 @@ export class Columns {
     static COMPLETION_BONUS = "CompletionBonus";
     static PASS_PERCENTAGE_TO_DEPLOY = "PassPercentageToDeploy";
     static REGISTRATION_QUESTION = "RegistrationQuestion";
+    static IS_REGISTRATION_COMPLETE = "IsRegistrationComplete";
 
 }
 
@@ -124,6 +125,9 @@ export class ColumnsValues {
     static EDIT_VIEW = "EDIT";
     static DISPLAY_VIEW = "DISPLAY";
     static TEST_DRIVE_COMPLETED = "Completed";
+    static QUESTION_TYPE_SINGLE_SELECT = "SingleSelect";
+    static QUESTION_TYPE_MULTI_SELECT = "MultiSelect";
+    static QUESTION_TYPE_SUBJECTIVE = "Subjective"; 
 }
 
 export class Globals {
@@ -195,4 +199,5 @@ export class Messages {
     static SENARIO_EMPTY = "Senario can not be empty";
     static EXPECTED_OUTCOME_EMPTY = "Ecpected outcome can not be empty.";
     static TEST_DRIVE_OPTION_MESSAGE = "You can create this test drive with survey quesions for the test drive users or you can simply go for test drive without registrations.";
+    static REGISTRATION_COMPLETED = "Congratulation! You have successfully completed the registration process. Buckle up your seat belt. The main test drive will start on ";
 }

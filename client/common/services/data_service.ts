@@ -88,6 +88,19 @@ export class Services {
         });
     }
 
+
+    static submitRegistration(testDriveInstance: TestDriveInstance) {
+        return new Promise((resolve, reject) => {
+            testDriveInstance.isRegistrationComplete = true;
+            Services.createOrSaveTestDriveInstance(testDriveInstance).then(data => {
+                resolve(data);
+            }, error => {
+                Utils.clientLog(error);
+                reject(error);
+            })
+        });
+    }
+
     static getTestDriveInstanceData(testDriveInstance: TestDriveInstance) {
         return new Promise((resolve, reject) => {
             Services.getTestDriveResponse(testDriveInstance.testDriveID, Services.getCurrentUserID()).then((instance: any) => {
@@ -413,7 +426,8 @@ export class Services {
                 [Constants.Columns.USER_ID]: Services.getCurrentUserID(),
                 [Constants.Columns.TEST_CASE_COMPLETED]: testDriveInstance.numberOfTestCasesCompleted,
                 [Constants.Columns.CURRENT_POINTS]: testDriveInstance.currentPoint,
-                [Constants.Columns.SURVEY_STATUS]: testDriveInstance.surveyStatus || Constants.ColumnsValues.DRAFT
+                [Constants.Columns.SURVEY_STATUS]: testDriveInstance.surveyStatus || Constants.ColumnsValues.DRAFT,
+                [Constants.Columns.IS_REGISTRATION_COMPLETE]: testDriveInstance.isRegistrationComplete
             }]).then(newTestDrives => {
                 let newTestDrive = newTestDrives[0];
                 resolve(<TestDriveInstance>{
@@ -423,6 +437,7 @@ export class Services {
                     dateJoined: newTestDrive ? newTestDrive[Constants.Columns.DATE_JOINED] : "",
                     numberOfTestCasesCompleted: newTestDrive ? newTestDrive[Constants.Columns.TEST_CASE_COMPLETED] : 0,
                     status: newTestDrive ? newTestDrive[Constants.Columns.STATUS] : Constants.ColumnsValues.DRAFT,
+                    isRegistrationComplete: newTestDrive[Constants.Columns.IS_REGISTRATION_COMPLETE] || false
                 });
             }, err => {
                 reject(err)
@@ -588,6 +603,7 @@ export class Services {
                     Constants.Columns.JOINING_BONUS,
                     Constants.Columns.COMPLETION_BONUS,
                     Constants.Columns.SURVEY_STATUS,
+                    Constants.Columns.IS_REGISTRATION_COMPLETE
             )
                 .filter(Constants.Columns.USER_ID + ' eq ' + userId +
                     ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
@@ -822,7 +838,6 @@ export class Services {
                     levelName: testDrive.levelName,
                     owner: testDrive.owner,
                     testCases: testCasesInstances,
-                    questions: null,
                     testCaseIDs: testDrive.testCaseIDs,
                     questionIDs: testDrive.questionIDs,
                     expectedBusinessValue: testDrive.expectedBusinessValue,
@@ -834,7 +849,8 @@ export class Services {
                     registrationStartDate: testDrive.registrationStartDate,
                     registrationEndDate: testDrive.registrationEndDate,
                     registrationQuestionIDs: testDrive.registrationQuestionIDs,
-                    registrationQuestions: testDrive.registrationQuestions 
+                    registrationQuestions: testDrive.registrationQuestions, 
+                    isRegistrationComplete: testDriveInstance ? testDriveInstance[Constants.Columns.IS_REGISTRATION_COMPLETE] : false
                 };
 
                 resolve(instance)

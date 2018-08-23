@@ -48,7 +48,6 @@ import {
     SUBMIT_RegistrationQuestion,
     UPDATE_RegistrationQuestion,
 
-
     SWITCH_Tab,
     UPDATE_Date,
     DATE_FocusChange,
