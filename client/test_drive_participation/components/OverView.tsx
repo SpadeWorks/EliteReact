@@ -21,17 +21,58 @@ class OverView extends React.Component<OverViewProps> {
         var completedQuestions = question && question.length && question.filter(question => {
             return question.responseStatus == Constants.ColumnsValues.COMPLETE_STATUS;
         });
-        if(completedQuestions)
+        if (completedQuestions)
             return completedQuestions.length;
         else
             return 0;
     }
+
+    getCompletedRegistrationQuestionCount() {
+        var registrationQuestions = this.props.testDriveInstance.registrationQuestions
+        var completedQuestions = registrationQuestions && registrationQuestions.length &&
+            registrationQuestions.filter(registrationQuestions => {
+                return registrationQuestions.responseStatus == Constants.ColumnsValues.COMPLETE_STATUS;
+            });
+        if (completedQuestions)
+            return completedQuestions.length;
+        else
+            return 0;
+    }
+
     render() {
         const { testDriveInstance, ui, updateUI } = this.props;
         return (<div>{ui.activeTab != 'Description' && <div className="row overview ">
             <div className="container ">
                 <div className="col-md-10 col-md-offset-1 ">
-                
+
+                    {
+                        ui.activeTab == 'Registration' &&
+                        <div>
+                            <div className="col-md-3 ">
+                                <div className="row ">
+                                    <div className="col-md-12 ">
+                                        <p><span className="orange "><i>
+                                            {this.getCompletedRegistrationQuestionCount()}</i></span> of {testDriveInstance.registrationQuestionIDs.length}
+                                        </p>
+                                    </div>
+                                    <div className="col-md-12 ">
+                                        <h4 className="testcase_title ">REGISTRATION QUESTIONS COMPLETED</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-md-3 ">
+                                <div className="row ">
+                                    <div className="col-md-12 ">
+                                        <p><span className="orange "><i>{testDriveInstance.currentPoint}</i></span> of {testDriveInstance.maxPoints}</p>
+                                    </div>
+                                    <div className="col-md-12 ">
+                                        <h4 className="testcase_title ">POINTS EARNED FOR TEST DRIVE</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
                     {
                         (ui.activeTab == 'test_Cases') && <div><div className="col-md-3 ">
                             <div className="row ">
@@ -109,16 +150,16 @@ class OverView extends React.Component<OverViewProps> {
                 <div className="col-md-1 navigation_box ">
                     <div className="row ">
                         <div className="col-md-6 pull-left">
-                            <a className="up carousel-control" 
-                                onClick={() => $(ui.activeTab == 'test_Cases' ? '#carousel-example-vertical' : '#carousel-question-vertical').carousel('prev')} 
-                                    role="button" data-slide="prev ">
+                            <a className="up carousel-control"
+                                onClick={() => $(ui.activeTab == 'test_Cases' ? '#carousel-example-vertical' : '#carousel-question-vertical').carousel('prev')}
+                                role="button" data-slide="prev ">
                                 <span className="glyphicon glyphicon-chevron-up " aria-hidden="true "></span>
                                 <span className="sr-only ">Previous</span>
                             </a>
                         </div>
                     </div>
                     <div className="col-md-6 pull-right">
-                        <a className="down carousel-control" 
+                        <a className="down carousel-control"
                             onClick={() => $(ui.activeTab == 'test_Cases' ? '#carousel-example-vertical' : '#carousel-question-vertical').carousel('next')} role="button" data-slide="next ">
                             <span className="glyphicon glyphicon-chevron-down " aria-hidden="true "></span>
                             <span className="sr-only ">Next</span>

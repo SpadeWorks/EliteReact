@@ -4,7 +4,7 @@ export class Lists {
     static TEST_DRIVES = 'Test Drives';
     static TEST_CASES = 'Test Cases';
     static SURVEY_QUESTIONS = 'Survey Questions';
-    static REGISTRATION_QUESTIONS = 'RegistrationQuestions';
+    static REGISTRATION_QUESTIONS = 'Registration Questions';
     static REGISTRATION_RESPONSES = 'RegistrationResponses';
     static RACE_LEVELS = 'Race Levels';
     static POINTS_CONFIGURATIONS = 'Points Configurations'
@@ -109,6 +109,8 @@ export class ColumnsValues {
     static COMPLETE_STATUS = 'Complete';
     static PARTIAL_COMPLETE = 'PartialComplete';
     static ACTIVE = 'Active';
+    static REGISTRATION_STARTED = 'Registration Started';
+    static REGISTRATION_ENDED = 'Registration Ended';
     static READY_FOR_LAUNCH = 'Ready for Launch';
     static APPROVAL_PENDING = 'Approval Pending';
     static DRAFT = "Draft";

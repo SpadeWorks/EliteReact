@@ -98,10 +98,17 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
             saveRegistrationQuestionResponse,
         } = this.props;
 
-        const registrationComplet = testDriveInstance.hasRegistration &&
-            testDriveInstance.isRegistrationComplete || !testDriveInstance.hasRegistration;
+        const participationAllowed = testDriveInstance.hasRegistration &&
+            testDriveInstance.isRegistrationComplete &&
+            testDriveInstance.testDriveStatus === Constants.ColumnsValues.ACTIVE ||
+            !testDriveInstance.hasRegistration;
 
+        const hasRegistration = testDriveInstance.hasRegistration;
         const showRegistration = testDriveInstance.hasRegistration && !testDriveInstance.isRegistrationComplete;
+
+        if (hasRegistration) {
+            updateUI({ activeTab: 'Registration' });
+        }
 
         return (<div className="col-md-12">
             <div className="row">
@@ -117,50 +124,59 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                         <div className="col-md-11 profile_box">
                             <div className="well count_box">
                                 <ul className="nav nav-tabs">
-                                    {showRegistration ?
+                                    {!participationAllowed ?
                                         <li className="active">
-                                            <a href="#Registration"
+                                            <a href="#registration_questions"
                                                 data-toggle="tab"
                                                 onClick={() => updateUI({ activeTab: 'Registration' })}>
                                                 Registration
                                         </a>
                                         </li> : ''}
                                     {
-                                        registrationComplet ?
-                                            <li className={registrationComplet ? "active" : ""}>
+                                        participationAllowed ?
+                                            <li className={participationAllowed ? "active" : ""}>
                                                 <a href="#test_Cases" data-toggle="tab" onClick={() => updateUI({ activeTab: 'test_Cases' })}>Test Cases</a>
                                             </li> : ''
                                     }
                                     {
-                                        registrationComplet ?
+                                        participationAllowed ?
                                             <li>
                                                 <a href="#Servay_q" data-toggle="tab" onClick={() => updateUI({ activeTab: 'Servay_q' })}>Survey</a>
                                             </li> : ''
                                     }
-                                    {
-                                        registrationComplet ?
-                                            <li>
-                                                <a href="#Description" data-toggle="tab" onClick={() => updateUI({ activeTab: 'Description' })}>Description</a>
-                                            </li> : ''
-                                    }
-
+                                    <li>
+                                        <a href="#Description" data-toggle="tab" onClick={() => updateUI({ activeTab: 'Description' })}>Description</a>
+                                    </li>
                                 </ul>
                                 <div id="myTabContent" className="tab-content">
-                                    <div className={showRegistration ? "tab-pane active in" : "tab-pane fade"} id="registration_questions">
-                                        <Popup popupId="registrationCompletion" title={"Pole position!"}
-                                            body={ui.requirmentMessage}
-                                            buttons={this.registrationPopupButtons} />
-                                        <Registration
-                                            questions={testDriveInstance.registrationQuestions}
-                                            testDriveInstance={testDriveInstance}
-                                            saveQuestionResponse={(q) => saveRegistrationQuestionResponse(q)}
-                                            updateUI={updateUI}
-                                            ui={ui}
-                                        />
+                                    <div className={!participationAllowed ? "tab-pane active in" : "tab-pane fade"} id="registration_questions">
+                                        {
+                                            !testDriveInstance.isRegistrationComplete ?
+                                                <div>
+                                                    <Popup popupId="registrationCompletion" title={"Pole position!"}
+                                                        body={ui.requirmentMessage}
+                                                        buttons={this.registrationPopupButtons} />
+                                                    <Registration
+                                                        questions={testDriveInstance.registrationQuestions}
+                                                        testDriveInstance={testDriveInstance}
+                                                        saveQuestionResponse={(q) => saveRegistrationQuestionResponse(q)}
+                                                        updateUI={updateUI}
+                                                        ui={ui}
+                                                    />
+                                                </div> : <div className="col-md-12">
+                                                    <div className="text-center holdon_msgbox">
+
+                                                        <img src="/Style%20Library/Elite/images/signal.png" />
+
+                                                        <h5>Hold on there, Cowboy !</h5>
+
+                                                        <p> You alredy registed for this test drvie. You will be notified once test drive is started.</p>
+
+                                                    </div>
+                                                </div>
+                                        }
                                     </div>
-
-
-                                    <div className={registrationComplet ? "tab-pane active in" : "tab-pane fade"} id="test_Cases">
+                                    <div className={participationAllowed ? "tab-pane active in" : "tab-pane fade"} id="test_Cases">
                                         <TestCases
                                             testDriveInstance={testDriveInstance}
                                             testCases={testDriveInstance.testCases}

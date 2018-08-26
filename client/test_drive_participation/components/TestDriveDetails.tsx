@@ -275,6 +275,39 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                         </div>
                                     </div>
                                 </div>
+                                {
+                                    testDriveInstance.hasRegistration ?
+                                        <div className="row inforow">
+                                            <div className="col-md-7">
+                                                <div className="row">
+                                                    <div className="col-md-5">
+                                                        <div className="row">
+                                                            <span className="orange">REGISTRATION START DATE :</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <div className="row">
+                                                            <h5>{Services.formatDate(testDriveInstance.registrationStartDate)}</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-5">
+                                                <div className="row">
+                                                    <div className="col-md-5">
+                                                        <div className="row">
+                                                            <span className="orange">REGISTRATION END DATE :</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-7">
+                                                        <div className="row">
+                                                            <h5>{Services.formatDate(testDriveInstance.registrationEndDate)}</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> : ''
+                                }
                                 <div className="row inforow">
                                     <div className="col-md-4">
                                         <div className="row">
@@ -389,9 +422,10 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                         </div>
                         <div className="col-md-12 participation_actionbox">
                             {
-                                (testDriveInstance.testDriveStatus == ColumnsValues.ACTIVE) ? <div className="button type1 nextBtn btn-lg pull-left animated_button">
-                                    <input disabled={ui.goForDriveDisabled} onClick={this.participate} type="button" value="Go for a drive" />
-                                </div> : ""
+                                (testDriveInstance.testDriveStatus == ColumnsValues.ACTIVE || testDriveInstance.testDriveStatus == ColumnsValues.REGISTRATION_STARTED) ?
+                                    <div className="button type1 nextBtn btn-lg pull-left animated_button">
+                                        <input disabled={ui.goForDriveDisabled} onClick={this.participate} type="button" value="Go for a drive" />
+                                    </div> : ""
                             }
 
                             <button id="participationButton" style={{ display: 'none' }} type="participationError" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>

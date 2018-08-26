@@ -131,6 +131,40 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                     </div>
                                 </div>
                             </div>
+
+                            {
+                                testDriveInstance.hasRegistration ?
+                                    <div className="row inforow">
+                                        <div className="col-md-5">
+                                            <div className="row">
+                                                <div className="col-md-5">
+                                                    <div className="row">
+                                                        <span className="orange">REGISTRATION START DATE :</span>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="row">
+                                                        <h5>{Services.formatDate(testDriveInstance.registrationStartDate)}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-5">
+                                            <div className="row">
+                                                <div className="col-md-4">
+                                                    <div className="row">
+                                                        <span className="orange">REGISTRATION END DATE :</span>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="row">
+                                                        <h5>{Services.formatDate(testDriveInstance.registrationEndDate)}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> : ''
+                            }
                             <div className="row inforow">
                                 <div className="col-md-3">
                                     <div className="row">

@@ -483,15 +483,23 @@ export class Services {
                 [Constants.Columns.Selected_Response]: questionInstance.selectedResponse
             }]).then((newResponses: any) => {
                 const newResponse = newResponses[0];
-                resolve(<RegistrationQuestionInstance>{
-                    ...questionInstance,
-                    responseID: newResponse.id,
-                    testDriveID: newResponse[Constants.Columns.TEST_DRIVE_ID + '_id'],
-                    questionID: newResponse[Constants.Columns.REGISTRATION_QUESTION + '_id'],
-                    responseStatus: newResponse[Constants.Columns.STATUS],
-                    userID: newResponse[Constants.Columns.USER_ID + '_id'],
-                    response: newResponse[Constants.Columns.REGISTRATION_RESPONSE],
-                    selectedResponse: newResponse[Constants.Columns.Selected_Response]
+                var listItem = pnp.sp.web.lists.getByTitle(Constants.Lists.REGISTRATION_RESPONSES)
+                    .items.getById(questionInstance.responseID);
+                Services.saveAttachment(questionInstance.responseID, questionInstance, listItem).then((attachments: any) => {
+                    resolve(<RegistrationQuestionInstance>{
+                        ...questionInstance,
+                        responseID: newResponse.id,
+                        testDriveID: newResponse[Constants.Columns.TEST_DRIVE_ID + '_id'],
+                        questionID: newResponse[Constants.Columns.REGISTRATION_QUESTION + '_id'],
+                        responseStatus: newResponse[Constants.Columns.STATUS],
+                        userID: newResponse[Constants.Columns.USER_ID + '_id'],
+                        response: newResponse[Constants.Columns.REGISTRATION_RESPONSE],
+                        selectedResponse: newResponse[Constants.Columns.Selected_Response],
+                        files: attachments
+                    });
+                }, (error) => {
+                    reject(error);
+                    Utils.clientLog(error);
                 });
             }, err => reject(err))
         })
@@ -566,6 +574,29 @@ export class Services {
     }
 
 
+    static saveAttachment(itemID, item, listItem) {
+        return new Promise((resolve, reject) => {
+            if (itemID && item.files.length) {
+                Services.setAttachmentByItemID(listItem, item.files).then((files: any) => {
+                    item.files = files;
+                    listItem.update({
+                        [Constants.Columns.RESPONSE_ATTACHMENTS]: JSON.stringify(item.files)
+                    }).then(result => {
+                        resolve(item.files);
+                    }, error => {
+                        reject(error);
+                        Utils.clientLog(error);
+                    })
+                }, (error) => {
+                    reject(error);
+                })
+            } else {
+                resolve([]);
+            }
+        })
+    }
+
+
     static saveBugAttachment(itemID, bugItem, listItem) {
         return new Promise((resolve, reject) => {
             if (itemID && bugItem.files.length) {
@@ -604,7 +635,7 @@ export class Services {
                     Constants.Columns.COMPLETION_BONUS,
                     Constants.Columns.SURVEY_STATUS,
                     Constants.Columns.IS_REGISTRATION_COMPLETE
-            )
+                )
                 .filter(Constants.Columns.USER_ID + ' eq ' + userId +
                     ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                 .expand(Constants.Columns.TEST_DRIVE_ID)
@@ -708,7 +739,7 @@ export class Services {
 
 
     static getRegistrationQuestionWithResponses(testDriveID: number, questionIDs: number[], userID: number) {
-        if (testDriveID == 0)  return null;
+        if (testDriveID == 0) return null;
         return new Promise((resolve, reject) => {
             Services.getRegistrationQuestonsByIds(questionIDs).then((questions: any) => {
                 pnp.sp.web.lists.getByTitle(Constants.Lists.REGISTRATION_RESPONSES).items
@@ -720,6 +751,7 @@ export class Services {
                         Constants.Columns.REGISTRATION_QUESTION + '/' + Constants.Columns.ID,
                         Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
                         Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
+                        Constants.Columns.RESPONSE_ATTACHMENTS,
                 )
                     .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                     .expand(Constants.Columns.USER_ID, Constants.Columns.TEST_DRIVE_ID, Constants.Columns.REGISTRATION_QUESTION)
@@ -739,7 +771,9 @@ export class Services {
                                 testDriveID: testDriveID,
                                 questionID: question.id,
                                 options: question.options,
-                                userID: userID
+                                userID: userID,
+                                files: response[Constants.Columns.RESPONSE_ATTACHMENTS] && response[Constants.Columns.RESPONSE_ATTACHMENTS].length
+                                    && Utils.tryParseJSON(response[Constants.Columns.RESPONSE_ATTACHMENTS]).files
                             })
                         })
                         resolve(questionsArray);
@@ -849,7 +883,7 @@ export class Services {
                     registrationStartDate: testDrive.registrationStartDate,
                     registrationEndDate: testDrive.registrationEndDate,
                     registrationQuestionIDs: testDrive.registrationQuestionIDs,
-                    registrationQuestions: testDrive.registrationQuestions, 
+                    registrationQuestions: testDrive.registrationQuestions,
                     isRegistrationComplete: testDriveInstance ? testDriveInstance[Constants.Columns.IS_REGISTRATION_COMPLETE] : false
                 };
 
@@ -1375,8 +1409,7 @@ export class Services {
             var ownerID = Services.getCurrentUserID();
             var d = new Date();
             var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-            var filter = "TestDriveOwner eq " + ownerID +
-                " and TestDriveStatus eq '" + Constants.ColumnsValues.ACTIVE + "'";
+            var filter = `TestDriveOwner eq ${ownerID} and (TestDriveStatus eq '${Constants.ColumnsValues.ACTIVE}' or TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_STARTED}')`;
             Services.getTestDrivesByFilter(filter, skip, top)
                 .then((testDrives: any) => {
                     var testDrivesIDs = [];
@@ -1466,8 +1499,7 @@ export class Services {
             var ownerID = Services.getCurrentUserID();
             var d = new Date();
             var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-            var filter = "TestDriveOwner eq " + ownerID +
-                " and TestDriveStatus eq '" + Constants.ColumnsValues.ACTIVE + "'";
+            var filter = `TestDriveOwner eq ${ownerID} and (TestDriveStatus eq '${Constants.ColumnsValues.ACTIVE}' or TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_STARTED}')`;
             Services.getTestDrivesByFilter(filter, skip, top)
                 .then((testDrives: any) => {
                     var testDrivesIDs = [];
@@ -2712,7 +2744,7 @@ export class Services {
         var d = new Date();
         var userRegion = Services.getUserProfileProperties().region || '';
         var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-        var filter = "TestDriveStatus eq '" + Constants.ColumnsValues.ACTIVE + "'";
+        var filter = `TestDriveStatus eq '${Constants.ColumnsValues.ACTIVE}' or TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_STARTED}'`;
         return new Promise((resolve, reject) => {
             Services.getTestDrivesByFilter(filter, skip, 1000, "TestDriveStartDate", true).then((testDriveInstances: TestDrive[]) => {
                 Services.getMyTestDriveIDs(0, 1000).then(mytestDrivs => {
@@ -2902,7 +2934,8 @@ export class Services {
                             })
                             testDrive = testDrive.length && testDrive[0];
 
-                            if (testDrive.status == Constants.ColumnsValues.ACTIVE) {
+                            if (testDrive.status == Constants.ColumnsValues.ACTIVE ||
+                                testDrive.status == Constants.ColumnsValues.REGISTRATION_STARTED) {
                                 myTestDriveArr.push({
                                     id: testDrive.id,
                                     title: testDrive.title,

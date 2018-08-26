@@ -14,6 +14,7 @@ import * as Constants from '../../common/services/constants';
 let confetti = require("../../js/jquery.confetti.js");
 import { validateControl, required, validateForm } from '../../common/components/Validations';
 import Loader from 'react-loader-advanced';
+import Files from 'react-files';
 interface RegistrationFormProps {
     isLast: boolean;
     index: number;
@@ -29,19 +30,22 @@ interface RegistrationFormProps {
     state: {
         questionResponse: '',
         selectedResponse: '',
-        submitInProgress: false
+        submitInProgress: false,
+        files: []
     }
 })
 class RegistrationForm extends React.Component<RegistrationFormProps> {
     constructor(props, context) {
         super(props, context);
         this.onChangeSeletedResponseChange = this.onChangeSeletedResponseChange.bind(this);
-        this.saveQuestionResponse = this.saveQuestionResponse.bind(this);
         this.props.updateUI({
             questionResponse: this.props.question.questionResponse,
             selectedResponse: this.props.question.selectedResponse
         });
         this.openCompletionPopUp = this.openCompletionPopUp.bind(this);
+        this.onFilesChange = this.onFilesChange.bind(this);
+        this.onFilesError = this.onFilesError.bind(this);
+        this.removeAttachment = this.removeAttachment.bind(this);
     }
 
     onChange(e) {
@@ -50,15 +54,7 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
     onChangeSeletedResponseChange(value) {
         this.props.updateUI({ selectedResponse: value });
     }
-    saveQuestionResponse(question: RegistrationQuestionInstance) {
-        question = {
-            ...question,
-            responseStatus: ColumnsValues.DRAFT,
-            questionResponse: this.props.ui.questionResponse,
-            selectedResponse: this.props.ui.selectedResponse
-        }
-        this.props.saveQuestionResponse(question);
-    }
+    
     submitQuestionResponse(question: RegistrationQuestionInstance, formID, isLast = false) {
         if (validateForm(formID)) {
             if (!isLast) {
@@ -68,7 +64,8 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
                 ...question,
                 responseStatus: ColumnsValues.COMPLETE_STATUS,
                 questionResponse: this.props.ui.questionResponse,
-                selectedResponse: this.props.ui.selectedResponse
+                selectedResponse: this.props.ui.selectedResponse,
+                files: this.props.ui.files
             }
             this.props.saveQuestionResponse(question);
             return true;
@@ -102,11 +99,51 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
     }
 
     openCompletionPopUp(testDriveInstance: any) {
-        this.props.updateUI({ requirmentMessage: Constants.Messages.REGISTRATION_COMPLETED + Services.formatDate(this.props.testDriveInstance.startDate)});
+        this.props.updateUI({ requirmentMessage: Constants.Messages.REGISTRATION_COMPLETED + Services.formatDate(this.props.testDriveInstance.startDate) });
         $("#popupregistrationCompletion").trigger("click");
         $(".modal-backdrop.fade.in").hide();
         confetti.InitializeConfettiInit();
         $("#submitSurvey").attr('disabled', false);
+    }
+
+    onFilesChange(files) {
+        var duplicateFiles = [];
+        var oldFiles = this.props.question.files;
+        oldFiles && oldFiles.length && oldFiles.map(oldFile => {
+            var machedElement = files && files.length && files.filter(newFile => {
+                return oldFile.FileName == newFile.name
+            });
+            machedElement.length && duplicateFiles.push(machedElement[0].name);
+        })
+
+        if (duplicateFiles.length) {
+            alert("Files with following names are alredy attached:" + '\n' + duplicateFiles.join(', '));
+        } else {
+            this.props.updateUI({
+                files: files
+            });
+        }
+    }
+
+    filesRemoveOne = (removedFile) => {
+        var files: any = this.refs.files;
+        files.removeFile(removedFile);
+        const newFiles = this.props.ui.files.filter((file: any) => {
+            return file.id != removedFile.id;
+        })
+        this.props.updateUI({
+            files: newFiles
+        });
+    }
+
+    onFilesError(error, file) {
+        console.log(error);
+    }
+
+    removeAttachment(fileName: string, index) {
+        Services.deletAttachment(this.props.question.responseID, fileName).then(status => {
+            $("#" + fileName + index).hide();
+        });
     }
 
     render() {
@@ -163,19 +200,68 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
                                         }
                                         {
                                             question.questionType == ColumnsValues.QUESTION_TYPE_SUBJECTIVE &&
-
                                             <div className="col-md-12 comment_box ">
-                                                <textarea className="inputMaterial form-control"
-                                                    onChange={(e) => this.onChange(e)}
-                                                    name="questionResponse"
-                                                    value={ui.questionResponse || ""}
-                                                    data-validations={[required]}
-                                                    id={"comments" + question.responseID}
-                                                />
-                                                <span className="highlight "></span>
-                                                <span className="bar "></span>
-                                                <label className="disc_lable ">Description *</label>
+                                                <div className="col-md-12 comment_box ">
+                                                    <Files
+                                                        ref='files'
+                                                        className='files-dropzone-list'
+                                                        onChange={this.onFilesChange}
+                                                        onError={this.onFilesError}
+                                                        multiple
+                                                        maxFiles={10}
+                                                        maxFileSize={10000000}
+                                                        minFileSize={0}
+                                                        clickable
+                                                    ><i className="material-icons pull-right">attachment</i>
+                                                    </Files>
 
+                                                    <textarea className="inputMaterial form-control"
+                                                        onChange={(e) => this.onChange(e)}
+                                                        name="questionResponse"
+                                                        value={ui.questionResponse || ""}
+                                                        data-validations={[required]}
+                                                        id={"comments" + question.responseID}
+                                                    />
+                                                    <span className="highlight "></span>
+                                                    <span className="bar "></span>
+                                                    <label className="disc_lable ">Test case result comments</label>
+                                                </div>
+                                                <div className="files" style={{ clear: 'both' }}>
+                                                    {
+                                                        (question && question.files && question.files.length) ? <div className='files-list'>
+                                                            <ul>{question.files.map((file, index) => {
+                                                                return (<li className='files-list-item' key={file.FileName + index}>
+                                                                    <div className='files-list-item-preview'>
+                                                                        <img className='files-list-item-preview-image' src={file.ServerRelativeUrl || "/Style%20Library/Elite/images/file-empty-icon.png"} />
+                                                                    </div>
+                                                                    <div className='files-list-item-content'>
+                                                                        <div className='files-list-item-content-item files-list-item-content-item-1'>{file.FileName}</div>
+                                                                    </div>
+                                                                </li>)
+                                                            }
+                                                            )}</ul>
+                                                        </div> : ''
+                                                    }
+                                                    <div className='files-list'>
+                                                        <ul>{
+                                                            (ui.files && ui.files.length) ? ui.files.map((file) => {
+                                                                return <li className='files-list-item' key={file.id}>
+                                                                    <div className='files-list-item-preview'>
+                                                                        <img className='files-list-item-preview-image' src={file.preview.url || "/Style%20Library/Elite/images/file-empty-icon.png"} />
+                                                                    </div>
+                                                                    <div className='files-list-item-content'>
+                                                                        <div className='files-list-item-content-item files-list-item-content-item-1'>{file.name}</div>
+                                                                    </div>
+                                                                    <div
+                                                                        id={file.id}
+                                                                        className='files-list-item-remove'
+                                                                        onClick={this.filesRemoveOne.bind(this, file)} // eslint-disable-line
+                                                                    ></div>
+                                                                </li>
+                                                            }) : ''}</ul>
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         }
                                         {
