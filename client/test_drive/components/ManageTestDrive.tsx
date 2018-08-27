@@ -48,6 +48,7 @@ import {
     updateMaxPoints
 } from '../../test_drive';
 import Registration from './Registration';
+import { TestDrive } from '../model';
 
 interface AppProps {
     id: number,
@@ -112,7 +113,7 @@ class ManageTestDrive extends React.Component<AppProps> {
         this.props.updateUI({ activeTab: tabIndex });
     }
 
-    onSwitchTab(direction: number, formID: string) {
+    onSwitchTab(direction: number, formID: string, testDrive: TestDrive) {
         var isFormValid = validateForm(formID);
         if (isFormValid) {
             if($('.nav.nav-tabs li[data-index=' + (this.props.ui.activeTab + direction) + ']').length){
@@ -120,6 +121,11 @@ class ManageTestDrive extends React.Component<AppProps> {
             } else{
                 this.props.updateUI({ activeTab: (this.props.ui.activeTab + direction + direction) });  
             }
+
+            testDrive.hasRegistration = this.props.registration || false;
+            this.props.dispatch(saveTestDrive(testDrive)).then(() => {
+                console.log('Test drive saved');
+            });
             
         } else {
             //Popup.alert(Messages.TEST_DRIVE_ERROR);

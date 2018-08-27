@@ -30,7 +30,7 @@ interface SurveysProps {
     view: string;
     currentUserRole: string;
     approveTestDrive: (any) => any;
-    switchTab: (tabName, formID: string) => any;
+    switchTab: (tabName, formID: string, testDrive: TestDrive) => any;
 };
 @ui({
     state: {
@@ -114,7 +114,7 @@ class Surveys extends React.Component<SurveysProps> {
                 <div className="col-md-12 testdrive_actionbox">
                     <div className="button type1 nextBtn btn-lg animated_button pull-left left_mnone">
                         <input type="button" value="Back" disabled={ui.saveLoading}
-                            onClick={() => switchTab(-1, "test-drive-form" + this.props.testDrive.id)} />
+                            onClick={() => switchTab(-1, "test-drive-form" + this.props.testDrive.id, testDrive)} />
                     </div>
                     {
                         testDrive.status == ColumnsValues.DRAFT &&

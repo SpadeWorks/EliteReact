@@ -772,8 +772,8 @@ export class Services {
                                 questionID: question.id,
                                 options: question.options,
                                 userID: userID,
-                                files: response[Constants.Columns.RESPONSE_ATTACHMENTS] && response[Constants.Columns.RESPONSE_ATTACHMENTS].length
-                                    && Utils.tryParseJSON(response[Constants.Columns.RESPONSE_ATTACHMENTS]).files
+                                files: response ? (response[Constants.Columns.RESPONSE_ATTACHMENTS] && response[Constants.Columns.RESPONSE_ATTACHMENTS].length
+                                    && Utils.tryParseJSON(response[Constants.Columns.RESPONSE_ATTACHMENTS]).files) : ''
                             })
                         })
                         resolve(questionsArray);

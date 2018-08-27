@@ -31,7 +31,7 @@ interface RegistrationProps {
     view: string;
     currentUserRole: string;
     approveTestDrive: (any) => any;
-    switchTab: (tabName, formID: string) => any;
+    switchTab: (tabName, formID: string, testDrive: TestDrive) => any;
 };
 @ui({
     state: {
@@ -62,7 +62,7 @@ class Registration extends React.Component<RegistrationProps> {
 
     getHelpText() {
         Services.getApplicationConfigurations().then((appConfig: any) => {
-            this.props.updateUI({ helpText: appConfig.QuestionHelpText });
+            this.props.updateUI({ helpText: appConfig.RegistrationQuestionHelpText });
         })
     }
 
@@ -115,11 +115,11 @@ class Registration extends React.Component<RegistrationProps> {
                 <div className="col-md-12 testdrive_actionbox">
                     <div className="button type1 nextBtn btn-lg animated_button pull-left left_mnone">
                         <input type="button" value="Back" disabled={ui.saveLoading}
-                            onClick={() => switchTab(-1, "test-drive-form" + testDrive.id)} />
+                            onClick={() => switchTab(-1, "test-drive-form" + testDrive.id, testDrive)} />
                     </div>
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <input type="button" value="Next" disabled={ui.saveLoading}
-                        onClick={() => switchTab(1, "test-drive-form" + this.props.testDrive.id)} />
+                        onClick={() => switchTab(1, "test-drive-form" + this.props.testDrive.id, testDrive)} />
                     </div>
                     {
                         testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ? 

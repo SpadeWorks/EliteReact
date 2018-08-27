@@ -29,7 +29,7 @@ interface TestCasesProps {
     onChange: (event: any, TestCase: TestCase) => any;
     saveTestDrive: (testDrive: TestDrive, formID: string, action: string) => any;
     loadTestCases: (testCasesIds: number[]) => any
-    switchTab: (tabName, formID: string) => any;
+    switchTab: (tabName, formID: string, testDrive: TestDrive) => any;
     fieldDescriptions: any;
     testDrive: TestDrive;
     currentUserRole: string;
@@ -138,11 +138,11 @@ class TestCases extends React.Component<TestCasesProps> {
                 <div className="col-md-12 testdrive_actionbox">
                     <div className="button type1 nextBtn btn-lg animated_button pull-left left_mnone">
                         <input type="button" value="Back" disabled={ui.saveLoading}
-                            onClick={() => switchTab(-1, "test-drive-form" + this.props.testDrive.id)} />
+                            onClick={() => switchTab(-1, "test-drive-form" + this.props.testDrive.id, testDrive)} />
                     </div>
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <input type="button" value="Next" disabled={ui.saveLoading}
-                            onClick={() => switchTab(1, "test-drive-form" + this.props.testDrive.id)} />
+                            onClick={() => switchTab(1, "test-drive-form" + this.props.testDrive.id, testDrive)} />
                     </div>
                     {testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ?
                         <div className="button type1 nextBtn btn-lg pull-right animated_button">

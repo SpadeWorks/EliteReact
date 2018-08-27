@@ -27,7 +27,7 @@ interface TestDriveFormProps {
     updateMultiSelect: (value: any, control: string, testDrive: TestDrive) => any;
     updateMaxPoints: () => any;
     updateDates: (dates: any) => any;
-    switchTab: (tabName, formID: string) => any;
+    switchTab: (tabName, formID: string, testDrive: TestDrive) => any;
     updateUI: (any) => any;
     fieldDescriptions: any;
     ui: any;
@@ -82,26 +82,26 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         var errorMessage = '';
         var hasError = false;
         //validateControl(e.target.id, e.target.value);
-        if(which == 'registrationStartDate' && 
+        if (which == 'registrationStartDate' &&
             (this.props.testDrive.registrationEndDate && payload >= moment(this.props.testDrive.registrationEndDate) ||
-            this.props.testDrive.startDate && payload >= moment(this.props.testDrive.startDate) || 
-            this.props.testDrive.endDate && payload >= moment(this.props.testDrive.endDate))) {
+                this.props.testDrive.startDate && payload >= moment(this.props.testDrive.startDate) ||
+                this.props.testDrive.endDate && payload >= moment(this.props.testDrive.endDate))) {
             errorMessage = "Registration start date must be earlier than registration end date, test drive start date, test drive end date.";
             hasError = true;
-        } else if(which == 'registrationEndDate' && 
-        (this.props.testDrive.startDate && payload >= moment(this.props.testDrive.startDate) ||
-        this.props.testDrive.endDate && payload >= moment(this.props.testDrive.endDate))) {
+        } else if (which == 'registrationEndDate' &&
+            (this.props.testDrive.startDate && payload >= moment(this.props.testDrive.startDate) ||
+                this.props.testDrive.endDate && payload >= moment(this.props.testDrive.endDate))) {
             errorMessage = "Registration end date must be earlier than test drive start date, test drive end date";
             hasError = true;
         } else if (which == 'startDate' && this.props.testDrive.endDate && payload >= moment(this.props.testDrive.endDate)) {
             errorMessage = "Test drive start date must be less than test drive end date.";
             hasError = true;
-        } 
-        
-        if(hasError) {
+        }
+
+        if (hasError) {
             this.props.updateUI({ requirmentMessage: errorMessage, title: "Alert!" });
             $("#popupCreateTestDriveAlert").trigger('click');
-        }else {
+        } else {
             this.onChange(e);
         }
     }
@@ -220,13 +220,13 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     hideShowCalander(e) {
         if ($("#startDate").is(e.target)) {
             this.props.updateUI({ showStartDatePicker: true });
-        } 
+        }
         if ($("#endDate").is(e.target)) {
             this.props.updateUI({ showEndDatePicker: true });
-        } 
+        }
         if ($("#registrationStartDate").is(e.target)) {
             this.props.updateUI({ showRegistrationStartDatePicker: true });
-        } 
+        }
         if ($("#registrationEndDate").is(e.target)) {
             this.props.updateUI({ showRegistrationEndDatePicker: true });
         }
@@ -428,7 +428,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             </div>
                             <div className={"startDate " + (ui.showStartDatePicker ? "show-tab" : "hide-tab")}>
                                 <Calendar
-                                    minDate={testDrive.registrationEndDate ? this.getFirstEnabledDate(testDrive.registrationEndDate): 
+                                    minDate={testDrive.registrationEndDate ? this.getFirstEnabledDate(testDrive.registrationEndDate) :
                                         now => { return now.add(0, 'days') }}
                                     // date={now => { return now.add(0, 'days') }}
                                     //onInit={this.handleChange.bind(this, 'startDate')}
@@ -649,7 +649,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         <div style={butttonGroup}>
                             <div className="button type1 nextBtn btn-lg pull-right animated_button back_btn">
                                 <input type="button" value="Next" disabled={ui.saveLoading}
-                                    onClick={() => switchTab(1, "test-drive-form" + this.props.testDrive.id)} />
+                                    onClick={() => switchTab(1, "test-drive-form" + this.props.testDrive.id, testDrive)} />
                             </div>
                             {
                                 testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ?
