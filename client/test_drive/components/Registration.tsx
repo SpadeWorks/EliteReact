@@ -119,23 +119,20 @@ class Registration extends React.Component<RegistrationProps> {
                     </div>
                     <div className="button type1 nextBtn btn-lg pull-right animated_button">
                         <input type="button" value="Next" disabled={ui.saveLoading}
-                        onClick={() => switchTab(1, "test-drive-form" + this.props.testDrive.id, testDrive)} />
+                            onClick={() => switchTab(1, "test-drive-form" + this.props.testDrive.id, testDrive)} />
+                    </div>
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <input type="button" value="Save as a draft" disabled={ui.saveLoading}
+                            onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save") }} />
                     </div>
                     {
-                        testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ? 
+                        testDrive.status == ColumnsValues.SUBMIT && currentUserRole == ColumnsValues.SITE_OWNER ?
                             <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                            <input type="button" value="Save as a draft" disabled={ui.saveLoading}
-                                onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save") }} />
-                        </div> : ''
-                    }
-
-                    {testDrive.status == ColumnsValues.SUBMIT && currentUserRole == ColumnsValues.SITE_OWNER ?
-                        <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                            <input type="button" value="Approve"
-                                disabled={ui.saveTestDriveApprovalLoading}
-                                onClick={() => this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "approve")} />
-                        </div>
-                        : ''
+                                <input type="button" value="Approve"
+                                    disabled={ui.saveTestDriveApprovalLoading}
+                                    onClick={() => this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "approve")} />
+                            </div>
+                            : ''
                     }
 
 

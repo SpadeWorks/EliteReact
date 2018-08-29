@@ -116,17 +116,17 @@ class ManageTestDrive extends React.Component<AppProps> {
     onSwitchTab(direction: number, formID: string, testDrive: TestDrive) {
         var isFormValid = validateForm(formID);
         if (isFormValid) {
-            if($('.nav.nav-tabs li[data-index=' + (this.props.ui.activeTab + direction) + ']').length){
-                this.props.updateUI({ activeTab: (this.props.ui.activeTab + direction) });  
-            } else{
-                this.props.updateUI({ activeTab: (this.props.ui.activeTab + direction + direction) });  
+            if ($('.nav.nav-tabs li[data-index=' + (this.props.ui.activeTab + direction) + ']').length) {
+                this.props.updateUI({ activeTab: (this.props.ui.activeTab + direction) });
+            } else {
+                this.props.updateUI({ activeTab: (this.props.ui.activeTab + direction + direction) });
             }
 
             testDrive.hasRegistration = this.props.registration || false;
             this.props.dispatch(saveTestDrive(testDrive)).then(() => {
                 console.log('Test drive saved');
             });
-            
+
         } else {
             //Popup.alert(Messages.TEST_DRIVE_ERROR);
             this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_ERROR, title: "Alert!" });
@@ -190,46 +190,47 @@ class ManageTestDrive extends React.Component<AppProps> {
                 return false;
             }
             //this.props.updateUI({ saveIsInProgress: true });
-            Services.getTestDrivesByFilter("TestDriveName eq '" + testDrive.title.trim() + "' and ID ne '" + testDrive.id + "'").then((testDriveData: any) => {
-                if (testDriveData && testDriveData.length > 0) {
-                    //Popup.alert(Messages.TEST_DRIVE_SAME_NAME_ERROR)
-                    this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAME_NAME_ERROR, title: "Alert!" });
-                    $("#popupCreateTestDriveAlert").trigger('click');
-                }
-                else {
-                    if (action == "save") {
-                        var self = this;
-                        this.props.dispatch(saveTestDrive(testDrive)).then(() => {
-                            // toast.success(Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
-                            this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAVEDDRAFT_MSG, title: "Success!" });
-                            $("#popupManageTestDriveSuccessSaveAsDraft").trigger('click');
-                            this.props.updateUI({ saveLoading: false });
-                        });
-                    } else if (action == "approve") {
-                        testDrive.status = ColumnsValues.READY_FOR_LAUNCH;
-                        this.props.dispatch(saveTestDrive(testDrive)).then(() => {
-                            this.props.updateUI({
-                                requirmentMessage: Messages.TEST_DRIVE_APPROVE_MSG,
-                                title: "Success!",
-                                saveLoading: false
-                            });
-                            $("#popupApprovalSuccess").trigger('click');
-                            this.props.updateUI({ saveLoading: false });
-                        });
+            Services.getTestDrivesByFilter("TestDriveName eq '" + testDrive.title.trim() + "' and ID ne '" + testDrive.id + "'")
+                .then((testDriveData: any) => {
+                    if (testDriveData && testDriveData.length > 0) {
+                        //Popup.alert(Messages.TEST_DRIVE_SAME_NAME_ERROR)
+                        this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAME_NAME_ERROR, title: "Alert!" });
+                        $("#popupCreateTestDriveAlert").trigger('click');
                     }
                     else {
-                        testDrive.status = ColumnsValues.SUBMIT;
-                        this.props.dispatch(saveTestDrive(testDrive)).then(() => {
-                            //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SUBMIT_MSG);
-                            this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SUBMIT_MSG, title: "Success!" });
-                            $("#popupManageTestDriveSuccess").trigger('click');
-                            // toast.success(Messages.TEST_DRIVE_SUBMIT_MSG);
-                            this.props.updateUI({ saveLoading: false });
-                        });
-                    }
+                        if (action == "save") {
+                            var self = this;
+                            this.props.dispatch(saveTestDrive(testDrive)).then(() => {
+                                // toast.success(Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
+                                this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAVEDDRAFT_MSG, title: "Success!" });
+                                $("#popupManageTestDriveSuccessSaveAsDraft").trigger('click');
+                                this.props.updateUI({ saveLoading: false });
+                            });
+                        } else if (action == "approve") {
+                            testDrive.status = ColumnsValues.READY_FOR_LAUNCH;
+                            this.props.dispatch(saveTestDrive(testDrive)).then(() => {
+                                this.props.updateUI({
+                                    requirmentMessage: Messages.TEST_DRIVE_APPROVE_MSG,
+                                    title: "Success!",
+                                    saveLoading: false
+                                });
+                                $("#popupApprovalSuccess").trigger('click');
+                                this.props.updateUI({ saveLoading: false });
+                            });
+                        }
+                        else {
+                            testDrive.status = ColumnsValues.SUBMIT;
+                            this.props.dispatch(saveTestDrive(testDrive)).then(() => {
+                                //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SUBMIT_MSG);
+                                this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SUBMIT_MSG, title: "Success!" });
+                                $("#popupManageTestDriveSuccess").trigger('click');
+                                // toast.success(Messages.TEST_DRIVE_SUBMIT_MSG);
+                                this.props.updateUI({ saveLoading: false });
+                            });
+                        }
 
-                }
-            });
+                    }
+                });
 
         }
         else {
@@ -481,7 +482,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                         </div>
                                     </div>
                                 </Pane>
-                                {registration && <Pane label= { registration ? "REGISTRATION QUESTIONS" : null}>
+                                {registration && <Pane label={registration ? "REGISTRATION QUESTIONS" : null}>
                                     <div className={"row setup-content"} id="step-4">
                                         <div className="col-xs-12 form_box tab-container">
                                             <Registration registrationQuestions={testDrive.registrationQuestions}
@@ -505,7 +506,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                             />
                                         </div>
                                     </div>
-                                </Pane> }
+                                </Pane>}
                                 <Pane label="TEST CASES">
                                     <div className={"row setup-content"} id="step-2">
                                         <div className="col-xs-12 form_box tab-container">
@@ -569,12 +570,12 @@ class ManageTestDrive extends React.Component<AppProps> {
 
 const mapStateToProps = (state, ownProps) => {
     let testDriveId = ownProps.match.params.id;
-    testDriveId = isNaN(parseInt(testDriveId)) ? "" : testDriveId;  
+    testDriveId = isNaN(parseInt(testDriveId)) ? "" : testDriveId;
 
     let registration = ownProps.match.params.id ?
         ownProps.match.params.id.toLowerCase() === "with_registration" : false;
 
-    
+
 
     let view = ownProps.match.params.view;
     const testDriveState = state.testDriveState;

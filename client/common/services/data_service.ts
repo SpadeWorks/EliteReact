@@ -1,7 +1,7 @@
 import Promise from "ts-promise";
 import * as Constants from './constants';
 import * as pnp from '../../../node_modules/sp-pnp-js/dist/pnp.min';
-import { TestDrive, Question, TestCase } from '../../test_drive/model';
+import { TestDrive, Question, TestCase, owner } from '../../test_drive/model';
 import * as $ from 'jquery';
 import TestCases from "../../test_drive/components/TestCases";
 import { HomeTestDrive, Leaders, EliteProfile, TestDriveResponse } from '../../home/model';
@@ -41,6 +41,7 @@ export type appconfig = {
     TotalUsers: string;
     Devices: string;
     Department: string;
+    EmployeeType: string;
 }
 
 
@@ -897,6 +898,15 @@ export class Services {
         return user.eliteProfileID; //TODO 
     }
 
+    static getCurrentUser() {
+        let user = <User>this.getUserProfileProperties();
+        return <owner>{
+            ID: user.eliteProfileID,
+            UserEMail: user.workEmail,
+            UserInfoName: user.firstName + " " + user.lastName
+        }
+    }
+
     static getEliteProfile() {
         return new Promise((resolve, reject) => {
             let cachedUser = false && Cache.getCache(Constants.CacheKeys.ELITE_PROFILE);
@@ -1286,20 +1296,20 @@ export class Services {
             var appConfig = Cache.getCache(Constants.CacheKeys.APPLICATION_CONFIGURATIONS);
             if (appConfig) {
                 resolve(appConfig);
-            } else {
-                pnp.sp.web.lists.getByTitle(Constants.Lists.APPLICATION_CONFIGURATIONS).items
-                    .top(100).get().then(configurations => {
-                        var appConfig = {};
-                        configurations && configurations.length &&
-                            configurations.map(configuration => {
-                                appConfig[configuration.AppConfigKey] = configuration.AppConfigValue;
-                            })
-                        Cache.setCache(Constants.CacheKeys.APPLICATION_CONFIGURATIONS, appConfig);
-                        resolve(appConfig);
-                    }, err => {
-                        reject(err);
-                    })
             }
+            pnp.sp.web.lists.getByTitle(Constants.Lists.APPLICATION_CONFIGURATIONS).items
+                .top(100).get().then(configurations => {
+                    var appConfig = {};
+                    configurations && configurations.length &&
+                        configurations.map(configuration => {
+                            appConfig[configuration.AppConfigKey] = configuration.AppConfigValue;
+                        })
+                    Cache.setCache(Constants.CacheKeys.APPLICATION_CONFIGURATIONS, appConfig);
+                    resolve(appConfig);
+                }, err => {
+                    reject(err);
+                })
+
         });
     }
 
@@ -1331,8 +1341,9 @@ export class Services {
                     Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_EMAIL,
                     Constants.Columns.USER_REGION,
                     Constants.Columns.TestDriveMTCHID,
-                    Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY
-                ).skip(skip).top(top)
+                    Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY,
+                    Constants.Columns.EMPLOYEE_TYPE,
+            ).skip(skip).top(top)
                 .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID, Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
                 .filter(filter)
                 .orderBy(orderBy, ascending)
@@ -1368,7 +1379,9 @@ export class Services {
                             ownerEmail: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_EMAIL],
                             ownerID: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.ID],
                             teamsChannelID: testDrive.TestDriveMTCHID && testDrive.TestDriveMTCHID.replace("-", ""),
-                            passPercentageToDeploy: testDrive[Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY] || 0
+                            passPercentageToDeploy: testDrive[Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY] || 0,
+                            owners: testDrive.TestDriveOwner.results,
+                            employeeType: testDrive[Constants.Columns.EMPLOYEE_TYPE].results
                         };
                     });
                     resolve(results);
@@ -1628,7 +1641,9 @@ export class Services {
                     ownerEmail: '',
                     ownerID: '',
                     teamsChannelID: '',
-                    hasRegistration: false
+                    hasRegistration: false,
+                    employeeType: [],
+                    owners: [this.getCurrentUser()]
                 });
             } else {
                 pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items.getById(testDriveID)
@@ -1658,7 +1673,8 @@ export class Services {
                         Constants.Columns.EXPECTED_BUSINESS_VALUE,
                         Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY,
                         Constants.Columns.TestDriveMTCHID,
-                        Constants.Columns.HAS_REGISTRATION
+                        Constants.Columns.HAS_REGISTRATION,
+                        Constants.Columns.EMPLOYEE_TYPE
                     )
                     .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID,
                         Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID,
@@ -1704,7 +1720,9 @@ export class Services {
                             ownerEmail: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_EMAIL],
                             passPercentageToDeploy: testDrive[Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY] || 0,
                             teamsChannelID: testDrive.TestDriveMTCHID && testDrive.TestDriveMTCHID.replace("-", ""),
-                            hasRegistration: testDrive[Constants.Columns.HAS_REGISTRATION] || false
+                            hasRegistration: testDrive[Constants.Columns.HAS_REGISTRATION] || false,
+                            owners: testDrive.TestDriveOwner.results || [this.getCurrentUser()],
+                            employeeType: testDrive[Constants.Columns.EMPLOYEE_TYPE].results
                         };
                         resolve(testDriveObj);
 
@@ -1949,9 +1967,25 @@ export class Services {
                     MaxTestDrivers: testDrive.maxTestDrivers,
                     TestDriveName: testDrive.title,
                     TestDriveStatus: testDrive.status,
-                    TestDriveOwner_id: parseInt(testDrive.ownerID) || this.getCurrentUserID(),
-                    PassPercentageToDeploy: testDrive.passPercentageToDeploy
+                    // TestDriveOwner_id: parseInt(testDrive.ownerID) || this.getCurrentUserID(),
+                    PassPercentageToDeploy: testDrive.passPercentageToDeploy,
+                    EmployeeType_tax: testDrive.employeeType
                 }
+
+                if(testDrive.owners){
+                    let ids = [];
+                    testDrive.owners.map(o => {
+                        ids.push(parseInt(o.ID.toString()))
+                    })
+                    newTestDrive["TestDriveOwner_id"] =  {
+                        results: ids || []
+                    }
+                } else{
+                    newTestDrive["TestDriveOwner_id"] =  {
+                        results: [this.getCurrentUser()]
+                    }
+                }
+
                 if (questions.length > 0) {
                     let ids = [];
                     questions.map(question => {
@@ -2282,67 +2316,74 @@ export class Services {
 
     static createOrUpdateListItemsInBatch(listName: string, items: any[]) {
         return new Promise((resolve, reject) => {
-            SP.SOD.executeFunc("sp.js", "SP.ClientContext", () => {
-                let ctx = SP.ClientContext.get_current();
-                let list = ctx.get_web().get_lists().getByTitle(listName);
-                const listItems = [];
-                items.forEach((item, index) => {
-                    if (item.ID !== -1) {
-                        listItems[index] = list.getItemById(item.ID);
-                    } else {
-                        var listInfo = new SP.ListItemCreationInformation();
-                        listItems[index] = list.addItem(listInfo);
-                    }
-
-                    $.each(item, (key, value) => {
-                        if (key.toLowerCase() !== "id") {
-                            if (key.toLowerCase().endsWith("_id")) {
-                                const columnName = key && key.split("_id")[0];
-                                if (value) {
-                                    if (typeof value === "object") {
-                                        var lookupIds = [];
-                                        value.results.forEach(id => {
-                                            var lookupID = new SP.FieldLookupValue();
-                                            lookupID.set_lookupId(id);
-                                            lookupIds.push(lookupID);
-                                        });
-                                        listItems[index].set_item(columnName, lookupIds);
-                                    } else {
-                                        var lookupID = new SP.FieldLookupValue();
-                                        lookupID.set_lookupId(value);
-                                        listItems[index].set_item(columnName, lookupID);
-                                    }
-                                }
-
-                            }
-                            else if (key.toLowerCase().endsWith("_tax")) {
-                                const columnName = key && key.split("_tax")[0];
-                                var termsArray = new Array();
-                                value.forEach(item => {
-                                    termsArray.push("-1;#" + item.Label + "|" + item.TermGuid);
-                                });
-                                var termValueString = termsArray.join(";#");
-
-                                listItems[index].set_item(columnName, termValueString);
-                            } else {
-                                listItems[index].set_item(key, value)
-                            }
+            try {
+                SP.SOD.executeFunc("sp.js", "SP.ClientContext", () => {
+                    let ctx = SP.ClientContext.get_current();
+                    let list = ctx.get_web().get_lists().getByTitle(listName);
+                    const listItems = [];
+                    items.forEach((item, index) => {
+                        if (item.ID !== -1) {
+                            listItems[index] = list.getItemById(item.ID);
+                        } else {
+                            var listInfo = new SP.ListItemCreationInformation();
+                            listItems[index] = list.addItem(listInfo);
                         }
+
+                        $.each(item, (key, value) => {
+                            if (key.toLowerCase() !== "id") {
+                                if (key.toLowerCase().endsWith("_id")) {
+                                    const columnName = key && key.split("_id")[0];
+                                    if (value) {
+                                        if (typeof value === "object") {
+                                            var lookupIds = [];
+                                            value.results.forEach(id => {
+                                                var lookupID = new SP.FieldLookupValue();
+                                                lookupID.set_lookupId(id);
+                                                lookupIds.push(lookupID);
+                                            });
+                                            listItems[index].set_item(columnName, lookupIds);
+                                        } else {
+                                            var lookupID = new SP.FieldLookupValue();
+                                            lookupID.set_lookupId(value);
+                                            listItems[index].set_item(columnName, lookupID);
+                                        }
+                                    }
+
+                                }
+                                else if (key.toLowerCase().endsWith("_tax")) {
+                                    const columnName = key && key.split("_tax")[0];
+                                    var termsArray = new Array();
+                                    value.forEach(item => {
+                                        termsArray.push("-1;#" + item.Label + "|" + item.TermGuid);
+                                    });
+                                    var termValueString = termsArray.join(";#");
+
+                                    listItems[index].set_item(columnName, termValueString);
+                                } else {
+                                    listItems[index].set_item(key, value)
+                                }
+                            }
+                        });
+                        listItems[index].update()
+                        ctx.load(listItems[index]);
                     });
-                    listItems[index].update()
-                    ctx.load(listItems[index]);
-                });
-                ctx.executeQueryAsync((sender, args) => {
-                    var results = [];
-                    listItems.forEach((element, index) => {
-                        results.push({ ...items[index], id: element.get_id() });
+                    ctx.executeQueryAsync((sender, args) => {
+                        var results = [];
+                        listItems.forEach((element, index) => {
+                            results.push({ ...items[index], id: element.get_id() });
+                        });
+                        resolve(results);
+                    }, (sender, args) => {
+                        Utils.clientLog(args);
+                        reject(args.get_message());
                     });
-                    resolve(results);
-                }, (sender, args) => {
-                    reject(args.get_message());
-                    Utils.clientLog(args);
                 });
-            });
+            }
+            catch(args){
+                Utils.clientLog(args);  
+                reject(args.get_message());
+            }
+            
         });
     }
 
@@ -2454,6 +2495,40 @@ export class Services {
         });
     }
 
+    static getEmployeeTypes() {
+        return new Promise((resolve, reject) => {
+            Services.getApplicationConfigurations().then((appConfig: appconfig) => {
+                let termSetName = "employeeType";
+                let termSetID = appConfig.EmployeeType;
+                this.getTermSetAsOptions(termSetName, termSetID).then(options => {
+                    resolve(options);
+                });
+            })
+        });
+    }
+
+    static getUsers() {
+        return new Promise((resolve, reject) => {
+            let cacheKey = 'usersList';
+            let record = Cache.getCache(cacheKey);
+            if (record) {
+                resolve(record);
+            }
+
+            pnp.sp.web.lists.getByTitle(Constants.Lists.USER_INFORMATION).items
+                .select(
+                    Constants.Columns.ID,
+                    Constants.Columns.USER_INFO_NAME,
+                    Constants.Columns.ACCOUNT_NAME)
+                .get().then((users: any) => {
+                    Cache.setCache(cacheKey, users)
+                    resolve(users);
+                })
+        });
+    }
+
+
+
     static formatDate(date: string) {
         return moment(date).format("MMM DD, YYYY");
     }
@@ -2463,20 +2538,20 @@ export class Services {
             let record = Cache.getCache(termSetName);
             if (record) {
                 resolve(record);
-            } else {
-                TermStore.getTermSetAsTree(termSetID, termSetName)
-                    .then((term: any) => {
-                        let options = [];
-                        term.children.map((term) => {
-                            options.push({
-                                TermGuid: term.guid,
-                                Label: term.name
-                            })
-                        });
-                        Cache.setCache(termSetName, options)
-                        resolve(options);
-                    });
             }
+            TermStore.getTermSetAsTree(termSetID, termSetName)
+                .then((term: any) => {
+                    let options = [];
+                    term.children.map((term) => {
+                        options.push({
+                            TermGuid: term.guid,
+                            Label: term.name
+                        })
+                    });
+                    Cache.setCache(termSetName, options);
+                    resolve(options);
+                });
+
         });
     }
 

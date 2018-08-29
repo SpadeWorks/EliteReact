@@ -189,6 +189,34 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         })
     }
 
+    getEmployeeType(input, callback) {
+        const functions = Service.getEmployeeTypes().then((employeeTypes: Array<any>) => {
+            input = input.toLowerCase();
+            var options = employeeTypes.filter((i: any) => {
+                return i.Label.toLowerCase().indexOf(input) > -1;
+            });
+            var data = {
+                options: options,
+                complete: options.length <= 6,
+            };
+            callback(null, data);
+        })
+    }
+
+    getUsers(input, callback) {
+        const functions = Service.getUsers().then((users: Array<any>) => {
+            input = input.toLowerCase();
+            var options = users.filter((i: any) => {
+                return i.UserInfoName.toLowerCase().indexOf(input) > -1;
+            });
+            var data = {
+                options: options,
+                complete: options.length <= 6,
+            };
+            callback(null, data);
+        })
+    }
+
     saveValidate(testDrive) {
         this.props.updateUI({ saveLoading: true });
         this.props.saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save");
@@ -595,6 +623,49 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             {fieldDescriptions && fieldDescriptions.TestDriveLocation}
                         </span>
                     </div>
+
+                    <div className="col-md-12 register_input">
+                        <div className="custom-select" id={"testDrive-employee-type" + testDrive.id}>
+                            <Select.Async multi={true}
+                                value={testDrive.employeeType}
+                                onChange={(value) =>
+                                    this.selectControlChange(value, "testDrive-employee-type" + testDrive.id, "employeeType")}
+                                valueKey="TermGuid"
+                                labelKey="Label"
+                                loadOptions={this.getEmployeeType}
+                                type="select-multiple"
+                                name="employeeType"
+                            //data-validations={[required]}
+                            />
+                        </div>
+                        <label className="disc_lable">Eligible driver employee type</label>
+
+                        <span className="help-text">
+                            {fieldDescriptions && fieldDescriptions.EmployeeType}
+                        </span>
+                    </div>
+
+                    <div className="col-md-12 register_input">
+                        <div data-validations={[required]} className="custom-select" id={"testDrive-owner" + testDrive.id}>
+                            <Select.Async multi={true}
+                                value={testDrive.owners}
+                                onChange={(value) =>
+                                    this.selectControlChange(value, "testDrive-owner" + testDrive.id, "owners")}
+                                valueKey="UserInfoName"
+                                labelKey="UserInfoName"
+                                loadOptions={this.getUsers}
+                                type="select-multiple"
+                                name="owners"
+                            // data-validations={[required]}
+                            />
+                        </div>
+                        <label className="disc_lable">Owners*</label>
+
+                        <span className="help-text">
+                            {fieldDescriptions && fieldDescriptions.SecondaryOwners}
+                        </span>
+                    </div>
+
                     <div className="col-md-12 register_input">
                         <div className="custom-select" id={"requiredDevices" + testDrive.id}>
                             <Select.Async multi={true}
@@ -651,14 +722,12 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 <input type="button" value="Next" disabled={ui.saveLoading}
                                     onClick={() => switchTab(1, "test-drive-form" + this.props.testDrive.id, testDrive)} />
                             </div>
-                            {
-                                testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ?
-                                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                        <input disabled={testDrive.status == ColumnsValues.ACTIVE || testDrive.saveIsInProgress || ui.saveLoading
-                                        } type="button" value="Save as a draft"
-                                            onClick={() => { this.saveValidate(testDrive) }} />
-                                    </div> : ''
-                            }
+
+                            <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                <input disabled={testDrive.saveIsInProgress || ui.saveLoading} type="button" value="Save as a draft"
+                                    onClick={() => { this.saveValidate(testDrive) }} />
+                            </div>
+
                             {
                                 testDrive.status == ColumnsValues.SUBMIT && currentUserRole == ColumnsValues.SITE_OWNER ?
                                     <div className="button type1 nextBtn btn-lg pull-right animated_button">

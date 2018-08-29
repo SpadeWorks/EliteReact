@@ -76,7 +76,16 @@ export type TestDrive = {
     passPercentageToDeploy: number;
     ownerID: string;
     hasRegistration: boolean;
+    employeeType: string[];
+    owners: owner[];
 };
+
+
+export type owner = {
+    ID: number;
+    UserEMail: string;
+    UserInfoName: string;
+}
 
 export type TestDriveIRun = {
     id: number;
@@ -111,6 +120,8 @@ export type TestDriveIRun = {
     passPercentageToDeploy: number;
     ownerID: '';
     hasRegistration: boolean;
+    employeeType: string[];
+    owners: owner[];
 
 };
 

@@ -124,17 +124,12 @@ class Surveys extends React.Component<SurveysProps> {
                                     onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save") }} />
                             </div> : ''
                     }
-
-                    {
-                        view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ?
-                            <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                <input
-                                    disabled={testDrive.status == ColumnsValues.ACTIVE || testDrive.saveIsInProgress || ui.saveLoading}
-                                    type="button" value="Submit"
-                                    onClick={this.onSubmit} />
-                            </div> : ''
-                    }
-
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <input
+                            disabled={testDrive.saveIsInProgress || ui.saveLoading}
+                            type="button" value="Submit"
+                            onClick={this.onSubmit} />
+                    </div>
                     {testDrive.status == ColumnsValues.SUBMIT && currentUserRole == ColumnsValues.SITE_OWNER ?
                         <div className="button type1 nextBtn btn-lg pull-right animated_button">
                             <input type="button" value="Approve"

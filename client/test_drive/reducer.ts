@@ -137,7 +137,9 @@ const initialState: IState = {
         participants: 0,
         passPercentageToDeploy: 0,
         ownerID: '',
-        hasRegistration: false
+        hasRegistration: false,
+        employeeType: [],
+        owners: null
     },
     testCase: {
         id: -1,

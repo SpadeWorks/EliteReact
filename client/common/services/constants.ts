@@ -102,7 +102,7 @@ export class Columns {
     static PASS_PERCENTAGE_TO_DEPLOY = "PassPercentageToDeploy";
     static REGISTRATION_QUESTION = "RegistrationQuestion";
     static IS_REGISTRATION_COMPLETE = "IsRegistrationComplete";
-
+    static EMPLOYEE_TYPE = "EmployeeType";
 }
 
 export class ColumnsValues {

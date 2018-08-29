@@ -144,12 +144,13 @@ class TestCases extends React.Component<TestCasesProps> {
                         <input type="button" value="Next" disabled={ui.saveLoading}
                             onClick={() => switchTab(1, "test-drive-form" + this.props.testDrive.id, testDrive)} />
                     </div>
-                    {testDrive.status == ColumnsValues.DRAFT && view && view.toUpperCase() == ColumnsValues.EDIT_VIEW ?
-                        <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                            <input disabled={ui.saveLoading || testDrive.status == ColumnsValues.ACTIVE}
-                                type="button" value="Save as a draft" 
-                                onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save") }} />
-                        </div> : ''}
+
+                    <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                        <input disabled={ui.saveLoading}
+                            type="button" value="Save as a draft"
+                            onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save") }} />
+                    </div>
+
                     {testDrive.status == ColumnsValues.SUBMIT && currentUserRole == ColumnsValues.SITE_OWNER ?
                         <div className="button type1 nextBtn btn-lg pull-right animated_button">
                             <input type="button" value="Approve"
