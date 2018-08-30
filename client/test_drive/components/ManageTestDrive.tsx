@@ -154,11 +154,11 @@ class ManageTestDrive extends React.Component<AppProps> {
         /** Call the plugin */
     }
 
-    onTestDriveSave(testDrive, formID, action) {
+    onTestDriveSave(testDrive: TestDrive, formID, action) {
         var isFormValid = validateForm(formID);
         var testCases = this.props.testDrive.testCases;
         var questions = this.props.testDrive.questions;
-        var maxTestDrivers = parseInt(testDrive.maxTestDrivers) || 0;
+        var maxTestDrivers = parseInt(testDrive.maxTestDrivers.toString()) || 0;
         this.props.updateUI({ saveLoading: true });
 
         testDrive.hasRegistration = this.props.registration || false;
@@ -200,6 +200,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                     else {
                         if (action == "save") {
                             var self = this;
+                            testDrive.changeStatus = ColumnsValues.CHANGE_DRAFTED;
                             this.props.dispatch(saveTestDrive(testDrive)).then(() => {
                                 // toast.success(Messages.TEST_DRIVE_SAVEDDRAFT_MSG);
                                 this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAVEDDRAFT_MSG, title: "Success!" });
@@ -207,7 +208,14 @@ class ManageTestDrive extends React.Component<AppProps> {
                                 this.props.updateUI({ saveLoading: false });
                             });
                         } else if (action == "approve") {
-                            testDrive.status = ColumnsValues.READY_FOR_LAUNCH;
+                            if(testDrive.status === ColumnsValues.SUBMIT){
+                                testDrive.status = ColumnsValues.READY_FOR_LAUNCH;
+                            }
+                            if(testDrive.changeStatus === ColumnsValues.CHANGE_SUBMITTED){
+                                testDrive.changeStatus = ColumnsValues.CHANGE_APPROVED;
+                                testDrive.approvalStatus = ColumnsValues.APPROVED;
+                            }
+                            
                             this.props.dispatch(saveTestDrive(testDrive)).then(() => {
                                 this.props.updateUI({
                                     requirmentMessage: Messages.TEST_DRIVE_APPROVE_MSG,
@@ -219,7 +227,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                             });
                         }
                         else {
-                            testDrive.status = ColumnsValues.SUBMIT;
+                            testDrive.changeStatus = ColumnsValues.CHANGE_SUBMITTED;
                             this.props.dispatch(saveTestDrive(testDrive)).then(() => {
                                 //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SUBMIT_MSG);
                                 this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SUBMIT_MSG, title: "Success!" });

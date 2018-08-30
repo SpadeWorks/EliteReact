@@ -1,11 +1,12 @@
 import { STATUS_CODES } from "http";
+import { stat } from "fs";
 
 export class Lists {
     static TEST_DRIVES = 'Test Drives';
     static TEST_CASES = 'Test Cases';
     static SURVEY_QUESTIONS = 'Survey Questions';
     static REGISTRATION_QUESTIONS = 'Registration Questions';
-    static REGISTRATION_RESPONSES = 'RegistrationResponses';
+    static REGISTRATION_RESPONSES = 'Registration Responses';
     static RACE_LEVELS = 'Race Levels';
     static POINTS_CONFIGURATIONS = 'Points Configurations'
     static USER_INFORMATION = 'User Information';
@@ -103,6 +104,8 @@ export class Columns {
     static REGISTRATION_QUESTION = "RegistrationQuestion";
     static IS_REGISTRATION_COMPLETE = "IsRegistrationComplete";
     static EMPLOYEE_TYPE = "EmployeeType";
+    static CHANGE_STATUS = "DraftStatus";
+    static APPROVAL_STATUS = "OData__ModerationStatus"; 
 }
 
 export class ColumnsValues {
@@ -130,6 +133,11 @@ export class ColumnsValues {
     static QUESTION_TYPE_SINGLE_SELECT = "SingleSelect";
     static QUESTION_TYPE_MULTI_SELECT = "MultiSelect";
     static QUESTION_TYPE_SUBJECTIVE = "Subjective"; 
+    static APPROVED = "0";
+    static PENDING = "2";
+    static CHANGE_SUBMITTED = "Submitted";
+    static CHANGE_DRAFTED = "Draft";
+    static CHANGE_APPROVED = "Approved";
 }
 
 export class Globals {

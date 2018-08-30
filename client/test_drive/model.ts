@@ -78,6 +78,8 @@ export type TestDrive = {
     hasRegistration: boolean;
     employeeType: string[];
     owners: owner[];
+    approvalStatus: string;
+    changeStatus: string;
 };
 
 
@@ -122,6 +124,8 @@ export type TestDriveIRun = {
     hasRegistration: boolean;
     employeeType: string[];
     owners: owner[];
+    approvalStatus: string;
+    changeStatus: string;
 
 };
 

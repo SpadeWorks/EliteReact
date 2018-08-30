@@ -139,7 +139,9 @@ const initialState: IState = {
         ownerID: '',
         hasRegistration: false,
         employeeType: [],
-        owners: null
+        owners: null,
+        approvalStatus: ColumnsValues.PENDING,
+        changeStatus: ColumnsValues.DRAFT
     },
     testCase: {
         id: -1,
