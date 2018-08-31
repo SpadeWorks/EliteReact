@@ -871,7 +871,7 @@ export class Services {
                     maxTestDrivers: testDrive.maxTestDrivers,
                     level: testDrive.level,
                     levelName: testDrive.levelName,
-                    owner: testDrive.owner,
+                    owners: testDrive.owners,
                     testCases: testCasesInstances,
                     testCaseIDs: testDrive.testCaseIDs,
                     questionIDs: testDrive.questionIDs,
@@ -1135,7 +1135,7 @@ export class Services {
                     userProfile.role = Constants.ColumnsValues.TEST_DRIVER_DISPLAY_NAME;
                     break;
             }
-            userProfile.location = userProfile.location || 'Location1'; //TODO: remove loaction1.
+            userProfile.location = userProfile.location;
             return userProfile;
         } catch (e) {
             return null;
@@ -1734,7 +1734,7 @@ export class Services {
                             employeeType: testDrive[Constants.Columns.EMPLOYEE_TYPE].results,
                             approvalStatus: testDrive[Constants.Columns.APPROVAL_STATUS],
                             changeStatus: testDrive[Constants.Columns.CHANGE_STATUS],
-                            
+
 
                         };
                         resolve(testDriveObj);
@@ -1983,11 +1983,11 @@ export class Services {
                     // TestDriveOwner_id: parseInt(testDrive.ownerID) || this.getCurrentUserID(),
                     PassPercentageToDeploy: testDrive.passPercentageToDeploy,
                     EmployeeType_tax: testDrive.employeeType,
-                    
+
                 }
 
-                newTestDrive["_ModerationStatus"]= testDrive.approvalStatus || Constants.ColumnsValues.PENDING,
-                newTestDrive[Constants.Columns.CHANGE_STATUS]= testDrive.changeStatus
+                newTestDrive["_ModerationStatus"] = testDrive.approvalStatus || Constants.ColumnsValues.PENDING,
+                    newTestDrive[Constants.Columns.CHANGE_STATUS] = testDrive.changeStatus
 
                 if (testDrive.owners) {
                     let ids = [];
@@ -2834,7 +2834,11 @@ export class Services {
 
     static getActiveTestDrives(skip = 0, top = 3) {
         var d = new Date();
-        var userRegion = Services.getUserProfileProperties().region || '';
+        var user = Services.getUserProfileProperties();
+        var userRegion = user.region ? user.region.trim() : '';
+        var userEmployeeType = user.employeeType ? user.employeeType.trim() : '';
+        var userEmployeeType = user.employeeType || '';
+
         var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
         var filter = `TestDriveStatus eq '${Constants.ColumnsValues.ACTIVE}' or TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_STARTED}'`;
         return new Promise((resolve, reject) => {
@@ -2852,9 +2856,14 @@ export class Services {
                             }
                         });
                         testDriveInstances = testDriveInstances.slice(0, top);
-                        Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
+                        Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {        
                             testDriveInstances.map((testDrive, index) => {
-                                if ((testDrive.region && testDrive.region.indexOf(userRegion) != -1 || testDrive.region.length == 0)) {
+                                var matchedEmployeeType = testDrive[Constants.Columns.EMPLOYEE_TYPE] &&
+                                    testDrive[Constants.Columns.EMPLOYEE_TYPE].results.filter((value, index) => {
+                                        return value.Label === userEmployeeType.trim();
+                                    });
+                                    console.log(matchedEmployeeType);
+                                if ((testDrive.region && testDrive.region.indexOf(userRegion) != -1 || testDrive.region.length == 0) && matchedEmployeeType.length) {
                                     activeTestDriveArr.push({
                                         id: testDrive.id,
                                         title: testDrive.title,
@@ -2876,7 +2885,9 @@ export class Services {
 
     static getUpcomingTestDrives(skip = 0, top = 3) {
         var d = new Date();
-        var userRegion = Services.getUserProfileProperties().region || '';
+        var user = Services.getUserProfileProperties();
+        var userRegion = user.region ? user.region.trim() : '';
+        var userEmployeeType = user.employeeType ? user.employeeType.trim() : '';
         var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
         var filter = "TestDriveStatus eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'";
         return new Promise((resolve, reject) => {
@@ -2892,7 +2903,12 @@ export class Services {
                         Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
 
                             testDriveInstances.map((testDrive, index) => {
-                                if ((testDrive.region && testDrive.region.indexOf(userRegion) != -1 || testDrive.region.length == 0)) {
+                                var matchedEmployeeType = testDrive[Constants.Columns.EMPLOYEE_TYPE] &&
+                                    testDrive[Constants.Columns.EMPLOYEE_TYPE].results.filter((value, index) => {
+                                        return value.Label === userEmployeeType.trim();
+                                    });
+                                    console.log(matchedEmployeeType);
+                                if ((testDrive.region && testDrive.region.indexOf(userRegion) != -1 || testDrive.region.length == 0) && matchedEmployeeType.length) {
                                     upcomingTestDriveArr.push({
                                         id: testDrive.id,
                                         title: testDrive.title,
@@ -2911,42 +2927,6 @@ export class Services {
                 })
         });
     }
-
-    // static getTestDrivesIRun() {
-    //     var d = new Date();
-    //     var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-    //     return new Promise((resolve, reject) => {
-    //         pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items
-    //             .select("TestDriveName", "ID", "TestDriveEndDate", "Author/Id").top(3).expand("Author/Id")
-    //             .orderBy("Created", true)
-    //             .filter("Author/Id eq '" + _spPageContextInfo.userId + "'")
-    //             .get().then(testDriveInstances => {
-    //                 let testDriveArr: HomeTestDrive[] = [];
-    //                 let testDrivesIDs = [];
-    //                 testDriveInstances.map((value, index) => {
-    //                     testDrivesIDs.push(testDriveInstances[index].ID);
-    //                 });
-
-    //                 Promise.all([Services.getTestDrivesByIDs(testDrivesIDs),
-    //                 Services.getTestDrivesParticipantCount(testDrivesIDs)]).then(results => {
-    //                     let testDrives = results[0];
-    //                     let participants = results[1];
-
-    //                     testDriveInstances.map((testDrive, index) => {
-    //                         testDriveArr.push({
-    //                             id: testDrive.ID,
-    //                             title: testDrive.TestDriveID.TestDriveName,
-    //                             enddate: testDrive.TestDriveID.TestDriveEndDate,
-    //                             participants: parseInt(participants[index]),
-    //                             testDrive: testDrives[index]
-    //                         });
-    //                     });
-    //                     resolve(testDriveArr);
-    //                 })
-
-    //             })
-    //     });
-    // }
 
     static getTestDriveResponsesWithFilter(filter: string, skip: number, top: number) {
         return new Promise((resolve, reject) => {

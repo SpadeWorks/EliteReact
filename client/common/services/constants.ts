@@ -210,4 +210,5 @@ export class Messages {
     static EXPECTED_OUTCOME_EMPTY = "Ecpected outcome can not be empty.";
     static TEST_DRIVE_OPTION_MESSAGE = "You can create this test drive with survey quesions for the test drive users or you can simply go for test drive without registrations.";
     static REGISTRATION_COMPLETED = "Congratulation! You have successfully completed the registration process. Buckle up your seat belt. The main test drive will start on ";
+    static TEST_DRIVE_EMPLOYEE_TYPE_ERROR = 'This test drive is not available for {employeeType}.';
 }

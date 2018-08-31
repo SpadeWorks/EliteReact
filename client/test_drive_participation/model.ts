@@ -105,7 +105,17 @@ export type TestDriveInstance = {
     registrationQuestionIDs?: number[];
     registrationQuestionSaveInProgress?: boolean;
     isRegistrationComplete?: boolean; 
+    employeeType: string[];
+    owners: owner[];
+    approvalStatus: string;
+    changeStatus: string;
 };
+
+export type owner = {
+    ID: number;
+    UserEMail: string;
+    UserInfoName: string;
+}
 
 export type Configurations = {
     testCasePoints: number;

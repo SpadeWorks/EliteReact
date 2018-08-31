@@ -72,7 +72,8 @@ const initialState: IState = {
         availableOS: [],
         availableDevices: [],
         isInEditMode: false,
-        levelName: ""
+        levelName: "",
+        employeeType: ""
     },
     currentUser: {},
     rank: -1,

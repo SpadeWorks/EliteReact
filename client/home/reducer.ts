@@ -89,7 +89,8 @@ const initialState: IState = {
         availableOS: [],
         availableDevices: [],
         isInEditMode: false,
-        levelName: ""
+        levelName: "",
+        employeeType: ''
     },
     currentUser: {},
     rank: -1,
@@ -97,7 +98,7 @@ const initialState: IState = {
     avatars: [],
     cars: [],
     prizes: [],
-    prizesLoading: false
+    prizesLoading: false,
 };
 
 export default handleActions<IState, any>({

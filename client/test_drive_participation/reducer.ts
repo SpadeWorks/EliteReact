@@ -75,6 +75,10 @@ const initialState: IState = {
         completionBonus: 0,
         hasRegistration: false,
         isRegistrationComplete: true,
+        owners: [],
+        approvalStatus: '',
+        changeStatus: '',
+        employeeType: []
     },
     loading: true,
 };

@@ -21,6 +21,8 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
         const { testDriveInstance } = this.props;
         var testCaseCompletion = (testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 1) * 100;
         var pointsEarned = testDriveInstance.currentPoint;
+        const ownerEmails = testDriveInstance.owners ? 
+            testDriveInstance.owners.map(o=> o.UserEMail).join(";") : '';
 
         return (<div className="col-md-12 detailed_box">
             <div className="row">
@@ -39,14 +41,14 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                             <span className="report"></span>
                                         </a>
                                         <a href="javascript:;" title={Messages.SEND_EMAIL_TITLE}
-                                            onClick={() => Services.emailOwner(testDriveInstance.ownerEmail, testDriveInstance.title)}>
+                                            onClick={() => Services.emailOwner(ownerEmails, testDriveInstance.title)}>
                                             <i className="material-icons">email</i>
                                         </a>
                                         {/* <a target="_blank" href={Services.getTeamSiteUrl(testDriveInstance.teamsChannelID)}>
                                             <span className="teams"></span>
                                         </a> */}
                                         <a href="javascript:;" title={Messages.SHARE_TITLE}
-                                            onClick={() => Services.shareTestDrive(testDriveInstance.ownerEmail, testDriveInstance)}>
+                                            onClick={() => Services.shareTestDrive(ownerEmails, testDriveInstance)}>
                                             <i className="material-icons">share</i>
                                         </a>
                                     </div>
@@ -97,41 +99,13 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                 </div>
                                 <div className="col-md-6">
                                     <div className="row">
-                                        <h5>{testDriveInstance.owner}</h5>
+                                        <h5>{testDriveInstance.owners.map((o, index) => {
+                                            return testDriveInstance.owners.length - 1 === index ?
+                                                 o.UserInfoName : o.UserInfoName + ", "
+                                        })}</h5>
                                     </div>
                                 </div>
                             </div>
-                            <div className="row inforow">
-                                <div className="col-md-5">
-                                    <div className="row">
-                                        <div className="col-md-5">
-                                            <div className="row">
-                                                <span className="orange">START DATE :</span>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="row">
-                                                <h5>{Services.formatDate(testDriveInstance.startDate)}</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-5">
-                                    <div className="row">
-                                        <div className="col-md-4">
-                                            <div className="row">
-                                                <span className="orange">END DATE :</span>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="row">
-                                                <h5>{Services.formatDate(testDriveInstance.endDate)}</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             {
                                 testDriveInstance.hasRegistration ?
                                     <div className="row inforow">
@@ -165,6 +139,38 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                         </div>
                                     </div> : ''
                             }
+                            <div className="row inforow">
+                                <div className="col-md-5">
+                                    <div className="row">
+                                        <div className="col-md-5">
+                                            <div className="row">
+                                                <span className="orange">START DATE :</span>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div className="row">
+                                                <h5>{Services.formatDate(testDriveInstance.startDate)}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-md-5">
+                                    <div className="row">
+                                        <div className="col-md-4">
+                                            <div className="row">
+                                                <span className="orange">END DATE :</span>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div className="row">
+                                                <h5>{Services.formatDate(testDriveInstance.endDate)}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <div className="row inforow">
                                 <div className="col-md-3">
                                     <div className="row">

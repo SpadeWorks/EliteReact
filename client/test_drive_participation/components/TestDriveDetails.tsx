@@ -46,6 +46,9 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
             Services.getEliteProfileByID().then((user: EliteProfile) => {
                 var message = Messages.TEST_DRIVE_PARTICIPATION_ERROR + '<br>';
                 var isUserEligible: boolean = true;
+                var matchedDevices = [];
+                var matchedDevice;
+
                 var matchedLocation = ctx.props.testDriveInstance.location.filter((location: any) => {
                     return location.Label && user.location &&
                         location.Label.toUpperCase() == user.location.toUpperCase();
@@ -55,14 +58,18 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                         department.Label.toUpperCase() == user.department.toUpperCase();
                 });
 
+                var matchedEmployeeType = ctx.props.testDriveInstance.employeeType.filter((empType: any) =>{
+                    return empType.Label && user.employeeType &&
+                        empType.Label.toUpperCase() === user.employeeType.toUpperCase();
+                })
+
                 if ((ctx.props.testDriveInstance.location &&
                     ctx.props.testDriveInstance.location.length > 0) &&
                     (!matchedLocation || !matchedLocation.length)) {
                     message += Messages.TEST_DRIVE_LOCATION_ERROR + '<br>';
                     isUserEligible = false;
                 }
-                var matchedDevices = [];
-                var matchedDevice;
+                
 
                 if ((ctx.props.testDriveInstance.requiredDevices &&
                     ctx.props.testDriveInstance.requiredDevices.length > 0)
@@ -80,6 +87,12 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                 if ((ctx.props.testDriveInstance.department && ctx.props.testDriveInstance.department.length > 0)
                     && (!matchedDepartment || !matchedDepartment.length)) {
                     message += Messages.TEST_DRIVE_DEPARTMENT_ERROR + '<br>';
+                    isUserEligible = false;
+                }
+
+                if ((ctx.props.testDriveInstance.employeeType && ctx.props.testDriveInstance.employeeType.length > 0)
+                    && (!matchedDepartment || !matchedDepartment.length)) {
+                    message += Messages.TEST_DRIVE_EMPLOYEE_TYPE_ERROR.replace("{employeeType}", user.employeeType) + '<br>';
                     isUserEligible = false;
                 }
                 resolve({ isUserEligible, message });
@@ -141,6 +154,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         const { testDriveInstance, createTestDriveInstance, ui, updateUI } = this.props;
         var testCaseCompletion = (testDriveInstance.numberOfTestCasesCompleted || 0) / (testDriveInstance.testCaseIDs.length || 1) * 100;
         var pointsEarned = testDriveInstance.currentPoint
+        const ownerEmails = testDriveInstance.owners.join('; ');
 
         return (<div className="container detailed_box">
 
@@ -175,14 +189,14 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                             <span className="report"></span>
                                         </a> */}
                                         <a href="javascript:;" title={Messages.SEND_EMAIL_TITLE}
-                                            onClick={() => Services.emailOwner(testDriveInstance.ownerEmail, testDriveInstance.title)}>
+                                            onClick={() => Services.emailOwner(ownerEmails, testDriveInstance.title)}>
                                             <i className="material-icons">email</i>
                                         </a>
                                         {/* <a href="#">
                                             <span className="teams"></span>
                                         </a> */}
                                         <a href="javascript:;" title={Messages.SHARE_TITLE}
-                                            onClick={() => Services.shareTestDrive(testDriveInstance.ownerEmail, testDriveInstance)}>
+                                            onClick={() => Services.shareTestDrive(ownerEmails, testDriveInstance)}>
                                             <i className="material-icons">share</i>
                                         </a>
                                     </div>
@@ -241,38 +255,11 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                             <span className="orange">TEST DRIVE OWNER :</span>
                                         </div>
                                     </div>
-                                    <div className="col-md-6">
-                                        <h5>{testDriveInstance.owner}</h5>
-                                    </div>
-                                </div>
-                                <div className="row inforow">
-                                    <div className="col-md-7">
-                                        <div className="row">
-                                            <div className="col-md-5">
-                                                <div className="row">
-                                                    <span className="orange">START DATE :</span>
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="row">
-                                                    <h5>{Services.formatDate(testDriveInstance.startDate)}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-5">
-                                        <div className="row">
-                                            <div className="col-md-5">
-                                                <div className="row">
-                                                    <span className="orange">END DATE :</span>
-                                                </div>
-                                            </div>
-                                            <div className="col-md-7">
-                                                <div className="row">
-                                                    <h5>{Services.formatDate(testDriveInstance.endDate)}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div className="row">
+                                        <h5>{testDriveInstance.owners.map((o, index) => {
+                                            return testDriveInstance.owners.length - 1 === index ?
+                                                o.UserInfoName : o.UserInfoName + ", "
+                                        })}</h5>
                                     </div>
                                 </div>
                                 {
@@ -308,6 +295,37 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                             </div>
                                         </div> : ''
                                 }
+                                <div className="row inforow">
+                                    <div className="col-md-7">
+                                        <div className="row">
+                                            <div className="col-md-5">
+                                                <div className="row">
+                                                    <span className="orange">START DATE :</span>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="row">
+                                                    <h5>{Services.formatDate(testDriveInstance.startDate)}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-5">
+                                        <div className="row">
+                                            <div className="col-md-5">
+                                                <div className="row">
+                                                    <span className="orange">END DATE :</span>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-7">
+                                                <div className="row">
+                                                    <h5>{Services.formatDate(testDriveInstance.endDate)}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <div className="row inforow">
                                     <div className="col-md-4">
                                         <div className="row">
@@ -424,7 +442,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                             {
                                 (testDriveInstance.testDriveStatus == ColumnsValues.ACTIVE || testDriveInstance.testDriveStatus == ColumnsValues.REGISTRATION_STARTED) ?
                                     <div className="button type1 nextBtn btn-lg pull-left animated_button">
-                                        <input disabled={ui.goForDriveDisabled} onClick={this.participate} type="button" value="Go for a drive" />
+                                        <input disabled={ui.goForDriveDisabled} onClick={this.participate} type="button" value={testDriveInstance.hasRegistration ? "Register" : "Go for a drive"} />
                                     </div> : ""
                             }
 
