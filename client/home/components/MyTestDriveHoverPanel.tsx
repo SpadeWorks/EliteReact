@@ -37,6 +37,8 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
         const percentComplete = (completedTestCases / totalTestCases) * 100;
         var pointsProgressID = 'point-canvas' + checkPortion + index;
         var driveProgressID = 'drive-canvas' + checkPortion + index;
+        const ownerEmails = testDrive.owners ? 
+            testDrive.owners.map(o=> o.UserEMail).join(";") : '';
 
         return (<div className="col-md-12">
             <h3>{testDrive.title}</h3>
@@ -46,14 +48,14 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                         <span className="report"></span>
                     </a>
                     <a href="javascript:;"
-                        onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)} title={Messages.SEND_EMAIL_TITLE}>
+                        onClick={() => Services.emailOwner(ownerEmails, testDrive.title)} title={Messages.SEND_EMAIL_TITLE}>
                         <i className="material-icons">email</i>
                     </a>
                     {/* <a target="_blank" href={Services.getTeamSiteUrl(testDrive.teamsChannelID)}>
                         <span className="teams"></span>
                     </a> */}
                     <a href="javascript:;" title={Messages.SHARE_TITLE}
-                        onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive)}>
+                        onClick={() => Services.shareTestDrive(ownerEmails, testDrive)}>
                         <i className="material-icons">share</i>
                     </a>
                 </div>
@@ -87,7 +89,10 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                                         <span className="orange">
                                             <i>DRIVE OWNER :</i>
                                         </span>
-                                        <h4>{testDrive.owner}</h4>
+                                        <h4>{testDrive.owners.map((o, index) => {
+                                            return testDrive.owners.length - 1 === index ?
+                                                 o.UserInfoName : o.UserInfoName + ", "
+                                        })}</h4>
                                     </div>
                                     <div className="col-md-12 end_date">
                                         <span className="orange">

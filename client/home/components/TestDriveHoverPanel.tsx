@@ -19,7 +19,7 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
     componentDidMount() {
         $(".letest_drivebox").hide();
         $(".letest_drivebox2").hide();
-        $('[data-toggle="popover"]').popover(); 
+        $('[data-toggle="popover"]').popover();
     }
 
     getTabLinks(items: any[]) {
@@ -34,20 +34,24 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
             }
             {
                 items && items.length > maxItems && items.slice(0, maxItems).map((item: any, index) => {
-                    moreLink += index < items.slice(0, maxItems).length -1 ? (item.Label + ", ") : item.Label;
+                    moreLink += index < items.slice(0, maxItems).length - 1 ? (item.Label + ", ") : item.Label;
                 })
             }
             {
-                items && items.length > maxItems ? 
-                <li className="more">
-                    <a href="javascript:;" title="" data-toggle="popover" data-trigger="focus hover" data-placement="right" data-content={moreLink}><span className="orange">More</span></a>
-                </li> : ''
+                items && items.length > maxItems ?
+                    <li className="more">
+                        <a href="javascript:;" title="" data-toggle="popover" data-trigger="focus hover" data-placement="right" data-content={moreLink}><span className="orange">More</span></a>
+                    </li> : ''
             }
         </div>)
     }
     render() {
         const { testDrive, checkPortion, participants, isActive } = this.props;
         var moreDevices = '', moreOs = '';
+
+        const ownerEmails = testDrive.owners ? 
+            testDrive.owners.map(o=> o.UserEMail).join(";") : '';
+
         return (<div className="col-md-12">
             <h3>{testDrive.title}</h3>
             <div className="col-md-12 social_box">
@@ -57,7 +61,7 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                         <span className="report"></span>
                     </a> */}
                     <a href="javascript:;"
-                        onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)} title={Messages.SEND_EMAIL_TITLE}>
+                        onClick={() => Services.emailOwner(ownerEmails, testDrive.title)} title={Messages.SEND_EMAIL_TITLE}>
                         <i className="material-icons">email</i>
                     </a>
                     {
@@ -67,7 +71,7 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                         </a>
                     }
                     <a href="javascript:;" title={Messages.SHARE_TITLE}
-                        onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive)}>
+                        onClick={() => Services.shareTestDrive(ownerEmails, testDrive)}>
                         <i className="material-icons">share</i>
                     </a>
                 </div>
@@ -131,7 +135,10 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                             <span className="orange">
                                                 <i>DRIVE OWNER :</i>
                                             </span>
-                                            <h4>{testDrive.owner}</h4>
+                                            <h4>{testDrive.owners.map((o, index) => {
+                                                return testDrive.owners.length - 1 === index ?
+                                                    o.UserInfoName : o.UserInfoName + ", "
+                                            })}</h4>
                                         </div>
                                         <div className="col-md-12 end_date">
                                             <span className="orange">

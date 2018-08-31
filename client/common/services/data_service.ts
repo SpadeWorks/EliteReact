@@ -1986,8 +1986,8 @@ export class Services {
 
                 }
 
-                newTestDrive["_ModerationStatus"] = testDrive.approvalStatus || Constants.ColumnsValues.PENDING,
-                    newTestDrive[Constants.Columns.CHANGE_STATUS] = testDrive.changeStatus
+                // newTestDrive["_ModerationStatus"] = testDrive.approvalStatus || Constants.ColumnsValues.PENDING,
+                    newTestDrive[Constants.Columns.CHANGE_STATUS] = testDrive.changeStatus;
 
                 if (testDrive.owners) {
                     let ids = [];
@@ -2856,14 +2856,14 @@ export class Services {
                             }
                         });
                         testDriveInstances = testDriveInstances.slice(0, top);
-                        Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {        
+                        Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
                             testDriveInstances.map((testDrive, index) => {
-                                var matchedEmployeeType = testDrive[Constants.Columns.EMPLOYEE_TYPE] &&
-                                    testDrive[Constants.Columns.EMPLOYEE_TYPE].results.filter((value, index) => {
+                                var matchedEmployeeType = testDrive.employeeType && testDrive.employeeType.length ?
+                                    testDrive.employeeType.filter((value: any, index) => {
                                         return value.Label === userEmployeeType.trim();
-                                    });
-                                    console.log(matchedEmployeeType);
-                                if ((testDrive.region && testDrive.region.indexOf(userRegion) != -1 || testDrive.region.length == 0) && matchedEmployeeType.length) {
+                                    }).length : 1;
+                                if ((testDrive.region && testDrive.region.indexOf(userRegion) != -1 || testDrive.region.length == 0) &&
+                                    matchedEmployeeType) {
                                     activeTestDriveArr.push({
                                         id: testDrive.id,
                                         title: testDrive.title,
@@ -2903,12 +2903,11 @@ export class Services {
                         Services.getTestDrivesParticipantCount(testDrivesIDs).then(participants => {
 
                             testDriveInstances.map((testDrive, index) => {
-                                var matchedEmployeeType = testDrive[Constants.Columns.EMPLOYEE_TYPE] &&
-                                    testDrive[Constants.Columns.EMPLOYEE_TYPE].results.filter((value, index) => {
+                                var matchedEmployeeType = testDrive.employeeType && testDrive.employeeType.length ?
+                                    testDrive.employeeType.filter((value: any, index) => {
                                         return value.Label === userEmployeeType.trim();
-                                    });
-                                    console.log(matchedEmployeeType);
-                                if ((testDrive.region && testDrive.region.indexOf(userRegion) != -1 || testDrive.region.length == 0) && matchedEmployeeType.length) {
+                                    }).length : 1;
+                                if ((testDrive.region && testDrive.region.indexOf(userRegion) != -1 || testDrive.region.length == 0) && matchedEmployeeType) {
                                     upcomingTestDriveArr.push({
                                         id: testDrive.id,
                                         title: testDrive.title,

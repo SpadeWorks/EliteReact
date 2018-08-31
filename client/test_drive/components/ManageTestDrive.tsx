@@ -122,10 +122,10 @@ class ManageTestDrive extends React.Component<AppProps> {
                 this.props.updateUI({ activeTab: (this.props.ui.activeTab + direction + direction) });
             }
 
-            testDrive.hasRegistration = this.props.registration || false;
-            this.props.dispatch(saveTestDrive(testDrive)).then(() => {
-                console.log('Test drive saved');
-            });
+            // testDrive.hasRegistration = this.props.registration || false;
+            // this.props.dispatch(saveTestDrive(testDrive)).then(() => {
+                
+            // });
 
         } else {
             //Popup.alert(Messages.TEST_DRIVE_ERROR);
@@ -227,6 +227,9 @@ class ManageTestDrive extends React.Component<AppProps> {
                             });
                         }
                         else {
+                            if(testDrive.status === ColumnsValues.DRAFT || testDrive.status == ''){
+                                testDrive.status = ColumnsValues.SUBMIT;
+                            }
                             testDrive.changeStatus = ColumnsValues.CHANGE_SUBMITTED;
                             this.props.dispatch(saveTestDrive(testDrive)).then(() => {
                                 //Popup.plugins().prompt('', 'What do you want to do?', Messages.TEST_DRIVE_SUBMIT_MSG);

@@ -115,4 +115,12 @@ export type TestDrive = {
     newItem?: boolean;
     ownerEmail?: string;
     teamsChannelID?:string;
+    owners: owner[];
 };
+
+
+export type owner = {
+    ID: number;
+    UserEMail: string;
+    UserInfoName: string;
+}
