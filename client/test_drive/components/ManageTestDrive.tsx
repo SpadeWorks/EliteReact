@@ -48,7 +48,7 @@ import {
     updateMaxPoints
 } from '../../test_drive';
 import Registration from './Registration';
-import { TestDrive } from '../model';
+import { TestDrive, TestCase, RegistrationQuestion, Question } from '../model';
 
 interface AppProps {
     id: number,
@@ -98,6 +98,7 @@ class ManageTestDrive extends React.Component<AppProps> {
         this.getSelectedTab = this.getSelectedTab.bind(this);
         this.approveTestDrive = this.approveTestDrive.bind(this);
         this.onSwitchTab = this.onSwitchTab.bind(this);
+        this.isTestDriveInEditMode = this.isTestDriveInEditMode.bind(this);
     }
 
 
@@ -124,7 +125,7 @@ class ManageTestDrive extends React.Component<AppProps> {
 
             // testDrive.hasRegistration = this.props.registration || false;
             // this.props.dispatch(saveTestDrive(testDrive)).then(() => {
-                
+
             // });
 
         } else {
@@ -208,14 +209,14 @@ class ManageTestDrive extends React.Component<AppProps> {
                                 this.props.updateUI({ saveLoading: false });
                             });
                         } else if (action == "approve") {
-                            if(testDrive.status === ColumnsValues.SUBMIT){
+                            if (testDrive.status === ColumnsValues.SUBMIT) {
                                 testDrive.status = ColumnsValues.READY_FOR_LAUNCH;
                             }
-                            if(testDrive.changeStatus === ColumnsValues.CHANGE_SUBMITTED){
+                            if (testDrive.changeStatus === ColumnsValues.CHANGE_SUBMITTED) {
                                 testDrive.changeStatus = ColumnsValues.CHANGE_APPROVED;
-                                testDrive.approvalStatus = ColumnsValues.APPROVED;
+                                // testDrive.approvalStatus = ColumnsValues.APPROVED;
                             }
-                            
+
                             this.props.dispatch(saveTestDrive(testDrive)).then(() => {
                                 this.props.updateUI({
                                     requirmentMessage: Messages.TEST_DRIVE_APPROVE_MSG,
@@ -227,7 +228,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                             });
                         }
                         else {
-                            if(testDrive.status === ColumnsValues.DRAFT || testDrive.status == ''){
+                            if (testDrive.status === ColumnsValues.DRAFT || testDrive.status == '') {
                                 testDrive.status = ColumnsValues.SUBMIT;
                             }
                             testDrive.changeStatus = ColumnsValues.CHANGE_SUBMITTED;
@@ -260,8 +261,29 @@ class ManageTestDrive extends React.Component<AppProps> {
                 this.props.updateUI({ requirmentMessage: Messages.NO_OPTIONS_ERROR, title: "Alert!" });
                 $("#popupManageTestDriveAlert").trigger('click');
             } else {
-                this.props.dispatch(saveQuestion(question));
-                toast.success("Question Saved Successfully!");
+                if (this.isTestDriveInEditMode()) {
+                    if (!question.newItem) {
+                        Services.getQuestonsByIds([question.id]).then((oldQuestion: TestCase[]) => {
+                            if (!this.compareQuestions(oldQuestion[0], question)) {
+                                question.isEdited = true;
+                                question.editStatus = ColumnsValues.EDIT_STATUS_EDITED;
+                                this.props.dispatch(saveQuestion(question));
+                                toast.success("Test Case Saved Successfully!");
+                            } else {
+                                this.props.dispatch(saveQuestion(question));
+                                toast.success("Test Case Saved Successfully!");
+                            }
+                        })
+                    } else {
+                        question.isEdited = false;
+                        question.editStatus = ColumnsValues.EDIT_STATUS_NEW;
+                        this.props.dispatch(saveQuestion(question));
+                        toast.success("Question Saved Successfully!");
+                    }
+                } else {
+                    this.props.dispatch(saveQuestion(question));
+                    toast.success("Question Saved Successfully!");
+                }
             }
         } else {
             //Popup.alert(Messages.QUESTION_ERROR);
@@ -279,8 +301,30 @@ class ManageTestDrive extends React.Component<AppProps> {
                 this.props.updateUI({ requirmentMessage: Messages.NO_OPTIONS_ERROR, title: "Alert!" });
                 $("#popupManageTestDriveAlert").trigger('click');
             } else {
-                this.props.dispatch(saveRegistrationQuestion(question));
-                toast.success("Question Saved Successfully!");
+                if (this.isTestDriveInEditMode()) {
+                    if (!question.newItem) {
+                        Services.getRegistrationQuestonsByIds([question.id]).then((oldQuestion: TestCase[]) => {
+                            if (!this.compareQuestions(oldQuestion[0], question)) {
+                                question.isEdited = true;
+                                question.editStatus = ColumnsValues.EDIT_STATUS_EDITED;
+                                this.props.dispatch(saveRegistrationQuestion(question));
+                                toast.success("Test Case Saved Successfully!");
+                            } else {
+                                this.props.dispatch(saveRegistrationQuestion(question));
+                                toast.success("Test Case Saved Successfully!");
+                            }
+                        })
+                    } else {
+                        question.isEdited = false;
+                        question.editStatus = ColumnsValues.EDIT_STATUS_NEW;
+                        this.props.dispatch(saveRegistrationQuestion(question));
+                        toast.success("Question Saved Successfully!");
+                    }
+
+                } else {
+                    this.props.dispatch(saveRegistrationQuestion(question));
+                    toast.success("Question Saved Successfully!");
+                }
             }
         } else {
             //Popup.alert(Messages.QUESTION_ERROR);
@@ -289,7 +333,14 @@ class ManageTestDrive extends React.Component<AppProps> {
         }
     }
 
-    onSaveTestCase(testCase, formID) {
+
+    compareQuestions(oldQuestion, newQuestion) {
+        return oldQuestion.title === newQuestion.title &&
+            oldQuestion.questionType === newQuestion.questionType &&
+            JSON.stringify(oldQuestion.options)==JSON.stringify(newQuestion.options)
+    }
+
+    onSaveTestCase(testCase: model.TestCase, formID) {
         var isFormValid = validateForm(formID);
         var editorEmpty = false;
         if (!$(testCase.scenario).text().replace(/[\n\r]+/g, '').trim() && !this.haveImage(testCase.scenario)) {
@@ -305,14 +356,51 @@ class ManageTestDrive extends React.Component<AppProps> {
         }
 
         if (!editorEmpty && isFormValid) {
-            this.props.dispatch(saveTestCase(testCase));
-            toast.success("Test Case Saved Successfully!");
+            if (this.isTestDriveInEditMode()) {
+                if (!testCase.newItem) {
+                    Services.getTestCasesByIds([testCase.id]).then((oldTestCases: TestCase[]) => {
+                        if (!this.compareTestCases(oldTestCases[0], testCase)) {
+                            testCase.isEdited = true;
+                            testCase.editStatus = ColumnsValues.EDIT_STATUS_EDITED;
+                            this.props.dispatch(saveTestCase(testCase));
+                            toast.success("Test Case Saved Successfully!");
+                        } else {
+                            this.props.dispatch(saveTestCase(testCase));
+                            toast.success("Test Case Saved Successfully!");
+
+                        }
+                    })
+                } else {
+                    testCase.isEdited = false;
+                    testCase.editStatus = ColumnsValues.EDIT_STATUS_NEW;
+                    this.props.dispatch(saveTestCase(testCase));
+                    toast.success("Test Case Saved Successfully!");
+                }
+
+            } else {
+                this.props.dispatch(saveTestCase(testCase));
+                toast.success("Test Case Saved Successfully!");
+            }
+
         } else {
             //Popup.alert(Messages.TEST_CASE_ERROR);
             this.props.updateUI({ requirmentMessage: Messages.TEST_CASE_ERROR, title: "Alert!" });
             $("#popupManageTestDriveAlert").trigger('click');
         }
 
+    }
+
+    compareTestCases(oldCase: TestCase, newCase: TestCase) {
+        return oldCase.title === newCase.title &&
+            oldCase.description === newCase.description &&
+            oldCase.expectedOutcome === newCase.expectedOutcome &&
+            oldCase.testCaseType === newCase.testCaseType &&
+            oldCase.scenario === newCase.scenario
+    }
+
+    isTestDriveInEditMode() {
+        return this.props.testDrive.status !== ColumnsValues.DRAFT && 
+            this.props.testDrive.status !== ColumnsValues.SUBMIT;
     }
 
     haveImage(html) {

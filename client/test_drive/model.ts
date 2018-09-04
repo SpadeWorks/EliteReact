@@ -13,7 +13,8 @@ export type TestCase = {
     points: number;
     reTest: boolean;
     newItem?: boolean;
-    
+    editStatus?: string;
+    isEdited?: boolean;
 }
 
 export type Question = {
@@ -23,6 +24,8 @@ export type Question = {
     options: Array<string>;
     isInEditMode?: boolean;
     newItem?: boolean;
+    editStatus?: string;
+    isEdited?: boolean;
 }
 
 export type RegistrationQuestion = {
@@ -32,6 +35,8 @@ export type RegistrationQuestion = {
     options: Array<string>;
     isInEditMode?: boolean;
     newItem?: boolean;
+    editStatus?: string;
+    isEdited?: boolean;
 }
 
 export type TestDrive = {

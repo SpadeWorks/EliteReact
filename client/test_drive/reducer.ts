@@ -513,6 +513,8 @@ export default handleActions<IState, any>({
                             newItem: action.payload.newItem,
                             options: action.payload.options,
                             title: action.payload.title,
+                            isEdited: action.payload.isEdited,
+                            editStatus: action.payload.editStatus
                         } : question;
                 })
             }
@@ -609,6 +611,8 @@ export default handleActions<IState, any>({
                             newItem: action.payload.newItem,
                             options: action.payload.options,
                             title: action.payload.title,
+                            isEdited: action.payload.isEdited,
+                            editStatus: action.payload.editStatus
                         } : registrationQuestion;
                 })
             }

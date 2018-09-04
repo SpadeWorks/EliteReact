@@ -86,8 +86,9 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
         this.initialize();
 
         return (<div>
-            <CreateButton show={ui.isCreaseTestDriveVisible} />
-
+            <div className="row">
+                <CreateButton show={ui.isCreaseTestDriveVisible} />
+            </div>
             <Loader show={activeTestDrivesLoading || false} message={'Loading...'}>
                 {
                     (!activeTestDrivesLoading && ui.visibleItems && ui.visibleItems.length) ?
@@ -108,10 +109,10 @@ class ActiveTestDrivesContainer extends React.Component<ActiveTestDrivesContaine
                                 current={ui.current}
                                 visiblePages={ui.visiblePages}
                                 titles={{
-                                    first:   '<<',
-                                    prev:    '<',
-                                    next:    '>',
-                                    last:    '>>'
+                                    first: '<<',
+                                    prev: '<',
+                                    next: '>',
+                                    last: '>>'
                                 }}
                                 className="pagination-sm pull-right"
                                 onPageChanged={(newPage) => this.getVisibleItems(newPage)}

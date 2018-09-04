@@ -18,6 +18,7 @@ import { error } from "util";
 import { Lists } from "sp-pnp-js/lib/sharepoint/lists";
 import { ReportBug } from "../../report_bug/model";
 import TestDriveItem from "../../test_drive/components/TestDriveItem";
+import { editTestCase } from "../../test_drive";
 
 const delay = 100;
 declare var SP: any;
@@ -1783,7 +1784,9 @@ export class Services {
                         Constants.Columns.TEST_CASE_OUTCOME,
                         Constants.Columns.TEST_CASE_PRIORITY,
                         Constants.Columns.POINTS,
-                        Constants.Columns.RETEST
+                        Constants.Columns.RETEST,
+                        Constants.Columns.EDIT_STATUS,
+                        Constants.Columns.IS_EDITED
                     )
                     .filter(filter)
                     .get().then(testCases => {
@@ -1799,7 +1802,9 @@ export class Services {
                                 scenario: t.Scenario,
                                 priority: t.priority,
                                 points: t.Points,
-                                reTest: t.ReTest
+                                reTest: t.ReTest,
+                                isEdited: t[Constants.Columns.IS_EDITED],
+                                editStatus: t[Constants.Columns.EDIT_STATUS]
                             })
                         })
                         resolve(testCaseArray);
@@ -1825,7 +1830,9 @@ export class Services {
                         Constants.Columns.ID,
                         Constants.Columns.QUESTION,
                         Constants.Columns.RESPONSES,
-                        Constants.Columns.RESPONSETYPE
+                        Constants.Columns.RESPONSETYPE,
+                        Constants.Columns.IS_EDITED,
+                        Constants.Columns.EDIT_STATUS
                     )
                     .filter(filter)
                     .get().then(questions => {
@@ -1836,7 +1843,9 @@ export class Services {
                                 title: q.Question,
                                 questionType: q.ResponseType,
                                 options: JSON.parse(q.Responses),
-                                isInEditMode: false
+                                isInEditMode: false,
+                                isEdited: q[Constants.Columns.IS_EDITED],
+                                editStatus: q[Constants.Columns.EDIT_STATUS]
                             })
                         });
                         resolve(questionArray);
@@ -1862,7 +1871,9 @@ export class Services {
                         Constants.Columns.ID,
                         Constants.Columns.QUESTION,
                         Constants.Columns.RESPONSES,
-                        Constants.Columns.RESPONSETYPE
+                        Constants.Columns.RESPONSETYPE,
+                        Constants.Columns.IS_EDITED,
+                        Constants.Columns.EDIT_STATUS
                     )
                     .filter(filter)
                     .get().then(questions => {
@@ -1873,7 +1884,9 @@ export class Services {
                                 title: q.Question,
                                 questionType: q.ResponseType,
                                 options: JSON.parse(q.Responses),
-                                isInEditMode: false
+                                isInEditMode: false,
+                                isEdited: q[Constants.Columns.IS_EDITED],
+                                editStatus: q[Constants.Columns.EDIT_STATUS]
                             })
                         });
                         resolve(questionArray);
@@ -2136,7 +2149,9 @@ export class Services {
                             Scenario: testCase.scenario,
                             TestCasePriority: testCase.priority,
                             Points: testCasePoints || 10,
-                            ReTest: testCase.reTest
+                            ReTest: testCase.reTest,
+                            EditStatus: testCase.editStatus,
+                            IsEdited: testCase.isEdited
                         });
                     });
 
@@ -2152,7 +2167,9 @@ export class Services {
                                     reTest: testCase.ReTest,
                                     testCaseType: testCase.Type,
                                     scenario: testCase.Scenario,
-                                    priority: testCase.TestCasePriority
+                                    priority: testCase.TestCasePriority,
+                                    editTestCase: testCase.EditStatus,
+                                    isEdited: testCase.IsEdited
                                 })
                             })
                             resolve(testCases);
@@ -2175,7 +2192,9 @@ export class Services {
                         ID: question.newItem ? -1 : question.id,
                         Question: question.title,
                         Responses: JSON.stringify(question.options),
-                        ResponseType: question.questionType
+                        ResponseType: question.questionType,
+                        IsEdited: question.isEdited,
+                        EditStatus: question.editStatus
                     });
                 });
                 this.createOrUpdateListItemsInBatch(Constants.Lists.SURVEY_QUESTIONS, questionsArray).
@@ -2186,7 +2205,9 @@ export class Services {
                                 ID: questions.ID,
                                 options: (question.Responses && question.Responses.length) ? Utils.tryParseJSON(question.Responses) : [],
                                 questionType: question.ResponseType,
-                                title: question.Question
+                                title: question.Question,
+                                isEdited: question.IsEdited,
+                                editStatus: question.EditStatus
                             }
                         });
                         resolve(data);
@@ -2208,7 +2229,9 @@ export class Services {
                         ID: question.newItem ? -1 : question.id,
                         Question: question.title,
                         Responses: JSON.stringify(question.options),
-                        ResponseType: question.questionType
+                        ResponseType: question.questionType,
+                        IsEdited: question.isEdited,
+                        EditStatus: question.editStatus
                     });
                 });
                 this.createOrUpdateListItemsInBatch(Constants.Lists.REGISTRATION_QUESTIONS, questionsArray).
@@ -2220,7 +2243,9 @@ export class Services {
                                 options: (question.Responses && question.Responses.length) ?
                                     Utils.tryParseJSON(question.Responses) : [],
                                 questionType: question.ResponseType,
-                                title: question.Question
+                                title: question.Question,
+                                isEdited: question.IsEdited,
+                                editStatus: question.EditStatus
                             }
                         });
                         resolve(data);

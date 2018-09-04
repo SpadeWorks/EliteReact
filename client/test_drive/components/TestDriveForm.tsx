@@ -662,7 +662,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                         <label className="disc_lable">Owners*</label>
 
                         <span className="help-text">
-                            {fieldDescriptions && fieldDescriptions.SecondaryOwners}
+                            {fieldDescriptions && fieldDescriptions.Owner}
                         </span>
                     </div>
 

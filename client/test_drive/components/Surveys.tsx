@@ -130,7 +130,9 @@ class Surveys extends React.Component<SurveysProps> {
                             type="button" value="Submit"
                             onClick={this.onSubmit} />
                     </div>
-                    {testDrive.status == ColumnsValues.SUBMIT && currentUserRole == ColumnsValues.SITE_OWNER ?
+                    {(testDrive.status == ColumnsValues.SUBMIT ||
+                        testDrive.changeStatus == ColumnsValues.CHANGE_SUBMITTED)
+                        && currentUserRole == ColumnsValues.SITE_OWNER ?
                         <div className="button type1 nextBtn btn-lg pull-right animated_button">
                             <input type="button" value="Approve"
                                 disabled={ui.saveTestDriveApprovalLoading}

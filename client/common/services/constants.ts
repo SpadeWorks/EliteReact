@@ -106,6 +106,8 @@ export class Columns {
     static EMPLOYEE_TYPE = "EmployeeType";
     static CHANGE_STATUS = "DraftStatus";
     static APPROVAL_STATUS = "OData__ModerationStatus"; 
+    static EDIT_STATUS = "EditStatus";
+    static IS_EDITED =  "IsEdited";
 }
 
 export class ColumnsValues {
@@ -138,6 +140,9 @@ export class ColumnsValues {
     static CHANGE_SUBMITTED = "Submitted";
     static CHANGE_DRAFTED = "Draft";
     static CHANGE_APPROVED = "Approved";
+    static EDIT_STATUS_NEW = "New";
+    static EDIT_STATUS_DELETED = "Deleted";
+    static EDIT_STATUS_EDITED = "Edited";
 }
 
 export class Globals {
