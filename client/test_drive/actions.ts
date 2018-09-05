@@ -183,7 +183,7 @@ const updateTestCase = createAction<TestCase, any, TestCase>(
 
 const loadQuestions = createAction<any, number[]>(
   LOAD_Questions,
-  (questionIds: number[]) => Services.getQuestonsByIds(questionIds)
+  (questionIds: number[]) => Services.getQuestionsByIds(questionIds)
 );
 
 const addQuestion = createAction(

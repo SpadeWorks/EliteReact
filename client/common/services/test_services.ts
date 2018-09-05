@@ -102,7 +102,7 @@ class TestServices {
         // Services.getTestCasesByIds([107, 108, 109, 110, 111, 112, 113, 114, 115, 116]).then(data =>{
         //     console.log("get test cases for test drive with id 17: ", data);
         // })
-        // Services.getQuestonsByIds([48, 49, 50, 51, 52]).then(data =>{
+        // Services.getQuestionsByIds([48, 49, 50, 51, 52]).then(data =>{
         //     console.log("get question for test drive with id 17: ", data);
         // })
 

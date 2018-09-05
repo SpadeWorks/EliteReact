@@ -263,7 +263,7 @@ class ManageTestDrive extends React.Component<AppProps> {
             } else {
                 if (this.isTestDriveInEditMode()) {
                     if (!question.newItem) {
-                        Services.getQuestonsByIds([question.id]).then((oldQuestion: TestCase[]) => {
+                        Services.getQuestionsByIds([question.id]).then((oldQuestion: TestCase[]) => {
                             if (!this.compareQuestions(oldQuestion[0], question)) {
                                 question.isEdited = true;
                                 question.editStatus = ColumnsValues.EDIT_STATUS_EDITED;

@@ -129,7 +129,7 @@ class Services {
     });
   }
 
-  static getQuestonsByIds(questionIDs: number[]) {
+  static getQuestionsByIds(questionIDs: number[]) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(data[0].questions);

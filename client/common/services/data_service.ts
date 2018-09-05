@@ -456,7 +456,12 @@ export class Services {
                 [Constants.Columns.STATUS]: questionInstance.responseStatus,
                 [Constants.Columns.USER_ID + '_id']: questionInstance.userID,
                 [Constants.Columns.SURVEY_RESPONSE]: questionInstance.questionResponse,
-                [Constants.Columns.Selected_Response]: questionInstance.selectedResponse
+                [Constants.Columns.Selected_Response]: questionInstance.selectedResponse,
+                [Constants.Columns.TITLE]: questionInstance.title,
+                [Constants.Columns.QUESTION]: questionInstance.question,
+                [Constants.Columns.RESPONSES]: questionInstance.responses,
+                [Constants.Columns.RESPONSETYPE]: questionInstance.responseType,
+                [Constants.Columns.EDIT_STATUS]: questionInstance.edtiStatus
             }]).then((newResponses: any) => {
                 const newResponse = newResponses[0];
                 resolve(<QuestionInstance>{
@@ -467,7 +472,12 @@ export class Services {
                     responseStatus: newResponse[Constants.Columns.STATUS],
                     userID: newResponse[Constants.Columns.USER_ID + '_id'],
                     response: newResponse[Constants.Columns.SURVEY_RESPONSE],
-                    selectedResponse: newResponse[Constants.Columns.Selected_Response]
+                    selectedResponse: newResponse[Constants.Columns.Selected_Response],
+                    title: newResponse[Constants.Columns.TITLE],
+                    question: newResponse[Constants.Columns.QUESTION],
+                    responses: newResponse[Constants.Columns.RESPONSES],
+                    responseType: newResponse[Constants.Columns.RESPONSETYPE],
+                    edtiStatus: newResponse[Constants.Columns.EDIT_STATUS]
                 });
             }, err => reject(err))
         })
@@ -482,7 +492,11 @@ export class Services {
                 [Constants.Columns.STATUS]: questionInstance.responseStatus,
                 [Constants.Columns.USER_ID + '_id']: questionInstance.userID,
                 [Constants.Columns.REGISTRATION_RESPONSE]: questionInstance.questionResponse,
-                [Constants.Columns.Selected_Response]: questionInstance.selectedResponse
+                [Constants.Columns.Selected_Response]: questionInstance.selectedResponse,
+                [Constants.Columns.QUESTION]: questionInstance.title,
+                [Constants.Columns.RESPONSES]: questionInstance.options,
+                [Constants.Columns.RESPONSETYPE]: questionInstance.questionType,
+                [Constants.Columns.EDIT_STATUS]: questionInstance.editStatus
             }]).then((newResponses: any) => {
                 const newResponse = newResponses[0];
                 var listItem = pnp.sp.web.lists.getByTitle(Constants.Lists.REGISTRATION_RESPONSES)
@@ -497,7 +511,11 @@ export class Services {
                         userID: newResponse[Constants.Columns.USER_ID + '_id'],
                         response: newResponse[Constants.Columns.REGISTRATION_RESPONSE],
                         selectedResponse: newResponse[Constants.Columns.Selected_Response],
-                        files: attachments
+                        files: attachments,
+                        title: newResponse[Constants.Columns.QUESTION],
+                        options: newResponse[Constants.Columns.RESPONSES],
+                        questionType: newResponse[Constants.Columns.RESPONSETYPE],
+                        editStatus: newResponse[Constants.Columns.EDIT_STATUS]
                     });
                 }, (error) => {
                     reject(error);
@@ -517,7 +535,15 @@ export class Services {
                 [Constants.Columns.TEST_CASE_RESPONSE_STATUS]: testCasesInstance.responseStatus,
                 [Constants.Columns.USER_ID + '_id']: testCasesInstance.userID,
                 [Constants.Columns.Selected_Response]: testCasesInstance.selectedResponse,
-                [Constants.Columns.TEST_CASE_RESPONSE]: testCasesInstance.testCaseResponse
+                [Constants.Columns.TEST_CASE_RESPONSE]: testCasesInstance.testCaseResponse,
+                [Constants.Columns.TITLE]: testCasesInstance.title,
+                [Constants.Columns.ELITE_DESCRIPTION]: testCasesInstance.description,
+                [Constants.Columns.TYPE]: testCasesInstance.testCaseType,
+                [Constants.Columns.SCENARIO]: testCasesInstance.scenario,
+                [Constants.Columns.TEST_CASE_OUTCOME]: testCasesInstance.expectedOutcome,
+                [Constants.Columns.TEST_CASE_PRIORITY]: testCasesInstance.priority,
+                [Constants.Columns.POINTS]: testCasesInstance.points,
+                [Constants.Columns.EDIT_STATUS]: testCasesInstance.edtiStatus,
             }]).then((newResponses: any) => {
                 let newResponse = newResponses[0];
                 var responseID = newResponse.id;
@@ -534,7 +560,15 @@ export class Services {
                     responseStatus: newResponse[Constants.Columns.TEST_CASE_RESPONSE_STATUS],
                     userID: newResponse[Constants.Columns.USER_ID + '_id'],
                     questionResponse: newResponse[Constants.Columns.SURVEY_RESPONSE],
-                    selectedResponse: newResponse[Constants.Columns.Selected_Response]
+                    selectedResponse: newResponse[Constants.Columns.Selected_Response],
+                    title: newResponse[Constants.Columns.TITLE],
+                    description: newResponse[Constants.Columns.ELITE_DESCRIPTION],
+                    testCaseType: newResponse[Constants.Columns.TYPE],
+                    scenario: newResponse[Constants.Columns.SCENARIO],
+                    expectedOutcome: newResponse[Constants.Columns.TEST_CASE_OUTCOME],
+                    priority: newResponse[Constants.Columns.TEST_CASE_PRIORITY],
+                    points: newResponse[Constants.Columns.POINTS],
+                    edtiStatus: newResponse[Constants.Columns.EDIT_STATUS],
                 };
 
                 Services.saveResponseAttachment(responseID, testCasesInstance, listItem).then((attachments: any) => {
@@ -673,6 +707,14 @@ export class Services {
                     Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
                     Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
                     Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.TITLE,
+                    Constants.Columns.ELITE_DESCRIPTION,
+                    Constants.Columns.TYPE,
+                    Constants.Columns.SCENARIO,
+                    Constants.Columns.TEST_CASE_OUTCOME,
+                    Constants.Columns.TEST_CASE_PRIORITY,
+                    Constants.Columns.POINTS,
+                    Constants.Columns.EDIT_STATUS,
             )
                 .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                 .expand(Constants.Columns.USER_ID,
@@ -680,14 +722,22 @@ export class Services {
             items.get().then(testCases => {
                 let testCaseArray = [];
                 testCases.map(t => {
-                    testCaseArray.push({
+                    testCaseArray.push(<TestCaseInstance>{
                         responseID: t[Constants.Columns.ID],
                         testCaseResponse: t[Constants.Columns.TEST_CASE_RESPONSE],
                         responseStatus: t[Constants.Columns.TEST_CASE_RESPONSE_STATUS],
                         testCaseId: t[Constants.Columns.TESTCASE_ID][Constants.Columns.ID],
                         selectedResponse: t[Constants.Columns.Selected_Response],
                         files: t[Constants.Columns.RESPONSE_ATTACHMENTS] && t[Constants.Columns.RESPONSE_ATTACHMENTS].length
-                            && Utils.tryParseJSON(t[Constants.Columns.RESPONSE_ATTACHMENTS])
+                            && Utils.tryParseJSON(t[Constants.Columns.RESPONSE_ATTACHMENTS]),
+                        title: t[Constants.Columns.TITLE],
+                        description: t[Constants.Columns.ELITE_DESCRIPTION],
+                        testCaseType: t[Constants.Columns.TYPE],
+                        scenario: t[Constants.Columns.SCENARIO],
+                        expectedOutcome: t[Constants.Columns.TEST_CASE_OUTCOME],
+                        priority: t[Constants.Columns.TEST_CASE_PRIORITY],
+                        points: t[Constants.Columns.POINTS],
+                        edtiStatus: t[Constants.Columns.EDIT_STATUS],
                     })
                 })
                 resolve(testCaseArray);
@@ -699,7 +749,7 @@ export class Services {
 
     static getSurveyQuestionWithResponses(testDriveID: number, questionIDs: number[], userID: number) {
         return new Promise((resolve, reject) => {
-            Services.getQuestonsByIds(questionIDs).then((questions: any) => {
+            Services.getQuestionsByIds(questionIDs).then((questions: any) => {
                 pnp.sp.web.lists.getByTitle(Constants.Lists.SURVEY_RESPONSES).items
                     .select(
                         Constants.Columns.ID,
@@ -709,7 +759,13 @@ export class Services {
                         Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
                         Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
                         Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
-                )
+                        Constants.Columns.TITLE,
+                        Constants.Columns.ID,
+                        Constants.Columns.QUESTION,
+                        Constants.Columns.RESPONSES,
+                        Constants.Columns.RESPONSETYPE,
+                        Constants.Columns.EDIT_STATUS
+                    )
                     .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                     .expand(Constants.Columns.USER_ID, Constants.Columns.TEST_DRIVE_ID, Constants.Columns.QUESTION_ID)
                     .get().then(questionResponses => {
@@ -728,7 +784,12 @@ export class Services {
                                 testDriveID: testDriveID,
                                 questionID: question.id,
                                 options: question.options,
-                                userID: userID
+                                userID: userID,
+                                title: question[Constants.Columns.TITLE],
+                                question: question[Constants.Columns.QUESTION],
+                                response: question[Constants.Columns.RESPONSES],
+                                responseType: question[Constants.Columns.RESPONSETYPE],
+                                editStatus: question[Constants.Columns.EDIT_STATUS]
                             })
                         })
                         resolve(questionsArray);
@@ -754,7 +815,11 @@ export class Services {
                         Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
                         Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
                         Constants.Columns.RESPONSE_ATTACHMENTS,
-                )
+                        Constants.Columns.QUESTION,
+                        Constants.Columns.RESPONSES,
+                        Constants.Columns.RESPONSETYPE,
+                        Constants.Columns.EDIT_STATUS
+                    )
                     .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                     .expand(Constants.Columns.USER_ID, Constants.Columns.TEST_DRIVE_ID, Constants.Columns.REGISTRATION_QUESTION)
                     .get().then(questionResponses => {
@@ -772,10 +837,14 @@ export class Services {
                                 selectedResponse: response ? response[Constants.Columns.Selected_Response] : '',
                                 testDriveID: testDriveID,
                                 questionID: question.id,
-                                options: question.options,
+
                                 userID: userID,
                                 files: response ? (response[Constants.Columns.RESPONSE_ATTACHMENTS] && response[Constants.Columns.RESPONSE_ATTACHMENTS].length
-                                    && Utils.tryParseJSON(response[Constants.Columns.RESPONSE_ATTACHMENTS]).files) : ''
+                                    && Utils.tryParseJSON(response[Constants.Columns.RESPONSE_ATTACHMENTS]).files) : '',
+                                question: response[Constants.Columns.QUESTION],
+                                options: response[Constants.Columns.REGISTRATION_RESPONSE],
+                                responseType: response[Constants.Columns.RESPONSETYPE],
+                                editStatus: response[Constants.Columns.EDIT_STATUS]
                             })
                         })
                         resolve(questionsArray);
@@ -1815,7 +1884,7 @@ export class Services {
         });
     }
 
-    static getQuestonsByIds(questionIDs: number[]) {
+    static getQuestionsByIds(questionIDs: number[]) {
         return new Promise((resolve, reject) => {
             let filter = '';
             if (!questionIDs || questionIDs.length == 0) {
@@ -2000,7 +2069,7 @@ export class Services {
                 }
 
                 // newTestDrive["_ModerationStatus"] = testDrive.approvalStatus || Constants.ColumnsValues.PENDING,
-                    newTestDrive[Constants.Columns.CHANGE_STATUS] = testDrive.changeStatus;
+                newTestDrive[Constants.Columns.CHANGE_STATUS] = testDrive.changeStatus;
 
                 if (testDrive.owners) {
                     let ids = [];
