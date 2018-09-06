@@ -528,7 +528,7 @@ class ManageTestDrive extends React.Component<AppProps> {
         let currentUserEmail = currentUser.UserEMail ? currentUser.UserEMail.trim().toLocaleLowerCase() : '';
         let matchedUsers = this.props.testDrive.owners ?
              this.props.testDrive.owners.filter(o=> o.UserEMail && o.UserEMail.toLocaleLowerCase() === currentUserEmail): ["loading"];
-        return matchedUsers && matchedUsers.length ? true : false;
+        return matchedUsers && matchedUsers.length || this.props.testDrive.id === -1 ? true : false;
     }
 
     render() {
@@ -567,7 +567,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                     <div className="wrapper">
                         <Loader show={loading || ui.saveLoading} message={'Loading...'}>
                             {
-                                !this.hasAccess() ? "You don't have access on this test drive." :
+                                !loading && !this.hasAccess() ? "You don't have access on this test drive." :
                                     <Tabs selected={this.getSelectedTab() || 0}>
                                         <Pane label="REGISTER A TEST DRIVE">
                                             <div className={"row setup-content"} id="step-1" >

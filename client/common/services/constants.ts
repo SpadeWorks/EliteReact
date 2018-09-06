@@ -108,6 +108,7 @@ export class Columns {
     static APPROVAL_STATUS = "OData__ModerationStatus"; 
     static EDIT_STATUS = "EditStatus";
     static IS_EDITED =  "IsEdited";
+    static PRIMARY_OWNER = "PrimaryOwner";
 }
 
 export class ColumnsValues {
@@ -140,6 +141,7 @@ export class ColumnsValues {
     static CHANGE_SUBMITTED = "Submitted";
     static CHANGE_DRAFTED = "Draft";
     static CHANGE_APPROVED = "Approved";
+    static CHANGE_APPROVAL_COMPLETED = "Approval Completed";
     static EDIT_STATUS_NEW = "New";
     static EDIT_STATUS_DELETED = "Deleted";
     static EDIT_STATUS_EDITED = "Edited";

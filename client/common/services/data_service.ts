@@ -247,8 +247,9 @@ export class Services {
 
     static getTestDrivesWaitingForApproval(skip: number, top: number) {
         return new Promise((resolve, reject) => {
-            var filter = Constants.Columns.TESTDRIVE_STATUS + " eq '" + Constants.ColumnsValues.SUBMIT + "'";
-            Services.getTestDrivesByFilter(filter, skip, top).then(testdrives => {
+            var filter = `${Constants.Columns.TESTDRIVE_STATUS} eq '${Constants.ColumnsValues.SUBMIT}' or 
+${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_SUBMITTED}'`;
+            Services.getTestDrivesByFilter(filter, skip, top, "Modified", false).then(testdrives => {
                 resolve(testdrives);
             }, error => {
                 reject(error);
@@ -258,8 +259,9 @@ export class Services {
 
     static getApprovedTestDrives(skip: number, top: number) {
         return new Promise((resolve, reject) => {
-            var filter = Constants.Columns.TESTDRIVE_STATUS + " eq '" + Constants.ColumnsValues.READY_FOR_LAUNCH + "'"
-            Services.getTestDrivesByFilter(filter, skip, top).then(testdrives => {
+            var filter = `${Constants.Columns.TESTDRIVE_STATUS} eq '${Constants.ColumnsValues.READY_FOR_LAUNCH}' or 
+${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL_COMPLETED}'`
+            Services.getTestDrivesByFilter(filter, skip, top, "Modified", false).then(testdrives => {
                 resolve(testdrives);
             }, error => {
                 reject(error);
@@ -271,7 +273,8 @@ export class Services {
         return new Promise((resolve, reject) => {
             let newTestDrive = {
                 ID: id,
-                [Constants.Columns.TESTDRIVE_STATUS]: Constants.ColumnsValues.READY_FOR_LAUNCH
+                [Constants.Columns.TESTDRIVE_STATUS]: Constants.ColumnsValues.READY_FOR_LAUNCH,
+                [Constants.Columns.CHANGE_STATUS]: Constants.ColumnsValues.CHANGE_APPROVED
             }
             this.createOrUpdateListItemsInBatch(Constants.Lists.TEST_DRIVES,
                 [newTestDrive]).then((data: TestDrive) => {
@@ -970,9 +973,9 @@ export class Services {
     static getCurrentUser() {
         let user = <User>this.getUserProfileProperties();
         return <owner>{
-            ID: user.eliteProfileID,
-            UserEMail: user.workEmail,
-            UserInfoName: user.firstName + " " + user.lastName
+            ID: user.eliteProfileID ? parseInt(user.eliteProfileID.toString()) : '',
+            UserEMail: user.workEmail ? user.workEmail.trim() : '',
+            UserInfoName: (user.firstName + " " + user.lastName).trim()
         }
     }
 
@@ -1404,18 +1407,24 @@ export class Services {
                     Constants.Columns.LEVEL_ID + '/' + Constants.Columns.LEVEL_NAME,
                     Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.ID,
                     Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_NAME,
+                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_EMAIL,
                     Constants.Columns.TESTCASE_ID + '/' + Constants.Columns.ID,
                     Constants.Columns.QUESTION_ID + '/' + Constants.Columns.ID,
                     Constants.Columns.EXPECTED_BUSINESS_VALUE,
-                    Constants.Columns.TESTDRIVE_OWNER + '/' + Constants.Columns.USER_EMAIL,
                     Constants.Columns.USER_REGION,
                     Constants.Columns.TestDriveMTCHID,
                     Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY,
                     Constants.Columns.EMPLOYEE_TYPE,
                     Constants.Columns.APPROVAL_STATUS,
-                    Constants.Columns.CHANGE_STATUS
-                ).skip(skip).top(top)
-                .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID, Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID)
+                    Constants.Columns.CHANGE_STATUS,
+                    Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.ID,
+                    Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.USER_NAME,
+                    Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.USER_EMAIL
+            ).skip(skip).top(top)
+                .expand(Constants.Columns.TESTDRIVE_OWNER,
+                    Constants.Columns.LEVEL_ID, Constants.Columns.QUESTION_ID,
+                    Constants.Columns.TESTCASE_ID,
+                    Constants.Columns.PRIMARY_OWNER)
                 .filter(filter)
                 .orderBy(orderBy, ascending)
                 .get().then(testDrives => {
@@ -1437,7 +1446,7 @@ export class Services {
                             id: testDrive.ID,
                             levelName: testDrive.LevelID.LevelName,
                             level: testDrive.LevelID.ID,
-                            owner: testDrive.TestDriveOwner.UserInfoName,
+                            
                             testCaseIDs: testDrive[Constants.Columns.TESTCASE_ID].results,
                             region: testDrive[Constants.Columns.USER_REGION].results.map((value, index) => {
                                 return value.Label;
@@ -1447,15 +1456,15 @@ export class Services {
                             testCases: null,
                             questions: null,
                             levelNumber: testDrive.LevelID[Constants.Columns.LevelNumber],
+                            owner: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_INFO_NAME],
                             ownerEmail: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_EMAIL],
                             ownerID: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.ID],
                             teamsChannelID: testDrive.TestDriveMTCHID && testDrive.TestDriveMTCHID.replace("-", ""),
                             passPercentageToDeploy: testDrive[Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY] || 0,
-                            owners: testDrive.TestDriveOwner.results,
+                            owners: testDrive.TestDriveOwner ? testDrive.TestDriveOwner.results : null,
                             employeeType: testDrive[Constants.Columns.EMPLOYEE_TYPE].results,
                             approvalStatus: testDrive[Constants.Columns.APPROVAL_STATUS],
-                            changeStatus: Constants[Constants.Columns.CHANGE_STATUS]
-
+                            changeStatus: testDrive[Constants.Columns.CHANGE_STATUS],
                         };
                     });
                     resolve(results);
@@ -1525,8 +1534,9 @@ export class Services {
             var ownerID = Services.getCurrentUserID();
             var d = new Date();
             var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-            var filter = "TestDriveOwner eq " + ownerID +
-                " and TestDriveStatus eq '" + Constants.ColumnsValues.DRAFT + "'";
+            var filter = `Author/Id eq ${_spPageContextInfo.userId} and 
+(TestDriveStatus eq '${Constants.ColumnsValues.DRAFT}' or 
+${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.DRAFT}')`;
             Services.getTestDrivesByFilter(filter, skip, top)
                 .then((testDrives: any) => {
                     var testDrivesIDs = [];
@@ -1586,7 +1596,10 @@ export class Services {
             var ownerID = Services.getCurrentUserID();
             var d = new Date();
             var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-            var filter = `TestDriveOwner eq ${ownerID} and (TestDriveStatus eq '${Constants.ColumnsValues.ACTIVE}' or TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_STARTED}')`;
+            var filter = `TestDriveOwner eq ${ownerID} and 
+(TestDriveStatus eq '${Constants.ColumnsValues.ACTIVE}' or 
+TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_STARTED}' or 
+TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
             Services.getTestDrivesByFilter(filter, skip, top)
                 .then((testDrives: any) => {
                     var testDrivesIDs = [];
@@ -1717,9 +1730,9 @@ export class Services {
                     teamsChannelID: '',
                     hasRegistration: false,
                     employeeType: [],
-                    owners: [this.getCurrentUser()],
+                    owners: null,
                     approvalStatus: Constants.ColumnsValues.PENDING,
-                    changeStatus: Constants.ColumnsValues.DRAFT
+                    changeStatus: Constants.ColumnsValues.DRAFT,
                 });
             } else {
                 pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_DRIVES).items.getById(testDriveID)
@@ -1752,11 +1765,15 @@ export class Services {
                         Constants.Columns.HAS_REGISTRATION,
                         Constants.Columns.EMPLOYEE_TYPE,
                         Constants.Columns.APPROVAL_STATUS,
-                        Constants.Columns.CHANGE_STATUS
-                    )
+                        Constants.Columns.CHANGE_STATUS,
+                        Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.ID,
+                        Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.USER_NAME,
+                        Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.USER_EMAIL,
+                )
                     .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID,
                         Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID,
-                        Constants.Columns.REGISTRATION_QUESTIONS)
+                        Constants.Columns.REGISTRATION_QUESTIONS,
+                        Constants.Columns.PRIMARY_OWNER)
                     .get().then(testDrive => {
                         let questions = testDrive.QuestionID.results.map((question) => {
                             return question.ID;
@@ -1787,15 +1804,16 @@ export class Services {
                             id: testDrive.ID,
                             level: testDrive.LevelID.ID,
                             levelName: testDrive.LevelID.LevelName,
-                            owner: testDrive.TestDriveOwner.UserInfoName,
-                            ownerID: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.ID],
+                            owner: testDrive[Constants.Columns.PRIMARY_OWNER][Constants.Columns.USER_INFO_NAME],
+                            ownerID: testDrive[Constants.Columns.PRIMARY_OWNER][Constants.Columns.ID],
+                            ownerEmail: testDrive[Constants.Columns.PRIMARY_OWNER][Constants.Columns.USER_EMAIL],
                             testCases: null,
                             questions: null,
                             testCaseIDs: testCases,
                             questionIDs: questions,
                             registrationQuestionIDs: registrationQuestions,
                             expectedBusinessValue: testDrive.ExpectedBusinessValue,
-                            ownerEmail: testDrive[Constants.Columns.TESTDRIVE_OWNER][Constants.Columns.USER_EMAIL],
+                            
                             passPercentageToDeploy: testDrive[Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY] || 0,
                             teamsChannelID: testDrive.TestDriveMTCHID && testDrive.TestDriveMTCHID.replace("-", ""),
                             hasRegistration: testDrive[Constants.Columns.HAS_REGISTRATION] || false,
@@ -1803,8 +1821,6 @@ export class Services {
                             employeeType: testDrive[Constants.Columns.EMPLOYEE_TYPE].results,
                             approvalStatus: testDrive[Constants.Columns.APPROVAL_STATUS],
                             changeStatus: testDrive[Constants.Columns.CHANGE_STATUS],
-
-
                         };
                         resolve(testDriveObj);
 
@@ -2061,10 +2077,9 @@ export class Services {
                     MaxTestDrivers: testDrive.maxTestDrivers,
                     TestDriveName: testDrive.title,
                     TestDriveStatus: testDrive.status,
-                    // TestDriveOwner_id: parseInt(testDrive.ownerID) || this.getCurrentUserID(),
+                    PrimaryOwner_id: this.getCurrentUserID(),
                     PassPercentageToDeploy: testDrive.passPercentageToDeploy,
                     EmployeeType_tax: testDrive.employeeType,
-
                 }
 
                 // newTestDrive["_ModerationStatus"] = testDrive.approvalStatus || Constants.ColumnsValues.PENDING,
@@ -3099,7 +3114,8 @@ export class Services {
                             testDrive = testDrive.length && testDrive[0];
 
                             if (testDrive.status == Constants.ColumnsValues.ACTIVE ||
-                                testDrive.status == Constants.ColumnsValues.REGISTRATION_STARTED) {
+                                testDrive.status == Constants.ColumnsValues.REGISTRATION_STARTED ||
+                                testDrive.status == Constants.ColumnsValues.REGISTRATION_ENDED) {
                                 myTestDriveArr.push({
                                     id: testDrive.id,
                                     title: testDrive.title,

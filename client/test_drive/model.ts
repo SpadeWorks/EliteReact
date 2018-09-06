@@ -85,6 +85,7 @@ export type TestDrive = {
     owners: owner[];
     approvalStatus: string;
     changeStatus: string;
+    primaryOwner?: string;
 };
 
 
