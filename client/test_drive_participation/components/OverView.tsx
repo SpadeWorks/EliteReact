@@ -132,7 +132,7 @@ class OverView extends React.Component<OverViewProps> {
                                 <p className="inactive ">{Services.formatDate(testDriveInstance.startDate)}</p>
                             </div>
                             <div className="col-md-12 ">
-                                <h4 className="testcase_title">TEST DRIVE START DATE</h4>
+                                <h4 className="testcase_title">TESTING START DATE</h4>
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,7 @@ class OverView extends React.Component<OverViewProps> {
                                 <p>{Services.formatDate(testDriveInstance.endDate)}</p>
                             </div>
                             <div className="col-md-12 ">
-                                <h4 className="testcase_title ">TEST DRIVE END DATE</h4>
+                                <h4 className="testcase_title ">TESTING END DATE</h4>
                             </div>
                         </div>
                     </div>

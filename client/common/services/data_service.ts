@@ -457,8 +457,7 @@ export class Services {
                 [Constants.Columns.USER_ID + '_id']: questionInstance.userID,
                 [Constants.Columns.SURVEY_RESPONSE]: questionInstance.questionResponse,
                 [Constants.Columns.Selected_Response]: questionInstance.selectedResponse,
-                [Constants.Columns.TITLE]: questionInstance.title,
-                [Constants.Columns.QUESTION]: questionInstance.question,
+                [Constants.Columns.QUESTION]: questionInstance.title,
                 [Constants.Columns.RESPONSES]: questionInstance.responses,
                 [Constants.Columns.RESPONSETYPE]: questionInstance.responseType,
                 [Constants.Columns.EDIT_STATUS]: questionInstance.edtiStatus

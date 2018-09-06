@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
-import { TestDriveInstance, QuestionInstance } from '../../test_drive_participation/model';
+import { TestDriveInstance, QuestionInstance, RegistrationQuestionInstance } from '../../test_drive_participation/model';
 import RegistrationForm from './RegistrationForm';
 import * as $ from 'jquery';
 import Services from '../../common/services/services';
@@ -8,9 +8,9 @@ import * as Constants from '../../common/services/constants';
 import Popup from '../../common/components/Popups';
 interface RegistrationProps {
     
-    questions: QuestionInstance[];
+    questions: RegistrationQuestionInstance[];
     testDriveInstance: TestDriveInstance;
-    saveQuestionResponse: (question: QuestionInstance) => any;
+    saveQuestionResponse: (question: RegistrationQuestionInstance) => any;
     updateUI: (any) => any;
     ui: any;
 };

@@ -300,7 +300,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                         <div className="row">
                                             <div className="col-md-5">
                                                 <div className="row">
-                                                    <span className="orange">START DATE :</span>
+                                                    <span className="orange">TESTING START DATE :</span>
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
@@ -314,7 +314,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                                         <div className="row">
                                             <div className="col-md-5">
                                                 <div className="row">
-                                                    <span className="orange">END DATE :</span>
+                                                    <span className="orange">TESTING END DATE :</span>
                                                 </div>
                                             </div>
                                             <div className="col-md-7">

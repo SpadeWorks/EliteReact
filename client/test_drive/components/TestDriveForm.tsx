@@ -86,15 +86,15 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
             (this.props.testDrive.registrationEndDate && payload >= moment(this.props.testDrive.registrationEndDate) ||
                 this.props.testDrive.startDate && payload >= moment(this.props.testDrive.startDate) ||
                 this.props.testDrive.endDate && payload >= moment(this.props.testDrive.endDate))) {
-            errorMessage = "Registration start date must be earlier than registration end date, test drive start date, test drive end date.";
+            errorMessage = "Registration start date must be earlier than registration end date, Testing start date, Testing end date.";
             hasError = true;
         } else if (which == 'registrationEndDate' &&
             (this.props.testDrive.startDate && payload >= moment(this.props.testDrive.startDate) ||
                 this.props.testDrive.endDate && payload >= moment(this.props.testDrive.endDate))) {
-            errorMessage = "Registration end date must be earlier than test drive start date, test drive end date";
+            errorMessage = "Registration end date must be earlier than Testing start date, Testing end date";
             hasError = true;
         } else if (which == 'startDate' && this.props.testDrive.endDate && payload >= moment(this.props.testDrive.endDate)) {
-            errorMessage = "Test drive start date must be less than test drive end date.";
+            errorMessage = "Testing start date must be less than Testing end date.";
             hasError = true;
         }
 
@@ -449,7 +449,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                     readOnly
                                     data-validations={[required]}
                                 />
-                                <label className="disc_lable">Test Drive Start date*</label>
+                                <label className="disc_lable">Testing start date*</label>
                                 <span className="help-text">
                                     {fieldDescriptions && fieldDescriptions.TestDriveStartDate}
                                 </span>
@@ -479,7 +479,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                                 readOnly
                                 data-validations={[required]}
                             />
-                            <label className="disc_lable">Test Drive End date*</label>
+                            <label className="disc_lable">Testing end date*</label>
                             <span className="help-text">
                                 {fieldDescriptions && fieldDescriptions.TestDriveEndDate}
                             </span>
