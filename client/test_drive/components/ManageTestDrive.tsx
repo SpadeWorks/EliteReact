@@ -49,6 +49,7 @@ import {
 } from '../../test_drive';
 import Registration from './Registration';
 import { TestDrive, TestCase, RegistrationQuestion, Question } from '../model';
+import { CurrentUser } from 'sp-pnp-js/lib/sharepoint/siteusers';
 
 interface AppProps {
     id: number,
@@ -337,7 +338,7 @@ class ManageTestDrive extends React.Component<AppProps> {
     compareQuestions(oldQuestion, newQuestion) {
         return oldQuestion.title === newQuestion.title &&
             oldQuestion.questionType === newQuestion.questionType &&
-            JSON.stringify(oldQuestion.options)==JSON.stringify(newQuestion.options)
+            JSON.stringify(oldQuestion.options) == JSON.stringify(newQuestion.options)
     }
 
     onSaveTestCase(testCase: model.TestCase, formID) {
@@ -399,7 +400,7 @@ class ManageTestDrive extends React.Component<AppProps> {
     }
 
     isTestDriveInEditMode() {
-        return this.props.testDrive.status !== ColumnsValues.DRAFT && 
+        return this.props.testDrive.status !== ColumnsValues.DRAFT &&
             this.props.testDrive.status !== ColumnsValues.SUBMIT;
     }
 
@@ -522,6 +523,14 @@ class ManageTestDrive extends React.Component<AppProps> {
         link: '#'
     }]
 
+    hasAccess(){
+        let currentUser = Services.getCurrentUser();
+        let currentUserEmail = currentUser.UserEMail ? currentUser.UserEMail.trim().toLocaleLowerCase() : '';
+        let matchedUsers = this.props.testDrive.owners ?
+             this.props.testDrive.owners.filter(o=> o.UserEMail && o.UserEMail.toLocaleLowerCase() === currentUserEmail): ["loading"];
+        return matchedUsers && matchedUsers.length ? true : false;
+    }
+
     render() {
         const { testDrive, question, dispatch, loading, testCase, ui, updateUI,
             testCaseFields, surveyFields, testDriveFields, view, registration,
@@ -557,107 +566,110 @@ class ManageTestDrive extends React.Component<AppProps> {
                 <div className="col-md-12 testdrive_createbox">
                     <div className="wrapper">
                         <Loader show={loading || ui.saveLoading} message={'Loading...'}>
-                            <Tabs selected={this.getSelectedTab() || 0}>
-                                <Pane label="REGISTER A TEST DRIVE">
-                                    <div className={"row setup-content"} id="step-1" >
-                                        <div className="col-xs-12 form_box tab-container">
-                                            <TestDriveForm
-                                                testDrive={testDrive}
-                                                saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
-                                                submitTestDrive={(t) => dispatch(submitTestDrive(t))}
-                                                onChange={(e, testDrive) => dispatch(updateTestDrive(e, testDrive))}
-                                                updateMultiSelect={(value, control, testDrive) => dispatch(updateMultiSelect(value, control, testDrive))}
-                                                updateDates={(dates) => dispatch(updateDate(dates))}
-                                                updateMaxPoints={() => dispatch(updateMaxPoints())}
-                                                updateUI={updateUI}
-                                                fieldDescriptions={testDriveFields}
-                                                ui={ui}
-                                                switchTab={this.onSwitchTab}
-                                                view={view}
-                                                currentUserRole={currentUserRole}
-                                                approveTestDrive={this.approveTestDrive}
-                                                registration={registration}
-                                            />
-                                        </div>
-                                    </div>
-                                </Pane>
-                                {registration && <Pane label={registration ? "REGISTRATION QUESTIONS" : null}>
-                                    <div className={"row setup-content"} id="step-4">
-                                        <div className="col-xs-12 form_box tab-container">
-                                            <Registration registrationQuestions={testDrive.registrationQuestions}
-                                                newRegistrationQuestion={registrationQuestion}
-                                                saveRegistrationQuestion={(t, f) => this.onSaveRegistrationQuestion(t, f)}
-                                                saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
-                                                editRegistrationQuestion={(t) => dispatch(editRegistrationQuestion(t))}
-                                                deleteRegistrationQuestion={(id) => dispatch(deleteRegistrationQuestion(id))}
-                                                onChange={(e, registrationQuestion) => dispatch(updateRegistrationQuestion(e, registrationQuestion))}
-                                                addRegistrationQuestion={this.onAddRegistrationQuestion}
-                                                testDrive={testDrive}
-                                                updateUI={updateUI}
-                                                ui={ui}
-                                                loadRegistrationQuestions={(t) => dispatch(loadRegistrationQuestions(t))}
-                                                registrationQuestionIds={testDrive.registrationQuestionIDs}
-                                                fieldDescriptions={surveyFields}
-                                                currentUserRole={currentUserRole}
-                                                approveTestDrive={this.approveTestDrive}
-                                                view={view}
-                                                switchTab={this.onSwitchTab}
-                                            />
-                                        </div>
-                                    </div>
-                                </Pane>}
-                                <Pane label="TEST CASES">
-                                    <div className={"row setup-content"} id="step-2">
-                                        <div className="col-xs-12 form_box tab-container">
-                                            <TestCases testCases={testDrive.testCases}
-                                                newTestCase={testCase}
-                                                saveTestCase={(t, f) => this.onSaveTestCase(t, f)}
-                                                saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
-                                                editTestCase={(t) => dispatch(editTestCase(t))}
-                                                deleteTestCase={(id) => dispatch(deleteTestCase(id))}
-                                                onChange={(e, testCase) => dispatch(updateTestCase(e, testCase))}
-                                                addTestCase={this.onAddTestCase}
-                                                updateMaxPoints={() => dispatch(updateMaxPoints())}
-                                                testDrive={testDrive}
-                                                updateUI={updateUI}
-                                                ui={ui}
-                                                loadTestCases={(t) => dispatch(loadTestCases(t))}
-                                                testCaseIds={testDrive.testCaseIDs}
-                                                fieldDescriptions={testCaseFields}
-                                                switchTab={this.onSwitchTab}
-                                                currentUserRole={currentUserRole}
-                                                approveTestDrive={this.approveTestDrive}
-                                                view={view}
-                                            />
-                                        </div>
-                                    </div>
-                                </Pane>
-                                <Pane label="SURVEY QUESTIONS">
-                                    <div className={"row setup-content"} id="step-3">
-                                        <div className="col-xs-12 form_box tab-container">
-                                            <Surveys questions={testDrive.questions}
-                                                newQuestion={question}
-                                                saveQuestion={(t, f) => this.onSaveQuestion(t, f)}
-                                                saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
-                                                editQuestion={(t) => dispatch(editQuestion(t))}
-                                                deleteQuestion={(id) => dispatch(deleteQuestion(id))}
-                                                onChange={(e, question) => dispatch(updateQuestion(e, question))}
-                                                addQuestion={this.onAddQuestion}
-                                                testDrive={testDrive}
-                                                updateUI={updateUI}
-                                                ui={ui}
-                                                loadQuestions={(t) => dispatch(loadQuestions(t))}
-                                                questionIds={testDrive.questionIDs}
-                                                fieldDescriptions={surveyFields}
-                                                view={view}
-                                                currentUserRole={currentUserRole}
-                                                approveTestDrive={this.approveTestDrive}
-                                                switchTab={this.onSwitchTab}
-                                            />
-                                        </div>
-                                    </div>
-                                </Pane>
-                            </Tabs>
+                            {
+                                !this.hasAccess() ? "You don't have access on this test drive." :
+                                    <Tabs selected={this.getSelectedTab() || 0}>
+                                        <Pane label="REGISTER A TEST DRIVE">
+                                            <div className={"row setup-content"} id="step-1" >
+                                                <div className="col-xs-12 form_box tab-container">
+                                                    <TestDriveForm
+                                                        testDrive={testDrive}
+                                                        saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
+                                                        submitTestDrive={(t) => dispatch(submitTestDrive(t))}
+                                                        onChange={(e, testDrive) => dispatch(updateTestDrive(e, testDrive))}
+                                                        updateMultiSelect={(value, control, testDrive) => dispatch(updateMultiSelect(value, control, testDrive))}
+                                                        updateDates={(dates) => dispatch(updateDate(dates))}
+                                                        updateMaxPoints={() => dispatch(updateMaxPoints())}
+                                                        updateUI={updateUI}
+                                                        fieldDescriptions={testDriveFields}
+                                                        ui={ui}
+                                                        switchTab={this.onSwitchTab}
+                                                        view={view}
+                                                        currentUserRole={currentUserRole}
+                                                        approveTestDrive={this.approveTestDrive}
+                                                        registration={registration}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </Pane>
+                                        {registration && <Pane label={registration ? "REGISTRATION QUESTIONS" : null}>
+                                            <div className={"row setup-content"} id="step-4">
+                                                <div className="col-xs-12 form_box tab-container">
+                                                    <Registration registrationQuestions={testDrive.registrationQuestions}
+                                                        newRegistrationQuestion={registrationQuestion}
+                                                        saveRegistrationQuestion={(t, f) => this.onSaveRegistrationQuestion(t, f)}
+                                                        saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
+                                                        editRegistrationQuestion={(t) => dispatch(editRegistrationQuestion(t))}
+                                                        deleteRegistrationQuestion={(id) => dispatch(deleteRegistrationQuestion(id))}
+                                                        onChange={(e, registrationQuestion) => dispatch(updateRegistrationQuestion(e, registrationQuestion))}
+                                                        addRegistrationQuestion={this.onAddRegistrationQuestion}
+                                                        testDrive={testDrive}
+                                                        updateUI={updateUI}
+                                                        ui={ui}
+                                                        loadRegistrationQuestions={(t) => dispatch(loadRegistrationQuestions(t))}
+                                                        registrationQuestionIds={testDrive.registrationQuestionIDs}
+                                                        fieldDescriptions={surveyFields}
+                                                        currentUserRole={currentUserRole}
+                                                        approveTestDrive={this.approveTestDrive}
+                                                        view={view}
+                                                        switchTab={this.onSwitchTab}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </Pane>}
+                                        <Pane label="TEST CASES">
+                                            <div className={"row setup-content"} id="step-2">
+                                                <div className="col-xs-12 form_box tab-container">
+                                                    <TestCases testCases={testDrive.testCases}
+                                                        newTestCase={testCase}
+                                                        saveTestCase={(t, f) => this.onSaveTestCase(t, f)}
+                                                        saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
+                                                        editTestCase={(t) => dispatch(editTestCase(t))}
+                                                        deleteTestCase={(id) => dispatch(deleteTestCase(id))}
+                                                        onChange={(e, testCase) => dispatch(updateTestCase(e, testCase))}
+                                                        addTestCase={this.onAddTestCase}
+                                                        updateMaxPoints={() => dispatch(updateMaxPoints())}
+                                                        testDrive={testDrive}
+                                                        updateUI={updateUI}
+                                                        ui={ui}
+                                                        loadTestCases={(t) => dispatch(loadTestCases(t))}
+                                                        testCaseIds={testDrive.testCaseIDs}
+                                                        fieldDescriptions={testCaseFields}
+                                                        switchTab={this.onSwitchTab}
+                                                        currentUserRole={currentUserRole}
+                                                        approveTestDrive={this.approveTestDrive}
+                                                        view={view}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </Pane>
+                                        <Pane label="SURVEY QUESTIONS">
+                                            <div className={"row setup-content"} id="step-3">
+                                                <div className="col-xs-12 form_box tab-container">
+                                                    <Surveys questions={testDrive.questions}
+                                                        newQuestion={question}
+                                                        saveQuestion={(t, f) => this.onSaveQuestion(t, f)}
+                                                        saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
+                                                        editQuestion={(t) => dispatch(editQuestion(t))}
+                                                        deleteQuestion={(id) => dispatch(deleteQuestion(id))}
+                                                        onChange={(e, question) => dispatch(updateQuestion(e, question))}
+                                                        addQuestion={this.onAddQuestion}
+                                                        testDrive={testDrive}
+                                                        updateUI={updateUI}
+                                                        ui={ui}
+                                                        loadQuestions={(t) => dispatch(loadQuestions(t))}
+                                                        questionIds={testDrive.questionIDs}
+                                                        fieldDescriptions={surveyFields}
+                                                        view={view}
+                                                        currentUserRole={currentUserRole}
+                                                        approveTestDrive={this.approveTestDrive}
+                                                        switchTab={this.onSwitchTab}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </Pane>
+                                    </Tabs>
+                            }
                         </Loader>
                     </div>
                 </div>
