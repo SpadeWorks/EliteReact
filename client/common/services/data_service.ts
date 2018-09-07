@@ -105,19 +105,20 @@ export class Services {
 
     static getTestDriveInstanceData(testDriveInstance: TestDriveInstance) {
         return new Promise((resolve, reject) => {
-            Services.getTestDriveResponse(testDriveInstance.testDriveID, Services.getCurrentUserID()).then((instance: any) => {
-                resolve({
-                    ...testDriveInstance,
-                    currentPoint: instance[Constants.Columns.CURRENT_POINTS] || 0,
-                    numberOfTestCasesCompleted: instance[Constants.Columns.TEST_CASE_COMPLETED] || 0,
-                    status: instance[Constants.Columns.STATUS] || '',
-                    surveyStatus: instance[Constants.Columns.SURVEY_STATUS] || 0,
-                    completionBonus: instance[Constants.Columns.COMPLETION_BONUS] || 0,
-                    joiningBonus: instance[Constants.Columns.JOINING_BONUS] || 0
+            Services.getTestDriveResponse(testDriveInstance.testDriveID, Services.getCurrentUserID())
+                .then((instance: any) => {
+                    resolve({
+                        ...testDriveInstance,
+                        currentPoint: instance[Constants.Columns.CURRENT_POINTS] || 0,
+                        numberOfTestCasesCompleted: instance[Constants.Columns.TEST_CASE_COMPLETED] || 0,
+                        status: instance[Constants.Columns.STATUS] || '',
+                        surveyStatus: instance[Constants.Columns.SURVEY_STATUS] || 0,
+                        completionBonus: instance[Constants.Columns.COMPLETION_BONUS] || 0,
+                        joiningBonus: instance[Constants.Columns.JOINING_BONUS] || 0
+                    })
+                }, err => {
+                    Utils.clientLog(err);
                 })
-            }, err => {
-                Utils.clientLog(err);
-            })
         });
     }
 
@@ -461,9 +462,10 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                 [Constants.Columns.SURVEY_RESPONSE]: questionInstance.questionResponse,
                 [Constants.Columns.Selected_Response]: questionInstance.selectedResponse,
                 [Constants.Columns.QUESTION]: questionInstance.title,
-                [Constants.Columns.RESPONSES]: questionInstance.responses,
+                [Constants.Columns.RESPONSES]: JSON.stringify(questionInstance.responses),
                 [Constants.Columns.RESPONSETYPE]: questionInstance.responseType,
-                [Constants.Columns.EDIT_STATUS]: questionInstance.edtiStatus
+                [Constants.Columns.EDIT_STATUS]: questionInstance.edtiStatus,
+                [Constants.Columns.VERSION]: questionInstance.version
             }]).then((newResponses: any) => {
                 const newResponse = newResponses[0];
                 resolve(<QuestionInstance>{
@@ -477,9 +479,10 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                     selectedResponse: newResponse[Constants.Columns.Selected_Response],
                     title: newResponse[Constants.Columns.TITLE],
                     question: newResponse[Constants.Columns.QUESTION],
-                    responses: newResponse[Constants.Columns.RESPONSES],
+                    responses: JSON.parse(newResponse[Constants.Columns.RESPONSES]),
                     responseType: newResponse[Constants.Columns.RESPONSETYPE],
-                    edtiStatus: newResponse[Constants.Columns.EDIT_STATUS]
+                    edtiStatus: newResponse[Constants.Columns.EDIT_STATUS],
+                    version: newResponse[Constants.Columns.VERSION]
                 });
             }, err => reject(err))
         })
@@ -496,9 +499,10 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                 [Constants.Columns.REGISTRATION_RESPONSE]: questionInstance.questionResponse,
                 [Constants.Columns.Selected_Response]: questionInstance.selectedResponse,
                 [Constants.Columns.QUESTION]: questionInstance.title,
-                [Constants.Columns.RESPONSES]: questionInstance.options,
+                [Constants.Columns.RESPONSES]: JSON.stringify(questionInstance.options),
                 [Constants.Columns.RESPONSETYPE]: questionInstance.questionType,
-                [Constants.Columns.EDIT_STATUS]: questionInstance.editStatus
+                [Constants.Columns.EDIT_STATUS]: questionInstance.editStatus,
+                [Constants.Columns.VERSION]: questionInstance.version
             }]).then((newResponses: any) => {
                 const newResponse = newResponses[0];
                 var listItem = pnp.sp.web.lists.getByTitle(Constants.Lists.REGISTRATION_RESPONSES)
@@ -515,9 +519,10 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                         selectedResponse: newResponse[Constants.Columns.Selected_Response],
                         files: attachments,
                         title: newResponse[Constants.Columns.QUESTION],
-                        options: newResponse[Constants.Columns.RESPONSES],
+                        options: JSON.parse(newResponse[Constants.Columns.RESPONSES]),
                         questionType: newResponse[Constants.Columns.RESPONSETYPE],
-                        editStatus: newResponse[Constants.Columns.EDIT_STATUS]
+                        editStatus: newResponse[Constants.Columns.EDIT_STATUS],
+                        version: newResponse[Constants.Columns.VERSION]
                     });
                 }, (error) => {
                     reject(error);
@@ -546,6 +551,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                 [Constants.Columns.TEST_CASE_PRIORITY]: testCasesInstance.priority,
                 [Constants.Columns.POINTS]: testCasesInstance.points,
                 [Constants.Columns.EDIT_STATUS]: testCasesInstance.edtiStatus,
+                [Constants.Columns.VERSION]: testCasesInstance.version
             }]).then((newResponses: any) => {
                 let newResponse = newResponses[0];
                 var responseID = newResponse.id;
@@ -571,6 +577,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                     priority: newResponse[Constants.Columns.TEST_CASE_PRIORITY],
                     points: newResponse[Constants.Columns.POINTS],
                     edtiStatus: newResponse[Constants.Columns.EDIT_STATUS],
+                    version: newResponse[Constants.Columns.VERSION]
                 };
 
                 Services.saveResponseAttachment(responseID, testCasesInstance, listItem).then((attachments: any) => {
@@ -717,8 +724,11 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                     Constants.Columns.TEST_CASE_PRIORITY,
                     Constants.Columns.POINTS,
                     Constants.Columns.EDIT_STATUS,
-            )
-                .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
+                    Constants.Columns.VERSION
+                )
+                .filter(Constants.Columns.USER_ID + ' eq ' +
+                    userID + ' and ' + Constants.Columns.TEST_DRIVE_ID +
+                    ' eq ' + testDriveID)
                 .expand(Constants.Columns.USER_ID,
                     Constants.Columns.TEST_DRIVE_ID, Constants.Columns.TESTCASE_ID);
             items.get().then(testCases => {
@@ -740,6 +750,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                         priority: t[Constants.Columns.TEST_CASE_PRIORITY],
                         points: t[Constants.Columns.POINTS],
                         edtiStatus: t[Constants.Columns.EDIT_STATUS],
+                        version: t[Constants.Columns.VERSION]
                     })
                 })
                 resolve(testCaseArray);
@@ -766,7 +777,8 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                         Constants.Columns.QUESTION,
                         Constants.Columns.RESPONSES,
                         Constants.Columns.RESPONSETYPE,
-                        Constants.Columns.EDIT_STATUS
+                        Constants.Columns.EDIT_STATUS,
+                        Constants.Columns.VERSION
                     )
                     .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                     .expand(Constants.Columns.USER_ID, Constants.Columns.TEST_DRIVE_ID, Constants.Columns.QUESTION_ID)
@@ -774,7 +786,8 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                         let questionsArray: QuestionInstance[] = [];
                         questions.map(question => {
                             let response = questionResponses.filter(response => {
-                                return response[Constants.Columns.QUESTION_ID][Constants.Columns.ID] == question.id;
+                                return response[Constants.Columns.QUESTION_ID][Constants.Columns.ID] == question.id &&
+                                    response[Constants.Columns.VERSION] === question.version;
                             })
                             response = response[0];
                             questionsArray.push(<QuestionInstance>{
@@ -785,13 +798,14 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                                 selectedResponse: response ? response[Constants.Columns.Selected_Response] : '',
                                 testDriveID: testDriveID,
                                 questionID: question.id,
-                                options: question.options,
+                                options: response ? response.options : question.options,
                                 userID: userID,
-                                title: question[Constants.Columns.TITLE],
-                                question: question[Constants.Columns.QUESTION],
-                                response: question[Constants.Columns.RESPONSES],
-                                responseType: question[Constants.Columns.RESPONSETYPE],
-                                editStatus: question[Constants.Columns.EDIT_STATUS]
+                                title: response ? response[Constants.Columns.TITLE] : question[Constants.Columns.TITLE],
+                                question: response ? response[Constants.Columns.QUESTION] : question[Constants.Columns.QUESTION],
+                                response: response ? JSON.parse(response[Constants.Columns.RESPONSES]) : question[Constants.Columns.RESPONSES],
+                                responseType: response ? response[Constants.Columns.RESPONSETYPE] : question[Constants.Columns.RESPONSETYPE],
+                                editStatus: response ? response[Constants.Columns.EDIT_STATUS] : question[Constants.Columns.EDIT_STATUS],
+                                version: question.version
                             })
                         })
                         resolve(questionsArray);
@@ -820,7 +834,8 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                         Constants.Columns.QUESTION,
                         Constants.Columns.RESPONSES,
                         Constants.Columns.RESPONSETYPE,
-                        Constants.Columns.EDIT_STATUS
+                        Constants.Columns.EDIT_STATUS,
+                        Constants.Columns.VERSION
                     )
                     .filter(Constants.Columns.USER_ID + ' eq ' + userID + ' and ' + Constants.Columns.TEST_DRIVE_ID + ' eq ' + testDriveID)
                     .expand(Constants.Columns.USER_ID, Constants.Columns.TEST_DRIVE_ID, Constants.Columns.REGISTRATION_QUESTION)
@@ -828,7 +843,8 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                         let questionsArray: RegistrationQuestionInstance[] = [];
                         questions.map(question => {
                             let response = questionResponses.filter(response => {
-                                return response[Constants.Columns.REGISTRATION_QUESTION][Constants.Columns.ID] == question.id;
+                                return response[Constants.Columns.REGISTRATION_QUESTION][Constants.Columns.ID] == question.id ||
+                                    response[Constants.Columns.VERSION] == question[Constants.Columns.VERSION];
                             })
                             response = response[0];
                             questionsArray.push(<RegistrationQuestionInstance>{
@@ -839,14 +855,14 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                                 selectedResponse: response ? response[Constants.Columns.Selected_Response] : '',
                                 testDriveID: testDriveID,
                                 questionID: question.id,
-
                                 userID: userID,
                                 files: response ? (response[Constants.Columns.RESPONSE_ATTACHMENTS] && response[Constants.Columns.RESPONSE_ATTACHMENTS].length
                                     && Utils.tryParseJSON(response[Constants.Columns.RESPONSE_ATTACHMENTS]).files) : '',
-                                question: response[Constants.Columns.QUESTION],
-                                options: response[Constants.Columns.REGISTRATION_RESPONSE],
-                                responseType: response[Constants.Columns.RESPONSETYPE],
-                                editStatus: response[Constants.Columns.EDIT_STATUS]
+                                question: response ? response[Constants.Columns.QUESTION] : question[Constants.Columns.QUESTION],
+                                options: response ? JSON.parse(response[Constants.Columns.RESPONSES]) : question.options,
+                                responseType: response ? response[Constants.Columns.RESPONSETYPE] : question.responseType,
+                                editStatus: response ? response[Constants.Columns.EDIT_STATUS] : question.editStatus,
+                                version: response ? response[Constants.Columns.VERSION] : question.version
                             })
                         })
                         resolve(questionsArray);
@@ -898,21 +914,22 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                 var participants: number = <number>results[3][0];
                 let testCasesInstances = testDrive.testCases.map((t, index) => {
                     response = testCaseResponses.filter(response => {
-                        return t.id == response.testCaseId;
+                        return t.id == response.testCaseId &&
+                            t.version == response.version;
                     });
                     response = response[0];
                     return (<TestCaseInstance>{
-                        description: t.description,
-                        expectedOutcome: t.expectedOutcome,
+                        description: response ? response.description : t.description,
+                        expectedOutcome: response ? response.expectedOutcome : t.expectedOutcome,
                         isInEditMode: false,
                         newItem: false,
-                        points: t.points,
-                        priority: t.priority,
+                        points: response ? response.points : t.points,
+                        priority: response ? response.priority : t.priority,
                         reTest: t.reTest,
-                        scenario: t.scenario,
+                        scenario: response ? response.scenario : t.scenario,
                         testCaseId: t.id,
-                        title: t.title,
-                        testCaseType: t.testCaseType,
+                        title: response ? response.title : t.title,
+                        testCaseType: response ? response.testCaseType : t.testCaseType,
                         userID: userID,
                         testDriveID: testDriveID,
                         responseID: response ? response.responseID : -1,
@@ -920,16 +937,20 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                         selectedResponse: response ? response.selectedResponse : '',
                         testCaseResponse: response ? response.testCaseResponse : '',
                         files: response ? (response.files && response.files.files) : [],
+                        version: response ? response.version : t.version
                     });
                 })
 
                 var instance = <TestDriveInstance>{
-                    testDriveStatus: testDrive.status,
+
                     instanceID: testDriveInstance ? testDriveInstance[Constants.Columns.ID] : -1,
                     currentPoint: testDriveInstance ? testDriveInstance[Constants.Columns.CURRENT_POINTS] : 0,
                     dateJoined: testDriveInstance ? testDriveInstance[Constants.Columns.DATE_JOINED] : "",
                     numberOfTestCasesCompleted: testDriveInstance ? testDriveInstance[Constants.Columns.TEST_CASE_COMPLETED] : 0,
                     status: testDriveInstance ? testDriveInstance[Constants.Columns.STATUS] : Constants.ColumnsValues.DRAFT,
+                    isRegistrationComplete: testDriveInstance ?
+                        testDriveInstance[Constants.Columns.IS_REGISTRATION_COMPLETE] : false,
+                    testDriveStatus: testDrive.status,
                     testDriveID: testDrive.id,
                     title: testDrive.title,
                     description: testDrive.description,
@@ -957,7 +978,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                     registrationEndDate: testDrive.registrationEndDate,
                     registrationQuestionIDs: testDrive.registrationQuestionIDs,
                     registrationQuestions: testDrive.registrationQuestions,
-                    isRegistrationComplete: testDriveInstance ? testDriveInstance[Constants.Columns.IS_REGISTRATION_COMPLETE] : false
+                    employeeType: testDrive.employeeType
                 };
 
                 resolve(instance)
@@ -1420,7 +1441,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                     Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.ID,
                     Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.USER_NAME,
                     Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.USER_EMAIL
-            ).skip(skip).top(top)
+                ).skip(skip).top(top)
                 .expand(Constants.Columns.TESTDRIVE_OWNER,
                     Constants.Columns.LEVEL_ID, Constants.Columns.QUESTION_ID,
                     Constants.Columns.TESTCASE_ID,
@@ -1446,7 +1467,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                             id: testDrive.ID,
                             levelName: testDrive.LevelID.LevelName,
                             level: testDrive.LevelID.ID,
-                            
+
                             testCaseIDs: testDrive[Constants.Columns.TESTCASE_ID].results,
                             region: testDrive[Constants.Columns.USER_REGION].results.map((value, index) => {
                                 return value.Label;
@@ -1462,7 +1483,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                             teamsChannelID: testDrive.TestDriveMTCHID && testDrive.TestDriveMTCHID.replace("-", ""),
                             passPercentageToDeploy: testDrive[Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY] || 0,
                             owners: testDrive.TestDriveOwner ? testDrive.TestDriveOwner.results : null,
-                            employeeType: testDrive[Constants.Columns.EMPLOYEE_TYPE].results,
+                            employeeType: testDrive[Constants.Columns.EMPLOYEE_TYPE].results || [],
                             approvalStatus: testDrive[Constants.Columns.APPROVAL_STATUS],
                             changeStatus: testDrive[Constants.Columns.CHANGE_STATUS],
                         };
@@ -1813,12 +1834,12 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                             questionIDs: questions,
                             registrationQuestionIDs: registrationQuestions,
                             expectedBusinessValue: testDrive.ExpectedBusinessValue,
-                            
+
                             passPercentageToDeploy: testDrive[Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY] || 0,
                             teamsChannelID: testDrive.TestDriveMTCHID && testDrive.TestDriveMTCHID.replace("-", ""),
                             hasRegistration: testDrive[Constants.Columns.HAS_REGISTRATION] || false,
                             owners: testDrive.TestDriveOwner.results || [this.getCurrentUser()],
-                            employeeType: testDrive[Constants.Columns.EMPLOYEE_TYPE].results,
+                            employeeType: testDrive[Constants.Columns.EMPLOYEE_TYPE].results || [],
                             approvalStatus: testDrive[Constants.Columns.APPROVAL_STATUS],
                             changeStatus: testDrive[Constants.Columns.CHANGE_STATUS],
                         };
@@ -1870,7 +1891,8 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                         Constants.Columns.POINTS,
                         Constants.Columns.RETEST,
                         Constants.Columns.EDIT_STATUS,
-                        Constants.Columns.IS_EDITED
+                        Constants.Columns.IS_EDITED,
+                        Constants.Columns.VERSION
                     )
                     .filter(filter)
                     .get().then(testCases => {
@@ -1888,7 +1910,8 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                                 points: t.Points,
                                 reTest: t.ReTest,
                                 isEdited: t[Constants.Columns.IS_EDITED],
-                                editStatus: t[Constants.Columns.EDIT_STATUS]
+                                editStatus: t[Constants.Columns.EDIT_STATUS],
+                                version: t[Constants.Columns.VERSION] || 1
                             })
                         })
                         resolve(testCaseArray);
@@ -1916,7 +1939,8 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                         Constants.Columns.RESPONSES,
                         Constants.Columns.RESPONSETYPE,
                         Constants.Columns.IS_EDITED,
-                        Constants.Columns.EDIT_STATUS
+                        Constants.Columns.EDIT_STATUS,
+                        Constants.Columns.VERSION
                     )
                     .filter(filter)
                     .get().then(questions => {
@@ -1929,7 +1953,8 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                                 options: JSON.parse(q.Responses),
                                 isInEditMode: false,
                                 isEdited: q[Constants.Columns.IS_EDITED],
-                                editStatus: q[Constants.Columns.EDIT_STATUS]
+                                editStatus: q[Constants.Columns.EDIT_STATUS],
+                                version: q[Constants.Columns.VERSION]
                             })
                         });
                         resolve(questionArray);
@@ -1957,7 +1982,8 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                         Constants.Columns.RESPONSES,
                         Constants.Columns.RESPONSETYPE,
                         Constants.Columns.IS_EDITED,
-                        Constants.Columns.EDIT_STATUS
+                        Constants.Columns.EDIT_STATUS,
+                        Constants.Columns.VERSION
                     )
                     .filter(filter)
                     .get().then(questions => {
@@ -1970,7 +1996,8 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                                 options: JSON.parse(q.Responses),
                                 isInEditMode: false,
                                 isEdited: q[Constants.Columns.IS_EDITED],
-                                editStatus: q[Constants.Columns.EDIT_STATUS]
+                                editStatus: q[Constants.Columns.EDIT_STATUS],
+                                version: q[Constants.Columns.VERSION]
                             })
                         });
                         resolve(questionArray);
@@ -2234,7 +2261,8 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                             Points: testCasePoints || 10,
                             ReTest: testCase.reTest,
                             EditStatus: testCase.editStatus,
-                            IsEdited: testCase.isEdited
+                            IsEdited: testCase.isEdited,
+                            [Constants.Columns.VERSION]: testCase.version || 0
                         });
                     });
 
@@ -2252,7 +2280,8 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                                     scenario: testCase.Scenario,
                                     priority: testCase.TestCasePriority,
                                     editTestCase: testCase.EditStatus,
-                                    isEdited: testCase.IsEdited
+                                    isEdited: testCase.IsEdited,
+                                    version: testCase.version
                                 })
                             })
                             resolve(testCases);
@@ -2277,7 +2306,8 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                         Responses: JSON.stringify(question.options),
                         ResponseType: question.questionType,
                         IsEdited: question.isEdited,
-                        EditStatus: question.editStatus
+                        EditStatus: question.editStatus,
+                        [Constants.Columns.VERSION]: question.version || 0
                     });
                 });
                 this.createOrUpdateListItemsInBatch(Constants.Lists.SURVEY_QUESTIONS, questionsArray).
@@ -2290,7 +2320,8 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                                 questionType: question.ResponseType,
                                 title: question.Question,
                                 isEdited: question.IsEdited,
-                                editStatus: question.EditStatus
+                                editStatus: question.EditStatus,
+                                version: question[Constants.Columns.VERSION]
                             }
                         });
                         resolve(data);
@@ -2314,7 +2345,8 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                         Responses: JSON.stringify(question.options),
                         ResponseType: question.questionType,
                         IsEdited: question.isEdited,
-                        EditStatus: question.editStatus
+                        EditStatus: question.editStatus,
+                        [Constants.Columns.VERSION]: question.version || 0
                     });
                 });
                 this.createOrUpdateListItemsInBatch(Constants.Lists.REGISTRATION_QUESTIONS, questionsArray).
@@ -2328,7 +2360,8 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                                 questionType: question.ResponseType,
                                 title: question.Question,
                                 isEdited: question.IsEdited,
-                                editStatus: question.EditStatus
+                                editStatus: question.EditStatus,
+                                version: question[Constants.Columns.VERSION]
                             }
                         });
                         resolve(data);

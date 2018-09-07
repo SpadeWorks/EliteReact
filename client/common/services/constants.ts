@@ -109,6 +109,7 @@ export class Columns {
     static EDIT_STATUS = "EditStatus";
     static IS_EDITED =  "IsEdited";
     static PRIMARY_OWNER = "PrimaryOwner";
+    static VERSION = "Version";
 }
 
 export class ColumnsValues {

@@ -54,7 +54,7 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
     onChangeSeletedResponseChange(value) {
         this.props.updateUI({ selectedResponse: value });
     }
-    
+
     submitQuestionResponse(question: RegistrationQuestionInstance, formID, isLast = false) {
         if (validateForm(formID)) {
             if (!isLast) {
@@ -179,24 +179,30 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
                                             </div>
                                         }
                                         {
+
                                             question.questionType == ColumnsValues.QUESTION_TYPE_MULTI_SELECT &&
-                                            <div data-validations={[required]} className="custom-select" id={"selectedResponse" + question.responseID}>
-                                                <Select
-                                                    id="question-response"
-                                                    onBlurResetsInput={false}
-                                                    onSelectResetsInput={false}
-                                                    options={question.options}
-                                                    simpleValue
-                                                    clearable={true}
-                                                    name="selectedResponse"
-                                                    value={ui.selectedResponse}
-                                                    onChange={(value) => this.onChangeSeletedResponseChange(value)}
-                                                    rtl={false}
-                                                    searchable={false}
-                                                    type="select-multiple"
-                                                    multi={true}
-                                                />
+                                            <div>
+                                                <div data-validations={[required]} className="custom-select" id={"selectedResponse" + question.responseID}>
+                                                    <Select
+                                                        id="question-response"
+                                                        onBlurResetsInput={false}
+                                                        onSelectResetsInput={false}
+                                                        options={question.options}
+                                                        simpleValue
+                                                        clearable={true}
+                                                        name="selectedResponse"
+                                                        value={ui.selectedResponse}
+                                                        onChange={(value) => this.onChangeSeletedResponseChange(value)}
+                                                        rtl={false}
+                                                        searchable={false}
+                                                        type="select-multiple"
+                                                        multi={true}
+                                                    />
+
+                                                </div>
+                                                <span>Select one or more</span>
                                             </div>
+
                                         }
                                         {
                                             question.questionType == ColumnsValues.QUESTION_TYPE_SUBJECTIVE &&

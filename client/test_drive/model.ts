@@ -15,6 +15,7 @@ export type TestCase = {
     newItem?: boolean;
     editStatus?: string;
     isEdited?: boolean;
+    version: number;
 }
 
 export type Question = {
@@ -26,6 +27,7 @@ export type Question = {
     newItem?: boolean;
     editStatus?: string;
     isEdited?: boolean;
+    version: number;
 }
 
 export type RegistrationQuestion = {
@@ -37,6 +39,7 @@ export type RegistrationQuestion = {
     newItem?: boolean;
     editStatus?: string;
     isEdited?: boolean;
+    version: number;
 }
 
 export type TestDrive = {

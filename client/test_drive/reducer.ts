@@ -153,8 +153,8 @@ const initialState: IState = {
         scenario: "",
         priority: "High",
         reTest: false,
-        points: 10
-
+        points: 10,
+        version: 1
     },
     testDrives: [],
     question: {
@@ -162,14 +162,16 @@ const initialState: IState = {
         title: '',
         questionType: '',
         options: [],
-        isInEditMode: false
+        isInEditMode: false,
+        version: 1
     },
     registrationQuestion: {
         id: -1,
         title: '',
         questionType: '',
         options: [],
-        isInEditMode: false
+        isInEditMode: false,
+        version: 1
     },
     loading: true,
     activeTab: '1',
@@ -374,7 +376,8 @@ export default handleActions<IState, any>({
             priority: "High",
             reTest: false,
             points: 100,
-            newItem: true
+            newItem: true,
+            version: 1
         }
         return {
             ...state,
@@ -464,7 +467,8 @@ export default handleActions<IState, any>({
             questionType: '',
             options: [],
             isInEditMode: true,
-            newItem: true
+            newItem: true,
+            version: 1
         }
         return {
             ...state,
@@ -562,7 +566,8 @@ export default handleActions<IState, any>({
             questionType: '',
             options: [],
             isInEditMode: true,
-            newItem: true
+            newItem: true,
+            version: 1
         }
         return {
             ...state,

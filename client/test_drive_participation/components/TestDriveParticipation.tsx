@@ -49,7 +49,8 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
             if (e.target.src) {
                 window.open(e.target.src);
             }
-        })
+        });
+
     }
 
     closePopUp(id) {
@@ -106,9 +107,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
         const hasRegistration = testDriveInstance.hasRegistration;
         const showRegistration = testDriveInstance.hasRegistration && !testDriveInstance.isRegistrationComplete;
 
-        if (hasRegistration) {
-            updateUI({ activeTab: 'Registration' });
-        }
+
 
         return (<div className="col-md-12">
             <div className="row">
@@ -132,66 +131,67 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                                 Registration
                                         </a>
                                         </li> : ''}
-                                    {
-                                        participationAllowed ?
-                                            <li className={participationAllowed ? "active" : ""}>
-                                                <a href="#test_Cases" data-toggle="tab" onClick={() => updateUI({ activeTab: 'test_Cases' })}>Test Cases</a>
-                                            </li> : ''
-                                    }
-                                    {
-                                        participationAllowed ?
-                                            <li>
-                                                <a href="#Servay_q" data-toggle="tab" onClick={() => updateUI({ activeTab: 'Servay_q' })}>Survey</a>
-                                            </li> : ''
-                                    }
+
+                                    <li className={participationAllowed ? "active" : ""}>
+                                        <a href="#test_Cases" data-toggle="tab" onClick={() => updateUI({ activeTab: 'test_Cases' })}>Test Cases</a>
+                                    </li>
+
+
+                                    <li>
+                                        <a href="#Servay_q" data-toggle="tab" onClick={() => updateUI({ activeTab: 'Servay_q' })}>Survey</a>
+                                    </li>
+
                                     <li>
                                         <a href="#Description" data-toggle="tab" onClick={() => updateUI({ activeTab: 'Description' })}>Description</a>
                                     </li>
                                 </ul>
                                 <div id="myTabContent" className="tab-content">
                                     <div className={!participationAllowed ? "tab-pane active in" : "tab-pane fade"} id="registration_questions">
+                                        <div>
+                                            <Popup popupId="registrationCompletion" title={"Pole position!"}
+                                                body={ui.requirmentMessage}
+                                                buttons={this.registrationPopupButtons} />
+                                            <Registration
+                                                questions={testDriveInstance.registrationQuestions}
+                                                testDriveInstance={testDriveInstance}
+                                                saveQuestionResponse={(q) => saveRegistrationQuestionResponse(q)}
+                                                updateUI={updateUI}
+                                                ui={ui}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className={participationAllowed ? "tab-pane active in" : "tab-pane fade"} id="test_Cases">
                                         {
-                                            !testDriveInstance.isRegistrationComplete ?
-                                                <div>
-                                                    <Popup popupId="registrationCompletion" title={"Pole position!"}
-                                                        body={ui.requirmentMessage}
-                                                        buttons={this.registrationPopupButtons} />
-                                                    <Registration
-                                                        questions={testDriveInstance.registrationQuestions}
-                                                        testDriveInstance={testDriveInstance}
-                                                        saveQuestionResponse={(q) => saveRegistrationQuestionResponse(q)}
-                                                        updateUI={updateUI}
-                                                        ui={ui}
-                                                    />
-                                                </div> : <div className="col-md-12">
+                                            participationAllowed ? <div>
+                                                <TestCases
+                                                    testDriveInstance={testDriveInstance}
+                                                    testCases={testDriveInstance.testCases}
+                                                    saveTestCaseResponse={(testCase, testDrive) =>
+                                                        saveTestCaseResponse(testCase, testDrive)}
+                                                    updatePoints={(t) => updatePoints(t)}
+                                                    updateUI={updateUI}
+                                                    ui={ui}
+                                                />
+                                                <Popup popupId="HighFive" title={"High five!"}
+                                                    body={ui.requirmentMessage}
+                                                    buttons={this.highFiveButtons} />
+                                                <Popup popupId="MissingOut" title={"You are missing out!"}
+                                                    body={ui.requirmentMessage}
+                                                    buttons={this.missingOutButtons} />
+                                            </div> :
+                                                <div className="col-md-12">
                                                     <div className="text-center holdon_msgbox">
 
                                                         <img src="/Style%20Library/Elite/images/signal.png" />
 
                                                         <h5>Hold on there, Cowboy !</h5>
 
-                                                        <p> You alredy registed for this test drvie. You will be notified once test drive is started.</p>
+                                                        <p> Testing will start soon.</p>
 
                                                     </div>
                                                 </div>
                                         }
-                                    </div>
-                                    <div className={participationAllowed ? "tab-pane active in" : "tab-pane fade"} id="test_Cases">
-                                        <TestCases
-                                            testDriveInstance={testDriveInstance}
-                                            testCases={testDriveInstance.testCases}
-                                            saveTestCaseResponse={(testCase, testDrive) =>
-                                                saveTestCaseResponse(testCase, testDrive)}
-                                            updatePoints={(t) => updatePoints(t)}
-                                            updateUI={updateUI}
-                                            ui={ui}
-                                        />
-                                        <Popup popupId="HighFive" title={"High five!"}
-                                            body={ui.requirmentMessage}
-                                            buttons={this.highFiveButtons} />
-                                        <Popup popupId="MissingOut" title={"You are missing out!"}
-                                            body={ui.requirmentMessage}
-                                            buttons={this.missingOutButtons} />
+
                                     </div>
                                     <div className="tab-pane fade " id="Servay_q">
                                         <Survey questions={testDriveInstance.questions}

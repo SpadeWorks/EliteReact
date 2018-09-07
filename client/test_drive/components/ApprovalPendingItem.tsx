@@ -167,7 +167,7 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                         <div className="col-md-1">
                             <div className="col-md-12">
                                 <div className="row">
-                                    {testDrive.status == ColumnsValues.SUBMIT ?
+                                    {testDrive.status == ColumnsValues.SUBMIT || testDrive.changeStatus === ColumnsValues.CHANGE_SUBMITTED ?
                                         <div className="testdrive_actionbox">
                                              <div className="button type1 nextBtn btn-lg pull-right animated_button">
                                             <input type="button" value="Approve" disabled={saveTestDriveApprovalLoading}
