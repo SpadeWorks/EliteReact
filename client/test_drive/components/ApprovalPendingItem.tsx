@@ -7,7 +7,7 @@ import Services from '../../common/services/services';
 interface ApprovalPendingItemProps {
     testDrive: TestDrive;
     saveTestDriveApprovalLoading: boolean;
-    approveTestDrive: (id: number) => any;
+    approveTestDrive: (testDrive: TestDrive) => any;
 };
 class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
     constructor(props, context) {
@@ -171,7 +171,7 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                         <div className="testdrive_actionbox">
                                              <div className="button type1 nextBtn btn-lg pull-right animated_button">
                                             <input type="button" value="Approve" disabled={saveTestDriveApprovalLoading}
-                                                onClick={() => approveTestDrive(testDrive.id)} />
+                                                onClick={() => approveTestDrive(testDrive)} />
                                                 </div>
                                         </div> : ''
                                     }

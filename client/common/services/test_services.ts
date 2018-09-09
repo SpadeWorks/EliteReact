@@ -213,9 +213,9 @@ class TestServices {
         // Services.getApprovedTestDrives().then(t=>{
         //     console.log("getApprovedTestDrives", t);
         // })
-        Services.approveTestdrive(3).then(t=>{
-            console.log("approveTestdrive", t);
-        })
+        // Services.approveTestdrive(3).then(t=>{
+        //     console.log("approveTestdrive", t);
+        // })
         Services.getApplicationConfigurations().then(t=>{
             console.log("getApplicationConfigurations", t);
         })

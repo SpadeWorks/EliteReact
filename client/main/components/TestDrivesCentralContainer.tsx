@@ -76,7 +76,8 @@ interface AppProps {
   state: {
     activeTab: 0,
     isCreaseTestDriveVisible: false,
-    testDriveCarImage: ""
+    testDriveCarImage: "",
+    isApprover: false
   }
 })
 
@@ -110,6 +111,20 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
         $(".car_box ").attr('class', 'car_box fifth_place');
       });
     });
+
+    let userProfileProperty = Service.getUserProfileProperties();
+    const role = userProfileProperty.role;
+    const isTestDriveIRunVisible = (role == "Test Drive Owner" ||
+      role == "Site Owner");
+    const isApprover = (role == "Site Owner");
+
+    this.props.updateUI({ 
+      isCreaseTestDriveVisible: isTestDriveIRunVisible,
+      isApprover: isApprover
+    });
+    Services.getEliteProfileByID(userProfileProperty.eliteProfileID).then((data: any) => {
+      this.props.updateUI({ testDriveCarImage: data.carImage });
+    })
   }
 
   getSelectedTab() {
@@ -157,20 +172,6 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
       updateUI,
       ui
     } = this.props;
-
-    let userProfileProperty = Service.getUserProfileProperties();
-
-    const role = userProfileProperty.role;
-    const isTestDriveIRunVisible = (role == "Test Drive Owner" ||
-      role == "Site Owner");
-
-    Services.getEliteProfileByID(userProfileProperty.eliteProfileID).then((data: any) => {
-      this.props.updateUI({ testDriveCarImage: data.carImage });
-    })
-
-    const isApprover = (role == "Site Owner")
-
-    this.props.updateUI({ isCreaseTestDriveVisible: isTestDriveIRunVisible })
     return (
       <div className="testDrives container">
         <div>
@@ -205,7 +206,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                   </Pane>
 
                   {
-                    isTestDriveIRunVisible ? <Pane label="TEST DRIVES I RUN">
+                    ui.isCreaseTestDriveVisible ? <Pane label="TEST DRIVES I RUN">
                       <TestDrivesIRunContainer
                         draftedTestDrivesIRun={draftedTestDrivesIRun}
                         draftedTestDrivesIRunLoading={draftedTestDrivesIRunLoading}
@@ -245,7 +246,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                   </Pane>
 
                   {
-                    isApprover ? <Pane label="PENDING APPROVALS">
+                    ui.isApprover ? <Pane label="PENDING APPROVALS">
                       <ApprovalPendingContainer
                         approvedTestDrives={approvedTestDrives}
                         approvedTestDrivesLoading={approvedTestDrivesLoading}
@@ -254,7 +255,7 @@ class TestDrivesCentralContainer extends React.Component<AppProps> {
                         loadApprovedTestDrives={(skip, top) => dispatch(loadApprovedTestDrives(skip, top))}
                         loadTestDrivesWaitingFormApproval={(skip, top) => dispatch(loadTestDrivesWaitingForApproval(skip, top))}
                         saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
-                        approveTestDrive={(id) => dispatch(approveTestDrive(id))}
+                        approveTestDrive={(testDrive) => dispatch(approveTestDrive(testDrive))}
                         ui={ui}
                         updateUI={updateUI}
                       />

@@ -300,9 +300,9 @@ const loadApprovedTestDrives = createAction<any, number, number>(
   (skip: number, top: number) => Services.getApprovedTestDrives(skip, top)
 );
 
-const approveTestDrive = createAction<any, number>(
+const approveTestDrive = createAction<any, any>(
   SAVE_TestDriveApproval,
-  (id: number) => Services.approveTestdrive(id)
+  (testDrive) => Services.approveTestdrive(testDrive)
 );
 
 // Approval related actions ends here//

@@ -270,13 +270,18 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
         });
     }
 
-    static approveTestdrive(id) {
+    static approveTestdrive(testDrive: TestDrive) {
         return new Promise((resolve, reject) => {
             let newTestDrive = {
-                ID: id,
-                [Constants.Columns.TESTDRIVE_STATUS]: Constants.ColumnsValues.READY_FOR_LAUNCH,
-                [Constants.Columns.CHANGE_STATUS]: Constants.ColumnsValues.CHANGE_APPROVED
+                ID: testDrive.id,
             }
+            if (testDrive.status === Constants.ColumnsValues.SUBMIT) {
+                newTestDrive[Constants.Columns.TESTDRIVE_STATUS] = Constants.ColumnsValues.READY_FOR_LAUNCH;
+            }
+            if (testDrive.changeStatus === Constants.ColumnsValues.CHANGE_SUBMITTED) {
+                newTestDrive[Constants.Columns.CHANGE_STATUS] = Constants.ColumnsValues.CHANGE_APPROVED;
+            }
+
             this.createOrUpdateListItemsInBatch(Constants.Lists.TEST_DRIVES,
                 [newTestDrive]).then((data: TestDrive) => {
                     resolve(data[0]);
@@ -2482,55 +2487,17 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                     items.forEach((item, index) => {
                         if (item.ID !== -1) {
                             listItems[index] = list.getItemById(item.ID);
+                            ctx.load(listItems[index]);
                         } else {
                             var listInfo = new SP.ListItemCreationInformation();
                             listItems[index] = list.addItem(listInfo);
                         }
-
-                        $.each(item, (key, value) => {
-                            if (key.toLowerCase() !== "id") {
-                                if (key.toLowerCase().endsWith("_id")) {
-                                    const columnName = key && key.split("_id")[0];
-                                    if (value) {
-                                        if (typeof value === "object") {
-                                            var lookupIds = [];
-                                            value.results.forEach(id => {
-                                                var lookupID = new SP.FieldLookupValue();
-                                                lookupID.set_lookupId(id);
-                                                lookupIds.push(lookupID);
-                                            });
-                                            listItems[index].set_item(columnName, lookupIds);
-                                        } else {
-                                            var lookupID = new SP.FieldLookupValue();
-                                            lookupID.set_lookupId(value);
-                                            listItems[index].set_item(columnName, lookupID);
-                                        }
-                                    }
-
-                                }
-                                else if (key.toLowerCase().endsWith("_tax")) {
-                                    const columnName = key && key.split("_tax")[0];
-                                    var termsArray = new Array();
-                                    value.forEach(item => {
-                                        termsArray.push("-1;#" + item.Label + "|" + item.TermGuid);
-                                    });
-                                    var termValueString = termsArray.join(";#");
-
-                                    listItems[index].set_item(columnName, termValueString);
-                                } else {
-                                    listItems[index].set_item(key, value)
-                                }
-                            }
-                        });
-                        listItems[index].update()
-                        ctx.load(listItems[index]);
                     });
+
                     ctx.executeQueryAsync((sender, args) => {
-                        var results = [];
-                        listItems.forEach((element, index) => {
-                            results.push({ ...items[index], id: element.get_id() });
-                        });
-                        resolve(results);
+                        this.UpdatedItem(ctx, items, listItems).then(results => {
+                            resolve(results)
+                        })
                     }, (sender, args) => {
                         Utils.clientLog(args);
                         reject(args.get_message());
@@ -2541,8 +2508,61 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                 Utils.clientLog(args);
                 reject(args.get_message());
             }
-
         });
+    }
+
+    static UpdatedItem(ctx, items, listItems) {
+        return new Promise((resolve, reject) => {
+            items.forEach((item, index) => {
+                $.each(item, (key, value) => {
+                    if (key.toLowerCase() !== "id") {
+                        if (key.toLowerCase().endsWith("_id")) {
+                            const columnName = key && key.split("_id")[0];
+                            if (value) {
+                                if (typeof value === "object") {
+                                    var lookupIds = [];
+                                    value.results.forEach(id => {
+                                        var lookupID = new SP.FieldLookupValue();
+                                        lookupID.set_lookupId(id);
+                                        lookupIds.push(lookupID);
+                                    });
+                                    listItems[index].set_item(columnName, lookupIds);
+                                } else {
+                                    var lookupID = new SP.FieldLookupValue();
+                                    lookupID.set_lookupId(value);
+                                    listItems[index].set_item(columnName, lookupID);
+                                }
+                            }
+
+                        }
+                        else if (key.toLowerCase().endsWith("_tax")) {
+                            const columnName = key && key.split("_tax")[0];
+                            var termsArray = new Array();
+                            value.forEach(item => {
+                                termsArray.push("-1;#" + item.Label + "|" + item.TermGuid);
+                            });
+                            var termValueString = termsArray.join(";#");
+
+                            listItems[index].set_item(columnName, termValueString);
+                        } else {
+                            listItems[index].set_item(key, value)
+                        }
+                    }
+
+                });
+                listItems[index].update()
+                ctx.load(listItems[index]);
+            });
+            ctx.executeQueryAsync((sender, args) => {
+                var results = [];
+                listItems.forEach((element, index) => {
+                    results.push({ ...items[index], id: element.get_id() });
+                });
+                resolve(results);
+            }, (sender, args) => {
+                Utils.clientLog(args);
+            });
+        })
     }
 
     static getAllTermsInTermGroup() {

@@ -154,7 +154,7 @@ const initialState: IState = {
         priority: "High",
         reTest: false,
         points: 10,
-        version: 1
+        version: 0
     },
     testDrives: [],
     question: {
@@ -163,7 +163,7 @@ const initialState: IState = {
         questionType: '',
         options: [],
         isInEditMode: false,
-        version: 1
+        version: 0
     },
     registrationQuestion: {
         id: -1,
@@ -171,7 +171,7 @@ const initialState: IState = {
         questionType: '',
         options: [],
         isInEditMode: false,
-        version: 1
+        version: 0
     },
     loading: true,
     activeTab: '1',
@@ -518,7 +518,8 @@ export default handleActions<IState, any>({
                             options: action.payload.options,
                             title: action.payload.title,
                             isEdited: action.payload.isEdited,
-                            editStatus: action.payload.editStatus
+                            editStatus: action.payload.editStatus,
+                            version: action.payload.version
                         } : question;
                 })
             }
@@ -617,7 +618,8 @@ export default handleActions<IState, any>({
                             options: action.payload.options,
                             title: action.payload.title,
                             isEdited: action.payload.isEdited,
-                            editStatus: action.payload.editStatus
+                            editStatus: action.payload.editStatus,
+                            version: action.payload.version
                         } : registrationQuestion;
                 })
             }

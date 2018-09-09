@@ -14,6 +14,7 @@ import {
 } from '../../test_drive';
 import { Messages } from '../../common/services/constants';
 import CreateButton from './CreateButton';
+import { TestDrive } from '../../home/model';
 
 interface ApprovalPendingContainerProps {
     approvedTestDrives: model.TestDrive[];
@@ -23,7 +24,7 @@ interface ApprovalPendingContainerProps {
     saveTestDriveApprovalLoading: boolean;
     loadApprovedTestDrives: (skip: number, top: number) => any;
     loadTestDrivesWaitingFormApproval: (skip: number, top: number) => any;
-    approveTestDrive: (id) => any;
+    approveTestDrive: (testDrive: TestDrive) => any;
     updateUI: (any) => any;
     ui: any;
 };
@@ -85,7 +86,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
         });
     }
 
-    approveTestDrive(id) {
+    approveTestDrive(testDrive) {
         var self = this;
         this.props.updateUI({
             approvedItems: [],
@@ -93,7 +94,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
             approvedTestDrivesLoading: true,
             testDrivesWaitingForApprovalLoading: true
         });
-        Services.approveTestdrive(id).then(data => {
+        Services.approveTestdrive(testDrive).then(data => {
             self.props.updateUI({ approvedMessage: Messages.TEST_DRIVE_APPROVED, title: "Success!" });    
             this.getData();
             $("#popupTestDriveApprovalSuccess").trigger('click');
@@ -176,7 +177,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                                                 key={index}
                                                 testDrive={testDrive}
                                                 saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
-                                                approveTestDrive={(id) => this.approveTestDrive(id)} />)
+                                                approveTestDrive={(testDrive) => this.approveTestDrive(testDrive)} />)
                                         }) : (!loading && <div className="no-data-message">{Messages.TEST_DRIVE_PENDING_MSG}</div>)
                                 }
                                 {
@@ -209,7 +210,7 @@ class ApprovalPendingContainer extends React.Component<ApprovalPendingContainerP
                                                 key={index}
                                                 testDrive={testDrive}
                                                 saveTestDriveApprovalLoading={saveTestDriveApprovalLoading}
-                                                approveTestDrive={(id) => approveTestDrive(id)} />)
+                                                approveTestDrive={(testDrive) => approveTestDrive(testDrive)} />)
                                         }) : (!loading && <div className="no-data-message">{Messages.TEST_DRIVE_APPROVED_MSG}</div>)
                                 }
                                 {

@@ -54,9 +54,9 @@ class Registration extends React.Component<RegistrationProps> {
 
     componentDidMount() {
         const registrationQuestions = this.props.registrationQuestions;
-        if (!registrationQuestions || registrationQuestions.length == 0) {
-            this.props.loadRegistrationQuestions(this.props.registrationQuestionIds);
-        }
+        // if (!registrationQuestions || registrationQuestions.length == 0) {
+        this.props.loadRegistrationQuestions(this.props.registrationQuestionIds);
+        // }
         this.getHelpText();
     }
 
@@ -127,8 +127,8 @@ class Registration extends React.Component<RegistrationProps> {
                     </div>
                     {
                         testDrive.status == ColumnsValues.SUBMIT ||
-                        testDrive.changeStatus == ColumnsValues.CHANGE_SUBMITTED && 
-                        currentUserRole == ColumnsValues.SITE_OWNER ?
+                            testDrive.changeStatus == ColumnsValues.CHANGE_SUBMITTED &&
+                            currentUserRole == ColumnsValues.SITE_OWNER ?
                             <div className="button type1 nextBtn btn-lg pull-right animated_button">
                                 <input type="button" value="Approve"
                                     disabled={ui.saveTestDriveApprovalLoading}

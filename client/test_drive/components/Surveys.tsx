@@ -53,9 +53,9 @@ class Surveys extends React.Component<SurveysProps> {
 
     componentDidMount() {
         const questions = this.props.questions;
-        if (!questions || questions.length == 0) {
-            this.props.loadQuestions(this.props.questionIds);
-        }
+        // if (!questions || questions.length == 0) {
+        this.props.loadQuestions(this.props.questionIds);
+        // }
         this.getHelpText();
     }
 
