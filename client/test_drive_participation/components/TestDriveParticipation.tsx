@@ -37,6 +37,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
         super(props, context);
     }
     componentDidMount() {
+        var self = this;
         $(document).mouseup(function (e) {
             var container = $(".write_testdrivebox");
             if (!container.is(e.target) && container.has(e.target).length === 0) {
@@ -44,12 +45,19 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
             }
         });
 
-
         $('.write_testdrivebox').click(e => {
             if (e.target.src) {
                 window.open(e.target.src);
             }
         });
+
+        $("a[href='#Servay_q']").on('click', function(){
+            self.props.updateUI({ activeTab: 'Servay_q' });
+        })
+        $("a[href='#test_Cases']").on('click', function(){
+            self.props.updateUI({ activeTab: 'test_Cases' });
+        })
+
 
     }
 

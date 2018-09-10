@@ -117,8 +117,8 @@ class QuestionForm extends React.Component<QuestionFormProps> {
 
     openCompletionPopUp(testDriveInstance: any) { 
         var interval, self=this;
-        Services.getTestDriveInstanceData(testDriveInstance).then((newTestDriveInstance : any) => {
-            if (newTestDriveInstance.status === Constants.ColumnsValues.COMPLETE_STATUS) {
+        Services.getTestDriveInstanceData(testDriveInstance).then((newTestDriveInstance : TestDriveInstance) => {
+            if (newTestDriveInstance.surveyStatus === Constants.ColumnsValues.COMPLETE_STATUS) {
                 this.props.updatePoints({...newTestDriveInstance, questionSaveInProgress: false});
                 if (interval) {
                     clearInterval(interval);

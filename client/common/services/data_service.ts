@@ -1,7 +1,7 @@
 import Promise from "ts-promise";
 import * as Constants from './constants';
 import * as pnp from '../../../node_modules/sp-pnp-js/dist/pnp.min';
-import { TestDrive, Question, TestCase, owner } from '../../test_drive/model';
+import { TestDrive, Question, TestCase, owner, RegistrationQuestion } from '../../test_drive/model';
 import * as $ from 'jquery';
 import TestCases from "../../test_drive/components/TestCases";
 import { HomeTestDrive, Leaders, EliteProfile, TestDriveResponse } from '../../home/model';
@@ -436,7 +436,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                 [Constants.Columns.TEST_DRIVE_ID]: testDriveInstance.testDriveID,
                 [Constants.Columns.USER_ID]: Services.getCurrentUserID(),
                 [Constants.Columns.TEST_CASE_COMPLETED]: testDriveInstance.numberOfTestCasesCompleted,
-                [Constants.Columns.CURRENT_POINTS]: testDriveInstance.currentPoint,
+                // [Constants.Columns.CURRENT_POINTS]: testDriveInstance.currentPoint,
                 [Constants.Columns.SURVEY_STATUS]: testDriveInstance.surveyStatus || Constants.ColumnsValues.DRAFT,
                 [Constants.Columns.IS_REGISTRATION_COMPLETE]: testDriveInstance.isRegistrationComplete
             }]).then(newTestDrives => {
@@ -484,7 +484,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                     selectedResponse: newResponse[Constants.Columns.Selected_Response],
                     title: newResponse[Constants.Columns.TITLE],
                     question: newResponse[Constants.Columns.QUESTION],
-                    responses: JSON.parse(newResponse[Constants.Columns.RESPONSES]),
+                    responses: Utils.tryParseJSON(newResponse[Constants.Columns.RESPONSES] || "[]"),
                     responseType: newResponse[Constants.Columns.RESPONSETYPE],
                     edtiStatus: newResponse[Constants.Columns.EDIT_STATUS],
                     version: newResponse[Constants.Columns.VERSION]
@@ -524,7 +524,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                         selectedResponse: newResponse[Constants.Columns.Selected_Response],
                         files: attachments,
                         title: newResponse[Constants.Columns.QUESTION],
-                        options: JSON.parse(newResponse[Constants.Columns.RESPONSES]),
+                        options: Utils.tryParseJSON(newResponse[Constants.Columns.RESPONSES] || "[]"),
                         questionType: newResponse[Constants.Columns.RESPONSETYPE],
                         editStatus: newResponse[Constants.Columns.EDIT_STATUS],
                         version: newResponse[Constants.Columns.VERSION]
@@ -789,7 +789,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                     .expand(Constants.Columns.USER_ID, Constants.Columns.TEST_DRIVE_ID, Constants.Columns.QUESTION_ID)
                     .get().then(questionResponses => {
                         let questionsArray: QuestionInstance[] = [];
-                        questions.map(question => {
+                        questions.map((question: any) => {
                             let response = questionResponses.filter(response => {
                                 return response[Constants.Columns.QUESTION_ID][Constants.Columns.ID] == question.id &&
                                     response[Constants.Columns.VERSION] === question.version;
@@ -805,11 +805,11 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                                 questionID: question.id,
                                 options: response ? response.options : question.options,
                                 userID: userID,
-                                title: response ? response[Constants.Columns.TITLE] : question[Constants.Columns.TITLE],
-                                question: response ? response[Constants.Columns.QUESTION] : question[Constants.Columns.QUESTION],
-                                response: response ? JSON.parse(response[Constants.Columns.RESPONSES]) : question[Constants.Columns.RESPONSES],
-                                responseType: response ? response[Constants.Columns.RESPONSETYPE] : question[Constants.Columns.RESPONSETYPE],
-                                editStatus: response ? response[Constants.Columns.EDIT_STATUS] : question[Constants.Columns.EDIT_STATUS],
+                                title: response ? response[Constants.Columns.TITLE] : question.title,
+                                question: response ? response[Constants.Columns.QUESTION] : question.title,
+                                response: response ? Utils.tryParseJSON(response[Constants.Columns.RESPONSES] || "[]") : question.options,
+                                responseType: response ? response[Constants.Columns.RESPONSETYPE] : question.responseType,
+                                editStatus: response ? response[Constants.Columns.EDIT_STATUS] : question.editStatus,
                                 version: question.version
                             })
                         })
@@ -848,8 +848,8 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                         let questionsArray: RegistrationQuestionInstance[] = [];
                         questions.map(question => {
                             let response = questionResponses.filter(response => {
-                                return response[Constants.Columns.REGISTRATION_QUESTION][Constants.Columns.ID] == question.id ||
-                                    response[Constants.Columns.VERSION] == question[Constants.Columns.VERSION];
+                                return response[Constants.Columns.REGISTRATION_QUESTION][Constants.Columns.ID] == question.id &&
+                                    response[Constants.Columns.VERSION] == question.version;
                             })
                             response = response[0];
                             questionsArray.push(<RegistrationQuestionInstance>{
@@ -864,7 +864,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                                 files: response ? (response[Constants.Columns.RESPONSE_ATTACHMENTS] && response[Constants.Columns.RESPONSE_ATTACHMENTS].length
                                     && Utils.tryParseJSON(response[Constants.Columns.RESPONSE_ATTACHMENTS]).files) : '',
                                 question: response ? response[Constants.Columns.QUESTION] : question[Constants.Columns.QUESTION],
-                                options: response ? JSON.parse(response[Constants.Columns.RESPONSES]) : question.options,
+                                options: response ? Utils.tryParseJSON(response[Constants.Columns.RESPONSES] || "[]") : question.options,
                                 responseType: response ? response[Constants.Columns.RESPONSETYPE] : question.responseType,
                                 editStatus: response ? response[Constants.Columns.EDIT_STATUS] : question.editStatus,
                                 version: response ? response[Constants.Columns.VERSION] : question.version
@@ -1955,7 +1955,7 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                                 id: q.ID,
                                 title: q.Question,
                                 questionType: q.ResponseType,
-                                options: JSON.parse(q.Responses),
+                                options: Utils.tryParseJSON(q.Responses || "[]"),
                                 isInEditMode: false,
                                 isEdited: q[Constants.Columns.IS_EDITED],
                                 editStatus: q[Constants.Columns.EDIT_STATUS],
@@ -1998,7 +1998,7 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                                 id: q.ID,
                                 title: q.Question,
                                 questionType: q.ResponseType,
-                                options: JSON.parse(q.Responses),
+                                options: Utils.tryParseJSON(q.Responses || "[]"),
                                 isInEditMode: false,
                                 isEdited: q[Constants.Columns.IS_EDITED],
                                 editStatus: q[Constants.Columns.EDIT_STATUS],
@@ -3829,7 +3829,7 @@ export class Cache {
 
     static tryParseJSON(str) {
         try {
-            return JSON.parse(str);
+            return Utils.tryParseJSON(str);
         } catch (e) {
             return false;
         }

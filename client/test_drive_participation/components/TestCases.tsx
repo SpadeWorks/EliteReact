@@ -85,7 +85,7 @@ class TestCases extends React.Component<TestCasesProps> {
                     $(".modal-backdrop.fade.in").hide();
                     confetti.InitializeConfettiInit();
                 } else{
-                    interval = setInterval(self.showSubmitPopUp(testCase), 500);
+                    interval = setInterval(self.showSubmitPopUp(testCase), 1000);
                 }
             });
         } else {
