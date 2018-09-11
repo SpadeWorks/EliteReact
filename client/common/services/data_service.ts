@@ -431,7 +431,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
         return new Promise((resolve, reject) => {
             Services.createOrUpdateListItemsInBatch(Constants.Lists.TEST_DRIVE_INSTANCES, [{
                 [Constants.Columns.ID]: testDriveInstance.instanceID,
-                // [Constants.Columns.STATUS]: testDriveInstance.status,
+                [Constants.Columns.STATUS]: testDriveInstance.status,
                 [Constants.Columns.DATE_JOINED]: new Date().toISOString(),
                 [Constants.Columns.TEST_DRIVE_ID]: testDriveInstance.testDriveID,
                 [Constants.Columns.USER_ID]: Services.getCurrentUserID(),
