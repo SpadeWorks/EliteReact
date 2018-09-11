@@ -54,9 +54,9 @@ class Registration extends React.Component<RegistrationProps> {
 
     componentDidMount() {
         const registrationQuestions = this.props.registrationQuestions;
-        // if (!registrationQuestions || registrationQuestions.length == 0) {
-        this.props.loadRegistrationQuestions(this.props.registrationQuestionIds);
-        // }
+        if (!registrationQuestions || registrationQuestions.length == 0) {
+            this.props.loadRegistrationQuestions(this.props.registrationQuestionIds);
+        }
         this.getHelpText();
     }
 
