@@ -164,7 +164,7 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
                                             question.questionType == ColumnsValues.QUESTION_TYPE_SINGLE_SELECT &&
                                             <div data-validations={[required]} className="custom-select" id={"selectedResponse" + question.responseID}>
                                                 <Select
-                                                    id="question-response"
+                                                    id="registration-question-response"
                                                     onBlurResetsInput={false}
                                                     onSelectResetsInput={false}
                                                     options={question.options}
@@ -184,7 +184,7 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
                                             <div>
                                                 <div data-validations={[required]} className="custom-select" id={"selectedResponse" + question.responseID}>
                                                     <Select
-                                                        id="question-response"
+                                                        id="registration-question-response"
                                                         onBlurResetsInput={false}
                                                         onSelectResetsInput={false}
                                                         options={question.options}
@@ -226,7 +226,7 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
                                                         name="questionResponse"
                                                         value={ui.questionResponse || ""}
                                                         data-validations={[required]}
-                                                        id={"comments" + question.responseID}
+                                                        id={"registration-comments" + question.responseID}
                                                     />
                                                     <span className="highlight "></span>
                                                     <span className="bar "></span>

@@ -431,11 +431,11 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
         return new Promise((resolve, reject) => {
             Services.createOrUpdateListItemsInBatch(Constants.Lists.TEST_DRIVE_INSTANCES, [{
                 [Constants.Columns.ID]: testDriveInstance.instanceID,
-                [Constants.Columns.STATUS]: testDriveInstance.status,
+                // [Constants.Columns.STATUS]: testDriveInstance.status,
                 [Constants.Columns.DATE_JOINED]: new Date().toISOString(),
                 [Constants.Columns.TEST_DRIVE_ID]: testDriveInstance.testDriveID,
                 [Constants.Columns.USER_ID]: Services.getCurrentUserID(),
-                [Constants.Columns.TEST_CASE_COMPLETED]: testDriveInstance.numberOfTestCasesCompleted,
+                // [Constants.Columns.TEST_CASE_COMPLETED]: testDriveInstance.numberOfTestCasesCompleted,
                 // [Constants.Columns.CURRENT_POINTS]: testDriveInstance.currentPoint,
                 [Constants.Columns.SURVEY_STATUS]: testDriveInstance.surveyStatus || Constants.ColumnsValues.DRAFT,
                 [Constants.Columns.IS_REGISTRATION_COMPLETE]: testDriveInstance.isRegistrationComplete
@@ -467,7 +467,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                 [Constants.Columns.SURVEY_RESPONSE]: questionInstance.questionResponse,
                 [Constants.Columns.Selected_Response]: questionInstance.selectedResponse,
                 [Constants.Columns.QUESTION]: questionInstance.title,
-                [Constants.Columns.RESPONSES]: JSON.stringify(questionInstance.responses),
+                [Constants.Columns.RESPONSES]: JSON.stringify(questionInstance.options),
                 [Constants.Columns.RESPONSETYPE]: questionInstance.responseType,
                 [Constants.Columns.EDIT_STATUS]: questionInstance.edtiStatus,
                 [Constants.Columns.VERSION]: questionInstance.version
@@ -803,13 +803,12 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                                 selectedResponse: response ? response[Constants.Columns.Selected_Response] : '',
                                 testDriveID: testDriveID,
                                 questionID: question.id,
-                                options: response ? response.options : question.options,
                                 userID: userID,
-                                title: response ? response[Constants.Columns.TITLE] : question.title,
-                                question: response ? response[Constants.Columns.QUESTION] : question.title,
-                                response: response ? Utils.tryParseJSON(response[Constants.Columns.RESPONSES] || "[]") : question.options,
-                                responseType: response ? response[Constants.Columns.RESPONSETYPE] : question.responseType,
-                                editStatus: response ? response[Constants.Columns.EDIT_STATUS] : question.editStatus,
+                                title: response && response[Constants.Columns.TITLE] ? response[Constants.Columns.TITLE] : question.title,
+                                question: response && response[Constants.Columns.QUESTION] ? response[Constants.Columns.QUESTION] : question.title,
+                                options: response && response[Constants.Columns.RESPONSES] ? Utils.tryParseJSON(response[Constants.Columns.RESPONSES] || "[]") : question.options,
+                                responseType: response && response[Constants.Columns.RESPONSETYPE] ? response[Constants.Columns.RESPONSETYPE] : question.questionType,
+                                editStatus: response && response[Constants.Columns.EDIT_STATUS] ? response[Constants.Columns.EDIT_STATUS] : question.editStatus,
                                 version: question.version
                             })
                         })
