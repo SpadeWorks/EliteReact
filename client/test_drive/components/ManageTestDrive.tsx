@@ -78,7 +78,8 @@ interface AppProps {
         requirmentMessage: '',
         title: "",
         saveLoading: false,
-        saveTestDriveApprovalLoading: false
+        saveTestDriveApprovalLoading: false,
+        loadingMessage: 'Loading...'
     }
 })
 
@@ -124,10 +125,11 @@ class ManageTestDrive extends React.Component<AppProps> {
                 this.props.updateUI({ activeTab: (this.props.ui.activeTab + direction + direction) });
             }
 
-            // testDrive.hasRegistration = this.props.registration || false;
-            // this.props.dispatch(saveTestDrive(testDrive)).then(() => {
-
-            // });
+            testDrive.hasRegistration = this.props.registration || false;
+            this.props.updateUI({ loadingMessage: 'Saving...', saveLoading: true });
+            this.props.dispatch(saveTestDrive(testDrive)).then(() => {
+                this.props.updateUI({ loadingMessage: 'Loading...', saveLoading: false });
+            });
 
         } else {
             //Popup.alert(Messages.TEST_DRIVE_ERROR);
@@ -523,12 +525,13 @@ class ManageTestDrive extends React.Component<AppProps> {
         link: '#'
     }]
 
-    hasAccess(){
+    hasAccess() {
         let currentUser = Services.getCurrentUser();
-        let currentUserEmail = currentUser.UserEMail ? currentUser.UserEMail.trim().toLocaleLowerCase() : '';
         let matchedUsers = this.props.testDrive.owners ?
-             this.props.testDrive.owners.filter(o=> o.UserEMail && o.UserEMail.toLocaleLowerCase() === currentUserEmail): ["loading"];
-        return matchedUsers && matchedUsers.length || this.props.testDrive.id === -1 ? true : false;
+            this.props.testDrive.owners.filter(o => currentUser.ID == o.ID) : ["loading"];
+        return matchedUsers && matchedUsers.length ||
+            this.props.testDrive.status === ColumnsValues.DRAFT || this.props.testDrive.id === -1 ?
+            true : false;
     }
 
     render() {
@@ -565,7 +568,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                 <h4 className="cancel-btn"><Link to={"/testdrives"}>CANCEL</Link></h4>
                 <div className="col-md-12 testdrive_createbox">
                     <div className="wrapper">
-                        <Loader show={loading || ui.saveLoading} message={'Loading...'}>
+                        <Loader show={loading || ui.saveLoading} message={ui.loadingMessage || 'Loading...'}>
                             {
                                 !loading && !this.hasAccess() ? "You don't have access on this test drive." :
                                     <Tabs selected={this.getSelectedTab() || 0}>
