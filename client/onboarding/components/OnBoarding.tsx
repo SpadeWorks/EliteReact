@@ -36,6 +36,8 @@ import {
 @ui({
     state: {
         nextScreen: '0',
+        loading: false,
+        loadingMessage: 'Loading...'
     }
 })
 class OnBoarding extends React.Component<OnBoardingProps> {

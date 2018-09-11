@@ -104,7 +104,7 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                 <span className="orange"><i>Test Case Completion</i></span>
                                 <div className="col-md-12">
                                     <div id={driveProgressID} className="before_fill"></div>
-                                    <p className="my_allpoints text-center"><span className="orange big"><i>{completedTestCases}</i></span> of {totalTestCases}</p>
+                                    <p className="my_allpoints text-center"><span className="orange big"><i>{completedTestCases || '0'}</i></span> of {totalTestCases}</p>
                                 </div>
                             </div>
                         </div>
@@ -123,7 +123,7 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                                     </div>
                                                 </div>
                                                 <div className="col-md-12 text-center point_board">
-                                                    <h3 className="text-center">{testDriveResponse.currentPoint}</h3>
+                                                    <h3 className="text-center">{testDriveResponse.currentPoint || '0'}</h3>
                                                     <span className="small">of {testDrive.maxPoints}</span>
                                                 </div>
                                             </div>

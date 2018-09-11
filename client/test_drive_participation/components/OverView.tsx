@@ -52,7 +52,7 @@ class OverView extends React.Component<OverViewProps> {
                                 <div className="row ">
                                     <div className="col-md-12 ">
                                         <p><span className="orange "><i>
-                                            {this.getCompletedRegistrationQuestionCount()}</i></span> of {testDriveInstance.registrationQuestionIDs.length}
+                                            {this.getCompletedRegistrationQuestionCount() || 0}</i></span> of {testDriveInstance.registrationQuestionIDs.length}
                                         </p>
                                     </div>
                                     <div className="col-md-12 ">
@@ -63,7 +63,7 @@ class OverView extends React.Component<OverViewProps> {
                             <div className="col-md-3 ">
                                 <div className="row ">
                                     <div className="col-md-12 ">
-                                        <p><span className="orange "><i>{testDriveInstance.currentPoint}</i></span> of {testDriveInstance.maxPoints}</p>
+                                        <p><span className="orange "><i>{testDriveInstance.currentPoint || 0}</i></span> of {testDriveInstance.maxPoints}</p>
                                     </div>
                                     <div className="col-md-12 ">
                                         <h4 className="testcase_title ">POINTS EARNED FOR TEST DRIVE</h4>
@@ -78,7 +78,7 @@ class OverView extends React.Component<OverViewProps> {
                             <div className="row ">
                                 <div className="col-md-12 ">
                                     <p><span className="orange "><i>
-                                        {testDriveInstance.numberOfTestCasesCompleted}</i></span> of {testDriveInstance.testCases.length}
+                                        {testDriveInstance.numberOfTestCasesCompleted || '0'}</i></span> of {testDriveInstance.testCases.length}
                                     </p>
                                 </div>
                                 <div className="col-md-12 ">
@@ -89,7 +89,7 @@ class OverView extends React.Component<OverViewProps> {
                             <div className="col-md-3 ">
                                 <div className="row ">
                                     <div className="col-md-12 ">
-                                        <p><span className="orange "><i>{testDriveInstance.currentPoint}</i></span> of {testDriveInstance.maxPoints}</p>
+                                        <p><span className="orange "><i>{testDriveInstance.currentPoint || '0'}</i></span> of {testDriveInstance.maxPoints}</p>
                                     </div>
                                     <div className="col-md-12 ">
                                         <h4 className="testcase_title ">POINTS EARNED FOR TEST DRIVE</h4>
@@ -104,7 +104,7 @@ class OverView extends React.Component<OverViewProps> {
                             <div className="row ">
                                 <div className="col-md-12 ">
                                     <p><span className="orange "><i>
-                                        {this.getCompletedQuestionCount()}</i></span> of {testDriveInstance.questionIDs.length}
+                                        {this.getCompletedQuestionCount() || 0}</i></span> of {testDriveInstance.questionIDs.length}
                                     </p>
                                 </div>
                                 <div className="col-md-12 ">
@@ -115,7 +115,7 @@ class OverView extends React.Component<OverViewProps> {
                             <div className="col-md-3 ">
                                 <div className="row ">
                                     <div className="col-md-12 ">
-                                        <p><span className="orange "><i>{testDriveInstance.currentPoint}</i></span> of {testDriveInstance.maxPoints}</p>
+                                        <p><span className="orange "><i>{testDriveInstance.currentPoint || 0}</i></span> of {testDriveInstance.maxPoints}</p>
                                     </div>
                                     <div className="col-md-12 ">
                                         <h4 className="testcase_title ">POINTS EARNED FOR TEST DRIVE</h4>

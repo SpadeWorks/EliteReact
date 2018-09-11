@@ -1216,6 +1216,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
     static getUserProfileProperties() {
         var data = $("#divUserProfileProperties").text();
         try {
+            var user = <any>{};
             if (data) {
                 data = data.replace(/\r?\n|\r/igm, "");
                 data = data.replace(/\\/igm, "\\\\");
@@ -1233,7 +1234,11 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                     break;
             }
             userProfile.location = userProfile.location;
-            return userProfile;
+
+            userProfile && $.each(userProfile, (key, value) => {
+                user[key] = value && value.trim();
+            });
+            return user;
         } catch (e) {
             return null;
         }
@@ -3366,6 +3371,21 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                 var propValue = "";
                 props.forEach((prop, index) => {
                     propValue += prop.Key + " - " + prop.Value + "<br/>";
+                });
+            }).catch(function (err) {
+                Utils.clientLog("Error: " + err);
+            });
+        });
+    }
+
+    static getCurrentUserProfileProperty(key) {
+        return new Promise((resolve, reject) => {
+            pnp.sp.profiles.myProperties.get().then(function (result) {
+                var props = result.UserProfileProperties.results;
+                props.forEach((prop, index) => {
+                    if(prop.Key == key){
+                        resolve(prop.Value);
+                    }
                 });
             }).catch(function (err) {
                 Utils.clientLog("Error: " + err);
