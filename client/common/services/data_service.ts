@@ -1564,9 +1564,11 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
             var ownerID = Services.getCurrentUserID();
             var d = new Date();
             var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-            var filter = `Author/Id eq ${_spPageContextInfo.userId} and 
-(TestDriveStatus eq '${Constants.ColumnsValues.DRAFT}' or 
-${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.DRAFT}')`;
+            //             var filter = `Author/Id eq ${_spPageContextInfo.userId} and 
+            // (TestDriveStatus eq '${Constants.ColumnsValues.DRAFT}' or 
+            // ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.DRAFT}')`;
+            var filter = "TestDriveOwner eq " + ownerID +
+                " and TestDriveStatus eq '" + Constants.ColumnsValues.DRAFT + "'";
             Services.getTestDrivesByFilter(filter, skip, top)
                 .then((testDrives: any) => {
                     var testDrivesIDs = [];
@@ -3383,7 +3385,7 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
             pnp.sp.profiles.myProperties.get().then(function (result) {
                 var props = result.UserProfileProperties.results;
                 props.forEach((prop, index) => {
-                    if(prop.Key == key){
+                    if (prop.Key == key) {
                         resolve(prop.Value);
                     }
                 });
