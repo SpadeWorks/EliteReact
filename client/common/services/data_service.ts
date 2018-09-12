@@ -1567,8 +1567,8 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
             //             var filter = `Author/Id eq ${_spPageContextInfo.userId} and 
             // (TestDriveStatus eq '${Constants.ColumnsValues.DRAFT}' or 
             // ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.DRAFT}')`;
-            var filter = "TestDriveOwner eq " + ownerID +
-                " and TestDriveStatus eq '" + Constants.ColumnsValues.DRAFT + "'";
+            var filter = `(TestDriveOwner eq ${ownerID} or Author/Id eq ${_spPageContextInfo.userId} )
+and (TestDriveStatus eq '${Constants.ColumnsValues.DRAFT}' or ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_DRAFTED}')`;
             Services.getTestDrivesByFilter(filter, skip, top)
                 .then((testDrives: any) => {
                     var testDrivesIDs = [];

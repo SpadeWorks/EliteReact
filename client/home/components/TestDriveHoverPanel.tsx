@@ -135,7 +135,7 @@ class TestDriveHoverPanel extends React.Component<TestDriveHoverPanelProps> {
                                             <span className="orange">
                                                 <i>DRIVE OWNER :</i>
                                             </span>
-                                            <h4>{testDrive.owners.map((o, index) => {
+                                            <h4>{testDrive.owners && testDrive.owners.map((o, index) => {
                                                 return testDrive.owners.length - 1 === index ?
                                                     o.UserInfoName : o.UserInfoName + ", "
                                             })}</h4>

@@ -37,8 +37,7 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
         const percentComplete = (completedTestCases / totalTestCases) * 100;
         var pointsProgressID = 'point-canvas' + checkPortion + index;
         var driveProgressID = 'drive-canvas' + checkPortion + index;
-        const ownerEmails = testDrive.owners ? 
-            testDrive.owners.map(o=> o.UserEMail).join(";") : '';
+        const ownerEmails = testDrive && testDrive.owners ? testDrive.owners.map(o=> o.UserEMail).join(";") : '';
 
         return (<div className="col-md-12">
             <h3>{testDrive.title}</h3>
@@ -89,7 +88,7 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                                         <span className="orange">
                                             <i>DRIVE OWNER :</i>
                                         </span>
-                                        <h4>{testDrive.owners.map((o, index) => {
+                                        <h4>{testDrive.owners && testDrive.owners.map((o, index) => {
                                             return testDrive.owners.length - 1 === index ?
                                                  o.UserInfoName : o.UserInfoName + ", "
                                         })}</h4>
