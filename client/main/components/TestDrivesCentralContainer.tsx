@@ -303,7 +303,8 @@ const mapStateToProps = (state, ownProps) => {
     approvedTestDrivesLoading,
     testDrivesWaitingForApproval,
     testDrivesWaitingForApprovalLoading,
-    saveTestDriveApprovalLoading
+    saveTestDriveApprovalLoading,
+    waitingMessage
   } = state.testDriveState;
 
   return {
@@ -332,7 +333,8 @@ const mapStateToProps = (state, ownProps) => {
     testDrivesWaitingForApproval,
     testDrivesWaitingForApprovalLoading,
     saveTestDriveApprovalLoading,
-    activeTab: activeTab || 'mytestdrive'
+    activeTab: activeTab || 'mytestdrive',
+    waitingMessage
   }
 };
 

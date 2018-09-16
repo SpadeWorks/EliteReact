@@ -2385,6 +2385,59 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
         });
     }
 
+    static deleteRegistrationQuestion(registrationQuestion: RegistrationQuestion) {
+        return new Promise((resolve, reject) => {
+            if (registrationQuestion.newItem) {
+                resolve(registrationQuestion.id);
+            } else {
+                pnp.sp.web.lists.getByTitle(Constants.Lists.REGISTRATION_QUESTIONS)
+                    .items.getById(registrationQuestion.id).delete()
+                    .then(() => {
+                        resolve(registrationQuestion.id);
+                    }, (error) => {
+                        Utils.clientLog(error);
+                        reject(error);
+                    });
+            }
+
+        });
+    }
+
+    static deleteSurveyQuestion(question: Question) {
+        return new Promise((resolve, reject) => {
+            if (question.newItem) {
+                resolve(question.id);
+            } else {
+                pnp.sp.web.lists.getByTitle(Constants.Lists.SURVEY_QUESTIONS)
+                    .items.getById(question.id).delete()
+                    .then(() => {
+                        resolve(question.id);
+                    }, (error) => {
+                        Utils.clientLog(error);
+                        reject(error);
+                    });
+            }
+
+        });
+    }
+
+    static deleteTestCase(testCase: TestCase) {
+        return new Promise((resolve, reject) => {
+            if(testCase.newItem){
+                resolve(testCase.id);
+            } else {
+                pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASES)
+                .items.getById(testCase.id).delete()
+                .then(() => {
+                    resolve(testCase.id);
+                }, (error) => {
+                    Utils.clientLog(error);
+                    reject(error);
+                });
+            }
+        });
+    }
+
 
     static getDefaultCarDetails() {
         return new Promise((resolve, reject) => {

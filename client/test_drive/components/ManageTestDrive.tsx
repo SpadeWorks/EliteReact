@@ -11,6 +11,7 @@ import Surveys from './Surveys';
 import { Link } from "react-router-dom";
 import { validateControl, required, validateForm } from '../../common/components/Validations';
 import { Messages } from '../../common/services/constants';
+import { Globals } from '../../common/services/constants';
 import { ToastContainer, toast } from 'react-toastify';
 import { ColumnsValues } from '../../common/services/constants';
 import { Tabs, Pane } from '../../common/components/Tabs';
@@ -70,6 +71,7 @@ interface AppProps {
     testDriveFields: object;
     view: string;
     registration: boolean;
+    waitingMessage: string;
 };
 
 @ui({
@@ -79,7 +81,9 @@ interface AppProps {
         title: "",
         saveLoading: false,
         saveTestDriveApprovalLoading: false,
-        loadingMessage: 'Loading...'
+        loadingMessage: 'Loading...',
+        deletedItem: null,
+        deletedItemType: null
     }
 })
 
@@ -92,18 +96,16 @@ class ManageTestDrive extends React.Component<AppProps> {
         this.onSaveQuestion = this.onSaveQuestion.bind(this);
         this.onAddRegistrationQuestion = this.onAddRegistrationQuestion.bind(this);
         this.onSaveRegistrationQuestion = this.onSaveRegistrationQuestion.bind(this);
-
         this.onAddTestCase = this.onAddTestCase.bind(this);
-
         this.onSaveTestCase = this.onSaveTestCase.bind(this);
         this.checkForUnsavedItems = this.checkForUnsavedItems.bind(this);
         this.getSelectedTab = this.getSelectedTab.bind(this);
         this.approveTestDrive = this.approveTestDrive.bind(this);
         this.onSwitchTab = this.onSwitchTab.bind(this);
         this.isTestDriveInEditMode = this.isTestDriveInEditMode.bind(this);
+        this.deleteConfirmationRequired = this.deleteConfirmationRequired.bind(this);
+        this.deleteConfirmed = this.deleteConfirmed.bind(this);
     }
-
-
 
     getTestDriveById(testDrives, testDriveId) {
         const testDrive = testDrives.filter(testDrive => testDrive.id == testDriveId);
@@ -525,6 +527,30 @@ class ManageTestDrive extends React.Component<AppProps> {
         link: '#'
     }]
 
+    self = this;
+
+    deleteConfirmationButtons = [{
+        name: 'Yes',
+        callBack: this.deleteConfirmed.bind(this)
+    },
+    {
+        name: 'No',
+        link: '#'
+    }]
+
+    deleteConfirmed() {
+        console.log("delete", this.props.ui.deletedItem);
+        let deletedItem = this.props.ui.deletedItem;
+        let deletedItemType = this.props.ui.deletedItemType;
+        if (deletedItemType === Globals.ITEM_TYPE_REIGSTRATION_QUESTION) {
+            this.props.dispatch(deleteRegistrationQuestion(deletedItem))
+        } else if (deletedItemType === Globals.ITEM_TYPE_QUESTION) {
+            this.props.dispatch(deleteQuestion(deletedItem));
+        } else if (deletedItemType === Globals.ITEM_TYPE_TEST_CASE) {
+            this.props.dispatch(deleteTestCase(deletedItem));
+        }
+    }
+
     hasAccess() {
         let currentUser = Services.getCurrentUser();
         let matchedUsers = this.props.testDrive.owners ?
@@ -534,29 +560,40 @@ class ManageTestDrive extends React.Component<AppProps> {
             true : false;
     }
 
+    deleteConfirmationRequired(registrationQuestion, deltedItemType) {
+        this.props.updateUI({
+            deletedItem: registrationQuestion,
+            deletedItemType: deltedItemType
+        });
+        $("#popupDeleteConfirmation").trigger('click');
+    }
+
     render() {
         const { testDrive, question, dispatch, loading, testCase, ui, updateUI,
             testCaseFields, surveyFields, testDriveFields, view, registration,
-            registrationQuestion, registrationQuestions } = this.props;
+            registrationQuestion, registrationQuestions, waitingMessage } = this.props;
 
         const currentUserRole = Services.getUserProfileProperties().role;
         return (
             <div className="container header_part">
-                <Popup popupId="ManageTestDriveSuccess" title={ui.title}
+                <Popup key={1} popupId="ManageTestDriveSuccess" title={ui.title}
                     body={ui.requirmentMessage}
                     buttons={this.manageTestDriveSuccessButtons} />
-                <Popup popupId="ApprovalSuccess" title={ui.title}
+                <Popup key={2} popupId="ApprovalSuccess" title={ui.title}
                     body={ui.requirmentMessage}
                     buttons={this.ApprovalButtons} />
-                <Popup popupId="ManageTestDriveAlert" title={ui.title}
+                <Popup key={3} popupId="ManageTestDriveAlert" title={ui.title}
                     body={ui.requirmentMessage}
                     buttons={this.manageTestDriveAlertButtons} />
-                <Popup popupId="CreateTestDriveAlert" title={ui.title}
+                <Popup key={4} popupId="CreateTestDriveAlert" title={ui.title}
                     body={ui.requirmentMessage}
                     buttons={this.createTestDriveAlertButtons} />
-                <Popup popupId="ManageTestDriveSuccessSaveAsDraft" title={ui.title}
+                <Popup key={5} popupId="ManageTestDriveSuccessSaveAsDraft" title={ui.title}
                     body={ui.requirmentMessage}
                     buttons={this.manageTestDriveSaveSuccessButtons} />
+                <Popup key={6} popupId="DeleteConfirmation" title={"Alert"}
+                    body={"Are you sure you want to delete this item?"}
+                    buttons={this.deleteConfirmationButtons} />
                 <h2 className="header_prevlink">
                     <a href="javascript:;" onClick={() => Services.goBack()}>
                         <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
@@ -568,7 +605,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                 <h4 className="cancel-btn"><Link to={"/testdrives"}>CANCEL</Link></h4>
                 <div className="col-md-12 testdrive_createbox">
                     <div className="wrapper">
-                        <Loader show={loading || ui.saveLoading} message={ui.loadingMessage || 'Loading...'}>
+                        <Loader show={loading || ui.saveLoading} message={waitingMessage || ui.loadingMessage || 'Loading...'}>
                             {
                                 !loading && !this.hasAccess() ? "You don't have access on this test drive." :
                                     <Tabs selected={this.getSelectedTab() || 0}>
@@ -603,7 +640,8 @@ class ManageTestDrive extends React.Component<AppProps> {
                                                         saveRegistrationQuestion={(t, f) => this.onSaveRegistrationQuestion(t, f)}
                                                         saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
                                                         editRegistrationQuestion={(t) => dispatch(editRegistrationQuestion(t))}
-                                                        deleteRegistrationQuestion={(id) => dispatch(deleteRegistrationQuestion(id))}
+                                                        deleteRegistrationQuestion={(registrationQuestion) => 
+                                                            this.deleteConfirmationRequired(registrationQuestion, Globals.ITEM_TYPE_REIGSTRATION_QUESTION)}
                                                         onChange={(e, registrationQuestion) => dispatch(updateRegistrationQuestion(e, registrationQuestion))}
                                                         addRegistrationQuestion={this.onAddRegistrationQuestion}
                                                         testDrive={testDrive}
@@ -628,7 +666,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                                         saveTestCase={(t, f) => this.onSaveTestCase(t, f)}
                                                         saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
                                                         editTestCase={(t) => dispatch(editTestCase(t))}
-                                                        deleteTestCase={(id) => dispatch(deleteTestCase(id))}
+                                                        deleteTestCase={(testCase) => this.deleteConfirmationRequired(testCase, Globals.ITEM_TYPE_TEST_CASE)}
                                                         onChange={(e, testCase) => dispatch(updateTestCase(e, testCase))}
                                                         addTestCase={this.onAddTestCase}
                                                         updateMaxPoints={() => dispatch(updateMaxPoints())}
@@ -654,7 +692,8 @@ class ManageTestDrive extends React.Component<AppProps> {
                                                         saveQuestion={(t, f) => this.onSaveQuestion(t, f)}
                                                         saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
                                                         editQuestion={(t) => dispatch(editQuestion(t))}
-                                                        deleteQuestion={(id) => dispatch(deleteQuestion(id))}
+                                                        deleteQuestion={(question) => 
+                                                            this.deleteConfirmationRequired(question, Globals.ITEM_TYPE_QUESTION)}
                                                         onChange={(e, question) => dispatch(updateQuestion(e, question))}
                                                         addQuestion={this.onAddQuestion}
                                                         testDrive={testDrive}
@@ -707,7 +746,8 @@ const mapStateToProps = (state, ownProps) => {
         surveyFields: fieldDescriptions.survey,
         configurationLoaded: state.testDriveState.configurationLoaded,
         view: view || 'edit',
-        registration: testDriveState.testDrive.hasRegistration || registration
+        registration: testDriveState.testDrive.hasRegistration || registration,
+        waitingMessage: testDriveState.waitingMessage
     }
 };
 

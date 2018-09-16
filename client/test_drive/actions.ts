@@ -37,7 +37,7 @@ import {
   SWITCH_Tab,
   UPDATE_Date,
   DATE_FocusChange,
-  
+
   LOAD_Configurations,
   UPDATE_MaxPoints,
   LOAD_ActiveTestDrives,
@@ -154,11 +154,9 @@ const saveTestCase = createAction<TestCase, TestCase>(
   }
 )
 
-const deleteTestCase = createAction<number, number>(
+const deleteTestCase = createAction<any, TestCase>(
   DELETE_TestCase,
-  (id: number) => {
-    return id;
-  }
+  (testCase: TestCase) => Services.deleteTestCase(testCase)
 )
 
 const updateTestCase = createAction<TestCase, any, TestCase>(
@@ -204,11 +202,9 @@ const saveQuestion = createAction<Question, Question>(
   }
 )
 
-const deleteQuestion = createAction<number, number>(
+const deleteQuestion = createAction<any, Question>(
   DELETE_Question,
-  (id: number) => {
-    return id;
-  }
+  (question: Question) => Services.deleteSurveyQuestion(question)
 )
 
 const updateQuestion = createAction<Question, any, Question>(
@@ -246,11 +242,9 @@ const saveRegistrationQuestion = createAction<RegistrationQuestion, Registration
   }
 )
 
-const deleteRegistrationQuestion = createAction<number, number>(
+const deleteRegistrationQuestion = createAction<any, RegistrationQuestion>(
   DELETE_RegistrationQuestion,
-  (id: number) => {
-    return id;
-  }
+  (registrationQuestion: RegistrationQuestion) => Services.deleteRegistrationQuestion(registrationQuestion)
 )
 
 const updateRegistrationQuestion = createAction<RegistrationQuestion, any, RegistrationQuestion>(
@@ -325,31 +319,31 @@ const loadUpCommingTestDrives = createAction<any, number, number>(
 
 const loadInProgressTestDrivesIRun = createAction<any, number, number>(
   LOAD_InProgressTestDrivesIRun,
-  (skip: number, top: number) => 
+  (skip: number, top: number) =>
     Services.getInProgressTestDrivesIRun(skip, top)
 );
 
 const loadCompletedTestDrivesIRun = createAction<any, number, number>(
   LOAD_CompletedTestDrivesIRun,
-  (skip: number, top: number) => 
+  (skip: number, top: number) =>
     Services.getCompletedTestDriveIRun(skip, top)
 );
 
 const loadUpcommingTestDrivesIRun = createAction<any, number, number>(
   LOAD_UpcommingTestDrivesIRun,
-  (skip: number, top: number) => 
+  (skip: number, top: number) =>
     Services.getUpCommingTestDriveIRun(skip, top)
 );
 
 const loadDraftedTestDrivesIRun = createAction<any, number, number>(
   LOAD_DraftedTestDrivesIRun,
-  (skip: number, top: number) => 
+  (skip: number, top: number) =>
     Services.getDraftedTestDrivesIRun(skip, top)
 );
 
 const loadSubmittedTestDrivesIRun = createAction<any, number, number, number>(
   LOAD_SubmittedTestDrivesIRun,
-  (ownerID: number, skip: number, top: number) => 
+  (ownerID: number, skip: number, top: number) =>
     Services.getDraftedTestDrivesIRun(skip, top)
 );
 
@@ -359,13 +353,13 @@ const loadSubmittedTestDrivesIRun = createAction<any, number, number, number>(
 
 const loadMyCompletedTestDrives = createAction<any, number, number>(
   LOAD_MyCompletedTestDrives,
-  (skip: number, top: number) => 
+  (skip: number, top: number) =>
     Services.getMyCompletedTestDrives(skip, top)
 );
 
 const loadMyInprogressTestDrives = createAction<any, number, number>(
   LOAD_MyInprogressTestDrives,
-  (skip: number, top: number) => 
+  (skip: number, top: number) =>
     Services.getMyInProgressTestDrives(skip, top)
 );
 

@@ -23,7 +23,7 @@ interface TestCasesProps {
     newTestCase: TestCase;
     addTestCase: () => any;
     updateMaxPoints: () => any;
-    deleteTestCase: (id: number) => any;
+    deleteTestCase: (testCase: TestCase) => any;
     saveTestCase: (testCase: TestCase, formID: string) => any;
     editTestCase: (TestCase: TestCase) => any;
     onChange: (event: any, TestCase: TestCase) => any;

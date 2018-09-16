@@ -25,7 +25,9 @@ import {
     LOAD_TestCases_PENDING,
     LOAD_TestCases_FULFILLED,
     ADD_TestCase,
-    DELETE_TestCase,
+    DELETE_TestCase_FULFILLED,
+    DELETE_TestCase_PENDING,
+    DELETE_TestCase_REJECTED,
     EDIT_TestCase,
     SAVE_TestCase,
     UPDATE_TestCase,
@@ -33,7 +35,9 @@ import {
     LOAD_Questions_PENDING,
     LOAD_Questions_FULFILLED,
     ADD_Question,
-    DELETE_Question,
+    DELETE_Question_FULFILLED,
+    DELETE_Question_PENDING,
+    DELETE_Question_REJECTED,
     EDIT_Question,
     SAVE_Question,
     SUBMIT_Question,
@@ -42,7 +46,9 @@ import {
     LOAD_RegistrationQuestions_PENDING,
     LOAD_RegistrationQuestions_FULFILLED,
     ADD_RegistrationQuestion,
-    DELETE_RegistrationQuestion,
+    DELETE_RegistrationQuestion_PENDING,
+    DELETE_RegistrationQuestion_FULFILLED,
+    DELETE_RegistrationQuestion_REJECTED,
     EDIT_RegistrationQuestion,
     SAVE_RegistrationQuestion,
     SUBMIT_RegistrationQuestion,
@@ -427,7 +433,15 @@ export default handleActions<IState, any>({
         }
     },
 
-    [DELETE_TestCase]: (state: IState, action: Action<number>): IState => {
+    [DELETE_TestCase_PENDING]: (state: IState, action: Action<number>): IState => {
+        return {
+            ...state,
+            loading: true,
+            waitingMessage: "Deleting..."
+        }
+    },
+
+    [DELETE_TestCase_FULFILLED]: (state: IState, action: Action<number>): IState => {
         const testDrive = state.testDrive;
         return {
             ...state,
@@ -439,10 +453,17 @@ export default handleActions<IState, any>({
                 testCaseIDs: testDrive.testCaseIDs && testDrive.testCaseIDs.filter(testCaseID => {
                     return testCaseID !== action.payload
                 })
-            }
+            },
+            loading: false
         }
     },
-
+    
+    [DELETE_TestCase_REJECTED]: (state: IState, action: Action<number>): IState => {
+        return {
+            ...state,
+            loading: false
+        }
+    },
     ///////////////// Question reducers start ///////////
 
     [LOAD_Questions_PENDING]: (state: IState, action: Action<Question>): IState => {
@@ -526,7 +547,15 @@ export default handleActions<IState, any>({
         }
     },
 
-    [DELETE_Question]: (state: IState, action: Action<number>): IState => {
+    [DELETE_Question_PENDING]: (state: IState, action: Action<number>): IState => {
+        return {
+            ...state,
+            loading: true,
+            waitingMessage: "Deleting..."
+        }
+    },
+
+    [DELETE_Question_FULFILLED]: (state: IState, action: Action<number>): IState => {
         const testDrive = state.testDrive;
         return {
             ...state,
@@ -538,7 +567,15 @@ export default handleActions<IState, any>({
                 questionIDs: testDrive.questionIDs.filter(id => {
                     return id !== action.payload
                 })
-            }
+            },
+            loading: false
+        }
+    },
+
+    [DELETE_Question_REJECTED]: (state: IState, action: Action<number>): IState => {
+        return {
+            ...state,
+            loading: false
         }
     },
     ///////////////// Question reducers End ///////////
@@ -626,7 +663,15 @@ export default handleActions<IState, any>({
         }
     },
 
-    [DELETE_RegistrationQuestion]: (state: IState, action: Action<number>): IState => {
+    [DELETE_RegistrationQuestion_PENDING]: (state: IState, action: Action<number>): IState => {
+        return {
+            ...state,
+            loading: true,
+            waitingMessage: "Deleting..."
+        }
+    },
+
+    [DELETE_RegistrationQuestion_FULFILLED]: (state: IState, action: Action<number>): IState => {
         const testDrive = state.testDrive;
         return {
             ...state,
@@ -638,7 +683,16 @@ export default handleActions<IState, any>({
                 registrationQuestionIDs: testDrive.registrationQuestionIDs.filter(id => {
                     return id !== action.payload
                 })
-            }
+            },
+            loading: false
+            
+        }
+    },
+
+    [DELETE_RegistrationQuestion_REJECTED]: (state: IState, action: Action<number>): IState => {
+        return {
+            ...state,
+            loading: false
         }
     },
     ///////////////// Registration Question reducers End ///////////

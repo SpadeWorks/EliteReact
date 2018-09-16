@@ -16,7 +16,7 @@ interface SurveysProps {
     questions: Question[];
     newQuestion: Question;
     addQuestion: () => any;
-    deleteQuestion: (id: number) => any;
+    deleteQuestion: (question: Question) => any;
     saveQuestion: (question: Question, formID: string) => any;
     editQuestion: (question: Question) => any;
     onChange: (event: any, question: Question) => any;

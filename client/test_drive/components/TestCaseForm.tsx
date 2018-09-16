@@ -17,7 +17,7 @@ import * as $ from 'jquery';
 
 interface TestCaseFormProps {
     testCase: TestCase,
-    deleteTestCase: (id: number) => any;
+    deleteTestCase: (testCase: TestCase) => any;
     saveTestCase: (testCase: TestCase, formID: string) => any;
     editTestCase: (TestCase: TestCase) => any;
     onChange: (event: any, TestCase: TestCase) => any;
@@ -197,8 +197,8 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
         }
     }
 
-    deleteTestCase(testCaseID: number) {
-        this.props.deleteTestCase(testCaseID);
+    deleteTestCase(testCase: TestCase) {
+        this.props.deleteTestCase(testCase);
         this.props.updateMaxPoints();
     }
 
@@ -250,7 +250,7 @@ class TestCasesForm extends React.Component<TestCaseFormProps> {
                         </a>
                         <div className="pull-right button-container">
                             <a href="javascript:;"><i className="material-icons"
-                                onClick={() => this.deleteTestCase(testCase.id)}>delete</i></a>
+                                onClick={() => this.deleteTestCase(testCase)}>delete</i></a>
                             {!testCase.isInEditMode &&
                                 <a href="javascript:;"><i className="material-icons"
                                     onClick={() => editTestCase(testCase)}>mode_edit</i></a>

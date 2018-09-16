@@ -152,6 +152,9 @@ export class Globals {
     static IMAGE_BASE_URL = '/Style%20Library/Elite/images';
     static TEST_DRIVE_THAT_I_RUN = "testDriveThatIRun";
     static UPCOMMING_Test_Drive = "upTestDrive";
+    static ITEM_TYPE_QUESTION = "Question";
+    static ITEM_TYPE_REIGSTRATION_QUESTION = "RegistrationQuestion";
+    static ITEM_TYPE_TEST_CASE = "TestCase";
 }
 
 export class Messages {

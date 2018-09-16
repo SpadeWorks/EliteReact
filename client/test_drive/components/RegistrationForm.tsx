@@ -8,7 +8,7 @@ import { validateControl, required, validateForm } from '../../common/components
 
 interface RegistrationFormProps {
     registrationQuestion: RegistrationQuestion,
-    deleteRegistrationQuestion: (id: number) => any;
+    deleteRegistrationQuestion: (registrationQuestion: RegistrationQuestion) => any;
     saveRegistrationQuestion: (registrationQuestion: RegistrationQuestion, formID: string) => any;
     editRegistrationQuestion: (registrationQuestion: RegistrationQuestion) => any;
     onChange: (event: any, registrationQuestion: RegistrationQuestion) => any;
@@ -100,7 +100,7 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
                         </a>
                         <div className="pull-right button-container">
                             <a href="javascript:;"><i className="material-icons"
-                                onClick={() => deleteRegistrationQuestion(registrationQuestion.id)}>delete</i></a>
+                                onClick={() => deleteRegistrationQuestion(registrationQuestion)}>delete</i></a>
                             {!registrationQuestion.isInEditMode &&
                                 <a href="javascript:;"><i className="material-icons"
                                     onClick={() => editRegistrationQuestion(registrationQuestion)}>mode_edit</i></a>

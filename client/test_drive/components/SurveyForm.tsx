@@ -8,7 +8,7 @@ import { validateControl, required, validateForm } from '../../common/components
 
 interface SurveyFormProps {
     question: Question,
-    deleteQuestion: (id: number) => any;
+    deleteQuestion: (question: Question) => any;
     saveQuestion: (question: Question, formID: string) => any;
     editQuestion: (question: Question) => any;
     onChange: (event: any, question: Question) => any;
@@ -88,7 +88,7 @@ class SurveyForm extends React.Component<SurveyFormProps> {
                         </a>
                         <div className="pull-right button-container">
                             <a href="javascript:;"><i className="material-icons"
-                                onClick={() => deleteQuestion(question.id)}>delete</i></a>
+                                onClick={() => deleteQuestion(question)}>delete</i></a>
                             {!question.isInEditMode &&
                                 <a href="javascript:;"><i className="material-icons"
                                     onClick={() => editQuestion(question)}>mode_edit</i></a>

@@ -205,5 +205,6 @@ export type IState = {
     isTestDriveSaveComplet?: boolean;
     errorWhileSaving?: boolean;
     errorSaveMessage?: boolean;
+    waitingMessage?: String;
 }
 

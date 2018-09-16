@@ -17,7 +17,7 @@ interface RegistrationProps {
     registrationQuestions: RegistrationQuestion[];
     newRegistrationQuestion: RegistrationQuestion;
     addRegistrationQuestion: () => any;
-    deleteRegistrationQuestion: (id: number) => any;
+    deleteRegistrationQuestion: (registrationQuestion: RegistrationQuestion) => any;
     saveRegistrationQuestion: (registrationQuestion: RegistrationQuestion, formID: string) => any;
     editRegistrationQuestion: (registrationQuestion: RegistrationQuestion) => any;
     onChange: (event: any, RegistrationQuestion: RegistrationQuestion) => any;
