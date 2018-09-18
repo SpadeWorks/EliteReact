@@ -3060,7 +3060,10 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
         var userEmployeeType = user.employeeType || '';
 
         var todayDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-        var filter = `TestDriveStatus eq '${Constants.ColumnsValues.ACTIVE}' or TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_STARTED}'`;
+        var filter = `(TestDriveStatus eq '${Constants.ColumnsValues.ACTIVE}' 
+and ${Constants.Columns.HAS_REGISTRATION} eq 0) or 
+(TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_STARTED}' 
+and ${Constants.Columns.HAS_REGISTRATION} eq 1)`;
         return new Promise((resolve, reject) => {
             Services.getTestDrivesByFilter(filter, skip, 1000, "TestDriveStartDate", true).then((testDriveInstances: TestDrive[]) => {
                 Services.getMyTestDriveIDs(0, 1000).then(mytestDrivs => {

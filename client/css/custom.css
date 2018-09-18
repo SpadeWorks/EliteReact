@@ -4122,7 +4122,8 @@ a.status_fail {
 }
 
 .comment_box {
-    margin-top: 55px;
+    /* margin-top: 55px; */
+    margin-top: 15px;
 }
 
 .common_box .inputMaterial {
@@ -4842,7 +4843,8 @@ h4.testcase_title {
 }
 
 .comment_box {
-    margin-top: 55px;
+    /* margin-top: 55px; */
+    margin-top: 15px;
 }
 
 .common_box .inputMaterial {
@@ -5494,7 +5496,8 @@ a.status_fail:hover {
 }
 
 .comment_box {
-    margin-top: 55px;
+    /* margin-top: 55px; */
+    margin-top: 15px;
     margin-left: 5px;
 }
 
