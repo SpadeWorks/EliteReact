@@ -2904,6 +2904,7 @@ textarea.inputMaterial:focus {
 
 .register_input {
     min-height: 130px;
+    padding-bottom: 30px;
 }
 
 

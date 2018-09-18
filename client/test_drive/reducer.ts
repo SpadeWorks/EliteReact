@@ -287,6 +287,7 @@ export default handleActions<IState, any>({
         return {
             ...state,
             loading: true,
+            waitingMessage: "Saving...",
             isTestDriveSaveComplet: false,
             testDrive: { ...state.testDrive, saveIsInProgress: true }
         }
@@ -307,6 +308,7 @@ export default handleActions<IState, any>({
             testDrive: { ...state.testDrive, ...newTestDrive, saveIsInProgress: false },
             testDrives: testDrives || [],
             loading: false,
+            waitingMessage: "Saving...",
             isTestDriveSaveComplet: true
         }
     },
@@ -315,6 +317,7 @@ export default handleActions<IState, any>({
         return {
             ...state,
             loading: false,
+            waitingMessage: "Saving...",
             isTestDriveSaveComplet: true,
             errorSaveMessage: action.payload.message
         }
@@ -454,14 +457,16 @@ export default handleActions<IState, any>({
                     return testCaseID !== action.payload
                 })
             },
-            loading: false
+            loading: false,
+            waitingMessage: ""
         }
     },
     
     [DELETE_TestCase_REJECTED]: (state: IState, action: Action<number>): IState => {
         return {
             ...state,
-            loading: false
+            loading: false,
+            waitingMessage: ""
         }
     },
     ///////////////// Question reducers start ///////////
@@ -568,14 +573,16 @@ export default handleActions<IState, any>({
                     return id !== action.payload
                 })
             },
-            loading: false
+            loading: false,
+            waitingMessage: ""
         }
     },
 
     [DELETE_Question_REJECTED]: (state: IState, action: Action<number>): IState => {
         return {
             ...state,
-            loading: false
+            loading: false,
+            waitingMessage: ""
         }
     },
     ///////////////// Question reducers End ///////////
@@ -684,7 +691,8 @@ export default handleActions<IState, any>({
                     return id !== action.payload
                 })
             },
-            loading: false
+            loading: false,
+            waitingMessage: ""
             
         }
     },
@@ -692,7 +700,8 @@ export default handleActions<IState, any>({
     [DELETE_RegistrationQuestion_REJECTED]: (state: IState, action: Action<number>): IState => {
         return {
             ...state,
-            loading: false
+            loading: false,
+            waitingMessage: ""
         }
     },
     ///////////////// Registration Question reducers End ///////////
@@ -740,7 +749,8 @@ export default handleActions<IState, any>({
     [SAVE_TestDriveApproval_PENDING]: (state: IState, action: Action<TestDrive>): IState => {
         return {
             ...state,
-            saveTestDriveApprovalLoading: true
+            saveTestDriveApprovalLoading: true,
+            waitingMessage: "Saving..."
         }
     },
 
@@ -760,14 +770,16 @@ export default handleActions<IState, any>({
                     return (testdrive.id != action.payload.id)
                 }),
             approvedTestDrives: [...approvedTestDrives, ...state.approvedTestDrives],
-            saveTestDriveApprovalLoading: false
+            saveTestDriveApprovalLoading: false,
+            waitingMessage: ""
         }
     },
 
     [SAVE_TestDriveApproval_REJECTED]: (state: IState, action: Action<any>): IState => {
         return {
             ...state,
-            saveTestDriveApprovalLoading: false
+            saveTestDriveApprovalLoading: false,
+            waitingMessage: ""
         }
     },
 
