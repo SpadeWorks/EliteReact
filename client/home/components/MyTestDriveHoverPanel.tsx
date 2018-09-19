@@ -74,7 +74,7 @@ class MyTestDriveHoverPanel extends React.Component<MyTestDriveHoverPanelProps> 
                             <div className="col-md-12 drive_completionbox">
                                 <span className="orange"><i>POINTS EARNED :</i></span>
                                 <canvas id={pointsProgressID} width="150" height="150"></canvas>
-                                <h3 className="completionboxcount">{testDriveResponse.currentPoint}</h3>
+                                <h3 className="completionboxcount">{testDriveResponse.currentPoint || '0'}</h3>
                                 <span className="small">{testDriveResponse.currentPoint || '0'} of {testDrive.maxPoints} points earned</span>
 
                             </div>

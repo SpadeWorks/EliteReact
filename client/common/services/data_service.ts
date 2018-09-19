@@ -2097,9 +2097,6 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                 let questions = results[1];
                 let registrationQuestions = results[2];
                 let testDrives = [];
-                var registrationQuestionIDs = [];
-                var testCaseIDs = [];
-                var questionIDs = [];
                 let newTestDrive = {
                     ID: testDrive.id,
                     Title: testDrive.title.trim(),
@@ -2145,7 +2142,6 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                     questions.map(question => {
                         ids.push(question.id);
                     });
-                    questionIDs = ids;
                     newTestDrive["QuestionID_id"] = {
                         results: ids || []
                     }
@@ -2159,7 +2155,6 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                         registrationQuestions.map(question => {
                             ids.push(question.id);
                         });
-                        registrationQuestionIDs = ids;
                         newTestDrive[Constants.Columns.REGISTRATION_QUESTIONS + "_id"] = {
                             results: ids || []
                         }
@@ -2172,7 +2167,6 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                     testCases.map(testCase => {
                         ids.push(testCase.id);
                     });
-                    testCaseIDs = ids;
                     newTestDrive["TestCaseID_id"] = {
                         results: ids || []
                     }
@@ -2186,10 +2180,7 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                             ...testDrive,
                             id: data[0].id,
                             testCases: testCases,
-                            questions: questions,
-                            registrationQuestionIDs: registrationQuestionIDs,
-                            questionIDs: questionIDs,
-                            testCaseIDs: testCaseIDs
+                            questions: questions
                         });
                     }, err => {
                         reject(err);
