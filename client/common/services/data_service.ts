@@ -1449,7 +1449,8 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                     Constants.Columns.CHANGE_STATUS,
                     Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.ID,
                     Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.USER_NAME,
-                    Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.USER_EMAIL
+                    Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.USER_EMAIL,
+                    Constants.Columns.HAS_REGISTRATION
                 ).skip(skip).top(top)
                 .expand(Constants.Columns.TESTDRIVE_OWNER,
                     Constants.Columns.LEVEL_ID, Constants.Columns.QUESTION_ID,
@@ -1495,6 +1496,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                             employeeType: testDrive[Constants.Columns.EMPLOYEE_TYPE].results || [],
                             approvalStatus: testDrive[Constants.Columns.APPROVAL_STATUS],
                             changeStatus: testDrive[Constants.Columns.CHANGE_STATUS],
+                            hasRegistration: testDrive[Constants.Columns.HAS_REGISTRATION]
                         };
                     });
                     resolve(results);
@@ -2180,7 +2182,9 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                             ...testDrive,
                             id: data[0].id,
                             testCases: testCases,
-                            questions: questions
+                            questions: questions,
+                            registrationQuestions: registrationQuestions
+                            
                         });
                     }, err => {
                         reject(err);
@@ -2326,7 +2330,7 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                         var data = questions && questions.length && questions.map(question => {
                             return {
                                 id: question.id,
-                                ID: questions.ID,
+                                ID: question.id,
                                 options: (question.Responses && question.Responses.length) ? Utils.tryParseJSON(question.Responses) : [],
                                 questionType: question.ResponseType,
                                 title: question.Question,
@@ -3161,7 +3165,8 @@ and ${Constants.Columns.HAS_REGISTRATION} eq 1)`;
                     Constants.Columns.DATE_JOINED,
                     Constants.Columns.TEST_CASE_COMPLETED,
                     Constants.Columns.TEST_DRIVE_ID + '/' + Constants.Columns.ID,
-                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID
+                    Constants.Columns.USER_ID + '/' + Constants.Columns.ID,
+                    Constants.Columns.IS_REGISTRATION_COMPLETE
                 )
                 .filter(filter)
                 .expand(Constants.Columns.TEST_DRIVE_ID, Constants.Columns.USER_ID)
@@ -3227,10 +3232,13 @@ and ${Constants.Columns.HAS_REGISTRATION} eq 1)`;
                                 return testdrive.id == testDriveInstances.TestDriveID.ID;
                             })
                             testDrive = testDrive.length && testDrive[0];
-
-                            if (testDrive.status == Constants.ColumnsValues.ACTIVE ||
+                             
+                            if ((testDrive.status == Constants.ColumnsValues.ACTIVE && testDrive.hasRegistration &&
+                                testDriveInstances[Constants.Columns.IS_REGISTRATION_COMPLETE]) || 
+                                (testDrive.status == Constants.ColumnsValues.ACTIVE && !testDrive.hasRegistration) ||
                                 testDrive.status == Constants.ColumnsValues.REGISTRATION_STARTED ||
-                                testDrive.status == Constants.ColumnsValues.REGISTRATION_ENDED) {
+                                (testDrive.status == Constants.ColumnsValues.REGISTRATION_ENDED &&
+                                    testDriveInstances[Constants.Columns.IS_REGISTRATION_COMPLETE])) {
                                 myTestDriveArr.push({
                                     id: testDrive.id,
                                     title: testDrive.title,
