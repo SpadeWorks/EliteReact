@@ -128,18 +128,20 @@ class ManageTestDrive extends React.Component<AppProps> {
                 this.props.updateUI({ activeTab: (this.props.ui.activeTab + direction + direction) });
             }
 
-            testDrive.hasRegistration = this.props.registration || false;
-            this.props.updateUI({ loadingMessage: 'Saving...', saveLoading: true });
-            this.props.dispatch(saveTestDrive(testDrive)).then(() => {
-                let promises = [];
-                promises.push(this.props.dispatch(loadRegistrationQuestions(testDrive.registrationQuestionIDs)));
-                promises.push(this.props.dispatch(loadTestCases(testDrive.testCaseIDs)));
-                promises.push(this.props.dispatch(loadQuestions(testDrive.questionIDs)));
-
-                Promise.all(promises).then((results) => {
-                    this.props.updateUI({ loadingMessage: 'Loading...', saveLoading: false });
-                }) 
-            });
+            // testDrive.hasRegistration = this.props.registration || false;
+            // this.props.updateUI({ loadingMessage: 'Saving...', saveLoading: true });
+            // this.props.dispatch(saveTestDrive(testDrive)).then(() => {
+            //     this.props.dispatch(loadTestDrive(testDrive.id)).then(function(testDrive){
+            //         let promises = [];
+            //         promises.push(this.props.dispatch(loadRegistrationQuestions(testDrive.registrationQuestionIDs)));
+            //         promises.push(this.props.dispatch(loadTestCases(testDrive.testCaseIDs)));
+            //         promises.push(this.props.dispatch(loadQuestions(testDrive.questionIDs)));
+            //         Promise.all(promises).then((results) => {
+            //             this.props.updateUI({ loadingMessage: 'Loading...', saveLoading: false });
+            //         }) 
+            //     });
+                
+            // });
 
         } else {
             //Popup.alert(Messages.TEST_DRIVE_ERROR);

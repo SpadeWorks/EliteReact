@@ -44,6 +44,8 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
         return new Promise((resolve, reject) => {
             var ctx = this;
             Services.getEliteProfileByID().then((user: EliteProfile) => {
+                let userProfileProperties = Services.getUserProfileProperties();
+                user.employeeType = userProfileProperties.employeeType;
                 var message = Messages.TEST_DRIVE_PARTICIPATION_ERROR + '<br>';
                 var isUserEligible: boolean = true;
                 var matchedDevices = [];
@@ -91,7 +93,7 @@ class TestDriveDetails extends React.Component<TestDriveDetailsProps> {
                 }
 
                 if ((ctx.props.testDriveInstance.employeeType && ctx.props.testDriveInstance.employeeType.length > 0)
-                    && (!matchedDepartment || !matchedDepartment.length)) {
+                    && (!matchedEmployeeType || !matchedEmployeeType.length)) {
                     message += Messages.TEST_DRIVE_EMPLOYEE_TYPE_ERROR.replace("{employeeType}", user.employeeType) + '<br>';
                     isUserEligible = false;
                 }

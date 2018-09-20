@@ -67,7 +67,7 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                     <div className="row">
                                         <canvas id="participation-time-completed-tcases" width="140" height="140"></canvas>
                                         <h3>{testCaseCompletion.toFixed(0)} %</h3>
-                                        <span className="small">{testDriveInstance.numberOfTestCasesCompleted} of {testDriveInstance.testCaseIDs.length} tasks done</span>
+                                        <span className="small">{testDriveInstance.numberOfTestCasesCompleted || "0"} of {testDriveInstance.testCaseIDs.length} tasks done</span>
                                     </div>
                                 </div>
 
@@ -76,8 +76,8 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                                 <div className="col-md-3 text-center  col-md-offset-2">
                                     <div className="row">
                                         <canvas id="participation-time-total-points" width="140" height="140"></canvas>
-                                        <h3>{pointsEarned}</h3>
-                                        <span className="small">{testDriveInstance.currentPoint} of {testDriveInstance.maxPoints} points earned</span>
+                                        <h3>{pointsEarned || 0}</h3>
+                                        <span className="small">{testDriveInstance.currentPoint || "0"} of {testDriveInstance.maxPoints} points earned</span>
                                     </div>
                                 </div>
 
