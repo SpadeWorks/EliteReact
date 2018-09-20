@@ -3137,6 +3137,7 @@ span.select2-selection__choice__remove {
     border-radius: 3px;
     float: left;
     width: 100%;
+    word-break: break-word;
 }
 
 .card-header a {
@@ -3159,6 +3160,7 @@ span.select2-selection__choice__remove {
     font-size: 14px;
     position: relaive;
     z-index: 100;
+    margin-bottom: 30px;
 }
 
 .card-body .register_input:first-child {
@@ -6298,9 +6300,11 @@ h1.testcase_name {
 .col-md-12.earn_box span.small,
 .drive_completionbox span.small {
     position: relative;
-    top: 50px;
+    top: 60px;
     font-family: titanium;
     font-size: 15px;
+    width: 100%;
+    left: 0;
 }
 
 .header_part {
