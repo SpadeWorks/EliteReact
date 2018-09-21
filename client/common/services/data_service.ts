@@ -469,7 +469,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                 [Constants.Columns.QUESTION]: questionInstance.title,
                 [Constants.Columns.RESPONSES]: JSON.stringify(questionInstance.options),
                 [Constants.Columns.RESPONSETYPE]: questionInstance.responseType,
-                [Constants.Columns.EDIT_STATUS]: questionInstance.edtiStatus,
+                [Constants.Columns.EDIT_STATUS]: questionInstance.editStatus,
                 [Constants.Columns.VERSION]: questionInstance.version
             }]).then((newResponses: any) => {
                 const newResponse = newResponses[0];
@@ -486,7 +486,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                     question: newResponse[Constants.Columns.QUESTION],
                     responses: Utils.tryParseJSON(newResponse[Constants.Columns.RESPONSES] || "[]"),
                     responseType: newResponse[Constants.Columns.RESPONSETYPE],
-                    edtiStatus: newResponse[Constants.Columns.EDIT_STATUS],
+                    editStatus: newResponse[Constants.Columns.EDIT_STATUS],
                     version: newResponse[Constants.Columns.VERSION]
                 });
             }, err => reject(err))
@@ -555,7 +555,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                 [Constants.Columns.TEST_CASE_OUTCOME]: testCasesInstance.expectedOutcome,
                 [Constants.Columns.TEST_CASE_PRIORITY]: testCasesInstance.priority,
                 [Constants.Columns.POINTS]: testCasesInstance.points,
-                [Constants.Columns.EDIT_STATUS]: testCasesInstance.edtiStatus,
+                [Constants.Columns.EDIT_STATUS]: testCasesInstance.editStatus,
                 [Constants.Columns.VERSION]: testCasesInstance.version
             }]).then((newResponses: any) => {
                 let newResponse = newResponses[0];
@@ -581,7 +581,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                     expectedOutcome: newResponse[Constants.Columns.TEST_CASE_OUTCOME],
                     priority: newResponse[Constants.Columns.TEST_CASE_PRIORITY],
                     points: newResponse[Constants.Columns.POINTS],
-                    edtiStatus: newResponse[Constants.Columns.EDIT_STATUS],
+                    editStatus: newResponse[Constants.Columns.EDIT_STATUS],
                     version: newResponse[Constants.Columns.VERSION]
                 };
 
@@ -754,7 +754,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                         expectedOutcome: t[Constants.Columns.TEST_CASE_OUTCOME],
                         priority: t[Constants.Columns.TEST_CASE_PRIORITY],
                         points: t[Constants.Columns.POINTS],
-                        edtiStatus: t[Constants.Columns.EDIT_STATUS],
+                        editStatus: t[Constants.Columns.EDIT_STATUS],
                         version: t[Constants.Columns.VERSION]
                     })
                 })
@@ -941,7 +941,8 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                         selectedResponse: response ? response.selectedResponse : '',
                         testCaseResponse: response ? response.testCaseResponse : '',
                         files: response ? (response.files && response.files.files) : [],
-                        version: response ? response.version : t.version
+                        version: response ? response.version : t.version,
+                        editStatus: response ?  response.editStatus : t.editStatus
                     });
                 })
 

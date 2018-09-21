@@ -565,7 +565,8 @@ class ManageTestDrive extends React.Component<AppProps> {
         let currentUser = Services.getCurrentUser();
         let matchedUsers = this.props.testDrive.owners ?
             this.props.testDrive.owners.filter(o => currentUser.ID == o.ID) : ["loading"];
-        return matchedUsers && matchedUsers.length ||
+        return Services.getUserProfileProperties().role == ColumnsValues.SITE_OWNER ||
+            matchedUsers && matchedUsers.length ||
             this.props.testDrive.status === ColumnsValues.DRAFT || this.props.testDrive.id === -1 ?
             true : false;
     }

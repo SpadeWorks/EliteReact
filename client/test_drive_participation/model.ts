@@ -20,7 +20,7 @@ export type TestCaseInstance = {
     saveInProgress?: boolean;
     participants: number;
     testDriveStatus: string;
-    edtiStatus: string;
+    editStatus: string;
     version: number;
 }
 
@@ -38,7 +38,7 @@ export type QuestionInstance = {
     selectedResponse: string;
     userID: number;
     saveInProgress: boolean;
-    edtiStatus: string;
+    editStatus: string;
     responses: string;
     responseType: string;
     version: number;
