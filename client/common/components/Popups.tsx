@@ -32,7 +32,6 @@ class Popup extends React.Component<PopupProps> {
   }
 
   closePopUp(){
-    console.log("closing.. pop up");
     $(".close-popup").trigger('click');
     $(".close-popup").trigger('click');
     $("canvas#confettiCanvas").hide();
