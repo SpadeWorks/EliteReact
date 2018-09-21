@@ -64,7 +64,9 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
                 ...question,
                 responseStatus: ColumnsValues.COMPLETE_STATUS,
                 questionResponse: this.props.ui.questionResponse,
-                selectedResponse: this.props.ui.selectedResponse,
+                selectedResponse: question.questionType === ColumnsValues.QUESTION_TYPE_SINGLE_SELECT ||
+                question.questionType === ColumnsValues.QUESTION_TYPE_MULTI_SELECT ?
+                    this.props.ui.selectedResponse : "",
                 files: this.props.ui.files
             }
             this.props.saveQuestionResponse(question);

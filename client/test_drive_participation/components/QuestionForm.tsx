@@ -59,7 +59,8 @@ class QuestionForm extends React.Component<QuestionFormProps> {
             ...question,
             responseStatus: ColumnsValues.DRAFT,
             questionResponse: this.props.ui.questionResponse,
-            selectedResponse: this.props.ui.selectedResponse
+            selectedResponse: question.questionType === ColumnsValues.QUESTION_TYPE_OBJECTIVE ?
+                this.props.ui.selectedResponse : ""
         }
         this.props.saveQuestionResponse(question);
     }
@@ -72,7 +73,8 @@ class QuestionForm extends React.Component<QuestionFormProps> {
                 ...question,
                 responseStatus: ColumnsValues.COMPLETE_STATUS,
                 questionResponse: this.props.ui.questionResponse,
-                selectedResponse: this.props.ui.selectedResponse
+                selectedResponse: question.questionType === ColumnsValues.QUESTION_TYPE_OBJECTIVE ?
+                    this.props.ui.selectedResponse : ""
             }
             this.props.saveQuestionResponse(question);
             return true;
