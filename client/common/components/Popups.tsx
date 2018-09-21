@@ -16,21 +16,32 @@ class Popup extends React.Component<PopupProps> {
   }
 
   componentDidMount() {
-    $("#app").mouseup(function (e) {
-      var container = $(".testrive_notification");
-      var toolbar = $(".rte-toolbar")
-      if (((!container.is(e.target) && 
-            container.has(e.target).length === 0) || (!toolbar.is(e.target) && 
-            toolbar.has(e.target).length === 0) ||  
-            (e.target.className && e.target.className.indexOf("closingModal") != -1)) 
-            && $(".modal").is(":visible")) {
-        $(".close-popup").trigger('click');
-        $(".close-popup").trigger('click');
-        $("canvas#confettiCanvas").hide();
-      }
-    });
+    // $("#app").mouseup(function (e) {
+    //   var container = $(".testrive_notification");
+    //   var toolbar = $(".rte-toolbar")
+    //   if (((!container.is(e.target) && 
+    //         container.has(e.target).length === 0) || (!toolbar.is(e.target) && 
+    //         toolbar.has(e.target).length === 0) ||  
+    //         (e.target.className && e.target.className.indexOf("closingModal") != -1)) 
+    //         && $(".modal").is(":visible")) {
+    //           $(".close-popup").trigger('click');
+    //           $(".close-popup").trigger('click');
+    //     $("canvas#confettiCanvas").hide();
+    //   }
+    // });
   }
 
+  closePopUp(){
+    console.log("closing.. pop up");
+    $(".close-popup").trigger('click');
+    $(".close-popup").trigger('click');
+    $("canvas#confettiCanvas").hide();
+  }
+
+  handleCallBack(callBack){
+    this.closePopUp();
+    callBack();
+  }
   render() {
     const { popupId, title, body, footer, buttons } = this.props;
     return (<div className="col-md-12 ">
@@ -58,9 +69,9 @@ class Popup extends React.Component<PopupProps> {
             <div className="modal-buttons">{
               buttons && buttons.length > 0 ? buttons.map((button: any, index) => {
                 return (button.callBack ?
-                  <a key = {index} href="javascript:;" className="button type1 closingModal"
-                    onClick={() => { console.log("calling call back"); button.callBack() }} >{button.name}</a>
-                  : <Link key={index} className="button type1 closingModal" to={button.link}>{button.name}</Link>)
+                  <a key = {index} href="javascript:;" className="button button type1" 
+                    onClick={()=>{this.handleCallBack(button.callBack)}} >{button.name}</a>
+                  : <Link key={index} onClick={this.closePopUp} className="button type1" to={button.link}>{button.name}</Link>)
               }) : ''
             }</div>
             <div className="modal-footer" dangerouslySetInnerHTML={{ __html: footer }}>
