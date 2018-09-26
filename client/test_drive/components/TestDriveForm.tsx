@@ -71,6 +71,22 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         }
     }
 
+    onPassPercentageChange = (e) =>{
+        if(e.target.value > 100 || e.target.value < 0){
+            alert("Pass percentage to deploy should be between 0 to 100.");
+        } else{
+            this.onChange(e);
+        }
+    } 
+
+    onMaxTestDriversChange = (e) =>{
+        if(e.target.value && e.target.value < 1){
+            alert("Max Test drivers should be greater than 0");
+        } else{
+            this.onChange(e);
+        }
+    }
+
     handleChange(which, payload) {
         var e = {
             target: {
@@ -553,11 +569,13 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                     <div className="col-md-12 register_input" >
                         <input className="inputMaterial"
                             type="number"
-                            onChange={this.onChange}
+                            onChange={this.onPassPercentageChange}
                             name="passPercentageToDeploy"
                             value={testDrive.passPercentageToDeploy || ""}
                             data-validations={[required]}
                             id={"testDrive-passPercentageToDeploy" + testDrive.id.toString()}
+                            min="1"
+                            max="100"
                         />
                         <span className="highlight"></span>
                         <span className="bar"></span>
@@ -703,7 +721,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                     <div className="col-md-12 register_input" >
                         <input className="inputMaterial"
                             type="number"
-                            onChange={this.onChange}
+                            onChange={this.onMaxTestDriversChange}
                             name="maxTestDrivers"
                             value={testDrive.maxTestDrivers || ""}
                             //data-validations={[required]}
