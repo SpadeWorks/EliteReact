@@ -3160,7 +3160,7 @@ span.select2-selection__choice__remove {
     font-size: 14px;
     position: relaive;
     z-index: 100;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
 }
 
 .card-body .register_input:first-child {
@@ -6013,7 +6013,7 @@ a:hover {
 }
 
 .custom-editor {
-    margin-bottom: 50px;
+    margin-bottom: 70px;
 }
 
 .leader_car {
