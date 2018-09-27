@@ -1765,7 +1765,7 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                     teamsChannelID: '',
                     hasRegistration: false,
                     employeeType: [],
-                    owners: null,
+                    owners: [this.getCurrentUser()],
                     approvalStatus: Constants.ColumnsValues.PENDING,
                     changeStatus: Constants.ColumnsValues.DRAFT,
                 });
