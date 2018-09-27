@@ -23,7 +23,7 @@ class Survey extends React.Component<SurveyProps> {
 
     isTestDriveCompleted() {
         let testDrive = this.props.testDriveInstance;
-        return testDrive.testCases.length == testDrive.numberOfTestCasesCompleted;
+        return testDrive.testCases.length <= testDrive.numberOfTestCasesCompleted;
     }
 
     componentDidMount() {

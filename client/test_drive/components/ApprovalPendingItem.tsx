@@ -20,27 +20,44 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
         return (<div className="col-md-12 currtestdrive_list testdrive_I_runbox">
             <div className="row">
                 <div className="col-md-12">
-                <Link to={'/participation/' + testDrive.id}><h4>{testDrive.title}</h4></Link>
+                    <Link to={'/participation/' + testDrive.id}><h4>{testDrive.title}</h4></Link>
                 </div>
                 <div className="col-md-12">
                     <div className="row">
                         <div className="col-md-3">
                             <div className="col-md-12">
                                 <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="row inforow">
-                                            <div className="col-md-5">
-                                                <div className="row">
-                                                    <span className="orange">Start Date :</span>
+                                    {
+                                        testDrive.hasRegistration ?
+                                            <div className="col-md-12">
+                                                <div className="row inforow">
+                                                    <div className="col-md-5">
+                                                        <div className="row">
+                                                            <span className="orange">Registration Start Date :</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-7">
+                                                        <div className="row">
+                                                            <h5 style={{ marginTop: "0px" }}>{Services.formatDate(testDrive.registrationStartDate)}</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> :
+                                            <div className="col-md-12">
+                                                <div className="row inforow">
+                                                    <div className="col-md-5">
+                                                        <div className="row">
+                                                            <span className="orange">Start Date :</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-7">
+                                                        <div className="row">
+                                                            <h5 style={{ marginTop: "0px" }}>{Services.formatDate(testDrive.startDate)}</h5>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className="col-md-7">
-                                                <div className="row">
-                                                    <h5 style={{ marginTop: "0px" }}>{Services.formatDate(testDrive.startDate)}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    }
                                     <div className="col-md-12 enddate_line">
                                         <div className="row inforow">
                                             <div className="col-md-4">
@@ -58,14 +75,14 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-2" style={{marginLeft: "-55px" }}>
+                        <div className="col-md-2" style={{ marginLeft: "-55px" }}>
                             <div className="col-md-12">
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="row inforow">
-                                        
-                                        <span className="orange">Difficulty Level:</span>
-                                               
+
+                                            <span className="orange">Difficulty Level:</span>
+
                                         </div>
                                     </div>
                                     <div className="col-md-12">
@@ -74,7 +91,7 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                                 <div className="row">
                                                     <div className="col-md-12">
                                                         <div className="row">
-                                                            <ul className="dragrace_indicator" dangerouslySetInnerHTML={{__html: Services.getLevelHtml(testDrive.levelNumber)}}>
+                                                            <ul className="dragrace_indicator" dangerouslySetInnerHTML={{ __html: Services.getLevelHtml(testDrive.levelNumber) }}>
                                                             </ul>
                                                         </div>
                                                         <div className="row">
@@ -169,27 +186,27 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                 <div className="row">
                                     {testDrive.status == ColumnsValues.SUBMIT || testDrive.changeStatus === ColumnsValues.CHANGE_SUBMITTED ?
                                         <div className="testdrive_actionbox">
-                                             <div className="button type1 nextBtn btn-lg pull-right animated_button">
-                                            <input type="button" value="Approve" disabled={saveTestDriveApprovalLoading}
-                                                onClick={() => approveTestDrive(testDrive)} />
-                                                </div>
+                                            <div className="button type1 nextBtn btn-lg pull-right animated_button">
+                                                <input type="button" value="Approve" disabled={saveTestDriveApprovalLoading}
+                                                    onClick={() => approveTestDrive(testDrive)} />
+                                            </div>
                                         </div> : ''
                                     }
-                                    
+
                                 </div>
                             </div>
 
-                          
+
                         </div>
 
 
-                        <div className="col-md-1" style={{marginLeft:"27px",marginTop:"10px"}}>
-                        
-                        <div className="row social_box" style={{position:"relative",right:"-60px"}}>
-<Link to={"/testdrive/" + testDrive.id}>
-                                        <i className="material-icons">mode_edit</i>
+                        <div className="col-md-1" style={{ marginLeft: "27px", marginTop: "10px" }}>
+
+                            <div className="row social_box" style={{ position: "relative", right: "-60px" }}>
+                                <Link to={"/testdrive/" + testDrive.id}>
+                                    <i className="material-icons">mode_edit</i>
                                 </Link>
-                                    {/* <Link to={"/testdrive/" + testDrive.id}>
+                                {/* <Link to={"/testdrive/" + testDrive.id}>
                                         <i className="material-icons">remove_red_eye</i>
                                     </Link> */}
                             </div>

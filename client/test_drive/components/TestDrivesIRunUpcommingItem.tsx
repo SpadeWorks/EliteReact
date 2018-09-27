@@ -23,20 +23,37 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                         <div className="col-md-3">
                             <div className="col-md-12">
                                 <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="row inforow">
-                                            <div className="col-md-5">
-                                                <div className="row">
-                                                    <span className="orange">Start Date :</span>
+                                    {
+                                        testDrive.hasRegistration ?
+                                            <div className="col-md-12">
+                                                <div className="row inforow">
+                                                    <div className="col-md-5">
+                                                        <div className="row">
+                                                            <span className="orange">Registration Start Date :</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-7">
+                                                        <div className="row">
+                                                            <h5 style={{ marginTop: "0px" }}>{Services.formatDate(testDrive.registrationStartDate)}</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> :
+                                            <div className="col-md-12">
+                                                <div className="row inforow">
+                                                    <div className="col-md-5">
+                                                        <div className="row">
+                                                            <span className="orange">Start Date :</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-7">
+                                                        <div className="row">
+                                                            <h5 style={{ marginTop: "0px" }}>{Services.formatDate(testDrive.startDate)}</h5>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className="col-md-5">
-                                                <div className="row">
-                                                    <h5 style={{ marginTop: "0px" }}>{Services.formatDate(testDrive.startDate)}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    }
                                     <div className="col-md-12 enddate_line">
                                         <div className="row inforow">
                                             <div className="col-md-4">

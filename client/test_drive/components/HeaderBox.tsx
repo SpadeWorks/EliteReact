@@ -16,13 +16,13 @@ class HeaderBox extends React.Component<HeaderBoxProps> {
             case 'readytotest':
                 return <div className='live_box green_slant'>
                     <div className='slant_box green_slant'>
-                        <h5>Read to test</h5>
+                        <h5>Ready to test</h5>
                     </div>
                 </div>
             case 'livenow':
                 return <div className='live_box blue_slant'>
                     <div className='slant_box blue_slant'>
-                        <h5>Live Now</h5>
+                        <h5>Live now</h5>
                     </div>
                 </div>
             case 'waitingtotest':
@@ -40,7 +40,7 @@ class HeaderBox extends React.Component<HeaderBoxProps> {
             case 'completeregistration':
                 return <div className='live_box red_slant'>
                     <div className='slant_box red_slant' style={{width: '175px'}}>
-                        <h5>Complete Registration</h5>
+                        <h5>Complete registration</h5>
                     </div>
                 </div>
         }
