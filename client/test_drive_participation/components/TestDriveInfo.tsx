@@ -205,9 +205,9 @@ class TestDriveInfo extends React.Component<TestDriveInfoProps> {
                         <span className="orange">ELIGIBLE DRIVER REGION :</span>
                         <ul className="select2-selection__rendered">
                             {
-                                testDriveInstance.region && testDriveInstance.region.map((region, index) => {
+                                testDriveInstance.region && testDriveInstance.region.map((region: any, index) => {
                                     return (<li key={index} className="select2-selection__choice" title="iwatch">
-                                        {region}
+                                        {region.Label}
                                     </li>)
                                 })
                             }

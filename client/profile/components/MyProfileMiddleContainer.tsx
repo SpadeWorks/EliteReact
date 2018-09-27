@@ -60,7 +60,7 @@ class MyProfileMiddleContainer extends React.Component<MyProfileMiddleContainerP
                             <div className="col-md-12">
                                 <p>
                                     <span className="orange">
-                                        <i>{eliteProfile.completedTestDrives}</i>
+                                        <i>{eliteProfile.completedTestDrives > 0 ? eliteProfile.completedTestDrives : 0}</i>
                                     </span>
                                 </p>
                             </div>
@@ -74,7 +74,7 @@ class MyProfileMiddleContainer extends React.Component<MyProfileMiddleContainerP
                             <div className="col-md-12">
                                 <p>
                                     <span className="orange">
-                                        <i>{eliteProfile.completedTestCases}</i>
+                                        <i>{eliteProfile.completedTestCases > 0 ? eliteProfile.completedTestCases : 0}</i>
                                     </span>
                                 </p>
                             </div>

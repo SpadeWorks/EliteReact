@@ -81,7 +81,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
 
     onMaxTestDriversChange = (e) =>{
         if(e.target.value && e.target.value < 1){
-            alert("Max Test drivers should be greater than 0");
+            alert("Max Test drivers count should be greater than 0");
         } else{
             this.onChange(e);
         }

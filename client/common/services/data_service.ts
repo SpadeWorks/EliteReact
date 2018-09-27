@@ -1804,6 +1804,7 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                         Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.ID,
                         Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.USER_NAME,
                         Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.USER_EMAIL,
+                        Constants.Columns.USER_REGION
                 )
                     .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID,
                         Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID,
@@ -1848,7 +1849,6 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                             questionIDs: questions,
                             registrationQuestionIDs: registrationQuestions,
                             expectedBusinessValue: testDrive.ExpectedBusinessValue,
-
                             passPercentageToDeploy: testDrive[Constants.Columns.PASS_PERCENTAGE_TO_DEPLOY] || 0,
                             teamsChannelID: testDrive.TestDriveMTCHID && testDrive.TestDriveMTCHID.replace("-", ""),
                             hasRegistration: testDrive[Constants.Columns.HAS_REGISTRATION] || false,
@@ -1856,6 +1856,7 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                             employeeType: testDrive[Constants.Columns.EMPLOYEE_TYPE].results || [],
                             approvalStatus: testDrive[Constants.Columns.APPROVAL_STATUS],
                             changeStatus: testDrive[Constants.Columns.CHANGE_STATUS],
+                            region: testDrive[Constants.Columns.USER_REGION] && testDrive[Constants.Columns.USER_REGION].results
                         };
                         resolve(testDriveObj);
 
