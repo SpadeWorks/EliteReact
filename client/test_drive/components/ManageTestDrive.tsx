@@ -174,7 +174,7 @@ class ManageTestDrive extends React.Component<AppProps> {
         var isFormValid = validateForm(formID);
         var testCases = this.props.testDrive.testCases;
         var questions = this.props.testDrive.questions;
-        var maxTestDrivers = parseInt(testDrive.maxTestDrivers.toString()) || 0;
+        var maxTestDrivers = testDrive.maxTestDrivers ? parseInt(testDrive.maxTestDrivers.toString()) : 0;
         this.props.updateUI({ saveLoading: true });
 
         testDrive.hasRegistration = this.props.registration || false;

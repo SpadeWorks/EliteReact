@@ -4,6 +4,8 @@ import { TestDrive } from '../model';
 import Services from '../../common/services/services';
 import { Messages } from '../../common/services/constants';
 import * as $ from 'jquery';
+import HeaderBox from './HeaderBox';
+import { ColumnsValues } from '../../common/services/constants';
 
 interface TestDriveCardItemProps {
     testDrive: TestDrive;
@@ -47,6 +49,12 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
         const { testDrive, participants, isActive } = this.props;
         return (<div className="col-md-4">
             <div className="col-md-12 progress_drivebox">
+                {
+                    testDrive.status === ColumnsValues.REGISTRATION_STARTED && <HeaderBox type="registernow" />
+                }
+                {
+                    testDrive.status === ColumnsValues.ACTIVE && <HeaderBox type="livenow" />
+                }
                 <Link to={'/participation/' + testDrive.id}><h4>{testDrive.title}</h4></Link>
                 <div className="col-md-12 pull-right">
                     <div className="row">

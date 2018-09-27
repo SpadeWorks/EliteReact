@@ -3252,7 +3252,8 @@ and ${Constants.Columns.HAS_REGISTRATION} eq 1)`;
                                         status: testDriveInstances.Status,
                                         currentPoint: testDriveInstances.CurrentPoints,
                                         dateJoined: testDriveInstances.DateJoined,
-                                        numberOfTestCasesCompleted: testDriveInstances.TestCaseCompleted
+                                        numberOfTestCasesCompleted: testDriveInstances.TestCaseCompleted,
+                                        isRegistrationComplete: testDriveInstances[Constants.Columns.IS_REGISTRATION_COMPLETE]
                                     })
                                 });
                             }

@@ -8633,3 +8633,40 @@ button:disabled {
 div.write_testdrivebox {
     padding-bottom: 25px;
 }
+
+.live_box {
+    height: 30px;
+    width: 100px;
+    float: left;
+    height: 35px;
+    position: relative;
+    z-index: 99;
+}
+
+.slant_box {
+    transform: skewX(-29deg);
+    height: 35px;
+    min-width: 115px;
+    margin-left: 12px;
+    padding: 2px 0px;
+}
+
+.slant_box h5 {
+    transform: skewX(35deg);
+}
+
+.red_slant {
+    background: #ed1c24;
+}
+
+.blue_slant {
+    background: #043776;
+}
+
+.green_slant {
+    background: #00a85f;
+}
+
+.yellow_slant {
+    background: #f68c1f;
+}

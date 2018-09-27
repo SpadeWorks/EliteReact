@@ -43,6 +43,7 @@ export type TestDriveResponse = {
     currentPoint: number;
     dateJoined: string;
     numberOfTestCasesCompleted: number;
+    isRegistrationComplete: boolean;
 }
 
 export type Leaders = {

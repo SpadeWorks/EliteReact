@@ -4,9 +4,12 @@ import { TestDrive, } from '../model';
 import Services from '../../common/services/services';
 import '../../js/jqmeter';
 import { Messages } from '../../common/services/constants';
+import HeaderBox from './HeaderBox';
+import { ColumnsValues } from '../../common/services/constants';
+import { TestDriveResponse } from '../../home/model';
 interface MyTestDrivesCompletedItemProps {
     testDrive: TestDrive;
-    testDriveResponse: any;
+    testDriveResponse: TestDriveResponse;
     participants: number;
     index: number;
     checkPortion: string;
@@ -32,6 +35,24 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
         // Service.loadProgressBar(driveProgressID, percentComplete, 140);
 
     }
+
+    getButtonName() {
+        var buttonName = "View Details";
+        if (this.props.isCompleted) {
+            buttonName = "View Details";
+        } else if (this.props.testDrive.status === ColumnsValues.REGISTRATION_ENDED ||
+            this.props.testDrive.status === ColumnsValues.REGISTRATION_STARTED) {
+            if (this.props.testDriveResponse.isRegistrationComplete) {
+                buttonName = "View Details"
+            } else {
+                buttonName = "Register"
+            }
+        } else {
+            buttonName = "Complete the drive";
+        }
+
+        return buttonName;
+    }
     render() {
         const { participants, checkPortion, testDrive, testDriveResponse, index, isCompleted } = this.props;
         const completedTestCases = testDriveResponse ? testDriveResponse.numberOfTestCasesCompleted : 0;
@@ -44,6 +65,22 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
 
         return (<div className="col-md-4">
             <div className="col-md-12 progress_drivebox">
+                {
+                    testDrive.status === ColumnsValues.ACTIVE && isCompleted === false &&
+                    <HeaderBox type="readytotest" />
+                }
+                {
+                    (testDrive.status === ColumnsValues.REGISTRATION_ENDED ||
+                        testDrive.status === ColumnsValues.REGISTRATION_STARTED) && isCompleted === false
+                    && testDriveResponse.isRegistrationComplete && <HeaderBox type="waitingtotest" />
+                }
+
+                {
+                    (testDrive.status === ColumnsValues.REGISTRATION_ENDED ||
+                        testDrive.status === ColumnsValues.REGISTRATION_STARTED) && isCompleted === false
+                    && !testDriveResponse.isRegistrationComplete && <HeaderBox type="completeregistration" />
+                }
+
                 <Link to={'/participation/' + testDrive.id}><h4>{testDrive.title}</h4></Link>
                 <div className="col-md-12 pull-right">
                     <div className="row">
@@ -153,9 +190,9 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                             </div>
                         </div>
                         <div className="col-md-12 text-center">
-                            {isCompleted ?
-                                <Link className="button type1" to={"/participation/" + testDrive.id}> View Details </Link> :
-                                <Link className="button type1" to={"/participation/" + testDrive.id}> Complete the drive </Link>}
+                            <Link className="button type1" to={"/participation/" + testDrive.id}> {
+                                this.getButtonName()
+                            } </Link>
                         </div>
                     </div>
                 </div>
