@@ -557,7 +557,10 @@ class ManageTestDrive extends React.Component<AppProps> {
         } else if (deletedItemType === Globals.ITEM_TYPE_QUESTION) {
             this.props.dispatch(deleteQuestion(deletedItem));
         } else if (deletedItemType === Globals.ITEM_TYPE_TEST_CASE) {
-            this.props.dispatch(deleteTestCase(deletedItem));
+            var self = this;
+            this.props.dispatch(deleteTestCase(deletedItem)).then(function(){
+                self.props.dispatch(updateMaxPoints());
+            });
         }
     }
 
