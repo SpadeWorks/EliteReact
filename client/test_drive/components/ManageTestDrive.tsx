@@ -646,37 +646,26 @@ class ManageTestDrive extends React.Component<AppProps> {
                                         {registration && <Pane label={registration ? "REGISTRATION QUESTIONS" : null}>
                                             <div className={"row setup-content"} id="step-4">
                                                 <div className="col-xs-12 form_box tab-container">
-                                                    {
-                                                        (testDrive.status === ColumnsValues.REGISTRATION_ENDED ||
-                                                            testDrive.status === ColumnsValues.ACTIVE ||
-                                                            testDrive.status === ColumnsValues.TEST_DRIVE_COMPLETED) ?
-                                                            <div className="test-case-container col-xs-12">
-                                                                <div className="col-md-10 sample_text">
-                                                                    <p>Registration questions are not allowed to be editted for Test drive in Intermediate,
-                                                                Active or Completed state.</p>
-                                                                </div>
-                                                            </div> :
-                                                            <Registration registrationQuestions={testDrive.registrationQuestions}
-                                                                newRegistrationQuestion={registrationQuestion}
-                                                                saveRegistrationQuestion={(t, f) => this.onSaveRegistrationQuestion(t, f)}
-                                                                saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
-                                                                editRegistrationQuestion={(t) => dispatch(editRegistrationQuestion(t))}
-                                                                deleteRegistrationQuestion={(registrationQuestion) =>
-                                                                    this.deleteConfirmationRequired(registrationQuestion, Globals.ITEM_TYPE_REIGSTRATION_QUESTION)}
-                                                                onChange={(e, registrationQuestion) => dispatch(updateRegistrationQuestion(e, registrationQuestion))}
-                                                                addRegistrationQuestion={this.onAddRegistrationQuestion}
-                                                                testDrive={testDrive}
-                                                                updateUI={updateUI}
-                                                                ui={ui}
-                                                                loadRegistrationQuestions={(t) => dispatch(loadRegistrationQuestions(t))}
-                                                                registrationQuestionIds={testDrive.registrationQuestionIDs}
-                                                                fieldDescriptions={surveyFields}
-                                                                currentUserRole={currentUserRole}
-                                                                approveTestDrive={this.approveTestDrive}
-                                                                view={view}
-                                                                switchTab={this.onSwitchTab}
-                                                            />
-                                                    }
+                                                    <Registration registrationQuestions={testDrive.registrationQuestions}
+                                                        newRegistrationQuestion={registrationQuestion}
+                                                        saveRegistrationQuestion={(t, f) => this.onSaveRegistrationQuestion(t, f)}
+                                                        saveTestDrive={(t, f, a) => this.onTestDriveSave(t, f, a)}
+                                                        editRegistrationQuestion={(t) => dispatch(editRegistrationQuestion(t))}
+                                                        deleteRegistrationQuestion={(registrationQuestion) =>
+                                                            this.deleteConfirmationRequired(registrationQuestion, Globals.ITEM_TYPE_REIGSTRATION_QUESTION)}
+                                                        onChange={(e, registrationQuestion) => dispatch(updateRegistrationQuestion(e, registrationQuestion))}
+                                                        addRegistrationQuestion={this.onAddRegistrationQuestion}
+                                                        testDrive={testDrive}
+                                                        updateUI={updateUI}
+                                                        ui={ui}
+                                                        loadRegistrationQuestions={(t) => dispatch(loadRegistrationQuestions(t))}
+                                                        registrationQuestionIds={testDrive.registrationQuestionIDs}
+                                                        fieldDescriptions={surveyFields}
+                                                        currentUserRole={currentUserRole}
+                                                        approveTestDrive={this.approveTestDrive}
+                                                        view={view}
+                                                        switchTab={this.onSwitchTab}
+                                                    />
                                                 </div>
                                             </div>
                                         </Pane>}

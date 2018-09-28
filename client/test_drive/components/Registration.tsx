@@ -12,6 +12,7 @@ import {
     switchTab
 } from '../../test_drive';
 import RegistrationForm from './RegistrationForm';
+import { Messages } from '../../common/services/constants';
 
 interface RegistrationProps {
     registrationQuestions: RegistrationQuestion[];
@@ -87,30 +88,42 @@ class Registration extends React.Component<RegistrationProps> {
         } = this.props;
         return (
             <div className="test-case-container col-xs-12">
-                <div className="col-md-10 sample_text">
-                    <p>{ui.helpText}</p>
-                </div>
-                <div className="add-button col-md-2 add_test pull-right text-right">
-                    <a href="javascript:;" onClick={addRegistrationQuestion}> + ADD Question </a>
-                </div>
-                <div className="col-md-12">
-                    {
-                        registrationQuestions && registrationQuestions.map(registrationQuestion => {
-                            return <RegistrationForm
-                                registrationQuestion={(registrationQuestion && registrationQuestion.isInEditMode) ?
-                                    { ...newRegistrationQuestion, isInEditMode: true } : registrationQuestion}
-                                saveRegistrationQuestion={saveRegistrationQuestion}
-                                editRegistrationQuestion={editRegistrationQuestion}
-                                deleteRegistrationQuestion={deleteRegistrationQuestion}
-                                onChange={onChange}
-                                updateUI={updateUI}
-                                ui={ui}
-                                key={registrationQuestion.id}
-                                fieldDescriptions={fieldDescriptions}
-                            />
-                        })
-                    }
-                </div>
+                {
+                    (testDrive.status === ColumnsValues.REGISTRATION_ENDED ||
+                        testDrive.status === ColumnsValues.ACTIVE ||
+                        testDrive.status === ColumnsValues.TEST_DRIVE_COMPLETED) ?
+                        <div className="test-case-container col-xs-12">
+                            <div className="col-md-10 sample_text">
+                                <p>{Messages.REGISTRATION_CHANGES_BLOCKED}</p>
+                            </div>
+                        </div> :
+                        <div>
+                            <div className="col-md-10 sample_text">
+                                <p>{ui.helpText}</p>
+                            </div>
+                            <div className="add-button col-md-2 add_test pull-right text-right">
+                                <a href="javascript:;" onClick={addRegistrationQuestion}> + ADD Question </a>
+                            </div>
+                            <div className="col-md-12">
+                                {
+                                    registrationQuestions && registrationQuestions.map(registrationQuestion => {
+                                        return <RegistrationForm
+                                            registrationQuestion={(registrationQuestion && registrationQuestion.isInEditMode) ?
+                                                { ...newRegistrationQuestion, isInEditMode: true } : registrationQuestion}
+                                            saveRegistrationQuestion={saveRegistrationQuestion}
+                                            editRegistrationQuestion={editRegistrationQuestion}
+                                            deleteRegistrationQuestion={deleteRegistrationQuestion}
+                                            onChange={onChange}
+                                            updateUI={updateUI}
+                                            ui={ui}
+                                            key={registrationQuestion.id}
+                                            fieldDescriptions={fieldDescriptions}
+                                        />
+                                    })
+                                }
+                            </div>
+                        </div>
+                }
 
                 <div className="col-md-12 testdrive_actionbox">
                     <div className="button type1 nextBtn btn-lg animated_button pull-left left_mnone">

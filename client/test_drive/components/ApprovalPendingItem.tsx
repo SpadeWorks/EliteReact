@@ -31,12 +31,12 @@ class ApprovalPendingItem extends React.Component<ApprovalPendingItemProps> {
                                         testDrive.hasRegistration ?
                                             <div className="col-md-12">
                                                 <div className="row inforow">
-                                                    <div className="col-md-5">
+                                                    <div className="col-md-12">
                                                         <div className="row">
                                                             <span className="orange">Registration Start Date :</span>
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-7">
+                                                    <div className="col-md-12">
                                                         <div className="row">
                                                             <h5 style={{ marginTop: "0px" }}>{Services.formatDate(testDrive.registrationStartDate)}</h5>
                                                         </div>

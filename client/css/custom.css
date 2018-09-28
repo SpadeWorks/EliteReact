@@ -5851,6 +5851,7 @@ canvas#myDriveCanvasDrive1 {
     background: #000 !important;
     color: #fff !important;
     padding: 10px;
+    width: 281px !important;
 }
 
 button.rdr-MonthAndYear-button.prev,
@@ -8638,21 +8639,21 @@ div.write_testdrivebox {
     height: 30px;
     width: 100px;
     float: left;
-    height: 35px;
     position: relative;
     z-index: 99;
 }
 
 .slant_box {
     transform: skewX(-29deg);
-    height: 35px;
+    height: 30px;
     min-width: 115px;
     margin-left: 12px;
     padding: 2px 0px;
 }
 
 .slant_box h5 {
-    transform: skewX(35deg);
+    transform: skewX(24deg);
+    margin-top: 5px;
 }
 
 .red_slant {

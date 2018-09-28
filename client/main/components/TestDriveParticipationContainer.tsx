@@ -61,25 +61,25 @@ class TestDriveParticipationContainer extends React.Component<AppProps> {
               ui={ui}
               updateUI={updateUI} />
           }
-        </Loader>
-        {
-          !loading && testDriveInstance.instanceID != -1 &&
-          <TestDriveParticipation
-            testDriveInstance={testDriveInstance}
-            saveTestCaseResponse={(testcaseInstance, testDriveInstance) =>
-              dispatch(createOrSaveTestCaseInstance(testcaseInstance, testDriveInstance))}
+          {
+            !loading && testDriveInstance.instanceID != -1 &&
+            <TestDriveParticipation
+              testDriveInstance={testDriveInstance}
+              saveTestCaseResponse={(testcaseInstance, testDriveInstance) =>
+                dispatch(createOrSaveTestCaseInstance(testcaseInstance, testDriveInstance))}
 
-            updatePoints={(testDriveInstance) => dispatch(updatePoints(testDriveInstance))}
-            saveQuestionResponse={(questionInstance) =>
-              dispatch(createOrSaveQuestionInstance(questionInstance))}
-            saveRegistrationQuestionResponse={(questionInstance) =>
-              dispatch(createOrSaveRegistrationQuestionInstance(questionInstance))}
-            loadQuestions={(testDriveID: number, questionIDs: number[], userID: number) =>
-              dispatch(loadQuestions(testDriveID, questionIDs, userID))}
-            updateUI={updateUI}
-            ui={ui}
-          />
-        }
+              updatePoints={(testDriveInstance) => dispatch(updatePoints(testDriveInstance))}
+              saveQuestionResponse={(questionInstance) =>
+                dispatch(createOrSaveQuestionInstance(questionInstance))}
+              saveRegistrationQuestionResponse={(questionInstance) =>
+                dispatch(createOrSaveRegistrationQuestionInstance(questionInstance))}
+              loadQuestions={(testDriveID: number, questionIDs: number[], userID: number) =>
+                dispatch(loadQuestions(testDriveID, questionIDs, userID))}
+              updateUI={updateUI}
+              ui={ui}
+            />
+          }
+        </Loader>
         <Footer />
       </div>
     );

@@ -107,10 +107,11 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
             saveRegistrationQuestionResponse,
         } = this.props;
 
-        const participationAllowed = testDriveInstance.hasRegistration &&
+        const participationAllowed = (testDriveInstance.hasRegistration &&
             testDriveInstance.isRegistrationComplete &&
-            testDriveInstance.testDriveStatus === Constants.ColumnsValues.ACTIVE ||
-            !testDriveInstance.hasRegistration;
+            testDriveInstance.testDriveStatus === Constants.ColumnsValues.ACTIVE) ||
+            (!testDriveInstance.hasRegistration && 
+            testDriveInstance.testDriveStatus === Constants.ColumnsValues.ACTIVE)
 
         const hasRegistration = testDriveInstance.hasRegistration;
         const showRegistration = testDriveInstance.hasRegistration && !testDriveInstance.isRegistrationComplete;

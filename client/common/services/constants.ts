@@ -222,4 +222,6 @@ export class Messages {
     static TEST_DRIVE_OPTION_MESSAGE = "You can create this test drive with survey quesions for the test drive users or you can simply go for test drive without registrations.";
     static REGISTRATION_COMPLETED = "Congratulation! You have successfully completed the registration process. Buckle up your seat belt. The main test drive will start on ";
     static TEST_DRIVE_EMPLOYEE_TYPE_ERROR = 'This test drive is not available for {employeeType}.';
+    static TESTING_NOT_STARTED = "Testing for this test drives is not started yet. You will be notified once testing is started.";
+    static REGISTRATION_CHANGES_BLOCKED = "Registration questions cannot be edited in Test Drives in the Intermediate, Active or Completed states.";
 }
