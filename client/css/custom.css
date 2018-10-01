@@ -8479,6 +8479,7 @@ span.clsRemainingLength {
 /* fix for leader board select control */
 
 .Select-menu-outer {
+    position: relative !important;
     border: 1px solid #575757 !important;
     z-index: 100 !important;
 }

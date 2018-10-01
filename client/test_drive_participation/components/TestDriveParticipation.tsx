@@ -157,7 +157,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                 <div id="myTabContent" className="tab-content">
                                     <div className={!participationAllowed ? "tab-pane active in" : "tab-pane fade"} id="registration_questions">
                                         <div>
-                                            <Popup popupId="registrationCompletion" title={"Pole position!"}
+                                            <Popup popupId="registrationCompletion" title={"Registration complete!"}
                                                 body={ui.requirmentMessage}
                                                 buttons={this.registrationPopupButtons} />
                                             <Registration

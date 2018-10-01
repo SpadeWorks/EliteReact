@@ -34,12 +34,12 @@ class CurrentRide extends React.Component<CurrentRideProps> {
     }
     goToDashboard() {
         var interval, self = this;
-        Services.getCurrentUserProfileProperty("EliteProfileID").then((data: any)=>{
+        Services.getCurrentUserProfileProperty("EliteProfileID").then((data: any) => {
             if (data) {
-                this.props.updateUI({loading: false, loadingMessage: 'Loading...'});
+                this.props.updateUI({ loading: false, loadingMessage: 'Loading...' });
                 window.location.reload();
             } else {
-                this.props.updateUI({loading: true, loadingMessage: 'Creating you profile...'});
+                this.props.updateUI({ loading: true, loadingMessage: 'Creating your profile...' });
                 interval = setInterval(self.goToDashboard(), 1000);
             }
         });
@@ -49,7 +49,8 @@ class CurrentRide extends React.Component<CurrentRideProps> {
         const { ui, updateUI } = this.props;
         return (
             <div className="header-title">
-                <Loader show={ui.loading} message={ui.loadingMessage || 'Loading...'}>
+                <Loader show={ui.loading} message={ui.loadingMessage || 'Loading...'}
+                    style={{ position: "initial", fontSize: "30px" }}>
                     <h1 className="title"></h1>
                     <p className="first-text red_text">SHINY!</p>
 

@@ -10,14 +10,14 @@ export interface CreteButtonProps {
 export default class CreteButton extends React.Component<CreteButtonProps, any> {
 
     createTestDriveButton = [{
-        name: 'Test drive with registration',
+        name: 'With registration',
         callBack: function () {
             window.location.hash = '/testdrive/with_registration';
             
         }
     },
     {
-        name: 'Test drive without registration',
+        name: 'Without registration',
         callBack: function () {
             window.location.hash = '/testdrive/without_registration';
         }

@@ -38,17 +38,7 @@ class Registration extends React.Component<RegistrationProps> {
         });
 
     }
-
-    popTheFizzButtons = [{
-        name: 'Home',
-        link: '/'
-    },
-    {
-        name: 'Test drive center',
-        link: '/testdrives'
-    }
-    ]
-
+    
     render() {
         const { questions, saveQuestionResponse, ui, updateUI, testDriveInstance } = this.props;
         return (

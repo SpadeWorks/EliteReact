@@ -219,8 +219,8 @@ export class Messages {
     static TEST_DRIVE_APPROVED = "Test drive approved successfully.";
     static SENARIO_EMPTY = "Senario can not be empty";
     static EXPECTED_OUTCOME_EMPTY = "Ecpected outcome can not be empty.";
-    static TEST_DRIVE_OPTION_MESSAGE = "You can create this test drive with survey quesions for the test drive users or you can simply go for test drive without registrations.";
-    static REGISTRATION_COMPLETED = "Congratulation! You have successfully completed the registration process. Buckle up your seat belt. The main test drive will start on ";
+    static TEST_DRIVE_OPTION_MESSAGE = "Choose whether you would like to create this Test Drive with or without a registration section. Test Drives with Registration allow you to ask drivers questions as well as activate or deploy as necessary before the Test Drive starts.";
+    static REGISTRATION_COMPLETED = "Congratulations! You have successfully registered. We will contact you when you can start testing.";
     static TEST_DRIVE_EMPLOYEE_TYPE_ERROR = 'This test drive is not available for {employeeType}.';
     static TESTING_NOT_STARTED = "Testing for this test drives is not started yet. You will be notified once testing is started.";
     static REGISTRATION_CHANGES_BLOCKED = "Registration questions cannot be edited in Test Drives in the Intermediate, Active or Completed states.";

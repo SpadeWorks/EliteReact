@@ -101,7 +101,7 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
     }
 
     openCompletionPopUp(testDriveInstance: any) {
-        this.props.updateUI({ requirmentMessage: Constants.Messages.REGISTRATION_COMPLETED + Services.formatDate(this.props.testDriveInstance.startDate) });
+        this.props.updateUI({ requirmentMessage: Constants.Messages.REGISTRATION_COMPLETED });
         $("#popupregistrationCompletion").trigger("click");
         $(".modal-backdrop.fade.in").hide();
         confetti.InitializeConfettiInit();
