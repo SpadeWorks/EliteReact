@@ -210,7 +210,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                 .then((testDriveData: any) => {
                     if (testDriveData && testDriveData.length > 0) {
                         //Popup.alert(Messages.TEST_DRIVE_SAME_NAME_ERROR)
-                        this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAME_NAME_ERROR, title: "Alert!" });
+                        this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAME_NAME_ERROR, title: "Alert!", saveLoading: false });
                         $("#popupCreateTestDriveAlert").trigger('click');
                     }
                     else {

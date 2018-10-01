@@ -224,4 +224,5 @@ export class Messages {
     static TEST_DRIVE_EMPLOYEE_TYPE_ERROR = 'This test drive is not available for {employeeType}.';
     static TESTING_NOT_STARTED = "Testing for this test drives is not started yet. You will be notified once testing is started.";
     static REGISTRATION_CHANGES_BLOCKED = "Registration questions cannot be edited in Test Drives in the Intermediate, Active or Completed states.";
+    static REGISTRATION_ENDED = "You can not register for this test drive as registration period is over!";
 }
