@@ -1,112 +1,572 @@
-<div className="col-md-4">
-    <div className="col-md-12 progress_drivebox">
-       <h4>Skype for Business</h4>
-       <div className="col-md-12 pull-right">
-          <div className="row">
-             <div className="col-md-12 social_box">
-                <div className="row">
-                   <a href="#"><i className="material-icons">bug_report</i></a>
-                   <a href="#"><i className="material-icons">email</i></a>
-                   <!-- <a href="#"><span className="teams"></span></a> -->
-                   <a href="#"><i className="material-icons">share</i></a>
-                </div>
-             </div>
-             <div className="col-md-12 partcipant_enddate">
-                <div className="row">
-                   <div className="col-md-6 enddate_Section" >
-                      <div className="row">
-                         <div className="col-md-12">
-                            <div className="row">
-                               <span className="orange"><i>End Date</i> <img src="images/flag.png" /></span>
-                            </div>
-                         </div>
-                         <div className="col-md-12">
-                            <div className="row">
-                               <h5>Mar 13, 2018</h5>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   <div className="col-md-6 partcipant_Section">
-                      <div className="row">
-                         <div className="col-md-12">
-                            <div className="row">
-                               <span className="orange"><i>participants</i> <img src="images/helmet.png" /></span>
-                            </div>
-                         </div>
-                         <div className="col-md-12">
-                            <div className="row">
-                               <h5>2457</h5>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-             </div>
-             <div className="col-md-12 enddate_Section testcase_completionbox">
-                <div className="row">
-                   <span className="orange"><i>Test Case Completion</i></span>
-                   <div className="col-md-12">
-                      <div id="jqmeter-horizontal"></div>
-                   </div>
-                </div>
-             </div>
-             <div className="col-md-12 partcipant_enddate">
-                <div className="row">
-                   <div className="col-md-6 enddate_Section" >
-                      <div className="row">
-                         <div className="col-md-12">
-                            <div className="row">
-                               <div className="col-md-12">
-                                  <span className="orange">Points Earned</span>
-                               </div>
-                               <div className="col-md-12">
-                                  <canvas id="canvas6" width="140" height="140"></canvas>
-                               </div>
-                               <div className="col-md-12 text-center point_board">
-                                  <h3 className="text-center">80 %</h3>
-                                  <span className="small">7 of 500</span>
-                               </div>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   <div className="col-md-6 partcipant_Section">
-                      <div className="row">
-                         <div className="col-md-12">
-                            <div className="row">
-                               <span className="orange">Difficulty Level</span>
-                            </div>
-                         </div>
-                         <div className="col-md-12">
-                            <div className="row">
-                               <h5>2457</h5>
-                            </div>
-                         </div>
-                      </div>
-                      <div className="row race_type">
-                         <div className="col-md-12">
-                            <div className="row">
-                               <ul className="dragrace_indicator">
-                                  <li><span></span></li>
-                                  <li><span></span></li>
-                                  <li><span></span></li>
-                               </ul>
-                            </div>
-                         </div>
-                         <div className="col-md-12">
-                            <div className="row">
-                               <h5>DRAG RACE</h5>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-             </div>
-             <div className="col-md-12 text-center" style="padding-top: 5px; background: #000;height: 50px;">
-                <input type="button" value="View Details">
-             </div>
-          </div>
-       </div>
-    </div>
- </div>
+<html>
+
+<head>
+    <script type="text/javascript" src="/Style%20Library/Elite/js/jquery-1.11.1.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script type="text/javascript" src="/Style%20Library/Elite/js/excel-builder.dist.js"></script>
+    <script type="text/javascript" src="/Style%20Library/Elite/js/swfobject.js"></script>
+    <script type="text/javascript" src="/Style%20Library/Elite/js/downloadify.min.js"></script>
+    <script>
+        var saveAs = saveAs || (function(view) {
+            "use strict";
+            // IE <10 is explicitly unsupported
+            if (typeof view === "undefined" || typeof navigator !== "undefined" && /MSIE [1-9]\./.test(navigator.userAgent)) {
+                return;
+            }
+            var
+                doc = view.document
+                // only get URL when necessary in case Blob.js hasn't overridden it yet
+                ,
+                get_URL = function() {
+                    return view.URL || view.webkitURL || view;
+                },
+                save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a"),
+                can_use_save_link = "download" in save_link,
+                click = function(node) {
+                    var event = new MouseEvent("click");
+                    node.dispatchEvent(event);
+                },
+                is_safari = /constructor/i.test(view.HTMLElement),
+                is_chrome_ios = /CriOS\/[\d]+/.test(navigator.userAgent),
+                throw_outside = function(ex) {
+                    (view.setImmediate || view.setTimeout)(function() {
+                        throw ex;
+                    }, 0);
+                },
+                force_saveable_type = "application/octet-stream"
+                // the Blob API is fundamentally broken as there is no "downloadfinished" event to subscribe to
+                ,
+                arbitrary_revoke_timeout = 1000 * 40 // in ms
+                ,
+                revoke = function(file) {
+                    var revoker = function() {
+                        if (typeof file === "string") { // file is an object URL
+                            get_URL().revokeObjectURL(file);
+                        } else { // file is a File
+                            file.remove();
+                        }
+                    };
+                    setTimeout(revoker, arbitrary_revoke_timeout);
+                },
+                dispatch = function(filesaver, event_types, event) {
+                    event_types = [].concat(event_types);
+                    var i = event_types.length;
+                    while (i--) {
+                        var listener = filesaver["on" + event_types[i]];
+                        if (typeof listener === "function") {
+                            try {
+                                listener.call(filesaver, event || filesaver);
+                            } catch (ex) {
+                                throw_outside(ex);
+                            }
+                        }
+                    }
+                },
+                auto_bom = function(blob) {
+                    // prepend BOM for UTF-8 XML and text/* types (including HTML)
+                    // note: your browser will automatically convert UTF-16 U+FEFF to EF BB BF
+                    if (/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(blob.type)) {
+                        return new Blob([String.fromCharCode(0xFEFF), blob], {
+                            type: blob.type
+                        });
+                    }
+                    return blob;
+                },
+                FileSaver = function(blob, name, no_auto_bom) {
+                    if (!no_auto_bom) {
+                        blob = auto_bom(blob);
+                    }
+                    // First try a.download, then web filesystem, then object URLs
+                    var
+                        filesaver = this,
+                        type = blob.type,
+                        force = type === force_saveable_type,
+                        object_url, dispatch_all = function() {
+                            dispatch(filesaver, "writestart progress write writeend".split(" "));
+                        }
+                        // on any filesys errors revert to saving with object URLs
+                        ,
+                        fs_error = function() {
+                            if ((is_chrome_ios || (force && is_safari)) && view.FileReader) {
+                                // Safari doesn't allow downloading of blob urls
+                                var reader = new FileReader();
+                                reader.onloadend = function() {
+                                    var url = is_chrome_ios ? reader.result : reader.result.replace(/^data:[^;]*;/, 'data:attachment/file;');
+                                    var popup = view.open(url, '_blank');
+                                    if (!popup) view.location.href = url;
+                                    url = undefined; // release reference before dispatching
+                                    filesaver.readyState = filesaver.DONE;
+                                    dispatch_all();
+                                };
+                                reader.readAsDataURL(blob);
+                                filesaver.readyState = filesaver.INIT;
+                                return;
+                            }
+                            // don't create more object URLs than needed
+                            if (!object_url) {
+                                object_url = get_URL().createObjectURL(blob);
+                            }
+                            if (force) {
+                                view.location.href = object_url;
+                            } else {
+                                var opened = view.open(object_url, "_blank");
+                                if (!opened) {
+                                    // Apple does not allow window.open, see https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/WorkingwithWindowsandTabs/WorkingwithWindowsandTabs.html
+                                    view.location.href = object_url;
+                                }
+                            }
+                            filesaver.readyState = filesaver.DONE;
+                            dispatch_all();
+                            revoke(object_url);
+                        };
+                    filesaver.readyState = filesaver.INIT;
+
+                    if (can_use_save_link) {
+                        object_url = get_URL().createObjectURL(blob);
+                        setTimeout(function() {
+                            save_link.href = object_url;
+                            save_link.download = name;
+                            click(save_link);
+                            dispatch_all();
+                            revoke(object_url);
+                            filesaver.readyState = filesaver.DONE;
+                        });
+                        return;
+                    }
+
+                    fs_error();
+                },
+                FS_proto = FileSaver.prototype,
+                saveAs = function(blob, name, no_auto_bom) {
+                    return new FileSaver(blob, name || blob.name || "download", no_auto_bom);
+                };
+            // IE 10+ (native saveAs)
+            if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
+                return function(blob, name, no_auto_bom) {
+                    name = name || blob.name || "download";
+
+                    if (!no_auto_bom) {
+                        blob = auto_bom(blob);
+                    }
+                    return navigator.msSaveOrOpenBlob(blob, name);
+                };
+            }
+
+            FS_proto.abort = function() {};
+            FS_proto.readyState = FS_proto.INIT = 0;
+            FS_proto.WRITING = 1;
+            FS_proto.DONE = 2;
+
+            FS_proto.error =
+                FS_proto.onwritestart =
+                FS_proto.onprogress =
+                FS_proto.onwrite =
+                FS_proto.onabort =
+                FS_proto.onerror =
+                FS_proto.onwriteend =
+                null;
+
+            return saveAs;
+        }(
+            typeof self !== "undefined" && self ||
+            typeof window !== "undefined" && window ||
+            this.content
+        ));
+        if (typeof module !== "undefined" && module.exports) {
+            module.exports.saveAs = saveAs;
+        } else if ((typeof define !== "undefined" && define !== null) && (define.amd !== null)) {
+            define("FileSaver.js", function() {
+                return saveAs;
+            });
+        }
+    </script>
+    <style>
+        input[type=button][disabled],
+        input[type=reset][disabled],
+        input[type=submit][disabled],
+        button[disabled][disabled] {
+            color: #B1B1B1 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <input id="idExport" value="Export" type="button" />
+</body>
+
+<script type="text/javascript">
+    $(function() {
+        $("#idExport").click(function() {
+            $(this).attr("disabled", "disabled");
+            var selectedTab = $(".row.reportbox").find("a.active").attr('id');
+            var testDriveID = getUrlParameter("FilterValue1");
+            if (selectedTab == 'tabTestCaseReport') {
+                testCaseResponsesUrl = "/_api/web/lists/GetByTitle('Test Case Responses')/items?$select=EditStatus,SelectedResponse,TestCaseResponse,TestCaseResponseStatus,Attachments,TestDriveID/ID,TestDriveID/TestDriveName,UserID/AccountName,UserID/UserInfoName,TestCaseID/Id,Title,EliteDescription,Scenario,TestCaseOutcome&$expand=TestDriveID,UserID,TestCaseID&$filter=TestDriveID eq " + testDriveID + "&$orderby=TestCaseID,SelectedResponse&$top=50000"
+                    // testCasesUrl = "/_api/web/lists/GetByTitle('Test Cases')/items?$select=ID,EliteDescription,Title&$filter=TestDriveID eq " + testDriveID;
+                testDriveUrl = "/_api/web/lists/GetByTitle('Test Drives')/items?$select=ID,EliteDescription,TestDriveLocation,Elite_UserRegion&$filter=ID eq " + testDriveID;
+                columns = [{
+                        name: 'Test Drive Name',
+                        internalName: 'TestDriveID.TestDriveName'
+                    }, {
+                        name: 'Test Drive Description',
+                        internalName: 'TestDriveDescription'
+                    }, {
+                        name: 'Test Drive Region',
+                        internalName: 'Elite_UserRegion'
+                    }, {
+                        name: 'Test Drive Location',
+                        internalName: 'TestDriveLocation'
+                    }, {
+                        name: 'Test Case Response Status',
+                        internalName: 'EditStatus'
+                    }, {
+                        name: 'Test Case Name',
+                        internalName: 'Title'
+                    }, {
+                        name: 'Test Case Description',
+                        internalName: 'EliteDescription'
+                    }, {
+                        name: 'Test Case Scenario',
+                        internalName: 'Scenario'
+                    }, {
+                        name: 'Test Case Expected Outcome',
+                        internalName: 'TestCaseOutcome'
+                    }, {
+                        name: 'User Name',
+                        internalName: 'UserID.UserInfoName'
+                    }, {
+                        name: 'User ID',
+                        internalName: 'UserID.AccountName'
+                    }, {
+                        name: 'Status',
+                        internalName: 'SelectedResponse'
+                    }, {
+                        name: 'Comments',
+                        internalName: 'TestCaseResponse'
+                    },
+
+                ];
+
+                $.when(restCall(testCaseResponsesUrl), restCall(testDriveUrl))
+                    .then(function(testCaseResponses, testDrives) {
+                        var testDrive = testDrives.d.results[0];
+                        var testDriveLocations = testDrive.TestDriveLocation.results;
+                        var testDriveLocationsString = '';
+
+                        var testDriveRegions = testDrive.Elite_UserRegion.results;
+                        var testdriveRegionsString = '';
+                        var data = [];
+                        var newItem = {};
+                        var matchedTestCase = [];
+
+                        if (testDriveLocations.length) {
+                            $.each(testDriveLocations, function(index, location) {
+                                testDriveLocationsString += location.Label + (testDriveLocations.length - 1 > index ? "; " : "");
+                            });
+                        }
+
+                        if (testDriveRegions.length) {
+                            $.each(testDriveRegions, function(index, region) {
+                                testdriveRegionsString += region.Label + (testDriveRegions.length - 1 > index ? "; " : "");
+                            });
+                        }
+
+                        if (testCaseResponses.d.results) {
+                            $.each(testCaseResponses.d.results, function(index, item) {
+                                newItem = item;
+                                newItem["Elite_UserRegion"] = testdriveRegionsString;
+                                newItem["TestDriveLocation"] = testDriveLocationsString;
+                                newItem["TestDriveDescription"] = testDrive["EliteDescription"];
+                                data.push(newItem);
+                            })
+                        }
+                        createExcel(data, columns);
+                    });
+
+
+            } else if (selectedTab == 'tabSurveyReport') {
+                questionResponsesUrl = "/_api/web/lists/GetByTitle('Survey Responses')/items?$select=Question,EditStatus,Title,TestDriveID/TestDriveName,SelectedResponse,SurveyResponse,UserID/AccountName,UserID/UserInfoName&$expand=TestDriveID,UserID&$filter=TestDriveID eq " + testDriveID + "&$orderby=QuestionID,SelectedResponse,SelectedResponse&$top=2000";
+                testDriveUrl = "/_api/web/lists/GetByTitle('Test Drives')/items?$select=ID,TestDriveLocation,Elite_UserRegion,EliteDescription&$filter=ID eq " + testDriveID;
+                columns = [{
+                    name: 'Test Drive Name',
+                    internalName: 'TestDriveID.TestDriveName'
+                }, {
+                    name: 'Test Drive Description',
+                    internalName: 'EliteDescription'
+                }, {
+                    name: 'Test Drive Region',
+                    internalName: 'Elite_UserRegion'
+                }, {
+                    name: 'Test Drive Location',
+                    internalName: 'TestDriveLocation'
+                }, {
+                    name: 'Question Response Status',
+                    internalName: 'EditStatus'
+                }, {
+                    name: 'Question',
+                    internalName: 'Question'
+                }, {
+                    name: 'User Name',
+                    internalName: 'UserID.UserInfoName'
+                }, {
+                    name: 'User ID',
+                    internalName: 'UserID.AccountName'
+                }, {
+                    name: 'STATUS',
+                    internalName: 'SelectedResponse'
+                }, {
+                    name: 'COMMENTS',
+                    internalName: 'SurveyResponse'
+                }, ];
+
+                $.when(restCall(questionResponsesUrl), restCall(testDriveUrl))
+                    .then(function(questionResponses, testDrives) {
+                        var testDrive = testDrives.d.results[0];
+                        var testDriveLocations = testDrive.TestDriveLocation.results;
+                        var testDriveLocationsString = '';
+
+                        var testDriveRegions = testDrive.Elite_UserRegion.results;
+                        var testdriveRegionsString = '';
+                        var data = [];
+                        var newItem = {};
+
+                        if (testDriveLocations.length) {
+                            $.each(testDriveLocations, function(index, location) {
+                                testDriveLocationsString += location.Label + (testDriveLocations.length - 1 > index ? "; " : "");
+                            });
+                        }
+
+                        if (testDriveRegions.length) {
+                            $.each(testDriveRegions, function(index, region) {
+                                testdriveRegionsString += region.Label + (testDriveRegions.length - 1 > index ? "; " : "");
+                            });
+                        }
+
+                        if (questionResponses.d.results) {
+                            $.each(questionResponses.d.results, function(index, item) {
+                                newItem = item;
+                                newItem["Elite_UserRegion"] = testdriveRegionsString;
+                                newItem["TestDriveLocation"] = testDriveLocationsString;
+                                newItem["EliteDescription"] = testDrive["EliteDescription"];
+                                data.push(newItem);
+                            })
+                        }
+                        createExcel(data, columns);
+                    });
+            } else if (selectedTab == 'tabregistrationquestionreport') {
+                questionResponsesUrl = "/_api/web/lists/GetByTitle('Registration Responses')/items?$select=Question,EditStatus,TestDriveID/TestDriveName,SelectedResponse,RegistrationResponse,UserID/AccountName,UserID/UserInfoName&$expand=TestDriveID,UserID&$filter=TestDriveID eq " + testDriveID + "&$orderby=SelectedResponse,SelectedResponse&$top=50000";
+                testDriveUrl = "/_api/web/lists/GetByTitle('Test Drives')/items?$select=ID,TestDriveLocation,Elite_UserRegion,EliteDescription&$filter=ID eq " + testDriveID;
+                columns = [{
+                    name: 'Test Drive Name',
+                    internalName: 'TestDriveID.TestDriveName'
+                }, {
+                    name: 'Test Drive Description',
+                    internalName: 'EliteDescription'
+                }, {
+                    name: 'Test Drive Region',
+                    internalName: 'Elite_UserRegion'
+                }, {
+                    name: 'Test Drive Location',
+                    internalName: 'TestDriveLocation'
+                }, {
+                    name: 'Question',
+                    internalName: 'Question'
+                }, {
+                    name: 'Question Response Status',
+                    internalName: 'EditStatus'
+                }, {
+                    name: 'User Name',
+                    internalName: 'UserID.UserInfoName'
+                }, {
+                    name: 'User ID',
+                    internalName: 'UserID.AccountName'
+                }, {
+                    name: 'STATUS',
+                    internalName: 'SelectedResponse'
+                }, {
+                    name: 'COMMENTS',
+                    internalName: 'RegistrationResponse'
+                }, ];
+
+                $.when(restCall(questionResponsesUrl), restCall(testDriveUrl))
+                    .then(function(questionResponses, testDrives) {
+                        var testDrive = testDrives.d.results[0];
+                        var testDriveLocations = testDrive.TestDriveLocation.results;
+                        var testDriveLocationsString = '';
+
+                        var testDriveRegions = testDrive.Elite_UserRegion.results;
+                        var testdriveRegionsString = '';
+                        var data = [];
+                        var newItem = {};
+
+                        if (testDriveLocations.length) {
+                            $.each(testDriveLocations, function(index, location) {
+                                testDriveLocationsString += location.Label + (testDriveLocations.length - 1 > index ? "; " : "");
+                            });
+                        }
+
+                        if (testDriveRegions.length) {
+                            $.each(testDriveRegions, function(index, region) {
+                                testdriveRegionsString += region.Label + (testDriveRegions.length - 1 > index ? "; " : "");
+                            });
+                        }
+
+                        if (questionResponses.d.results) {
+                            $.each(questionResponses.d.results, function(index, item) {
+                                newItem = item;
+                                newItem["Elite_UserRegion"] = testdriveRegionsString;
+                                newItem["TestDriveLocation"] = testDriveLocationsString;
+                                newItem["EliteDescription"] = testDrive["EliteDescription"];
+                                data.push(newItem);
+                            })
+                        }
+                        createExcel(data, columns);
+                    });
+            } else {
+                url = "/_api/web/lists/GetByTitle('Report Bug')/items?$select=TestDriveID/TestDriveName,Title,EliteDescription,ReportBugStatus,TestDriveOwnerComments,BugReportedBy/UserInfoName,BugReportedBy/AccountName&$expand=BugReportedBy,TestDriveID&$filter=TestDriveID eq " + testDriveID + "&$orderby=ReportBugStatus&$top=2000";
+                columns = [{
+                    name: 'Test Drive Name',
+                    internalName: 'TestDriveID.TestDriveName'
+                }, {
+                    name: 'Title',
+                    internalName: 'Title'
+                }, {
+                    name: 'Description',
+                    internalName: 'EliteDescription'
+                }, {
+                    name: 'Status',
+                    internalName: 'ReportBugStatus'
+                }, {
+                    name: 'TEST DRIVE OWNER COMMENTS',
+                    internalName: 'TestDriveOwnerComments'
+                }, {
+                    name: 'BUG REPORTED BY',
+                    internalName: 'BugReportedBy.UserInfoName'
+                }];
+                $.when(restCall(url)).then(function(data) {
+                    createExcel(data.d.results, columns);
+                });
+            }
+        });
+
+    })
+
+    var restCall = function(url) {
+        var deferred = $.Deferred();
+        $.ajax({
+            url: _spPageContextInfo.webAbsoluteUrl + url,
+            type: "GET",
+            cache: false,
+            headers: {
+                "accept": "application/json;odata=verbose",
+            },
+            success: function(data) {
+                return deferred.resolve(data);
+            },
+            error: function(error) {
+                return deferred.reject(error);
+            }
+        });
+        return deferred.promise();
+    }
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+
+    Object.byString = function(o, s) {
+        s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+        s = s.replace(/^\./, ''); // strip a leading dot
+        var a = s.split('.');
+        for (var i = 0, n = a.length; i < n; ++i) {
+            var k = a[i];
+            if (k in o) {
+                o = o[k];
+            } else {
+                return;
+            }
+        }
+        return o;
+    }
+
+
+    function createExcel(data, columns) {
+
+        var workbook = ExcelBuilder.Builder.createWorkbook();
+        var worksheet = workbook.createWorksheet({
+            name: 'Test Case Report'
+        });
+        var stylesheet = workbook.getStyleSheet();
+        var originalData = [];
+        var tableColumns = []
+        var row = [];
+        var item = {};
+
+        for (var i = 0; i < columns.length; i++) {
+            tableColumns.push(columns[i].name || '');
+        }
+
+        originalData.push(tableColumns)
+
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                row = []
+                item = data[i];
+                for (var j = 0; j < columns.length; j++) {
+                    row.push(Object.byString(item, columns[j].internalName) || '');
+                }
+
+                originalData.push(row);
+            }
+        } else {
+            for (var j = 0; j < columns.length; j++) {
+                row.push('');
+            }
+            originalData.push(row);
+        }
+
+        var albumTable = new ExcelBuilder.Table();
+        albumTable.setReferenceRange([1, 1], [tableColumns.length, originalData.length]);
+        albumTable.setTableColumns(tableColumns);
+        worksheet.sheetView.showGridLines = true;
+        worksheet.setData(originalData);
+        workbook.addWorksheet(worksheet);
+        worksheet.addTable(albumTable);
+        workbook.addTable(albumTable);
+
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+
+        // if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))  // If Internet Explorer, return version number
+        // {
+        ExcelBuilder.Builder.createFile(workbook, {
+            type: "blob"
+        }).then(function(data) {
+            var blob = new Blob([data]);
+            saveAs(blob, "report" + ".xlsx");
+            $("#idExport").removeAttr("disabled");
+        });
+        // }
+        // else {
+        //     ExcelBuilder.Builder.createFile(workbook).then(function (data) {
+        //         window.location.href = "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64," + data
+        //         $("#idExport").removeAttr("disabled");
+        //     })
+        // }
+    }
+</script>
+</body>
+
+</html>

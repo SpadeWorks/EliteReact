@@ -84,12 +84,12 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <span className="orange"><i>START DATE</i></span>
+                                                <span className="orange"><i>REGISTRATION START DATE</i></span>
                                             </div>
                                         </div>
                                         <div className="col-md-12">
                                             <div className="row">
-                                                <h5>{Services.formatDate(testDrive.startDate)}</h5>
+                                                <h5>{Services.formatDate(testDrive.registrationStartDate)}</h5>
                                             </div>
                                         </div>
                                     </div>

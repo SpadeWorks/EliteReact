@@ -63,7 +63,7 @@ class TestCases extends React.Component<TestCasesProps> {
 
     getPopUpBodyDataHighFive() {
         var message = Messages.HIGH_FIVE_1.replace("#0#", this.props.testDriveInstance.numberOfTestCasesCompleted.toString()).replace("#1#", this.props.testDriveInstance.testCases.length.toString()) + '<br>';
-        message += Messages.HIGH_FIVE_2.replace("#0#", (this.props.testDriveInstance.currentPoint - this.props.testDriveInstance.joiningBonus - this.props.testDriveInstance.completionBonus).toString()) + '<br>';
+        message += Messages.HIGH_FIVE_2.replace("#0#", (this.props.testDriveInstance.numberOfTestCasesCompleted * 10).toString()) + '<br>';
         message += Messages.HIGH_FIVE_3.replace("#0#", this.props.testDriveInstance.joiningBonus.toString()) + '<br>';
         // message += Messages.HIGH_FIVE_3.replace("#0#", "5th") + '<br>';
         // message += Messages.HIGH_FIVE_4.replace("#0#", (this.props.testDriveInstance.maxPoints - this.props.testDriveInstance.currentPoint).toString()).replace("#1#", "Supercar") + '<br>';                
