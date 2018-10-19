@@ -28,6 +28,7 @@ export class CacheKeys {
     static CONFIGURATIONS = 'configurations';
     static ELITE_PROFILE = 'ELITE_PROFILE';
     static APPLICATION_CONFIGURATIONS = 'APPLICATION_CONFIGURATIONS';
+    static SERVER_TIME_ZONE = 'SERVER_TIME_ZONE';
 
 }
 

@@ -139,7 +139,7 @@ class Registration extends React.Component<RegistrationProps> {
                             onClick={() => { saveTestDrive(testDrive, "test-drive-form" + testDrive.id, "save") }} />
                     </div>
                     {
-                        (testDrive.status == ColumnsValues.SUBMIT ||
+                       !ui.saveLoading && (testDrive.status == ColumnsValues.SUBMIT ||
                             testDrive.changeStatus == ColumnsValues.CHANGE_SUBMITTED) &&
                             currentUserRole == ColumnsValues.SITE_OWNER ?
                             <div className="button type1 nextBtn btn-lg pull-right animated_button">

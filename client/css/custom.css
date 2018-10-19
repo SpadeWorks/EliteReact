@@ -8672,3 +8672,7 @@ div.write_testdrivebox {
 .yellow_slant {
     background: #f68c1f;
 }
+
+.trimmed-top {
+    margin-top: 0px !important;
+}

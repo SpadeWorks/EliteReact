@@ -81,7 +81,9 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                         <div className="col-md-12 partcipant_enddate">
                             <div className="row">
                                 <div className="col-md-6 enddate_Section">
-                                    <div className="row">
+                                    {
+                                        testDrive.hasRegistration ? 
+                                        <div className="row">
                                         <div className="col-md-12">
                                             <div className="row">
                                                 <span className="orange"><i>REGISTRATION START DATE</i></span>
@@ -92,7 +94,20 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                                 <h5>{Services.formatDate(testDrive.registrationStartDate)}</h5>
                                             </div>
                                         </div>
+                                    </div>: <div className="row">
+                                        <div className="col-md-12">
+                                            <div className="row">
+                                                <span className="orange"><i>START DATE</i></span>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-12">
+                                            <div className="row">
+                                                <h5>{Services.formatDate(testDrive.startDate)}</h5>
+                                            </div>
+                                        </div>
                                     </div>
+
+                                    }
                                 </div>
                                 <div className="col-md-6 partcipant_Section">
                                     <div className="row">
@@ -111,7 +126,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-12 partcipant_enddate">
+                        <div className={testDrive.hasRegistration ? "col-md-12 partcipant_enddate trimmed-top" : "col-md-12 partcipant_enddate"}>
                             <div className="row">
                                 <div className="col-md-6 enddate_Section para">
                                     <div className="row">

@@ -942,7 +942,7 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                         testCaseResponse: response ? response.testCaseResponse : '',
                         files: response ? (response.files && response.files.files) : [],
                         version: response ? response.version : t.version,
-                        editStatus: response ?  response.editStatus : t.editStatus
+                        editStatus: response ? response.editStatus : t.editStatus
                     });
                 })
 
@@ -1451,7 +1451,9 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                     Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.ID,
                     Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.USER_NAME,
                     Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.USER_EMAIL,
-                    Constants.Columns.HAS_REGISTRATION
+                    Constants.Columns.HAS_REGISTRATION,
+                    Constants.Columns.REGISTRATION_END_DATE,
+                    Constants.Columns.REGISTRATION_START_DATE
                 ).skip(skip).top(top)
                 .expand(Constants.Columns.TESTDRIVE_OWNER,
                     Constants.Columns.LEVEL_ID, Constants.Columns.QUESTION_ID,
@@ -1468,6 +1470,8 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
                             status: testDrive.TestDriveStatus,
                             startDate: testDrive.TestDriveStartDate,
                             endDate: testDrive.TestDriveEndDate,
+                            registrationStartDate: testDrive[Constants.Columns.REGISTRATION_START_DATE],
+                            registrationEndDate: testDrive[Constants.Columns.REGISTRATION_END_DATE],
                             maxPoints: testDrive.TotalPoints,
                             department: testDrive.TestDriveDepartment.results,
                             function: [], //testDrive.TestDriveFunction.results,
@@ -1805,7 +1809,7 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                         Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.USER_NAME,
                         Constants.Columns.PRIMARY_OWNER + '/' + Constants.Columns.USER_EMAIL,
                         Constants.Columns.USER_REGION
-                )
+                    )
                     .expand(Constants.Columns.TESTDRIVE_OWNER, Constants.Columns.LEVEL_ID,
                         Constants.Columns.QUESTION_ID, Constants.Columns.TESTCASE_ID,
                         Constants.Columns.REGISTRATION_QUESTIONS,
@@ -2131,7 +2135,7 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                     let ids = [];
                     testDrive.owners.map(o => {
                         ids.push(parseInt(o.ID.toString()))
-                    });                    
+                    });
                     newTestDrive["TestDriveOwner_id"] = {
                         results: ids || []
                     }
@@ -2152,8 +2156,10 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                 }
 
                 if (testDrive.hasRegistration) {
-                    newTestDrive[Constants.Columns.REGISTRATION_START_DATE] = testDrive.registrationStartDate;
-                    newTestDrive[Constants.Columns.REGISTRATION_END_DATE] = testDrive.registrationEndDate;
+                    newTestDrive[Constants.Columns.REGISTRATION_START_DATE] =
+                        testDrive.registrationStartDate;
+                    newTestDrive[Constants.Columns.REGISTRATION_END_DATE] =
+                        testDrive.registrationEndDate;
                     if (registrationQuestions.length > 0) {
                         let ids = [];
                         registrationQuestions.map(question => {
@@ -2186,7 +2192,7 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                             testCases: testCases,
                             questions: questions,
                             registrationQuestions: registrationQuestions
-                            
+
                         });
                     }, err => {
                         reject(err);
@@ -2429,17 +2435,17 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
 
     static deleteTestCase(testCase: TestCase) {
         return new Promise((resolve, reject) => {
-            if(testCase.newItem){
+            if (testCase.newItem) {
                 resolve(testCase.id);
             } else {
                 pnp.sp.web.lists.getByTitle(Constants.Lists.TEST_CASES)
-                .items.getById(testCase.id).delete()
-                .then(() => {
-                    resolve(testCase.id);
-                }, (error) => {
-                    Utils.clientLog(error);
-                    reject(error);
-                });
+                    .items.getById(testCase.id).delete()
+                    .then(() => {
+                        resolve(testCase.id);
+                    }, (error) => {
+                        Utils.clientLog(error);
+                        reject(error);
+                    });
             }
         });
     }
@@ -2770,9 +2776,34 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
         });
     }
 
+    static getServerTimeZone = function () {
+        return new Promise((resolve, reject) => {
+            var serverTimeZone = Cache.getCache(Constants.CacheKeys.SERVER_TIME_ZONE);
+            if (serverTimeZone) {
+                resolve(serverTimeZone);
+            }
+            var context = new SP.ClientContext(_spPageContextInfo.webAbsoluteUrl);
+            var web = context.get_web();
+            var timeZone = web.get_regionalSettings().get_timeZone();
+            context.load(timeZone);
+            context.executeQueryAsync(function (data) {
 
+                var info = timeZone.get_information();
+                var result = {
+                    bias: info.get_bias(),
+                    daylightBias: info.get_daylightBias(),
+                    standardBias: info.get_standardBias()
+                }
+                Cache.setCache(Constants.CacheKeys.SERVER_TIME_ZONE, result);
+                resolve(result);
+            }, function (sender, args) {
+                resolve(args);
+            });
+        });
+    }
 
     static formatDate(date: string) {
+        date = date ? date.split('T')[0] + "T23:00:00" : "";
         return moment(date).format("MMM DD, YYYY");
     }
 
@@ -3234,9 +3265,9 @@ and ${Constants.Columns.HAS_REGISTRATION} eq 1)`;
                                 return testdrive.id == testDriveInstances.TestDriveID.ID;
                             })
                             testDrive = testDrive.length && testDrive[0];
-                             
+
                             if ((testDrive.status == Constants.ColumnsValues.ACTIVE && testDrive.hasRegistration &&
-                                testDriveInstances[Constants.Columns.IS_REGISTRATION_COMPLETE]) || 
+                                testDriveInstances[Constants.Columns.IS_REGISTRATION_COMPLETE]) ||
                                 (testDrive.status == Constants.ColumnsValues.ACTIVE && !testDrive.hasRegistration) ||
                                 testDrive.status == Constants.ColumnsValues.REGISTRATION_STARTED ||
                                 (testDrive.status == Constants.ColumnsValues.REGISTRATION_ENDED &&

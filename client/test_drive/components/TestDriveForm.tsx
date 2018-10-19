@@ -90,7 +90,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
     handleChange(which, payload) {
         var e = {
             target: {
-                value: payload.toISOString(),
+                value: payload.format("YYYY-MM-DDT23:00:00"),
                 name: which,
                 //id: which
             }
@@ -747,7 +747,7 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
                             </div>
 
                             {
-                                (testDrive.status == ColumnsValues.SUBMIT ||
+                                !ui.saveLoading && (testDrive.status == ColumnsValues.SUBMIT ||
                                     testDrive.changeStatus == ColumnsValues.CHANGE_SUBMITTED) &&
                                     currentUserRole == ColumnsValues.SITE_OWNER ?
                                     <div className="button type1 nextBtn btn-lg pull-right animated_button">

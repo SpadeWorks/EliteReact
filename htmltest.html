@@ -198,6 +198,14 @@
 
 <script type="text/javascript">
     $(function() {
+        var tryGetHtml = function(htmlText){
+            try{
+                return $(htmlText).text();
+            } catch(e){
+                return '';
+            }
+        }
+
         $("#idExport").click(function() {
             $(this).attr("disabled", "disabled");
             var selectedTab = $(".row.reportbox").find("a.active").attr('id');
@@ -279,6 +287,8 @@
                                 newItem["Elite_UserRegion"] = testdriveRegionsString;
                                 newItem["TestDriveLocation"] = testDriveLocationsString;
                                 newItem["TestDriveDescription"] = testDrive["EliteDescription"];
+                                newItem["Scenario"] = tryGetHtml(item["Scenario"]);
+                                newItem["TestCaseOutcome"] = tryGetHtml(item["TestCaseOutcome"]);
                                 data.push(newItem);
                             })
                         }

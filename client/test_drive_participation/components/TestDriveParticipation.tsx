@@ -51,10 +51,10 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
             }
         });
 
-        $("a[href='#Servay_q']").on('click', function(){
+        $("a[href='#Servay_q']").on('click', function () {
             self.props.updateUI({ activeTab: 'Servay_q' });
         })
-        $("a[href='#test_Cases']").on('click', function(){
+        $("a[href='#test_Cases']").on('click', function () {
             self.props.updateUI({ activeTab: 'test_Cases' });
         })
 
@@ -109,9 +109,11 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
 
         const participationAllowed = (testDriveInstance.hasRegistration &&
             testDriveInstance.isRegistrationComplete &&
-            testDriveInstance.testDriveStatus === Constants.ColumnsValues.ACTIVE) ||
-            (!testDriveInstance.hasRegistration && 
-            testDriveInstance.testDriveStatus === Constants.ColumnsValues.ACTIVE)
+            (testDriveInstance.testDriveStatus === Constants.ColumnsValues.ACTIVE ||
+                testDriveInstance.testDriveStatus === Constants.ColumnsValues.TEST_DRIVE_COMPLETED)) ||
+            (!testDriveInstance.hasRegistration &&
+                (testDriveInstance.testDriveStatus === Constants.ColumnsValues.ACTIVE ||
+                    testDriveInstance.testDriveStatus === Constants.ColumnsValues.TEST_DRIVE_COMPLETED))
 
         const hasRegistration = testDriveInstance.hasRegistration;
         const showRegistration = testDriveInstance.hasRegistration && !testDriveInstance.isRegistrationComplete;
@@ -132,7 +134,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                         <div className="col-md-11 profile_box">
                             <div className="well count_box">
                                 <ul className="nav nav-tabs">
-                                    {!participationAllowed ?
+                                    {!participationAllowed && testDriveInstance.hasRegistration ?
                                         <li className="active">
                                             <a href="#registration_questions"
                                                 data-toggle="tab"
@@ -141,7 +143,8 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                         </a>
                                         </li> : ''}
 
-                                    <li className={participationAllowed ? "active" : ""}>
+                                    <li className={(!participationAllowed && !testDriveInstance.hasRegistration)
+                                        || participationAllowed ? "active" : ""}>
                                         <a href="#test_Cases" data-toggle="tab" onClick={() => updateUI({ activeTab: 'test_Cases' })}>Test Cases</a>
                                     </li>
 
@@ -155,7 +158,7 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                     </li>
                                 </ul>
                                 <div id="myTabContent" className="tab-content">
-                                    <div className={!participationAllowed ? "tab-pane active in" : "tab-pane fade"} id="registration_questions">
+                                    <div className={!participationAllowed && testDriveInstance.hasRegistration ? "tab-pane active in" : "tab-pane fade"} id="registration_questions">
                                         <div>
                                             <Popup popupId="registrationCompletion" title={"Registration complete!"}
                                                 body={ui.requirmentMessage}
@@ -169,7 +172,8 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
                                             />
                                         </div>
                                     </div>
-                                    <div className={participationAllowed ? "tab-pane active in" : "tab-pane fade"} id="test_Cases">
+                                    <div className={(!participationAllowed && !testDriveInstance.hasRegistration)
+                                        || participationAllowed ? "tab-pane active in" : "tab-pane fade"} id="test_Cases">
                                         {
                                             participationAllowed ? <div>
                                                 <TestCases
@@ -203,14 +207,26 @@ class TestDriveParticipation extends React.Component<TestDriveParticipationProps
 
                                     </div>
                                     <div className="tab-pane fade " id="Servay_q">
-                                        <Survey questions={testDriveInstance.questions}
+                                        {participationAllowed ? <Survey questions={testDriveInstance.questions}
                                             saveQuestionResponse={(q) => saveQuestionResponse(q)}
                                             loadQuestions={(testDriveID, questionIDs, userID) =>
                                                 loadQuestions(testDriveID, questionIDs, userID)}
                                             ui={ui}
                                             updateUI={updateUI}
                                             testDriveInstance={testDriveInstance}
-                                            updatePoints={(t) => updatePoints(t)} />
+                                            updatePoints={(t) => updatePoints(t)} /> :
+                                            <div className="col-md-12">
+                                                <div className="text-center holdon_msgbox">
+
+                                                    <img src="/Style%20Library/Elite/images/signal.png" />
+
+                                                    <h5>Hold on there, Cowboy !</h5>
+
+                                                    <p> Testing will start soon.</p>
+
+                                                </div>
+                                            </div>
+                                        }
 
                                     </div>
                                     <div className="tab-pane fade " id="Description">
