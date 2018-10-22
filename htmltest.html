@@ -198,10 +198,10 @@
 
 <script type="text/javascript">
     $(function() {
-        var tryGetHtml = function(htmlText){
-            try{
+        var tryGetHtml = function(htmlText) {
+            try {
                 return $(htmlText).text();
-            } catch(e){
+            } catch (e) {
                 return '';
             }
         }
@@ -211,7 +211,7 @@
             var selectedTab = $(".row.reportbox").find("a.active").attr('id');
             var testDriveID = getUrlParameter("FilterValue1");
             if (selectedTab == 'tabTestCaseReport') {
-                testCaseResponsesUrl = "/_api/web/lists/GetByTitle('Test Case Responses')/items?$select=EditStatus,SelectedResponse,TestCaseResponse,TestCaseResponseStatus,Attachments,TestDriveID/ID,TestDriveID/TestDriveName,UserID/AccountName,UserID/UserInfoName,TestCaseID/Id,Title,EliteDescription,Scenario,TestCaseOutcome&$expand=TestDriveID,UserID,TestCaseID&$filter=TestDriveID eq " + testDriveID + "&$orderby=TestCaseID,SelectedResponse&$top=50000"
+                testCaseResponsesUrl = "/_api/web/lists/GetByTitle('Test Case Responses')/items?$select=EditStatus,SelectedResponse,TestCaseResponse,TestCaseResponseStatus,Attachments,TestDriveID/ID,TestDriveID/TestDriveName,UserID/AccountName,UserID/UserInfoName,UserID/UserLocation,UserID/UserRegionText,TestCaseID/Id,Title,EliteDescription,Scenario,TestCaseOutcome&$expand=TestDriveID,UserID,TestCaseID&$filter=TestDriveID eq " + testDriveID + "&$orderby=TestCaseID,SelectedResponse&$top=50000"
                     // testCasesUrl = "/_api/web/lists/GetByTitle('Test Cases')/items?$select=ID,EliteDescription,Title&$filter=TestDriveID eq " + testDriveID;
                 testDriveUrl = "/_api/web/lists/GetByTitle('Test Drives')/items?$select=ID,EliteDescription,TestDriveLocation,Elite_UserRegion&$filter=ID eq " + testDriveID;
                 columns = [{
@@ -245,8 +245,14 @@
                         name: 'User Name',
                         internalName: 'UserID.UserInfoName'
                     }, {
-                        name: 'User ID',
+                        name: 'AccountName',
                         internalName: 'UserID.AccountName'
+                    }, {
+                        name: 'User Location',
+                        internalName: 'UserID.UserLocation'
+                    }, {
+                        name: 'User Region',
+                        internalName: 'UserID.UserRegionText'
                     }, {
                         name: 'Status',
                         internalName: 'SelectedResponse'
@@ -297,7 +303,7 @@
 
 
             } else if (selectedTab == 'tabSurveyReport') {
-                questionResponsesUrl = "/_api/web/lists/GetByTitle('Survey Responses')/items?$select=Question,EditStatus,Title,TestDriveID/TestDriveName,SelectedResponse,SurveyResponse,UserID/AccountName,UserID/UserInfoName&$expand=TestDriveID,UserID&$filter=TestDriveID eq " + testDriveID + "&$orderby=QuestionID,SelectedResponse,SelectedResponse&$top=2000";
+                questionResponsesUrl = "/_api/web/lists/GetByTitle('Survey Responses')/items?$select=Question,EditStatus,Title,TestDriveID/TestDriveName,SelectedResponse,SurveyResponse,UserID/AccountName,UserID/UserInfoName,UserID/UserLocation,UserID/UserRegionText&$expand=TestDriveID,UserID&$filter=TestDriveID eq " + testDriveID + "&$orderby=QuestionID,SelectedResponse,SelectedResponse&$top=2000";
                 testDriveUrl = "/_api/web/lists/GetByTitle('Test Drives')/items?$select=ID,TestDriveLocation,Elite_UserRegion,EliteDescription&$filter=ID eq " + testDriveID;
                 columns = [{
                     name: 'Test Drive Name',
@@ -321,8 +327,14 @@
                     name: 'User Name',
                     internalName: 'UserID.UserInfoName'
                 }, {
-                    name: 'User ID',
+                    name: 'Account Name',
                     internalName: 'UserID.AccountName'
+                }, {
+                    name: 'User Location',
+                    internalName: 'UserID.UserLocation'
+                }, {
+                    name: 'User Region',
+                    internalName: 'UserID.UserRegionText'
                 }, {
                     name: 'STATUS',
                     internalName: 'SelectedResponse'
@@ -365,8 +377,8 @@
                         }
                         createExcel(data, columns);
                     });
-            } else if (selectedTab == 'tabregistrationquestionreport') {
-                questionResponsesUrl = "/_api/web/lists/GetByTitle('Registration Responses')/items?$select=Question,EditStatus,TestDriveID/TestDriveName,SelectedResponse,RegistrationResponse,UserID/AccountName,UserID/UserInfoName&$expand=TestDriveID,UserID&$filter=TestDriveID eq " + testDriveID + "&$orderby=SelectedResponse,SelectedResponse&$top=50000";
+            } else if (selectedTab == 'tabRegistrationQue') {
+                questionResponsesUrl = "/_api/web/lists/GetByTitle('Registration Responses')/items?$select=Question,EditStatus,TestDriveID/TestDriveName,SelectedResponse,RegistrationResponse,UserID/AccountName,UserID/UserInfoName,UserID/UserLocation,UserID/UserRegionText&$expand=TestDriveID,UserID&$filter=TestDriveID eq " + testDriveID + "&$orderby=SelectedResponse,SelectedResponse&$top=50000";
                 testDriveUrl = "/_api/web/lists/GetByTitle('Test Drives')/items?$select=ID,TestDriveLocation,Elite_UserRegion,EliteDescription&$filter=ID eq " + testDriveID;
                 columns = [{
                     name: 'Test Drive Name',
@@ -390,8 +402,14 @@
                     name: 'User Name',
                     internalName: 'UserID.UserInfoName'
                 }, {
-                    name: 'User ID',
+                    name: 'Account Name',
                     internalName: 'UserID.AccountName'
+                }, {
+                    name: 'User Location',
+                    internalName: 'UserID.UserLocation'
+                }, {
+                    name: 'User Region',
+                    internalName: 'UserID.UserRegionText'
                 }, {
                     name: 'STATUS',
                     internalName: 'SelectedResponse'
@@ -435,7 +453,7 @@
                         createExcel(data, columns);
                     });
             } else {
-                url = "/_api/web/lists/GetByTitle('Report Bug')/items?$select=TestDriveID/TestDriveName,Title,EliteDescription,ReportBugStatus,TestDriveOwnerComments,BugReportedBy/UserInfoName,BugReportedBy/AccountName&$expand=BugReportedBy,TestDriveID&$filter=TestDriveID eq " + testDriveID + "&$orderby=ReportBugStatus&$top=2000";
+                url = "/_api/web/lists/GetByTitle('Report Bug')/items?$select=TestDriveID/TestDriveName,Title,EliteDescription,ReportBugStatus,TestDriveOwnerComments,BugReportedBy/UserInfoName,BugReportedBy/AccountName,BugReportedBy/UserLocation,BugReportedBy/UserRegionText&$expand=BugReportedBy,TestDriveID&$filter=TestDriveID eq " + testDriveID + "&$orderby=ReportBugStatus&$top=2000";
                 columns = [{
                     name: 'Test Drive Name',
                     internalName: 'TestDriveID.TestDriveName'
@@ -454,6 +472,15 @@
                 }, {
                     name: 'BUG REPORTED BY',
                     internalName: 'BugReportedBy.UserInfoName'
+                }, {
+                    name: 'AccountName',
+                    internalName: 'BugReportedBy.AccountName'
+                }, {
+                    name: 'User Location',
+                    internalName: 'BugReportedBy.UserLocation'
+                }, {
+                    name: 'User Region',
+                    internalName: 'BugReportedBy.UserRegionText'
                 }];
                 $.when(restCall(url)).then(function(data) {
                     createExcel(data.d.results, columns);

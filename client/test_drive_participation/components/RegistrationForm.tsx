@@ -154,7 +154,7 @@ class RegistrationForm extends React.Component<RegistrationFormProps> {
         return (
 
             <div className={"item " + (active ? 'active' : '')} id={formID}>
-                <Loader show={testDriveInstance.questionSaveInProgress || ui.submitInProgress || false} message={'Saving...'}>
+                <Loader show={testDriveInstance.registrationQuestionSaveInProgress || ui.submitInProgress || false} message={'Saving...'}>
                     <div className="container ">
                         <div className="col-md-12 ">
                             <div className="row testcase_box ">

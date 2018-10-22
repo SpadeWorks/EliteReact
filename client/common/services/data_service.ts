@@ -511,8 +511,8 @@ ${Constants.Columns.CHANGE_STATUS} eq '${Constants.ColumnsValues.CHANGE_APPROVAL
             }]).then((newResponses: any) => {
                 const newResponse = newResponses[0];
                 var listItem = pnp.sp.web.lists.getByTitle(Constants.Lists.REGISTRATION_RESPONSES)
-                    .items.getById(questionInstance.responseID);
-                Services.saveAttachment(questionInstance.responseID, questionInstance, listItem).then((attachments: any) => {
+                    .items.getById(newResponse.id);
+                Services.saveAttachment(newResponse.id, questionInstance, listItem).then((attachments: any) => {
                     resolve(<RegistrationQuestionInstance>{
                         ...questionInstance,
                         responseID: newResponse.id,
