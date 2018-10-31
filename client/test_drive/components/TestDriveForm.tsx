@@ -128,6 +128,9 @@ class TestDriveForm extends React.Component<TestDriveFormProps, TestDriveFormSta
         if (name == 'level') {
             this.props.updateMaxPoints();
         }
+        if (name == 'owners'){
+            this.props.updateUI({ownerUpdated: true});
+        }
     }
 
     testDriveTypes = [

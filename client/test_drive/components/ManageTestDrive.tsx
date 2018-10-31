@@ -84,7 +84,8 @@ interface AppProps {
         saveTestDriveApprovalLoading: false,
         loadingMessage: 'Loading...',
         deletedItem: null,
-        deletedItemType: null
+        deletedItemType: null,
+        ownerUpdated: false
     }
 })
 
@@ -222,6 +223,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                 this.props.updateUI({ requirmentMessage: Messages.TEST_DRIVE_SAVEDDRAFT_MSG, title: "Success!" });
                                 $("#popupManageTestDriveSuccessSaveAsDraft").trigger('click');
                                 this.props.updateUI({ saveLoading: false });
+                                this.props.updateUI({ ownerUpdated: false });
                             });
                         } else if (action == "approve") {
                             if (testDrive.status === ColumnsValues.SUBMIT) {
@@ -240,6 +242,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                 });
                                 $("#popupApprovalSuccess").trigger('click');
                                 this.props.updateUI({ saveLoading: false });
+                                this.props.updateUI({ ownerUpdated: false });
                             });
                         }
                         else {
@@ -253,6 +256,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                                 $("#popupManageTestDriveSuccess").trigger('click');
                                 // toast.success(Messages.TEST_DRIVE_SUBMIT_MSG);
                                 this.props.updateUI({ saveLoading: false });
+                                this.props.updateUI({ ownerUpdated: false });
                             });
                         }
 
@@ -569,8 +573,9 @@ class ManageTestDrive extends React.Component<AppProps> {
         let matchedUsers = this.props.testDrive.owners ?
             this.props.testDrive.owners.filter(o => currentUser.ID == o.ID) : ["loading"];
         return Services.getUserProfileProperties().role == ColumnsValues.SITE_OWNER ||
-            matchedUsers && matchedUsers.length ||
-            this.props.testDrive.status === ColumnsValues.DRAFT || this.props.testDrive.id === -1 ?
+            (matchedUsers && matchedUsers.length) ||
+            this.props.testDrive.id === -1 || 
+            this.props.ui.ownerUpdated ?
             true : false;
     }
 
@@ -621,7 +626,7 @@ class ManageTestDrive extends React.Component<AppProps> {
                     <div className="wrapper">
                         <Loader show={loading || ui.saveLoading} message={waitingMessage || ui.loadingMessage || 'Loading...'}>
                             {
-                                !loading && !this.hasAccess() ? "You don't have access on this test drive." :
+                                !loading && !this.hasAccess() ? "You don't have access to this test drive." :
                                     <Tabs selected={this.getSelectedTab() || 0}>
                                         <Pane label="REGISTER A TEST DRIVE">
                                             <div className={"row setup-content"} id="step-1" >
