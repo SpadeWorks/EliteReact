@@ -2769,6 +2769,7 @@ TestDriveStatus eq '${Constants.ColumnsValues.REGISTRATION_ENDED}')`;
                     Constants.Columns.ID,
                     Constants.Columns.USER_INFO_NAME,
                     Constants.Columns.ACCOUNT_NAME)
+                .top(50000)
                 .get().then((users: any) => {
                     Cache.setCache(cacheKey, users)
                     resolve(users);
