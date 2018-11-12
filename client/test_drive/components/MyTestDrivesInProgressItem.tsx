@@ -16,6 +16,7 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
     }
     render() {
         const { testDrive, participants } = this.props;
+        const ownerEmails = testDrive && testDrive.owners ? testDrive.owners.map(o=> o.UserEMail).join(";") : '';
         return (<div className="col-md-4">
             <div className="col-md-12 progress_drivebox">
                 <Link to={'/participation/' + testDrive.id}><h4>{testDrive.title}</h4></Link>
@@ -27,14 +28,14 @@ class MyTestDrivesInProgressItem extends React.Component<MyTestDrivesInProgressI
                                     <span className="report"></span>
                                 </a>
                                 <a href="javascript:;" title={Messages.SEND_EMAIL_TITLE}
-                                    onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
+                                    onClick={() => Services.emailOwner(ownerEmails, testDrive.title)}>
                                     <i className="material-icons">email</i>
                                 </a>
                                 {/* <a target="_blank" href={Services.getTeamSiteUrl(testDrive.teamsChannelID)}>
                                     <span className="teams"></span>
                                 </a> */}
                                 <a href="javascript:;" title={Messages.SHARE_TITLE}
-                                    onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive)}>
+                                    onClick={() => Services.shareTestDrive(ownerEmails, testDrive)}>
                                     <i className="material-icons">share</i>
                                 </a>
                             </div>

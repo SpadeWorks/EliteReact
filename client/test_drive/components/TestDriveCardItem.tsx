@@ -47,6 +47,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
 
     render() {
         const { testDrive, participants, isActive } = this.props;
+        const ownerEmails = testDrive && testDrive.owners ? testDrive.owners.map(o=> o.UserEMail).join(";") : '';
         return (<div className="col-md-4">
             <div className="col-md-12 progress_drivebox">
                 {
@@ -64,7 +65,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                     <span className="report"></span>
                                 </a> */}
                                 <a href="javascript:;" title={Messages.SEND_EMAIL_TITLE}
-                                    onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
+                                    onClick={() => Services.emailOwner(ownerEmails, testDrive.title)}>
                                     <i className="material-icons">email</i>
                                 </a>
                                 {/* {
@@ -73,7 +74,7 @@ class TestDriveCardItem extends React.Component<TestDriveCardItemProps> {
                                     </a>
                                 } */}
                                 <a href="javascript:;" title={Messages.SHARE_TITLE}
-                                    onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive)}>
+                                    onClick={() => Services.shareTestDrive(ownerEmails, testDrive)}>
                                     <i className="material-icons">share</i>
                                 </a>
                             </div>

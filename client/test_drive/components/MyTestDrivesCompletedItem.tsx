@@ -61,7 +61,7 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
         const pointEarned = (testDriveResponse.currentPoint / testDrive.maxPoints);
         var pointsProgressID = 'point-canvas' + checkPortion + index;
         var driveProgressID = 'jqmeter-horizontal' + checkPortion + index;
-
+        const ownerEmails = testDrive && testDrive.owners ? testDrive.owners.map(o=> o.UserEMail).join(";") : '';
 
         return (<div className="col-md-4">
             <div className="col-md-12 progress_drivebox">
@@ -90,14 +90,14 @@ class MyTestDrivesCompletedItem extends React.Component<MyTestDrivesCompletedIte
                                     <span className="report"></span>
                                 </a>
                                 <a href="javascript:;" title={Messages.SEND_EMAIL_TITLE}
-                                    onClick={() => Services.emailOwner(testDrive.ownerEmail, testDrive.title)}>
+                                    onClick={() => Services.emailOwner(ownerEmails, testDrive.title)}>
                                     <i className="material-icons">email</i>
                                 </a>
                                 {/* <a target="_blank" href={Services.getTeamSiteUrl(testDrive.teamsChannelID)}>
                                     <span className="teams"></span>
                                 </a> */}
                                 <a href="javascript:;" title={Messages.SHARE_TITLE}
-                                    onClick={() => Services.shareTestDrive(testDrive.ownerEmail, testDrive)}>
+                                    onClick={() => Services.shareTestDrive(ownerEmails, testDrive)}>
                                     <i className="material-icons">share</i>
                                 </a>
                             </div>
